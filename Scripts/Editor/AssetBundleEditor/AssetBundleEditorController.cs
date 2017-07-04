@@ -17,7 +17,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 {
     internal sealed partial class AssetBundleEditorController
     {
-        private const string ConfigurationName = "GameFramework/Configs/AssetBundleEditor.xml";
+        private const string ConfigurationName = "GameFrameworkConfigs/AssetBundleEditor.xml";
         private const string DefaultSourceAssetRootPath = "Assets";
         private readonly AssetBundleCollection m_AssetBundleCollection;
         private readonly List<string> m_SourceAssetSearchPaths;

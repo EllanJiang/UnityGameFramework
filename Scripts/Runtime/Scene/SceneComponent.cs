@@ -204,6 +204,11 @@ namespace UnityGameFramework.Runtime
             m_SceneManager.UnloadScene(sceneAssetName, userData);
         }
 
+        /// <summary>
+        /// 获取场景名称。
+        /// </summary>
+        /// <param name="sceneAssetName">场景资源名称。</param>
+        /// <returns>场景名称。</returns>
         public static string GetSceneName(string sceneAssetName)
         {
             if (string.IsNullOrEmpty(sceneAssetName))

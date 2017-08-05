@@ -977,13 +977,19 @@
             日志类。
             </summary>
         </member>
-        <member name="M:GameFramework.Log.SetLogCallback(GameFramework.LogCallback)">
+        <member name="M:GameFramework.Log.SetLogHelper(GameFramework.Log.ILogHelper)">
             <summary>
-            设置日志回调函数。
+            设置日志辅助器。
             </summary>
-            <param name="logCallback">要设置的日志回调函数。</param>
+            <param name="logHelper">要设置的日志辅助器。</param>
         </member>
         <member name="M:GameFramework.Log.Debug(System.Object)">
+            <summary>
+            记录调试级别日志，仅在带有 DEBUG 预编译选项时产生。
+            </summary>
+            <param name="message">日志内容。</param>
+        </member>
+        <member name="M:GameFramework.Log.Debug(System.String)">
             <summary>
             记录调试级别日志，仅在带有 DEBUG 预编译选项时产生。
             </summary>
@@ -1026,6 +1032,12 @@
             </summary>
             <param name="message">日志内容</param>
         </member>
+        <member name="M:GameFramework.Log.Info(System.String)">
+            <summary>
+            打印信息级别日志，用于记录程序正常运行日志信息。
+            </summary>
+            <param name="message">日志内容</param>
+        </member>
         <member name="M:GameFramework.Log.Info(System.String,System.Object)">
             <summary>
             打印信息级别日志，用于记录程序正常运行日志信息。
@@ -1058,6 +1070,12 @@
             <param name="args">日志参数。</param>
         </member>
         <member name="M:GameFramework.Log.Warning(System.Object)">
+            <summary>
+            打印警告级别日志，建议在发生局部功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
+            </summary>
+            <param name="message">日志内容。</param>
+        </member>
+        <member name="M:GameFramework.Log.Warning(System.String)">
             <summary>
             打印警告级别日志，建议在发生局部功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
             </summary>
@@ -1100,6 +1118,12 @@
             </summary>
             <param name="message">日志内容。</param>
         </member>
+        <member name="M:GameFramework.Log.Error(System.String)">
+            <summary>
+            打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
+            </summary>
+            <param name="message">日志内容。</param>
+        </member>
         <member name="M:GameFramework.Log.Error(System.String,System.Object)">
             <summary>
             打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
@@ -1137,6 +1161,12 @@
             </summary>
             <param name="message">日志内容。</param>
         </member>
+        <member name="M:GameFramework.Log.Fatal(System.String)">
+            <summary>
+            打印严重错误级别日志，建议在发生严重错误，可能导致游戏崩溃或异常时使用，此时应尝试重启进程或重建游戏框架。
+            </summary>
+            <param name="message">日志内容。</param>
+        </member>
         <member name="M:GameFramework.Log.Fatal(System.String,System.Object)">
             <summary>
             打印严重错误级别日志，建议在发生严重错误，可能导致游戏崩溃或异常时使用，此时应尝试重启进程或重建游戏框架。
@@ -1168,9 +1198,14 @@
             <param name="format">日志格式。</param>
             <param name="args">日志参数。</param>
         </member>
-        <member name="T:GameFramework.LogCallback">
+        <member name="T:GameFramework.Log.ILogHelper">
             <summary>
-            日志回调函数。
+            日志辅助器接口。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Log.ILogHelper.Log(GameFramework.LogLevel,System.Object)">
+            <summary>
+            记录日志。
             </summary>
             <param name="level">日志等级。</param>
             <param name="message">日志内容。</param>

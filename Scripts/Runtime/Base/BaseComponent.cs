@@ -34,6 +34,9 @@ namespace UnityGameFramework.Runtime
         private Language m_EditorLanguage = Language.Unspecified;
 
         [SerializeField]
+        private string m_LogHelperTypeName = "UnityGameFramework.Runtime.LogHelper";
+
+        [SerializeField]
         private string m_ZipHelperTypeName = "UnityGameFramework.Runtime.ZipHelper";
 
         [SerializeField]
@@ -213,8 +216,7 @@ namespace UnityGameFramework.Runtime
         {
             base.Awake();
 
-            Log.SetLogCallback(LogCallback);
-
+            InitLogHelper();
             Log.Info("Game Framework version is {0}. Unity Game Framework version is {1}.", GameFrameworkEntry.Version, GameEntry.Version);
 
 #if UNITY_5_3_OR_NEWER || UNITY_5_3
@@ -310,6 +312,28 @@ namespace UnityGameFramework.Runtime
             Destroy(gameObject);
         }
 
+        private void InitLogHelper()
+        {
+            if (string.IsNullOrEmpty(m_LogHelperTypeName))
+            {
+                return;
+            }
+
+            Type logHelperType = Utility.Assembly.GetTypeWithinLoadedAssemblies(m_LogHelperTypeName);
+            if (logHelperType == null)
+            {
+                throw new GameFrameworkException(string.Format("Can not find log helper type '{0}'.", m_LogHelperTypeName));
+            }
+
+            Log.ILogHelper logHelper = (Log.ILogHelper)Activator.CreateInstance(logHelperType);
+            if (logHelper == null)
+            {
+                throw new GameFrameworkException(string.Format("Can not create log helper instance '{0}'.", m_LogHelperTypeName));
+            }
+
+            Log.SetLogHelper(logHelper);
+        }
+
         private void InitZipHelper()
         {
             if (string.IsNullOrEmpty(m_ZipHelperTypeName))
@@ -380,27 +404,6 @@ namespace UnityGameFramework.Runtime
             }
 
             Utility.Profiler.SetProfilerHelper(profilerHelper);
-        }
-
-        private void LogCallback(LogLevel level, object message)
-        {
-            switch (level)
-            {
-                case LogLevel.Debug:
-                    Debug.Log(string.Format("<color=#888888>{0}</color>", message.ToString()));
-                    break;
-                case LogLevel.Info:
-                    Debug.Log(message.ToString());
-                    break;
-                case LogLevel.Warning:
-                    Debug.LogWarning(message.ToString());
-                    break;
-                case LogLevel.Error:
-                    Debug.LogError(message.ToString());
-                    break;
-                default:
-                    throw new GameFrameworkException(message.ToString());
-            }
         }
 
         private void OnLowMemory()

@@ -464,9 +464,10 @@ namespace UnityGameFramework.Runtime
         /// 停止播放声音。
         /// </summary>
         /// <param name="serialId">要停止播放声音的序列编号。</param>
-        public void StopSound(int serialId)
+        /// <returns>是否停止播放声音成功。</returns>
+        public bool StopSound(int serialId)
         {
-            m_SoundManager.StopSound(serialId);
+            return m_SoundManager.StopSound(serialId);
         }
 
         /// <summary>
@@ -474,9 +475,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="serialId">要停止播放声音的序列编号。</param>
         /// <param name="fadeOutSeconds">声音淡出时间，以秒为单位。</param>
-        public void StopSound(int serialId, float fadeOutSeconds)
+        /// <returns>是否停止播放声音成功。</returns>
+        public bool StopSound(int serialId, float fadeOutSeconds)
         {
-            m_SoundManager.StopSound(serialId, fadeOutSeconds);
+            return m_SoundManager.StopSound(serialId, fadeOutSeconds);
         }
 
         /// <summary>

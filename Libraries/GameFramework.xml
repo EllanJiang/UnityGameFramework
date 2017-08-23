@@ -12181,6 +12181,7 @@
             停止播放声音。
             </summary>
             <param name="serialId">要停止播放声音的序列编号。</param>
+            <returns>是否停止播放声音成功。</returns>
         </member>
         <member name="M:GameFramework.Sound.ISoundManager.StopSound(System.Int32,System.Single)">
             <summary>
@@ -12188,6 +12189,7 @@
             </summary>
             <param name="serialId">要停止播放声音的序列编号。</param>
             <param name="fadeOutSeconds">声音淡出时间，以秒为单位。</param>
+            <returns>是否停止播放声音成功。</returns>
         </member>
         <member name="M:GameFramework.Sound.ISoundManager.StopAllLoadedSounds">
             <summary>
@@ -12686,6 +12688,7 @@
             停止播放声音。
             </summary>
             <param name="serialId">要停止播放声音的序列编号。</param>
+            <returns>是否停止播放声音成功。</returns>
         </member>
         <member name="M:GameFramework.Sound.SoundManager.StopSound(System.Int32,System.Single)">
             <summary>
@@ -12693,6 +12696,7 @@
             </summary>
             <param name="serialId">要停止播放声音的序列编号。</param>
             <param name="fadeOutSeconds">声音淡出时间，以秒为单位。</param>
+            <returns>是否停止播放声音成功。</returns>
         </member>
         <member name="M:GameFramework.Sound.SoundManager.StopAllLoadedSounds">
             <summary>

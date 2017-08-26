@@ -16,8 +16,6 @@ namespace UnityGameFramework.Editor
     {
         private SerializedProperty m_NetworkChannels = null;
 
-        private HelperInfo<NetworkHelperBase> m_NetworkHelperInfo = new HelperInfo<NetworkHelperBase>("Network");
-
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -28,8 +26,6 @@ namespace UnityGameFramework.Editor
 
             EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
             {
-                m_NetworkHelperInfo.Draw();
-
                 EditorGUILayout.PropertyField(m_NetworkChannels, true);
             }
             EditorGUI.EndDisabledGroup();
@@ -61,8 +57,6 @@ namespace UnityGameFramework.Editor
         {
             m_NetworkChannels = serializedObject.FindProperty("m_NetworkChannels");
 
-            m_NetworkHelperInfo.Init(serializedObject);
-
             RefreshTypeNames();
         }
 
@@ -86,7 +80,6 @@ namespace UnityGameFramework.Editor
 
         private void RefreshTypeNames()
         {
-            m_NetworkHelperInfo.Refresh();
             serializedObject.ApplyModifiedProperties();
         }
     }

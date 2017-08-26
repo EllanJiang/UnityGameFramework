@@ -21,8 +21,6 @@ namespace UnityGameFramework.Runtime
         [Serializable]
         private class NetworkChannel
         {
-            private const int DefaultPacketHeaderLength = 4;
-            private const int DefaultMaxPacketLength = 1024 * 32;
             private const float DefaultHeartBeatInterval = 30f;
 
             private INetworkChannel m_NetworkChannel;
@@ -31,16 +29,16 @@ namespace UnityGameFramework.Runtime
             private string m_Name = string.Empty;
 
             [SerializeField]
+            private string m_NetworkChannelHelperTypeName = "UnityGameFramework.Runtime.DefaultNetworkChannelHelper";
+
+            [SerializeField]
+            private NetworkChannelHelperBase m_CustomNetworkChannelHelper = null;
+
+            [SerializeField]
             private string m_IPString = string.Empty;
 
             [SerializeField]
             private int m_Port = 0;
-
-            [SerializeField]
-            private int m_PacketHeaderLength = DefaultPacketHeaderLength;
-
-            [SerializeField]
-            private int m_MaxPacketLength = DefaultMaxPacketLength;
 
             [SerializeField]
             private bool m_ResetHeartBeatElapseSecondsWhenReceivePacket = false;
@@ -64,6 +62,17 @@ namespace UnityGameFramework.Runtime
                 get
                 {
                     return m_Name;
+                }
+            }
+
+            /// <summary>
+            /// 获取网络频道辅助器。
+            /// </summary>
+            public NetworkChannelHelperBase Helper
+            {
+                get
+                {
+                    return m_CustomNetworkChannelHelper;
                 }
             }
 
@@ -98,28 +107,6 @@ namespace UnityGameFramework.Runtime
             }
 
             /// <summary>
-            /// 获取数据包头长度。
-            /// </summary>
-            public int PacketHeaderLength
-            {
-                get
-                {
-                    return m_PacketHeaderLength;
-                }
-            }
-
-            /// <summary>
-            /// 获取数据包最大字节数。
-            /// </summary>
-            public int MaxPacketLength
-            {
-                get
-                {
-                    return m_MaxPacketLength;
-                }
-            }
-
-            /// <summary>
             /// 获取当收到消息包时是否重置心跳流逝时间。
             /// </summary>
             public bool ResetHeartBeatElapseSecondsWhenReceivePacket
@@ -141,7 +128,7 @@ namespace UnityGameFramework.Runtime
                 }
             }
 
-            public void SetNetworkChannel(INetworkChannel networkChannel)
+            public void RefreshNetworkChannel(INetworkChannel networkChannel, NetworkChannelHelperBase networkChannelHelper)
             {
                 if (networkChannel == null)
                 {
@@ -149,8 +136,16 @@ namespace UnityGameFramework.Runtime
                     return;
                 }
 
-                m_Name = networkChannel.Name;
+                if (networkChannelHelper == null)
+                {
+                    Log.Error("Network channel helper is invalid.");
+                    return;
+                }
+
                 m_NetworkChannel = networkChannel;
+                m_Name = networkChannel.Name;
+                m_NetworkChannelHelperTypeName = networkChannelHelper.GetType().FullName;
+                m_CustomNetworkChannelHelper = networkChannelHelper;
                 m_NetworkChannel.ResetHeartBeatElapseSecondsWhenReceivePacket = m_ResetHeartBeatElapseSecondsWhenReceivePacket;
                 m_NetworkChannel.HeartBeatInterval = m_HeartBeatInterval;
             }
@@ -170,7 +165,7 @@ namespace UnityGameFramework.Runtime
                     return;
                 }
 
-                m_NetworkChannel.Connect(ipAddress, m_Port, m_PacketHeaderLength, m_MaxPacketLength, userData);
+                m_NetworkChannel.Connect(ipAddress, m_Port, userData);
             }
         }
     }

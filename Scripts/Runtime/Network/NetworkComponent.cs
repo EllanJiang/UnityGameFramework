@@ -23,12 +23,6 @@ namespace UnityGameFramework.Runtime
         private EventComponent m_EventComponent = null;
 
         [SerializeField]
-        private string m_NetworkHelperTypeName = "UnityGameFramework.Runtime.DefaultNetworkHelper";
-
-        [SerializeField]
-        private NetworkHelperBase m_CustomNetworkHelper = null;
-
-        [SerializeField]
         private List<NetworkChannel> m_NetworkChannels = null;
 
         /// <summary>
@@ -73,23 +67,10 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            NetworkHelperBase networkHelper = Helper.CreateHelper(m_NetworkHelperTypeName, m_CustomNetworkHelper);
-            if (networkHelper == null)
-            {
-                Log.Error("Can not create network helper.");
-                return;
-            }
-
-            networkHelper.name = string.Format("Network Helper");
-            Transform transform = networkHelper.transform;
-            transform.SetParent(this.transform);
-            transform.localScale = Vector3.one;
-
-            m_NetworkManager.SetNetworkHelper(networkHelper);
-
             for (int i = 0; i < m_NetworkChannels.Count; i++)
             {
-                m_NetworkChannels[i].SetNetworkChannel(m_NetworkManager.CreateNetworkChannel(m_NetworkChannels[i].Name));
+                INetworkChannel networkChannel = m_NetworkManager.CreateNetworkChannel(m_NetworkChannels[i].Name, m_NetworkChannels[i].Helper);
+                m_NetworkChannels[i].RefreshNetworkChannel(networkChannel, m_NetworkChannels[i].Helper);
             }
         }
 
@@ -126,12 +107,13 @@ namespace UnityGameFramework.Runtime
         /// 创建网络频道。
         /// </summary>
         /// <param name="name">网络频道名称。</param>
+        /// <param name="networkChannelHelper">网络频道辅助器。</param>
         /// <returns>要创建的网络频道。</returns>
-        public INetworkChannel CreateNetworkChannel(string name)
+        public INetworkChannel CreateNetworkChannel(string name, NetworkChannelHelperBase networkChannelHelper)
         {
-            INetworkChannel networkChannel = m_NetworkManager.CreateNetworkChannel(name);
+            INetworkChannel networkChannel = m_NetworkManager.CreateNetworkChannel(name, networkChannelHelper);
             m_NetworkChannels.Add(new NetworkChannel());
-            m_NetworkChannels[m_NetworkChannels.Count - 1].SetNetworkChannel(networkChannel);
+            m_NetworkChannels[m_NetworkChannels.Count - 1].RefreshNetworkChannel(networkChannel, networkChannelHelper);
             return networkChannel;
         }
 
@@ -227,15 +209,6 @@ namespace UnityGameFramework.Runtime
         {
             SetNetworkChannelConnection(name, ipString, port);
             ConnectNetworkChannel(name, userData);
-        }
-
-        /// <summary>
-        /// 注册网络消息包处理函数。
-        /// </summary>
-        /// <param name="handler">要注册的网络消息包处理函数。</param>
-        public void RegisterHandler(IPacketHandler handler)
-        {
-            m_NetworkManager.RegisterHandler(handler);
         }
 
         private void OnNetworkConnected(object sender, GameFramework.Network.NetworkConnectedEventArgs e)

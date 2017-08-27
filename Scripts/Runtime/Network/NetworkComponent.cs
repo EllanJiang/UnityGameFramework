@@ -7,7 +7,6 @@
 
 using GameFramework;
 using GameFramework.Network;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -21,9 +20,6 @@ namespace UnityGameFramework.Runtime
     {
         private INetworkManager m_NetworkManager = null;
         private EventComponent m_EventComponent = null;
-
-        [SerializeField]
-        private List<NetworkChannel> m_NetworkChannels = null;
 
         /// <summary>
         /// 获取网络频道数量。
@@ -66,12 +62,6 @@ namespace UnityGameFramework.Runtime
                 Log.Fatal("Event component is invalid.");
                 return;
             }
-
-            for (int i = 0; i < m_NetworkChannels.Count; i++)
-            {
-                INetworkChannel networkChannel = m_NetworkManager.CreateNetworkChannel(m_NetworkChannels[i].Name, m_NetworkChannels[i].Helper);
-                m_NetworkChannels[i].RefreshNetworkChannel(networkChannel, m_NetworkChannels[i].Helper);
-            }
         }
 
         /// <summary>
@@ -111,10 +101,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>要创建的网络频道。</returns>
         public INetworkChannel CreateNetworkChannel(string name, NetworkChannelHelperBase networkChannelHelper)
         {
-            INetworkChannel networkChannel = m_NetworkManager.CreateNetworkChannel(name, networkChannelHelper);
-            m_NetworkChannels.Add(new NetworkChannel());
-            m_NetworkChannels[m_NetworkChannels.Count - 1].RefreshNetworkChannel(networkChannel, networkChannelHelper);
-            return networkChannel;
+            return m_NetworkManager.CreateNetworkChannel(name, networkChannelHelper);
         }
 
         /// <summary>
@@ -125,90 +112,6 @@ namespace UnityGameFramework.Runtime
         public bool DestroyNetworkChannel(string name)
         {
             return m_NetworkManager.DestroyNetworkChannel(name);
-        }
-
-        /// <summary>
-        /// 设置网络频道的连接参数。
-        /// </summary>
-        /// <param name="name">网络频道名称。</param>
-        /// <param name="ipString">远程主机的 IP 地址字符串。</param>
-        /// <param name="port">远程主机的端口号。</param>
-        public void SetNetworkChannelConnection(string name, string ipString, int port)
-        {
-            if (name == null)
-            {
-                name = string.Empty;
-            }
-
-            for (int i = 0; i < m_NetworkChannels.Count; i++)
-            {
-                if (m_NetworkChannels[i].Name == name)
-                {
-                    m_NetworkChannels[i].IPString = ipString;
-                    m_NetworkChannels[i].Port = port;
-                    return;
-                }
-            }
-
-            Log.Warning("Can not find network channel named '{0}'.", name);
-        }
-
-        /// <summary>
-        /// 使用预先设置的数据连接网络频道。
-        /// </summary>
-        /// <param name="name">网络频道名称。</param>
-        public void ConnectNetworkChannel(string name)
-        {
-            ConnectNetworkChannel(name, null);
-        }
-
-        /// <summary>
-        /// 使用预先设置的数据连接网络频道。
-        /// </summary>
-        /// <param name="name">网络频道名称。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        public void ConnectNetworkChannel(string name, object userData)
-        {
-            if (name == null)
-            {
-                name = string.Empty;
-            }
-
-            for (int i = 0; i < m_NetworkChannels.Count; i++)
-            {
-                if (m_NetworkChannels[i].Name == name)
-                {
-                    m_NetworkChannels[i].Connect(userData);
-                    return;
-                }
-            }
-
-            Log.Warning("Can not find network channel named '{0}'.", name);
-        }
-
-        /// <summary>
-        /// 设置数据并连接网络频道。
-        /// </summary>
-        /// <param name="name">网络频道名称。</param>
-        /// <param name="ipString">远程主机的 IP 地址字符串。</param>
-        /// <param name="port">远程主机的端口号。</param>
-        public void ConnectNetworkChannel(string name, string ipString, int port)
-        {
-            SetNetworkChannelConnection(name, ipString, port);
-            ConnectNetworkChannel(name, null);
-        }
-
-        /// <summary>
-        /// 设置数据并连接网络频道。
-        /// </summary>
-        /// <param name="name">网络频道名称。</param>
-        /// <param name="ipString">远程主机的 IP 地址字符串。</param>
-        /// <param name="port">远程主机的端口号。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        public void ConnectNetworkChannel(string name, string ipString, int port, object userData)
-        {
-            SetNetworkChannelConnection(name, ipString, port);
-            ConnectNetworkChannel(name, userData);
         }
 
         private void OnNetworkConnected(object sender, GameFramework.Network.NetworkConnectedEventArgs e)

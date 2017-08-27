@@ -649,9 +649,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7afc859893311c34a8d8c2c426ab192d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NetworkHelperTypeName: UnityGameFramework.Runtime.DefaultNetworkHelper
-  m_CustomNetworkHelper: {fileID: 0}
-  m_NetworkChannels: []
 --- !u!114 &11447244
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -413,9 +413,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="soundAssetName">声音资源名称。</param>
         /// <param name="soundGroupName">声音组名称。</param>
-        /// <param name="playSoundParams">播放声音参数。</param>
         /// <param name="worldPosition">声音所在的世界坐标。</param>
-        /// <param name="userData">用户自定义数据。</param>
         /// <returns>声音的序列编号。</returns>
         public int PlaySound(string soundAssetName, string soundGroupName, Vector3 worldPosition)
         {
@@ -429,7 +427,6 @@ namespace UnityGameFramework.Runtime
         /// <param name="soundGroupName">声音组名称。</param>
         /// <param name="playSoundParams">播放声音参数。</param>
         /// <param name="worldPosition">声音所在的世界坐标。</param>
-        /// <param name="userData">用户自定义数据。</param>
         /// <returns>声音的序列编号。</returns>
         public int PlaySound(string soundAssetName, string soundGroupName, PlaySoundParams playSoundParams, Vector3 worldPosition)
         {
@@ -441,7 +438,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="soundAssetName">声音资源名称。</param>
         /// <param name="soundGroupName">声音组名称。</param>
-        /// <param name="playSoundParams">播放声音参数。</param>
         /// <param name="worldPosition">声音所在的世界坐标。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>声音的序列编号。</returns>
@@ -468,9 +464,10 @@ namespace UnityGameFramework.Runtime
         /// 停止播放声音。
         /// </summary>
         /// <param name="serialId">要停止播放声音的序列编号。</param>
-        public void StopSound(int serialId)
+        /// <returns>是否停止播放声音成功。</returns>
+        public bool StopSound(int serialId)
         {
-            m_SoundManager.StopSound(serialId);
+            return m_SoundManager.StopSound(serialId);
         }
 
         /// <summary>
@@ -478,9 +475,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="serialId">要停止播放声音的序列编号。</param>
         /// <param name="fadeOutSeconds">声音淡出时间，以秒为单位。</param>
-        public void StopSound(int serialId, float fadeOutSeconds)
+        /// <returns>是否停止播放声音成功。</returns>
+        public bool StopSound(int serialId, float fadeOutSeconds)
         {
-            m_SoundManager.StopSound(serialId, fadeOutSeconds);
+            return m_SoundManager.StopSound(serialId, fadeOutSeconds);
         }
 
         /// <summary>

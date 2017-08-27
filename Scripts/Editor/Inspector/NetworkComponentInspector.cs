@@ -14,27 +14,19 @@ namespace UnityGameFramework.Editor
     [CustomEditor(typeof(NetworkComponent))]
     internal sealed class NetworkComponentInspector : GameFrameworkInspector
     {
-        private SerializedProperty m_NetworkChannels = null;
-
-        private HelperInfo<NetworkHelperBase> m_NetworkHelperInfo = new HelperInfo<NetworkHelperBase>("Network");
-
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
-            serializedObject.Update();
+            if (!EditorApplication.isPlaying)
+            {
+                EditorGUILayout.HelpBox("Available during runtime only.", MessageType.Info);
+                return;
+            }
 
             NetworkComponent t = (NetworkComponent)target;
 
-            EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
-            {
-                m_NetworkHelperInfo.Draw();
-
-                EditorGUILayout.PropertyField(m_NetworkChannels, true);
-            }
-            EditorGUI.EndDisabledGroup();
-
-            if (EditorApplication.isPlaying && PrefabUtility.GetPrefabType(t.gameObject) != PrefabType.Prefab)
+            if (PrefabUtility.GetPrefabType(t.gameObject) != PrefabType.Prefab)
             {
                 EditorGUILayout.LabelField("Network Channel Count", t.NetworkChannelCount.ToString());
 
@@ -45,49 +37,27 @@ namespace UnityGameFramework.Editor
                 }
             }
 
-            serializedObject.ApplyModifiedProperties();
-
             Repaint();
-        }
-
-        protected override void OnCompileComplete()
-        {
-            base.OnCompileComplete();
-
-            RefreshTypeNames();
         }
 
         private void OnEnable()
         {
-            m_NetworkChannels = serializedObject.FindProperty("m_NetworkChannels");
 
-            m_NetworkHelperInfo.Init(serializedObject);
-
-            RefreshTypeNames();
         }
 
         private void DrawNetworkChannel(INetworkChannel networkChannel)
         {
-            string networkChannelName = networkChannel.Name;
-            switch (networkChannel.NetworkType)
+            EditorGUILayout.BeginVertical("box");
             {
-                case NetworkType.IPv4:
-                    networkChannelName += " (IPv4)";
-                    break;
-                case NetworkType.IPv6:
-                    networkChannelName += " (IPv6)";
-                    break;
-                default:
-                    break;
+                EditorGUILayout.LabelField(networkChannel.Name, networkChannel.Connected ? "Connected" : "Disconnected");
+                EditorGUILayout.LabelField("Network Type", networkChannel.NetworkType.ToString());
+                EditorGUILayout.LabelField("Local Address", networkChannel.Connected ? string.Format("{0}:{1}", networkChannel.LocalIPAddress.ToString(), networkChannel.LocalPort.ToString()) : "Unknown");
+                EditorGUILayout.LabelField("Remote Address", networkChannel.Connected ? string.Format("{0}:{1}", networkChannel.RemoteIPAddress.ToString(), networkChannel.RemotePort.ToString()) : "Unknown");
+                EditorGUILayout.LabelField("Heart Beat Interval", networkChannel.HeartBeatInterval.ToString());
             }
+            EditorGUILayout.EndVertical();
 
-            EditorGUILayout.LabelField(networkChannelName, networkChannel.Connected ? "Connected" : "Disconnected");
-        }
-
-        private void RefreshTypeNames()
-        {
-            m_NetworkHelperInfo.Refresh();
-            serializedObject.ApplyModifiedProperties();
+            EditorGUILayout.Separator();
         }
     }
 }

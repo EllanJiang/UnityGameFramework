@@ -43,6 +43,11 @@
             关闭并清理事件池。
             </summary>
         </member>
+        <member name="M:GameFramework.EventPool`1.Clear">
+            <summary>
+            清理事件。
+            </summary>
+        </member>
         <member name="M:GameFramework.EventPool`1.Check(System.Int32,System.EventHandler{`0})">
             <summary>
             检查订阅事件处理函数。
@@ -977,13 +982,19 @@
             日志类。
             </summary>
         </member>
-        <member name="M:GameFramework.Log.SetLogCallback(GameFramework.LogCallback)">
+        <member name="M:GameFramework.Log.SetLogHelper(GameFramework.Log.ILogHelper)">
             <summary>
-            设置日志回调函数。
+            设置日志辅助器。
             </summary>
-            <param name="logCallback">要设置的日志回调函数。</param>
+            <param name="logHelper">要设置的日志辅助器。</param>
         </member>
         <member name="M:GameFramework.Log.Debug(System.Object)">
+            <summary>
+            记录调试级别日志，仅在带有 DEBUG 预编译选项时产生。
+            </summary>
+            <param name="message">日志内容。</param>
+        </member>
+        <member name="M:GameFramework.Log.Debug(System.String)">
             <summary>
             记录调试级别日志，仅在带有 DEBUG 预编译选项时产生。
             </summary>
@@ -1026,6 +1037,12 @@
             </summary>
             <param name="message">日志内容</param>
         </member>
+        <member name="M:GameFramework.Log.Info(System.String)">
+            <summary>
+            打印信息级别日志，用于记录程序正常运行日志信息。
+            </summary>
+            <param name="message">日志内容</param>
+        </member>
         <member name="M:GameFramework.Log.Info(System.String,System.Object)">
             <summary>
             打印信息级别日志，用于记录程序正常运行日志信息。
@@ -1058,6 +1075,12 @@
             <param name="args">日志参数。</param>
         </member>
         <member name="M:GameFramework.Log.Warning(System.Object)">
+            <summary>
+            打印警告级别日志，建议在发生局部功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
+            </summary>
+            <param name="message">日志内容。</param>
+        </member>
+        <member name="M:GameFramework.Log.Warning(System.String)">
             <summary>
             打印警告级别日志，建议在发生局部功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
             </summary>
@@ -1100,6 +1123,12 @@
             </summary>
             <param name="message">日志内容。</param>
         </member>
+        <member name="M:GameFramework.Log.Error(System.String)">
+            <summary>
+            打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
+            </summary>
+            <param name="message">日志内容。</param>
+        </member>
         <member name="M:GameFramework.Log.Error(System.String,System.Object)">
             <summary>
             打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
@@ -1137,6 +1166,12 @@
             </summary>
             <param name="message">日志内容。</param>
         </member>
+        <member name="M:GameFramework.Log.Fatal(System.String)">
+            <summary>
+            打印严重错误级别日志，建议在发生严重错误，可能导致游戏崩溃或异常时使用，此时应尝试重启进程或重建游戏框架。
+            </summary>
+            <param name="message">日志内容。</param>
+        </member>
         <member name="M:GameFramework.Log.Fatal(System.String,System.Object)">
             <summary>
             打印严重错误级别日志，建议在发生严重错误，可能导致游戏崩溃或异常时使用，此时应尝试重启进程或重建游戏框架。
@@ -1168,9 +1203,14 @@
             <param name="format">日志格式。</param>
             <param name="args">日志参数。</param>
         </member>
-        <member name="T:GameFramework.LogCallback">
+        <member name="T:GameFramework.Log.ILogHelper">
             <summary>
-            日志回调函数。
+            日志辅助器接口。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Log.ILogHelper.Log(GameFramework.LogLevel,System.Object)">
+            <summary>
+            记录日志。
             </summary>
             <param name="level">日志等级。</param>
             <param name="message">日志内容。</param>
@@ -6253,16 +6293,6 @@
             获取远程终结点的端口号。
             </summary>
         </member>
-        <member name="P:GameFramework.Network.INetworkChannel.PacketHeaderLength">
-            <summary>
-            获取数据包头长度。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.INetworkChannel.MaxPacketLength">
-            <summary>
-            获取数据包最大字节数。
-            </summary>
-        </member>
         <member name="P:GameFramework.Network.INetworkChannel.ResetHeartBeatElapseSecondsWhenReceivePacket">
             <summary>
             获取或设置当收到消息包时是否重置心跳流逝时间。
@@ -6283,20 +6313,18 @@
             获取或设置发送缓冲区字节数。
             </summary>
         </member>
+        <member name="M:GameFramework.Network.INetworkChannel.RegisterHandler(GameFramework.Network.IPacketHandler)">
+            <summary>
+            注册网络消息包处理函数。
+            </summary>
+            <param name="handler">要注册的网络消息包处理函数。</param>
+        </member>
         <member name="M:GameFramework.Network.INetworkChannel.Connect(System.Net.IPAddress,System.Int32)">
             <summary>
             连接到远程主机。
             </summary>
             <param name="ipAddress">远程主机的 IP 地址。</param>
             <param name="port">远程主机的端口号。</param>
-        </member>
-        <member name="M:GameFramework.Network.INetworkChannel.Connect(System.Net.IPAddress,System.Int32,System.Int32)">
-            <summary>
-            连接到远程主机。
-            </summary>
-            <param name="ipAddress">远程主机的 IP 地址。</param>
-            <param name="port">远程主机的端口号。</param>
-            <param name="maxPacketLength">数据包最大字节数。</param>
         </member>
         <member name="M:GameFramework.Network.INetworkChannel.Connect(System.Net.IPAddress,System.Int32,System.Object)">
             <summary>
@@ -6306,34 +6334,6 @@
             <param name="port">远程主机的端口号。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Network.INetworkChannel.Connect(System.Net.IPAddress,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            连接到远程主机。
-            </summary>
-            <param name="ipAddress">远程主机的 IP 地址。</param>
-            <param name="port">远程主机的端口号。</param>
-            <param name="packetHeaderLength">数据包头长度。</param>
-            <param name="maxPacketLength">数据包最大字节数。</param>
-        </member>
-        <member name="M:GameFramework.Network.INetworkChannel.Connect(System.Net.IPAddress,System.Int32,System.Int32,System.Object)">
-            <summary>
-            连接到远程主机。
-            </summary>
-            <param name="ipAddress">远程主机的 IP 地址。</param>
-            <param name="port">远程主机的端口号。</param>
-            <param name="maxPacketLength">数据包最大字节数。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
-        <member name="M:GameFramework.Network.INetworkChannel.Connect(System.Net.IPAddress,System.Int32,System.Int32,System.Int32,System.Object)">
-            <summary>
-            连接到远程主机。
-            </summary>
-            <param name="ipAddress">远程主机的 IP 地址。</param>
-            <param name="port">远程主机的端口号。</param>
-            <param name="packetHeaderLength">数据包头长度。</param>
-            <param name="maxPacketLength">数据包最大字节数。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
         <member name="M:GameFramework.Network.INetworkChannel.Close">
             <summary>
             关闭网络频道。
@@ -6341,78 +6341,88 @@
         </member>
         <member name="M:GameFramework.Network.INetworkChannel.Send(System.Byte[])">
             <summary>
-            向远程主机发送数据包。
+            向远程主机发送消息包。
             </summary>
-            <param name="buffer">数据包流。</param>
+            <param name="buffer">消息包流。</param>
         </member>
         <member name="M:GameFramework.Network.INetworkChannel.Send(System.Byte[],System.Object)">
             <summary>
-            向远程主机发送数据包。
+            向远程主机发送消息包。
             </summary>
-            <param name="buffer">数据包流。</param>
+            <param name="buffer">消息包流。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Network.INetworkChannel.Send(System.Byte[],System.Int32,System.Int32)">
             <summary>
-            向远程主机发送数据包。
+            向远程主机发送消息包。
             </summary>
-            <param name="buffer">数据包流。</param>
-            <param name="offset">要发送数据包的偏移。</param>
-            <param name="size">要发送数据包的长度。</param>
+            <param name="buffer">消息包流。</param>
+            <param name="offset">要发送消息包的偏移。</param>
+            <param name="size">要发送消息包的长度。</param>
         </member>
         <member name="M:GameFramework.Network.INetworkChannel.Send(System.Byte[],System.Int32,System.Int32,System.Object)">
             <summary>
-            向远程主机发送数据包。
+            向远程主机发送消息包。
             </summary>
-            <param name="buffer">数据包流。</param>
-            <param name="offset">要发送数据包的偏移。</param>
-            <param name="size">要发送数据包的长度。</param>
+            <param name="buffer">消息包流。</param>
+            <param name="offset">要发送消息包的偏移。</param>
+            <param name="size">要发送消息包的长度。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Network.INetworkChannel.Send``1(``0)">
             <summary>
-            向远程主机发送数据包。
+            向远程主机发送消息包。
             </summary>
-            <typeparam name="T">数据包类型。</typeparam>
-            <param name="packet">要发送的数据包。</param>
+            <typeparam name="T">消息包类型。</typeparam>
+            <param name="packet">要发送的消息包。</param>
         </member>
         <member name="M:GameFramework.Network.INetworkChannel.Send``1(``0,System.Object)">
             <summary>
-            向远程主机发送数据包。
+            向远程主机发送消息包。
             </summary>
-            <typeparam name="T">数据包类型。</typeparam>
-            <param name="packet">要发送的数据包。</param>
+            <typeparam name="T">消息包类型。</typeparam>
+            <param name="packet">要发送的消息包。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="T:GameFramework.Network.INetworkHelper">
+        <member name="T:GameFramework.Network.INetworkChannelHelper">
             <summary>
-            网络辅助器接口。
+            网络频道辅助器接口。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.INetworkHelper.SendHeartBeat(GameFramework.Network.INetworkChannel)">
+        <member name="P:GameFramework.Network.INetworkChannelHelper.PacketHeaderLength">
             <summary>
-            发送心跳协议包。
+            获取消息包头长度。
             </summary>
-            <param name="networkChannel">网络频道。</param>
-            <returns>是否发送心跳协议包成功。</returns>
         </member>
-        <member name="M:GameFramework.Network.INetworkHelper.Serialize``1(GameFramework.Network.INetworkChannel,System.IO.Stream,``0)">
+        <member name="M:GameFramework.Network.INetworkChannelHelper.SendHeartBeat">
             <summary>
-            序列化协议包。
+            发送心跳消息包。
             </summary>
-            <typeparam name="T">协议包类型。</typeparam>
-            <param name="networkChannel">网络频道。</param>
-            <param name="destination">要序列化的目标流。</param>
-            <param name="packet">要序列化的协议包。</param>
+            <returns>是否发送心跳消息包成功。</returns>
         </member>
-        <member name="M:GameFramework.Network.INetworkHelper.Deserialize(GameFramework.Network.INetworkChannel,System.IO.Stream,System.Object@)">
+        <member name="M:GameFramework.Network.INetworkChannelHelper.Serialize``1(``0)">
             <summary>
-            反序列化协议包。
+            序列化消息包。
             </summary>
-            <param name="networkChannel">网络频道。</param>
+            <typeparam name="T">消息包类型。</typeparam>
+            <param name="packet">要序列化的消息包。</param>
+            <returns>序列化后的消息包字节流。</returns>
+        </member>
+        <member name="M:GameFramework.Network.INetworkChannelHelper.DeserializePacketHeader(System.IO.Stream,System.Object@)">
+            <summary>
+            反序列消息包头。
+            </summary>
             <param name="source">要反序列化的来源流。</param>
             <param name="customErrorData">用户自定义错误数据。</param>
-            <returns>反序列化后的协议包。</returns>
+            <returns></returns>
+        </member>
+        <member name="M:GameFramework.Network.INetworkChannelHelper.DeserializePacket(System.IO.Stream,System.Object@)">
+            <summary>
+            反序列化消息包。
+            </summary>
+            <param name="source">要反序列化的来源流。</param>
+            <param name="customErrorData">用户自定义错误数据。</param>
+            <returns>反序列化后的消息包。</returns>
         </member>
         <member name="T:GameFramework.Network.INetworkManager">
             <summary>
@@ -6454,12 +6464,6 @@
             用户自定义网络错误事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.INetworkManager.SetNetworkHelper(GameFramework.Network.INetworkHelper)">
-            <summary>
-            设置网络辅助器。
-            </summary>
-            <param name="networkHelper">网络辅助器。</param>
-        </member>
         <member name="M:GameFramework.Network.INetworkManager.HasNetworkChannel(System.String)">
             <summary>
             检查是否存在网络频道。
@@ -6480,11 +6484,12 @@
             </summary>
             <returns>所有网络频道。</returns>
         </member>
-        <member name="M:GameFramework.Network.INetworkManager.CreateNetworkChannel(System.String)">
+        <member name="M:GameFramework.Network.INetworkManager.CreateNetworkChannel(System.String,GameFramework.Network.INetworkChannelHelper)">
             <summary>
             创建网络频道。
             </summary>
             <param name="name">网络频道名称。</param>
+            <param name="networkChannelHelper">网络频道辅助器。</param>
             <returns>要创建的网络频道。</returns>
         </member>
         <member name="M:GameFramework.Network.INetworkManager.DestroyNetworkChannel(System.String)">
@@ -6493,12 +6498,6 @@
             </summary>
             <param name="name">网络频道名称。</param>
             <returns>是否销毁网络频道成功。</returns>
-        </member>
-        <member name="M:GameFramework.Network.INetworkManager.RegisterHandler(GameFramework.Network.IPacketHandler)">
-            <summary>
-            注册网络消息包处理函数。
-            </summary>
-            <param name="handler">要注册的网络消息包处理函数。</param>
         </member>
         <member name="T:GameFramework.Network.IPacketHandler">
             <summary>
@@ -6582,9 +6581,14 @@
             网络错误码。
             </summary>
         </member>
-        <member name="F:GameFramework.Network.NetworkErrorCode.StatusError">
+        <member name="F:GameFramework.Network.NetworkErrorCode.AddressFamilyError">
             <summary>
-            状态错误。
+            地址族错误。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Network.NetworkErrorCode.SocketError">
+            <summary>
+            Socket 错误。
             </summary>
         </member>
         <member name="F:GameFramework.Network.NetworkErrorCode.SerializeError">
@@ -6592,9 +6596,14 @@
             序列化错误。
             </summary>
         </member>
-        <member name="F:GameFramework.Network.NetworkErrorCode.DeserializeError">
+        <member name="F:GameFramework.Network.NetworkErrorCode.DeserializePacketHeaderError">
             <summary>
-            反序列化错误。
+            反序列化消息包头错误。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Network.NetworkErrorCode.DeserializePacketError">
+            <summary>
+            反序列化消息包错误。
             </summary>
         </member>
         <member name="F:GameFramework.Network.NetworkErrorCode.ConnectError">
@@ -6610,21 +6619,6 @@
         <member name="F:GameFramework.Network.NetworkErrorCode.ReceiveError">
             <summary>
             接收错误。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Network.NetworkErrorCode.HeaderError">
-            <summary>
-            消息包头错误。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Network.NetworkErrorCode.OutOfRangeError">
-            <summary>
-            消息包长度错误。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Network.NetworkErrorCode.StreamError">
-            <summary>
-            消息包流错误。
             </summary>
         </member>
         <member name="T:GameFramework.Network.NetworkErrorEventArgs">
@@ -6712,12 +6706,6 @@
             关闭并清理网络管理器。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.SetNetworkHelper(GameFramework.Network.INetworkHelper)">
-            <summary>
-            设置网络辅助器。
-            </summary>
-            <param name="networkHelper">网络辅助器。</param>
-        </member>
         <member name="M:GameFramework.Network.NetworkManager.HasNetworkChannel(System.String)">
             <summary>
             检查是否存在网络频道。
@@ -6738,11 +6726,12 @@
             </summary>
             <returns>所有网络频道。</returns>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.CreateNetworkChannel(System.String)">
+        <member name="M:GameFramework.Network.NetworkManager.CreateNetworkChannel(System.String,GameFramework.Network.INetworkChannelHelper)">
             <summary>
             创建网络频道。
             </summary>
             <param name="name">网络频道名称。</param>
+            <param name="networkChannelHelper">网络频道辅助器。</param>
             <returns>要创建的网络频道。</returns>
         </member>
         <member name="M:GameFramework.Network.NetworkManager.DestroyNetworkChannel(System.String)">
@@ -6752,23 +6741,17 @@
             <param name="name">网络频道名称。</param>
             <returns>是否销毁网络频道成功。</returns>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.RegisterHandler(GameFramework.Network.IPacketHandler)">
-            <summary>
-            注册网络消息包处理函数。
-            </summary>
-            <param name="handler">要注册的网络消息包处理函数。</param>
-        </member>
         <member name="T:GameFramework.Network.NetworkManager.NetworkChannel">
             <summary>
             网络频道。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.#ctor(System.String,GameFramework.Network.INetworkHelper)">
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.#ctor(System.String,GameFramework.Network.INetworkChannelHelper)">
             <summary>
             初始化网络频道的新实例。
             </summary>
             <param name="name">网络频道名称。</param>
-            <param name="networkHelper">网络辅助器。</param>
+            <param name="networkChannelHelper">网络频道辅助器。</param>
         </member>
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.Name">
             <summary>
@@ -6805,16 +6788,6 @@
             获取远程终结点的端口号。
             </summary>
         </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.PacketHeaderLength">
-            <summary>
-            获取数据包头长度。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.MaxPacketLength">
-            <summary>
-            获取数据包最大字节数。
-            </summary>
-        </member>
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.ResetHeartBeatElapseSecondsWhenReceivePacket">
             <summary>
             获取或设置当收到消息包时是否重置心跳流逝时间。
@@ -6842,20 +6815,23 @@
             <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
             <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
         </member>
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Shutdown">
+            <summary>
+            关闭网络频道。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.RegisterHandler(GameFramework.Network.IPacketHandler)">
+            <summary>
+            注册网络消息包处理函数。
+            </summary>
+            <param name="handler">要注册的网络消息包处理函数。</param>
+        </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Connect(System.Net.IPAddress,System.Int32)">
             <summary>
             连接到远程主机。
             </summary>
             <param name="ipAddress">远程主机的 IP 地址。</param>
             <param name="port">远程主机的端口号。</param>
-        </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Connect(System.Net.IPAddress,System.Int32,System.Int32)">
-            <summary>
-            连接到远程主机。
-            </summary>
-            <param name="ipAddress">远程主机的 IP 地址。</param>
-            <param name="port">远程主机的端口号。</param>
-            <param name="maxPacketLength">数据包最大字节数。</param>
         </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Connect(System.Net.IPAddress,System.Int32,System.Object)">
             <summary>
@@ -6865,34 +6841,6 @@
             <param name="port">远程主机的端口号。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Connect(System.Net.IPAddress,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            连接到远程主机。
-            </summary>
-            <param name="ipAddress">远程主机的 IP 地址。</param>
-            <param name="port">远程主机的端口号。</param>
-            <param name="packetHeaderLength">数据包头长度。</param>
-            <param name="maxPacketLength">数据包最大字节数。</param>
-        </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Connect(System.Net.IPAddress,System.Int32,System.Int32,System.Object)">
-            <summary>
-            连接到远程主机。
-            </summary>
-            <param name="ipAddress">远程主机的 IP 地址。</param>
-            <param name="port">远程主机的端口号。</param>
-            <param name="maxPacketLength">数据包最大字节数。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Connect(System.Net.IPAddress,System.Int32,System.Int32,System.Int32,System.Object)">
-            <summary>
-            连接到远程主机。
-            </summary>
-            <param name="ipAddress">远程主机的 IP 地址。</param>
-            <param name="port">远程主机的端口号。</param>
-            <param name="packetHeaderLength">数据包头长度。</param>
-            <param name="maxPacketLength">数据包最大字节数。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Close">
             <summary>
             关闭连接并释放所有相关资源。
@@ -6900,47 +6848,47 @@
         </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send(System.Byte[])">
             <summary>
-            向远程主机发送数据包。
+            向远程主机发送消息包。
             </summary>
-            <param name="buffer">数据包流。</param>
+            <param name="buffer">消息包流。</param>
         </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send(System.Byte[],System.Object)">
             <summary>
-            向远程主机发送数据包。
+            向远程主机发送消息包。
             </summary>
-            <param name="buffer">数据包流。</param>
+            <param name="buffer">消息包流。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send(System.Byte[],System.Int32,System.Int32)">
             <summary>
-            向远程主机发送数据包。
+            向远程主机发送消息包。
             </summary>
-            <param name="buffer">数据包流。</param>
-            <param name="offset">要发送数据包的偏移。</param>
-            <param name="size">要发送数据包的长度。</param>
+            <param name="buffer">消息包流。</param>
+            <param name="offset">要发送消息包的偏移。</param>
+            <param name="size">要发送消息包的长度。</param>
         </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send(System.Byte[],System.Int32,System.Int32,System.Object)">
             <summary>
-            向远程主机发送数据包。
+            向远程主机发送消息包。
             </summary>
-            <param name="buffer">数据包流。</param>
-            <param name="offset">要发送数据包的偏移。</param>
-            <param name="size">要发送数据包的长度。</param>
+            <param name="buffer">消息包流。</param>
+            <param name="offset">要发送消息包的偏移。</param>
+            <param name="size">要发送消息包的长度。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send``1(``0)">
             <summary>
-            向远程主机发送数据包。
+            向远程主机发送消息包。
             </summary>
-            <typeparam name="T">数据包类型。</typeparam>
-            <param name="packet">要发送的数据包。</param>
+            <typeparam name="T">消息包类型。</typeparam>
+            <param name="packet">要发送的消息包。</param>
         </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send``1(``0,System.Object)">
             <summary>
-            向远程主机发送数据包。
+            向远程主机发送消息包。
             </summary>
-            <typeparam name="T">数据包类型。</typeparam>
-            <param name="packet">要发送的数据包。</param>
+            <typeparam name="T">消息包类型。</typeparam>
+            <param name="packet">要发送的消息包。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Dispose">
@@ -7027,6 +6975,16 @@
         <member name="T:GameFramework.Network.Packet">
             <summary>
             网络消息包基类。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Network.PacketHeader">
+            <summary>
+            网络消息包头基类。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.PacketHeader.PacketLength">
+            <summary>
+            获取网络消息包长度。
             </summary>
         </member>
         <member name="T:GameFramework.ObjectPool.IObjectPool`1">
@@ -12146,6 +12104,7 @@
             停止播放声音。
             </summary>
             <param name="serialId">要停止播放声音的序列编号。</param>
+            <returns>是否停止播放声音成功。</returns>
         </member>
         <member name="M:GameFramework.Sound.ISoundManager.StopSound(System.Int32,System.Single)">
             <summary>
@@ -12153,6 +12112,7 @@
             </summary>
             <param name="serialId">要停止播放声音的序列编号。</param>
             <param name="fadeOutSeconds">声音淡出时间，以秒为单位。</param>
+            <returns>是否停止播放声音成功。</returns>
         </member>
         <member name="M:GameFramework.Sound.ISoundManager.StopAllLoadedSounds">
             <summary>
@@ -12651,6 +12611,7 @@
             停止播放声音。
             </summary>
             <param name="serialId">要停止播放声音的序列编号。</param>
+            <returns>是否停止播放声音成功。</returns>
         </member>
         <member name="M:GameFramework.Sound.SoundManager.StopSound(System.Int32,System.Single)">
             <summary>
@@ -12658,6 +12619,7 @@
             </summary>
             <param name="serialId">要停止播放声音的序列编号。</param>
             <param name="fadeOutSeconds">声音淡出时间，以秒为单位。</param>
+            <returns>是否停止播放声音成功。</returns>
         </member>
         <member name="M:GameFramework.Sound.SoundManager.StopAllLoadedSounds">
             <summary>

@@ -23,6 +23,7 @@ namespace UnityGameFramework.Editor
 
         private SerializedProperty m_EditorResourceMode = null;
         private SerializedProperty m_EditorLanguage = null;
+        private SerializedProperty m_LogHelperTypeName = null;
         private SerializedProperty m_ZipHelperTypeName = null;
         private SerializedProperty m_JsonHelperTypeName = null;
         private SerializedProperty m_ProfilerHelperTypeName = null;
@@ -31,6 +32,8 @@ namespace UnityGameFramework.Editor
         private SerializedProperty m_RunInBackground = null;
         private SerializedProperty m_NeverSleep = null;
 
+        private string[] m_LogHelperTypeNames = null;
+        private int m_LogHelperTypeNameIndex = 0;
         private string[] m_ZipHelperTypeNames = null;
         private int m_ZipHelperTypeNameIndex = 0;
         private string[] m_JsonHelperTypeNames = null;
@@ -59,6 +62,13 @@ namespace UnityGameFramework.Editor
                 EditorGUILayout.BeginVertical("box");
                 {
                     EditorGUILayout.LabelField("Global Helpers");
+
+                    int logHelperSelectedIndex = EditorGUILayout.Popup("Log Helper", m_LogHelperTypeNameIndex, m_LogHelperTypeNames);
+                    if (logHelperSelectedIndex != m_LogHelperTypeNameIndex)
+                    {
+                        m_LogHelperTypeNameIndex = logHelperSelectedIndex;
+                        m_LogHelperTypeName.stringValue = (logHelperSelectedIndex <= 0 ? null : m_LogHelperTypeNames[logHelperSelectedIndex]);
+                    }
 
                     int zipHelperSelectedIndex = EditorGUILayout.Popup("Zip Helper", m_ZipHelperTypeNameIndex, m_ZipHelperTypeNames);
                     if (zipHelperSelectedIndex != m_ZipHelperTypeNameIndex)
@@ -161,6 +171,7 @@ namespace UnityGameFramework.Editor
         {
             m_EditorResourceMode = serializedObject.FindProperty("m_EditorResourceMode");
             m_EditorLanguage = serializedObject.FindProperty("m_EditorLanguage");
+            m_LogHelperTypeName = serializedObject.FindProperty("m_LogHelperTypeName");
             m_ZipHelperTypeName = serializedObject.FindProperty("m_ZipHelperTypeName");
             m_JsonHelperTypeName = serializedObject.FindProperty("m_JsonHelperTypeName");
             m_ProfilerHelperTypeName = serializedObject.FindProperty("m_ProfilerHelperTypeName");
@@ -174,6 +185,21 @@ namespace UnityGameFramework.Editor
 
         private void RefreshTypeNames()
         {
+            List<string> logHelperTypeNames = new List<string>();
+            logHelperTypeNames.Add(NoneOptionName);
+            logHelperTypeNames.AddRange(Type.GetTypeNames(typeof(Log.ILogHelper)));
+            m_LogHelperTypeNames = logHelperTypeNames.ToArray();
+            m_LogHelperTypeNameIndex = 0;
+            if (!string.IsNullOrEmpty(m_LogHelperTypeName.stringValue))
+            {
+                m_LogHelperTypeNameIndex = logHelperTypeNames.IndexOf(m_LogHelperTypeName.stringValue);
+                if (m_LogHelperTypeNameIndex <= 0)
+                {
+                    m_LogHelperTypeNameIndex = 0;
+                    m_LogHelperTypeName.stringValue = null;
+                }
+            }
+
             List<string> zipHelperTypeNames = new List<string>();
             zipHelperTypeNames.Add(NoneOptionName);
             zipHelperTypeNames.AddRange(Type.GetTypeNames(typeof(Utility.Zip.IZipHelper)));

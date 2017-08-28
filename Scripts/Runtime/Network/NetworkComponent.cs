@@ -99,7 +99,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="name">网络频道名称。</param>
         /// <param name="networkChannelHelper">网络频道辅助器。</param>
         /// <returns>要创建的网络频道。</returns>
-        public INetworkChannel CreateNetworkChannel(string name, NetworkChannelHelperBase networkChannelHelper)
+        public INetworkChannel CreateNetworkChannel(string name, INetworkChannelHelper networkChannelHelper)
         {
             return m_NetworkManager.CreateNetworkChannel(name, networkChannelHelper);
         }

@@ -6394,6 +6394,12 @@
             获取消息包头长度。
             </summary>
         </member>
+        <member name="M:GameFramework.Network.INetworkChannelHelper.Initialize(GameFramework.Network.INetworkChannel)">
+            <summary>
+            初始化网络频道辅助器。
+            </summary>
+            <param name="networkChannel">网络频道。</param>
+        </member>
         <member name="M:GameFramework.Network.INetworkChannelHelper.SendHeartBeat">
             <summary>
             发送心跳消息包。

@@ -6527,6 +6527,16 @@
             <param name="sender">网络消息包源。</param>
             <param name="packet">网络消息包内容。</param>
         </member>
+        <member name="T:GameFramework.Network.IPacketHeader">
+            <summary>
+            网络消息包头接口。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.IPacketHeader.PacketLength">
+            <summary>
+            获取网络消息包长度。
+            </summary>
+        </member>
         <member name="T:GameFramework.Network.NetworkClosedEventArgs">
             <summary>
             网络连接关闭事件。
@@ -6986,16 +6996,6 @@
         <member name="T:GameFramework.Network.Packet">
             <summary>
             网络消息包基类。
-            </summary>
-        </member>
-        <member name="T:GameFramework.Network.PacketHeader">
-            <summary>
-            网络消息包头基类。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.PacketHeader.PacketLength">
-            <summary>
-            获取网络消息包长度。
             </summary>
         </member>
         <member name="T:GameFramework.ObjectPool.IObjectPool`1">

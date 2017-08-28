@@ -6400,6 +6400,11 @@
             </summary>
             <param name="networkChannel">网络频道。</param>
         </member>
+        <member name="M:GameFramework.Network.INetworkChannelHelper.Shutdown">
+            <summary>
+            关闭并清理网络频道辅助器。
+            </summary>
+        </member>
         <member name="M:GameFramework.Network.INetworkChannelHelper.SendHeartBeat">
             <summary>
             发送心跳消息包。

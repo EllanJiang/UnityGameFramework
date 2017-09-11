@@ -8,7 +8,6 @@
 using GameFramework;
 using GameFramework.Event;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -102,11 +101,6 @@ namespace UnityGameFramework.Runtime
         public void FireNow(object sender, GameEventArgs e)
         {
             m_EventManager.FireNow(sender, e);
-        }
-
-        private void AvoidJIT()
-        {
-            new Dictionary<int, EventHandler<GameEventArgs>>();
         }
     }
 }

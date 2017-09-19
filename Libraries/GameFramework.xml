@@ -10372,6 +10372,11 @@
             获取是否变体。
             </summary>
         </member>
+        <member name="T:GameFramework.Resource.ResourceManager.ResourceNameComparer">
+            <summary>
+            资源名称比较器。
+            </summary>
+        </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceUpdater">
             <summary>
             资源更新器。

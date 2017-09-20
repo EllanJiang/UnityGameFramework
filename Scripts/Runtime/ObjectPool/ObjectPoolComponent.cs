@@ -7,6 +7,7 @@
 
 using GameFramework;
 using GameFramework.ObjectPool;
+using System;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -64,12 +65,33 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 检查是否存在对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <returns>是否存在对象池。</returns>
+        public bool HasObjectPool(Type objectType)
+        {
+            return m_ObjectPoolManager.HasObjectPool(objectType);
+        }
+
+        /// <summary>
+        /// 检查是否存在对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="name">对象池名称。</param>
         /// <returns>是否存在对象池。</returns>
         public bool HasObjectPool<T>(string name) where T : ObjectBase
         {
             return m_ObjectPoolManager.HasObjectPool<T>(name);
+        }
+
+        /// <summary>
+        /// 检查是否存在对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <returns>是否存在对象池。</returns>
+        public bool HasObjectPool(Type objectType, string name)
+        {
+            return m_ObjectPoolManager.HasObjectPool(objectType, name);
         }
 
         /// <summary>
@@ -85,12 +107,33 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 获取对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <returns>要获取的对象池。</returns>
+        public ObjectPoolBase GetObjectPool(Type objectType)
+        {
+            return m_ObjectPoolManager.GetObjectPool(objectType);
+        }
+
+        /// <summary>
+        /// 获取对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="name">对象池名称。</param>
         /// <returns>要获取的对象池。</returns>
         public IObjectPool<T> GetObjectPool<T>(string name) where T : ObjectBase
         {
             return m_ObjectPoolManager.GetObjectPool<T>(name);
+        }
+
+        /// <summary>
+        /// 获取对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <returns>要获取的对象池。</returns>
+        public ObjectPoolBase GetObjectPool(Type objectType, string name)
+        {
+            return m_ObjectPoolManager.GetObjectPool(objectType, name);
         }
 
         /// <summary>
@@ -124,12 +167,33 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建允许单次获取的对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <returns>要创建的允许单次获取的对象池。</returns>
+        public ObjectPoolBase CreateSingleSpawnObjectPool(Type objectType)
+        {
+            return m_ObjectPoolManager.CreateSingleSpawnObjectPool(objectType);
+        }
+
+        /// <summary>
+        /// 创建允许单次获取的对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="name">对象池名称。</param>
         /// <returns>要创建的允许单次获取的对象池。</returns>
         public IObjectPool<T> CreateSingleSpawnObjectPool<T>(string name) where T : ObjectBase
         {
             return m_ObjectPoolManager.CreateSingleSpawnObjectPool<T>(name);
+        }
+
+        /// <summary>
+        /// 创建允许单次获取的对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <returns>要创建的允许单次获取的对象池。</returns>
+        public ObjectPoolBase CreateSingleSpawnObjectPool(Type objectType, string name)
+        {
+            return m_ObjectPoolManager.CreateSingleSpawnObjectPool(objectType, name);
         }
 
         /// <summary>
@@ -146,12 +210,34 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建允许单次获取的对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <returns>要创建的允许单次获取的对象池。</returns>
+        public ObjectPoolBase CreateSingleSpawnObjectPool(Type objectType, int capacity)
+        {
+            return m_ObjectPoolManager.CreateSingleSpawnObjectPool(objectType, capacity);
+        }
+
+        /// <summary>
+        /// 创建允许单次获取的对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="expireTime">对象池对象过期秒数。</param>
         /// <returns>要创建的允许单次获取的对象池。</returns>
         public IObjectPool<T> CreateSingleSpawnObjectPool<T>(float expireTime) where T : ObjectBase
         {
             return m_ObjectPoolManager.CreateSingleSpawnObjectPool<T>(expireTime);
+        }
+
+        /// <summary>
+        /// 创建允许单次获取的对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <returns>要创建的允许单次获取的对象池。</returns>
+        public ObjectPoolBase CreateSingleSpawnObjectPool(Type objectType, float expireTime)
+        {
+            return m_ObjectPoolManager.CreateSingleSpawnObjectPool(objectType, expireTime);
         }
 
         /// <summary>
@@ -169,6 +255,18 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建允许单次获取的对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <returns>要创建的允许单次获取的对象池。</returns>
+        public ObjectPoolBase CreateSingleSpawnObjectPool(Type objectType, string name, int capacity)
+        {
+            return m_ObjectPoolManager.CreateSingleSpawnObjectPool(objectType, name, capacity);
+        }
+
+        /// <summary>
+        /// 创建允许单次获取的对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="name">对象池名称。</param>
         /// <param name="expireTime">对象池对象过期秒数。</param>
@@ -176,6 +274,18 @@ namespace UnityGameFramework.Runtime
         public IObjectPool<T> CreateSingleSpawnObjectPool<T>(string name, float expireTime) where T : ObjectBase
         {
             return m_ObjectPoolManager.CreateSingleSpawnObjectPool<T>(name, expireTime);
+        }
+
+        /// <summary>
+        /// 创建允许单次获取的对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <returns>要创建的允许单次获取的对象池。</returns>
+        public ObjectPoolBase CreateSingleSpawnObjectPool(Type objectType, string name, float expireTime)
+        {
+            return m_ObjectPoolManager.CreateSingleSpawnObjectPool(objectType, name, expireTime);
         }
 
         /// <summary>
@@ -193,6 +303,18 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建允许单次获取的对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <returns>要创建的允许单次获取的对象池。</returns>
+        public ObjectPoolBase CreateSingleSpawnObjectPool(Type objectType, int capacity, float expireTime)
+        {
+            return m_ObjectPoolManager.CreateSingleSpawnObjectPool(objectType, capacity, expireTime);
+        }
+
+        /// <summary>
+        /// 创建允许单次获取的对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="capacity">对象池的容量。</param>
         /// <param name="priority">对象池的优先级。</param>
@@ -205,6 +327,18 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建允许单次获取的对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <param name="priority">对象池的优先级。</param>
+        /// <returns>要创建的允许单次获取的对象池。</returns>
+        public ObjectPoolBase CreateSingleSpawnObjectPool(Type objectType, int capacity, int priority)
+        {
+            return m_ObjectPoolManager.CreateSingleSpawnObjectPool(objectType, capacity, priority);
+        }
+
+        /// <summary>
+        /// 创建允许单次获取的对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="expireTime">对象池对象过期秒数。</param>
         /// <param name="priority">对象池的优先级。</param>
@@ -212,6 +346,18 @@ namespace UnityGameFramework.Runtime
         public IObjectPool<T> CreateSingleSpawnObjectPool<T>(float expireTime, int priority) where T : ObjectBase
         {
             return m_ObjectPoolManager.CreateSingleSpawnObjectPool<T>(expireTime, priority);
+        }
+
+        /// <summary>
+        /// 创建允许单次获取的对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <param name="priority">对象池的优先级。</param>
+        /// <returns>要创建的允许单次获取的对象池。</returns>
+        public ObjectPoolBase CreateSingleSpawnObjectPool(Type objectType, float expireTime, int priority)
+        {
+            return m_ObjectPoolManager.CreateSingleSpawnObjectPool(objectType, expireTime, priority);
         }
 
         /// <summary>
@@ -230,6 +376,19 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建允许单次获取的对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <returns>要创建的允许单次获取的对象池。</returns>
+        public ObjectPoolBase CreateSingleSpawnObjectPool(Type objectType, string name, int capacity, float expireTime)
+        {
+            return m_ObjectPoolManager.CreateSingleSpawnObjectPool(objectType, name, capacity, expireTime);
+        }
+
+        /// <summary>
+        /// 创建允许单次获取的对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="name">对象池名称。</param>
         /// <param name="capacity">对象池的容量。</param>
@@ -238,6 +397,19 @@ namespace UnityGameFramework.Runtime
         public IObjectPool<T> CreateSingleSpawnObjectPool<T>(string name, int capacity, int priority) where T : ObjectBase
         {
             return m_ObjectPoolManager.CreateSingleSpawnObjectPool<T>(name, capacity, priority);
+        }
+
+        /// <summary>
+        /// 创建允许单次获取的对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <param name="priority">对象池的优先级。</param>
+        /// <returns>要创建的允许单次获取的对象池。</returns>
+        public ObjectPoolBase CreateSingleSpawnObjectPool(Type objectType, string name, int capacity, int priority)
+        {
+            return m_ObjectPoolManager.CreateSingleSpawnObjectPool(objectType, name, capacity, priority);
         }
 
         /// <summary>
@@ -256,6 +428,19 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建允许单次获取的对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <param name="priority">对象池的优先级。</param>
+        /// <returns>要创建的允许单次获取的对象池。</returns>
+        public ObjectPoolBase CreateSingleSpawnObjectPool(Type objectType, string name, float expireTime, int priority)
+        {
+            return m_ObjectPoolManager.CreateSingleSpawnObjectPool(objectType, name, expireTime, priority);
+        }
+
+        /// <summary>
+        /// 创建允许单次获取的对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="capacity">对象池的容量。</param>
         /// <param name="expireTime">对象池对象过期秒数。</param>
@@ -264,6 +449,19 @@ namespace UnityGameFramework.Runtime
         public IObjectPool<T> CreateSingleSpawnObjectPool<T>(int capacity, float expireTime, int priority) where T : ObjectBase
         {
             return m_ObjectPoolManager.CreateSingleSpawnObjectPool<T>(capacity, expireTime, priority);
+        }
+
+        /// <summary>
+        /// 创建允许单次获取的对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <param name="priority">对象池的优先级。</param>
+        /// <returns>要创建的允许单次获取的对象池。</returns>
+        public ObjectPoolBase CreateSingleSpawnObjectPool(Type objectType, int capacity, float expireTime, int priority)
+        {
+            return m_ObjectPoolManager.CreateSingleSpawnObjectPool(objectType, capacity, expireTime, priority);
         }
 
         /// <summary>
@@ -281,6 +479,20 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建允许单次获取的对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <param name="priority">对象池的优先级。</param>
+        /// <returns>要创建的允许单次获取的对象池。</returns>
+        public ObjectPoolBase CreateSingleSpawnObjectPool(Type objectType, string name, int capacity, float expireTime, int priority)
+        {
+            return m_ObjectPoolManager.CreateSingleSpawnObjectPool(objectType, name, capacity, expireTime, priority);
+        }
+
+        /// <summary>
         /// 创建允许多次获取的对象池。
         /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
@@ -288,6 +500,16 @@ namespace UnityGameFramework.Runtime
         public IObjectPool<T> CreateMultiSpawnObjectPool<T>() where T : ObjectBase
         {
             return m_ObjectPoolManager.CreateMultiSpawnObjectPool<T>();
+        }
+
+        /// <summary>
+        /// 创建允许多次获取的对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <returns>要创建的允许多次获取的对象池。</returns>
+        public ObjectPoolBase CreateMultiSpawnObjectPool(Type objectType)
+        {
+            return m_ObjectPoolManager.CreateMultiSpawnObjectPool(objectType);
         }
 
         /// <summary>
@@ -304,6 +526,17 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建允许多次获取的对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <returns>要创建的允许多次获取的对象池。</returns>
+        public ObjectPoolBase CreateMultiSpawnObjectPool(Type objectType, string name)
+        {
+            return m_ObjectPoolManager.CreateMultiSpawnObjectPool(objectType, name);
+        }
+
+        /// <summary>
+        /// 创建允许多次获取的对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="capacity">对象池的容量。</param>
         /// <returns>要创建的允许多次获取的对象池。</returns>
@@ -315,12 +548,34 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建允许多次获取的对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <returns>要创建的允许多次获取的对象池。</returns>
+        public ObjectPoolBase CreateMultiSpawnObjectPool(Type objectType, int capacity)
+        {
+            return m_ObjectPoolManager.CreateMultiSpawnObjectPool(objectType, capacity);
+        }
+
+        /// <summary>
+        /// 创建允许多次获取的对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="expireTime">对象池对象过期秒数。</param>
         /// <returns>要创建的允许多次获取的对象池。</returns>
         public IObjectPool<T> CreateMultiSpawnObjectPool<T>(float expireTime) where T : ObjectBase
         {
             return m_ObjectPoolManager.CreateMultiSpawnObjectPool<T>(expireTime);
+        }
+
+        /// <summary>
+        /// 创建允许多次获取的对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <returns>要创建的允许多次获取的对象池。</returns>
+        public ObjectPoolBase CreateMultiSpawnObjectPool(Type objectType, float expireTime)
+        {
+            return m_ObjectPoolManager.CreateMultiSpawnObjectPool(objectType, expireTime);
         }
 
         /// <summary>
@@ -338,6 +593,18 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建允许多次获取的对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <returns>要创建的允许多次获取的对象池。</returns>
+        public ObjectPoolBase CreateMultiSpawnObjectPool(Type objectType, string name, int capacity)
+        {
+            return m_ObjectPoolManager.CreateMultiSpawnObjectPool(objectType, name, capacity);
+        }
+
+        /// <summary>
+        /// 创建允许多次获取的对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="name">对象池名称。</param>
         /// <param name="expireTime">对象池对象过期秒数。</param>
@@ -345,6 +612,18 @@ namespace UnityGameFramework.Runtime
         public IObjectPool<T> CreateMultiSpawnObjectPool<T>(string name, float expireTime) where T : ObjectBase
         {
             return m_ObjectPoolManager.CreateMultiSpawnObjectPool<T>(name, expireTime);
+        }
+
+        /// <summary>
+        /// 创建允许多次获取的对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <returns>要创建的允许多次获取的对象池。</returns>
+        public ObjectPoolBase CreateMultiSpawnObjectPool(Type objectType, string name, float expireTime)
+        {
+            return m_ObjectPoolManager.CreateMultiSpawnObjectPool(objectType, name, expireTime);
         }
 
         /// <summary>
@@ -362,6 +641,18 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建允许多次获取的对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <returns>要创建的允许多次获取的对象池。</returns>
+        public ObjectPoolBase CreateMultiSpawnObjectPool(Type objectType, int capacity, float expireTime)
+        {
+            return m_ObjectPoolManager.CreateMultiSpawnObjectPool(objectType, capacity, expireTime);
+        }
+
+        /// <summary>
+        /// 创建允许多次获取的对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="capacity">对象池的容量。</param>
         /// <param name="priority">对象池的优先级。</param>
@@ -374,6 +665,18 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建允许多次获取的对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <param name="priority">对象池的优先级。</param>
+        /// <returns>要创建的允许多次获取的对象池。</returns>
+        public ObjectPoolBase CreateMultiSpawnObjectPool(Type objectType, int capacity, int priority)
+        {
+            return m_ObjectPoolManager.CreateMultiSpawnObjectPool(objectType, capacity, priority);
+        }
+
+        /// <summary>
+        /// 创建允许多次获取的对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="expireTime">对象池对象过期秒数。</param>
         /// <param name="priority">对象池的优先级。</param>
@@ -381,6 +684,18 @@ namespace UnityGameFramework.Runtime
         public IObjectPool<T> CreateMultiSpawnObjectPool<T>(float expireTime, int priority) where T : ObjectBase
         {
             return m_ObjectPoolManager.CreateMultiSpawnObjectPool<T>(expireTime, priority);
+        }
+
+        /// <summary>
+        /// 创建允许多次获取的对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <param name="priority">对象池的优先级。</param>
+        /// <returns>要创建的允许多次获取的对象池。</returns>
+        public ObjectPoolBase CreateMultiSpawnObjectPool(Type objectType, float expireTime, int priority)
+        {
+            return m_ObjectPoolManager.CreateMultiSpawnObjectPool(objectType, expireTime, priority);
         }
 
         /// <summary>
@@ -399,6 +714,19 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建允许多次获取的对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <returns>要创建的允许多次获取的对象池。</returns>
+        public ObjectPoolBase CreateMultiSpawnObjectPool(Type objectType, string name, int capacity, float expireTime)
+        {
+            return m_ObjectPoolManager.CreateMultiSpawnObjectPool(objectType, name, capacity, expireTime);
+        }
+
+        /// <summary>
+        /// 创建允许多次获取的对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="name">对象池名称。</param>
         /// <param name="capacity">对象池的容量。</param>
@@ -407,6 +735,19 @@ namespace UnityGameFramework.Runtime
         public IObjectPool<T> CreateMultiSpawnObjectPool<T>(string name, int capacity, int priority) where T : ObjectBase
         {
             return m_ObjectPoolManager.CreateMultiSpawnObjectPool<T>(name, capacity, priority);
+        }
+
+        /// <summary>
+        /// 创建允许多次获取的对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <param name="priority">对象池的优先级。</param>
+        /// <returns>要创建的允许多次获取的对象池。</returns>
+        public ObjectPoolBase CreateMultiSpawnObjectPool(Type objectType, string name, int capacity, int priority)
+        {
+            return m_ObjectPoolManager.CreateMultiSpawnObjectPool(objectType, name, capacity, priority);
         }
 
         /// <summary>
@@ -425,6 +766,19 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建允许多次获取的对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <param name="priority">对象池的优先级。</param>
+        /// <returns>要创建的允许多次获取的对象池。</returns>
+        public ObjectPoolBase CreateMultiSpawnObjectPool(Type objectType, string name, float expireTime, int priority)
+        {
+            return m_ObjectPoolManager.CreateMultiSpawnObjectPool(objectType, name, expireTime, priority);
+        }
+
+        /// <summary>
+        /// 创建允许多次获取的对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="capacity">对象池的容量。</param>
         /// <param name="expireTime">对象池对象过期秒数。</param>
@@ -433,6 +787,19 @@ namespace UnityGameFramework.Runtime
         public IObjectPool<T> CreateMultiSpawnObjectPool<T>(int capacity, float expireTime, int priority) where T : ObjectBase
         {
             return m_ObjectPoolManager.CreateMultiSpawnObjectPool<T>(capacity, expireTime, priority);
+        }
+
+        /// <summary>
+        /// 创建允许多次获取的对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <param name="priority">对象池的优先级。</param>
+        /// <returns>要创建的允许多次获取的对象池。</returns>
+        public ObjectPoolBase CreateMultiSpawnObjectPool(Type objectType, int capacity, float expireTime, int priority)
+        {
+            return m_ObjectPoolManager.CreateMultiSpawnObjectPool(objectType, capacity, expireTime, priority);
         }
 
         /// <summary>
@@ -450,6 +817,20 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建允许多次获取的对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">对象池名称。</param>
+        /// <param name="capacity">对象池的容量。</param>
+        /// <param name="expireTime">对象池对象过期秒数。</param>
+        /// <param name="priority">对象池的优先级。</param>
+        /// <returns>要创建的允许多次获取的对象池。</returns>
+        public ObjectPoolBase CreateMultiSpawnObjectPool(Type objectType, string name, int capacity, float expireTime, int priority)
+        {
+            return m_ObjectPoolManager.CreateMultiSpawnObjectPool(objectType, name, capacity, expireTime, priority);
+        }
+
+        /// <summary>
         /// 销毁对象池。
         /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
@@ -457,6 +838,16 @@ namespace UnityGameFramework.Runtime
         public bool DestroyObjectPool<T>() where T : ObjectBase
         {
             return m_ObjectPoolManager.DestroyObjectPool<T>();
+        }
+
+        /// <summary>
+        /// 销毁对象池。
+        /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <returns>是否销毁对象池成功。</returns>
+        public bool DestroyObjectPool(Type objectType)
+        {
+            return m_ObjectPoolManager.DestroyObjectPool(objectType);
         }
 
         /// <summary>
@@ -473,10 +864,31 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 销毁对象池。
         /// </summary>
+        /// <param name="objectType">对象类型。</param>
+        /// <param name="name">要销毁的对象池名称。</param>
+        /// <returns>是否销毁对象池成功。</returns>
+        public bool DestroyObjectPool(Type objectType, string name)
+        {
+            return m_ObjectPoolManager.DestroyObjectPool(objectType, name);
+        }
+
+        /// <summary>
+        /// 销毁对象池。
+        /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="objectPool">要销毁的对象池。</param>
         /// <returns>是否销毁对象池成功。</returns>
         public bool DestroyObjectPool<T>(IObjectPool<T> objectPool) where T : ObjectBase
+        {
+            return m_ObjectPoolManager.DestroyObjectPool(objectPool);
+        }
+
+        /// <summary>
+        /// 销毁对象池。
+        /// </summary>
+        /// <param name="objectPool">要销毁的对象池。</param>
+        /// <returns>是否销毁对象池成功。</returns>
+        public bool DestroyObjectPool(ObjectPoolBase objectPool)
         {
             return m_ObjectPoolManager.DestroyObjectPool(objectPool);
         }

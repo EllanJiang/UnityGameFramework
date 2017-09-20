@@ -22,8 +22,8 @@ namespace UnityGameFramework.Runtime
         public LoadDataTableFailureEventArgs(GameFramework.DataTable.LoadDataTableFailureEventArgs e)
         {
             LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
+            DataRowType = loadDataTableInfo.DataRowType;
             DataTableName = loadDataTableInfo.DataTableName;
-            DataTableType = loadDataTableInfo.DataTableType;
             DataTableAssetName = e.DataTableAssetName;
             ErrorMessage = e.ErrorMessage;
             UserData = loadDataTableInfo.UserData;
@@ -41,18 +41,18 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取数据表名称。
+        /// 获取数据表行的类型。
         /// </summary>
-        public string DataTableName
+        public Type DataRowType
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取数据表类型。
+        /// 获取数据表名称。
         /// </summary>
-        public Type DataTableType
+        public string DataTableName
         {
             get;
             private set;

@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class DownloadFailureEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(DownloadFailureEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化下载失败事件的新实例。
         /// </summary>
@@ -34,7 +36,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.DownloadFailure;
+                return EventId;
             }
         }
 

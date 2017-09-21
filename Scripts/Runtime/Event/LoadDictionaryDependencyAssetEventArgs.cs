@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class LoadDictionaryDependencyAssetEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(LoadDictionaryDependencyAssetEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化加载字典时加载依赖资源事件的新实例。
         /// </summary>
@@ -36,7 +38,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadDictionaryDependencyAsset;
+                return EventId;
             }
         }
 

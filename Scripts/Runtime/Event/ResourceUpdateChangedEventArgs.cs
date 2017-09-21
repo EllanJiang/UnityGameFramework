@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ResourceUpdateChangedEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(ResourceUpdateChangedEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化资源更新改变事件的新实例。
         /// </summary>
@@ -34,7 +36,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.ResourceUpdateChanged;
+                return EventId;
             }
         }
 

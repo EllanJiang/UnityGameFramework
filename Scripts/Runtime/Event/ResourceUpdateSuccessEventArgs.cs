@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ResourceUpdateSuccessEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(ResourceUpdateSuccessEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化资源更新成功事件的新实例。
         /// </summary>
@@ -34,7 +36,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.ResourceUpdateSuccess;
+                return EventId;
             }
         }
 

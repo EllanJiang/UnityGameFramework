@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class LoadSceneDependencyAssetEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(LoadSceneDependencyAssetEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化加载场景时加载依赖资源事件的新实例。
         /// </summary>
@@ -34,7 +36,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadSceneDependencyAsset;
+                return EventId;
             }
         }
 

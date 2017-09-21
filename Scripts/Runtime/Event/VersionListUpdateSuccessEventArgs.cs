@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class VersionListUpdateSuccessEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(VersionListUpdateSuccessEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化版本资源列表更新成功事件的新实例。
         /// </summary>
@@ -31,7 +33,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.VersionListUpdateSuccess;
+                return EventId;
             }
         }
 

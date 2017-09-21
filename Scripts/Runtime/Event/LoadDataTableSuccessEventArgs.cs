@@ -15,6 +15,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class LoadDataTableSuccessEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(LoadDataTableSuccessEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化加载数据表成功事件的新实例。
         /// </summary>
@@ -36,7 +38,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadDataTableSuccess;
+                return EventId;
             }
         }
 

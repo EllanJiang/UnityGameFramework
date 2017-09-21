@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class WebRequestFailureEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(WebRequestFailureEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化 Web 请求失败事件的新实例。
         /// </summary>
@@ -34,7 +36,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.WebRequestFailure;
+                return EventId;
             }
         }
 

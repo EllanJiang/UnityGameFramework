@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class LoadSceneSuccessEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(LoadSceneSuccessEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化加载场景成功事件的新实例。
         /// </summary>
@@ -32,7 +34,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadSceneSuccess;
+                return EventId;
             }
         }
 

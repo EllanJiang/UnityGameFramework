@@ -15,6 +15,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ShowEntitySuccessEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(ShowEntitySuccessEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化显示实体成功事件的新实例。
         /// </summary>
@@ -35,7 +37,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.ShowEntitySuccess;
+                return EventId;
             }
         }
 

@@ -58,9 +58,9 @@ namespace UnityGameFramework.Runtime
         /// <param name="id">事件类型编号。</param>
         /// <param name="handler">要检查的事件处理回调函数。</param>
         /// <returns>是否存在事件处理回调函数。</returns>
-        public bool Check(EventId id, EventHandler<GameEventArgs> handler)
+        public bool Check(int id, EventHandler<GameEventArgs> handler)
         {
-            return m_EventManager.Check((int)id, handler);
+            return m_EventManager.Check(id, handler);
         }
 
         /// <summary>
@@ -68,9 +68,9 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="id">事件类型编号。</param>
         /// <param name="handler">要订阅的事件处理回调函数。</param>
-        public void Subscribe(EventId id, EventHandler<GameEventArgs> handler)
+        public void Subscribe(int id, EventHandler<GameEventArgs> handler)
         {
-            m_EventManager.Subscribe((int)id, handler);
+            m_EventManager.Subscribe(id, handler);
         }
 
         /// <summary>
@@ -78,9 +78,9 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="id">事件类型编号。</param>
         /// <param name="handler">要取消订阅的事件处理回调函数。</param>
-        public void Unsubscribe(EventId id, EventHandler<GameEventArgs> handler)
+        public void Unsubscribe(int id, EventHandler<GameEventArgs> handler)
         {
-            m_EventManager.Unsubscribe((int)id, handler);
+            m_EventManager.Unsubscribe(id, handler);
         }
 
         /// <summary>

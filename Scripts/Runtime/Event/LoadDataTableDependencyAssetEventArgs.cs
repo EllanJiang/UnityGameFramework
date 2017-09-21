@@ -15,6 +15,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class LoadDataTableDependencyAssetEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(LoadDataTableDependencyAssetEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化加载数据表时加载依赖资源事件的新实例。
         /// </summary>
@@ -38,7 +40,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadDataTableDependencyAsset;
+                return EventId;
             }
         }
 

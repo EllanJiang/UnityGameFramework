@@ -15,6 +15,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class CloseUIFormCompleteEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(CloseUIFormCompleteEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化关闭界面完成事件的新实例。
         /// </summary>
@@ -34,7 +36,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.CloseUIFormComplete;
+                return EventId;
             }
         }
 

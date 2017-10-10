@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class OpenUIFormSuccessEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(OpenUIFormSuccessEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化打开界面成功事件的新实例。
         /// </summary>
@@ -32,7 +34,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.OpenUIFormSuccess;
+                return EventId;
             }
         }
 

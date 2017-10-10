@@ -15,6 +15,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class NetworkConnectedEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(NetworkConnectedEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化网络连接成功事件的新实例。
         /// </summary>
@@ -32,7 +34,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.NetworkConnected;
+                return EventId;
             }
         }
 

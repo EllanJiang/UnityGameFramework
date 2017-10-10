@@ -10,7 +10,6 @@ using GameFramework.Fsm;
 using GameFramework.Procedure;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -113,11 +112,6 @@ namespace UnityGameFramework.Runtime
         public ProcedureBase GetProcedure<T>() where T : ProcedureBase
         {
             return m_ProcedureManager.GetProcedure<T>();
-        }
-
-        private void AvoidJIT()
-        {
-            new Dictionary<int, FsmEventHandler<IProcedureManager>>();
         }
     }
 }

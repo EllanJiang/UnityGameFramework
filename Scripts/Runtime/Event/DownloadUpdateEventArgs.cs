@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class DownloadUpdateEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(DownloadUpdateEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化下载更新事件的新实例。
         /// </summary>
@@ -34,7 +36,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.DownloadUpdate;
+                return EventId;
             }
         }
 

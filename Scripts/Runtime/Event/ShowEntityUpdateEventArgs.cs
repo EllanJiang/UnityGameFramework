@@ -15,6 +15,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ShowEntityUpdateEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(ShowEntityUpdateEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化显示实体更新事件的新实例。
         /// </summary>
@@ -37,7 +39,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.ShowEntityUpdate;
+                return EventId;
             }
         }
 

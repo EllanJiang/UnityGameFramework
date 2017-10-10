@@ -226,7 +226,7 @@ namespace UnityGameFramework.Runtime
         {
             StopAllCoroutines();
 
-            if (fadeOutSeconds > 0f)
+            if (fadeOutSeconds > 0f && gameObject.activeInHierarchy)
             {
                 StartCoroutine(StopCo(fadeOutSeconds));
             }
@@ -245,7 +245,7 @@ namespace UnityGameFramework.Runtime
             StopAllCoroutines();
 
             m_VolumeWhenPause = m_AudioSource.volume;
-            if (fadeOutSeconds > 0f)
+            if (fadeOutSeconds > 0f && gameObject.activeInHierarchy)
             {
                 StartCoroutine(PauseCo(fadeOutSeconds));
             }

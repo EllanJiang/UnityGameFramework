@@ -15,6 +15,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ShowEntityDependencyAssetEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(ShowEntityDependencyAssetEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化显示实体时加载依赖资源事件的新实例。
         /// </summary>
@@ -39,7 +41,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.ShowEntityDependencyAsset;
+                return EventId;
             }
         }
 

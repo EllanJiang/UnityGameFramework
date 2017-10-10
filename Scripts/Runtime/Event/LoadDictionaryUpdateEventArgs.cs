@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class LoadDictionaryUpdateEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(LoadDictionaryUpdateEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化加载字典更新事件的新实例。
         /// </summary>
@@ -34,7 +36,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadDictionaryUpdate;
+                return EventId;
             }
         }
 

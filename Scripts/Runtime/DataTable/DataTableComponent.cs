@@ -115,109 +115,109 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 加载数据表。
         /// </summary>
-        /// <typeparam name="T">数据表类型。</typeparam>
+        /// <typeparam name="T">数据表行的类型。</typeparam>
         /// <param name="dataTableName">数据表名称。</param>
         /// <param name="dataTableAssetName">数据表资源名称。</param>
         public void LoadDataTable<T>(string dataTableName, string dataTableAssetName) where T : IDataRow
         {
-            LoadDataTable(dataTableName, typeof(T), null, dataTableAssetName, null);
+            LoadDataTable(typeof(T), dataTableName, null, dataTableAssetName, null);
         }
 
         /// <summary>
         /// 加载数据表。
         /// </summary>
+        /// <param name="dataRowType">数据表行的类型。</param>
         /// <param name="dataTableName">数据表名称。</param>
-        /// <param name="dataTableType">数据表类型。</param>
         /// <param name="dataTableAssetName">数据表资源名称。</param>
-        public void LoadDataTable(string dataTableName, Type dataTableType, string dataTableAssetName)
+        public void LoadDataTable(Type dataRowType, string dataTableName, string dataTableAssetName)
         {
-            LoadDataTable(dataTableName, dataTableType, null, dataTableAssetName, null);
+            LoadDataTable(dataRowType, dataTableName, null, dataTableAssetName, null);
         }
 
         /// <summary>
         /// 加载数据表。
         /// </summary>
-        /// <typeparam name="T">数据表类型。</typeparam>
+        /// <typeparam name="T">数据表行的类型。</typeparam>
         /// <param name="dataTableName">数据表名称。</param>
         /// <param name="dataTableAssetName">数据表资源名称。</param>
         /// <param name="userData">用户自定义数据。</param>
         public void LoadDataTable<T>(string dataTableName, string dataTableAssetName, object userData) where T : IDataRow
         {
-            LoadDataTable(dataTableName, typeof(T), null, dataTableAssetName, userData);
+            LoadDataTable(typeof(T), dataTableName, null, dataTableAssetName, userData);
         }
 
         /// <summary>
         /// 加载数据表。
         /// </summary>
+        /// <param name="dataRowType">数据表行的类型。</param>
         /// <param name="dataTableName">数据表名称。</param>
-        /// <param name="dataTableType">数据表类型。</param>
         /// <param name="dataTableAssetName">数据表资源名称。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadDataTable(string dataTableName, Type dataTableType, string dataTableAssetName, object userData)
+        public void LoadDataTable(Type dataRowType, string dataTableName, string dataTableAssetName, object userData)
         {
-            LoadDataTable(dataTableName, dataTableType, null, dataTableAssetName, userData);
+            LoadDataTable(dataRowType, dataTableName, null, dataTableAssetName, userData);
         }
 
         /// <summary>
         /// 加载数据表。
         /// </summary>
-        /// <typeparam name="T">数据表类型。</typeparam>
+        /// <typeparam name="T">数据表行的类型。</typeparam>
         /// <param name="dataTableName">数据表名称。</param>
         /// <param name="dataTableNameInType">数据表类型下的名称。</param>
         /// <param name="dataTableAssetName">数据表资源名称。</param>
         public void LoadDataTable<T>(string dataTableName, string dataTableNameInType, string dataTableAssetName) where T : IDataRow
         {
-            LoadDataTable(dataTableName, typeof(T), dataTableNameInType, dataTableAssetName, null);
+            LoadDataTable(typeof(T), dataTableName, dataTableNameInType, dataTableAssetName, null);
         }
 
         /// <summary>
         /// 加载数据表。
         /// </summary>
+        /// <param name="dataRowType">数据表行的类型。</param>
         /// <param name="dataTableName">数据表名称。</param>
-        /// <param name="dataTableType">数据表类型。</param>
         /// <param name="dataTableNameInType">数据表类型下的名称。</param>
         /// <param name="dataTableAssetName">数据表资源名称。</param>
-        public void LoadDataTable(string dataTableName, Type dataTableType, string dataTableNameInType, string dataTableAssetName)
+        public void LoadDataTable(Type dataRowType, string dataTableName, string dataTableNameInType, string dataTableAssetName)
         {
-            LoadDataTable(dataTableName, dataTableType, dataTableNameInType, dataTableAssetName, null);
+            LoadDataTable(dataRowType, dataTableName, dataTableNameInType, dataTableAssetName, null);
         }
 
         /// <summary>
         /// 加载数据表。
         /// </summary>
-        /// <typeparam name="T">数据表类型。</typeparam>
+        /// <typeparam name="T">数据表行的类型。</typeparam>
         /// <param name="dataTableName">数据表名称。</param>
         /// <param name="dataTableNameInType">数据表类型下的名称。</param>
         /// <param name="dataTableAssetName">数据表资源名称。</param>
         /// <param name="userData">用户自定义数据。</param>
         public void LoadDataTable<T>(string dataTableName, string dataTableNameInType, string dataTableAssetName, object userData) where T : IDataRow
         {
-            LoadDataTable(dataTableName, typeof(T), dataTableNameInType, dataTableAssetName, userData);
+            LoadDataTable(typeof(T), dataTableName, dataTableNameInType, dataTableAssetName, userData);
         }
 
         /// <summary>
         /// 加载数据表。
         /// </summary>
+        /// <param name="dataRowType">数据表行的类型。</param>
         /// <param name="dataTableName">数据表名称。</param>
-        /// <param name="dataTableType">数据表类型。</param>
         /// <param name="dataTableNameInType">数据表类型下的名称。</param>
         /// <param name="dataTableAssetName">数据表资源名称。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadDataTable(string dataTableName, Type dataTableType, string dataTableNameInType, string dataTableAssetName, object userData)
+        public void LoadDataTable(Type dataRowType, string dataTableName, string dataTableNameInType, string dataTableAssetName, object userData)
         {
+            if (dataRowType == null)
+            {
+                Log.Error("Data table type is invalid.");
+                return;
+            }
+
             if (string.IsNullOrEmpty(dataTableName))
             {
                 Log.Error("Data table name is invalid.");
                 return;
             }
 
-            if (dataTableType == null)
-            {
-                Log.Error("Data table type is invalid.");
-                return;
-            }
-
-            m_DataTableManager.LoadDataTable(dataTableAssetName, new LoadDataTableInfo(dataTableName, dataTableType, dataTableNameInType, userData));
+            m_DataTableManager.LoadDataTable(dataTableAssetName, new LoadDataTableInfo(dataRowType, dataTableName, dataTableNameInType, userData));
         }
 
         /// <summary>
@@ -233,11 +233,11 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 是否存在数据表。
         /// </summary>
-        /// <param name="type">数据表行的类型。</param>
+        /// <param name="dataRowType">数据表行的类型。</param>
         /// <returns>是否存在数据表。</returns>
-        public bool HasDataTable(Type type)
+        public bool HasDataTable(Type dataRowType)
         {
-            return m_DataTableManager.HasDataTable(type);
+            return m_DataTableManager.HasDataTable(dataRowType);
         }
 
         /// <summary>
@@ -254,12 +254,12 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 是否存在数据表。
         /// </summary>
-        /// <param name="type">数据表行的类型。</param>
+        /// <param name="dataRowType">数据表行的类型。</param>
         /// <param name="name">数据表名称。</param>
         /// <returns>是否存在数据表。</returns>
-        public bool HasDataTable(Type type, string name)
+        public bool HasDataTable(Type dataRowType, string name)
         {
-            return m_DataTableManager.HasDataTable(type, name);
+            return m_DataTableManager.HasDataTable(dataRowType, name);
         }
 
         /// <summary>
@@ -275,11 +275,11 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 获取数据表。
         /// </summary>
-        /// <param name="type">数据表行的类型。</param>
+        /// <param name="dataRowType">数据表行的类型。</param>
         /// <returns>要获取的数据表。</returns>
-        public DataTableBase GetDataTable(Type type)
+        public DataTableBase GetDataTable(Type dataRowType)
         {
-            return m_DataTableManager.GetDataTable(type);
+            return m_DataTableManager.GetDataTable(dataRowType);
         }
 
         /// <summary>
@@ -296,12 +296,12 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 获取数据表。
         /// </summary>
-        /// <param name="type">数据表行的类型。</param>
+        /// <param name="dataRowType">数据表行的类型。</param>
         /// <param name="name">数据表名称。</param>
         /// <returns>要获取的数据表。</returns>
-        public DataTableBase GetDataTable(Type type, string name)
+        public DataTableBase GetDataTable(Type dataRowType, string name)
         {
-            return m_DataTableManager.GetDataTable(type, name);
+            return m_DataTableManager.GetDataTable(dataRowType, name);
         }
 
         /// <summary>
@@ -326,6 +326,17 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 创建数据表。
         /// </summary>
+        /// <param name="dataRowType">数据表行的类型。</param>
+        /// <param name="text">要解析的数据表文本。</param>
+        /// <returns>要创建的数据表。</returns>
+        public DataTableBase CreateDataTable(Type dataRowType, string text)
+        {
+            return m_DataTableManager.CreateDataTable(dataRowType, text);
+        }
+
+        /// <summary>
+        /// 创建数据表。
+        /// </summary>
         /// <typeparam name="T">数据表行的类型。</typeparam>
         /// <param name="name">数据表名称。</param>
         /// <param name="text">要解析的数据表文本。</param>
@@ -333,6 +344,18 @@ namespace UnityGameFramework.Runtime
         public IDataTable<T> CreateDataTable<T>(string name, string text) where T : class, IDataRow, new()
         {
             return m_DataTableManager.CreateDataTable<T>(name, text);
+        }
+
+        /// <summary>
+        /// 创建数据表。
+        /// </summary>
+        /// <param name="dataRowType">数据表行的类型。</param>
+        /// <param name="name">数据表名称。</param>
+        /// <param name="text">要解析的数据表文本。</param>
+        /// <returns>要创建的数据表。</returns>
+        public DataTableBase CreateDataTable(Type dataRowType, string name, string text)
+        {
+            return m_DataTableManager.CreateDataTable(dataRowType, name, text);
         }
 
         /// <summary>
@@ -348,11 +371,11 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 销毁数据表。
         /// </summary>
-        /// <param name="type">数据表行的类型。</param>
+        /// <param name="dataRowType">数据表行的类型。</param>
         /// <returns>是否销毁数据表成功。</returns>
-        public bool DestroyDataTable(Type type)
+        public bool DestroyDataTable(Type dataRowType)
         {
-            return m_DataTableManager.DestroyDataTable(type);
+            return m_DataTableManager.DestroyDataTable(dataRowType);
         }
 
         /// <summary>
@@ -369,20 +392,12 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 销毁数据表。
         /// </summary>
-        /// <param name="type">数据表行的类型。</param>
+        /// <param name="dataRowType">数据表行的类型。</param>
         /// <param name="name">数据表名称。</param>
         /// <returns>是否销毁数据表成功。</returns>
-        public bool DestroyDataTable(Type type, string name)
+        public bool DestroyDataTable(Type dataRowType, string name)
         {
-            return m_DataTableManager.DestroyDataTable(type, name);
-        }
-
-        private void ReflectionCreateDataTable<T>(string name, string text) where T : class, IDataRow, new()
-        {
-            if (CreateDataTable<T>(name, text) == null)
-            {
-                Log.Warning("Add data table failure in ReflectionCreateDataTable.");
-            }
+            return m_DataTableManager.DestroyDataTable(dataRowType, name);
         }
 
         private void OnLoadDataTableSuccess(object sender, GameFramework.DataTable.LoadDataTableSuccessEventArgs e)

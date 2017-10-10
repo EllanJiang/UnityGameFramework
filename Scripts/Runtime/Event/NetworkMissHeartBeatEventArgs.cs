@@ -15,6 +15,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class NetworkMissHeartBeatEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(NetworkMissHeartBeatEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化网络心跳包丢失事件的新实例。
         /// </summary>
@@ -32,7 +34,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.NetworkMissHeartBeat;
+                return EventId;
             }
         }
 

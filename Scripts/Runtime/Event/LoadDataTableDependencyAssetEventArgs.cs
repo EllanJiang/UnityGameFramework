@@ -15,6 +15,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class LoadDataTableDependencyAssetEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(LoadDataTableDependencyAssetEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化加载数据表时加载依赖资源事件的新实例。
         /// </summary>
@@ -22,8 +24,8 @@ namespace UnityGameFramework.Runtime
         public LoadDataTableDependencyAssetEventArgs(GameFramework.DataTable.LoadDataTableDependencyAssetEventArgs e)
         {
             LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
+            DataRowType = loadDataTableInfo.DataRowType;
             DataTableName = loadDataTableInfo.DataTableName;
-            DataTableType = loadDataTableInfo.DataTableType;
             DataTableAssetName = e.DataTableAssetName;
             DependencyAssetName = e.DependencyAssetName;
             LoadedCount = e.LoadedCount;
@@ -38,23 +40,23 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadDataTableDependencyAsset;
+                return EventId;
             }
         }
 
         /// <summary>
-        /// 获取数据表名称。
+        /// 获取数据表行的类型。
         /// </summary>
-        public string DataTableName
+        public Type DataRowType
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取数据表类型。
+        /// 获取数据表名称。
         /// </summary>
-        public Type DataTableType
+        public string DataTableName
         {
             get;
             private set;

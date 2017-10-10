@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ResourceCheckCompleteEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(ResourceCheckCompleteEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化资源检查完成事件的新实例。
         /// </summary>
@@ -33,7 +35,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.ResourceCheckComplete;
+                return EventId;
             }
         }
 

@@ -11,17 +11,25 @@ namespace UnityGameFramework.Runtime
 {
     internal sealed class LoadDataTableInfo
     {
+        private readonly Type m_DataRowType;
         private readonly string m_DataTableName;
-        private readonly Type m_DataTableType;
         private readonly string m_DataTableNameInType;
         private readonly object m_UserData;
 
-        public LoadDataTableInfo(string dataTableName, Type dataTableType, string dataTableNameInType, object userData)
+        public LoadDataTableInfo(Type dataRowType, string dataTableName, string dataTableNameInType, object userData)
         {
+            m_DataRowType = dataRowType;
             m_DataTableName = dataTableName;
-            m_DataTableType = dataTableType;
             m_DataTableNameInType = dataTableNameInType;
             m_UserData = userData;
+        }
+
+        public Type DataRowType
+        {
+            get
+            {
+                return m_DataRowType;
+            }
         }
 
         public string DataTableName
@@ -29,14 +37,6 @@ namespace UnityGameFramework.Runtime
             get
             {
                 return m_DataTableName;
-            }
-        }
-
-        public Type DataTableType
-        {
-            get
-            {
-                return m_DataTableType;
             }
         }
 

@@ -15,6 +15,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class LoadDataTableSuccessEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(LoadDataTableSuccessEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化加载数据表成功事件的新实例。
         /// </summary>
@@ -22,8 +24,8 @@ namespace UnityGameFramework.Runtime
         public LoadDataTableSuccessEventArgs(GameFramework.DataTable.LoadDataTableSuccessEventArgs e)
         {
             LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
+            DataRowType = loadDataTableInfo.DataRowType;
             DataTableName = loadDataTableInfo.DataTableName;
-            DataTableType = loadDataTableInfo.DataTableType;
             DataTableAssetName = e.DataTableAssetName;
             Duration = e.Duration;
             UserData = loadDataTableInfo.UserData;
@@ -36,23 +38,23 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadDataTableSuccess;
+                return EventId;
             }
         }
 
         /// <summary>
-        /// 获取数据表名称。
+        /// 获取数据表行的类型。
         /// </summary>
-        public string DataTableName
+        public Type DataRowType
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取数据表类型。
+        /// 获取数据表名称。
         /// </summary>
-        public Type DataTableType
+        public string DataTableName
         {
             get;
             private set;

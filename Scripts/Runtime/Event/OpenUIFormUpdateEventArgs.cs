@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class OpenUIFormUpdateEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(OpenUIFormUpdateEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化打开界面更新事件的新实例。
         /// </summary>
@@ -35,7 +37,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.OpenUIFormUpdate;
+                return EventId;
             }
         }
 

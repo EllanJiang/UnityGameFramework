@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class OpenUIFormDependencyAssetEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(OpenUIFormDependencyAssetEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化打开界面时加载依赖资源事件的新实例。
         /// </summary>
@@ -37,7 +39,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.OpenUIFormDependencyAsset;
+                return EventId;
             }
         }
 

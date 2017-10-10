@@ -7,6 +7,7 @@
 
 using GameFramework;
 using GameFramework.Setting;
+using System;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -233,13 +234,36 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 从指定配置项中读取对象。
         /// </summary>
+        /// <param name="objectType">要读取对象的类型。</param>
+        /// <param name="key">要获取配置项的名称。</param>
+        /// <returns></returns>
+        public object GetObject(Type objectType, string key)
+        {
+            return m_SettingManager.GetObject(objectType, key);
+        }
+
+        /// <summary>
+        /// 从指定配置项中读取对象。
+        /// </summary>
         /// <typeparam name="T">要读取对象的类型。</typeparam>
         /// <param name="key">要获取配置项的名称。</param>
         /// <param name="defaultObj">当指定的配置项不存在时，返回此默认对象。</param>
         /// <returns>读取的对象。</returns>
         public T GetObject<T>(string key, T defaultObj)
         {
-            return m_SettingManager.GetObject<T>(key, defaultObj);
+            return m_SettingManager.GetObject(key, defaultObj);
+        }
+
+        /// <summary>
+        /// 从指定配置项中读取对象。
+        /// </summary>
+        /// <param name="objectType">要读取对象的类型。</param>
+        /// <param name="key">要获取配置项的名称。</param>
+        /// <param name="defaultObj">当指定的配置项不存在时，返回此默认对象。</param>
+        /// <returns></returns>
+        public object GetObject(Type objectType, string key, object defaultObj)
+        {
+            return m_SettingManager.GetObject(objectType, key, defaultObj);
         }
 
         /// <summary>
@@ -249,6 +273,16 @@ namespace UnityGameFramework.Runtime
         /// <param name="key">要写入配置项的名称。</param>
         /// <param name="obj">要写入的对象。</param>
         public void SetObject<T>(string key, T obj)
+        {
+            m_SettingManager.SetObject(key, obj);
+        }
+
+        /// <summary>
+        /// 向指定配置项写入对象。
+        /// </summary>
+        /// <param name="key">要写入配置项的名称。</param>
+        /// <param name="obj">要写入的对象。</param>
+        public void SetObject(string key, object obj)
         {
             m_SettingManager.SetObject(key, obj);
         }

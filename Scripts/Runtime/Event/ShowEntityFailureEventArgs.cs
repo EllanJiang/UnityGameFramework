@@ -15,6 +15,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ShowEntityFailureEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(ShowEntityFailureEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化显示实体失败事件的新实例。
         /// </summary>
@@ -37,7 +39,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.ShowEntityFailure;
+                return EventId;
             }
         }
 

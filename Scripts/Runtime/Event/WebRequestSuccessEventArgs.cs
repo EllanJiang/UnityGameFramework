@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class WebRequestSuccessEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(WebRequestSuccessEventArgs).GetHashCode();
+
         private readonly byte[] m_WebResponseBytes;
 
         /// <summary>
@@ -36,7 +38,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.WebRequestSuccess;
+                return EventId;
             }
         }
 

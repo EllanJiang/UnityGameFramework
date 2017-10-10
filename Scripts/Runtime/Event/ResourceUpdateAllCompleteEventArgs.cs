@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ResourceUpdateAllCompleteEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(ResourceUpdateAllCompleteEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化资源更新全部完成事件的新实例。
         /// </summary>
@@ -30,7 +32,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.ResourceUpdateAllComplete;
+                return EventId;
             }
         }
     }

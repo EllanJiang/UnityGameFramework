@@ -36,7 +36,14 @@ namespace UnityGameFramework.Runtime
         public override void UnloadScene(string sceneAssetName, UnloadSceneCallbacks unloadSceneCallbacks, object userData)
         {
 #if UNITY_5_5_OR_NEWER
-            StartCoroutine(UnloadSceneCo(sceneAssetName, unloadSceneCallbacks, userData));
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine(UnloadSceneCo(sceneAssetName, unloadSceneCallbacks, userData));
+            }
+            else
+            {
+                SceneManager.UnloadSceneAsync(sceneAssetName);
+            }
 #else
             if (SceneManager.UnloadScene(SceneComponent.GetSceneName(sceneAssetName)))
             {

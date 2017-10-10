@@ -784,7 +784,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 string[] manifestNames = Directory.GetFiles(workingPath, "*.manifest", SearchOption.AllDirectories);
                 foreach (string manifestName in manifestNames)
                 {
-                    if (!File.Exists(Path.GetFileNameWithoutExtension(manifestName)))
+                    if (!File.Exists(manifestName.Substring(0, manifestName.LastIndexOf('.'))))
                     {
                         File.Delete(manifestName);
                     }

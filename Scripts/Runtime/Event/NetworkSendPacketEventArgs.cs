@@ -15,6 +15,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class NetworkSendPacketEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(NetworkSendPacketEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化发送网络消息包事件的新实例。
         /// </summary>
@@ -33,7 +35,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.NetworkSendPacket;
+                return EventId;
             }
         }
 

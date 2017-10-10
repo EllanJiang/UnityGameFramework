@@ -15,6 +15,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class NetworkCustomErrorEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(NetworkCustomErrorEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化用户自定义网络错误事件的新实例。
         /// </summary>
@@ -32,7 +34,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.NetworkCustomError;
+                return EventId;
             }
         }
 

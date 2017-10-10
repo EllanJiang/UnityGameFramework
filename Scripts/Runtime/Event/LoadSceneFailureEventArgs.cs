@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class LoadSceneFailureEventArgs : GameEventArgs
     {
+        public static readonly int EventId = typeof(LoadSceneFailureEventArgs).GetHashCode();
+
         /// <summary>
         /// 初始化加载场景失败事件的新实例。
         /// </summary>
@@ -32,7 +34,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return (int)EventId.LoadSceneFailure;
+                return EventId;
             }
         }
 

@@ -89,7 +89,11 @@ namespace UnityGameFramework.Runtime
             }
 
             m_UnityWebRequest = UnityWebRequest.Get(downloadUri);
+#if UNITY_2017_2_OR_NEWER
+            m_UnityWebRequest.SendWebRequest();
+#else
             m_UnityWebRequest.Send();
+#endif
         }
 
         /// <summary>
@@ -109,7 +113,11 @@ namespace UnityGameFramework.Runtime
             Dictionary<string, string> header = new Dictionary<string, string>();
             header.Add("Range", string.Format("bytes={0}-", fromPosition.ToString()));
             m_UnityWebRequest = UnityWebRequest.Post(downloadUri, header);
+#if UNITY_2017_2_OR_NEWER
+            m_UnityWebRequest.SendWebRequest();
+#else
             m_UnityWebRequest.Send();
+#endif
         }
 
         /// <summary>
@@ -130,7 +138,11 @@ namespace UnityGameFramework.Runtime
             Dictionary<string, string> header = new Dictionary<string, string>();
             header.Add("Range", string.Format("bytes={0}-{1}", fromPosition.ToString(), toPosition.ToString()));
             m_UnityWebRequest = UnityWebRequest.Post(downloadUri, header);
+#if UNITY_2017_2_OR_NEWER
+            m_UnityWebRequest.SendWebRequest();
+#else
             m_UnityWebRequest.Send();
+#endif
         }
 
         /// <summary>

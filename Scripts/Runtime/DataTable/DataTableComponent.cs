@@ -207,7 +207,7 @@ namespace UnityGameFramework.Runtime
         {
             if (dataRowType == null)
             {
-                Log.Error("Data table type is invalid.");
+                Log.Error("Data row type is invalid.");
                 return;
             }
 

@@ -42,7 +42,7 @@ namespace UnityGameFramework.Runtime
             }
             else
             {
-                SceneManager.UnloadSceneAsync(sceneAssetName);
+                SceneManager.UnloadSceneAsync(SceneComponent.GetSceneName(sceneAssetName));
             }
 #else
             if (SceneManager.UnloadScene(SceneComponent.GetSceneName(sceneAssetName)))
@@ -122,7 +122,7 @@ namespace UnityGameFramework.Runtime
 #if UNITY_5_5_OR_NEWER
         private IEnumerator UnloadSceneCo(string sceneAssetName, UnloadSceneCallbacks unloadSceneCallbacks, object userData)
         {
-            AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(sceneAssetName);
+            AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(SceneComponent.GetSceneName(sceneAssetName));
             if (asyncOperation == null)
             {
                 yield break;

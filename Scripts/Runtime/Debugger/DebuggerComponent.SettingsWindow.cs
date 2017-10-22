@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
 {
     public partial class DebuggerComponent
     {
-        private sealed class GeneralSettingsWindow : ScrollableDebuggerWindowBase
+        private sealed class SettingsWindow : ScrollableDebuggerWindowBase
         {
             private DebuggerComponent m_DebuggerComponent = null;
             private SettingComponent m_SettingComponent = null;

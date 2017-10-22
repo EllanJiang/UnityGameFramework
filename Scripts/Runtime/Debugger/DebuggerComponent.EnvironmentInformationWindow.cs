@@ -7,6 +7,9 @@
 
 using GameFramework;
 using UnityEngine;
+#if UNITY_5_5_OR_NEWER
+using UnityEngine.Rendering;
+#endif
 
 namespace UnityGameFramework.Runtime
 {
@@ -62,7 +65,9 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Internet Reachability:", Application.internetReachability.ToString());
                     DrawItem("Background Loading Priority:", Application.backgroundLoadingPriority.ToString());
                     DrawItem("Is Playing:", Application.isPlaying.ToString());
-#if UNITY_5_3 || UNITY_5_4
+#if UNITY_5_5_OR_NEWER
+                    DrawItem("Splash Screen Is Finished:", SplashScreen.isFinished.ToString());
+#else
                     DrawItem("Is Showing Splash Screen:", Application.isShowingSplashScreen.ToString());
 #endif
                     DrawItem("Run In Background:", Application.runInBackground.ToString());

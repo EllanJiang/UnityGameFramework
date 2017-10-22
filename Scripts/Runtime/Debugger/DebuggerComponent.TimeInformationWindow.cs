@@ -40,7 +40,7 @@ namespace UnityGameFramework.Runtime
 #endif
                     DrawItem("Frame Count", Time.frameCount.ToString());
                     DrawItem("Rendered Frame Count", Time.renderedFrameCount.ToString());
-                    DrawItem("Capture Frame Rate", Time.captureFramerate.ToString());
+                    DrawItem("Capture Framerate", Time.captureFramerate.ToString());
 #if UNITY_5_6_OR_NEWER
                     DrawItem("In Fixed Time Step", Time.inFixedTimeStep.ToString());
 #endif

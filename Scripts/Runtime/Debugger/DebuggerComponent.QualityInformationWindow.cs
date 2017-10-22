@@ -13,8 +13,26 @@ namespace UnityGameFramework.Runtime
     {
         private sealed class QualityInformationWindow : ScrollableDebuggerWindowBase
         {
+            private bool m_ApplyExpensiveChanges = false;
+
             protected override void OnDrawScrollableWindow()
             {
+                GUILayout.Label("<b>Quality Level</b>");
+                GUILayout.BeginVertical("box");
+                {
+                    int currentQualityLevel = QualitySettings.GetQualityLevel();
+
+                    DrawItem("Current Quality Level:", QualitySettings.names[currentQualityLevel]);
+                    m_ApplyExpensiveChanges = GUILayout.Toggle(m_ApplyExpensiveChanges, "Apply expensive changes on quality level change.");
+
+                    int newQualityLevel = GUILayout.SelectionGrid(currentQualityLevel, QualitySettings.names, 3, "toggle");
+                    if (newQualityLevel != currentQualityLevel)
+                    {
+                        QualitySettings.SetQualityLevel(newQualityLevel, m_ApplyExpensiveChanges);
+                    }
+                }
+                GUILayout.EndVertical();
+
                 GUILayout.Label("<b>Rendering Information</b>");
                 GUILayout.BeginVertical("box");
                 {
@@ -27,6 +45,7 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Anti Aliasing:", QualitySettings.antiAliasing.ToString());
                     DrawItem("Realtime Reflection Probes:", QualitySettings.realtimeReflectionProbes.ToString());
                     DrawItem("Billboards Face Camera Position:", QualitySettings.billboardsFaceCameraPosition.ToString());
+                    DrawItem("Resolution Scaling Fixed DPI Factor:", QualitySettings.resolutionScalingFixedDPIFactor.ToString());
                 }
                 GUILayout.EndVertical();
 
@@ -41,6 +60,7 @@ namespace UnityGameFramework.Runtime
 #endif
                     DrawItem("Shadow Projection:", QualitySettings.shadowProjection.ToString());
                     DrawItem("Shadow Distance:", QualitySettings.shadowDistance.ToString());
+                    DrawItem("Shadowmask Mode:", QualitySettings.shadowmaskMode.ToString());
                     DrawItem("Shadow Near Plane Offset:", QualitySettings.shadowNearPlaneOffset.ToString());
                     DrawItem("Shadow Cascades:", QualitySettings.shadowCascades.ToString());
                     DrawItem("Shadow Cascade 2 Split:", QualitySettings.shadowCascade2Split.ToString());

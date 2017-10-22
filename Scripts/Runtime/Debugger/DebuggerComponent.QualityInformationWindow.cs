@@ -45,7 +45,9 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Anti Aliasing:", QualitySettings.antiAliasing.ToString());
                     DrawItem("Realtime Reflection Probes:", QualitySettings.realtimeReflectionProbes.ToString());
                     DrawItem("Billboards Face Camera Position:", QualitySettings.billboardsFaceCameraPosition.ToString());
+#if UNITY_2017_1_OR_NEWER
                     DrawItem("Resolution Scaling Fixed DPI Factor:", QualitySettings.resolutionScalingFixedDPIFactor.ToString());
+#endif
                 }
                 GUILayout.EndVertical();
 
@@ -60,7 +62,9 @@ namespace UnityGameFramework.Runtime
 #endif
                     DrawItem("Shadow Projection:", QualitySettings.shadowProjection.ToString());
                     DrawItem("Shadow Distance:", QualitySettings.shadowDistance.ToString());
+#if UNITY_2017_1_OR_NEWER
                     DrawItem("Shadowmask Mode:", QualitySettings.shadowmaskMode.ToString());
+#endif
                     DrawItem("Shadow Near Plane Offset:", QualitySettings.shadowNearPlaneOffset.ToString());
                     DrawItem("Shadow Cascades:", QualitySettings.shadowCascades.ToString());
                     DrawItem("Shadow Cascade 2 Split:", QualitySettings.shadowCascade2Split.ToString());

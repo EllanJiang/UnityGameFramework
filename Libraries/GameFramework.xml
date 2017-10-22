@@ -12051,10 +12051,17 @@
             配置管理器辅助器接口。
             </summary>
         </member>
+        <member name="M:GameFramework.Setting.ISettingHelper.Load">
+            <summary>
+            加载配置。
+            </summary>
+            <returns>是否加载配置成功。</returns>
+        </member>
         <member name="M:GameFramework.Setting.ISettingHelper.Save">
             <summary>
             保存配置。
             </summary>
+            <returns>是否保存配置成功。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.HasKey(System.String)">
             <summary>
@@ -12222,10 +12229,17 @@
             </summary>
             <param name="settingHelper">配置管理器辅助器。</param>
         </member>
+        <member name="M:GameFramework.Setting.ISettingManager.Load">
+            <summary>
+            加载配置。
+            </summary>
+            <returns>是否加载配置成功。</returns>
+        </member>
         <member name="M:GameFramework.Setting.ISettingManager.Save">
             <summary>
             保存配置。
             </summary>
+            <returns>是否保存配置成功。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.HasKey(System.String)">
             <summary>
@@ -12410,10 +12424,17 @@
             </summary>
             <param name="settingHelper">配置管理器辅助器。</param>
         </member>
+        <member name="M:GameFramework.Setting.SettingManager.Load">
+            <summary>
+            加载配置。
+            </summary>
+            <returns>是否加载配置成功。</returns>
+        </member>
         <member name="M:GameFramework.Setting.SettingManager.Save">
             <summary>
             保存配置。
             </summary>
+            <returns>是否保存配置成功。</returns>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.HasKey(System.String)">
             <summary>

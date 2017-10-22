@@ -17,11 +17,22 @@ namespace UnityGameFramework.Runtime
     public class DefaultSettingHelper : SettingHelperBase
     {
         /// <summary>
+        /// 加载配置。
+        /// </summary>
+        /// <returns>是否加载配置成功。</returns>
+        public override bool Load()
+        {
+            return true;
+        }
+
+        /// <summary>
         /// 保存配置。
         /// </summary>
-        public override void Save()
+        /// <returns>是否保存配置成功。</returns>
+        public override bool Save()
         {
             PlayerPrefs.Save();
+            return true;
         }
 
         /// <summary>

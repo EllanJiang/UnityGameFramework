@@ -15,8 +15,8 @@ namespace UnityGameFramework.Editor
     /// </summary>
     internal static class Type
     {
-        private readonly static string[] AssemblyNames = { "Assembly-CSharp" };
-        private readonly static string[] EditorAssemblyNames = { "Assembly-CSharp-Editor" };
+        private static readonly string[] AssemblyNames = { "Assembly-CSharp" };
+        private static readonly string[] EditorAssemblyNames = { "Assembly-CSharp-Editor" };
 
         /// <summary>
         /// 获取指定基类的所有子类的名称。

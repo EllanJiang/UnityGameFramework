@@ -14,20 +14,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ResourceUpdateChangedEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(ResourceUpdateChangedEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化资源更新改变事件的新实例。
+        /// 资源更新改变事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public ResourceUpdateChangedEventArgs(GameFramework.Resource.ResourceUpdateChangedEventArgs e)
-        {
-            Name = e.Name;
-            DownloadPath = e.DownloadPath;
-            DownloadUri = e.DownloadUri;
-            CurrentLength = e.CurrentLength;
-            ZipLength = e.ZipLength;
-        }
+        public static readonly int EventId = typeof(ResourceUpdateChangedEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取资源更新改变事件编号。
@@ -83,6 +73,34 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理资源更新改变事件。
+        /// </summary>
+        public override void Clear()
+        {
+            Name = default(string);
+            DownloadPath = default(string);
+            DownloadUri = default(string);
+            CurrentLength = default(int);
+            ZipLength = default(int);
+        }
+
+        /// <summary>
+        /// 填充资源更新改变事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>资源更新改变事件。</returns>
+        public ResourceUpdateChangedEventArgs Fill(GameFramework.Resource.ResourceUpdateChangedEventArgs e)
+        {
+            Name = e.Name;
+            DownloadPath = e.DownloadPath;
+            DownloadUri = e.DownloadUri;
+            CurrentLength = e.CurrentLength;
+            ZipLength = e.ZipLength;
+
+            return this;
         }
     }
 }

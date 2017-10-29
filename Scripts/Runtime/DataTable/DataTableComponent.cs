@@ -404,7 +404,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnableLoadDataTableSuccessEvent)
             {
-                m_EventComponent.Fire(this, new LoadDataTableSuccessEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableSuccessEventArgs>().Fill(e));
             }
         }
 
@@ -413,7 +413,7 @@ namespace UnityGameFramework.Runtime
             Log.Warning("Load data table failure, asset name '{0}', error message '{1}'.", e.DataTableAssetName, e.ErrorMessage);
             if (m_EnableLoadDataTableFailureEvent)
             {
-                m_EventComponent.Fire(this, new LoadDataTableFailureEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableFailureEventArgs>().Fill(e));
             }
         }
 
@@ -421,7 +421,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnableLoadDataTableUpdateEvent)
             {
-                m_EventComponent.Fire(this, new LoadDataTableUpdateEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableUpdateEventArgs>().Fill(e));
             }
         }
 
@@ -429,7 +429,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnableLoadDataTableDependencyAssetEvent)
             {
-                m_EventComponent.Fire(this, new LoadDataTableDependencyAssetEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableDependencyAssetEventArgs>().Fill(e));
             }
         }
     }

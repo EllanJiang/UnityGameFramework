@@ -15,16 +15,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class NetworkClosedEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(NetworkClosedEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化网络连接关闭事件的新实例。
+        /// 连接成功事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public NetworkClosedEventArgs(GameFramework.Network.NetworkClosedEventArgs e)
-        {
-            NetworkChannel = e.NetworkChannel;
-        }
+        public static readonly int EventId = typeof(NetworkClosedEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取连接成功事件编号。
@@ -44,6 +38,26 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理网络连接关闭事件。
+        /// </summary>
+        public override void Clear()
+        {
+            NetworkChannel = default(INetworkChannel);
+        }
+
+        /// <summary>
+        /// 填充网络连接关闭事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>网络连接关闭事件。</returns>
+        public NetworkClosedEventArgs Fill(GameFramework.Network.NetworkClosedEventArgs e)
+        {
+            NetworkChannel = e.NetworkChannel;
+
+            return this;
         }
     }
 }

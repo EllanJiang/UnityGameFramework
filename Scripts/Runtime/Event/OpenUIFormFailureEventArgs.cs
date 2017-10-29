@@ -14,21 +14,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class OpenUIFormFailureEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(OpenUIFormFailureEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化打开界面失败事件的新实例。
+        /// 打开界面失败事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public OpenUIFormFailureEventArgs(GameFramework.UI.OpenUIFormFailureEventArgs e)
-        {
-            SerialId = e.SerialId;
-            UIFormAssetName = e.UIFormAssetName;
-            UIGroupName = e.UIGroupName;
-            PauseCoveredUIForm = e.PauseCoveredUIForm;
-            ErrorMessage = e.ErrorMessage;
-            UserData = e.UserData;
-        }
+        public static readonly int EventId = typeof(OpenUIFormFailureEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取打开界面失败事件编号。
@@ -93,6 +82,36 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理打开界面失败事件。
+        /// </summary>
+        public override void Clear()
+        {
+            SerialId = default(int);
+            UIFormAssetName = default(string);
+            UIGroupName = default(string);
+            PauseCoveredUIForm = default(bool);
+            ErrorMessage = default(string);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充打开界面失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>打开界面失败事件。</returns>
+        public OpenUIFormFailureEventArgs Fill(GameFramework.UI.OpenUIFormFailureEventArgs e)
+        {
+            SerialId = e.SerialId;
+            UIFormAssetName = e.UIFormAssetName;
+            UIGroupName = e.UIGroupName;
+            PauseCoveredUIForm = e.PauseCoveredUIForm;
+            ErrorMessage = e.ErrorMessage;
+            UserData = e.UserData;
+
+            return this;
         }
     }
 }

@@ -15,21 +15,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class LoadDataTableFailureEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(LoadDataTableFailureEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化加载数据表失败事件的新实例。
+        /// 加载数据表失败事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public LoadDataTableFailureEventArgs(GameFramework.DataTable.LoadDataTableFailureEventArgs e)
-        {
-            LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
-            DataRowType = loadDataTableInfo.DataRowType;
-            DataTableName = loadDataTableInfo.DataTableName;
-            DataTableAssetName = e.DataTableAssetName;
-            ErrorMessage = e.ErrorMessage;
-            UserData = loadDataTableInfo.UserData;
-        }
+        public static readonly int EventId = typeof(LoadDataTableFailureEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取加载数据表失败事件编号。
@@ -85,6 +74,35 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理加载数据表失败事件。
+        /// </summary>
+        public override void Clear()
+        {
+            DataRowType = default(Type);
+            DataTableName = default(string);
+            DataTableAssetName = default(string);
+            ErrorMessage = default(string);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充加载数据表失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>加载数据表失败事件。</returns>
+        public LoadDataTableFailureEventArgs Fill(GameFramework.DataTable.LoadDataTableFailureEventArgs e)
+        {
+            LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
+            DataRowType = loadDataTableInfo.DataRowType;
+            DataTableName = loadDataTableInfo.DataTableName;
+            DataTableAssetName = e.DataTableAssetName;
+            ErrorMessage = e.ErrorMessage;
+            UserData = loadDataTableInfo.UserData;
+
+            return this;
         }
     }
 }

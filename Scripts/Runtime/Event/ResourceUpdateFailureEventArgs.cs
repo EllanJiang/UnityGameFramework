@@ -14,20 +14,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ResourceUpdateFailureEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(ResourceUpdateFailureEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化资源更新失败事件的新实例。
+        /// 资源更新失败事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public ResourceUpdateFailureEventArgs(GameFramework.Resource.ResourceUpdateFailureEventArgs e)
-        {
-            Name = e.Name;
-            DownloadUri = e.DownloadUri;
-            RetryCount = e.RetryCount;
-            TotalRetryCount = e.TotalRetryCount;
-            ErrorMessage = e.ErrorMessage;
-        }
+        public static readonly int EventId = typeof(ResourceUpdateFailureEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取资源更新失败事件编号。
@@ -83,6 +73,34 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理资源更新失败事件。
+        /// </summary>
+        public override void Clear()
+        {
+            Name = default(string);
+            DownloadUri = default(string);
+            RetryCount = default(int);
+            TotalRetryCount = default(int);
+            ErrorMessage = default(string);
+        }
+
+        /// <summary>
+        /// 填充资源更新失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>资源更新失败事件。</returns>
+        public ResourceUpdateFailureEventArgs Fill(GameFramework.Resource.ResourceUpdateFailureEventArgs e)
+        {
+            Name = e.Name;
+            DownloadUri = e.DownloadUri;
+            RetryCount = e.RetryCount;
+            TotalRetryCount = e.TotalRetryCount;
+            ErrorMessage = e.ErrorMessage;
+
+            return this;
         }
     }
 }

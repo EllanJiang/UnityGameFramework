@@ -14,17 +14,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class VersionListUpdateSuccessEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(VersionListUpdateSuccessEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化版本资源列表更新成功事件的新实例。
+        /// 版本资源列表更新成功事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public VersionListUpdateSuccessEventArgs(GameFramework.Resource.VersionListUpdateSuccessEventArgs e)
-        {
-            DownloadPath = e.DownloadPath;
-            DownloadUri = e.DownloadUri;
-        }
+        public static readonly int EventId = typeof(VersionListUpdateSuccessEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取版本资源列表更新成功事件编号。
@@ -53,6 +46,28 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理版本资源列表更新成功事件。
+        /// </summary>
+        public override void Clear()
+        {
+            DownloadPath = default(string);
+            DownloadUri = default(string);
+        }
+
+        /// <summary>
+        /// 填充版本资源列表更新成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>版本资源列表更新成功事件。</returns>
+        public VersionListUpdateSuccessEventArgs Fill(GameFramework.Resource.VersionListUpdateSuccessEventArgs e)
+        {
+            DownloadPath = e.DownloadPath;
+            DownloadUri = e.DownloadUri;
+
+            return this;
         }
     }
 }

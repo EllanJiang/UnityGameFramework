@@ -231,7 +231,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnableLoadDictionarySuccessEvent)
             {
-                m_EventComponent.Fire(this, new LoadDictionarySuccessEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionarySuccessEventArgs>().Fill(e));
             }
         }
 
@@ -240,7 +240,7 @@ namespace UnityGameFramework.Runtime
             Log.Warning("Load dictionary failure, asset name '{0}', error message '{1}'.", e.DictionaryAssetName, e.ErrorMessage);
             if (m_EnableLoadDictionaryFailureEvent)
             {
-                m_EventComponent.Fire(this, new LoadDictionaryFailureEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionaryFailureEventArgs>().Fill(e));
             }
         }
 
@@ -248,7 +248,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnableLoadDictionaryUpdateEvent)
             {
-                m_EventComponent.Fire(this, new LoadDictionaryUpdateEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionaryUpdateEventArgs>().Fill(e));
             }
         }
 
@@ -256,7 +256,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnableLoadDictionaryDependencyAssetEvent)
             {
-                m_EventComponent.Fire(this, new LoadDictionaryDependencyAssetEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionaryDependencyAssetEventArgs>().Fill(e));
             }
         }
     }

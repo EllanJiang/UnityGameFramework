@@ -14,19 +14,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ResourceCheckCompleteEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(ResourceCheckCompleteEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化资源检查完成事件的新实例。
+        /// 资源检查完成事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public ResourceCheckCompleteEventArgs(GameFramework.Resource.ResourceCheckCompleteEventArgs e)
-        {
-            RemovedCount = e.RemovedCount;
-            UpdateCount = e.UpdateCount;
-            UpdateTotalLength = e.UpdateTotalLength;
-            UpdateTotalZipLength = e.UpdateTotalZipLength;
-        }
+        public static readonly int EventId = typeof(ResourceCheckCompleteEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取资源检查完成事件编号。
@@ -73,6 +64,32 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理资源检查完成事件。
+        /// </summary>
+        public override void Clear()
+        {
+            RemovedCount = default(int);
+            UpdateCount = default(int);
+            UpdateTotalLength = default(int);
+            UpdateTotalZipLength = default(int);
+        }
+
+        /// <summary>
+        /// 填充资源检查完成事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>资源检查完成事件。</returns>
+        public ResourceCheckCompleteEventArgs Fill(GameFramework.Resource.ResourceCheckCompleteEventArgs e)
+        {
+            RemovedCount = e.RemovedCount;
+            UpdateCount = e.UpdateCount;
+            UpdateTotalLength = e.UpdateTotalLength;
+            UpdateTotalZipLength = e.UpdateTotalZipLength;
+
+            return this;
         }
     }
 }

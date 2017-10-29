@@ -15,22 +15,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ShowEntityUpdateEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(ShowEntityUpdateEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化显示实体更新事件的新实例。
+        /// 显示实体更新事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public ShowEntityUpdateEventArgs(GameFramework.Entity.ShowEntityUpdateEventArgs e)
-        {
-            ShowEntityInfo showEntityInfo = (ShowEntityInfo)e.UserData;
-            EntityId = e.EntityId;
-            EntityLogicType = showEntityInfo.EntityLogicType;
-            EntityAssetName = e.EntityAssetName;
-            EntityGroupName = e.EntityGroupName;
-            Progress = e.Progress;
-            UserData = showEntityInfo.UserData;
-        }
+        public static readonly int EventId = typeof(ShowEntityUpdateEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取显示实体更新事件编号。
@@ -95,6 +83,37 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理显示实体更新事件。
+        /// </summary>
+        public override void Clear()
+        {
+            EntityId = default(int);
+            EntityLogicType = default(Type);
+            EntityAssetName = default(string);
+            EntityGroupName = default(string);
+            Progress = default(float);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充显示实体更新事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>显示实体更新事件。</returns>
+        public ShowEntityUpdateEventArgs Fill(GameFramework.Entity.ShowEntityUpdateEventArgs e)
+        {
+            ShowEntityInfo showEntityInfo = (ShowEntityInfo)e.UserData;
+            EntityId = e.EntityId;
+            EntityLogicType = showEntityInfo.EntityLogicType;
+            EntityAssetName = e.EntityAssetName;
+            EntityGroupName = e.EntityGroupName;
+            Progress = e.Progress;
+            UserData = showEntityInfo.UserData;
+
+            return this;
         }
     }
 }

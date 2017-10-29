@@ -14,20 +14,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class DownloadStartEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(DownloadStartEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化下载开始事件的新实例。
+        /// 下载开始事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public DownloadStartEventArgs(GameFramework.Download.DownloadStartEventArgs e)
-        {
-            SerialId = e.SerialId;
-            DownloadPath = e.DownloadPath;
-            DownloadUri = e.DownloadUri;
-            CurrentLength = e.CurrentLength;
-            UserData = e.UserData;
-        }
+        public static readonly int EventId = typeof(DownloadStartEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取下载开始事件编号。
@@ -83,6 +73,34 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理下载开始事件。
+        /// </summary>
+        public override void Clear()
+        {
+            SerialId = default(int);
+            DownloadPath = default(string);
+            DownloadUri = default(string);
+            CurrentLength = default(int);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充下载开始事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>下载开始事件。</returns>
+        public DownloadStartEventArgs Fill(GameFramework.Download.DownloadStartEventArgs e)
+        {
+            SerialId = e.SerialId;
+            DownloadPath = e.DownloadPath;
+            DownloadUri = e.DownloadUri;
+            CurrentLength = e.CurrentLength;
+            UserData = e.UserData;
+
+            return this;
         }
     }
 }

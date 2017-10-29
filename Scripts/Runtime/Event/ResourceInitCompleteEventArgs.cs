@@ -14,16 +14,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ResourceInitCompleteEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(ResourceInitCompleteEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化资源初始化完成事件的新实例。
+        /// 资源初始化完成事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public ResourceInitCompleteEventArgs(GameFramework.Resource.ResourceInitCompleteEventArgs e)
-        {
-
-        }
+        public static readonly int EventId = typeof(ResourceInitCompleteEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取资源初始化完成事件编号。
@@ -34,6 +28,24 @@ namespace UnityGameFramework.Runtime
             {
                 return EventId;
             }
+        }
+
+        /// <summary>
+        /// 清理资源初始化完成事件。
+        /// </summary>
+        public override void Clear()
+        {
+
+        }
+
+        /// <summary>
+        /// 填充资源初始化完成事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>资源初始化完成事件。</returns>
+        public ResourceInitCompleteEventArgs Fill(GameFramework.Resource.ResourceInitCompleteEventArgs e)
+        {
+            return this;
         }
     }
 }

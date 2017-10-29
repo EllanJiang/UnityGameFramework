@@ -251,7 +251,7 @@ namespace UnityGameFramework.Runtime
 
             if (m_EnableLoadSceneSuccessEvent)
             {
-                m_EventComponent.Fire(this, new LoadSceneSuccessEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadSceneSuccessEventArgs>().Fill(e));
             }
         }
 
@@ -260,7 +260,7 @@ namespace UnityGameFramework.Runtime
             Log.Warning("Load scene failure, scene asset name '{0}', error message '{1}'.", e.SceneAssetName, e.ErrorMessage);
             if (m_EnableLoadSceneFailureEvent)
             {
-                m_EventComponent.Fire(this, new LoadSceneFailureEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadSceneFailureEventArgs>().Fill(e));
             }
         }
 
@@ -268,7 +268,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnableLoadSceneUpdateEvent)
             {
-                m_EventComponent.Fire(this, new LoadSceneUpdateEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadSceneUpdateEventArgs>().Fill(e));
             }
         }
 
@@ -276,7 +276,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnableLoadSceneDependencyAssetEvent)
             {
-                m_EventComponent.Fire(this, new LoadSceneDependencyAssetEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadSceneDependencyAssetEventArgs>().Fill(e));
             }
         }
 
@@ -284,7 +284,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnableUnloadSceneSuccessEvent)
             {
-                m_EventComponent.Fire(this, new UnloadSceneSuccessEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<UnloadSceneSuccessEventArgs>().Fill(e));
             }
         }
 
@@ -293,7 +293,7 @@ namespace UnityGameFramework.Runtime
             Log.Warning("Unload scene failure, scene asset name '{0}'.", e.SceneAssetName);
             if (m_EnableUnloadSceneFailureEvent)
             {
-                m_EventComponent.Fire(this, new UnloadSceneFailureEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<UnloadSceneFailureEventArgs>().Fill(e));
             }
         }
     }

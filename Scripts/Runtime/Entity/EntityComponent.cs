@@ -905,7 +905,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnableShowEntitySuccessEvent)
             {
-                m_EventComponent.Fire(this, new ShowEntitySuccessEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<ShowEntitySuccessEventArgs>().Fill(e));
             }
         }
 
@@ -914,7 +914,7 @@ namespace UnityGameFramework.Runtime
             Log.Warning("Show entity failure, entity id '{0}', asset name '{1}', entity group name '{2}', error message '{3}'.", e.EntityId.ToString(), e.EntityAssetName, e.EntityGroupName, e.ErrorMessage);
             if (m_EnableShowEntityFailureEvent)
             {
-                m_EventComponent.Fire(this, new ShowEntityFailureEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<ShowEntityFailureEventArgs>().Fill(e));
             }
         }
 
@@ -922,7 +922,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnableShowEntityUpdateEvent)
             {
-                m_EventComponent.Fire(this, new ShowEntityUpdateEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<ShowEntityUpdateEventArgs>().Fill(e));
             }
         }
 
@@ -930,7 +930,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnableShowEntityDependencyAssetEvent)
             {
-                m_EventComponent.Fire(this, new ShowEntityDependencyAssetEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<ShowEntityDependencyAssetEventArgs>().Fill(e));
             }
         }
 
@@ -938,7 +938,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnableHideEntityCompleteEvent)
             {
-                m_EventComponent.Fire(this, new HideEntityCompleteEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<HideEntityCompleteEventArgs>().Fill(e));
             }
         }
     }

@@ -14,20 +14,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class DownloadFailureEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(DownloadFailureEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化下载失败事件的新实例。
+        /// 下载失败事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public DownloadFailureEventArgs(GameFramework.Download.DownloadFailureEventArgs e)
-        {
-            SerialId = e.SerialId;
-            DownloadPath = e.DownloadPath;
-            DownloadUri = e.DownloadUri;
-            ErrorMessage = e.ErrorMessage;
-            UserData = e.UserData;
-        }
+        public static readonly int EventId = typeof(DownloadFailureEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取下载失败事件编号。
@@ -83,6 +73,34 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理下载失败事件。
+        /// </summary>
+        public override void Clear()
+        {
+            SerialId = default(int);
+            DownloadPath = default(string);
+            DownloadUri = default(string);
+            ErrorMessage = default(string);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充下载失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>下载失败事件。</returns>
+        public DownloadFailureEventArgs Fill(GameFramework.Download.DownloadFailureEventArgs e)
+        {
+            SerialId = e.SerialId;
+            DownloadPath = e.DownloadPath;
+            DownloadUri = e.DownloadUri;
+            ErrorMessage = e.ErrorMessage;
+            UserData = e.UserData;
+
+            return this;
         }
     }
 }

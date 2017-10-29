@@ -14,22 +14,12 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class WebRequestSuccessEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(WebRequestSuccessEventArgs).GetHashCode();
-
-        private readonly byte[] m_WebResponseBytes;
+        private byte[] m_WebResponseBytes = null;
 
         /// <summary>
-        /// 初始化 Web 请求成功事件的新实例。
+        /// Web 请求成功事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public WebRequestSuccessEventArgs(GameFramework.WebRequest.WebRequestSuccessEventArgs e)
-        {
-            WWWFormInfo wwwFormInfo = (WWWFormInfo)e.UserData;
-            SerialId = e.SerialId;
-            WebRequestUri = e.WebRequestUri;
-            m_WebResponseBytes = e.GetWebResponseBytes();
-            UserData = wwwFormInfo.UserData;
-        }
+        public static readonly int EventId = typeof(WebRequestSuccessEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取 Web 请求成功事件编号。
@@ -76,6 +66,33 @@ namespace UnityGameFramework.Runtime
         public byte[] GetWebResponseBytes()
         {
             return m_WebResponseBytes;
+        }
+
+        /// <summary>
+        /// 清理 Web 请求成功事件。
+        /// </summary>
+        public override void Clear()
+        {
+            SerialId = default(int);
+            WebRequestUri = default(string);
+            m_WebResponseBytes = default(byte[]);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充 Web 请求成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>Web 请求成功事件。</returns>
+        public WebRequestSuccessEventArgs Fill(GameFramework.WebRequest.WebRequestSuccessEventArgs e)
+        {
+            WWWFormInfo wwwFormInfo = (WWWFormInfo)e.UserData;
+            SerialId = e.SerialId;
+            WebRequestUri = e.WebRequestUri;
+            m_WebResponseBytes = e.GetWebResponseBytes();
+            UserData = wwwFormInfo.UserData;
+
+            return this;
         }
     }
 }

@@ -15,18 +15,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class NetworkErrorEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(NetworkErrorEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化网络错误事件的新实例。
+        /// 连接错误事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public NetworkErrorEventArgs(GameFramework.Network.NetworkErrorEventArgs e)
-        {
-            NetworkChannel = e.NetworkChannel;
-            ErrorCode = e.ErrorCode;
-            ErrorMessage = e.ErrorMessage;
-        }
+        public static readonly int EventId = typeof(NetworkErrorEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取连接错误事件编号。
@@ -64,6 +56,30 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理网络错误事件。
+        /// </summary>
+        public override void Clear()
+        {
+            NetworkChannel = default(INetworkChannel);
+            ErrorCode = default(NetworkErrorCode);
+            ErrorMessage = default(string);
+        }
+
+        /// <summary>
+        /// 填充网络错误事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>网络错误事件。</returns>
+        public NetworkErrorEventArgs Fill(GameFramework.Network.NetworkErrorEventArgs e)
+        {
+            NetworkChannel = e.NetworkChannel;
+            ErrorCode = e.ErrorCode;
+            ErrorMessage = e.ErrorMessage;
+
+            return this;
         }
     }
 }

@@ -15,19 +15,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class HideEntityCompleteEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(HideEntityCompleteEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化隐藏实体完成事件的新实例。
+        /// 隐藏实体完成事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public HideEntityCompleteEventArgs(GameFramework.Entity.HideEntityCompleteEventArgs e)
-        {
-            EntityId = e.EntityId;
-            EntityAssetName = e.EntityAssetName;
-            EntityGroup = e.EntityGroup;
-            UserData = e.UserData;
-        }
+        public static readonly int EventId = typeof(HideEntityCompleteEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取隐藏实体完成事件编号。
@@ -74,6 +65,32 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理隐藏实体完成事件。
+        /// </summary>
+        public override void Clear()
+        {
+            EntityId = default(int);
+            EntityAssetName = default(string);
+            EntityGroup = default(IEntityGroup);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充隐藏实体完成事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>隐藏实体完成事件。</returns>
+        public HideEntityCompleteEventArgs Fill(GameFramework.Entity.HideEntityCompleteEventArgs e)
+        {
+            EntityId = e.EntityId;
+            EntityAssetName = e.EntityAssetName;
+            EntityGroup = e.EntityGroup;
+            UserData = e.UserData;
+
+            return this;
         }
     }
 }

@@ -319,7 +319,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            Type logHelperType = Utility.Assembly.GetTypeWithinLoadedAssemblies(m_LogHelperTypeName);
+            Type logHelperType = Utility.Assembly.GetType(m_LogHelperTypeName);
             if (logHelperType == null)
             {
                 throw new GameFrameworkException(string.Format("Can not find log helper type '{0}'.", m_LogHelperTypeName));
@@ -341,7 +341,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            Type zipHelperType = Utility.Assembly.GetTypeWithinLoadedAssemblies(m_ZipHelperTypeName);
+            Type zipHelperType = Utility.Assembly.GetType(m_ZipHelperTypeName);
             if (zipHelperType == null)
             {
                 Log.Error("Can not find Zip helper type '{0}'.", m_ZipHelperTypeName);
@@ -365,7 +365,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            Type jsonHelperType = Utility.Assembly.GetTypeWithinLoadedAssemblies(m_JsonHelperTypeName);
+            Type jsonHelperType = Utility.Assembly.GetType(m_JsonHelperTypeName);
             if (jsonHelperType == null)
             {
                 Log.Error("Can not find JSON helper type '{0}'.", m_JsonHelperTypeName);
@@ -389,7 +389,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            Type profilerHelperType = Utility.Assembly.GetTypeWithinLoadedAssemblies(m_ProfilerHelperTypeName);
+            Type profilerHelperType = Utility.Assembly.GetType(m_ProfilerHelperTypeName);
             if (profilerHelperType == null)
             {
                 Log.Error("Can not find profiler helper type '{0}'.", m_ProfilerHelperTypeName);

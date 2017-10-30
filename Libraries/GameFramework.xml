@@ -1282,6 +1282,12 @@
             </summary>
             <param name="referenceType">引用类型。</param>
         </member>
+        <member name="M:GameFramework.ReferencePool.Count">
+            <summary>
+            获取引用池的数量。
+            </summary>
+            <returns>引用池的数量。</returns>
+        </member>
         <member name="M:GameFramework.ReferencePool.Count``1">
             <summary>
             获取引用池中引用的数量。
@@ -15085,18 +15091,24 @@
             程序集相关的实用函数。
             </summary>
         </member>
-        <member name="M:GameFramework.Utility.Assembly.GetLoadedAssemblyNames">
+        <member name="M:GameFramework.Utility.Assembly.GetAssemblies">
             <summary>
-            获取已加载的程序集名称。
+            获取已加载的程序集。
             </summary>
-            <returns>已加载的程序集名称。</returns>
+            <returns>已加载的程序集。</returns>
         </member>
-        <member name="M:GameFramework.Utility.Assembly.GetTypeWithinLoadedAssemblies(System.String)">
+        <member name="M:GameFramework.Utility.Assembly.GetTypes">
             <summary>
-            从已加载的程序集中获取类型。
+            获取已加载的程序集中的所有类型。
+            </summary>
+            <returns>已加载的程序集中的所有类型。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Assembly.GetType(System.String)">
+            <summary>
+            获取已加载的程序集中的指定类型。
             </summary>
             <param name="typeName">要获取的类型名。</param>
-            <returns>获取的类型。</returns>
+            <returns>已加载的程序集中的指定类型。</returns>
         </member>
         <member name="T:GameFramework.Utility.Converter">
             <summary>

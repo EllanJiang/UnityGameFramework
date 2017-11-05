@@ -379,8 +379,17 @@ namespace UnityGameFramework.Runtime
                     {
                         if (m_SelectedNode != null)
                         {
+                            GUILayout.BeginHorizontal();
                             Color32 color = GetLogStringColor(m_SelectedNode.Value.LogType);
                             GUILayout.Label(string.Format("<color=#{0}{1}{2}{3}><b>{4}</b></color>", color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"), m_SelectedNode.Value.LogMessage));
+                            if (GUILayout.Button("COPY", GUILayout.Width(60f), GUILayout.Height(30f)))
+                            {
+                                TextEditor textEditor = new TextEditor();
+                                textEditor.text = string.Format("{0}\n\n{1}", m_SelectedNode.Value.LogMessage, m_SelectedNode.Value.StackTrack);
+                                textEditor.OnFocus();
+                                textEditor.Copy();
+                            }
+                            GUILayout.EndHorizontal();
                             GUILayout.Label(m_SelectedNode.Value.StackTrack);
                         }
                         GUILayout.EndScrollView();

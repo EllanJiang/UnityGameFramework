@@ -71,7 +71,7 @@ namespace UnityGameFramework.Runtime
 
             if (dataRowType == null)
             {
-                Log.Warning("Data table type is invalid.");
+                Log.Warning("Data row type is invalid.");
                 return false;
             }
 

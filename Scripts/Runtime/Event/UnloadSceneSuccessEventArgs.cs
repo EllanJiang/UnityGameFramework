@@ -14,17 +14,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class UnloadSceneSuccessEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(UnloadSceneSuccessEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化卸载场景成功事件的新实例。
+        /// 加载场景成功事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public UnloadSceneSuccessEventArgs(GameFramework.Scene.UnloadSceneSuccessEventArgs e)
-        {
-            SceneAssetName = e.SceneAssetName;
-            UserData = e.UserData;
-        }
+        public static readonly int EventId = typeof(UnloadSceneSuccessEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取加载场景成功事件编号。
@@ -53,6 +46,28 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理卸载场景成功事件。
+        /// </summary>
+        public override void Clear()
+        {
+            SceneAssetName = default(string);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充卸载场景成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>卸载场景成功事件。</returns>
+        public UnloadSceneSuccessEventArgs Fill(GameFramework.Scene.UnloadSceneSuccessEventArgs e)
+        {
+            SceneAssetName = e.SceneAssetName;
+            UserData = e.UserData;
+
+            return this;
         }
     }
 }

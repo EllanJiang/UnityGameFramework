@@ -116,32 +116,32 @@ namespace UnityGameFramework.Runtime
 
         private void OnNetworkConnected(object sender, GameFramework.Network.NetworkConnectedEventArgs e)
         {
-            m_EventComponent.Fire(this, new NetworkConnectedEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<NetworkConnectedEventArgs>().Fill(e));
         }
 
         private void OnNetworkClosed(object sender, GameFramework.Network.NetworkClosedEventArgs e)
         {
-            m_EventComponent.Fire(this, new NetworkClosedEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<NetworkClosedEventArgs>().Fill(e));
         }
 
         private void OnNetworkSendPacket(object sender, GameFramework.Network.NetworkSendPacketEventArgs e)
         {
-            m_EventComponent.Fire(this, new NetworkSendPacketEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<NetworkSendPacketEventArgs>().Fill(e));
         }
 
         private void OnNetworkMissHeartBeat(object sender, GameFramework.Network.NetworkMissHeartBeatEventArgs e)
         {
-            m_EventComponent.Fire(this, new NetworkMissHeartBeatEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<NetworkMissHeartBeatEventArgs>().Fill(e));
         }
 
         private void OnNetworkError(object sender, GameFramework.Network.NetworkErrorEventArgs e)
         {
-            m_EventComponent.Fire(this, new NetworkErrorEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<NetworkErrorEventArgs>().Fill(e));
         }
 
         private void OnNetworkCustomError(object sender, GameFramework.Network.NetworkCustomErrorEventArgs e)
         {
-            m_EventComponent.Fire(this, new NetworkCustomErrorEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<NetworkCustomErrorEventArgs>().Fill(e));
         }
     }
 }

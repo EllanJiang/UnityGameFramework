@@ -11,11 +11,11 @@ namespace UnityGameFramework.Runtime
 {
     public partial class DebuggerComponent
     {
-        private sealed class OperationSettingsWindow : ScrollableDebuggerWindowBase
+        private sealed class OperationsWindow : ScrollableDebuggerWindowBase
         {
             protected override void OnDrawScrollableWindow()
             {
-                GUILayout.Label("<b>Operation Settings</b>");
+                GUILayout.Label("<b>Operations</b>");
                 GUILayout.BeginVertical("box");
                 {
                     ObjectPoolComponent objectPoolComponent = GameEntry.GetComponent<ObjectPoolComponent>();

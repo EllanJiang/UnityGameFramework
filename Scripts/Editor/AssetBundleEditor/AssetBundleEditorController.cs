@@ -17,8 +17,9 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 {
     internal sealed partial class AssetBundleEditorController
     {
-        private const string ConfigurationName = "GameFrameworkConfigs/AssetBundleEditor.xml";
         private const string DefaultSourceAssetRootPath = "Assets";
+
+        private readonly string m_ConfigurationPath;
         private readonly AssetBundleCollection m_AssetBundleCollection;
         private readonly List<string> m_SourceAssetSearchPaths;
         private readonly List<string> m_SourceAssetSearchRelativePaths;
@@ -33,6 +34,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
         public AssetBundleEditorController()
         {
+            m_ConfigurationPath = Type.GetConfigurationPath<AssetBundleEditorConfigPathAttribute>() ?? Utility.Path.GetCombinePath(Application.dataPath, "GameFramework/Configs/AssetBundleEditor.xml");
+
             m_AssetBundleCollection = new AssetBundleCollection();
 
             m_AssetBundleCollection.OnLoadingAssetBundle += delegate (int index, int count)
@@ -213,8 +216,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
         public bool Load()
         {
-            string configurationName = Utility.Path.GetCombinePath(Application.dataPath, ConfigurationName);
-            if (!File.Exists(configurationName))
+            if (!File.Exists(m_ConfigurationPath))
             {
                 return false;
             }
@@ -222,7 +224,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             try
             {
                 XmlDocument xmlDocument = new XmlDocument();
-                xmlDocument.Load(configurationName);
+                xmlDocument.Load(m_ConfigurationPath);
                 XmlNode xmlRoot = xmlDocument.SelectSingleNode("UnityGameFramework");
                 XmlNode xmlEditor = xmlRoot.SelectSingleNode("AssetBundleEditor");
                 XmlNode xmlSettings = xmlEditor.SelectSingleNode("Settings");
@@ -276,7 +278,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
             catch
             {
-                File.Delete(configurationName);
+                File.Delete(m_ConfigurationPath);
                 return false;
             }
 
@@ -289,7 +291,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
         public bool Save()
         {
-            string configurationName = Utility.Path.GetCombinePath(Application.dataPath, ConfigurationName);
             try
             {
                 XmlDocument xmlDocument = new XmlDocument();
@@ -339,11 +340,22 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 xmlElement.InnerText = AssetSorter.ToString();
                 xmlSettings.AppendChild(xmlElement);
 
-                xmlDocument.Save(configurationName);
+                string configurationDirectoryName = Path.GetDirectoryName(m_ConfigurationPath);
+                if (!Directory.Exists(configurationDirectoryName))
+                {
+                    Directory.CreateDirectory(configurationDirectoryName);
+                }
+
+                xmlDocument.Save(m_ConfigurationPath);
+                AssetDatabase.Refresh();
             }
             catch
             {
-                File.Delete(configurationName);
+                if (File.Exists(m_ConfigurationPath))
+                {
+                    File.Delete(m_ConfigurationPath);
+                }
+
                 return false;
             }
 

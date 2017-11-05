@@ -15,23 +15,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class PlaySoundUpdateEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(PlaySoundUpdateEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化播放声音更新事件的新实例。
+        /// 播放声音更新事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public PlaySoundUpdateEventArgs(GameFramework.Sound.PlaySoundUpdateEventArgs e)
-        {
-            PlaySoundInfo playSoundInfo = (PlaySoundInfo)e.UserData;
-            SerialId = e.SerialId;
-            SoundAssetName = e.SoundAssetName;
-            SoundGroupName = e.SoundGroupName;
-            PlaySoundParams = e.PlaySoundParams;
-            Progress = e.Progress;
-            BindingEntity = playSoundInfo.BindingEntity;
-            UserData = playSoundInfo.UserData;
-        }
+        public static readonly int EventId = typeof(PlaySoundUpdateEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取播放声音更新事件编号。
@@ -105,6 +92,39 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理播放声音更新事件。
+        /// </summary>
+        public override void Clear()
+        {
+            SerialId = default(int);
+            SoundAssetName = default(string);
+            SoundGroupName = default(string);
+            PlaySoundParams = default(PlaySoundParams);
+            Progress = default(float);
+            BindingEntity = default(Entity);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充播放声音更新事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>播放声音更新事件。</returns>
+        public PlaySoundUpdateEventArgs Fill(GameFramework.Sound.PlaySoundUpdateEventArgs e)
+        {
+            PlaySoundInfo playSoundInfo = (PlaySoundInfo)e.UserData;
+            SerialId = e.SerialId;
+            SoundAssetName = e.SoundAssetName;
+            SoundGroupName = e.SoundGroupName;
+            PlaySoundParams = e.PlaySoundParams;
+            Progress = e.Progress;
+            BindingEntity = playSoundInfo.BindingEntity;
+            UserData = playSoundInfo.UserData;
+
+            return this;
         }
     }
 }

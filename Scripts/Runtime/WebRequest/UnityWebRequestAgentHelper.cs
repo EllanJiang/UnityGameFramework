@@ -81,7 +81,11 @@ namespace UnityGameFramework.Runtime
                 m_UnityWebRequest = UnityWebRequest.Post(webRequestUri, wwwFormInfo.WWWForm);
             }
 
+#if UNITY_2017_2_OR_NEWER
+            m_UnityWebRequest.SendWebRequest();
+#else
             m_UnityWebRequest.Send();
+#endif
         }
 
         /// <summary>
@@ -99,7 +103,11 @@ namespace UnityGameFramework.Runtime
             }
 
             m_UnityWebRequest = UnityWebRequest.Post(webRequestUri, Utility.Converter.GetString(postData));
+#if UNITY_2017_2_OR_NEWER
+            m_UnityWebRequest.SendWebRequest();
+#else
             m_UnityWebRequest.Send();
+#endif
         }
 
         /// <summary>

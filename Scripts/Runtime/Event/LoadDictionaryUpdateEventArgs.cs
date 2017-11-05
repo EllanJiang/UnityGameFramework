@@ -14,20 +14,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class LoadDictionaryUpdateEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(LoadDictionaryUpdateEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化加载字典更新事件的新实例。
+        /// 加载字典失败事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public LoadDictionaryUpdateEventArgs(GameFramework.Localization.LoadDictionaryUpdateEventArgs e)
-        {
-            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
-            DictionaryName = loadDictionaryInfo.DictionaryName;
-            DictionaryAssetName = e.DictionaryAssetName;
-            Progress = e.Progress;
-            UserData = loadDictionaryInfo.UserData;
-        }
+        public static readonly int EventId = typeof(LoadDictionaryUpdateEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取加载字典失败事件编号。
@@ -74,6 +64,33 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理加载字典更新事件。
+        /// </summary>
+        public override void Clear()
+        {
+            DictionaryName = default(string);
+            DictionaryAssetName = default(string);
+            Progress = default(float);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充加载字典更新事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>加载字典更新事件。</returns>
+        public LoadDictionaryUpdateEventArgs Fill(GameFramework.Localization.LoadDictionaryUpdateEventArgs e)
+        {
+            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
+            DictionaryName = loadDictionaryInfo.DictionaryName;
+            DictionaryAssetName = e.DictionaryAssetName;
+            Progress = e.Progress;
+            UserData = loadDictionaryInfo.UserData;
+
+            return this;
         }
     }
 }

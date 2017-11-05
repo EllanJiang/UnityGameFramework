@@ -15,24 +15,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ShowEntityDependencyAssetEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(ShowEntityDependencyAssetEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化显示实体时加载依赖资源事件的新实例。
+        /// 显示实体时加载依赖资源事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public ShowEntityDependencyAssetEventArgs(GameFramework.Entity.ShowEntityDependencyAssetEventArgs e)
-        {
-            ShowEntityInfo showEntityInfo = (ShowEntityInfo)e.UserData;
-            EntityId = e.EntityId;
-            EntityLogicType = showEntityInfo.EntityLogicType;
-            EntityAssetName = e.EntityAssetName;
-            EntityGroupName = e.EntityGroupName;
-            DependencyAssetName = e.DependencyAssetName;
-            LoadedCount = e.LoadedCount;
-            TotalCount = e.TotalCount;
-            UserData = showEntityInfo.UserData;
-        }
+        public static readonly int EventId = typeof(ShowEntityDependencyAssetEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取显示实体时加载依赖资源事件编号。
@@ -115,6 +101,41 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理显示实体时加载依赖资源事件。
+        /// </summary>
+        public override void Clear()
+        {
+            EntityId = default(int);
+            EntityLogicType = default(Type);
+            EntityAssetName = default(string);
+            EntityGroupName = default(string);
+            DependencyAssetName = default(string);
+            LoadedCount = default(int);
+            TotalCount = default(int);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充显示实体时加载依赖资源事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>显示实体时加载依赖资源事件。</returns>
+        public ShowEntityDependencyAssetEventArgs Fill(GameFramework.Entity.ShowEntityDependencyAssetEventArgs e)
+        {
+            ShowEntityInfo showEntityInfo = (ShowEntityInfo)e.UserData;
+            EntityId = e.EntityId;
+            EntityLogicType = showEntityInfo.EntityLogicType;
+            EntityAssetName = e.EntityAssetName;
+            EntityGroupName = e.EntityGroupName;
+            DependencyAssetName = e.DependencyAssetName;
+            LoadedCount = e.LoadedCount;
+            TotalCount = e.TotalCount;
+            UserData = showEntityInfo.UserData;
+
+            return this;
         }
     }
 }

@@ -14,6 +14,11 @@
             获取类型编号。
             </summary>
         </member>
+        <member name="M:GameFramework.BaseEventArgs.Clear">
+            <summary>
+            清理引用。
+            </summary>
+        </member>
         <member name="T:GameFramework.EventPool`1">
             <summary>
             事件池。
@@ -1244,6 +1249,113 @@
             <summary>
             严重错误。
             </summary>
+        </member>
+        <member name="T:GameFramework.IReference">
+            <summary>
+            引用接口。
+            </summary>
+        </member>
+        <member name="M:GameFramework.IReference.Clear">
+            <summary>
+            清理引用。
+            </summary>
+        </member>
+        <member name="T:GameFramework.ReferencePool">
+            <summary>
+            引用池。
+            </summary>
+        </member>
+        <member name="M:GameFramework.ReferencePool.ClearAll">
+            <summary>
+            清除所有引用池。
+            </summary>
+        </member>
+        <member name="M:GameFramework.ReferencePool.Clear``1">
+            <summary>
+            清除引用池。
+            </summary>
+            <typeparam name="T">引用类型。</typeparam>
+        </member>
+        <member name="M:GameFramework.ReferencePool.Clear(System.Type)">
+            <summary>
+            清除引用池。
+            </summary>
+            <param name="referenceType">引用类型。</param>
+        </member>
+        <member name="M:GameFramework.ReferencePool.Count">
+            <summary>
+            获取引用池的数量。
+            </summary>
+            <returns>引用池的数量。</returns>
+        </member>
+        <member name="M:GameFramework.ReferencePool.Count``1">
+            <summary>
+            获取引用池中引用的数量。
+            </summary>
+            <typeparam name="T">引用类型。</typeparam>
+            <returns>引用池中引用的数量。</returns>
+        </member>
+        <member name="M:GameFramework.ReferencePool.Count(System.Type)">
+            <summary>
+            获取引用池中引用的数量。
+            </summary>
+            <param name="referenceType">引用类型。</param>
+            <returns>引用池中引用的数量。</returns>
+        </member>
+        <member name="M:GameFramework.ReferencePool.Acquire``1">
+            <summary>
+            从引用池获取引用。
+            </summary>
+            <typeparam name="T">引用类型。</typeparam>
+        </member>
+        <member name="M:GameFramework.ReferencePool.Acquire(System.Type)">
+            <summary>
+            从引用池获取引用。
+            </summary>
+            <param name="referenceType">引用类型。</param>
+            <returns></returns>
+        </member>
+        <member name="M:GameFramework.ReferencePool.Release``1(``0)">
+            <summary>
+            将引用归还引用池。
+            </summary>
+            <typeparam name="T">引用类型。</typeparam>
+            <param name="reference">引用。</param>
+        </member>
+        <member name="M:GameFramework.ReferencePool.Release(System.Type,GameFramework.IReference)">
+            <summary>
+            将引用归还引用池。
+            </summary>
+            <param name="referenceType">引用类型。</param>
+            <param name="reference">引用。</param>
+        </member>
+        <member name="M:GameFramework.ReferencePool.Add``1(System.Int32)">
+            <summary>
+            向引用池中追加指定数量的引用。
+            </summary>
+            <typeparam name="T">引用类型。</typeparam>
+            <param name="count">追加数量。</param>
+        </member>
+        <member name="M:GameFramework.ReferencePool.Add(System.Type,System.Int32)">
+            <summary>
+            向引用池中追加指定数量的引用。
+            </summary>
+            <param name="referenceType">引用类型。</param>
+            <param name="count">追加数量。</param>
+        </member>
+        <member name="M:GameFramework.ReferencePool.Remove``1(System.Int32)">
+            <summary>
+            从引用池中移除指定数量的引用。
+            </summary>
+            <typeparam name="T">引用类型。</typeparam>
+            <param name="count">移除数量。</param>
+        </member>
+        <member name="M:GameFramework.ReferencePool.Remove(System.Type,System.Int32)">
+            <summary>
+            从引用池中移除指定数量的引用。
+            </summary>
+            <param name="referenceType">引用类型。</param>
+            <param name="count">移除数量。</param>
         </member>
         <member name="T:GameFramework.ITask">
             <summary>
@@ -12051,10 +12163,17 @@
             配置管理器辅助器接口。
             </summary>
         </member>
+        <member name="M:GameFramework.Setting.ISettingHelper.Load">
+            <summary>
+            加载配置。
+            </summary>
+            <returns>是否加载配置成功。</returns>
+        </member>
         <member name="M:GameFramework.Setting.ISettingHelper.Save">
             <summary>
             保存配置。
             </summary>
+            <returns>是否保存配置成功。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.HasKey(System.String)">
             <summary>
@@ -12222,10 +12341,17 @@
             </summary>
             <param name="settingHelper">配置管理器辅助器。</param>
         </member>
+        <member name="M:GameFramework.Setting.ISettingManager.Load">
+            <summary>
+            加载配置。
+            </summary>
+            <returns>是否加载配置成功。</returns>
+        </member>
         <member name="M:GameFramework.Setting.ISettingManager.Save">
             <summary>
             保存配置。
             </summary>
+            <returns>是否保存配置成功。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.HasKey(System.String)">
             <summary>
@@ -12410,10 +12536,17 @@
             </summary>
             <param name="settingHelper">配置管理器辅助器。</param>
         </member>
+        <member name="M:GameFramework.Setting.SettingManager.Load">
+            <summary>
+            加载配置。
+            </summary>
+            <returns>是否加载配置成功。</returns>
+        </member>
         <member name="M:GameFramework.Setting.SettingManager.Save">
             <summary>
             保存配置。
             </summary>
+            <returns>是否保存配置成功。</returns>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.HasKey(System.String)">
             <summary>
@@ -14958,18 +15091,24 @@
             程序集相关的实用函数。
             </summary>
         </member>
-        <member name="M:GameFramework.Utility.Assembly.GetLoadedAssemblyNames">
+        <member name="M:GameFramework.Utility.Assembly.GetAssemblies">
             <summary>
-            获取已加载的程序集名称。
+            获取已加载的程序集。
             </summary>
-            <returns>已加载的程序集名称。</returns>
+            <returns>已加载的程序集。</returns>
         </member>
-        <member name="M:GameFramework.Utility.Assembly.GetTypeWithinLoadedAssemblies(System.String)">
+        <member name="M:GameFramework.Utility.Assembly.GetTypes">
             <summary>
-            从已加载的程序集中获取类型。
+            获取已加载的程序集中的所有类型。
+            </summary>
+            <returns>已加载的程序集中的所有类型。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Assembly.GetType(System.String)">
+            <summary>
+            获取已加载的程序集中的指定类型。
             </summary>
             <param name="typeName">要获取的类型名。</param>
-            <returns>获取的类型。</returns>
+            <returns>已加载的程序集中的指定类型。</returns>
         </member>
         <member name="T:GameFramework.Utility.Converter">
             <summary>

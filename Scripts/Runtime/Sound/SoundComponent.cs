@@ -601,7 +601,7 @@ namespace UnityGameFramework.Runtime
 
             if (m_EnablePlaySoundSuccessEvent)
             {
-                m_EventComponent.Fire(this, new PlaySoundSuccessEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<PlaySoundSuccessEventArgs>().Fill(e));
             }
         }
 
@@ -619,7 +619,7 @@ namespace UnityGameFramework.Runtime
 
             if (m_EnablePlaySoundFailureEvent)
             {
-                m_EventComponent.Fire(this, new PlaySoundFailureEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<PlaySoundFailureEventArgs>().Fill(e));
             }
         }
 
@@ -627,7 +627,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnablePlaySoundUpdateEvent)
             {
-                m_EventComponent.Fire(this, new PlaySoundUpdateEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<PlaySoundUpdateEventArgs>().Fill(e));
             }
         }
 
@@ -635,7 +635,7 @@ namespace UnityGameFramework.Runtime
         {
             if (m_EnablePlaySoundDependencyAssetEvent)
             {
-                m_EventComponent.Fire(this, new PlaySoundDependencyAssetEventArgs(e));
+                m_EventComponent.Fire(this, ReferencePool.Acquire<PlaySoundDependencyAssetEventArgs>().Fill(e));
             }
         }
 

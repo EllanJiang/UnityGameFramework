@@ -766,47 +766,47 @@ namespace UnityGameFramework.Runtime
 
         private void OnResourceInitComplete(object sender, GameFramework.Resource.ResourceInitCompleteEventArgs e)
         {
-            m_EventComponent.Fire(this, new ResourceInitCompleteEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceInitCompleteEventArgs>().Fill(e));
         }
 
         private void OnVersionListUpdateSuccess(object sender, GameFramework.Resource.VersionListUpdateSuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, new VersionListUpdateSuccessEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<VersionListUpdateSuccessEventArgs>().Fill(e));
         }
 
         private void OnVersionListUpdateFailure(object sender, GameFramework.Resource.VersionListUpdateFailureEventArgs e)
         {
-            m_EventComponent.Fire(this, new VersionListUpdateFailureEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<VersionListUpdateFailureEventArgs>().Fill(e));
         }
 
         private void OnResourceCheckComplete(object sender, GameFramework.Resource.ResourceCheckCompleteEventArgs e)
         {
-            m_EventComponent.Fire(this, new ResourceCheckCompleteEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceCheckCompleteEventArgs>().Fill(e));
         }
 
         private void OnResourceUpdateStart(object sender, GameFramework.Resource.ResourceUpdateStartEventArgs e)
         {
-            m_EventComponent.Fire(this, new ResourceUpdateStartEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceUpdateStartEventArgs>().Fill(e));
         }
 
         private void OnResourceUpdateChanged(object sender, GameFramework.Resource.ResourceUpdateChangedEventArgs e)
         {
-            m_EventComponent.Fire(this, new ResourceUpdateChangedEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceUpdateChangedEventArgs>().Fill(e));
         }
 
         private void OnResourceUpdateSuccess(object sender, GameFramework.Resource.ResourceUpdateSuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, new ResourceUpdateSuccessEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceUpdateSuccessEventArgs>().Fill(e));
         }
 
         private void OnResourceUpdateFailure(object sender, GameFramework.Resource.ResourceUpdateFailureEventArgs e)
         {
-            m_EventComponent.Fire(this, new ResourceUpdateFailureEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceUpdateFailureEventArgs>().Fill(e));
         }
 
         private void OnResourceUpdateAllComplete(object sender, GameFramework.Resource.ResourceUpdateAllCompleteEventArgs e)
         {
-            m_EventComponent.Fire(this, new ResourceUpdateAllCompleteEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceUpdateAllCompleteEventArgs>().Fill(e));
         }
     }
 }

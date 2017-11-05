@@ -231,23 +231,23 @@ namespace UnityGameFramework.Runtime
 
         private void OnDownloadStart(object sender, GameFramework.Download.DownloadStartEventArgs e)
         {
-            m_EventComponent.Fire(this, new DownloadStartEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<DownloadStartEventArgs>().Fill(e));
         }
 
         private void OnDownloadUpdate(object sender, GameFramework.Download.DownloadUpdateEventArgs e)
         {
-            m_EventComponent.Fire(this, new DownloadUpdateEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<DownloadUpdateEventArgs>().Fill(e));
         }
 
         private void OnDownloadSuccess(object sender, GameFramework.Download.DownloadSuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, new DownloadSuccessEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<DownloadSuccessEventArgs>().Fill(e));
         }
 
         private void OnDownloadFailure(object sender, GameFramework.Download.DownloadFailureEventArgs e)
         {
             Log.Warning("Download failure, download serial id '{0}', download path '{1}', download uri '{2}', error message '{3}'.", e.SerialId.ToString(), e.DownloadPath, e.DownloadUri, e.ErrorMessage);
-            m_EventComponent.Fire(this, new DownloadFailureEventArgs(e));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<DownloadFailureEventArgs>().Fill(e));
         }
     }
 }

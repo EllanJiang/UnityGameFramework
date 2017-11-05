@@ -73,7 +73,9 @@ namespace UnityGameFramework.Editor
                 {
                     EditorGUILayout.LabelField("Type", objectPool.ObjectType.FullName);
                     EditorGUILayout.LabelField("Auto Release Interval", objectPool.AutoReleaseInterval.ToString());
-                    EditorGUILayout.LabelField("Capacity", string.Format("{0} / {1} / {2}", objectPool.CanReleaseCount.ToString(), objectPool.Count.ToString(), objectPool.Capacity.ToString()));
+                    EditorGUILayout.LabelField("Capacity", objectPool.Capacity.ToString());
+                    EditorGUILayout.LabelField("Used Count", objectPool.Count.ToString());
+                    EditorGUILayout.LabelField("Can Release Count", objectPool.CanReleaseCount.ToString());
                     EditorGUILayout.LabelField("Expire Time", objectPool.ExpireTime.ToString());
                     EditorGUILayout.LabelField("Priority", objectPool.Priority.ToString());
                     ObjectInfo[] objectInfos = objectPool.GetAllObjectInfos();

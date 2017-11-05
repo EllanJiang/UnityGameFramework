@@ -19,18 +19,17 @@ namespace UnityGameFramework.Editor
     /// </summary>
     internal static class BuildSettings
     {
-        private const string ConfigurationName = "GameFrameworkConfigs/BuildSettings.xml";
-
+        private static readonly string s_ConfigurationPath = null;
         private static readonly List<string> s_DefaultSceneNames = new List<string>();
         private static readonly List<string> s_SearchScenePaths = new List<string>();
 
         static BuildSettings()
         {
+            s_ConfigurationPath = Type.GetConfigurationPath<BuildSettingsConfigPathAttribute>() ?? Utility.Path.GetCombinePath(Application.dataPath, "GameFramework/Configs/BuildSettings.xml");
             s_DefaultSceneNames.Clear();
             s_SearchScenePaths.Clear();
 
-            string configurationPath = Utility.Path.GetCombinePath(Application.dataPath, ConfigurationName);
-            if (!File.Exists(configurationPath))
+            if (!File.Exists(s_ConfigurationPath))
             {
                 return;
             }
@@ -38,7 +37,7 @@ namespace UnityGameFramework.Editor
             try
             {
                 XmlDocument xmlDocument = new XmlDocument();
-                xmlDocument.Load(configurationPath);
+                xmlDocument.Load(s_ConfigurationPath);
                 XmlNode xmlRoot = xmlDocument.SelectSingleNode("UnityGameFramework");
                 XmlNode xmlBuildSettings = xmlRoot.SelectSingleNode("BuildSettings");
                 XmlNode xmlDefaultScenes = xmlBuildSettings.SelectSingleNode("DefaultScenes");

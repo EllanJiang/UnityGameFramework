@@ -28,6 +28,7 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Active Scene Build Index:", activeScene.buildIndex.ToString());
                     DrawItem("Active Scene Is Dirty:", activeScene.isDirty.ToString());
                     DrawItem("Active Scene Is Loaded:", activeScene.isLoaded.ToString());
+                    DrawItem("Active Scene Is Valid:", activeScene.IsValid().ToString());
                     DrawItem("Active Scene Root Count:", activeScene.rootCount.ToString());
                 }
                 GUILayout.EndVertical();

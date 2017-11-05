@@ -15,24 +15,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class PlaySoundFailureEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(PlaySoundFailureEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化播放声音失败事件的新实例。
+        /// 播放声音失败事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public PlaySoundFailureEventArgs(GameFramework.Sound.PlaySoundFailureEventArgs e)
-        {
-            PlaySoundInfo playSoundInfo = (PlaySoundInfo)e.UserData;
-            SerialId = e.SerialId;
-            SoundAssetName = e.SoundAssetName;
-            SoundGroupName = e.SoundGroupName;
-            PlaySoundParams = e.PlaySoundParams;
-            BindingEntity = playSoundInfo.BindingEntity;
-            ErrorCode = e.ErrorCode;
-            ErrorMessage = e.ErrorMessage;
-            UserData = playSoundInfo.UserData;
-        }
+        public static readonly int EventId = typeof(PlaySoundFailureEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取播放声音失败事件编号。
@@ -115,6 +101,41 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理播放声音失败事件。
+        /// </summary>
+        public override void Clear()
+        {
+            SerialId = default(int);
+            SoundAssetName = default(string);
+            SoundGroupName = default(string);
+            PlaySoundParams = default(PlaySoundParams);
+            BindingEntity = default(Entity);
+            ErrorCode = default(int);
+            ErrorMessage = default(string);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充播放声音失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>播放声音失败事件。</returns>
+        public PlaySoundFailureEventArgs Fill(GameFramework.Sound.PlaySoundFailureEventArgs e)
+        {
+            PlaySoundInfo playSoundInfo = (PlaySoundInfo)e.UserData;
+            SerialId = e.SerialId;
+            SoundAssetName = e.SoundAssetName;
+            SoundGroupName = e.SoundGroupName;
+            PlaySoundParams = e.PlaySoundParams;
+            BindingEntity = playSoundInfo.BindingEntity;
+            ErrorCode = e.ErrorCode;
+            ErrorMessage = e.ErrorMessage;
+            UserData = playSoundInfo.UserData;
+
+            return this;
         }
     }
 }

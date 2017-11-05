@@ -15,20 +15,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class ShowEntitySuccessEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(ShowEntitySuccessEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化显示实体成功事件的新实例。
+        /// 显示实体成功事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public ShowEntitySuccessEventArgs(GameFramework.Entity.ShowEntitySuccessEventArgs e)
-        {
-            ShowEntityInfo showEntityInfo = (ShowEntityInfo)e.UserData;
-            EntityLogicType = showEntityInfo.EntityLogicType;
-            Entity = (Entity)e.Entity;
-            Duration = e.Duration;
-            UserData = showEntityInfo.UserData;
-        }
+        public static readonly int EventId = typeof(ShowEntitySuccessEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取显示实体成功事件编号。
@@ -75,6 +65,33 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理显示实体成功事件。
+        /// </summary>
+        public override void Clear()
+        {
+            EntityLogicType = default(Type);
+            Entity = default(Entity);
+            Duration = default(float);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充显示实体成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>显示实体成功事件。</returns>
+        public ShowEntitySuccessEventArgs Fill(GameFramework.Entity.ShowEntitySuccessEventArgs e)
+        {
+            ShowEntityInfo showEntityInfo = (ShowEntityInfo)e.UserData;
+            EntityLogicType = showEntityInfo.EntityLogicType;
+            Entity = (Entity)e.Entity;
+            Duration = e.Duration;
+            UserData = showEntityInfo.UserData;
+
+            return this;
         }
     }
 }

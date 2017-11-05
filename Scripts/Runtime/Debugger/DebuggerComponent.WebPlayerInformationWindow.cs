@@ -18,9 +18,13 @@ namespace UnityGameFramework.Runtime
                 GUILayout.Label("<b>Web Player Information</b>");
                 GUILayout.BeginVertical("box");
                 {
+#if !UNITY_2017_2_OR_NEWER
                     DrawItem("Is Web Player:", Application.isWebPlayer.ToString());
+#endif
                     DrawItem("Absolute URL:", Application.absoluteURL);
+#if !UNITY_2017_2_OR_NEWER
                     DrawItem("Source Value:", Application.srcValue);
+#endif
                     DrawItem("Streamed Bytes:", Application.streamedBytes.ToString());
 #if UNITY_5_3 || UNITY_5_4
                     DrawItem("Web Security Enabled:", Application.webSecurityEnabled.ToString());

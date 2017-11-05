@@ -15,18 +15,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class NetworkSendPacketEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(NetworkSendPacketEventArgs).GetHashCode();
-
         /// <summary>
-        /// 初始化发送网络消息包事件的新实例。
+        /// 发送网络消息包事件编号。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        public NetworkSendPacketEventArgs(GameFramework.Network.NetworkSendPacketEventArgs e)
-        {
-            NetworkChannel = e.NetworkChannel;
-            BytesSent = e.BytesSent;
-            UserData = e.UserData;
-        }
+        public static readonly int EventId = typeof(NetworkSendPacketEventArgs).GetHashCode();
 
         /// <summary>
         /// 获取发送网络消息包事件编号。
@@ -64,6 +56,30 @@ namespace UnityGameFramework.Runtime
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// 清理发送网络消息包事件。
+        /// </summary>
+        public override void Clear()
+        {
+            NetworkChannel = default(INetworkChannel);
+            BytesSent = default(int);
+            UserData = default(object);
+        }
+
+        /// <summary>
+        /// 填充发送网络消息包事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>发送网络消息包事件。</returns>
+        public NetworkSendPacketEventArgs Fill(GameFramework.Network.NetworkSendPacketEventArgs e)
+        {
+            NetworkChannel = e.NetworkChannel;
+            BytesSent = e.BytesSent;
+            UserData = e.UserData;
+
+            return this;
         }
     }
 }

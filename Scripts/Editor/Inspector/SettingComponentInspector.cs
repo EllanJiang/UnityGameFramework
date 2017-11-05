@@ -39,6 +39,10 @@ namespace UnityGameFramework.Editor
                     t.RemoveAllKeys();
                 }
             }
+
+            serializedObject.ApplyModifiedProperties();
+
+            Repaint();
         }
 
         protected override void OnCompileComplete()

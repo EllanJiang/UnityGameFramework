@@ -17,9 +17,16 @@ namespace UnityGameFramework.Runtime
     public abstract class SettingHelperBase : MonoBehaviour, ISettingHelper
     {
         /// <summary>
+        /// 加载配置。
+        /// </summary>
+        /// <returns>是否加载配置成功。</returns>
+        public abstract bool Load();
+
+        /// <summary>
         /// 保存配置。
         /// </summary>
-        public abstract void Save();
+        /// <returns>是否保存配置成功。</returns>
+        public abstract bool Save();
 
         /// <summary>
         /// 检查是否存在指定配置项。

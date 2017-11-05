@@ -18,7 +18,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 {
     internal sealed partial class AssetBundleBuilderController : Utility.Zip.IZipHelper
     {
-        private const string ConfigurationName = "GameFrameworkConfigs/AssetBundleBuilder.xml";
         private const string VersionListFileName = "version";
         private const string ResourceListFileName = "list";
         private const string RecordName = "GameResourceVersion";
@@ -26,12 +25,13 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         private static readonly char[] PackageListHeader = new char[] { 'E', 'L', 'P' };
         private static readonly char[] VersionListHeader = new char[] { 'E', 'L', 'V' };
         private static readonly char[] ReadOnlyListHeader = new char[] { 'E', 'L', 'R' };
+        private static readonly int AssetsSubstringLength = "Assets/".Length;
         private const byte PackageListVersion = 0;
         private const byte VersionListVersion = 0;
         private const byte ReadOnlyListVersion = 0;
         private const int QuickEncryptLength = 220;
-        private readonly int AssetsSubstringLength = "Assets/".Length;
 
+        private readonly string m_ConfigurationPath;
         private readonly AssetBundleCollection m_AssetBundleCollection;
         private readonly AssetBundleAnalyzerController m_AssetBundleAnalyzerController;
         private readonly SortedDictionary<string, AssetBundleData> m_AssetBundleDatas;
@@ -42,6 +42,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
         public AssetBundleBuilderController()
         {
+            m_ConfigurationPath = Type.GetConfigurationPath<AssetBundleBuilderConfigPathAttribute>() ?? Utility.Path.GetCombinePath(Application.dataPath, "GameFramework/Configs/AssetBundleBuilder.xml");
+
             m_AssetBundleCollection = new AssetBundleCollection();
 
             m_AssetBundleCollection.OnLoadingAssetBundle += delegate (int index, int count)
@@ -351,8 +353,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
         public bool Load()
         {
-            string configurationName = Utility.Path.GetCombinePath(Application.dataPath, ConfigurationName);
-            if (!File.Exists(configurationName))
+            if (!File.Exists(m_ConfigurationPath))
             {
                 return false;
             }
@@ -360,7 +361,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             try
             {
                 XmlDocument xmlDocument = new XmlDocument();
-                xmlDocument.Load(configurationName);
+                xmlDocument.Load(m_ConfigurationPath);
                 XmlNode xmlRoot = xmlDocument.SelectSingleNode("UnityGameFramework");
                 XmlNode xmlEditor = xmlRoot.SelectSingleNode("AssetBundleBuilder");
                 XmlNode xmlSettings = xmlEditor.SelectSingleNode("Settings");
@@ -447,7 +448,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
             catch
             {
-                File.Delete(configurationName);
+                File.Delete(m_ConfigurationPath);
                 return false;
             }
 
@@ -456,7 +457,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
         public bool Save()
         {
-            string configurationName = Utility.Path.GetCombinePath(Application.dataPath, ConfigurationName);
             try
             {
                 XmlDocument xmlDocument = new XmlDocument();
@@ -525,12 +525,23 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 xmlElement.InnerText = OutputDirectory;
                 xmlSettings.AppendChild(xmlElement);
 
-                xmlDocument.Save(configurationName);
+                string configurationDirectoryName = Path.GetDirectoryName(m_ConfigurationPath);
+                if (!Directory.Exists(configurationDirectoryName))
+                {
+                    Directory.CreateDirectory(configurationDirectoryName);
+                }
+
+                xmlDocument.Save(m_ConfigurationPath);
+                AssetDatabase.Refresh();
                 return true;
             }
             catch
             {
-                File.Delete(configurationName);
+                if (File.Exists(m_ConfigurationPath))
+                {
+                    File.Delete(m_ConfigurationPath);
+                }
+
                 return false;
             }
         }

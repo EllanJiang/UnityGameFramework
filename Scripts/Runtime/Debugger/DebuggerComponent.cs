@@ -79,9 +79,8 @@ namespace UnityGameFramework.Runtime
         private RuntimeMemoryInformationWindow<Component> m_RuntimeMemoryComponentInformationWindow = new RuntimeMemoryInformationWindow<Component>();
         private ObjectPoolInformationWindow m_ObjectPoolInformationWindow = new ObjectPoolInformationWindow();
 
-        private GeneralSettingsWindow m_GeneralSettingsWindow = new GeneralSettingsWindow();
-        private QualitySettingsWindow m_QualitySettingsWindow = new QualitySettingsWindow();
-        private OperationSettingsWindow m_OperationSettingsWindow = new OperationSettingsWindow();
+        private SettingsWindow m_SettingsWindow = new SettingsWindow();
+        private OperationsWindow m_OperationsWindow = new OperationsWindow();
 
         private FpsCounter m_FpsCounter = null;
 
@@ -219,9 +218,8 @@ namespace UnityGameFramework.Runtime
             {
                 RegisterDebuggerWindow("Profiler/Object Pool", m_ObjectPoolInformationWindow);
             }
-            RegisterDebuggerWindow("Settings/General", m_GeneralSettingsWindow);
-            RegisterDebuggerWindow("Settings/Quality", m_QualitySettingsWindow);
-            RegisterDebuggerWindow("Settings/Operation", m_OperationSettingsWindow);
+            RegisterDebuggerWindow("Other/Settings", m_SettingsWindow);
+            RegisterDebuggerWindow("Other/Operations", m_OperationsWindow);
         }
 
         private void Update()

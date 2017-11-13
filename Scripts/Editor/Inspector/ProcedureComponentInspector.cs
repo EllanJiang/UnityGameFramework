@@ -120,15 +120,6 @@ namespace UnityGameFramework.Editor
                 WriteAvailableProcedureTypeNames();
             }
 
-            if (!string.IsNullOrEmpty(m_EntranceProcedureTypeName.stringValue))
-            {
-                m_EntranceProcedureIndex = m_CurrentAvailableProcedureTypeNames.IndexOf(m_EntranceProcedureTypeName.stringValue);
-                if (m_EntranceProcedureIndex < 0)
-                {
-                    m_EntranceProcedureTypeName.stringValue = null;
-                }
-            }
-
             serializedObject.ApplyModifiedProperties();
         }
 
@@ -156,6 +147,15 @@ namespace UnityGameFramework.Editor
             {
                 m_AvailableProcedureTypeNames.InsertArrayElementAtIndex(i);
                 m_AvailableProcedureTypeNames.GetArrayElementAtIndex(i).stringValue = m_CurrentAvailableProcedureTypeNames[i];
+            }
+
+            if (!string.IsNullOrEmpty(m_EntranceProcedureTypeName.stringValue))
+            {
+                m_EntranceProcedureIndex = m_CurrentAvailableProcedureTypeNames.IndexOf(m_EntranceProcedureTypeName.stringValue);
+                if (m_EntranceProcedureIndex < 0)
+                {
+                    m_EntranceProcedureTypeName.stringValue = null;
+                }
             }
         }
     }

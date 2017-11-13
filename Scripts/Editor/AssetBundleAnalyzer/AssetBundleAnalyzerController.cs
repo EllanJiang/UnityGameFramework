@@ -139,6 +139,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     continue;
                 }
 
+                if (dependencyAssetName == hostAsset.Name)
+                {
+                    continue;
+                }
+
                 Stamp stamp = new Stamp(dependencyAssetName, hostAsset.Name);
                 if (m_AnalyzedStamps.Contains(stamp))
                 {

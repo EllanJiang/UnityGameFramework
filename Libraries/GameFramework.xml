@@ -5219,6 +5219,12 @@
             <param name="stateType">要获取的有限状态机状态类型。</param>
             <returns>要获取的有限状态机状态。</returns>
         </member>
+        <member name="M:GameFramework.Fsm.Fsm`1.GetAllStates">
+            <summary>
+            获取有限状态机的所有状态。
+            </summary>
+            <returns>有限状态机的所有状态。</returns>
+        </member>
         <member name="M:GameFramework.Fsm.Fsm`1.FireEvent(System.Object,System.Int32)">
             <summary>
             抛出有限状态机事件。
@@ -5698,6 +5704,12 @@
             </summary>
             <param name="stateType">要获取的有限状态机状态类型。</param>
             <returns>要获取的有限状态机状态。</returns>
+        </member>
+        <member name="M:GameFramework.Fsm.IFsm`1.GetAllStates">
+            <summary>
+            获取有限状态机的所有状态。
+            </summary>
+            <returns>有限状态机的所有状态。</returns>
         </member>
         <member name="M:GameFramework.Fsm.IFsm`1.FireEvent(System.Object,System.Int32)">
             <summary>

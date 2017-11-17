@@ -13,7 +13,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// System.DateTime 变量类。
     /// </summary>
-    public class VarDateTime : Variable<DateTime>
+    public sealed class VarDateTime : Variable<DateTime>
     {
         /// <summary>
         /// 初始化 System.DateTime 变量类的新实例。

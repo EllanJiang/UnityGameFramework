@@ -23,7 +23,7 @@ namespace UnityGameFramework.Runtime
     /// 编辑器资源组件。
     /// </summary>
     [DisallowMultipleComponent]
-    public class EditorResourceComponent : MonoBehaviour, IResourceManager
+    public sealed class EditorResourceComponent : MonoBehaviour, IResourceManager
     {
         private string m_ReadOnlyPath = null;
         private string m_ReadWritePath = null;

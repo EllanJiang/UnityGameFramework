@@ -13,7 +13,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// UnityEngine.Material 变量类。
     /// </summary>
-    public class VarMaterial : Variable<Material>
+    public sealed class VarMaterial : Variable<Material>
     {
         /// <summary>
         /// 初始化 UnityEngine.Material 变量类的新实例。

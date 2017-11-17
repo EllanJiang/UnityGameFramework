@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 界面字符型主键。
     /// </summary>
-    public class UIStringKey : MonoBehaviour
+    public sealed class UIStringKey : MonoBehaviour
     {
         [SerializeField]
         private string m_Key = null;

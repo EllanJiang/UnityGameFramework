@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// bool 变量类。
     /// </summary>
-    public class VarBool : Variable<bool>
+    public sealed class VarBool : Variable<bool>
     {
         /// <summary>
         /// 初始化 bool 变量类的新实例。

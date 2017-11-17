@@ -13,7 +13,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// UnityEngine.Vector4 变量类。
     /// </summary>
-    public class VarVector4 : Variable<Vector4>
+    public sealed class VarVector4 : Variable<Vector4>
     {
         /// <summary>
         /// 初始化 UnityEngine.Vector4 变量类的新实例。

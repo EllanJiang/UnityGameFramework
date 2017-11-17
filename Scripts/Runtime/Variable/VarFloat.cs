@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// float 变量类。
     /// </summary>
-    public class VarFloat : Variable<float>
+    public sealed class VarFloat : Variable<float>
     {
         /// <summary>
         /// 初始化 float 变量类的新实例。

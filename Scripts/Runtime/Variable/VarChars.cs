@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// char[] 变量类。
     /// </summary>
-    public class VarChars : Variable<char[]>
+    public sealed class VarChars : Variable<char[]>
     {
         /// <summary>
         /// 初始化 char[] 变量类的新实例。

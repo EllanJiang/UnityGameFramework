@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// ushort 变量类。
     /// </summary>
-    public class VarUShort : Variable<ushort>
+    public sealed class VarUShort : Variable<ushort>
     {
         /// <summary>
         /// 初始化 ushort 变量类的新实例。

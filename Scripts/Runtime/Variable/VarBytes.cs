@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// byte[] 变量类。
     /// </summary>
-    public class VarBytes : Variable<byte[]>
+    public sealed class VarBytes : Variable<byte[]>
     {
 
         /// <summary>

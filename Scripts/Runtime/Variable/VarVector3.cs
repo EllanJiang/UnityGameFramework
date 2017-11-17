@@ -13,7 +13,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// UnityEngine.Vector3 变量类。
     /// </summary>
-    public class VarVector3 : Variable<Vector3>
+    public sealed class VarVector3 : Variable<Vector3>
     {
         /// <summary>
         /// 初始化 UnityEngine.Vector3 变量类的新实例。

@@ -13,7 +13,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// UnityEngine.GameObject 变量类。
     /// </summary>
-    public class VarGameObject : Variable<GameObject>
+    public sealed class VarGameObject : Variable<GameObject>
     {
         /// <summary>
         /// 初始化 UnityEngine.GameObject 变量类的新实例。

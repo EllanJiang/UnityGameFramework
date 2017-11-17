@@ -13,7 +13,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// UnityEngine.Color 变量类。
     /// </summary>
-    public class VarColor : Variable<Color>
+    public sealed class VarColor : Variable<Color>
     {
         /// <summary>
         /// 初始化 UnityEngine.Color 变量类的新实例。

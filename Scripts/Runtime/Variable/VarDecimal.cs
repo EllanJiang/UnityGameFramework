@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// decimal 变量类。
     /// </summary>
-    public class VarDecimal : Variable<decimal>
+    public sealed class VarDecimal : Variable<decimal>
     {
         /// <summary>
         /// 初始化 decimal 变量类的新实例。

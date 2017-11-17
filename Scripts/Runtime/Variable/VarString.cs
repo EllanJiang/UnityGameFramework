@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// string 变量类。
     /// </summary>
-    public class VarString : Variable<string>
+    public sealed class VarString : Variable<string>
     {
         /// <summary>
         /// 初始化 string 变量类的新实例。

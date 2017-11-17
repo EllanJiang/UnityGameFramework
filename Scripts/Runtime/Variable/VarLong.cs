@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// long 变量类。
     /// </summary>
-    public class VarLong : Variable<long>
+    public sealed class VarLong : Variable<long>
     {
         /// <summary>
         /// 初始化 long 变量类的新实例。

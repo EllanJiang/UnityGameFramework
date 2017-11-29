@@ -662,6 +662,12 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
                 m_BuildReport.LogInfo("Build Start Time: {0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
 
+                if (m_BuildEventHandler != null)
+                {
+                    m_BuildReport.LogInfo("Execute build event handler 'PreProcessBuildAll'...");
+                    m_BuildEventHandler.PreProcessBuildAll(ProductName, CompanyName, GameIdentifier, ApplicableGameVersion, InternalResourceVersion, UnityVersion, buildAssetBundleOptions, ZipSelected, OutputDirectory, WorkingPath, OutputPackagePath, OutputFullPath, OutputPackedPath, BuildReportPath);
+                }
+
                 m_BuildReport.LogInfo("Start prepare AssetBundle collection...");
                 if (!m_AssetBundleCollection.Load())
                 {
@@ -688,12 +694,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
                 m_BuildReport.LogInfo("Prepare build map complete.");
                 m_BuildReport.LogInfo("Start build AssetBundles for selected build targets...");
-
-                if (m_BuildEventHandler != null)
-                {
-                    m_BuildReport.LogInfo("Execute build event handler 'PreProcessBuildAll'...");
-                    m_BuildEventHandler.PreProcessBuildAll(ProductName, CompanyName, GameIdentifier, ApplicableGameVersion, InternalResourceVersion, UnityVersion, buildAssetBundleOptions, ZipSelected, OutputDirectory, WorkingPath, OutputPackagePath, OutputFullPath, OutputPackedPath, BuildReportPath);
-                }
 
                 if (WindowsSelected)
                 {

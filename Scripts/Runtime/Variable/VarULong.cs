@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// ulong 变量类。
     /// </summary>
-    public class VarULong : Variable<ulong>
+    public sealed class VarULong : Variable<ulong>
     {
         /// <summary>
         /// 初始化 ulong 变量类的新实例。

@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 界面整型主键。
     /// </summary>
-    public class UIIntKey : MonoBehaviour
+    public sealed class UIIntKey : MonoBehaviour
     {
         [SerializeField]
         private int m_Key = 0;

@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// int 变量类。
     /// </summary>
-    public class VarInt : Variable<int>
+    public sealed class VarInt : Variable<int>
     {
         /// <summary>
         /// 初始化 int 变量类的新实例。

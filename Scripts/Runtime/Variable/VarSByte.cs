@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// sbyte 变量类。
     /// </summary>
-    public class VarSByte : Variable<sbyte>
+    public sealed class VarSByte : Variable<sbyte>
     {
         /// <summary>
         /// 初始化 sbyte 变量类的新实例。

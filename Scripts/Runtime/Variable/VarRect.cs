@@ -13,7 +13,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// UnityEngine.Rect 变量类。
     /// </summary>
-    public class VarRect : Variable<Rect>
+    public sealed class VarRect : Variable<Rect>
     {
         /// <summary>
         /// 初始化 UnityEngine.Rect 变量类的新实例。

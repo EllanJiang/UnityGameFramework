@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// double 变量类。
     /// </summary>
-    public class VarDouble : Variable<double>
+    public sealed class VarDouble : Variable<double>
     {
         /// <summary>
         /// 初始化 double 变量类的新实例。

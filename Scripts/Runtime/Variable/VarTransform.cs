@@ -13,7 +13,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// UnityEngine.Transform 变量类。
     /// </summary>
-    public class VarTransform : Variable<Transform>
+    public sealed class VarTransform : Variable<Transform>
     {
         /// <summary>
         /// 初始化 UnityEngine.Transform 变量类的新实例。

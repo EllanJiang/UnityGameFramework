@@ -13,7 +13,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// UnityEngine.Quaternion 变量类。
     /// </summary>
-    public class VarQuaternion : Variable<Quaternion>
+    public sealed class VarQuaternion : Variable<Quaternion>
     {
         /// <summary>
         /// 初始化 UnityEngine.Quaternion 变量类的新实例。

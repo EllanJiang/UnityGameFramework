@@ -13,7 +13,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// UnityEngine.Texture 变量类。
     /// </summary>
-    public class VarTexture : Variable<Texture>
+    public sealed class VarTexture : Variable<Texture>
     {
         /// <summary>
         /// 初始化 UnityEngine.Texture 变量类的新实例。

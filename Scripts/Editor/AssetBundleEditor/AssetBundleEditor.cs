@@ -728,7 +728,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         {
             if (!m_Controller.AssignAsset(sourceAsset.Guid, assetBundle.Name, assetBundle.Variant))
             {
-                Debug.LogWarning(string.Format("Assign asset '{0}' to AssetBundle '{1}' failure.", sourceAsset.Name, m_SelectedAssetBundle.FullName));
+                Debug.LogWarning(string.Format("Assign asset '{0}' to AssetBundle '{1}' failure.", sourceAsset.Name, assetBundle.FullName));
             }
         }
 

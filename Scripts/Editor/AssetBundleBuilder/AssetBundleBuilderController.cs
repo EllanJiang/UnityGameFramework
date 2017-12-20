@@ -702,7 +702,12 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
                 if (MacOSXSelected)
                 {
-                    BuildAssetBundles(buildMap, buildAssetBundleOptions, ZipSelected, BuildTarget.StandaloneOSXIntel);
+#if UNITY_2017_3_OR_NEWER
+                    BuildTarget buildTarget = BuildTarget.StandaloneOSX;
+#else
+                    BuildTarget buildTarget = BuildTarget.StandaloneOSXUniversal;
+#endif
+                    BuildAssetBundles(buildMap, buildAssetBundleOptions, ZipSelected, buildTarget);
                 }
 
                 if (IOSSelected)
@@ -1376,7 +1381,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             {
                 case BuildTarget.StandaloneWindows:
                     return "windows";
-                case BuildTarget.StandaloneOSXIntel:
+#if UNITY_2017_3_OR_NEWER
+                case BuildTarget.StandaloneOSX:
+#else
+                case BuildTarget.StandaloneOSXUniversal:
+#endif
                     return "osx";
                 case BuildTarget.iOS:
                     return "ios";

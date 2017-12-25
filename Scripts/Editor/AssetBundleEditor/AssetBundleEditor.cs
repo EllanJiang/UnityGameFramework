@@ -330,6 +330,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             if (m_SelectedAssetBundle == null)
             {
                 m_MenuState = MenuState.Normal;
+                return;
             }
 
             GUI.SetNextControlName("RenameAssetBundleNameTextField");
@@ -366,6 +367,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             if (m_SelectedAssetBundle == null)
             {
                 m_MenuState = MenuState.Normal;
+                return;
             }
 
             GUILayout.Label(string.Format("Remove '{0}' ?", m_SelectedAssetBundle.FullName));

@@ -16,8 +16,21 @@ namespace UnityGameFramework.Editor
     /// </summary>
     internal static class Type
     {
-        private static readonly string[] AssemblyNames = { "UnityGameFramework.Runtime", "Assembly-CSharp" };
-        private static readonly string[] EditorAssemblyNames = { "UnityGameFramework.Editor", "Assembly-CSharp-Editor" };
+        private static readonly string[] AssemblyNames =
+        {
+#if UNITY_2017_3_OR_NEWER
+            "UnityGameFramework.Runtime",
+#endif
+            "Assembly-CSharp"
+        };
+
+        private static readonly string[] EditorAssemblyNames =
+        {
+#if UNITY_2017_3_OR_NEWER
+            "UnityGameFramework.Editor",
+#endif
+            "Assembly-CSharp-Editor"
+        };
 
         /// <summary>
         /// 获取配置路径。

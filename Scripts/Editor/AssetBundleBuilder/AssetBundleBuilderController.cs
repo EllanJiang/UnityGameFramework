@@ -594,7 +594,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             bool retVal = false;
             if (!string.IsNullOrEmpty(BuildEventHandlerTypeName) && m_BuildEventHandlerTypeNames.Contains(BuildEventHandlerTypeName))
             {
-                System.Type buildEventHandlerType = System.Type.GetType(BuildEventHandlerTypeName);
+                System.Type buildEventHandlerType = Utility.Assembly.GetType(BuildEventHandlerTypeName);
                 if (buildEventHandlerType != null)
                 {
                     IBuildEventHandler buildEventHandler = (IBuildEventHandler)Activator.CreateInstance(buildEventHandlerType);

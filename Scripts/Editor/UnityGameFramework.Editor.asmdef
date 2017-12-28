@@ -3,6 +3,8 @@
     "references": [
         "UnityGameFramework.Runtime"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": []
 }

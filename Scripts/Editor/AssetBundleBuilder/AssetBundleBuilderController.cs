@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework v3.x
-// Copyright © 2013-2017 Jiang Yin. All rights reserved.
+// Copyright © 2013-2018 Jiang Yin. All rights reserved.
 // Homepage: http://gameframework.cn/
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
@@ -594,7 +594,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             bool retVal = false;
             if (!string.IsNullOrEmpty(BuildEventHandlerTypeName) && m_BuildEventHandlerTypeNames.Contains(BuildEventHandlerTypeName))
             {
-                System.Type buildEventHandlerType = System.Type.GetType(BuildEventHandlerTypeName);
+                System.Type buildEventHandlerType = Utility.Assembly.GetType(BuildEventHandlerTypeName);
                 if (buildEventHandlerType != null)
                 {
                     IBuildEventHandler buildEventHandler = (IBuildEventHandler)Activator.CreateInstance(buildEventHandlerType);
@@ -702,7 +702,12 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
                 if (MacOSXSelected)
                 {
-                    BuildAssetBundles(buildMap, buildAssetBundleOptions, ZipSelected, BuildTarget.StandaloneOSXIntel);
+#if UNITY_2017_3_OR_NEWER
+                    BuildTarget buildTarget = BuildTarget.StandaloneOSX;
+#else
+                    BuildTarget buildTarget = BuildTarget.StandaloneOSXUniversal;
+#endif
+                    BuildAssetBundles(buildMap, buildAssetBundleOptions, ZipSelected, buildTarget);
                 }
 
                 if (IOSSelected)
@@ -1376,7 +1381,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             {
                 case BuildTarget.StandaloneWindows:
                     return "windows";
-                case BuildTarget.StandaloneOSXIntel:
+#if UNITY_2017_3_OR_NEWER
+                case BuildTarget.StandaloneOSX:
+#else
+                case BuildTarget.StandaloneOSXUniversal:
+#endif
                     return "osx";
                 case BuildTarget.iOS:
                     return "ios";

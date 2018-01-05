@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework v3.x
-// Copyright © 2013-2017 Jiang Yin. All rights reserved.
+// Copyright © 2013-2018 Jiang Yin. All rights reserved.
 // Homepage: http://gameframework.cn/
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
@@ -16,8 +16,21 @@ namespace UnityGameFramework.Editor
     /// </summary>
     internal static class Type
     {
-        private static readonly string[] AssemblyNames = { "Assembly-CSharp" };
-        private static readonly string[] EditorAssemblyNames = { "Assembly-CSharp-Editor" };
+        private static readonly string[] AssemblyNames =
+        {
+#if UNITY_2017_3_OR_NEWER
+            "UnityGameFramework.Runtime",
+#endif
+            "Assembly-CSharp"
+        };
+
+        private static readonly string[] EditorAssemblyNames =
+        {
+#if UNITY_2017_3_OR_NEWER
+            "UnityGameFramework.Editor",
+#endif
+            "Assembly-CSharp-Editor"
+        };
 
         /// <summary>
         /// 获取配置路径。

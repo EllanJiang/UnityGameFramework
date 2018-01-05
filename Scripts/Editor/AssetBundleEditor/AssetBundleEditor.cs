@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework v3.x
-// Copyright © 2013-2017 Jiang Yin. All rights reserved.
+// Copyright © 2013-2018 Jiang Yin. All rights reserved.
 // Homepage: http://gameframework.cn/
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
@@ -330,6 +330,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             if (m_SelectedAssetBundle == null)
             {
                 m_MenuState = MenuState.Normal;
+                return;
             }
 
             GUI.SetNextControlName("RenameAssetBundleNameTextField");
@@ -366,6 +367,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             if (m_SelectedAssetBundle == null)
             {
                 m_MenuState = MenuState.Normal;
+                return;
             }
 
             GUILayout.Label(string.Format("Remove '{0}' ?", m_SelectedAssetBundle.FullName));
@@ -728,7 +730,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         {
             if (!m_Controller.AssignAsset(sourceAsset.Guid, assetBundle.Name, assetBundle.Variant))
             {
-                Debug.LogWarning(string.Format("Assign asset '{0}' to AssetBundle '{1}' failure.", sourceAsset.Name, m_SelectedAssetBundle.FullName));
+                Debug.LogWarning(string.Format("Assign asset '{0}' to AssetBundle '{1}' failure.", sourceAsset.Name, assetBundle.FullName));
             }
         }
 

@@ -459,6 +459,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             Asset[] assetsInAssetBundle = assetBundle.GetAssets();
             foreach (Asset assetInAssetBundle in assetsInAssetBundle)
             {
+                if (assetInAssetBundle.Name == assetName)
+                {
+                    continue;
+                }
+
                 if (Path.GetFileName(assetInAssetBundle.Name) == Path.GetFileName(assetName))
                 {
                     return false;

@@ -61,7 +61,7 @@ namespace UnityGameFramework.Editor
 
                 EditorGUILayout.BeginVertical("box");
                 {
-                    EditorGUILayout.LabelField("Global Helpers");
+                    EditorGUILayout.LabelField("Global Helpers", EditorStyles.boldLabel);
 
                     int logHelperSelectedIndex = EditorGUILayout.Popup("Log Helper", m_LogHelperTypeNameIndex, m_LogHelperTypeNames);
                     if (logHelperSelectedIndex != m_LogHelperTypeNameIndex)
@@ -155,6 +155,22 @@ namespace UnityGameFramework.Editor
                 {
                     m_NeverSleep.boolValue = neverSleep;
                 }
+            }
+
+            if (EditorApplication.isPlaying)
+            {
+                EditorGUILayout.BeginVertical("box");
+                {
+                    EditorGUILayout.LabelField("Reference Pool", EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField("Reference Pool Count", ReferencePool.Count.ToString());
+
+                    ReferencePoolInfo[] referencePoolInfos = ReferencePool.GetAllReferencePoolInfos();
+                    foreach (ReferencePoolInfo referencePoolInfo in referencePoolInfos)
+                    {
+                        DrawReferencePoolInfo(referencePoolInfo);
+                    }
+                }
+                EditorGUILayout.EndVertical();
             }
 
             serializedObject.ApplyModifiedProperties();
@@ -275,6 +291,11 @@ namespace UnityGameFramework.Editor
             }
 
             return -1;
+        }
+
+        private void DrawReferencePoolInfo(ReferencePoolInfo referencePoolInfo)
+        {
+            EditorGUILayout.LabelField(referencePoolInfo.TypeName, string.Format("[Unused]{0} [Using]{1} [Add]{2} [Remove]{3}", referencePoolInfo.UnusedReferenceCount.ToString(), referencePoolInfo.UsingReferenceCount.ToString(), referencePoolInfo.AddReferenceCount.ToString(), referencePoolInfo.RemoveReferenceCount.ToString()));
         }
     }
 }

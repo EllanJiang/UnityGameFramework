@@ -1265,42 +1265,21 @@
             引用池。
             </summary>
         </member>
+        <member name="P:GameFramework.ReferencePool.Count">
+            <summary>
+            获取引用池的数量。
+            </summary>
+        </member>
+        <member name="M:GameFramework.ReferencePool.GetAllReferencePoolInfos">
+            <summary>
+            获取所有引用池的信息。
+            </summary>
+            <returns>所有引用池的信息。</returns>
+        </member>
         <member name="M:GameFramework.ReferencePool.ClearAll">
             <summary>
             清除所有引用池。
             </summary>
-        </member>
-        <member name="M:GameFramework.ReferencePool.Clear``1">
-            <summary>
-            清除引用池。
-            </summary>
-            <typeparam name="T">引用类型。</typeparam>
-        </member>
-        <member name="M:GameFramework.ReferencePool.Clear(System.Type)">
-            <summary>
-            清除引用池。
-            </summary>
-            <param name="referenceType">引用类型。</param>
-        </member>
-        <member name="M:GameFramework.ReferencePool.Count">
-            <summary>
-            获取引用池的数量。
-            </summary>
-            <returns>引用池的数量。</returns>
-        </member>
-        <member name="M:GameFramework.ReferencePool.Count``1">
-            <summary>
-            获取引用池中引用的数量。
-            </summary>
-            <typeparam name="T">引用类型。</typeparam>
-            <returns>引用池中引用的数量。</returns>
-        </member>
-        <member name="M:GameFramework.ReferencePool.Count(System.Type)">
-            <summary>
-            获取引用池中引用的数量。
-            </summary>
-            <param name="referenceType">引用类型。</param>
-            <returns>引用池中引用的数量。</returns>
         </member>
         <member name="M:GameFramework.ReferencePool.Acquire``1">
             <summary>
@@ -1356,6 +1335,58 @@
             </summary>
             <param name="referenceType">引用类型。</param>
             <param name="count">移除数量。</param>
+        </member>
+        <member name="M:GameFramework.ReferencePool.RemoveAll``1">
+            <summary>
+            从引用池中移除所有的引用。
+            </summary>
+            <typeparam name="T">引用类型。</typeparam>
+        </member>
+        <member name="M:GameFramework.ReferencePool.RemoveAll(System.Type)">
+            <summary>
+            从引用池中移除所有的引用。
+            </summary>
+            <param name="referenceType">引用类型。</param>
+        </member>
+        <member name="T:GameFramework.ReferencePoolInfo">
+            <summary>
+            引用池信息。
+            </summary>
+        </member>
+        <member name="M:GameFramework.ReferencePoolInfo.#ctor(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            初始化引用池信息的新实例。
+            </summary>
+            <param name="typeName">引用池类型名称。</param>
+            <param name="unusedReferenceCount">未使用引用数量。</param>
+            <param name="usingReferenceCount">正在使用引用数量。</param>
+            <param name="addReferenceCount">已增加引用数量。</param>
+            <param name="removeReferenceCount">已移除引用数量。</param>
+        </member>
+        <member name="P:GameFramework.ReferencePoolInfo.TypeName">
+            <summary>
+            获取引用池类型名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ReferencePoolInfo.UnusedReferenceCount">
+            <summary>
+            获取未使用引用数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ReferencePoolInfo.UsingReferenceCount">
+            <summary>
+            获取正在使用引用数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ReferencePoolInfo.AddReferenceCount">
+            <summary>
+            获取已增加引用数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ReferencePoolInfo.RemoveReferenceCount">
+            <summary>
+            获取已移除引用数量。
+            </summary>
         </member>
         <member name="T:GameFramework.ITask">
             <summary>

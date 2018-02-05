@@ -1353,15 +1353,17 @@
             引用池信息。
             </summary>
         </member>
-        <member name="M:GameFramework.ReferencePoolInfo.#ctor(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:GameFramework.ReferencePoolInfo.#ctor(System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
             初始化引用池信息的新实例。
             </summary>
             <param name="typeName">引用池类型名称。</param>
             <param name="unusedReferenceCount">未使用引用数量。</param>
             <param name="usingReferenceCount">正在使用引用数量。</param>
-            <param name="addReferenceCount">已增加引用数量。</param>
-            <param name="removeReferenceCount">已移除引用数量。</param>
+            <param name="acquireReferenceCount">获取引用数量。</param>
+            <param name="releaseReferenceCount">归还引用数量。</param>
+            <param name="addReferenceCount">增加引用数量。</param>
+            <param name="removeReferenceCount">移除引用数量。</param>
         </member>
         <member name="P:GameFramework.ReferencePoolInfo.TypeName">
             <summary>
@@ -1378,14 +1380,24 @@
             获取正在使用引用数量。
             </summary>
         </member>
+        <member name="P:GameFramework.ReferencePoolInfo.AcquireReferenceCount">
+            <summary>
+            获取获取引用数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ReferencePoolInfo.ReleaseReferenceCount">
+            <summary>
+            获取归还引用数量。
+            </summary>
+        </member>
         <member name="P:GameFramework.ReferencePoolInfo.AddReferenceCount">
             <summary>
-            获取已增加引用数量。
+            获取增加引用数量。
             </summary>
         </member>
         <member name="P:GameFramework.ReferencePoolInfo.RemoveReferenceCount">
             <summary>
-            获取已移除引用数量。
+            获取移除引用数量。
             </summary>
         </member>
         <member name="T:GameFramework.ITask">

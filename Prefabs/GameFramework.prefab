@@ -289,6 +289,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &189908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 461836}
+  - 114: {fileID: 11461162}
+  m_Layer: 0
+  m_Name: Reference Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &401796
 Transform:
   m_ObjectHideFlags: 1
@@ -336,7 +352,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 433714}
-  m_RootOrder: 15
+  m_RootOrder: 16
 --- !u!4 &431700
 Transform:
   m_ObjectHideFlags: 1
@@ -360,7 +376,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 433714}
-  m_RootOrder: 11
+  m_RootOrder: 12
 --- !u!4 &433714
 Transform:
   m_ObjectHideFlags: 1
@@ -382,6 +398,7 @@ Transform:
   - {fileID: 486648}
   - {fileID: 431700}
   - {fileID: 407686}
+  - {fileID: 461836}
   - {fileID: 432002}
   - {fileID: 449996}
   - {fileID: 490662}
@@ -425,7 +442,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 433714}
-  m_RootOrder: 12
+  m_RootOrder: 13
 --- !u!4 &450964
 Transform:
   m_ObjectHideFlags: 1
@@ -437,7 +454,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 433714}
-  m_RootOrder: 16
+  m_RootOrder: 17
 --- !u!4 &455962
 Transform:
   m_ObjectHideFlags: 1
@@ -450,6 +467,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 433714}
   m_RootOrder: 0
+--- !u!4 &461836
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189908}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 433714}
+  m_RootOrder: 11
 --- !u!4 &463618
 Transform:
   m_ObjectHideFlags: 1
@@ -461,7 +490,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 433714}
-  m_RootOrder: 14
+  m_RootOrder: 15
 --- !u!4 &465000
 Transform:
   m_ObjectHideFlags: 1
@@ -521,7 +550,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 433714}
-  m_RootOrder: 13
+  m_RootOrder: 14
 --- !u!114 &11402158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -743,6 +772,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SettingHelperTypeName: UnityGameFramework.Runtime.DefaultSettingHelper
   m_CustomSettingHelper: {fileID: 0}
+--- !u!114 &11461162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ae4d40d7e878bc498492dc9c410d071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11461470
 MonoBehaviour:
   m_ObjectHideFlags: 1

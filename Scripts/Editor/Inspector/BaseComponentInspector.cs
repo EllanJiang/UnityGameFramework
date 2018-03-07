@@ -61,7 +61,7 @@ namespace UnityGameFramework.Editor
 
                 EditorGUILayout.BeginVertical("box");
                 {
-                    EditorGUILayout.LabelField("Global Helpers");
+                    EditorGUILayout.LabelField("Global Helpers", EditorStyles.boldLabel);
 
                     int logHelperSelectedIndex = EditorGUILayout.Popup("Log Helper", m_LogHelperTypeNameIndex, m_LogHelperTypeNames);
                     if (logHelperSelectedIndex != m_LogHelperTypeNameIndex)

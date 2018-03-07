@@ -67,7 +67,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取字典条数。
+        /// 获取字典数量。
         /// </summary>
         public int DictionaryCount
         {

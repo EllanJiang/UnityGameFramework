@@ -7,6 +7,7 @@
 
 using GameFramework.Network;
 using UnityEditor;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace UnityGameFramework.Editor
@@ -54,6 +55,14 @@ namespace UnityGameFramework.Editor
                 EditorGUILayout.LabelField("Local Address", networkChannel.Connected ? string.Format("{0}:{1}", networkChannel.LocalIPAddress.ToString(), networkChannel.LocalPort.ToString()) : "Unknown");
                 EditorGUILayout.LabelField("Remote Address", networkChannel.Connected ? string.Format("{0}:{1}", networkChannel.RemoteIPAddress.ToString(), networkChannel.RemotePort.ToString()) : "Unknown");
                 EditorGUILayout.LabelField("Heart Beat Interval", networkChannel.HeartBeatInterval.ToString());
+                EditorGUI.BeginDisabledGroup(!networkChannel.Connected);
+                {
+                    if (GUILayout.Button("Disconnect"))
+                    {
+                        networkChannel.Close();
+                    }
+                }
+                EditorGUI.EndDisabledGroup();
             }
             EditorGUILayout.EndVertical();
 

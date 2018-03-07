@@ -1265,42 +1265,21 @@
             引用池。
             </summary>
         </member>
+        <member name="P:GameFramework.ReferencePool.Count">
+            <summary>
+            获取引用池的数量。
+            </summary>
+        </member>
+        <member name="M:GameFramework.ReferencePool.GetAllReferencePoolInfos">
+            <summary>
+            获取所有引用池的信息。
+            </summary>
+            <returns>所有引用池的信息。</returns>
+        </member>
         <member name="M:GameFramework.ReferencePool.ClearAll">
             <summary>
             清除所有引用池。
             </summary>
-        </member>
-        <member name="M:GameFramework.ReferencePool.Clear``1">
-            <summary>
-            清除引用池。
-            </summary>
-            <typeparam name="T">引用类型。</typeparam>
-        </member>
-        <member name="M:GameFramework.ReferencePool.Clear(System.Type)">
-            <summary>
-            清除引用池。
-            </summary>
-            <param name="referenceType">引用类型。</param>
-        </member>
-        <member name="M:GameFramework.ReferencePool.Count">
-            <summary>
-            获取引用池的数量。
-            </summary>
-            <returns>引用池的数量。</returns>
-        </member>
-        <member name="M:GameFramework.ReferencePool.Count``1">
-            <summary>
-            获取引用池中引用的数量。
-            </summary>
-            <typeparam name="T">引用类型。</typeparam>
-            <returns>引用池中引用的数量。</returns>
-        </member>
-        <member name="M:GameFramework.ReferencePool.Count(System.Type)">
-            <summary>
-            获取引用池中引用的数量。
-            </summary>
-            <param name="referenceType">引用类型。</param>
-            <returns>引用池中引用的数量。</returns>
         </member>
         <member name="M:GameFramework.ReferencePool.Acquire``1">
             <summary>
@@ -1356,6 +1335,70 @@
             </summary>
             <param name="referenceType">引用类型。</param>
             <param name="count">移除数量。</param>
+        </member>
+        <member name="M:GameFramework.ReferencePool.RemoveAll``1">
+            <summary>
+            从引用池中移除所有的引用。
+            </summary>
+            <typeparam name="T">引用类型。</typeparam>
+        </member>
+        <member name="M:GameFramework.ReferencePool.RemoveAll(System.Type)">
+            <summary>
+            从引用池中移除所有的引用。
+            </summary>
+            <param name="referenceType">引用类型。</param>
+        </member>
+        <member name="T:GameFramework.ReferencePoolInfo">
+            <summary>
+            引用池信息。
+            </summary>
+        </member>
+        <member name="M:GameFramework.ReferencePoolInfo.#ctor(System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            初始化引用池信息的新实例。
+            </summary>
+            <param name="typeName">引用池类型名称。</param>
+            <param name="unusedReferenceCount">未使用引用数量。</param>
+            <param name="usingReferenceCount">正在使用引用数量。</param>
+            <param name="acquireReferenceCount">获取引用数量。</param>
+            <param name="releaseReferenceCount">归还引用数量。</param>
+            <param name="addReferenceCount">增加引用数量。</param>
+            <param name="removeReferenceCount">移除引用数量。</param>
+        </member>
+        <member name="P:GameFramework.ReferencePoolInfo.TypeName">
+            <summary>
+            获取引用池类型名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ReferencePoolInfo.UnusedReferenceCount">
+            <summary>
+            获取未使用引用数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ReferencePoolInfo.UsingReferenceCount">
+            <summary>
+            获取正在使用引用数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ReferencePoolInfo.AcquireReferenceCount">
+            <summary>
+            获取获取引用数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ReferencePoolInfo.ReleaseReferenceCount">
+            <summary>
+            获取归还引用数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ReferencePoolInfo.AddReferenceCount">
+            <summary>
+            获取增加引用数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ReferencePoolInfo.RemoveReferenceCount">
+            <summary>
+            获取移除引用数量。
+            </summary>
         </member>
         <member name="T:GameFramework.ITask">
             <summary>
@@ -1558,6 +1601,492 @@
         <member name="M:GameFramework.Variable.Reset">
             <summary>
             重置变量值。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Config.ConfigManager">
+            <summary>
+            配置管理器。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.#ctor">
+            <summary>
+            初始化配置管理器的新实例。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.ConfigManager.ConfigCount">
+            <summary>
+            获取配置数量。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Config.ConfigManager.LoadConfigSuccess">
+            <summary>
+            加载配置成功事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Config.ConfigManager.LoadConfigFailure">
+            <summary>
+            加载配置失败事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Config.ConfigManager.LoadConfigUpdate">
+            <summary>
+            加载配置更新事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Config.ConfigManager.LoadConfigDependencyAsset">
+            <summary>
+            加载配置时加载依赖资源事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.Update(System.Single,System.Single)">
+            <summary>
+            配置管理器轮询。
+            </summary>
+            <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
+            <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.Shutdown">
+            <summary>
+            关闭并清理配置管理器。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.SetResourceManager(GameFramework.Resource.IResourceManager)">
+            <summary>
+            设置资源管理器。
+            </summary>
+            <param name="resourceManager">资源管理器。</param>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.SetConfigHelper(GameFramework.Config.IConfigHelper)">
+            <summary>
+            设置配置辅助器。
+            </summary>
+            <param name="configHelper">配置辅助器。</param>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String)">
+            <summary>
+            加载配置。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,System.Object)">
+            <summary>
+            加载配置。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.ParseConfig(System.String)">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="text">要解析的配置文本。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.ParseConfig(System.String,System.Object)">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="text">要解析的配置文本。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.HasConfig(System.String)">
+            <summary>
+            检查是否存在指定配置项。
+            </summary>
+            <param name="configName">要检查配置项的名称。</param>
+            <returns>指定的配置项是否存在。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.AddConfig(System.String,System.Boolean,System.Int32,System.Single,System.String)">
+            <summary>
+            增加指定配置项。
+            </summary>
+            <param name="configName">要增加配置项的名称。</param>
+            <param name="boolValue">配置项布尔值。</param>
+            <param name="intValue">配置项整数值。</param>
+            <param name="floatValue">配置项浮点数值。</param>
+            <param name="stringValue">配置项字符串值。</param>
+            <returns>是否增加配置项成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.RemoveConfig(System.String)">
+            <summary>
+            移除指定配置项。
+            </summary>
+            <param name="configName">要移除配置项的名称。</param>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.RemoveAllConfigs">
+            <summary>
+            清空所有配置项。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.GetBool(System.String)">
+            <summary>
+            从指定配置项中读取布尔值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <returns>读取的布尔值。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.GetBool(System.String,System.Boolean)">
+            <summary>
+            从指定配置项中读取布尔值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
+            <returns>读取的布尔值。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.GetInt(System.String)">
+            <summary>
+            从指定配置项中读取整数值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <returns>读取的整数值。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.GetInt(System.String,System.Int32)">
+            <summary>
+            从指定配置项中读取整数值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
+            <returns>读取的整数值。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.GetFloat(System.String)">
+            <summary>
+            从指定配置项中读取浮点数值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <returns>读取的浮点数值。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.GetFloat(System.String,System.Single)">
+            <summary>
+            从指定配置项中读取浮点数值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
+            <returns>读取的浮点数值。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.GetString(System.String)">
+            <summary>
+            从指定配置项中读取字符串值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <returns>读取的字符串值。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.GetString(System.String,System.String)">
+            <summary>
+            从指定配置项中读取字符串值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
+            <returns>读取的字符串值。</returns>
+        </member>
+        <member name="T:GameFramework.Config.IConfigHelper">
+            <summary>
+            配置辅助器接口。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Config.IConfigHelper.LoadConfig(System.Object,System.Object)">
+            <summary>
+            加载配置。
+            </summary>
+            <param name="configAsset">配置资源。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>加载是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigHelper.ParseConfig(System.String,System.Object)">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="text">要解析的配置文本。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigHelper.ReleaseConfigAsset(System.Object)">
+            <summary>
+            释放配置资源。
+            </summary>
+            <param name="configAsset">要释放的配置资源。</param>
+        </member>
+        <member name="T:GameFramework.Config.IConfigManager">
+            <summary>
+            配置管理器接口。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.IConfigManager.ConfigCount">
+            <summary>
+            获取配置数量。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Config.IConfigManager.LoadConfigSuccess">
+            <summary>
+            加载配置成功事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Config.IConfigManager.LoadConfigFailure">
+            <summary>
+            加载配置失败事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Config.IConfigManager.LoadConfigUpdate">
+            <summary>
+            加载配置更新事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Config.IConfigManager.LoadConfigDependencyAsset">
+            <summary>
+            加载配置时加载依赖资源事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.SetResourceManager(GameFramework.Resource.IResourceManager)">
+            <summary>
+            设置资源管理器。
+            </summary>
+            <param name="resourceManager">资源管理器。</param>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.SetConfigHelper(GameFramework.Config.IConfigHelper)">
+            <summary>
+            设置配置辅助器。
+            </summary>
+            <param name="configHelper">配置辅助器。</param>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String)">
+            <summary>
+            加载配置。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,System.Object)">
+            <summary>
+            加载配置。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.ParseConfig(System.String)">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="text">要解析的配置文本。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.ParseConfig(System.String,System.Object)">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="text">要解析的配置文本。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.HasConfig(System.String)">
+            <summary>
+            检查是否存在指定配置项。
+            </summary>
+            <param name="configName">要检查配置项的名称。</param>
+            <returns>指定的配置项是否存在。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.AddConfig(System.String,System.Boolean,System.Int32,System.Single,System.String)">
+            <summary>
+            增加指定配置项。
+            </summary>
+            <param name="configName">要增加配置项的名称。</param>
+            <param name="boolValue">配置项布尔值。</param>
+            <param name="intValue">配置项整数值。</param>
+            <param name="floatValue">配置项浮点数值。</param>
+            <param name="stringValue">配置项字符串值。</param>
+            <returns>是否增加配置项成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.RemoveConfig(System.String)">
+            <summary>
+            移除指定配置项。
+            </summary>
+            <param name="configName">要移除配置项的名称。</param>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.RemoveAllConfigs">
+            <summary>
+            清空所有配置项。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.GetBool(System.String)">
+            <summary>
+            从指定配置项中读取布尔值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <returns>读取的布尔值。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.GetBool(System.String,System.Boolean)">
+            <summary>
+            从指定配置项中读取布尔值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
+            <returns>读取的布尔值。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.GetInt(System.String)">
+            <summary>
+            从指定配置项中读取整数值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <returns>读取的整数值。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.GetInt(System.String,System.Int32)">
+            <summary>
+            从指定配置项中读取整数值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
+            <returns>读取的整数值。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.GetFloat(System.String)">
+            <summary>
+            从指定配置项中读取浮点数值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <returns>读取的浮点数值。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.GetFloat(System.String,System.Single)">
+            <summary>
+            从指定配置项中读取浮点数值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
+            <returns>读取的浮点数值。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.GetString(System.String)">
+            <summary>
+            从指定配置项中读取字符串值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <returns>读取的字符串值。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.GetString(System.String,System.String)">
+            <summary>
+            从指定配置项中读取字符串值。
+            </summary>
+            <param name="configName">要获取配置项的名称。</param>
+            <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
+            <returns>读取的字符串值。</returns>
+        </member>
+        <member name="T:GameFramework.Config.LoadConfigDependencyAssetEventArgs">
+            <summary>
+            加载配置时加载依赖资源事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Config.LoadConfigDependencyAssetEventArgs.#ctor(System.String,System.String,System.Int32,System.Int32,System.Object)">
+            <summary>
+            初始化加载配置时加载依赖资源事件的新实例。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
+            <param name="loadedCount">当前已加载依赖资源数量。</param>
+            <param name="totalCount">总共加载依赖资源数量。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigDependencyAssetEventArgs.ConfigAssetName">
+            <summary>
+            获取配置资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigDependencyAssetEventArgs.DependencyAssetName">
+            <summary>
+            获取被加载的依赖资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigDependencyAssetEventArgs.LoadedCount">
+            <summary>
+            获取当前已加载依赖资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigDependencyAssetEventArgs.TotalCount">
+            <summary>
+            获取总共加载依赖资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigDependencyAssetEventArgs.UserData">
+            <summary>
+            获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Config.LoadConfigFailureEventArgs">
+            <summary>
+            加载配置失败事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Config.LoadConfigFailureEventArgs.#ctor(System.String,System.String,System.Object)">
+            <summary>
+            初始化加载配置失败事件的新实例。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+            <param name="errorMessage">错误信息。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigFailureEventArgs.ConfigAssetName">
+            <summary>
+            获取配置资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigFailureEventArgs.ErrorMessage">
+            <summary>
+            获取错误信息。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigFailureEventArgs.UserData">
+            <summary>
+            获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Config.LoadConfigSuccessEventArgs">
+            <summary>
+            加载配置成功事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Config.LoadConfigSuccessEventArgs.#ctor(System.String,System.Single,System.Object)">
+            <summary>
+            初始化加载配置成功事件的新实例。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+            <param name="duration">加载持续时间。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigSuccessEventArgs.ConfigAssetName">
+            <summary>
+            获取配置资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigSuccessEventArgs.Duration">
+            <summary>
+            获取加载持续时间。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigSuccessEventArgs.UserData">
+            <summary>
+            获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Config.LoadConfigUpdateEventArgs">
+            <summary>
+            加载配置更新事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Config.LoadConfigUpdateEventArgs.#ctor(System.String,System.Single,System.Object)">
+            <summary>
+            初始化加载配置更新事件的新实例。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+            <param name="progress">加载配置进度。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigUpdateEventArgs.ConfigAssetName">
+            <summary>
+            获取配置资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigUpdateEventArgs.Progress">
+            <summary>
+            获取加载配置进度。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigUpdateEventArgs.UserData">
+            <summary>
+            获取用户自定义数据。
             </summary>
         </member>
         <member name="T:GameFramework.DataNode.DataNodeManager">
@@ -5959,7 +6488,7 @@
         </member>
         <member name="P:GameFramework.Localization.ILocalizationManager.DictionaryCount">
             <summary>
-            获取字典条数。
+            获取字典数量。
             </summary>
         </member>
         <member name="E:GameFramework.Localization.ILocalizationManager.LoadDictionarySuccess">
@@ -6465,7 +6994,7 @@
         </member>
         <member name="P:GameFramework.Localization.LocalizationManager.DictionaryCount">
             <summary>
-            获取字典条数。
+            获取字典数量。
             </summary>
         </member>
         <member name="E:GameFramework.Localization.LocalizationManager.LoadDictionarySuccess">
@@ -12188,20 +12717,20 @@
             </summary>
             <returns>是否保存配置成功。</returns>
         </member>
-        <member name="M:GameFramework.Setting.ISettingHelper.HasKey(System.String)">
+        <member name="M:GameFramework.Setting.ISettingHelper.HasSetting(System.String)">
             <summary>
             检查是否存在指定配置项。
             </summary>
-            <param name="key">要检查配置项的名称。</param>
+            <param name="settingName">要检查配置项的名称。</param>
             <returns>指定的配置项是否存在。</returns>
         </member>
-        <member name="M:GameFramework.Setting.ISettingHelper.RemoveKey(System.String)">
+        <member name="M:GameFramework.Setting.ISettingHelper.RemoveSetting(System.String)">
             <summary>
             移除指定配置项。
             </summary>
-            <param name="key">要移除配置项的名称。</param>
+            <param name="settingName">要移除配置项的名称。</param>
         </member>
-        <member name="M:GameFramework.Setting.ISettingHelper.RemoveAllKeys">
+        <member name="M:GameFramework.Setting.ISettingHelper.RemoveAllSettings">
             <summary>
             清空所有配置项。
             </summary>
@@ -12210,14 +12739,14 @@
             <summary>
             从指定配置项中读取布尔值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的布尔值。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.GetBool(System.String,System.Boolean)">
             <summary>
             从指定配置项中读取布尔值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
             <returns>读取的布尔值。</returns>
         </member>
@@ -12225,21 +12754,21 @@
             <summary>
             向指定配置项写入布尔值。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="value">要写入的布尔值。</param>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.GetInt(System.String)">
             <summary>
             从指定配置项中读取整数值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的整数值。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.GetInt(System.String,System.Int32)">
             <summary>
             从指定配置项中读取整数值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
             <returns>读取的整数值。</returns>
         </member>
@@ -12247,21 +12776,21 @@
             <summary>
             向指定配置项写入整数值。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="value">要写入的整数值。</param>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.GetFloat(System.String)">
             <summary>
             从指定配置项中读取浮点数值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的浮点数值。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.GetFloat(System.String,System.Single)">
             <summary>
             从指定配置项中读取浮点数值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
             <returns>读取的浮点数值。</returns>
         </member>
@@ -12269,21 +12798,21 @@
             <summary>
             向指定配置项写入浮点数值。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="value">要写入的浮点数值。</param>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.GetString(System.String)">
             <summary>
             从指定配置项中读取字符串值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的字符串值。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.GetString(System.String,System.String)">
             <summary>
             从指定配置项中读取字符串值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
             <returns>读取的字符串值。</returns>
         </member>
@@ -12291,7 +12820,7 @@
             <summary>
             向指定配置项写入字符串值。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="value">要写入的字符串值。</param>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.GetObject``1(System.String)">
@@ -12299,7 +12828,7 @@
             从指定配置项中读取对象。
             </summary>
             <typeparam name="T">要读取对象的类型。</typeparam>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的对象。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.GetObject(System.Type,System.String)">
@@ -12307,7 +12836,7 @@
             从指定配置项中读取对象。
             </summary>
             <param name="objectType">要读取对象的类型。</param>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns></returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.GetObject``1(System.String,``0)">
@@ -12315,7 +12844,7 @@
             从指定配置项中读取对象。
             </summary>
             <typeparam name="T">要读取对象的类型。</typeparam>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultObj">当指定的配置项不存在时，返回此默认对象。</param>
             <returns>读取的对象。</returns>
         </member>
@@ -12324,7 +12853,7 @@
             从指定配置项中读取对象。
             </summary>
             <param name="objectType">要读取对象的类型。</param>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultObj">当指定的配置项不存在时，返回此默认对象。</param>
             <returns></returns>
         </member>
@@ -12333,14 +12862,14 @@
             向指定配置项写入对象。
             </summary>
             <typeparam name="T">要写入对象的类型。</typeparam>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="obj">要写入的对象。</param>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.SetObject(System.String,System.Object)">
             <summary>
             向指定配置项写入对象。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="obj">要写入的对象。</param>
         </member>
         <member name="T:GameFramework.Setting.ISettingManager">
@@ -12366,20 +12895,20 @@
             </summary>
             <returns>是否保存配置成功。</returns>
         </member>
-        <member name="M:GameFramework.Setting.ISettingManager.HasKey(System.String)">
+        <member name="M:GameFramework.Setting.ISettingManager.HasSetting(System.String)">
             <summary>
             检查是否存在指定配置项。
             </summary>
-            <param name="key">要检查配置项的名称。</param>
+            <param name="settingName">要检查配置项的名称。</param>
             <returns>指定的配置项是否存在。</returns>
         </member>
-        <member name="M:GameFramework.Setting.ISettingManager.RemoveKey(System.String)">
+        <member name="M:GameFramework.Setting.ISettingManager.RemoveSetting(System.String)">
             <summary>
             移除指定配置项。
             </summary>
-            <param name="key">要移除配置项的名称。</param>
+            <param name="settingName">要移除配置项的名称。</param>
         </member>
-        <member name="M:GameFramework.Setting.ISettingManager.RemoveAllKeys">
+        <member name="M:GameFramework.Setting.ISettingManager.RemoveAllSettings">
             <summary>
             清空所有配置项。
             </summary>
@@ -12388,14 +12917,14 @@
             <summary>
             从指定配置项中读取布尔值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的布尔值。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.GetBool(System.String,System.Boolean)">
             <summary>
             从指定配置项中读取布尔值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
             <returns>读取的布尔值。</returns>
         </member>
@@ -12403,21 +12932,21 @@
             <summary>
             向指定配置项写入布尔值。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="value">要写入的布尔值。</param>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.GetInt(System.String)">
             <summary>
             从指定配置项中读取整数值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的整数值。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.GetInt(System.String,System.Int32)">
             <summary>
             从指定配置项中读取整数值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
             <returns>读取的整数值。</returns>
         </member>
@@ -12425,21 +12954,21 @@
             <summary>
             向指定配置项写入整数值。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="value">要写入的整数值。</param>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.GetFloat(System.String)">
             <summary>
             从指定配置项中读取浮点数值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的浮点数值。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.GetFloat(System.String,System.Single)">
             <summary>
             从指定配置项中读取浮点数值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
             <returns>读取的浮点数值。</returns>
         </member>
@@ -12447,21 +12976,21 @@
             <summary>
             向指定配置项写入浮点数值。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="value">要写入的浮点数值。</param>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.GetString(System.String)">
             <summary>
             从指定配置项中读取字符串值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的字符串值。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.GetString(System.String,System.String)">
             <summary>
             从指定配置项中读取字符串值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
             <returns>读取的字符串值。</returns>
         </member>
@@ -12469,7 +12998,7 @@
             <summary>
             向指定配置项写入字符串值。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="value">要写入的字符串值。</param>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.GetObject``1(System.String)">
@@ -12477,7 +13006,7 @@
             从指定配置项中读取对象。
             </summary>
             <typeparam name="T">要读取对象的类型。</typeparam>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的对象。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.GetObject(System.Type,System.String)">
@@ -12485,7 +13014,7 @@
             从指定配置项中读取对象。
             </summary>
             <param name="objectType">要读取对象的类型。</param>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns></returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.GetObject``1(System.String,``0)">
@@ -12493,7 +13022,7 @@
             从指定配置项中读取对象。
             </summary>
             <typeparam name="T">要读取对象的类型。</typeparam>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultObj">当指定的配置项不存在时，返回此默认对象。</param>
             <returns>读取的对象。</returns>
         </member>
@@ -12502,7 +13031,7 @@
             从指定配置项中读取对象。
             </summary>
             <param name="objectType">要读取对象的类型。</param>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultObj">当指定的配置项不存在时，返回此默认对象。</param>
             <returns></returns>
         </member>
@@ -12511,14 +13040,14 @@
             向指定配置项写入对象。
             </summary>
             <typeparam name="T">要写入对象的类型。</typeparam>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="obj">要写入的对象。</param>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.SetObject(System.String,System.Object)">
             <summary>
             向指定配置项写入对象。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="obj">要写入的对象。</param>
         </member>
         <member name="T:GameFramework.Setting.SettingManager">
@@ -12561,20 +13090,20 @@
             </summary>
             <returns>是否保存配置成功。</returns>
         </member>
-        <member name="M:GameFramework.Setting.SettingManager.HasKey(System.String)">
+        <member name="M:GameFramework.Setting.SettingManager.HasSetting(System.String)">
             <summary>
             检查是否存在指定配置项。
             </summary>
-            <param name="key">要检查配置项的名称。</param>
+            <param name="settingName">要检查配置项的名称。</param>
             <returns>指定的配置项是否存在。</returns>
         </member>
-        <member name="M:GameFramework.Setting.SettingManager.RemoveKey(System.String)">
+        <member name="M:GameFramework.Setting.SettingManager.RemoveSetting(System.String)">
             <summary>
             移除指定配置项。
             </summary>
-            <param name="key">要移除配置项的名称。</param>
+            <param name="settingName">要移除配置项的名称。</param>
         </member>
-        <member name="M:GameFramework.Setting.SettingManager.RemoveAllKeys">
+        <member name="M:GameFramework.Setting.SettingManager.RemoveAllSettings">
             <summary>
             清空所有配置项。
             </summary>
@@ -12583,14 +13112,14 @@
             <summary>
             从指定配置项中读取布尔值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的布尔值。</returns>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.GetBool(System.String,System.Boolean)">
             <summary>
             从指定配置项中读取布尔值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
             <returns>读取的布尔值。</returns>
         </member>
@@ -12598,21 +13127,21 @@
             <summary>
             向指定配置项写入布尔值。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="value">要写入的布尔值。</param>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.GetInt(System.String)">
             <summary>
             从指定配置项中读取整数值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的整数值。</returns>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.GetInt(System.String,System.Int32)">
             <summary>
             从指定配置项中读取整数值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
             <returns>读取的整数值。</returns>
         </member>
@@ -12620,21 +13149,21 @@
             <summary>
             向指定配置项写入整数值。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="value">要写入的整数值。</param>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.GetFloat(System.String)">
             <summary>
             从指定配置项中读取浮点数值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的浮点数值。</returns>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.GetFloat(System.String,System.Single)">
             <summary>
             从指定配置项中读取浮点数值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
             <returns>读取的浮点数值。</returns>
         </member>
@@ -12642,21 +13171,21 @@
             <summary>
             向指定配置项写入浮点数值。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="value">要写入的浮点数值。</param>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.GetString(System.String)">
             <summary>
             从指定配置项中读取字符串值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的字符串值。</returns>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.GetString(System.String,System.String)">
             <summary>
             从指定配置项中读取字符串值。
             </summary>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
             <returns>读取的字符串值。</returns>
         </member>
@@ -12664,7 +13193,7 @@
             <summary>
             向指定配置项写入字符串值。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="value">要写入的字符串值。</param>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.GetObject``1(System.String)">
@@ -12672,7 +13201,7 @@
             从指定配置项中读取对象。
             </summary>
             <typeparam name="T">要读取对象的类型。</typeparam>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns>读取的对象。</returns>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.GetObject(System.Type,System.String)">
@@ -12680,7 +13209,7 @@
             从指定配置项中读取对象。
             </summary>
             <param name="objectType">要读取对象的类型。</param>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <returns></returns>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.GetObject``1(System.String,``0)">
@@ -12688,7 +13217,7 @@
             从指定配置项中读取对象。
             </summary>
             <typeparam name="T">要读取对象的类型。</typeparam>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultObj">当指定的配置项不存在时，返回此默认对象。</param>
             <returns>读取的对象。</returns>
         </member>
@@ -12697,7 +13226,7 @@
             从指定配置项中读取对象。
             </summary>
             <param name="objectType">要读取对象的类型。</param>
-            <param name="key">要获取配置项的名称。</param>
+            <param name="settingName">要获取配置项的名称。</param>
             <param name="defaultObj">当指定的配置项不存在时，返回此默认对象。</param>
             <returns></returns>
         </member>
@@ -12706,14 +13235,14 @@
             向指定配置项写入对象。
             </summary>
             <typeparam name="T">要写入对象的类型。</typeparam>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="obj">要写入的对象。</param>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.SetObject(System.String,System.Object)">
             <summary>
             向指定配置项写入对象。
             </summary>
-            <param name="key">要写入配置项的名称。</param>
+            <param name="settingName">要写入配置项的名称。</param>
             <param name="obj">要写入的对象。</param>
         </member>
         <member name="T:GameFramework.Sound.Constant">

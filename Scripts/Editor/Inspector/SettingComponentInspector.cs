@@ -36,7 +36,7 @@ namespace UnityGameFramework.Editor
                 }
                 if (GUILayout.Button("Remove All Settings"))
                 {
-                    t.RemoveAllKeys();
+                    t.RemoveAllSettings();
                 }
             }
 

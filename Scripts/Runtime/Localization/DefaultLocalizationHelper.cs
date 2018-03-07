@@ -130,9 +130,11 @@ namespace UnityGameFramework.Runtime
                         return false;
                     }
 
-                    if (!AddRawString(splitLine[1], splitLine[3]))
+                    string key = splitLine[1];
+                    string value = splitLine[3];
+                    if (!AddRawString(key, value))
                     {
-                        Log.Warning("Can not add raw string with key '{0}' which may be invalid or duplicate.", splitLine[1]);
+                        Log.Warning("Can not add raw string with key '{0}' which may be invalid or duplicate.", key);
                         return false;
                     }
                 }

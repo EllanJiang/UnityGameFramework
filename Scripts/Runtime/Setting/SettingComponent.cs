@@ -40,7 +40,10 @@ namespace UnityGameFramework.Runtime
                 Log.Fatal("Setting manager is invalid.");
                 return;
             }
+        }
 
+        private void Start()
+        {
             SettingHelperBase settingHelper = Helper.CreateHelper(m_SettingHelperTypeName, m_CustomSettingHelper);
             if (settingHelper == null)
             {
@@ -54,11 +57,6 @@ namespace UnityGameFramework.Runtime
             transform.localScale = Vector3.one;
 
             m_SettingManager.SetSettingHelper(settingHelper);
-        }
-
-        private void Start()
-        {
-
         }
 
         /// <summary>

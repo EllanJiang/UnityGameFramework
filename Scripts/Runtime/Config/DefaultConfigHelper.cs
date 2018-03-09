@@ -24,31 +24,6 @@ namespace UnityGameFramework.Runtime
         private IConfigManager m_ConfigManager = null;
 
         /// <summary>
-        /// 加载配置。
-        /// </summary>
-        /// <param name="configName">配置名称。</param>
-        /// <param name="configAsset">配置资源。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <returns>加载是否成功。</returns>
-        public override bool LoadConfig(string configName, object configAsset, object userData)
-        {
-            TextAsset textAsset = configAsset as TextAsset;
-            if (textAsset == null)
-            {
-                Log.Warning("Config asset '{0}' is invalid.", configName);
-                return false;
-            }
-
-            bool retVal = m_ConfigManager.ParseConfig(textAsset.text, userData);
-            if (!retVal)
-            {
-                Log.Warning("Config asset '{0}' parse failure.", configName);
-            }
-
-            return retVal;
-        }
-
-        /// <summary>
         /// 解析配置。
         /// </summary>
         /// <param name="text">要解析的配置文本。</param>
@@ -108,6 +83,31 @@ namespace UnityGameFramework.Runtime
         public override void ReleaseConfigAsset(object configAsset)
         {
             m_ResourceComponent.UnloadAsset(configAsset);
+        }
+
+        /// <summary>
+        /// 加载配置。
+        /// </summary>
+        /// <param name="configName">配置名称。</param>
+        /// <param name="configAsset">配置资源。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>加载是否成功。</returns>
+        protected override bool LoadConfig(string configName, object configAsset, object userData)
+        {
+            TextAsset textAsset = configAsset as TextAsset;
+            if (textAsset == null)
+            {
+                Log.Warning("Config asset '{0}' is invalid.", configName);
+                return false;
+            }
+
+            bool retVal = m_ConfigManager.ParseConfig(textAsset.text, userData);
+            if (!retVal)
+            {
+                Log.Warning("Config asset '{0}' parse failure.", configName);
+            }
+
+            return retVal;
         }
 
         /// <summary>

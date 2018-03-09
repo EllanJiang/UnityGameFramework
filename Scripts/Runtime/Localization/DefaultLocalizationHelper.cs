@@ -81,31 +81,6 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 加载字典。
-        /// </summary>
-        /// <param name="dictionaryName">字典名称。</param>
-        /// <param name="dictionaryAsset">字典资源。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <returns>加载是否成功。</returns>
-        public override bool LoadDictionary(string dictionaryName, object dictionaryAsset, object userData)
-        {
-            TextAsset textAsset = dictionaryAsset as TextAsset;
-            if (textAsset == null)
-            {
-                Log.Warning("Dictionary asset '{0}' is invalid.", dictionaryName);
-                return false;
-            }
-
-            bool retVal = m_LocalizationManager.ParseDictionary(textAsset.text, userData);
-            if (!retVal)
-            {
-                Log.Warning("Dictionary asset '{0}' parse failure.", dictionaryName);
-            }
-
-            return retVal;
-        }
-
-        /// <summary>
         /// 解析字典。
         /// </summary>
         /// <param name="text">要解析的字典文本。</param>
@@ -155,6 +130,31 @@ namespace UnityGameFramework.Runtime
         public override void ReleaseDictionaryAsset(object dictionaryAsset)
         {
             m_ResourceComponent.UnloadAsset(dictionaryAsset);
+        }
+
+        /// <summary>
+        /// 加载字典。
+        /// </summary>
+        /// <param name="dictionaryName">字典名称。</param>
+        /// <param name="dictionaryAsset">字典资源。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>加载是否成功。</returns>
+        protected override bool LoadDictionary(string dictionaryName, object dictionaryAsset, object userData)
+        {
+            TextAsset textAsset = dictionaryAsset as TextAsset;
+            if (textAsset == null)
+            {
+                Log.Warning("Dictionary asset '{0}' is invalid.", dictionaryName);
+                return false;
+            }
+
+            bool retVal = m_LocalizationManager.ParseDictionary(textAsset.text, userData);
+            if (!retVal)
+            {
+                Log.Warning("Dictionary asset '{0}' parse failure.", dictionaryName);
+            }
+
+            return retVal;
         }
 
         /// <summary>

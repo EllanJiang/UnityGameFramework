@@ -36,15 +36,6 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 加载字典。
-        /// </summary>
-        /// <param name="dictionaryName">字典名称。</param>
-        /// <param name="dictionaryAsset">字典资源。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <returns>加载是否成功。</returns>
-        public abstract bool LoadDictionary(string dictionaryName, object dictionaryAsset, object userData);
-
-        /// <summary>
         /// 解析字典。
         /// </summary>
         /// <param name="text">要解析的字典文本。</param>
@@ -57,5 +48,14 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="dictionaryAsset">要释放的字典资源。</param>
         public abstract void ReleaseDictionaryAsset(object dictionaryAsset);
+
+        /// <summary>
+        /// 加载字典。
+        /// </summary>
+        /// <param name="dictionaryName">字典名称。</param>
+        /// <param name="dictionaryAsset">字典资源。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>加载是否成功。</returns>
+        protected abstract bool LoadDictionary(string dictionaryName, object dictionaryAsset, object userData);
     }
 }

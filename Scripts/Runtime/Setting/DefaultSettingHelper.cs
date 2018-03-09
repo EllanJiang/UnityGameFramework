@@ -12,7 +12,7 @@ using UnityEngine;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// 默认配置管理器辅助器。
+    /// 默认配置辅助器。
     /// </summary>
     public class DefaultSettingHelper : SettingHelperBase
     {

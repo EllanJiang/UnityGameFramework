@@ -12702,7 +12702,7 @@
         </member>
         <member name="T:GameFramework.Setting.ISettingHelper">
             <summary>
-            配置管理器辅助器接口。
+            配置辅助器接口。
             </summary>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.Load">
@@ -12879,9 +12879,9 @@
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.SetSettingHelper(GameFramework.Setting.ISettingHelper)">
             <summary>
-            设置配置管理器辅助器。
+            设置配置辅助器。
             </summary>
-            <param name="settingHelper">配置管理器辅助器。</param>
+            <param name="settingHelper">配置辅助器。</param>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.Load">
             <summary>
@@ -13074,9 +13074,9 @@
         </member>
         <member name="M:GameFramework.Setting.SettingManager.SetSettingHelper(GameFramework.Setting.ISettingHelper)">
             <summary>
-            设置配置管理器辅助器。
+            设置配置辅助器。
             </summary>
-            <param name="settingHelper">配置管理器辅助器。</param>
+            <param name="settingHelper">配置辅助器。</param>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.Load">
             <summary>

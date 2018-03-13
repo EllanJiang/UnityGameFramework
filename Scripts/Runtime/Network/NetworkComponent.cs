@@ -48,7 +48,6 @@ namespace UnityGameFramework.Runtime
 
             m_NetworkManager.NetworkConnected += OnNetworkConnected;
             m_NetworkManager.NetworkClosed += OnNetworkClosed;
-            m_NetworkManager.NetworkSendPacket += OnNetworkSendPacket;
             m_NetworkManager.NetworkMissHeartBeat += OnNetworkMissHeartBeat;
             m_NetworkManager.NetworkError += OnNetworkError;
             m_NetworkManager.NetworkCustomError += OnNetworkCustomError;
@@ -122,11 +121,6 @@ namespace UnityGameFramework.Runtime
         private void OnNetworkClosed(object sender, GameFramework.Network.NetworkClosedEventArgs e)
         {
             m_EventComponent.Fire(this, ReferencePool.Acquire<NetworkClosedEventArgs>().Fill(e));
-        }
-
-        private void OnNetworkSendPacket(object sender, GameFramework.Network.NetworkSendPacketEventArgs e)
-        {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<NetworkSendPacketEventArgs>().Fill(e));
         }
 
         private void OnNetworkMissHeartBeat(object sender, GameFramework.Network.NetworkMissHeartBeatEventArgs e)

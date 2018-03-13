@@ -7146,6 +7146,16 @@
             获取远程终结点的端口号。
             </summary>
         </member>
+        <member name="P:GameFramework.Network.INetworkChannel.SendPacketCount">
+            <summary>
+            要发送的消息包数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.INetworkChannel.ReceivePacketCount">
+            <summary>
+            已接收未处理的消息包数量。
+            </summary>
+        </member>
         <member name="P:GameFramework.Network.INetworkChannel.ResetHeartBeatElapseSecondsWhenReceivePacket">
             <summary>
             获取或设置当收到消息包时是否重置心跳流逝时间。
@@ -7192,50 +7202,12 @@
             关闭网络频道。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.INetworkChannel.Send(System.Byte[])">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-        </member>
-        <member name="M:GameFramework.Network.INetworkChannel.Send(System.Byte[],System.Object)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
-        <member name="M:GameFramework.Network.INetworkChannel.Send(System.Byte[],System.Int32,System.Int32)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-            <param name="offset">要发送消息包的偏移。</param>
-            <param name="size">要发送消息包的长度。</param>
-        </member>
-        <member name="M:GameFramework.Network.INetworkChannel.Send(System.Byte[],System.Int32,System.Int32,System.Object)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-            <param name="offset">要发送消息包的偏移。</param>
-            <param name="size">要发送消息包的长度。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
         <member name="M:GameFramework.Network.INetworkChannel.Send``1(``0)">
             <summary>
             向远程主机发送消息包。
             </summary>
             <typeparam name="T">消息包类型。</typeparam>
             <param name="packet">要发送的消息包。</param>
-        </member>
-        <member name="M:GameFramework.Network.INetworkChannel.Send``1(``0,System.Object)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <typeparam name="T">消息包类型。</typeparam>
-            <param name="packet">要发送的消息包。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="T:GameFramework.Network.INetworkChannelHelper">
             <summary>
@@ -7307,11 +7279,6 @@
         <member name="E:GameFramework.Network.INetworkManager.NetworkClosed">
             <summary>
             网络连接关闭事件。
-            </summary>
-        </member>
-        <member name="E:GameFramework.Network.INetworkManager.NetworkSendPacket">
-            <summary>
-            发送网络消息包事件。
             </summary>
         </member>
         <member name="E:GameFramework.Network.INetworkManager.NetworkMissHeartBeat">
@@ -7549,11 +7516,6 @@
             网络连接关闭事件。
             </summary>
         </member>
-        <member name="E:GameFramework.Network.NetworkManager.NetworkSendPacket">
-            <summary>
-            发送网络消息包事件。
-            </summary>
-        </member>
         <member name="E:GameFramework.Network.NetworkManager.NetworkMissHeartBeat">
             <summary>
             网络心跳包丢失事件。
@@ -7663,6 +7625,16 @@
             获取远程终结点的端口号。
             </summary>
         </member>
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.SendPacketCount">
+            <summary>
+            要发送的消息包数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.ReceivePacketCount">
+            <summary>
+            已接收未处理的消息包数量。
+            </summary>
+        </member>
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.ResetHeartBeatElapseSecondsWhenReceivePacket">
             <summary>
             获取或设置当收到消息包时是否重置心跳流逝时间。
@@ -7721,50 +7693,12 @@
             关闭连接并释放所有相关资源。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send(System.Byte[])">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-        </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send(System.Byte[],System.Object)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send(System.Byte[],System.Int32,System.Int32)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-            <param name="offset">要发送消息包的偏移。</param>
-            <param name="size">要发送消息包的长度。</param>
-        </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send(System.Byte[],System.Int32,System.Int32,System.Object)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-            <param name="offset">要发送消息包的偏移。</param>
-            <param name="size">要发送消息包的长度。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send``1(``0)">
             <summary>
             向远程主机发送消息包。
             </summary>
             <typeparam name="T">消息包类型。</typeparam>
             <param name="packet">要发送的消息包。</param>
-        </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send``1(``0,System.Object)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <typeparam name="T">消息包类型。</typeparam>
-            <param name="packet">要发送的消息包。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Dispose">
             <summary>
@@ -7797,34 +7731,6 @@
         <member name="P:GameFramework.Network.NetworkMissHeartBeatEventArgs.MissCount">
             <summary>
             获取心跳包已丢失次数。
-            </summary>
-        </member>
-        <member name="T:GameFramework.Network.NetworkSendPacketEventArgs">
-            <summary>
-            发送网络消息包事件。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Network.NetworkSendPacketEventArgs.#ctor(GameFramework.Network.INetworkChannel,System.Int32,System.Object)">
-            <summary>
-            初始化发送网络消息包事件的新实例。
-            </summary>
-            <param name="networkChannel">网络频道。</param>
-            <param name="bytesSent">已发送字节数。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
-        <member name="P:GameFramework.Network.NetworkSendPacketEventArgs.NetworkChannel">
-            <summary>
-            获取网络频道。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.NetworkSendPacketEventArgs.BytesSent">
-            <summary>
-            获取已发送字节数。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.NetworkSendPacketEventArgs.UserData">
-            <summary>
-            获取用户自定义数据。
             </summary>
         </member>
         <member name="T:GameFramework.Network.NetworkType">

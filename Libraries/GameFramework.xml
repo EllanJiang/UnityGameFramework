@@ -75,6 +75,12 @@
             <param name="id">事件类型编号。</param>
             <param name="handler">要取消订阅的事件处理函数。</param>
         </member>
+        <member name="M:GameFramework.EventPool`1.SetDefaultHandler(System.EventHandler{`0})">
+            <summary>
+            设置默认事件处理函数。
+            </summary>
+            <param name="handler">要设置的默认事件处理函数。</param>
+        </member>
         <member name="M:GameFramework.EventPool`1.Fire(System.Object,`0)">
             <summary>
             抛出事件，这个操作是线程安全的，即使不在主线程中抛出，也可保证在主线程中回调事件处理函数，但事件会在抛出后的下一帧分发。
@@ -5589,6 +5595,12 @@
             <param name="id">事件类型编号。</param>
             <param name="handler">要取消订阅的事件处理函数。</param>
         </member>
+        <member name="M:GameFramework.Event.EventManager.SetDefaultHandler(System.EventHandler{GameFramework.Event.GameEventArgs})">
+            <summary>
+            设置默认事件处理函数。
+            </summary>
+            <param name="handler">要设置的默认事件处理函数。</param>
+        </member>
         <member name="M:GameFramework.Event.EventManager.Fire(System.Object,GameFramework.Event.GameEventArgs)">
             <summary>
             抛出事件，这个操作是线程安全的，即使不在主线程中抛出，也可保证在主线程中回调事件处理函数，但事件会在抛出后的下一帧分发。
@@ -5639,6 +5651,12 @@
             </summary>
             <param name="id">事件类型编号。</param>
             <param name="handler">要取消订阅的事件处理函数。</param>
+        </member>
+        <member name="M:GameFramework.Event.IEventManager.SetDefaultHandler(System.EventHandler{GameFramework.Event.GameEventArgs})">
+            <summary>
+            设置默认事件处理函数。
+            </summary>
+            <param name="handler">要设置的默认事件处理函数。</param>
         </member>
         <member name="M:GameFramework.Event.IEventManager.Fire(System.Object,GameFramework.Event.GameEventArgs)">
             <summary>
@@ -7182,6 +7200,12 @@
             </summary>
             <param name="handler">要注册的网络消息包处理函数。</param>
         </member>
+        <member name="M:GameFramework.Network.INetworkChannel.SetDefaultHandler(System.EventHandler{GameFramework.Network.Packet})">
+            <summary>
+            设置默认事件处理函数。
+            </summary>
+            <param name="handler">要设置的默认事件处理函数。</param>
+        </member>
         <member name="M:GameFramework.Network.INetworkChannel.Connect(System.Net.IPAddress,System.Int32)">
             <summary>
             连接到远程主机。
@@ -7672,6 +7696,12 @@
             注册网络消息包处理函数。
             </summary>
             <param name="handler">要注册的网络消息包处理函数。</param>
+        </member>
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.SetDefaultHandler(System.EventHandler{GameFramework.Network.Packet})">
+            <summary>
+            设置默认事件处理函数。
+            </summary>
+            <param name="handler">要设置的默认事件处理函数。</param>
         </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Connect(System.Net.IPAddress,System.Int32)">
             <summary>

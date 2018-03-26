@@ -3445,6 +3445,13 @@
             <param name="path">调试窗口路径。</param>
             <returns>要获取的调试窗口。</returns>
         </member>
+        <member name="M:GameFramework.Debugger.DebuggerManager.SelectDebuggerWindow(System.String)">
+            <summary>
+            选中调试窗口。
+            </summary>
+            <param name="path">调试窗口路径。</param>
+            <returns>是否成功选中调试窗口。</returns>
+        </member>
         <member name="T:GameFramework.Debugger.DebuggerManager.DebuggerWindowGroup">
             <summary>
             调试窗口组。
@@ -3510,6 +3517,13 @@
             <param name="path">调试窗口路径。</param>
             <returns>要获取的调试窗口。</returns>
         </member>
+        <member name="M:GameFramework.Debugger.DebuggerManager.DebuggerWindowGroup.SelectDebuggerWindow(System.String)">
+            <summary>
+            选中调试窗口。
+            </summary>
+            <param name="path">调试窗口路径。</param>
+            <returns>是否成功选中调试窗口。</returns>
+        </member>
         <member name="M:GameFramework.Debugger.DebuggerManager.DebuggerWindowGroup.RegisterDebuggerWindow(System.String,GameFramework.Debugger.IDebuggerWindow)">
             <summary>
             注册调试窗口。
@@ -3546,6 +3560,13 @@
             </summary>
             <param name="path">调试窗口路径。</param>
             <returns>要获取的调试窗口。</returns>
+        </member>
+        <member name="M:GameFramework.Debugger.IDebuggerManager.SelectDebuggerWindow(System.String)">
+            <summary>
+            选中调试窗口。
+            </summary>
+            <param name="path">调试窗口路径。</param>
+            <returns>是否成功选中调试窗口。</returns>
         </member>
         <member name="T:GameFramework.Debugger.IDebuggerWindow">
             <summary>

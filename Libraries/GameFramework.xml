@@ -4654,20 +4654,6 @@
             <param name="parentEntity">被解除的父实体。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Entity.EntityManager.SetInstanceLocked(GameFramework.Entity.IEntity,System.Boolean)">
-            <summary>
-            设置实体实例是否被加锁。
-            </summary>
-            <param name="entity">实体。</param>
-            <param name="locked">实体实例是否被加锁。</param>
-        </member>
-        <member name="M:GameFramework.Entity.EntityManager.SetInstancePriority(GameFramework.Entity.IEntity,System.Int32)">
-            <summary>
-            设置实体实例的优先级。
-            </summary>
-            <param name="entity">实体。</param>
-            <param name="priority">实体实例优先级。</param>
-        </member>
         <member name="M:GameFramework.Entity.EntityManager.GetEntityInfo(System.Int32)">
             <summary>
             获取实体信息。
@@ -5003,6 +4989,20 @@
             从实体组中获取所有实体。
             </summary>
             <returns>实体组中的所有实体。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.IEntityGroup.SetEntityInstanceLocked(System.Object,System.Boolean)">
+            <summary>
+            设置实体实例是否被加锁。
+            </summary>
+            <param name="entityInstance">实体实例。</param>
+            <param name="locked">实体实例是否被加锁。</param>
+        </member>
+        <member name="M:GameFramework.Entity.IEntityGroup.SetEntityInstancePriority(System.Object,System.Int32)">
+            <summary>
+            设置实体实例的优先级。
+            </summary>
+            <param name="entityInstance">实体实例。</param>
+            <param name="priority">实体实例优先级。</param>
         </member>
         <member name="T:GameFramework.Entity.IEntityGroupHelper">
             <summary>
@@ -5386,20 +5386,6 @@
             </summary>
             <param name="parentEntity">被解除的父实体。</param>
             <param name="userData">用户自定义数据。</param>
-        </member>
-        <member name="M:GameFramework.Entity.IEntityManager.SetInstanceLocked(GameFramework.Entity.IEntity,System.Boolean)">
-            <summary>
-            设置实体实例是否被加锁。
-            </summary>
-            <param name="entity">实体。</param>
-            <param name="locked">实体实例是否被加锁。</param>
-        </member>
-        <member name="M:GameFramework.Entity.IEntityManager.SetInstancePriority(GameFramework.Entity.IEntity,System.Int32)">
-            <summary>
-            设置实体实例的优先级。
-            </summary>
-            <param name="entity">实体。</param>
-            <param name="priority">实体实例优先级。</param>
         </member>
         <member name="T:GameFramework.Entity.ShowEntityDependencyAssetEventArgs">
             <summary>
@@ -14947,19 +14933,19 @@
             <param name="uiForm">要激活的界面。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.UI.IUIManager.SetUIFormLocked(GameFramework.UI.IUIForm,System.Boolean)">
+        <member name="M:GameFramework.UI.IUIManager.SetUIFormInstanceLocked(System.Object,System.Boolean)">
             <summary>
-            设置界面是否被加锁。
+            设置界面实例是否被加锁。
             </summary>
-            <param name="uiForm">要设置是否被加锁的界面。</param>
-            <param name="locked">界面是否被加锁。</param>
+            <param name="uiFormInstance">要设置是否被加锁的界面实例。</param>
+            <param name="locked">界面实例是否被加锁。</param>
         </member>
-        <member name="M:GameFramework.UI.IUIManager.SetUIFormPriority(GameFramework.UI.IUIForm,System.Int32)">
+        <member name="M:GameFramework.UI.IUIManager.SetUIFormInstancePriority(System.Object,System.Int32)">
             <summary>
-            设置界面的优先级。
+            设置界面实例的优先级。
             </summary>
-            <param name="uiForm">要设置优先级的界面。</param>
-            <param name="priority">界面优先级。</param>
+            <param name="uiFormInstance">要设置优先级的界面实例。</param>
+            <param name="priority">界面实例优先级。</param>
         </member>
         <member name="T:GameFramework.UI.OpenUIFormDependencyAssetEventArgs">
             <summary>
@@ -15425,19 +15411,19 @@
             <param name="uiForm">要激活的界面。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.UI.UIManager.SetUIFormLocked(GameFramework.UI.IUIForm,System.Boolean)">
+        <member name="M:GameFramework.UI.UIManager.SetUIFormInstanceLocked(System.Object,System.Boolean)">
             <summary>
-            设置界面是否被加锁。
+            设置界面实例是否被加锁。
             </summary>
-            <param name="uiForm">要设置是否被加锁的界面。</param>
-            <param name="locked">界面是否被加锁。</param>
+            <param name="uiFormInstance">要设置是否被加锁的界面实例。</param>
+            <param name="locked">界面实例是否被加锁。</param>
         </member>
-        <member name="M:GameFramework.UI.UIManager.SetUIFormPriority(GameFramework.UI.IUIForm,System.Int32)">
+        <member name="M:GameFramework.UI.UIManager.SetUIFormInstancePriority(System.Object,System.Int32)">
             <summary>
-            设置界面的优先级。
+            设置界面实例的优先级。
             </summary>
-            <param name="uiForm">要设置优先级的界面。</param>
-            <param name="priority">界面优先级。</param>
+            <param name="uiFormInstance">要设置优先级的界面实例。</param>
+            <param name="priority">界面实例优先级。</param>
         </member>
         <member name="T:GameFramework.UI.UIManager.UIFormInstanceObject">
             <summary>
@@ -16104,6 +16090,12 @@
             <summary>
             随机相关的实用函数。
             </summary>
+        </member>
+        <member name="M:GameFramework.Utility.Random.SetSeed(System.Int32)">
+            <summary>
+            设置随机数种子。
+            </summary>
+            <param name="seed">随机数种子。</param>
         </member>
         <member name="M:GameFramework.Utility.Random.GetRandom">
             <summary>

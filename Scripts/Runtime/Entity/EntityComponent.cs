@@ -882,23 +882,49 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 设置实体实例是否被加锁。
+        /// 设置实体是否被加锁。
         /// </summary>
         /// <param name="entity">实体。</param>
-        /// <param name="locked">实体实例是否被加锁。</param>
-        public void SetInstanceLocked(Entity entity, bool locked)
+        /// <param name="locked">实体是否被加锁。</param>
+        void SetEntityInstanceLocked(Entity entity, bool locked)
         {
-            m_EntityManager.SetInstanceLocked(entity, locked);
+            if (entity == null)
+            {
+                Log.Warning("Entity is invalid.");
+                return;
+            }
+
+            IEntityGroup entityGroup = entity.EntityGroup;
+            if (entityGroup == null)
+            {
+                Log.Warning("Entity group is invalid.");
+                return;
+            }
+
+            entityGroup.SetEntityInstanceLocked(entity.gameObject, locked);
         }
 
         /// <summary>
-        /// 设置实体实例的优先级。
+        /// 设置实体的优先级。
         /// </summary>
         /// <param name="entity">实体。</param>
-        /// <param name="priority">实体实例优先级。</param>
+        /// <param name="priority">实体优先级。</param>
         public void SetInstancePriority(Entity entity, int priority)
         {
-            m_EntityManager.SetInstancePriority(entity, priority);
+            if (entity == null)
+            {
+                Log.Warning("Entity is invalid.");
+                return;
+            }
+
+            IEntityGroup entityGroup = entity.EntityGroup;
+            if (entityGroup == null)
+            {
+                Log.Warning("Entity group is invalid.");
+                return;
+            }
+
+            entityGroup.SetEntityInstancePriority(entity.gameObject, priority);
         }
 
         private void OnShowEntitySuccess(object sender, GameFramework.Entity.ShowEntitySuccessEventArgs e)

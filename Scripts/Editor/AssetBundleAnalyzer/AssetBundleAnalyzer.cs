@@ -42,6 +42,10 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         private Vector2 m_ScatteredAssetsScroll = Vector2.zero;
         private Vector2 m_HostAssetsScroll = Vector2.zero;
 
+        private int m_CircularDependencyCount = 0;
+        private string[][] m_CachedCircularDependencyDatas = null;
+        private Vector2 m_CircularDependencyScroll = Vector2.zero;
+
         [MenuItem("Game Framework/AssetBundle Tools/AssetBundle Analyzer", false, 33)]
         private static void Open()
         {
@@ -82,6 +86,10 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             m_ScatteredAssetsFilter = null;
             m_ScatteredAssetsScroll = Vector2.zero;
             m_HostAssetsScroll = Vector2.zero;
+
+            m_CircularDependencyCount = 0;
+            m_CachedCircularDependencyDatas = null;
+            m_CircularDependencyScroll = Vector2.zero;
         }
 
         private void OnGUI()
@@ -89,7 +97,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             EditorGUILayout.BeginVertical(GUILayout.Width(position.width), GUILayout.Height(position.height));
             {
                 GUILayout.Space(5f);
-                int toolbarIndex = GUILayout.Toolbar(m_ToolbarIndex, new string[] { "Summary", "Asset Dependency Viewer", "Scattered Asset Viewer" }, GUILayout.Height(30f));
+                int toolbarIndex = GUILayout.Toolbar(m_ToolbarIndex, new string[] { "Summary", "Asset Dependency Viewer", "Scattered Asset Viewer", "Circular Dependency Viewer" }, GUILayout.Height(30f));
                 if (toolbarIndex != m_ToolbarIndex)
                 {
                     m_ToolbarIndex = toolbarIndex;
@@ -106,6 +114,9 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                         break;
                     case 2:
                         DrawScatteredAssetViewer();
+                        break;
+                    case 3:
+                        DrawCircularDependencyViewer();
                         break;
                 }
             }
@@ -137,6 +148,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     m_Analyzed = true;
                     m_AssetCount = m_Controller.GetAssetNames().Length;
                     m_ScatteredAssetCount = m_Controller.GetScatteredAssetNames().Length;
+                    m_CachedCircularDependencyDatas = m_Controller.GetCircularDependencyDatas();
+                    m_CircularDependencyCount = m_CachedCircularDependencyDatas.Length;
                     OnAssetsOrderOrFilterChanged();
                     OnScatteredAssetsOrderOrFilterChanged();
                 }
@@ -413,6 +426,57 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                         EditorGUILayout.EndScrollView();
                     }
                     EditorGUILayout.EndVertical();
+                }
+                EditorGUILayout.EndVertical();
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private void DrawCircularDependencyViewer()
+        {
+            if (!m_Analyzed)
+            {
+                DrawAnalyzeButton();
+                return;
+            }
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                GUILayout.Space(5f);
+                EditorGUILayout.BeginVertical();
+                {
+                    GUILayout.Space(5f);
+                    EditorGUILayout.LabelField(string.Format("Circular Dependency ({0})", m_CircularDependencyCount.ToString()), EditorStyles.boldLabel);
+                    m_CircularDependencyScroll = EditorGUILayout.BeginScrollView(m_CircularDependencyScroll);
+                    {
+                        int count = 0;
+                        foreach (string[] circularDependencyData in m_CachedCircularDependencyDatas)
+                        {
+                            GUILayout.Label(string.Format("{0}) {1}", (++count).ToString(), circularDependencyData[circularDependencyData.Length - 1]), EditorStyles.boldLabel);
+                            EditorGUILayout.BeginVertical("box");
+                            {
+                                foreach (string circularDependency in circularDependencyData)
+                                {
+                                    EditorGUILayout.BeginHorizontal();
+                                    {
+                                        GUILayout.Label(circularDependency);
+                                        if (GUILayout.Button("GO", GUILayout.Width(30f)))
+                                        {
+                                            m_SelectedAssetName = circularDependency;
+                                            m_SelectedAssetIndex = (new List<string>(m_CachedAssetNames)).IndexOf(m_SelectedAssetName);
+                                            m_SelectedDependencyData = m_Controller.GetDependencyData(m_SelectedAssetName);
+                                            m_ToolbarIndex = 1;
+                                            GUI.FocusControl(null);
+                                        }
+                                    }
+                                    EditorGUILayout.EndHorizontal();
+                                }
+                            }
+                            EditorGUILayout.EndVertical();
+                            GUILayout.Space(5f);
+                        }
+                    }
+                    EditorGUILayout.EndScrollView();
                 }
                 EditorGUILayout.EndVertical();
             }

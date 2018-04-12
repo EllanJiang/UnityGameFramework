@@ -19,6 +19,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
         private readonly Dictionary<string, DependencyData> m_DependencyDatas;
         private readonly Dictionary<string, List<Asset>> m_ScatteredAssets;
+        private readonly List<string[]> m_CircularDependencyDatas;
         private readonly HashSet<Stamp> m_AnalyzedStamps;
 
         public AssetBundleAnalyzerController()
@@ -58,6 +59,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             m_DependencyDatas = new Dictionary<string, DependencyData>();
             m_ScatteredAssets = new Dictionary<string, List<Asset>>();
             m_AnalyzedStamps = new HashSet<Stamp>();
+            m_CircularDependencyDatas = new List<string[]>();
         }
 
         public event GameFrameworkAction<int, int> OnLoadingAssetBundle = null;
@@ -75,6 +77,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             m_AssetBundleCollection.Clear();
             m_DependencyDatas.Clear();
             m_ScatteredAssets.Clear();
+            m_CircularDependencyDatas.Clear();
             m_AnalyzedStamps.Clear();
         }
 
@@ -88,6 +91,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         {
             m_DependencyDatas.Clear();
             m_ScatteredAssets.Clear();
+            m_CircularDependencyDatas.Clear();
             m_AnalyzedStamps.Clear();
 
             HashSet<string> scriptAssetNames = GetFilteredAssetNames("t:Script");
@@ -118,6 +122,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 scatteredAsset.Sort((a, b) => a.Name.CompareTo(b.Name));
             }
 
+            m_CircularDependencyDatas.AddRange((new CircularDependencyChecker(m_AnalyzedStamps.ToArray())).Check());
+
             if (OnAnalyzeCompleted != null)
             {
                 OnAnalyzeCompleted();
@@ -139,10 +145,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     continue;
                 }
 
-                if (dependencyAssetName == hostAsset.Name)
-                {
-                    continue;
-                }
 
                 if (dependencyAssetName.EndsWith(".unity"))
                 {
@@ -150,7 +152,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     continue;
                 }
 
-                Stamp stamp = new Stamp(dependencyAssetName, hostAsset.Name);
+                Stamp stamp = new Stamp(assetName, dependencyAssetName);
                 if (m_AnalyzedStamps.Contains(stamp))
                 {
                     continue;
@@ -174,12 +176,14 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 {
                     dependencyData.AddScatteredDependencyAsset(dependencyAssetName);
 
-                    if (!m_ScatteredAssets.ContainsKey(dependencyAssetName))
+                    List<Asset> scatteredAssets = null;
+                    if (!m_ScatteredAssets.TryGetValue(dependencyAssetName, out scatteredAssets))
                     {
-                        m_ScatteredAssets[dependencyAssetName] = new List<Asset>();
+                        scatteredAssets = new List<Asset>();
+                        m_ScatteredAssets.Add(dependencyAssetName, scatteredAssets);
                     }
 
-                    m_ScatteredAssets[dependencyAssetName].Add(hostAsset);
+                    scatteredAssets.Add(hostAsset);
 
                     AnalyzeAsset(dependencyAssetName, hostAsset, dependencyData, scriptAssetNames);
                 }
@@ -287,6 +291,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
 
             return null;
+        }
+
+        public string[][] GetCircularDependencyDatas()
+        {
+            return m_CircularDependencyDatas.ToArray();
         }
 
         private HashSet<string> GetFilteredAssetNames(string filter)

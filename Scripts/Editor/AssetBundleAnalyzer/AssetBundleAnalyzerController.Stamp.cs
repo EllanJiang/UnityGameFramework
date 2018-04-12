@@ -11,21 +11,13 @@ namespace UnityGameFramework.Editor.AssetBundleTools
     {
         private struct Stamp
         {
-            private readonly string m_AssetName;
             private readonly string m_HostAssetName;
+            private readonly string m_DependencyAssetName;
 
-            public Stamp(string assetName, string hostAssetName)
+            public Stamp(string hostAssetName, string dependencyAssetName)
             {
-                m_AssetName = assetName;
                 m_HostAssetName = hostAssetName;
-            }
-
-            public string AssetName
-            {
-                get
-                {
-                    return m_AssetName;
-                }
+                m_DependencyAssetName = dependencyAssetName;
             }
 
             public string HostAssetName
@@ -33,6 +25,14 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 get
                 {
                     return m_HostAssetName;
+                }
+            }
+
+            public string DependencyAssetName
+            {
+                get
+                {
+                    return m_DependencyAssetName;
                 }
             }
         }

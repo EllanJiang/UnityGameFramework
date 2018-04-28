@@ -14597,6 +14597,11 @@
             获取或设置界面组深度。
             </summary>
         </member>
+        <member name="P:GameFramework.UI.IUIGroup.Pause">
+            <summary>
+            获取或设置界面组是否暂停。
+            </summary>
+        </member>
         <member name="P:GameFramework.UI.IUIGroup.UIFormCount">
             <summary>
             获取界面组中界面数量。
@@ -15451,6 +15456,11 @@
         <member name="P:GameFramework.UI.UIManager.UIGroup.Depth">
             <summary>
             获取或设置界面组深度。
+            </summary>
+        </member>
+        <member name="P:GameFramework.UI.UIManager.UIGroup.Pause">
+            <summary>
+            获取或设置界面组是否暂停。
             </summary>
         </member>
         <member name="P:GameFramework.UI.UIManager.UIGroup.UIFormCount">

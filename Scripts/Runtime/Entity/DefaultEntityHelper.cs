@@ -58,7 +58,7 @@ namespace UnityGameFramework.Runtime
         public override void ReleaseEntity(object entityAsset, object entityInstance)
         {
             m_ResourceComponent.UnloadAsset(entityAsset);
-            DestroyObject((Object)entityInstance);
+            Destroy((Object)entityInstance);
         }
 
         private void Start()

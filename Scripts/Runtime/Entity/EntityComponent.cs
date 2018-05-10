@@ -886,7 +886,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="entity">实体。</param>
         /// <param name="locked">实体是否被加锁。</param>
-        void SetEntityInstanceLocked(Entity entity, bool locked)
+        public void SetEntityInstanceLocked(Entity entity, bool locked)
         {
             if (entity == null)
             {
@@ -937,7 +937,7 @@ namespace UnityGameFramework.Runtime
 
         private void OnShowEntityFailure(object sender, GameFramework.Entity.ShowEntityFailureEventArgs e)
         {
-            Log.Warning("Show entity failure, entity id '{0}', asset name '{1}', entity group name '{2}', error message '{3}'.", e.EntityId.ToString(), e.EntityAssetName, e.EntityGroupName, e.ErrorMessage);
+            Log.Error("Show entity failure, entity id '{0}', asset name '{1}', entity group name '{2}', error message '{3}'.", e.EntityId.ToString(), e.EntityAssetName, e.EntityGroupName, e.ErrorMessage);
             if (m_EnableShowEntityFailureEvent)
             {
                 m_EventComponent.Fire(this, ReferencePool.Acquire<ShowEntityFailureEventArgs>().Fill(e));

@@ -13,11 +13,11 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 性能分析辅助器。
     /// </summary>
-    internal class ProfilerHelper : Utility.Profiler.IProfilerHelper
+    public class DefaultProfilerHelper : Utility.Profiler.IProfilerHelper
     {
         private Thread m_MainThread = null;
 
-        public ProfilerHelper(Thread mainThread)
+        public DefaultProfilerHelper(Thread mainThread)
         {
             if (mainThread == null)
             {

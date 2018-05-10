@@ -14,7 +14,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// JSON 函数集辅助器。
     /// </summary>
-    internal class JsonHelper : Utility.Json.IJsonHelper
+    public class DefaultJsonHelper : Utility.Json.IJsonHelper
     {
         /// <summary>
         /// 将对象序列化为 JSON 字符串。

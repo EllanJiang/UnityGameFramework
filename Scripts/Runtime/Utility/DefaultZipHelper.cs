@@ -14,7 +14,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 压缩解压缩辅助器。
     /// </summary>
-    internal class ZipHelper : Utility.Zip.IZipHelper
+    public class DefaultZipHelper : Utility.Zip.IZipHelper
     {
         /// <summary>
         /// 压缩数据。
@@ -23,8 +23,30 @@ namespace UnityGameFramework.Runtime
         /// <returns>压缩后的数据。</returns>
         public byte[] Compress(byte[] bytes)
         {
-            Log.Fatal("Compress is not implemented.");
-            return null;
+            if (bytes == null || bytes.Length <= 0)
+            {
+                return bytes;
+            }
+
+            MemoryStream memoryStream = null;
+            try
+            {
+                memoryStream = new MemoryStream();
+                using (GZipOutputStream gZipOutputStream = new GZipOutputStream(memoryStream))
+                {
+                    gZipOutputStream.Write(bytes, 0, bytes.Length);
+                }
+
+                return memoryStream.ToArray();
+            }
+            finally
+            {
+                if (memoryStream != null)
+                {
+                    memoryStream.Dispose();
+                    memoryStream = null;
+                }
+            }
         }
 
         /// <summary>

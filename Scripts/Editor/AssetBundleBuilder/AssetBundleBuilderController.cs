@@ -6,17 +6,17 @@
 //------------------------------------------------------------
 
 using GameFramework;
-using ICSharpCode.SharpZipLib.GZip;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using UnityEditor;
 using UnityEngine;
+using UnityGameFramework.Runtime;
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal sealed partial class AssetBundleBuilderController : Utility.Zip.IZipHelper
+    internal sealed partial class AssetBundleBuilderController
     {
         private const string VersionListFileName = "version";
         private const string ResourceListFileName = "list";
@@ -551,39 +551,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             m_BuildEventHandler = buildEventHandler;
         }
 
-        public byte[] Compress(byte[] bytes)
-        {
-            if (bytes == null || bytes.Length <= 0)
-            {
-                return bytes;
-            }
-
-            MemoryStream memoryStream = null;
-            try
-            {
-                memoryStream = new MemoryStream();
-                using (GZipOutputStream gZipOutputStream = new GZipOutputStream(memoryStream))
-                {
-                    gZipOutputStream.Write(bytes, 0, bytes.Length);
-                }
-
-                return memoryStream.ToArray();
-            }
-            finally
-            {
-                if (memoryStream != null)
-                {
-                    memoryStream.Dispose();
-                    memoryStream = null;
-                }
-            }
-        }
-
-        public byte[] Decompress(byte[] bytes)
-        {
-            throw new GameFrameworkException("Decompress is not implemented.");
-        }
-
         public string[] GetBuildEventHandlerTypeNames()
         {
             return m_BuildEventHandlerTypeNames.ToArray();
@@ -622,7 +589,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 return false;
             }
 
-            Utility.Zip.SetZipHelper(this);
+            Utility.Zip.SetZipHelper(new DefaultZipHelper());
 
             if (Directory.Exists(OutputPackagePath))
             {

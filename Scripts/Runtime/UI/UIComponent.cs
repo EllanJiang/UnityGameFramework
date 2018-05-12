@@ -537,21 +537,33 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 设置界面是否被加锁。
         /// </summary>
-        /// <param name="uiForm">界面。</param>
+        /// <param name="uiForm">要设置是否被加锁的界面。</param>
         /// <param name="locked">界面是否被加锁。</param>
-        public void SetUIFormLocked(UIForm uiForm, bool locked)
+        public void SetUIFormInstanceLocked(UIForm uiForm, bool locked)
         {
-            m_UIManager.SetUIFormLocked(uiForm, locked);
+            if (uiForm == null)
+            {
+                Log.Warning("UI form is invalid.");
+                return;
+            }
+
+            m_UIManager.SetUIFormInstanceLocked(uiForm.gameObject, locked);
         }
 
         /// <summary>
         /// 设置界面的优先级。
         /// </summary>
-        /// <param name="uiForm">界面。</param>
+        /// <param name="uiForm">要设置优先级的界面。</param>
         /// <param name="priority">界面优先级。</param>
-        public void SetUIFormPriority(UIForm uiForm, int priority)
+        public void SetUIFormInstancePriority(UIForm uiForm, int priority)
         {
-            m_UIManager.SetUIFormPriority(uiForm, priority);
+            if (uiForm == null)
+            {
+                Log.Warning("UI form is invalid.");
+                return;
+            }
+
+            m_UIManager.SetUIFormInstancePriority(uiForm.gameObject, priority);
         }
 
         private void OnOpenUIFormSuccess(object sender, GameFramework.UI.OpenUIFormSuccessEventArgs e)

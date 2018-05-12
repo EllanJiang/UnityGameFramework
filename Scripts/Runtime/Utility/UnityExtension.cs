@@ -59,6 +59,20 @@ public static class UnityExtension
     }
 
     /// <summary>
+    /// 递归设置游戏对象的层次。
+    /// </summary>
+    /// <param name="gameObject"><see cref="UnityEngine.GameObject" /> 对象。</param>
+    /// <param name="layer">目标层次的编号。</param>
+    public static void SetLayerRecursively(this GameObject gameObject, int layer)
+    {
+        Transform[] transforms = gameObject.GetComponentsInChildren<Transform>(true);
+        for (int i = 0; i < transforms.Length; i++)
+        {
+            transforms[i].gameObject.layer = layer;
+        }
+    }
+
+    /// <summary>
     /// 取 <see cref="UnityEngine.Vector3" /> 的 (x, y, z) 转换为 <see cref="UnityEngine.Vector2" /> 的 (x, z)。
     /// </summary>
     /// <param name="vector3">要转换的 Vector3。</param>
@@ -321,20 +335,6 @@ public static class UnityExtension
         if (vector.magnitude > 0f)
         {
             transform.rotation = Quaternion.LookRotation(vector.normalized, Vector3.up);
-        }
-    }
-
-    /// <summary>
-    /// 递归设置游戏对象的层次。
-    /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
-    /// <param name="layer">目标层次的编号。</param>
-    public static void SetLayerRecursively(this Transform transform, int layer)
-    {
-        Transform[] transforms = transform.GetComponentsInChildren<Transform>(true);
-        for (int i = 0; i < transforms.Length; i++)
-        {
-            transforms[i].gameObject.layer = layer;
         }
     }
 

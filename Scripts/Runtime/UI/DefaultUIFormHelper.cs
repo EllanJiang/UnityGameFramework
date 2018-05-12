@@ -59,7 +59,7 @@ namespace UnityGameFramework.Runtime
         public override void ReleaseUIForm(object uiFormAsset, object uiFormInstance)
         {
             m_ResourceComponent.UnloadAsset(uiFormAsset);
-            DestroyObject((Object)uiFormInstance);
+            Destroy((Object)uiFormInstance);
         }
 
         private void Start()

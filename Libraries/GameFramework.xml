@@ -75,6 +75,12 @@
             <param name="id">事件类型编号。</param>
             <param name="handler">要取消订阅的事件处理函数。</param>
         </member>
+        <member name="M:GameFramework.EventPool`1.SetDefaultHandler(System.EventHandler{`0})">
+            <summary>
+            设置默认事件处理函数。
+            </summary>
+            <param name="handler">要设置的默认事件处理函数。</param>
+        </member>
         <member name="M:GameFramework.EventPool`1.Fire(System.Object,`0)">
             <summary>
             抛出事件，这个操作是线程安全的，即使不在主线程中抛出，也可保证在主线程中回调事件处理函数，但事件会在抛出后的下一帧分发。
@@ -3439,6 +3445,13 @@
             <param name="path">调试窗口路径。</param>
             <returns>要获取的调试窗口。</returns>
         </member>
+        <member name="M:GameFramework.Debugger.DebuggerManager.SelectDebuggerWindow(System.String)">
+            <summary>
+            选中调试窗口。
+            </summary>
+            <param name="path">调试窗口路径。</param>
+            <returns>是否成功选中调试窗口。</returns>
+        </member>
         <member name="T:GameFramework.Debugger.DebuggerManager.DebuggerWindowGroup">
             <summary>
             调试窗口组。
@@ -3504,6 +3517,13 @@
             <param name="path">调试窗口路径。</param>
             <returns>要获取的调试窗口。</returns>
         </member>
+        <member name="M:GameFramework.Debugger.DebuggerManager.DebuggerWindowGroup.SelectDebuggerWindow(System.String)">
+            <summary>
+            选中调试窗口。
+            </summary>
+            <param name="path">调试窗口路径。</param>
+            <returns>是否成功选中调试窗口。</returns>
+        </member>
         <member name="M:GameFramework.Debugger.DebuggerManager.DebuggerWindowGroup.RegisterDebuggerWindow(System.String,GameFramework.Debugger.IDebuggerWindow)">
             <summary>
             注册调试窗口。
@@ -3540,6 +3560,13 @@
             </summary>
             <param name="path">调试窗口路径。</param>
             <returns>要获取的调试窗口。</returns>
+        </member>
+        <member name="M:GameFramework.Debugger.IDebuggerManager.SelectDebuggerWindow(System.String)">
+            <summary>
+            选中调试窗口。
+            </summary>
+            <param name="path">调试窗口路径。</param>
+            <returns>是否成功选中调试窗口。</returns>
         </member>
         <member name="T:GameFramework.Debugger.IDebuggerWindow">
             <summary>
@@ -4627,20 +4654,6 @@
             <param name="parentEntity">被解除的父实体。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Entity.EntityManager.SetInstanceLocked(GameFramework.Entity.IEntity,System.Boolean)">
-            <summary>
-            设置实体实例是否被加锁。
-            </summary>
-            <param name="entity">实体。</param>
-            <param name="locked">实体实例是否被加锁。</param>
-        </member>
-        <member name="M:GameFramework.Entity.EntityManager.SetInstancePriority(GameFramework.Entity.IEntity,System.Int32)">
-            <summary>
-            设置实体实例的优先级。
-            </summary>
-            <param name="entity">实体。</param>
-            <param name="priority">实体实例优先级。</param>
-        </member>
         <member name="M:GameFramework.Entity.EntityManager.GetEntityInfo(System.Int32)">
             <summary>
             获取实体信息。
@@ -4976,6 +4989,20 @@
             从实体组中获取所有实体。
             </summary>
             <returns>实体组中的所有实体。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.IEntityGroup.SetEntityInstanceLocked(System.Object,System.Boolean)">
+            <summary>
+            设置实体实例是否被加锁。
+            </summary>
+            <param name="entityInstance">实体实例。</param>
+            <param name="locked">实体实例是否被加锁。</param>
+        </member>
+        <member name="M:GameFramework.Entity.IEntityGroup.SetEntityInstancePriority(System.Object,System.Int32)">
+            <summary>
+            设置实体实例的优先级。
+            </summary>
+            <param name="entityInstance">实体实例。</param>
+            <param name="priority">实体实例优先级。</param>
         </member>
         <member name="T:GameFramework.Entity.IEntityGroupHelper">
             <summary>
@@ -5360,20 +5387,6 @@
             <param name="parentEntity">被解除的父实体。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Entity.IEntityManager.SetInstanceLocked(GameFramework.Entity.IEntity,System.Boolean)">
-            <summary>
-            设置实体实例是否被加锁。
-            </summary>
-            <param name="entity">实体。</param>
-            <param name="locked">实体实例是否被加锁。</param>
-        </member>
-        <member name="M:GameFramework.Entity.IEntityManager.SetInstancePriority(GameFramework.Entity.IEntity,System.Int32)">
-            <summary>
-            设置实体实例的优先级。
-            </summary>
-            <param name="entity">实体。</param>
-            <param name="priority">实体实例优先级。</param>
-        </member>
         <member name="T:GameFramework.Entity.ShowEntityDependencyAssetEventArgs">
             <summary>
             显示实体时加载依赖资源事件。
@@ -5589,6 +5602,12 @@
             <param name="id">事件类型编号。</param>
             <param name="handler">要取消订阅的事件处理函数。</param>
         </member>
+        <member name="M:GameFramework.Event.EventManager.SetDefaultHandler(System.EventHandler{GameFramework.Event.GameEventArgs})">
+            <summary>
+            设置默认事件处理函数。
+            </summary>
+            <param name="handler">要设置的默认事件处理函数。</param>
+        </member>
         <member name="M:GameFramework.Event.EventManager.Fire(System.Object,GameFramework.Event.GameEventArgs)">
             <summary>
             抛出事件，这个操作是线程安全的，即使不在主线程中抛出，也可保证在主线程中回调事件处理函数，但事件会在抛出后的下一帧分发。
@@ -5639,6 +5658,12 @@
             </summary>
             <param name="id">事件类型编号。</param>
             <param name="handler">要取消订阅的事件处理函数。</param>
+        </member>
+        <member name="M:GameFramework.Event.IEventManager.SetDefaultHandler(System.EventHandler{GameFramework.Event.GameEventArgs})">
+            <summary>
+            设置默认事件处理函数。
+            </summary>
+            <param name="handler">要设置的默认事件处理函数。</param>
         </member>
         <member name="M:GameFramework.Event.IEventManager.Fire(System.Object,GameFramework.Event.GameEventArgs)">
             <summary>
@@ -7146,6 +7171,16 @@
             获取远程终结点的端口号。
             </summary>
         </member>
+        <member name="P:GameFramework.Network.INetworkChannel.SendPacketCount">
+            <summary>
+            要发送的消息包数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.INetworkChannel.ReceivePacketCount">
+            <summary>
+            已接收未处理的消息包数量。
+            </summary>
+        </member>
         <member name="P:GameFramework.Network.INetworkChannel.ResetHeartBeatElapseSecondsWhenReceivePacket">
             <summary>
             获取或设置当收到消息包时是否重置心跳流逝时间。
@@ -7172,6 +7207,12 @@
             </summary>
             <param name="handler">要注册的网络消息包处理函数。</param>
         </member>
+        <member name="M:GameFramework.Network.INetworkChannel.SetDefaultHandler(System.EventHandler{GameFramework.Network.Packet})">
+            <summary>
+            设置默认事件处理函数。
+            </summary>
+            <param name="handler">要设置的默认事件处理函数。</param>
+        </member>
         <member name="M:GameFramework.Network.INetworkChannel.Connect(System.Net.IPAddress,System.Int32)">
             <summary>
             连接到远程主机。
@@ -7192,50 +7233,12 @@
             关闭网络频道。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.INetworkChannel.Send(System.Byte[])">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-        </member>
-        <member name="M:GameFramework.Network.INetworkChannel.Send(System.Byte[],System.Object)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
-        <member name="M:GameFramework.Network.INetworkChannel.Send(System.Byte[],System.Int32,System.Int32)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-            <param name="offset">要发送消息包的偏移。</param>
-            <param name="size">要发送消息包的长度。</param>
-        </member>
-        <member name="M:GameFramework.Network.INetworkChannel.Send(System.Byte[],System.Int32,System.Int32,System.Object)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-            <param name="offset">要发送消息包的偏移。</param>
-            <param name="size">要发送消息包的长度。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
         <member name="M:GameFramework.Network.INetworkChannel.Send``1(``0)">
             <summary>
             向远程主机发送消息包。
             </summary>
             <typeparam name="T">消息包类型。</typeparam>
             <param name="packet">要发送的消息包。</param>
-        </member>
-        <member name="M:GameFramework.Network.INetworkChannel.Send``1(``0,System.Object)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <typeparam name="T">消息包类型。</typeparam>
-            <param name="packet">要发送的消息包。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="T:GameFramework.Network.INetworkChannelHelper">
             <summary>
@@ -7307,11 +7310,6 @@
         <member name="E:GameFramework.Network.INetworkManager.NetworkClosed">
             <summary>
             网络连接关闭事件。
-            </summary>
-        </member>
-        <member name="E:GameFramework.Network.INetworkManager.NetworkSendPacket">
-            <summary>
-            发送网络消息包事件。
             </summary>
         </member>
         <member name="E:GameFramework.Network.INetworkManager.NetworkMissHeartBeat">
@@ -7549,11 +7547,6 @@
             网络连接关闭事件。
             </summary>
         </member>
-        <member name="E:GameFramework.Network.NetworkManager.NetworkSendPacket">
-            <summary>
-            发送网络消息包事件。
-            </summary>
-        </member>
         <member name="E:GameFramework.Network.NetworkManager.NetworkMissHeartBeat">
             <summary>
             网络心跳包丢失事件。
@@ -7663,6 +7656,16 @@
             获取远程终结点的端口号。
             </summary>
         </member>
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.SendPacketCount">
+            <summary>
+            要发送的消息包数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.ReceivePacketCount">
+            <summary>
+            已接收未处理的消息包数量。
+            </summary>
+        </member>
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.ResetHeartBeatElapseSecondsWhenReceivePacket">
             <summary>
             获取或设置当收到消息包时是否重置心跳流逝时间。
@@ -7701,6 +7704,12 @@
             </summary>
             <param name="handler">要注册的网络消息包处理函数。</param>
         </member>
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.SetDefaultHandler(System.EventHandler{GameFramework.Network.Packet})">
+            <summary>
+            设置默认事件处理函数。
+            </summary>
+            <param name="handler">要设置的默认事件处理函数。</param>
+        </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Connect(System.Net.IPAddress,System.Int32)">
             <summary>
             连接到远程主机。
@@ -7721,50 +7730,12 @@
             关闭连接并释放所有相关资源。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send(System.Byte[])">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-        </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send(System.Byte[],System.Object)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send(System.Byte[],System.Int32,System.Int32)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-            <param name="offset">要发送消息包的偏移。</param>
-            <param name="size">要发送消息包的长度。</param>
-        </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send(System.Byte[],System.Int32,System.Int32,System.Object)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <param name="buffer">消息包流。</param>
-            <param name="offset">要发送消息包的偏移。</param>
-            <param name="size">要发送消息包的长度。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send``1(``0)">
             <summary>
             向远程主机发送消息包。
             </summary>
             <typeparam name="T">消息包类型。</typeparam>
             <param name="packet">要发送的消息包。</param>
-        </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send``1(``0,System.Object)">
-            <summary>
-            向远程主机发送消息包。
-            </summary>
-            <typeparam name="T">消息包类型。</typeparam>
-            <param name="packet">要发送的消息包。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Dispose">
             <summary>
@@ -7797,34 +7768,6 @@
         <member name="P:GameFramework.Network.NetworkMissHeartBeatEventArgs.MissCount">
             <summary>
             获取心跳包已丢失次数。
-            </summary>
-        </member>
-        <member name="T:GameFramework.Network.NetworkSendPacketEventArgs">
-            <summary>
-            发送网络消息包事件。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Network.NetworkSendPacketEventArgs.#ctor(GameFramework.Network.INetworkChannel,System.Int32,System.Object)">
-            <summary>
-            初始化发送网络消息包事件的新实例。
-            </summary>
-            <param name="networkChannel">网络频道。</param>
-            <param name="bytesSent">已发送字节数。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
-        <member name="P:GameFramework.Network.NetworkSendPacketEventArgs.NetworkChannel">
-            <summary>
-            获取网络频道。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.NetworkSendPacketEventArgs.BytesSent">
-            <summary>
-            获取已发送字节数。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.NetworkSendPacketEventArgs.UserData">
-            <summary>
-            获取用户自定义数据。
             </summary>
         </member>
         <member name="T:GameFramework.Network.NetworkType">
@@ -12702,7 +12645,7 @@
         </member>
         <member name="T:GameFramework.Setting.ISettingHelper">
             <summary>
-            配置管理器辅助器接口。
+            配置辅助器接口。
             </summary>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.Load">
@@ -12879,9 +12822,9 @@
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.SetSettingHelper(GameFramework.Setting.ISettingHelper)">
             <summary>
-            设置配置管理器辅助器。
+            设置配置辅助器。
             </summary>
-            <param name="settingHelper">配置管理器辅助器。</param>
+            <param name="settingHelper">配置辅助器。</param>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.Load">
             <summary>
@@ -13074,9 +13017,9 @@
         </member>
         <member name="M:GameFramework.Setting.SettingManager.SetSettingHelper(GameFramework.Setting.ISettingHelper)">
             <summary>
-            设置配置管理器辅助器。
+            设置配置辅助器。
             </summary>
-            <param name="settingHelper">配置管理器辅助器。</param>
+            <param name="settingHelper">配置辅助器。</param>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.Load">
             <summary>
@@ -14654,6 +14597,11 @@
             获取或设置界面组深度。
             </summary>
         </member>
+        <member name="P:GameFramework.UI.IUIGroup.Pause">
+            <summary>
+            获取或设置界面组是否暂停。
+            </summary>
+        </member>
         <member name="P:GameFramework.UI.IUIGroup.UIFormCount">
             <summary>
             获取界面组中界面数量。
@@ -14990,19 +14938,19 @@
             <param name="uiForm">要激活的界面。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.UI.IUIManager.SetUIFormLocked(GameFramework.UI.IUIForm,System.Boolean)">
+        <member name="M:GameFramework.UI.IUIManager.SetUIFormInstanceLocked(System.Object,System.Boolean)">
             <summary>
-            设置界面是否被加锁。
+            设置界面实例是否被加锁。
             </summary>
-            <param name="uiForm">要设置是否被加锁的界面。</param>
-            <param name="locked">界面是否被加锁。</param>
+            <param name="uiFormInstance">要设置是否被加锁的界面实例。</param>
+            <param name="locked">界面实例是否被加锁。</param>
         </member>
-        <member name="M:GameFramework.UI.IUIManager.SetUIFormPriority(GameFramework.UI.IUIForm,System.Int32)">
+        <member name="M:GameFramework.UI.IUIManager.SetUIFormInstancePriority(System.Object,System.Int32)">
             <summary>
-            设置界面的优先级。
+            设置界面实例的优先级。
             </summary>
-            <param name="uiForm">要设置优先级的界面。</param>
-            <param name="priority">界面优先级。</param>
+            <param name="uiFormInstance">要设置优先级的界面实例。</param>
+            <param name="priority">界面实例优先级。</param>
         </member>
         <member name="T:GameFramework.UI.OpenUIFormDependencyAssetEventArgs">
             <summary>
@@ -15468,19 +15416,19 @@
             <param name="uiForm">要激活的界面。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.UI.UIManager.SetUIFormLocked(GameFramework.UI.IUIForm,System.Boolean)">
+        <member name="M:GameFramework.UI.UIManager.SetUIFormInstanceLocked(System.Object,System.Boolean)">
             <summary>
-            设置界面是否被加锁。
+            设置界面实例是否被加锁。
             </summary>
-            <param name="uiForm">要设置是否被加锁的界面。</param>
-            <param name="locked">界面是否被加锁。</param>
+            <param name="uiFormInstance">要设置是否被加锁的界面实例。</param>
+            <param name="locked">界面实例是否被加锁。</param>
         </member>
-        <member name="M:GameFramework.UI.UIManager.SetUIFormPriority(GameFramework.UI.IUIForm,System.Int32)">
+        <member name="M:GameFramework.UI.UIManager.SetUIFormInstancePriority(System.Object,System.Int32)">
             <summary>
-            设置界面的优先级。
+            设置界面实例的优先级。
             </summary>
-            <param name="uiForm">要设置优先级的界面。</param>
-            <param name="priority">界面优先级。</param>
+            <param name="uiFormInstance">要设置优先级的界面实例。</param>
+            <param name="priority">界面实例优先级。</param>
         </member>
         <member name="T:GameFramework.UI.UIManager.UIFormInstanceObject">
             <summary>
@@ -15508,6 +15456,11 @@
         <member name="P:GameFramework.UI.UIManager.UIGroup.Depth">
             <summary>
             获取或设置界面组深度。
+            </summary>
+        </member>
+        <member name="P:GameFramework.UI.UIManager.UIGroup.Pause">
+            <summary>
+            获取或设置界面组是否暂停。
             </summary>
         </member>
         <member name="P:GameFramework.UI.UIManager.UIGroup.UIFormCount">
@@ -16147,6 +16100,12 @@
             <summary>
             随机相关的实用函数。
             </summary>
+        </member>
+        <member name="M:GameFramework.Utility.Random.SetSeed(System.Int32)">
+            <summary>
+            设置随机数种子。
+            </summary>
+            <param name="seed">随机数种子。</param>
         </member>
         <member name="M:GameFramework.Utility.Random.GetRandom">
             <summary>

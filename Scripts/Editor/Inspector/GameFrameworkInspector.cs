@@ -12,7 +12,7 @@ namespace UnityGameFramework.Editor
     /// <summary>
     /// 游戏框架 Inspector 抽象类。
     /// </summary>
-    internal abstract class GameFrameworkInspector : UnityEditor.Editor
+    public abstract class GameFrameworkInspector : UnityEditor.Editor
     {
         private bool m_IsCompiling = false;
 

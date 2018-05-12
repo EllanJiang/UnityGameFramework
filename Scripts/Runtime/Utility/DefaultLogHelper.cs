@@ -13,7 +13,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 日志辅助器。
     /// </summary>
-    internal class LogHelper : Log.ILogHelper
+    public class DefaultLogHelper : Log.ILogHelper
     {
         /// <summary>
         /// 记录日志。

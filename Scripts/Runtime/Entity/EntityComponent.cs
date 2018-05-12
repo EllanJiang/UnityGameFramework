@@ -882,23 +882,49 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 设置实体实例是否被加锁。
+        /// 设置实体是否被加锁。
         /// </summary>
         /// <param name="entity">实体。</param>
-        /// <param name="locked">实体实例是否被加锁。</param>
-        public void SetInstanceLocked(Entity entity, bool locked)
+        /// <param name="locked">实体是否被加锁。</param>
+        public void SetEntityInstanceLocked(Entity entity, bool locked)
         {
-            m_EntityManager.SetInstanceLocked(entity, locked);
+            if (entity == null)
+            {
+                Log.Warning("Entity is invalid.");
+                return;
+            }
+
+            IEntityGroup entityGroup = entity.EntityGroup;
+            if (entityGroup == null)
+            {
+                Log.Warning("Entity group is invalid.");
+                return;
+            }
+
+            entityGroup.SetEntityInstanceLocked(entity.gameObject, locked);
         }
 
         /// <summary>
-        /// 设置实体实例的优先级。
+        /// 设置实体的优先级。
         /// </summary>
         /// <param name="entity">实体。</param>
-        /// <param name="priority">实体实例优先级。</param>
+        /// <param name="priority">实体优先级。</param>
         public void SetInstancePriority(Entity entity, int priority)
         {
-            m_EntityManager.SetInstancePriority(entity, priority);
+            if (entity == null)
+            {
+                Log.Warning("Entity is invalid.");
+                return;
+            }
+
+            IEntityGroup entityGroup = entity.EntityGroup;
+            if (entityGroup == null)
+            {
+                Log.Warning("Entity group is invalid.");
+                return;
+            }
+
+            entityGroup.SetEntityInstancePriority(entity.gameObject, priority);
         }
 
         private void OnShowEntitySuccess(object sender, GameFramework.Entity.ShowEntitySuccessEventArgs e)
@@ -911,7 +937,7 @@ namespace UnityGameFramework.Runtime
 
         private void OnShowEntityFailure(object sender, GameFramework.Entity.ShowEntityFailureEventArgs e)
         {
-            Log.Warning("Show entity failure, entity id '{0}', asset name '{1}', entity group name '{2}', error message '{3}'.", e.EntityId.ToString(), e.EntityAssetName, e.EntityGroupName, e.ErrorMessage);
+            Log.Error("Show entity failure, entity id '{0}', asset name '{1}', entity group name '{2}', error message '{3}'.", e.EntityId.ToString(), e.EntityAssetName, e.EntityGroupName, e.ErrorMessage);
             if (m_EnableShowEntityFailureEvent)
             {
                 m_EventComponent.Fire(this, ReferencePool.Acquire<ShowEntityFailureEventArgs>().Fill(e));

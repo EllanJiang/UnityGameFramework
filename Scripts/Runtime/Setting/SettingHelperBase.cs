@@ -12,7 +12,7 @@ using UnityEngine;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// 配置管理器辅助器基类。
+    /// 配置辅助器基类。
     /// </summary>
     public abstract class SettingHelperBase : MonoBehaviour, ISettingHelper
     {

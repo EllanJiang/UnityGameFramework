@@ -171,6 +171,43 @@ namespace UnityGameFramework.Runtime
                     }
                     GUILayout.EndHorizontal();
 
+                    GUILayout.BeginHorizontal();
+                    {
+                        if (GUILayout.Button("0.5x", GUILayout.Height(60f)))
+                        {
+                            m_DebuggerComponent.WindowScale = 0.5f;
+                        }
+                        if (GUILayout.Button("1.0x", GUILayout.Height(60f)))
+                        {
+                            m_DebuggerComponent.WindowScale = 1f;
+                        }
+                        if (GUILayout.Button("1.5x", GUILayout.Height(60f)))
+                        {
+                            m_DebuggerComponent.WindowScale = 1.5f;
+                        }
+                        if (GUILayout.Button("2.0x", GUILayout.Height(60f)))
+                        {
+                            m_DebuggerComponent.WindowScale = 2f;
+                        }
+                        if (GUILayout.Button("2.5x", GUILayout.Height(60f)))
+                        {
+                            m_DebuggerComponent.WindowScale = 2.5f;
+                        }
+                        if (GUILayout.Button("3.0x", GUILayout.Height(60f)))
+                        {
+                            m_DebuggerComponent.WindowScale = 3f;
+                        }
+                        if (GUILayout.Button("3.5x", GUILayout.Height(60f)))
+                        {
+                            m_DebuggerComponent.WindowScale = 3.5f;
+                        }
+                        if (GUILayout.Button("4.0x", GUILayout.Height(60f)))
+                        {
+                            m_DebuggerComponent.WindowScale = 4f;
+                        }
+                    }
+                    GUILayout.EndHorizontal();
+
                     if (GUILayout.Button("Reset Window Settings", GUILayout.Height(30f)))
                     {
                         m_DebuggerComponent.IconRect = DefaultIconRect;

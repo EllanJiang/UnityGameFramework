@@ -17,6 +17,10 @@ namespace UnityGameFramework.Runtime
     {
         private Thread m_MainThread = null;
 
+        /// <summary>
+        /// 初始化性能分析辅助器的新实例。
+        /// </summary>
+        /// <param name="mainThread">当前进程的主线程。</param>
         public DefaultProfilerHelper(Thread mainThread)
         {
             if (mainThread == null)

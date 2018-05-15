@@ -91,7 +91,16 @@ namespace UnityGameFramework.Editor
             List<string> typeNames = new List<string>();
             foreach (string assemblyName in assemblyNames)
             {
-                Assembly assembly = Assembly.Load(assemblyName);
+                Assembly assembly = null;
+                try
+                {
+                    assembly = Assembly.Load(assemblyName);
+                }
+                catch
+                {
+                    continue;
+                }
+
                 if (assembly == null)
                 {
                     continue;

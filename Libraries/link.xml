@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <linker>
-  <assembly fullname="GameFramework">
+  <assembly fullname="GameFramework" preserve="all" >
     <namespace fullname="GameFramework" preserve="all" />
     <namespace fullname="GameFramework.Config" preserve="all" />
     <namespace fullname="GameFramework.DataNode" preserve="all" />
@@ -21,6 +21,7 @@
     <namespace fullname="GameFramework.UI" preserve="all" />
     <namespace fullname="GameFramework.WebRequest" preserve="all" />
   </assembly>
+  <assembly fullname="UnityGameFramework.Runtime" preserve="all" />
   <assembly fullname="Assembly-CSharp">
     <namespace fullname="UnityGameFramework.Runtime" preserve="all" />
   </assembly>

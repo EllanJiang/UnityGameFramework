@@ -31,7 +31,7 @@ namespace UnityGameFramework.Editor
                 return false;
             }
 
-            if (!selectedStackTrace.Contains("UnityGameFramework.Runtime.LogHelper:Log"))
+            if (!selectedStackTrace.Contains("UnityGameFramework.Runtime.DefaultLogHelper:Log"))
             {
                 return false;
             }
@@ -42,7 +42,7 @@ namespace UnityGameFramework.Editor
                 return false;
             }
 
-            if (!match.Groups[1].Value.Contains("LogHelper.cs"))
+            if (!match.Groups[1].Value.Contains("DefaultLogHelper.cs"))
             {
                 return false;
             }

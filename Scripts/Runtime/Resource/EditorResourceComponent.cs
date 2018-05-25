@@ -642,7 +642,11 @@ namespace UnityGameFramework.Runtime
         /// <returns>资源是否存在。</returns>
         public bool ExistAsset(string assetName)
         {
+#if UNITY_EDITOR
             return AssetDatabase.LoadMainAssetAtPath(assetName) != null;
+#else
+            return false;
+#endif
         }
 
         /// <summary>

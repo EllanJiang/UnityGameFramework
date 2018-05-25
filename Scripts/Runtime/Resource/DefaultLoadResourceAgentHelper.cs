@@ -299,7 +299,7 @@ namespace UnityGameFramework.Runtime
                 }
                 else
                 {
-                    m_LoadResourceAgentHelperUpdateEventHandler(this, new LoadResourceAgentHelperUpdateEventArgs(LoadResourceProgress.ReadBundle, m_WWW.progress));
+                    m_LoadResourceAgentHelperUpdateEventHandler(this, new LoadResourceAgentHelperUpdateEventArgs(LoadResourceProgress.ReadResource, m_WWW.progress));
                 }
             }
         }
@@ -327,7 +327,7 @@ namespace UnityGameFramework.Runtime
                 }
                 else
                 {
-                    m_LoadResourceAgentHelperUpdateEventHandler(this, new LoadResourceAgentHelperUpdateEventArgs(LoadResourceProgress.LoadBundle, m_FileAssetBundleCreateRequest.progress));
+                    m_LoadResourceAgentHelperUpdateEventHandler(this, new LoadResourceAgentHelperUpdateEventArgs(LoadResourceProgress.LoadResource, m_FileAssetBundleCreateRequest.progress));
                 }
             }
         }
@@ -355,7 +355,7 @@ namespace UnityGameFramework.Runtime
                 }
                 else
                 {
-                    m_LoadResourceAgentHelperUpdateEventHandler(this, new LoadResourceAgentHelperUpdateEventArgs(LoadResourceProgress.LoadBundle, m_BytesAssetBundleCreateRequest.progress));
+                    m_LoadResourceAgentHelperUpdateEventHandler(this, new LoadResourceAgentHelperUpdateEventArgs(LoadResourceProgress.LoadResource, m_BytesAssetBundleCreateRequest.progress));
                 }
             }
         }

@@ -10280,6 +10280,13 @@
             使用可更新模式并更新资源。
             </summary>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.ExistAsset(System.String)">
+            <summary>
+            检查资源是否存在。
+            </summary>
+            <param name="assetName">要检查的资源。</param>
+            <returns>资源是否存在。</returns>
+        </member>
         <member name="M:GameFramework.Resource.IResourceManager.LoadAsset(System.String,GameFramework.Resource.LoadAssetCallbacks)">
             <summary>
             异步加载资源。
@@ -10608,12 +10615,12 @@
             加载资源进度类型。
             </summary>
         </member>
-        <member name="F:GameFramework.Resource.LoadResourceProgress.ReadBundle">
+        <member name="F:GameFramework.Resource.LoadResourceProgress.ReadResource">
             <summary>
             读取资源包。
             </summary>
         </member>
-        <member name="F:GameFramework.Resource.LoadResourceProgress.LoadBundle">
+        <member name="F:GameFramework.Resource.LoadResourceProgress.LoadResource">
             <summary>
             加载资源包。
             </summary>
@@ -11160,6 +11167,13 @@
             使用可更新模式并更新资源。
             </summary>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ExistAsset(System.String)">
+            <summary>
+            检查资源是否存在。
+            </summary>
+            <param name="assetName">要检查的资源。</param>
+            <returns>资源是否存在。</returns>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.LoadAsset(System.String,GameFramework.Resource.LoadAssetCallbacks)">
             <summary>
             异步加载资源。
@@ -11667,6 +11681,13 @@
             <param name="readOnlyPath">资源只读区路径。</param>
             <param name="readWritePath">资源读写区路径。</param>
             <param name="decryptResourceCallback">要设置的解密资源回调函数。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.ExistAsset(System.String)">
+            <summary>
+            检查资源是否存在。
+            </summary>
+            <param name="assetName">要检查的资源。</param>
+            <returns>资源是否存在。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadAsset(System.String,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
             <summary>

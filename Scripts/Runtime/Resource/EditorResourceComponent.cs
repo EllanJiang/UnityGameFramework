@@ -636,6 +636,16 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 检查资源是否存在。
+        /// </summary>
+        /// <param name="assetName">要检查的资源。</param>
+        /// <returns>资源是否存在。</returns>
+        public bool ExistAsset(string assetName)
+        {
+            return AssetDatabase.LoadMainAssetAtPath(assetName) != null;
+        }
+
+        /// <summary>
         /// 异步加载资源。
         /// </summary>
         /// <param name="assetName">要加载资源的名称。</param>

@@ -16,12 +16,12 @@ namespace UnityGameFramework.Runtime
     public sealed class LoadDataTableDependencyAssetEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 加载数据表失败事件编号。
+        /// 加载数据表时加载依赖资源事件编号。
         /// </summary>
         public static readonly int EventId = typeof(LoadDataTableDependencyAssetEventArgs).GetHashCode();
 
         /// <summary>
-        /// 获取加载数据表失败事件编号。
+        /// 获取加载数据表时加载依赖资源事件编号。
         /// </summary>
         public override int Id
         {

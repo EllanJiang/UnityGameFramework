@@ -15,12 +15,12 @@ namespace UnityGameFramework.Runtime
     public sealed class LoadDictionaryDependencyAssetEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 加载字典失败事件编号。
+        /// 加载字典时加载依赖资源事件编号。
         /// </summary>
         public static readonly int EventId = typeof(LoadDictionaryDependencyAssetEventArgs).GetHashCode();
 
         /// <summary>
-        /// 获取加载字典失败事件编号。
+        /// 获取加载字典时加载依赖资源事件编号。
         /// </summary>
         public override int Id
         {

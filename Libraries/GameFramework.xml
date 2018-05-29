@@ -8657,6 +8657,11 @@
             获取或设置对象的优先级。
             </summary>
         </member>
+        <member name="P:GameFramework.ObjectPool.ObjectBase.CustomCanReleaseFlag">
+            <summary>
+            获取自定义释放检查标记。
+            </summary>
+        </member>
         <member name="P:GameFramework.ObjectPool.ObjectBase.LastUseTime">
             <summary>
             获取对象上次使用时间。
@@ -9500,6 +9505,11 @@
         <member name="P:GameFramework.ObjectPool.ObjectPoolManager.Object`1.Priority">
             <summary>
             获取对象的优先级。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ObjectPool.ObjectPoolManager.Object`1.CustomCanReleaseFlag">
+            <summary>
+            获取自定义释放检查标记。
             </summary>
         </member>
         <member name="P:GameFramework.ObjectPool.ObjectPoolManager.Object`1.LastUseTime">

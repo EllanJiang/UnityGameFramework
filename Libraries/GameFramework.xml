@@ -8677,10 +8677,11 @@
             回收对象时的事件。
             </summary>
         </member>
-        <member name="M:GameFramework.ObjectPool.ObjectBase.Release">
+        <member name="M:GameFramework.ObjectPool.ObjectBase.Release(System.Boolean)">
             <summary>
             释放对象。
             </summary>
+            <param name="isShutdown">是否是关闭对象池时触发。</param>
         </member>
         <member name="T:GameFramework.ObjectPool.ObjectInfo">
             <summary>
@@ -9544,10 +9545,11 @@
             回收对象。
             </summary>
         </member>
-        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.Object`1.Release">
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.Object`1.Release(System.Boolean)">
             <summary>
             释放对象。
             </summary>
+            <param name="isShutdown">是否是关闭对象池时触发。</param>
         </member>
         <member name="T:GameFramework.ObjectPool.ObjectPoolManager.ObjectPool`1">
             <summary>

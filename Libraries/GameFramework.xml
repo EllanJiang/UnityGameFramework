@@ -13301,6 +13301,11 @@
             获取或设置声音最大距离。
             </summary>
         </member>
+        <member name="P:GameFramework.Sound.ISoundAgent.DopplerLevel">
+            <summary>
+            获取或设置声音多普勒等级。
+            </summary>
+        </member>
         <member name="P:GameFramework.Sound.ISoundAgent.Helper">
             <summary>
             获取声音代理辅助器。
@@ -13408,6 +13413,11 @@
         <member name="P:GameFramework.Sound.ISoundAgentHelper.MaxDistance">
             <summary>
             获取或设置声音最大距离。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Sound.ISoundAgentHelper.DopplerLevel">
+            <summary>
+            获取或设置声音多普勒等级。
             </summary>
         </member>
         <member name="E:GameFramework.Sound.ISoundAgentHelper.ResetSoundAgent">
@@ -13907,6 +13917,11 @@
             获取或设置声音最大距离。
             </summary>
         </member>
+        <member name="P:GameFramework.Sound.PlaySoundParams.DopplerLevel">
+            <summary>
+            获取或设置声音多普勒等级。
+            </summary>
+        </member>
         <member name="T:GameFramework.Sound.PlaySoundSuccessEventArgs">
             <summary>
             播放声音成功事件。
@@ -14295,6 +14310,11 @@
         <member name="P:GameFramework.Sound.SoundManager.SoundAgent.MaxDistance">
             <summary>
             获取或设置声音最大距离。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Sound.SoundManager.SoundAgent.DopplerLevel">
+            <summary>
+            获取或设置声音多普勒等级。
             </summary>
         </member>
         <member name="P:GameFramework.Sound.SoundManager.SoundAgent.Helper">

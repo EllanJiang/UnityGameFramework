@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
-// Game Framework v2.x
-// Copyright © 2014-2016 Jiang Yin. All rights reserved.
+// Game Framework v3.x
+// Copyright © 2013-2018 Jiang Yin. All rights reserved.
 // Homepage: http://gameframework.cn/
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
@@ -25,8 +25,15 @@ namespace UnityGameFramework.Runtime
     [DisallowMultipleComponent]
     public sealed class EditorResourceComponent : MonoBehaviour, IResourceManager
     {
+        [SerializeField]
+        private float m_MinLoadAssetRandomDelaySeconds = 0f;
+
+        [SerializeField]
+        private float m_MaxLoadAssetRandomDelaySeconds = 1f;
+
         private string m_ReadOnlyPath = null;
         private string m_ReadWritePath = null;
+        private LinkedList<LoadAssetInfo> m_LoadAssetInfos = null;
         private LinkedList<LoadSceneInfo> m_LoadSceneInfos = null;
         private LinkedList<UnloadSceneInfo> m_UnloadSceneInfos = null;
 
@@ -398,6 +405,7 @@ namespace UnityGameFramework.Runtime
         {
             m_ReadOnlyPath = null;
             m_ReadWritePath = null;
+            m_LoadAssetInfos = new LinkedList<LoadAssetInfo>();
             m_LoadSceneInfos = new LinkedList<LoadSceneInfo>();
             m_UnloadSceneInfos = new LinkedList<UnloadSceneInfo>();
 
@@ -421,6 +429,51 @@ namespace UnityGameFramework.Runtime
 
         private void Update()
         {
+            if (m_LoadAssetInfos.Count > 0)
+            {
+                LinkedListNode<LoadAssetInfo> current = m_LoadAssetInfos.First;
+                while (current != null)
+                {
+                    LoadAssetInfo loadAssetInfo = current.Value;
+                    float elapseSeconds = (float)(DateTime.Now - loadAssetInfo.StartTime).TotalSeconds;
+                    if (elapseSeconds >= loadAssetInfo.DelaySeconds)
+                    {
+#if UNITY_EDITOR
+                        UnityEngine.Object asset = AssetDatabase.LoadMainAssetAtPath(loadAssetInfo.AssetName);
+#else
+                        UnityEngine.Object asset = null;
+#endif
+                        if (asset != null)
+                        {
+                            if (loadAssetInfo.LoadAssetCallbacks.LoadAssetSuccessCallback != null)
+                            {
+                                loadAssetInfo.LoadAssetCallbacks.LoadAssetSuccessCallback(loadAssetInfo.AssetName, asset, elapseSeconds, loadAssetInfo.UserData);
+                            }
+                        }
+                        else
+                        {
+                            if (loadAssetInfo.LoadAssetCallbacks.LoadAssetFailureCallback != null)
+                            {
+                                loadAssetInfo.LoadAssetCallbacks.LoadAssetFailureCallback(loadAssetInfo.AssetName, LoadResourceStatus.NotExist, "Can not load this asset from asset database.", loadAssetInfo.UserData);
+                            }
+                        }
+
+                        LinkedListNode<LoadAssetInfo> next = current.Next;
+                        m_LoadAssetInfos.Remove(loadAssetInfo);
+                        current = next;
+                    }
+                    else
+                    {
+                        if (loadAssetInfo.LoadAssetCallbacks.LoadAssetUpdateCallback != null)
+                        {
+                            loadAssetInfo.LoadAssetCallbacks.LoadAssetUpdateCallback(loadAssetInfo.AssetName, elapseSeconds / loadAssetInfo.DelaySeconds, loadAssetInfo.UserData);
+                        }
+
+                        current = current.Next;
+                    }
+                }
+            }
+
             if (m_LoadSceneInfos.Count > 0)
             {
                 LinkedListNode<LoadSceneInfo> current = m_LoadSceneInfos.First;
@@ -679,24 +732,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-#if UNITY_EDITOR
-            DateTime startTime = DateTime.Now;
-            UnityEngine.Object asset = AssetDatabase.LoadMainAssetAtPath(assetName);
-            if (asset != null)
-            {
-                if (loadAssetCallbacks.LoadAssetSuccessCallback != null)
-                {
-                    loadAssetCallbacks.LoadAssetSuccessCallback(assetName, asset, (float)(DateTime.Now - startTime).TotalSeconds, userData);
-                }
-
-                return;
-            }
-
-            if (loadAssetCallbacks.LoadAssetFailureCallback != null)
-            {
-                loadAssetCallbacks.LoadAssetFailureCallback(assetName, LoadResourceStatus.NotExist, "Can not load this asset from asset database.", userData);
-            }
-#endif
+            m_LoadAssetInfos.AddLast(new LoadAssetInfo(assetName, DateTime.Now, m_MinLoadAssetRandomDelaySeconds + (float)Utility.Random.GetRandomDouble() * (m_MaxLoadAssetRandomDelaySeconds - m_MinLoadAssetRandomDelaySeconds), loadAssetCallbacks, userData));
         }
 
         /// <summary>
@@ -738,7 +774,6 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            DateTime startTime = DateTime.Now;
 #if UNITY_5_5_OR_NEWER
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneAssetName, LoadSceneMode.Additive);
 #else
@@ -749,7 +784,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_LoadSceneInfos.AddLast(new LoadSceneInfo(asyncOperation, sceneAssetName, startTime, loadSceneCallbacks, userData));
+            m_LoadSceneInfos.AddLast(new LoadSceneInfo(asyncOperation, sceneAssetName, DateTime.Now, loadSceneCallbacks, userData));
         }
 
         /// <summary>
@@ -862,7 +897,65 @@ namespace UnityGameFramework.Runtime
             throw new NotSupportedException("GetResourceGroupProgress");
         }
 
-        private class LoadSceneInfo
+        private sealed class LoadAssetInfo
+        {
+            private readonly string m_AssetName;
+            private readonly DateTime m_StartTime;
+            private readonly float m_DelaySeconds;
+            private readonly LoadAssetCallbacks m_LoadAssetCallbacks;
+            private readonly object m_UserData;
+
+            public LoadAssetInfo(string assetName, DateTime startTime, float delaySeconds, LoadAssetCallbacks loadAssetCallbacks, object userData)
+            {
+                m_AssetName = assetName;
+                m_StartTime = startTime;
+                m_DelaySeconds = delaySeconds;
+                m_LoadAssetCallbacks = loadAssetCallbacks;
+                m_UserData = userData;
+            }
+
+            public string AssetName
+            {
+                get
+                {
+                    return m_AssetName;
+                }
+            }
+
+            public DateTime StartTime
+            {
+                get
+                {
+                    return m_StartTime;
+                }
+            }
+
+            public float DelaySeconds
+            {
+                get
+                {
+                    return m_DelaySeconds;
+                }
+            }
+
+            public LoadAssetCallbacks LoadAssetCallbacks
+            {
+                get
+                {
+                    return m_LoadAssetCallbacks;
+                }
+            }
+
+            public object UserData
+            {
+                get
+                {
+                    return m_UserData;
+                }
+            }
+        }
+
+        private sealed class LoadSceneInfo
         {
             private readonly AsyncOperation m_AsyncOperation;
             private readonly string m_SceneAssetName;
@@ -920,7 +1013,7 @@ namespace UnityGameFramework.Runtime
             }
         }
 
-        private class UnloadSceneInfo
+        private sealed class UnloadSceneInfo
         {
             private readonly AsyncOperation m_AsyncOperation;
             private readonly string m_SceneAssetName;

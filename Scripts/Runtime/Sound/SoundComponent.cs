@@ -419,7 +419,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>声音的序列编号。</returns>
         public int PlaySound(string soundAssetName, string soundGroupName, int priority, PlaySoundParams playSoundParams, Entity bindingEntity)
         {
-            return m_SoundManager.PlaySound(soundAssetName, soundGroupName, priority, playSoundParams, bindingEntity, null);
+            return PlaySound(soundAssetName, soundGroupName, priority, playSoundParams, bindingEntity, null);
         }
 
         /// <summary>

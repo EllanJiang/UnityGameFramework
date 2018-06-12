@@ -19,6 +19,8 @@ namespace UnityGameFramework.Runtime
     [AddComponentMenu("Game Framework/Localization")]
     public sealed class LocalizationComponent : GameFrameworkComponent
     {
+        private const int DefaultPriority = 0;
+
         private ILocalizationManager m_LocalizationManager = null;
         private EventComponent m_EventComponent = null;
 
@@ -145,7 +147,18 @@ namespace UnityGameFramework.Runtime
         /// <param name="dictionaryAssetName">字典资源名称。</param>
         public void LoadDictionary(string dictionaryName, string dictionaryAssetName)
         {
-            LoadDictionary(dictionaryName, dictionaryAssetName, null);
+            LoadDictionary(dictionaryName, dictionaryAssetName, DefaultPriority, null);
+        }
+
+        /// <summary>
+        /// 加载字典。
+        /// </summary>
+        /// <param name="dictionaryName">字典名称。</param>
+        /// <param name="dictionaryAssetName">字典资源名称。</param>
+        /// <param name="priority">加载字典资源的优先级。</param>
+        public void LoadDictionary(string dictionaryName, string dictionaryAssetName, int priority)
+        {
+            LoadDictionary(dictionaryName, dictionaryAssetName, priority, null);
         }
 
         /// <summary>
@@ -156,13 +169,25 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public void LoadDictionary(string dictionaryName, string dictionaryAssetName, object userData)
         {
+            LoadDictionary(dictionaryName, dictionaryAssetName, DefaultPriority, userData);
+        }
+
+        /// <summary>
+        /// 加载字典。
+        /// </summary>
+        /// <param name="dictionaryName">字典名称。</param>
+        /// <param name="dictionaryAssetName">字典资源名称。</param>
+        /// <param name="priority">加载字典资源的优先级。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public void LoadDictionary(string dictionaryName, string dictionaryAssetName, int priority, object userData)
+        {
             if (string.IsNullOrEmpty(dictionaryName))
             {
                 Log.Error("Dictionary name is invalid.");
                 return;
             }
 
-            m_LocalizationManager.LoadDictionary(dictionaryAssetName, new LoadDictionaryInfo(dictionaryName, userData));
+            m_LocalizationManager.LoadDictionary(dictionaryAssetName, priority, new LoadDictionaryInfo(dictionaryName, userData));
         }
 
         /// <summary>

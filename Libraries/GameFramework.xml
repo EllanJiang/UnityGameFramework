@@ -1416,6 +1416,11 @@
             获取任务的序列编号。
             </summary>
         </member>
+        <member name="P:GameFramework.ITask.Priority">
+            <summary>
+            获取任务的优先级。
+            </summary>
+        </member>
         <member name="P:GameFramework.ITask.Done">
             <summary>
             获取任务是否完成。
@@ -2698,11 +2703,26 @@
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
         </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,System.Int32)">
+            <summary>
+            加载数据表。
+            </summary>
+            <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="priority">加载数据表资源的优先级。</param>
+        </member>
         <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,System.Object)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,System.Int32,System.Object)">
+            <summary>
+            加载数据表。
+            </summary>
+            <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="priority">加载数据表资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.DataTable.DataTableManager.HasDataTable``1">
@@ -3131,11 +3151,26 @@
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
         </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,System.Int32)">
+            <summary>
+            加载数据表。
+            </summary>
+            <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="priority">加载数据表资源的优先级。</param>
+        </member>
         <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,System.Object)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,System.Int32,System.Object)">
+            <summary>
+            加载数据表。
+            </summary>
+            <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="priority">加载数据表资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.DataTable.IDataTableManager.HasDataTable``1">
@@ -3645,6 +3680,16 @@
             <param name="path">调试窗口路径。</param>
             <param name="debuggerWindow">要注册的调试窗口。</param>
         </member>
+        <member name="T:GameFramework.Download.Constant">
+            <summary>
+            下载相关常量。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Download.Constant.DefaultPriority">
+            <summary>
+            默认下载优先级。
+            </summary>
+        </member>
         <member name="T:GameFramework.Download.DownloadAgentHelperCompleteEventArgs">
             <summary>
              下载代理辅助器完成事件。
@@ -3842,12 +3887,31 @@
             <param name="downloadUri">原始下载地址。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.Int32)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="priority">下载任务的优先级。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.Object)">
             <summary>
             增加下载任务。
             </summary>
             <param name="downloadPath">下载后存放路径。</param>
             <param name="downloadUri">原始下载地址。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="priority">下载任务的优先级。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
@@ -3948,12 +4012,13 @@
             下载任务。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadManager.DownloadTask.#ctor(System.String,System.String,System.Int32,System.Single,System.Object)">
+        <member name="M:GameFramework.Download.DownloadManager.DownloadTask.#ctor(System.String,System.String,System.Int32,System.Int32,System.Single,System.Object)">
             <summary>
             初始化下载任务的新实例。
             </summary>
             <param name="downloadPath">下载后存放路径。</param>
             <param name="downloadUri">原始下载地址。</param>
+            <param name="priority">下载任务的优先级。</param>
             <param name="flushSize">将缓冲区写入磁盘的临界大小。</param>
             <param name="timeout">下载超时时长，以秒为单位。</param>
             <param name="userData">用户自定义数据。</param>
@@ -3961,6 +4026,11 @@
         <member name="P:GameFramework.Download.DownloadManager.DownloadTask.SerialId">
             <summary>
             获取下载任务的序列编号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Download.DownloadManager.DownloadTask.Priority">
+            <summary>
+            获取下载任务的优先级。
             </summary>
         </member>
         <member name="P:GameFramework.Download.DownloadManager.DownloadTask.Done">
@@ -4266,12 +4336,31 @@
             <param name="downloadUri">原始下载地址。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.Int32)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="priority">下载任务的优先级。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.Object)">
             <summary>
             增加下载任务。
             </summary>
             <param name="downloadPath">下载后存放路径。</param>
             <param name="downloadUri">原始下载地址。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="priority">下载任务的优先级。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
@@ -4463,6 +4552,15 @@
             <param name="entityAssetName">实体资源名称。</param>
             <param name="entityGroupName">实体组名称。</param>
         </member>
+        <member name="M:GameFramework.Entity.EntityManager.ShowEntity(System.Int32,System.String,System.String,System.Int32)">
+            <summary>
+            显示实体。
+            </summary>
+            <param name="entityId">实体编号。</param>
+            <param name="entityAssetName">实体资源名称。</param>
+            <param name="entityGroupName">实体组名称。</param>
+            <param name="priority">加载实体资源的优先级。</param>
+        </member>
         <member name="M:GameFramework.Entity.EntityManager.ShowEntity(System.Int32,System.String,System.String,System.Object)">
             <summary>
             显示实体。
@@ -4470,6 +4568,16 @@
             <param name="entityId">实体编号。</param>
             <param name="entityAssetName">实体资源名称。</param>
             <param name="entityGroupName">实体组名称。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Entity.EntityManager.ShowEntity(System.Int32,System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            显示实体。
+            </summary>
+            <param name="entityId">实体编号。</param>
+            <param name="entityAssetName">实体资源名称。</param>
+            <param name="entityGroupName">实体组名称。</param>
+            <param name="priority">加载实体资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Entity.EntityManager.HideEntity(System.Int32)">
@@ -5196,6 +5304,15 @@
             <param name="entityAssetName">实体资源名称。</param>
             <param name="entityGroupName">实体组名称。</param>
         </member>
+        <member name="M:GameFramework.Entity.IEntityManager.ShowEntity(System.Int32,System.String,System.String,System.Int32)">
+            <summary>
+            显示实体。
+            </summary>
+            <param name="entityId">实体编号。</param>
+            <param name="entityAssetName">实体资源名称。</param>
+            <param name="entityGroupName">实体组名称。</param>
+            <param name="priority">加载实体资源的优先级。</param>
+        </member>
         <member name="M:GameFramework.Entity.IEntityManager.ShowEntity(System.Int32,System.String,System.String,System.Object)">
             <summary>
             显示实体。
@@ -5203,6 +5320,16 @@
             <param name="entityId">实体编号。</param>
             <param name="entityAssetName">实体资源名称。</param>
             <param name="entityGroupName">实体组名称。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Entity.IEntityManager.ShowEntity(System.Int32,System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            显示实体。
+            </summary>
+            <param name="entityId">实体编号。</param>
+            <param name="entityAssetName">实体资源名称。</param>
+            <param name="entityGroupName">实体组名称。</param>
+            <param name="priority">加载实体资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Entity.IEntityManager.HideEntity(System.Int32)">
@@ -6554,11 +6681,26 @@
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
         </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,System.Int32)">
+            <summary>
+            加载字典。
+            </summary>
+            <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="priority">加载字典资源的优先级。</param>
+        </member>
         <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,System.Object)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,System.Int32,System.Object)">
+            <summary>
+            加载字典。
+            </summary>
+            <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="priority">加载字典资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Localization.ILocalizationManager.ParseDictionary(System.String)">
@@ -7072,11 +7214,26 @@
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
         </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,System.Int32)">
+            <summary>
+            加载字典。
+            </summary>
+            <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="priority">加载字典资源的优先级。</param>
+        </member>
         <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,System.Object)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,System.Int32,System.Object)">
+            <summary>
+            加载字典。
+            </summary>
+            <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="priority">加载字典资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Localization.LocalizationManager.ParseDictionary(System.String)">
@@ -9925,6 +10082,16 @@
             需要更新。
             </summary>
         </member>
+        <member name="T:GameFramework.Resource.Constant">
+            <summary>
+            资源相关常量。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Resource.Constant.DefaultPriority">
+            <summary>
+            默认资源加载优先级。
+            </summary>
+        </member>
         <member name="T:GameFramework.Resource.DecryptResourceCallback">
             <summary>
             解密资源回调函数。
@@ -10306,11 +10473,28 @@
             <param name="assetName">要加载资源的名称。</param>
             <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadAsset(System.String,System.Int32,GameFramework.Resource.LoadAssetCallbacks)">
+            <summary>
+            异步加载资源。
+            </summary>
+            <param name="assetName">要加载资源的名称。</param>
+            <param name="priority">加载资源的优先级。</param>
+            <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+        </member>
         <member name="M:GameFramework.Resource.IResourceManager.LoadAsset(System.String,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
             <summary>
             异步加载资源。
             </summary>
             <param name="assetName">要加载资源的名称。</param>
+            <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadAsset(System.String,System.Int32,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
+            <summary>
+            异步加载资源。
+            </summary>
+            <param name="assetName">要加载资源的名称。</param>
+            <param name="priority">加载资源的优先级。</param>
             <param name="loadAssetCallbacks">加载资源回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -10327,11 +10511,28 @@
             <param name="sceneAssetName">要加载场景资源的名称。</param>
             <param name="loadSceneCallbacks">加载场景回调函数集。</param>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadScene(System.String,System.Int32,GameFramework.Resource.LoadSceneCallbacks)">
+            <summary>
+            异步加载场景。
+            </summary>
+            <param name="sceneAssetName">要加载场景资源的名称。</param>
+            <param name="priority">加载场景资源的优先级。</param>
+            <param name="loadSceneCallbacks">加载场景回调函数集。</param>
+        </member>
         <member name="M:GameFramework.Resource.IResourceManager.LoadScene(System.String,GameFramework.Resource.LoadSceneCallbacks,System.Object)">
             <summary>
             异步加载场景。
             </summary>
             <param name="sceneAssetName">要加载场景资源的名称。</param>
+            <param name="loadSceneCallbacks">加载场景回调函数集。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadScene(System.String,System.Int32,GameFramework.Resource.LoadSceneCallbacks,System.Object)">
+            <summary>
+            异步加载场景。
+            </summary>
+            <param name="sceneAssetName">要加载场景资源的名称。</param>
+            <param name="priority">加载场景资源的优先级。</param>
             <param name="loadSceneCallbacks">加载场景回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -11193,11 +11394,28 @@
             <param name="assetName">要加载资源的名称。</param>
             <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadAsset(System.String,System.Int32,GameFramework.Resource.LoadAssetCallbacks)">
+            <summary>
+            异步加载资源。
+            </summary>
+            <param name="assetName">要加载资源的名称。</param>
+            <param name="priority">加载资源的优先级。</param>
+            <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.LoadAsset(System.String,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
             <summary>
             异步加载资源。
             </summary>
             <param name="assetName">要加载资源的名称。</param>
+            <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadAsset(System.String,System.Int32,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
+            <summary>
+            异步加载资源。
+            </summary>
+            <param name="assetName">要加载资源的名称。</param>
+            <param name="priority">加载资源的优先级。</param>
             <param name="loadAssetCallbacks">加载资源回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -11214,11 +11432,28 @@
             <param name="sceneAssetName">要加载场景资源的名称。</param>
             <param name="loadSceneCallbacks">加载场景回调函数集。</param>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadScene(System.String,System.Int32,GameFramework.Resource.LoadSceneCallbacks)">
+            <summary>
+            异步加载场景。
+            </summary>
+            <param name="sceneAssetName">要加载场景资源的名称。</param>
+            <param name="priority">加载场景资源的优先级。</param>
+            <param name="loadSceneCallbacks">加载场景回调函数集。</param>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.LoadScene(System.String,GameFramework.Resource.LoadSceneCallbacks,System.Object)">
             <summary>
             异步加载场景。
             </summary>
             <param name="sceneAssetName">要加载场景资源的名称。</param>
+            <param name="loadSceneCallbacks">加载场景回调函数集。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadScene(System.String,System.Int32,GameFramework.Resource.LoadSceneCallbacks,System.Object)">
+            <summary>
+            异步加载场景。
+            </summary>
+            <param name="sceneAssetName">要加载场景资源的名称。</param>
+            <param name="priority">加载场景资源的优先级。</param>
             <param name="loadSceneCallbacks">加载场景回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -11701,11 +11936,12 @@
             <param name="assetName">要检查的资源。</param>
             <returns>资源是否存在。</returns>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadAsset(System.String,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadAsset(System.String,System.Int32,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
             <summary>
             异步加载资源。
             </summary>
             <param name="assetName">要加载资源的名称。</param>
+            <param name="priority">加载资源的优先级。</param>
             <param name="loadAssetCallbacks">加载资源回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -11715,11 +11951,12 @@
             </summary>
             <param name="asset">要卸载的资源。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadScene(System.String,GameFramework.Resource.LoadSceneCallbacks,System.Object)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadScene(System.String,System.Int32,GameFramework.Resource.LoadSceneCallbacks,System.Object)">
             <summary>
             异步加载场景。
             </summary>
             <param name="sceneAssetName">要加载场景资源的名称。</param>
+            <param name="priority">加载场景资源的优先级。</param>
             <param name="loadSceneCallbacks">加载场景回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -12359,11 +12596,26 @@
             </summary>
             <param name="sceneAssetName">场景资源名称。</param>
         </member>
+        <member name="M:GameFramework.Scene.ISceneManager.LoadScene(System.String,System.Int32)">
+            <summary>
+            加载场景。
+            </summary>
+            <param name="sceneAssetName">场景资源名称。</param>
+            <param name="priority">加载场景资源的优先级。</param>
+        </member>
         <member name="M:GameFramework.Scene.ISceneManager.LoadScene(System.String,System.Object)">
             <summary>
             加载场景。
             </summary>
             <param name="sceneAssetName">场景资源名称。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Scene.ISceneManager.LoadScene(System.String,System.Int32,System.Object)">
+            <summary>
+            加载场景。
+            </summary>
+            <param name="sceneAssetName">场景资源名称。</param>
+            <param name="priority">加载场景资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Scene.ISceneManager.UnloadScene(System.String)">
@@ -12612,11 +12864,26 @@
             </summary>
             <param name="sceneAssetName">场景资源名称。</param>
         </member>
+        <member name="M:GameFramework.Scene.SceneManager.LoadScene(System.String,System.Int32)">
+            <summary>
+            加载场景。
+            </summary>
+            <param name="sceneAssetName">场景资源名称。</param>
+            <param name="priority">加载场景资源的优先级。</param>
+        </member>
         <member name="M:GameFramework.Scene.SceneManager.LoadScene(System.String,System.Object)">
             <summary>
             加载场景。
             </summary>
             <param name="sceneAssetName">场景资源名称。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Scene.SceneManager.LoadScene(System.String,System.Int32,System.Object)">
+            <summary>
+            加载场景。
+            </summary>
+            <param name="sceneAssetName">场景资源名称。</param>
+            <param name="priority">加载场景资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Scene.SceneManager.UnloadScene(System.String)">
@@ -13632,6 +13899,15 @@
             <param name="soundGroupName">声音组名称。</param>
             <returns>声音的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.Sound.ISoundManager.PlaySound(System.String,System.String,System.Int32)">
+            <summary>
+            播放声音。
+            </summary>
+            <param name="soundAssetName">声音资源名称。</param>
+            <param name="soundGroupName">声音组名称。</param>
+            <param name="priority">加载声音资源的优先级。</param>
+            <returns>声音的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.Sound.ISoundManager.PlaySound(System.String,System.String,GameFramework.Sound.PlaySoundParams)">
             <summary>
             播放声音。
@@ -13650,12 +13926,43 @@
             <param name="userData">用户自定义数据。</param>
             <returns>声音的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.Sound.ISoundManager.PlaySound(System.String,System.String,System.Int32,GameFramework.Sound.PlaySoundParams)">
+            <summary>
+            播放声音。
+            </summary>
+            <param name="soundAssetName">声音资源名称。</param>
+            <param name="soundGroupName">声音组名称。</param>
+            <param name="priority">加载声音资源的优先级。</param>
+            <param name="playSoundParams">播放声音参数。</param>
+            <returns>声音的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Sound.ISoundManager.PlaySound(System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            播放声音。
+            </summary>
+            <param name="soundAssetName">声音资源名称。</param>
+            <param name="soundGroupName">声音组名称。</param>
+            <param name="priority">加载声音资源的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>声音的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.Sound.ISoundManager.PlaySound(System.String,System.String,GameFramework.Sound.PlaySoundParams,System.Object)">
             <summary>
             播放声音。
             </summary>
             <param name="soundAssetName">声音资源名称。</param>
             <param name="soundGroupName">声音组名称。</param>
+            <param name="playSoundParams">播放声音参数。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>声音的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Sound.ISoundManager.PlaySound(System.String,System.String,System.Int32,GameFramework.Sound.PlaySoundParams,System.Object)">
+            <summary>
+            播放声音。
+            </summary>
+            <param name="soundAssetName">声音资源名称。</param>
+            <param name="soundGroupName">声音组名称。</param>
+            <param name="priority">加载声音资源的优先级。</param>
             <param name="playSoundParams">播放声音参数。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>声音的序列编号。</returns>
@@ -14144,6 +14451,15 @@
             <param name="soundGroupName">声音组名称。</param>
             <returns>声音的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.Sound.SoundManager.PlaySound(System.String,System.String,System.Int32)">
+            <summary>
+            播放声音。
+            </summary>
+            <param name="soundAssetName">声音资源名称。</param>
+            <param name="soundGroupName">声音组名称。</param>
+            <param name="priority">加载声音资源的优先级。</param>
+            <returns>声音的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.Sound.SoundManager.PlaySound(System.String,System.String,GameFramework.Sound.PlaySoundParams)">
             <summary>
             播放声音。
@@ -14162,12 +14478,43 @@
             <param name="userData">用户自定义数据。</param>
             <returns>声音的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.Sound.SoundManager.PlaySound(System.String,System.String,System.Int32,GameFramework.Sound.PlaySoundParams)">
+            <summary>
+            播放声音。
+            </summary>
+            <param name="soundAssetName">声音资源名称。</param>
+            <param name="soundGroupName">声音组名称。</param>
+            <param name="priority">加载声音资源的优先级。</param>
+            <param name="playSoundParams">播放声音参数。</param>
+            <returns>声音的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Sound.SoundManager.PlaySound(System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            播放声音。
+            </summary>
+            <param name="soundAssetName">声音资源名称。</param>
+            <param name="soundGroupName">声音组名称。</param>
+            <param name="priority">加载声音资源的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>声音的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.Sound.SoundManager.PlaySound(System.String,System.String,GameFramework.Sound.PlaySoundParams,System.Object)">
             <summary>
             播放声音。
             </summary>
             <param name="soundAssetName">声音资源名称。</param>
             <param name="soundGroupName">声音组名称。</param>
+            <param name="playSoundParams">播放声音参数。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>声音的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Sound.SoundManager.PlaySound(System.String,System.String,System.Int32,GameFramework.Sound.PlaySoundParams,System.Object)">
+            <summary>
+            播放声音。
+            </summary>
+            <param name="soundAssetName">声音资源名称。</param>
+            <param name="soundGroupName">声音组名称。</param>
+            <param name="priority">加载声音资源的优先级。</param>
             <param name="playSoundParams">播放声音参数。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>声音的序列编号。</returns>
@@ -14908,6 +15255,15 @@
             <param name="uiGroupName">界面组名称。</param>
             <returns>界面的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.UI.IUIManager.OpenUIForm(System.String,System.String,System.Int32)">
+            <summary>
+            打开界面。
+            </summary>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="uiGroupName">界面组名称。</param>
+            <param name="priority">加载界面资源的优先级。</param>
+            <returns>界面的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.UI.IUIManager.OpenUIForm(System.String,System.String,System.Boolean)">
             <summary>
             打开界面。
@@ -14926,12 +15282,43 @@
             <param name="userData">用户自定义数据。</param>
             <returns>界面的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.UI.IUIManager.OpenUIForm(System.String,System.String,System.Int32,System.Boolean)">
+            <summary>
+            打开界面。
+            </summary>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="uiGroupName">界面组名称。</param>
+            <param name="priority">加载界面资源的优先级。</param>
+            <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
+            <returns>界面的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.UI.IUIManager.OpenUIForm(System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            打开界面。
+            </summary>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="uiGroupName">界面组名称。</param>
+            <param name="priority">加载界面资源的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>界面的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.UI.IUIManager.OpenUIForm(System.String,System.String,System.Boolean,System.Object)">
             <summary>
             打开界面。
             </summary>
             <param name="uiFormAssetName">界面资源名称。</param>
             <param name="uiGroupName">界面组名称。</param>
+            <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>界面的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.UI.IUIManager.OpenUIForm(System.String,System.String,System.Int32,System.Boolean,System.Object)">
+            <summary>
+            打开界面。
+            </summary>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="uiGroupName">界面组名称。</param>
+            <param name="priority">加载界面资源的优先级。</param>
             <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>界面的序列编号。</returns>
@@ -15386,6 +15773,15 @@
             <param name="uiGroupName">界面组名称。</param>
             <returns>界面的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.UI.UIManager.OpenUIForm(System.String,System.String,System.Int32)">
+            <summary>
+            打开界面。
+            </summary>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="uiGroupName">界面组名称。</param>
+            <param name="priority">加载界面资源的优先级。</param>
+            <returns>界面的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.UI.UIManager.OpenUIForm(System.String,System.String,System.Boolean)">
             <summary>
             打开界面。
@@ -15404,12 +15800,43 @@
             <param name="userData">用户自定义数据。</param>
             <returns>界面的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.UI.UIManager.OpenUIForm(System.String,System.String,System.Int32,System.Boolean)">
+            <summary>
+            打开界面。
+            </summary>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="uiGroupName">界面组名称。</param>
+            <param name="priority">加载界面资源的优先级。</param>
+            <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
+            <returns>界面的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.UI.UIManager.OpenUIForm(System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            打开界面。
+            </summary>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="uiGroupName">界面组名称。</param>
+            <param name="priority">加载界面资源的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>界面的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.UI.UIManager.OpenUIForm(System.String,System.String,System.Boolean,System.Object)">
             <summary>
             打开界面。
             </summary>
             <param name="uiFormAssetName">界面资源名称。</param>
             <param name="uiGroupName">界面组名称。</param>
+            <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>界面的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.UI.UIManager.OpenUIForm(System.String,System.String,System.Int32,System.Boolean,System.Object)">
+            <summary>
+            打开界面。
+            </summary>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="uiGroupName">界面组名称。</param>
+            <param name="priority">加载界面资源的优先级。</param>
             <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>界面的序列编号。</returns>
@@ -16352,6 +16779,16 @@
             <param name="bytes">要解压缩的数据。</param>
             <returns>解压缩后的数据。</returns>
         </member>
+        <member name="T:GameFramework.WebRequest.Constant">
+            <summary>
+            Web 请求相关常量。
+            </summary>
+        </member>
+        <member name="F:GameFramework.WebRequest.Constant.DefaultPriority">
+            <summary>
+            默认 Web 请求优先级。
+            </summary>
+        </member>
         <member name="T:GameFramework.WebRequest.IWebRequestAgentHelper">
             <summary>
             Web 请求代理辅助器接口。
@@ -16453,6 +16890,14 @@
             <param name="postData">要发送的数据流。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Int32)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Object)">
             <summary>
             增加 Web 请求任务。
@@ -16461,12 +16906,40 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Byte[],System.Int32)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Byte[],System.Object)">
             <summary>
             增加 Web 请求任务。
             </summary>
             <param name="webRequestUri">Web 请求地址。</param>
             <param name="postData">要发送的数据流。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Int32,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Byte[],System.Int32,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
@@ -16632,6 +17105,14 @@
             <param name="postData">要发送的数据流。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Int32)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Object)">
             <summary>
             增加 Web 请求任务。
@@ -16640,12 +17121,40 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Byte[],System.Int32)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Byte[],System.Object)">
             <summary>
             增加 Web 请求任务。
             </summary>
             <param name="webRequestUri">Web 请求地址。</param>
             <param name="postData">要发送的数据流。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Int32,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Byte[],System.Int32,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
@@ -16715,18 +17224,24 @@
             Web 请求任务。
             </summary>
         </member>
-        <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.#ctor(System.String,System.Byte[],System.Single,System.Object)">
+        <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.#ctor(System.String,System.Byte[],System.Int32,System.Single,System.Object)">
             <summary>
             初始化 Web 请求任务的新实例。
             </summary>
             <param name="webRequestUri">要发送的远程地址。</param>
             <param name="postData">要发送的数据流。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
             <param name="timeout">下载超时时长，以秒为单位。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.SerialId">
             <summary>
             获取 Web 请求任务的序列编号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Priority">
+            <summary>
+            获取 Web 请求任务的优先级。
             </summary>
         </member>
         <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Done">

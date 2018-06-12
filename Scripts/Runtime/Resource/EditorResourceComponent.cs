@@ -25,6 +25,8 @@ namespace UnityGameFramework.Runtime
     [DisallowMultipleComponent]
     public sealed class EditorResourceComponent : MonoBehaviour, IResourceManager
     {
+        private const int DefaultPriority = 0;
+
         [SerializeField]
         private float m_MinLoadAssetRandomDelaySeconds = 0f;
 
@@ -709,7 +711,18 @@ namespace UnityGameFramework.Runtime
         /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         public void LoadAsset(string assetName, LoadAssetCallbacks loadAssetCallbacks)
         {
-            LoadAsset(assetName, loadAssetCallbacks, null);
+            LoadAsset(assetName, DefaultPriority, loadAssetCallbacks, null);
+        }
+
+        /// <summary>
+        /// 异步加载资源。
+        /// </summary>
+        /// <param name="assetName">要加载资源的名称。</param>
+        /// <param name="priority">加载资源的优先级。</param>
+        /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+        public void LoadAsset(string assetName, int priority, LoadAssetCallbacks loadAssetCallbacks)
+        {
+            LoadAsset(assetName, priority, loadAssetCallbacks, null);
         }
 
         /// <summary>
@@ -719,6 +732,18 @@ namespace UnityGameFramework.Runtime
         /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
         public void LoadAsset(string assetName, LoadAssetCallbacks loadAssetCallbacks, object userData)
+        {
+            LoadAsset(assetName, DefaultPriority, loadAssetCallbacks, userData);
+        }
+
+        /// <summary>
+        /// 异步加载资源。
+        /// </summary>
+        /// <param name="assetName">要加载资源的名称。</param>
+        /// <param name="priority">加载资源的优先级。</param>
+        /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public void LoadAsset(string assetName, int priority, LoadAssetCallbacks loadAssetCallbacks, object userData)
         {
             if (string.IsNullOrEmpty(assetName))
             {
@@ -732,7 +757,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_LoadAssetInfos.AddLast(new LoadAssetInfo(assetName, DateTime.Now, m_MinLoadAssetRandomDelaySeconds + (float)Utility.Random.GetRandomDouble() * (m_MaxLoadAssetRandomDelaySeconds - m_MinLoadAssetRandomDelaySeconds), loadAssetCallbacks, userData));
+            m_LoadAssetInfos.AddLast(new LoadAssetInfo(assetName, priority, DateTime.Now, m_MinLoadAssetRandomDelaySeconds + (float)Utility.Random.GetRandomDouble() * (m_MaxLoadAssetRandomDelaySeconds - m_MinLoadAssetRandomDelaySeconds), loadAssetCallbacks, userData));
         }
 
         /// <summary>
@@ -751,7 +776,18 @@ namespace UnityGameFramework.Runtime
         /// <param name="loadSceneCallbacks">加载场景回调函数集。</param>
         public void LoadScene(string sceneAssetName, LoadSceneCallbacks loadSceneCallbacks)
         {
-            LoadScene(sceneAssetName, loadSceneCallbacks, null);
+            LoadScene(sceneAssetName, DefaultPriority, loadSceneCallbacks, null);
+        }
+
+        /// <summary>
+        /// 异步加载场景。
+        /// </summary>
+        /// <param name="sceneAssetName">要加载场景资源的名称。</param>
+        /// <param name="priority">加载场景资源的优先级。</param>
+        /// <param name="loadSceneCallbacks">加载场景回调函数集。</param>
+        public void LoadScene(string sceneAssetName, int priority, LoadSceneCallbacks loadSceneCallbacks)
+        {
+            LoadScene(sceneAssetName, priority, loadSceneCallbacks, null);
         }
 
         /// <summary>
@@ -761,6 +797,18 @@ namespace UnityGameFramework.Runtime
         /// <param name="loadSceneCallbacks">加载场景回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
         public void LoadScene(string sceneAssetName, LoadSceneCallbacks loadSceneCallbacks, object userData)
+        {
+            LoadScene(sceneAssetName, DefaultPriority, loadSceneCallbacks, userData);
+        }
+
+        /// <summary>
+        /// 异步加载场景。
+        /// </summary>
+        /// <param name="sceneAssetName">要加载场景资源的名称。</param>
+        /// <param name="priority">加载场景资源的优先级。</param>
+        /// <param name="loadSceneCallbacks">加载场景回调函数集。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public void LoadScene(string sceneAssetName, int priority, LoadSceneCallbacks loadSceneCallbacks, object userData)
         {
             if (string.IsNullOrEmpty(sceneAssetName))
             {
@@ -784,7 +832,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_LoadSceneInfos.AddLast(new LoadSceneInfo(asyncOperation, sceneAssetName, DateTime.Now, loadSceneCallbacks, userData));
+            m_LoadSceneInfos.AddLast(new LoadSceneInfo(asyncOperation, sceneAssetName, priority, DateTime.Now, loadSceneCallbacks, userData));
         }
 
         /// <summary>
@@ -900,14 +948,16 @@ namespace UnityGameFramework.Runtime
         private sealed class LoadAssetInfo
         {
             private readonly string m_AssetName;
+            private readonly int m_Priority;
             private readonly DateTime m_StartTime;
             private readonly float m_DelaySeconds;
             private readonly LoadAssetCallbacks m_LoadAssetCallbacks;
             private readonly object m_UserData;
 
-            public LoadAssetInfo(string assetName, DateTime startTime, float delaySeconds, LoadAssetCallbacks loadAssetCallbacks, object userData)
+            public LoadAssetInfo(string assetName, int priority, DateTime startTime, float delaySeconds, LoadAssetCallbacks loadAssetCallbacks, object userData)
             {
                 m_AssetName = assetName;
+                m_Priority = priority;
                 m_StartTime = startTime;
                 m_DelaySeconds = delaySeconds;
                 m_LoadAssetCallbacks = loadAssetCallbacks;
@@ -919,6 +969,14 @@ namespace UnityGameFramework.Runtime
                 get
                 {
                     return m_AssetName;
+                }
+            }
+
+            public int Priority
+            {
+                get
+                {
+                    return m_Priority;
                 }
             }
 
@@ -959,14 +1017,16 @@ namespace UnityGameFramework.Runtime
         {
             private readonly AsyncOperation m_AsyncOperation;
             private readonly string m_SceneAssetName;
+            private readonly int m_Priority;
             private readonly DateTime m_StartTime;
             private readonly LoadSceneCallbacks m_LoadSceneCallbacks;
             private readonly object m_UserData;
 
-            public LoadSceneInfo(AsyncOperation asyncOperation, string sceneAssetName, DateTime startTime, LoadSceneCallbacks loadSceneCallbacks, object userData)
+            public LoadSceneInfo(AsyncOperation asyncOperation, string sceneAssetName, int priority, DateTime startTime, LoadSceneCallbacks loadSceneCallbacks, object userData)
             {
                 m_AsyncOperation = asyncOperation;
                 m_SceneAssetName = sceneAssetName;
+                m_Priority = priority;
                 m_StartTime = startTime;
                 m_LoadSceneCallbacks = loadSceneCallbacks;
                 m_UserData = userData;
@@ -985,6 +1045,14 @@ namespace UnityGameFramework.Runtime
                 get
                 {
                     return m_SceneAssetName;
+                }
+            }
+
+            public int Priority
+            {
+                get
+                {
+                    return m_Priority;
                 }
             }
 

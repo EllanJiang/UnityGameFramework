@@ -20,6 +20,8 @@ namespace UnityGameFramework.Runtime
     [AddComponentMenu("Game Framework/Scene")]
     public sealed class SceneComponent : GameFrameworkComponent
     {
+        private const int DefaultPriority = 0;
+
         private ISceneManager m_SceneManager = null;
         private EventComponent m_EventComponent = null;
         private Camera m_MainCamera = null;
@@ -172,7 +174,17 @@ namespace UnityGameFramework.Runtime
         /// <param name="sceneAssetName">场景资源名称。</param>
         public void LoadScene(string sceneAssetName)
         {
-            m_SceneManager.LoadScene(sceneAssetName);
+            LoadScene(sceneAssetName, DefaultPriority, null);
+        }
+
+        /// <summary>
+        /// 加载场景。
+        /// </summary>
+        /// <param name="sceneAssetName">场景资源名称。</param>
+        /// <param name="priority">加载场景资源的优先级。</param>
+        public void LoadScene(string sceneAssetName, int priority)
+        {
+            LoadScene(sceneAssetName, priority, null);
         }
 
         /// <summary>
@@ -182,7 +194,18 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public void LoadScene(string sceneAssetName, object userData)
         {
-            m_SceneManager.LoadScene(sceneAssetName, userData);
+            LoadScene(sceneAssetName, DefaultPriority, userData);
+        }
+
+        /// <summary>
+        /// 加载场景。
+        /// </summary>
+        /// <param name="sceneAssetName">场景资源名称。</param>
+        /// <param name="priority">加载场景资源的优先级。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public void LoadScene(string sceneAssetName, int priority, object userData)
+        {
+            m_SceneManager.LoadScene(sceneAssetName, priority, userData);
         }
 
         /// <summary>
@@ -191,7 +214,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="sceneAssetName">场景资源名称。</param>
         public void UnloadScene(string sceneAssetName)
         {
-            m_SceneManager.UnloadScene(sceneAssetName);
+            UnloadScene(sceneAssetName, null);
         }
 
         /// <summary>

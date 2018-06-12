@@ -1679,11 +1679,26 @@
             </summary>
             <param name="configAssetName">配置资源名称。</param>
         </member>
+        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,System.Int32)">
+            <summary>
+            加载配置。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+            <param name="priority">加载配置资源的优先级。</param>
+        </member>
         <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,System.Object)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,System.Int32,System.Object)">
+            <summary>
+            加载配置。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+            <param name="priority">加载配置资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Config.ConfigManager.ParseConfig(System.String)">
@@ -1865,11 +1880,26 @@
             </summary>
             <param name="configAssetName">配置资源名称。</param>
         </member>
+        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,System.Int32)">
+            <summary>
+            加载配置。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+            <param name="priority">加载配置资源的优先级。</param>
+        </member>
         <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,System.Object)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,System.Int32,System.Object)">
+            <summary>
+            加载配置。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+            <param name="priority">加载配置资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Config.IConfigManager.ParseConfig(System.String)">
@@ -3687,7 +3717,7 @@
         </member>
         <member name="F:GameFramework.Download.Constant.DefaultPriority">
             <summary>
-            默认下载优先级。
+            默认下载任务优先级。
             </summary>
         </member>
         <member name="T:GameFramework.Download.DownloadAgentHelperCompleteEventArgs">
@@ -16786,7 +16816,7 @@
         </member>
         <member name="F:GameFramework.WebRequest.Constant.DefaultPriority">
             <summary>
-            默认 Web 请求优先级。
+            默认 Web 请求任务优先级。
             </summary>
         </member>
         <member name="T:GameFramework.WebRequest.IWebRequestAgentHelper">

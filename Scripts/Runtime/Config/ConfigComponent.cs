@@ -19,6 +19,8 @@ namespace UnityGameFramework.Runtime
     [AddComponentMenu("Game Framework/Config")]
     public sealed class ConfigComponent : GameFrameworkComponent
     {
+        private const int DefaultPriority = 0;
+
         private IConfigManager m_ConfigManager = null;
         private EventComponent m_EventComponent = null;
 
@@ -118,7 +120,18 @@ namespace UnityGameFramework.Runtime
         /// <param name="configAssetName">配置资源名称。</param>
         public void LoadConfig(string configName, string configAssetName)
         {
-            LoadConfig(configName, configAssetName, null);
+            LoadConfig(configName, configAssetName, DefaultPriority, null);
+        }
+
+        /// <summary>
+        /// 加载配置。
+        /// </summary>
+        /// <param name="configName">配置名称。</param>
+        /// <param name="configAssetName">配置资源名称。</param>
+        /// <param name="priority">加载配置资源的优先级。</param>
+        public void LoadConfig(string configName, string configAssetName, int priority)
+        {
+            LoadConfig(configName, configAssetName, priority, null);
         }
 
         /// <summary>
@@ -129,13 +142,25 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public void LoadConfig(string configName, string configAssetName, object userData)
         {
+            LoadConfig(configName, configAssetName, DefaultPriority, userData);
+        }
+
+        /// <summary>
+        /// 加载配置。
+        /// </summary>
+        /// <param name="configName">配置名称。</param>
+        /// <param name="configAssetName">配置资源名称。</param>
+        /// <param name="priority">加载配置资源的优先级。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public void LoadConfig(string configName, string configAssetName, int priority, object userData)
+        {
             if (string.IsNullOrEmpty(configName))
             {
                 Log.Error("Config name is invalid.");
                 return;
             }
 
-            m_ConfigManager.LoadConfig(configAssetName, new LoadConfigInfo(configName, userData));
+            m_ConfigManager.LoadConfig(configAssetName, priority, new LoadConfigInfo(configName, userData));
         }
 
         /// <summary>

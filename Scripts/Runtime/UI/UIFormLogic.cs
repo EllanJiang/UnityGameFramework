@@ -14,6 +14,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public abstract class UIFormLogic : MonoBehaviour
     {
+        private int m_OriginalLayer = 0;
+
         /// <summary>
         /// 获取界面。
         /// </summary>
@@ -70,6 +72,8 @@ namespace UnityGameFramework.Runtime
             {
                 CachedTransform = transform;
             }
+
+            m_OriginalLayer = gameObject.layer;
         }
 
         /// <summary>
@@ -87,6 +91,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         protected internal virtual void OnClose(object userData)
         {
+            gameObject.SetLayerRecursively(m_OriginalLayer);
             gameObject.SetActive(false);
         }
 

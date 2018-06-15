@@ -18,6 +18,8 @@ namespace UnityGameFramework.Runtime
     [AddComponentMenu("Game Framework/Download")]
     public sealed class DownloadComponent : GameFrameworkComponent
     {
+        private const int DefaultPriority = 0;
+
         private IDownloadManager m_DownloadManager = null;
         private EventComponent m_EventComponent = null;
 
@@ -176,7 +178,19 @@ namespace UnityGameFramework.Runtime
         /// <returns>新增下载任务的序列编号。</returns>
         public int AddDownload(string downloadPath, string downloadUri)
         {
-            return m_DownloadManager.AddDownload(downloadPath, downloadUri);
+            return AddDownload(downloadPath, downloadUri, DefaultPriority, null);
+        }
+
+        /// <summary>
+        /// 增加下载任务。
+        /// </summary>
+        /// <param name="downloadPath">下载后存放路径。</param>
+        /// <param name="downloadUri">原始下载地址。</param>
+        /// <param name="priority">下载任务的优先级。</param>
+        /// <returns>新增下载任务的序列编号。</returns>
+        public int AddDownload(string downloadPath, string downloadUri, int priority)
+        {
+            return AddDownload(downloadPath, downloadUri, priority, null);
         }
 
         /// <summary>
@@ -188,7 +202,20 @@ namespace UnityGameFramework.Runtime
         /// <returns>新增下载任务的序列编号。</returns>
         public int AddDownload(string downloadPath, string downloadUri, object userData)
         {
-            return m_DownloadManager.AddDownload(downloadPath, downloadUri, userData);
+            return AddDownload(downloadPath, downloadUri, DefaultPriority, userData);
+        }
+
+        /// <summary>
+        /// 增加下载任务。
+        /// </summary>
+        /// <param name="downloadPath">下载后存放路径。</param>
+        /// <param name="downloadUri">原始下载地址。</param>
+        /// <param name="priority">下载任务的优先级。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>新增下载任务的序列编号。</returns>
+        public int AddDownload(string downloadPath, string downloadUri, int priority, object userData)
+        {
+            return m_DownloadManager.AddDownload(downloadPath, downloadUri, priority, userData);
         }
 
         /// <summary>

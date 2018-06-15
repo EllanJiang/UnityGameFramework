@@ -18,6 +18,8 @@ namespace UnityGameFramework.Runtime
     [AddComponentMenu("Game Framework/Web Request")]
     public sealed class WebRequestComponent : GameFrameworkComponent
     {
+        private const int DefaultPriority = 0;
+
         private IWebRequestManager m_WebRequestManager = null;
         private EventComponent m_EventComponent = null;
 
@@ -144,7 +146,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>新增 Web 请求任务的序列编号。</returns>
         public int AddWebRequest(string webRequestUri)
         {
-            return AddWebRequest(webRequestUri, null, null, null);
+            return AddWebRequest(webRequestUri, null, null, DefaultPriority, null);
         }
 
         /// <summary>
@@ -155,7 +157,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>新增 Web 请求任务的序列编号。</returns>
         public int AddWebRequest(string webRequestUri, byte[] postData)
         {
-            return AddWebRequest(webRequestUri, postData, null, null);
+            return AddWebRequest(webRequestUri, postData, null, DefaultPriority, null);
         }
 
         /// <summary>
@@ -166,7 +168,42 @@ namespace UnityGameFramework.Runtime
         /// <returns>新增 Web 请求任务的序列编号。</returns>
         public int AddWebRequest(string webRequestUri, WWWForm wwwForm)
         {
-            return AddWebRequest(webRequestUri, null, wwwForm, null);
+            return AddWebRequest(webRequestUri, null, wwwForm, DefaultPriority, null);
+        }
+
+        /// <summary>
+        /// 增加 Web 请求任务。
+        /// </summary>
+        /// <param name="webRequestUri">Web 请求地址。</param>
+        /// <param name="priority">Web 请求任务的优先级。</param>
+        /// <returns>新增 Web 请求任务的序列编号。</returns>
+        public int AddWebRequest(string webRequestUri, int priority)
+        {
+            return AddWebRequest(webRequestUri, null, null, priority, null);
+        }
+
+        /// <summary>
+        /// 增加 Web 请求任务。
+        /// </summary>
+        /// <param name="webRequestUri">Web 请求地址。</param>
+        /// <param name="postData">要发送的数据流。</param>
+        /// <param name="priority">Web 请求任务的优先级。</param>
+        /// <returns>新增 Web 请求任务的序列编号。</returns>
+        public int AddWebRequest(string webRequestUri, byte[] postData, int priority)
+        {
+            return AddWebRequest(webRequestUri, postData, null, priority, null);
+        }
+
+        /// <summary>
+        /// 增加 Web 请求任务。
+        /// </summary>
+        /// <param name="webRequestUri">Web 请求地址。</param>
+        /// <param name="wwwForm">WWW 表单。</param>
+        /// <param name="priority">Web 请求任务的优先级。</param>
+        /// <returns>新增 Web 请求任务的序列编号。</returns>
+        public int AddWebRequest(string webRequestUri, WWWForm wwwForm, int priority)
+        {
+            return AddWebRequest(webRequestUri, null, wwwForm, priority, null);
         }
 
         /// <summary>
@@ -177,7 +214,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>新增 Web 请求任务的序列编号。</returns>
         public int AddWebRequest(string webRequestUri, object userData)
         {
-            return AddWebRequest(webRequestUri, null, null, userData);
+            return AddWebRequest(webRequestUri, null, null, DefaultPriority, userData);
         }
 
         /// <summary>
@@ -189,7 +226,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>新增 Web 请求任务的序列编号。</returns>
         public int AddWebRequest(string webRequestUri, byte[] postData, object userData)
         {
-            return AddWebRequest(webRequestUri, postData, null, userData);
+            return AddWebRequest(webRequestUri, postData, null, DefaultPriority, userData);
         }
 
         /// <summary>
@@ -201,7 +238,45 @@ namespace UnityGameFramework.Runtime
         /// <returns>新增 Web 请求任务的序列编号。</returns>
         public int AddWebRequest(string webRequestUri, WWWForm wwwForm, object userData)
         {
-            return AddWebRequest(webRequestUri, null, wwwForm, userData);
+            return AddWebRequest(webRequestUri, null, wwwForm, DefaultPriority, userData);
+        }
+
+        /// <summary>
+        /// 增加 Web 请求任务。
+        /// </summary>
+        /// <param name="webRequestUri">Web 请求地址。</param>
+        /// <param name="priority">Web 请求任务的优先级。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>新增 Web 请求任务的序列编号。</returns>
+        public int AddWebRequest(string webRequestUri, int priority, object userData)
+        {
+            return AddWebRequest(webRequestUri, null, null, priority, userData);
+        }
+
+        /// <summary>
+        /// 增加 Web 请求任务。
+        /// </summary>
+        /// <param name="webRequestUri">Web 请求地址。</param>
+        /// <param name="postData">要发送的数据流。</param>
+        /// <param name="priority">Web 请求任务的优先级。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>新增 Web 请求任务的序列编号。</returns>
+        public int AddWebRequest(string webRequestUri, byte[] postData, int priority, object userData)
+        {
+            return AddWebRequest(webRequestUri, postData, null, priority, userData);
+        }
+
+        /// <summary>
+        /// 增加 Web 请求任务。
+        /// </summary>
+        /// <param name="webRequestUri">Web 请求地址。</param>
+        /// <param name="wwwForm">WWW 表单。</param>
+        /// <param name="priority">Web 请求任务的优先级。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>新增 Web 请求任务的序列编号。</returns>
+        public int AddWebRequest(string webRequestUri, WWWForm wwwForm, int priority, object userData)
+        {
+            return AddWebRequest(webRequestUri, null, wwwForm, priority, userData);
         }
 
         /// <summary>
@@ -249,11 +324,12 @@ namespace UnityGameFramework.Runtime
         /// <param name="webRequestUri">Web 请求地址。</param>
         /// <param name="postData">要发送的数据流。</param>
         /// <param name="wwwForm">WWW 表单。</param>
+        /// <param name="priority">Web 请求任务的优先级。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>新增 Web 请求任务的序列编号。</returns>
-        private int AddWebRequest(string webRequestUri, byte[] postData, WWWForm wwwForm, object userData)
+        private int AddWebRequest(string webRequestUri, byte[] postData, WWWForm wwwForm, int priority, object userData)
         {
-            return m_WebRequestManager.AddWebRequest(webRequestUri, postData, new WWWFormInfo(wwwForm, userData));
+            return m_WebRequestManager.AddWebRequest(webRequestUri, postData, priority, new WWWFormInfo(wwwForm, userData));
         }
 
         private void OnWebRequestStart(object sender, GameFramework.WebRequest.WebRequestStartEventArgs e)

@@ -14,6 +14,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public abstract class EntityLogic : MonoBehaviour
     {
+        private int m_OriginalLayer = 0;
         private Transform m_OriginalTransform = null;
 
         /// <summary>
@@ -73,6 +74,7 @@ namespace UnityGameFramework.Runtime
                 CachedTransform = transform;
             }
 
+            m_OriginalLayer = gameObject.layer;
             m_OriginalTransform = CachedTransform.parent;
         }
 
@@ -91,6 +93,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         protected internal virtual void OnHide(object userData)
         {
+            gameObject.SetLayerRecursively(m_OriginalLayer);
             gameObject.SetActive(false);
         }
 

@@ -107,6 +107,15 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取或设置声音多普勒等级。
+        /// </summary>
+        public abstract float DopplerLevel
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 获取或设置声音代理辅助器所在的混音组。
         /// </summary>
         public abstract AudioMixerGroup AudioMixerGroup

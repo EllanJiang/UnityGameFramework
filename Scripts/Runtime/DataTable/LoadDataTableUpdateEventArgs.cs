@@ -16,12 +16,12 @@ namespace UnityGameFramework.Runtime
     public sealed class LoadDataTableUpdateEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 加载数据表失败事件编号。
+        /// 加载数据表更新事件编号。
         /// </summary>
         public static readonly int EventId = typeof(LoadDataTableUpdateEventArgs).GetHashCode();
 
         /// <summary>
-        /// 获取加载数据表失败事件编号。
+        /// 获取加载数据表更新事件编号。
         /// </summary>
         public override int Id
         {

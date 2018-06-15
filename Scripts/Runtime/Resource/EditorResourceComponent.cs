@@ -440,11 +440,18 @@ namespace UnityGameFramework.Runtime
                     float elapseSeconds = (float)(DateTime.Now - loadAssetInfo.StartTime).TotalSeconds;
                     if (elapseSeconds >= loadAssetInfo.DelaySeconds)
                     {
-#if UNITY_EDITOR
-                        UnityEngine.Object asset = AssetDatabase.LoadMainAssetAtPath(loadAssetInfo.AssetName);
-#else
                         UnityEngine.Object asset = null;
+#if UNITY_EDITOR
+                        if (loadAssetInfo.AssetType != null)
+                        {
+                            asset = AssetDatabase.LoadAssetAtPath(loadAssetInfo.AssetName, loadAssetInfo.AssetType);
+                        }
+                        else
+                        {
+                            asset = AssetDatabase.LoadMainAssetAtPath(loadAssetInfo.AssetName);
+                        }
 #endif
+
                         if (asset != null)
                         {
                             if (loadAssetInfo.LoadAssetCallbacks.LoadAssetSuccessCallback != null)
@@ -711,7 +718,18 @@ namespace UnityGameFramework.Runtime
         /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         public void LoadAsset(string assetName, LoadAssetCallbacks loadAssetCallbacks)
         {
-            LoadAsset(assetName, DefaultPriority, loadAssetCallbacks, null);
+            LoadAsset(assetName, null, DefaultPriority, loadAssetCallbacks, null);
+        }
+
+        /// <summary>
+        /// 异步加载资源。
+        /// </summary>
+        /// <param name="assetName">要加载资源的名称。</param>
+        /// <param name="assetType">要加载资源的类型。</param>
+        /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks)
+        {
+            LoadAsset(assetName, assetType, DefaultPriority, loadAssetCallbacks, null);
         }
 
         /// <summary>
@@ -722,7 +740,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         public void LoadAsset(string assetName, int priority, LoadAssetCallbacks loadAssetCallbacks)
         {
-            LoadAsset(assetName, priority, loadAssetCallbacks, null);
+            LoadAsset(assetName, null, priority, loadAssetCallbacks, null);
         }
 
         /// <summary>
@@ -733,7 +751,31 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public void LoadAsset(string assetName, LoadAssetCallbacks loadAssetCallbacks, object userData)
         {
-            LoadAsset(assetName, DefaultPriority, loadAssetCallbacks, userData);
+            LoadAsset(assetName, null, DefaultPriority, loadAssetCallbacks, userData);
+        }
+
+        /// <summary>
+        /// 异步加载资源。
+        /// </summary>
+        /// <param name="assetName">要加载资源的名称。</param>
+        /// <param name="assetType">要加载资源的类型。</param>
+        /// <param name="priority">加载资源的优先级。</param>
+        /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+        public void LoadAsset(string assetName, Type assetType, int priority, LoadAssetCallbacks loadAssetCallbacks)
+        {
+            LoadAsset(assetName, assetType, priority, loadAssetCallbacks, null);
+        }
+
+        /// <summary>
+        /// 异步加载资源。
+        /// </summary>
+        /// <param name="assetName">要加载资源的名称。</param>
+        /// <param name="assetType">要加载资源的类型。</param>
+        /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks, object userData)
+        {
+            LoadAsset(assetName, assetType, DefaultPriority, loadAssetCallbacks, userData);
         }
 
         /// <summary>
@@ -744,6 +786,19 @@ namespace UnityGameFramework.Runtime
         /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
         public void LoadAsset(string assetName, int priority, LoadAssetCallbacks loadAssetCallbacks, object userData)
+        {
+            LoadAsset(assetName, null, priority, loadAssetCallbacks, userData);
+        }
+
+        /// <summary>
+        /// 异步加载资源。
+        /// </summary>
+        /// <param name="assetName">要加载资源的名称。</param>
+        /// <param name="assetType">要加载资源的类型。</param>
+        /// <param name="priority">加载资源的优先级。</param>
+        /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public void LoadAsset(string assetName, Type assetType, int priority, LoadAssetCallbacks loadAssetCallbacks, object userData)
         {
             if (string.IsNullOrEmpty(assetName))
             {
@@ -757,7 +812,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_LoadAssetInfos.AddLast(new LoadAssetInfo(assetName, priority, DateTime.Now, m_MinLoadAssetRandomDelaySeconds + (float)Utility.Random.GetRandomDouble() * (m_MaxLoadAssetRandomDelaySeconds - m_MinLoadAssetRandomDelaySeconds), loadAssetCallbacks, userData));
+            m_LoadAssetInfos.AddLast(new LoadAssetInfo(assetName, assetType, priority, DateTime.Now, m_MinLoadAssetRandomDelaySeconds + (float)Utility.Random.GetRandomDouble() * (m_MaxLoadAssetRandomDelaySeconds - m_MinLoadAssetRandomDelaySeconds), loadAssetCallbacks, userData));
         }
 
         /// <summary>
@@ -948,15 +1003,17 @@ namespace UnityGameFramework.Runtime
         private sealed class LoadAssetInfo
         {
             private readonly string m_AssetName;
+            private readonly Type m_AssetType;
             private readonly int m_Priority;
             private readonly DateTime m_StartTime;
             private readonly float m_DelaySeconds;
             private readonly LoadAssetCallbacks m_LoadAssetCallbacks;
             private readonly object m_UserData;
 
-            public LoadAssetInfo(string assetName, int priority, DateTime startTime, float delaySeconds, LoadAssetCallbacks loadAssetCallbacks, object userData)
+            public LoadAssetInfo(string assetName, Type assetType, int priority, DateTime startTime, float delaySeconds, LoadAssetCallbacks loadAssetCallbacks, object userData)
             {
                 m_AssetName = assetName;
+                m_AssetType = assetType;
                 m_Priority = priority;
                 m_StartTime = startTime;
                 m_DelaySeconds = delaySeconds;
@@ -969,6 +1026,14 @@ namespace UnityGameFramework.Runtime
                 get
                 {
                     return m_AssetName;
+                }
+            }
+
+            public Type AssetType
+            {
+                get
+                {
+                    return m_AssetType;
                 }
             }
 

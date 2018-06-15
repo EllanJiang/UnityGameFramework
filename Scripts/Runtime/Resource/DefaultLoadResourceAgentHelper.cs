@@ -180,8 +180,9 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="resource">资源。</param>
         /// <param name="resourceChildName">要加载的子资源名。</param>
+        /// <param name="assetType">要加载资源的类型。</param>
         /// <param name="isScene">要加载的资源是否是场景。</param>
-        public override void LoadAsset(object resource, string resourceChildName, bool isScene)
+        public override void LoadAsset(object resource, string resourceChildName, Type assetType, bool isScene)
         {
             if (m_LoadResourceAgentHelperLoadCompleteEventHandler == null || m_LoadResourceAgentHelperUpdateEventHandler == null || m_LoadResourceAgentHelperErrorEventHandler == null)
             {
@@ -211,7 +212,14 @@ namespace UnityGameFramework.Runtime
             }
             else
             {
-                m_AssetBundleRequest = assetBundle.LoadAssetAsync(resourceChildName);
+                if (assetType != null)
+                {
+                    m_AssetBundleRequest = assetBundle.LoadAssetAsync(resourceChildName, assetType);
+                }
+                else
+                {
+                    m_AssetBundleRequest = assetBundle.LoadAssetAsync(resourceChildName);
+                }
             }
         }
 

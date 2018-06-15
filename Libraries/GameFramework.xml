@@ -10189,12 +10189,13 @@
             </summary>
             <param name="bytes">要加载资源的二进制流。</param>
         </member>
-        <member name="M:GameFramework.Resource.ILoadResourceAgentHelper.LoadAsset(System.Object,System.String,System.Boolean)">
+        <member name="M:GameFramework.Resource.ILoadResourceAgentHelper.LoadAsset(System.Object,System.String,System.Type,System.Boolean)">
             <summary>
             通过加载资源代理辅助器开始异步加载资源。
             </summary>
             <param name="resource">资源。</param>
             <param name="resourceChildName">要加载的子资源名。</param>
+            <param name="assetType">要加载资源的类型。</param>
             <param name="isScene">要加载的资源是否是场景。</param>
         </member>
         <member name="M:GameFramework.Resource.ILoadResourceAgentHelper.Reset">
@@ -10503,6 +10504,14 @@
             <param name="assetName">要加载资源的名称。</param>
             <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadAsset(System.String,System.Type,GameFramework.Resource.LoadAssetCallbacks)">
+            <summary>
+            异步加载资源。
+            </summary>
+            <param name="assetName">要加载资源的名称。</param>
+            <param name="assetType">要加载资源的类型。</param>
+            <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+        </member>
         <member name="M:GameFramework.Resource.IResourceManager.LoadAsset(System.String,System.Int32,GameFramework.Resource.LoadAssetCallbacks)">
             <summary>
             异步加载资源。
@@ -10519,11 +10528,39 @@
             <param name="loadAssetCallbacks">加载资源回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadAsset(System.String,System.Type,System.Int32,GameFramework.Resource.LoadAssetCallbacks)">
+            <summary>
+            异步加载资源。
+            </summary>
+            <param name="assetName">要加载资源的名称。</param>
+            <param name="assetType">要加载资源的类型。</param>
+            <param name="priority">加载资源的优先级。</param>
+            <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadAsset(System.String,System.Type,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
+            <summary>
+            异步加载资源。
+            </summary>
+            <param name="assetName">要加载资源的名称。</param>
+            <param name="assetType">要加载资源的类型。</param>
+            <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
         <member name="M:GameFramework.Resource.IResourceManager.LoadAsset(System.String,System.Int32,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
             <summary>
             异步加载资源。
             </summary>
             <param name="assetName">要加载资源的名称。</param>
+            <param name="priority">加载资源的优先级。</param>
+            <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadAsset(System.String,System.Type,System.Int32,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
+            <summary>
+            异步加载资源。
+            </summary>
+            <param name="assetName">要加载资源的名称。</param>
+            <param name="assetType">要加载资源的类型。</param>
             <param name="priority">加载资源的优先级。</param>
             <param name="loadAssetCallbacks">加载资源回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
@@ -11424,6 +11461,14 @@
             <param name="assetName">要加载资源的名称。</param>
             <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadAsset(System.String,System.Type,GameFramework.Resource.LoadAssetCallbacks)">
+            <summary>
+            异步加载资源。
+            </summary>
+            <param name="assetName">要加载资源的名称。</param>
+            <param name="assetType">要加载资源的类型。</param>
+            <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.LoadAsset(System.String,System.Int32,GameFramework.Resource.LoadAssetCallbacks)">
             <summary>
             异步加载资源。
@@ -11440,11 +11485,39 @@
             <param name="loadAssetCallbacks">加载资源回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadAsset(System.String,System.Type,System.Int32,GameFramework.Resource.LoadAssetCallbacks)">
+            <summary>
+            异步加载资源。
+            </summary>
+            <param name="assetName">要加载资源的名称。</param>
+            <param name="assetType">要加载资源的类型。</param>
+            <param name="priority">加载资源的优先级。</param>
+            <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadAsset(System.String,System.Type,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
+            <summary>
+            异步加载资源。
+            </summary>
+            <param name="assetName">要加载资源的名称。</param>
+            <param name="assetType">要加载资源的类型。</param>
+            <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.LoadAsset(System.String,System.Int32,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
             <summary>
             异步加载资源。
             </summary>
             <param name="assetName">要加载资源的名称。</param>
+            <param name="priority">加载资源的优先级。</param>
+            <param name="loadAssetCallbacks">加载资源回调函数集。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadAsset(System.String,System.Type,System.Int32,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
+            <summary>
+            异步加载资源。
+            </summary>
+            <param name="assetName">要加载资源的名称。</param>
+            <param name="assetType">要加载资源的类型。</param>
             <param name="priority">加载资源的优先级。</param>
             <param name="loadAssetCallbacks">加载资源回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
@@ -11966,11 +12039,12 @@
             <param name="assetName">要检查的资源。</param>
             <returns>资源是否存在。</returns>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadAsset(System.String,System.Int32,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadAsset(System.String,System.Type,System.Int32,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
             <summary>
             异步加载资源。
             </summary>
             <param name="assetName">要加载资源的名称。</param>
+            <param name="assetType">要加载资源的类型。</param>
             <param name="priority">加载资源的优先级。</param>
             <param name="loadAssetCallbacks">加载资源回调函数集。</param>
             <param name="userData">用户自定义数据。</param>

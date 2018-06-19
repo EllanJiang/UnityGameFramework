@@ -841,7 +841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinLoadAssetRandomDelaySeconds: 0
-  m_MaxLoadAssetRandomDelaySeconds: 1
+  m_MaxLoadAssetRandomDelaySeconds: 0
 --- !u!114 &11472694
 MonoBehaviour:
   m_ObjectHideFlags: 1

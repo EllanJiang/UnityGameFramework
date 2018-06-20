@@ -8472,6 +8472,30 @@
             <param name="priority">对象池的优先级。</param>
             <returns>要创建的允许单次获取的对象池。</returns>
         </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.CreateSingleSpawnObjectPool``1(System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许单次获取的对象池。
+            </summary>
+            <typeparam name="T">对象类型。</typeparam>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许单次获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.CreateSingleSpawnObjectPool(System.Type,System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许单次获取的对象池。
+            </summary>
+            <param name="objectType">对象类型。</param>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许单次获取的对象池。</returns>
+        </member>
         <member name="M:GameFramework.ObjectPool.IObjectPoolManager.CreateMultiSpawnObjectPool``1">
             <summary>
             创建允许多次获取的对象池。
@@ -8721,6 +8745,30 @@
             </summary>
             <param name="objectType">对象类型。</param>
             <param name="name">对象池名称。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许多次获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.CreateMultiSpawnObjectPool``1(System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许多次获取的对象池。
+            </summary>
+            <typeparam name="T">对象类型。</typeparam>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许多次获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.CreateMultiSpawnObjectPool(System.Type,System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许多次获取的对象池。
+            </summary>
+            <param name="objectType">对象类型。</param>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
             <param name="capacity">对象池的容量。</param>
             <param name="expireTime">对象池对象过期秒数。</param>
             <param name="priority">对象池的优先级。</param>
@@ -9358,6 +9406,30 @@
             <param name="priority">对象池的优先级。</param>
             <returns>要创建的允许单次获取的对象池。</returns>
         </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.CreateSingleSpawnObjectPool``1(System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许单次获取的对象池。
+            </summary>
+            <typeparam name="T">对象类型。</typeparam>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许单次获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.CreateSingleSpawnObjectPool(System.Type,System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许单次获取的对象池。
+            </summary>
+            <param name="objectType">对象类型。</param>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许单次获取的对象池。</returns>
+        </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.CreateMultiSpawnObjectPool``1">
             <summary>
             创建允许多次获取的对象池。
@@ -9612,6 +9684,30 @@
             <param name="priority">对象池的优先级。</param>
             <returns>要创建的允许多次获取的对象池。</returns>
         </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.CreateMultiSpawnObjectPool``1(System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许多次获取的对象池。
+            </summary>
+            <typeparam name="T">对象类型。</typeparam>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许多次获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.CreateMultiSpawnObjectPool(System.Type,System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许多次获取的对象池。
+            </summary>
+            <param name="objectType">对象类型。</param>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许多次获取的对象池。</returns>
+        </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.DestroyObjectPool``1">
             <summary>
             销毁对象池。
@@ -9744,12 +9840,13 @@
             </summary>
             <typeparam name="T">对象类型。</typeparam>
         </member>
-        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.ObjectPool`1.#ctor(System.String,System.Boolean,System.Int32,System.Single,System.Int32)">
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.ObjectPool`1.#ctor(System.String,System.Boolean,System.Single,System.Int32,System.Single,System.Int32)">
             <summary>
             初始化对象池的新实例。
             </summary>
             <param name="name">对象池名称。</param>
             <param name="allowMultiSpawn">是否允许对象被多次获取。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
             <param name="capacity">对象池的容量。</param>
             <param name="expireTime">对象池对象过期秒数。</param>
             <param name="priority">对象池的优先级。</param>

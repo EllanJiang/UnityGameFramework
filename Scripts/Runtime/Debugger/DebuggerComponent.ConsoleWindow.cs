@@ -240,7 +240,6 @@ namespace UnityGameFramework.Runtime
                 }
 
                 Application.logMessageReceived += OnLogMessageReceived;
-                Application.logMessageReceivedThreaded += OnLogMessageReceived;
                 m_LockScroll = m_LastLockScroll = m_SettingComponent.GetBool("Debugger.Console.LockScroll", true);
                 m_InfoFilter = m_LastInfoFilter = m_SettingComponent.GetBool("Debugger.Console.InfoFilter", true);
                 m_WarningFilter = m_LastWarningFilter = m_SettingComponent.GetBool("Debugger.Console.WarningFilter", true);
@@ -251,7 +250,6 @@ namespace UnityGameFramework.Runtime
             public void Shutdown()
             {
                 Application.logMessageReceived -= OnLogMessageReceived;
-                Application.logMessageReceivedThreaded -= OnLogMessageReceived;
                 Clear();
             }
 

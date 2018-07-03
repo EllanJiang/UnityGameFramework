@@ -152,7 +152,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     continue;
                 }
 
-                Stamp stamp = new Stamp(assetName, dependencyAssetName);
+                Stamp stamp = new Stamp(hostAsset.Name, dependencyAssetName);
                 if (m_AnalyzedStamps.Contains(stamp))
                 {
                     continue;

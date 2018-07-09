@@ -494,11 +494,6 @@
             游戏框架入口。
             </summary>
         </member>
-        <member name="P:GameFramework.GameFrameworkEntry.Version">
-            <summary>
-            获取游戏框架版本号。
-            </summary>
-        </member>
         <member name="M:GameFramework.GameFrameworkEntry.Update(System.Single,System.Single)">
             <summary>
             所有游戏框架模块轮询。
@@ -1612,6 +1607,47 @@
         <member name="M:GameFramework.Variable.Reset">
             <summary>
             重置变量值。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Version">
+            <summary>
+            版本号类。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Version.GameFrameworkVersion">
+            <summary>
+            获取游戏框架版本号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Version.GameVersion">
+            <summary>
+            获取游戏版本号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Version.InternalGameVersion">
+            <summary>
+            获取内部游戏版本号。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Version.SetVersionHelper(GameFramework.Version.IVersionHelper)">
+            <summary>
+            设置版本号辅助器。
+            </summary>
+            <param name="versionHelper">要设置的版本号辅助器。</param>
+        </member>
+        <member name="T:GameFramework.Version.IVersionHelper">
+            <summary>
+            版本号辅助器接口。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Version.IVersionHelper.GameVersion">
+            <summary>
+            获取游戏版本号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Version.IVersionHelper.InternalGameVersion">
+            <summary>
+            获取内部游戏版本号。
             </summary>
         </member>
         <member name="T:GameFramework.Config.ConfigManager">
@@ -10358,7 +10394,7 @@
         </member>
         <member name="P:GameFramework.Resource.IResourceManager.InternalResourceVersion">
             <summary>
-            获取当前资源内部版本号。
+            获取当前内部资源版本号。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.IResourceManager.AssetCount">
@@ -10565,7 +10601,7 @@
             <summary>
             使用可更新模式并检查版本资源列表。
             </summary>
-            <param name="latestInternalResourceVersion">最新的资源内部版本号。</param>
+            <param name="latestInternalResourceVersion">最新的内部资源版本号。</param>
             <returns>检查版本资源列表结果。</returns>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.UpdateVersionList(System.Int32,System.Int32,System.Int32,System.Int32)">
@@ -11303,7 +11339,7 @@
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.InternalResourceVersion">
             <summary>
-            获取当前资源内部版本号。
+            获取当前内部资源版本号。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.AssetCount">
@@ -11522,7 +11558,7 @@
             <summary>
             使用可更新模式并检查版本资源列表。
             </summary>
-            <param name="latestInternalResourceVersion">最新的资源内部版本号。</param>
+            <param name="latestInternalResourceVersion">最新的内部资源版本号。</param>
             <returns>检查版本资源列表结果。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.UpdateVersionList(System.Int32,System.Int32,System.Int32,System.Int32)">
@@ -12416,7 +12452,7 @@
             <summary>
             检查版本资源列表。
             </summary>
-            <param name="latestInternalResourceVersion">最新的资源内部版本号。</param>
+            <param name="latestInternalResourceVersion">最新的内部资源版本号。</param>
             <returns>检查版本资源列表结果。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.VersionListProcessor.UpdateVersionList(System.Int32,System.Int32,System.Int32,System.Int32)">

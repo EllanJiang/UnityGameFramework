@@ -11,9 +11,6 @@ using GameFramework.ObjectPool;
 using GameFramework.Resource;
 using System;
 using System.Collections.Generic;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -95,7 +92,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取当前资源内部版本号。
+        /// 获取当前内部资源版本号。
         /// </summary>
         public int InternalResourceVersion
         {
@@ -444,11 +441,11 @@ namespace UnityGameFramework.Runtime
 #if UNITY_EDITOR
                         if (loadAssetInfo.AssetType != null)
                         {
-                            asset = AssetDatabase.LoadAssetAtPath(loadAssetInfo.AssetName, loadAssetInfo.AssetType);
+                            asset = UnityEditor.AssetDatabase.LoadAssetAtPath(loadAssetInfo.AssetName, loadAssetInfo.AssetType);
                         }
                         else
                         {
-                            asset = AssetDatabase.LoadMainAssetAtPath(loadAssetInfo.AssetName);
+                            asset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(loadAssetInfo.AssetName);
                         }
 #endif
 
@@ -662,7 +659,7 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 检查版本资源列表。
         /// </summary>
-        /// <param name="latestInternalResourceVersion">最新的资源内部版本号。</param>
+        /// <param name="latestInternalResourceVersion">最新的内部资源版本号。</param>
         /// <returns>检查版本资源列表结果。</returns>
         public CheckVersionListResult CheckVersionList(int latestInternalResourceVersion)
         {
@@ -705,7 +702,7 @@ namespace UnityGameFramework.Runtime
         public bool ExistAsset(string assetName)
         {
 #if UNITY_EDITOR
-            return AssetDatabase.LoadMainAssetAtPath(assetName) != null;
+            return UnityEditor.AssetDatabase.LoadMainAssetAtPath(assetName) != null;
 #else
             return false;
 #endif

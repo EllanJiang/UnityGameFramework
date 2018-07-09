@@ -935,6 +935,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EditorResourceMode: 1
   m_EditorLanguage: 0
+  m_VersionHelperTypeName: UnityGameFramework.Runtime.DefaultVersionHelper
   m_LogHelperTypeName: UnityGameFramework.Runtime.DefaultLogHelper
   m_ZipHelperTypeName: UnityGameFramework.Runtime.DefaultZipHelper
   m_JsonHelperTypeName: UnityGameFramework.Runtime.DefaultJsonHelper

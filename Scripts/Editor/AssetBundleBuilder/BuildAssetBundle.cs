@@ -22,10 +22,30 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         [MenuItem("Game Framework/AssetBundle Tools/Build AssetBundle", false, 30)]
         public static void Run()
         {
-            Run(null);
+            Run(null, null, null);
+        }
+
+        public static void Run(int internalResourceVersion)
+        {
+            Run(internalResourceVersion, null, null);
         }
 
         public static void Run(string outputDirectory)
+        {
+            Run(null, outputDirectory, null);
+        }
+
+        public static void Run(int internalResourceVersion, string outputDirectory)
+        {
+            Run(internalResourceVersion, outputDirectory, null);
+        }
+
+        public static void Run(int internalResourceVersion, string outputDirectory, string buildEventHandlerTypeName)
+        {
+            Run(internalResourceVersion, outputDirectory, buildEventHandlerTypeName);
+        }
+
+        private static void Run(int? internalResourceVersion, string outputDirectory, string buildEventHandlerTypeName)
         {
             AssetBundleBuilderController controller = new AssetBundleBuilderController();
             if (!controller.Load())
@@ -37,9 +57,19 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 Debug.Log("Load configuration success.");
             }
 
-            if (!string.IsNullOrEmpty(outputDirectory))
+            if (internalResourceVersion.HasValue)
+            {
+                controller.InternalResourceVersion = internalResourceVersion.Value;
+            }
+
+            if (outputDirectory != null)
             {
                 controller.OutputDirectory = outputDirectory;
+            }
+
+            if (buildEventHandlerTypeName != null)
+            {
+                controller.BuildEventHandlerTypeName = buildEventHandlerTypeName;
             }
 
             if (!controller.IsValidOutputDirectory)

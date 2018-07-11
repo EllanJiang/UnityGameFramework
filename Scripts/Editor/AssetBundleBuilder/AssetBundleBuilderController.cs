@@ -16,7 +16,7 @@ using UnityGameFramework.Runtime;
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal sealed partial class AssetBundleBuilderController
+    public sealed partial class AssetBundleBuilderController
     {
         private const string VersionListFileName = "version";
         private const string ResourceListFileName = "list";

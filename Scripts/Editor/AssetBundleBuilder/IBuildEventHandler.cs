@@ -20,9 +20,9 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         /// <param name="productName">产品名称。</param>
         /// <param name="companyName">公司名称。</param>
         /// <param name="gameIdentifier">游戏识别号。</param>
-        /// <param name="applicableGameVersion">适用的游戏版本号。</param>
-        /// <param name="internalResourceVersion">内部资源版本号。</param>
-        /// <param name="unityVersion">Unity 版本号。</param>
+        /// <param name="applicableGameVersion">适用游戏版本。</param>
+        /// <param name="internalResourceVersion">内部资源版本。</param>
+        /// <param name="unityVersion">Unity 版本。</param>
         /// <param name="buildOptions">生成选项。</param>
         /// <param name="zip">是否压缩。</param>
         /// <param name="outputDirectory">生成目录。</param>
@@ -41,9 +41,9 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         /// <param name="productName">产品名称。</param>
         /// <param name="companyName">公司名称。</param>
         /// <param name="gameIdentifier">游戏识别号。</param>
-        /// <param name="applicableGameVersion">适用的游戏版本号。</param>
-        /// <param name="internalResourceVersion">内部资源版本号。</param>
-        /// <param name="unityVersion">Unity 版本号。</param>
+        /// <param name="applicableGameVersion">适用游戏版本。</param>
+        /// <param name="internalResourceVersion">内部资源版本。</param>
+        /// <param name="unityVersion">Unity 版本。</param>
         /// <param name="buildOptions">生成选项。</param>
         /// <param name="zip">是否压缩。</param>
         /// <param name="outputDirectory">生成目录。</param>

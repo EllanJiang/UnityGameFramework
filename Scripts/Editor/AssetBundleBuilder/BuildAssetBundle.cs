@@ -14,13 +14,13 @@ namespace UnityGameFramework.Editor.AssetBundleTools
     /// <summary>
     /// 生成资源包。
     /// </summary>
-    internal sealed class BuildAssetBundle
+    public static class BuildAssetBundle
     {
         /// <summary>
         /// 运行生成资源包。
         /// </summary>
         [MenuItem("Game Framework/AssetBundle Tools/Build AssetBundle", false, 30)]
-        private static void Run()
+        public static void Run()
         {
             AssetBundleBuilderController controller = new AssetBundleBuilderController();
             if (!controller.Load())

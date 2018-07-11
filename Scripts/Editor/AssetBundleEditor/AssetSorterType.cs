@@ -7,7 +7,7 @@
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal enum AssetSorterType
+    public enum AssetSorterType
     {
         Path,
         Name,

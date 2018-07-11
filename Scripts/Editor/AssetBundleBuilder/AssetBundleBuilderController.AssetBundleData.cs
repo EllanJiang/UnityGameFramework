@@ -10,7 +10,7 @@ using UnityEditor;
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal partial class AssetBundleBuilderController
+    public sealed partial class AssetBundleBuilderController
     {
         private sealed class AssetBundleData
         {

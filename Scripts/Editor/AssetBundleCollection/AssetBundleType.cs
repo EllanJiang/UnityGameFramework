@@ -10,7 +10,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
     /// <summary>
     /// 资源包类型。
     /// </summary>
-    internal enum AssetBundleType
+    public enum AssetBundleType
     {
         /// <summary>
         /// 未知。

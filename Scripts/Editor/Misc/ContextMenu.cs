@@ -20,6 +20,12 @@ namespace UnityGameFramework.Editor
             Help.ShowComponentHelp("base");
         }
 
+        [MenuItem("CONTEXT/ConfigComponent/Help")]
+        private static void ShowConfigComponentHelp(MenuCommand command)
+        {
+            Help.ShowComponentHelp("config");
+        }
+
         [MenuItem("CONTEXT/DataNodeComponent/Help")]
         private static void ShowDataNodeComponentHelp(MenuCommand command)
         {

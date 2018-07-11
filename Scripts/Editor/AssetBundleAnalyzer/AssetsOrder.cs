@@ -7,7 +7,7 @@
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal enum AssetsOrder
+    public enum AssetsOrder
     {
         AssetNameAsc,
         AssetNameDesc,

@@ -505,6 +505,18 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             return removeAssets.Count;
         }
 
+        public SourceAsset[] GetSourceAssets()
+        {
+            int count = 0;
+            SourceAsset[] sourceAssets = new SourceAsset[m_SourceAssets.Count];
+            foreach (KeyValuePair<string, SourceAsset> sourceAsset in m_SourceAssets)
+            {
+                sourceAssets[count++] = sourceAsset.Value;
+            }
+
+            return sourceAssets;
+        }
+
         public SourceAsset GetSourceAsset(string assetGuid)
         {
             if (string.IsNullOrEmpty(assetGuid))

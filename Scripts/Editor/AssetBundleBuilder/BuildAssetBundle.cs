@@ -22,6 +22,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         [MenuItem("Game Framework/AssetBundle Tools/Build AssetBundle", false, 30)]
         public static void Run()
         {
+            Run(null);
+        }
+
+        public static void Run(string outputDirectory)
+        {
             AssetBundleBuilderController controller = new AssetBundleBuilderController();
             if (!controller.Load())
             {
@@ -30,6 +35,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             else
             {
                 Debug.Log("Load configuration success.");
+            }
+
+            if (!string.IsNullOrEmpty(outputDirectory))
+            {
+                controller.OutputDirectory = outputDirectory;
             }
 
             if (!controller.IsValidOutputDirectory)

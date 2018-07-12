@@ -464,7 +464,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     continue;
                 }
 
-                if (Path.GetFileName(assetInAssetBundle.Name) == Path.GetFileName(assetName))
+                if (Path.GetFileName(assetInAssetBundle.Name).ToLower() == Path.GetFileName(assetName).ToLower())
                 {
                     return false;
                 }

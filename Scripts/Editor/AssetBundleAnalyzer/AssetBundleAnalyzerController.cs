@@ -145,7 +145,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     continue;
                 }
 
-
                 if (dependencyAssetName.EndsWith(".unity"))
                 {
                     // 忽略对场景的依赖

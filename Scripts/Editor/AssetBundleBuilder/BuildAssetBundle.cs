@@ -22,30 +22,65 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         [MenuItem("Game Framework/AssetBundle Tools/Build AssetBundle", false, 30)]
         public static void Run()
         {
-            Run(null, null, null);
+            Run(null, Platform.Undefined, null, null);
         }
 
         public static void Run(int internalResourceVersion)
         {
-            Run(internalResourceVersion, null, null);
+            Run((int?)internalResourceVersion, Platform.Undefined, null, null);
+        }
+
+        public static void Run(Platform platforms)
+        {
+            Run(null, platforms, null, null);
         }
 
         public static void Run(string outputDirectory)
         {
-            Run(null, outputDirectory, null);
+            Run(null, Platform.Undefined, outputDirectory, null);
+        }
+
+        public static void Run(int internalResourceVersion, Platform platforms)
+        {
+            Run((int?)internalResourceVersion, platforms, null, null);
         }
 
         public static void Run(int internalResourceVersion, string outputDirectory)
         {
-            Run(internalResourceVersion, outputDirectory, null);
+            Run((int?)internalResourceVersion, Platform.Undefined, outputDirectory, null);
+        }
+
+        public static void Run(Platform platforms, string outputDirectory)
+        {
+            Run(null, platforms, outputDirectory, null);
+        }
+
+        public static void Run(string outputDirectory, string buildEventHandlerTypeName)
+        {
+            Run(null, Platform.Undefined, outputDirectory, buildEventHandlerTypeName);
+        }
+
+        public static void Run(int internalResourceVersion, Platform platforms, string outputDirectory)
+        {
+            Run((int?)internalResourceVersion, platforms, outputDirectory, null);
         }
 
         public static void Run(int internalResourceVersion, string outputDirectory, string buildEventHandlerTypeName)
         {
-            Run(internalResourceVersion, outputDirectory, buildEventHandlerTypeName);
+            Run((int?)internalResourceVersion, Platform.Undefined, outputDirectory, buildEventHandlerTypeName);
         }
 
-        private static void Run(int? internalResourceVersion, string outputDirectory, string buildEventHandlerTypeName)
+        public static void Run(Platform platforms, string outputDirectory, string buildEventHandlerTypeName)
+        {
+            Run(null, platforms, outputDirectory, buildEventHandlerTypeName);
+        }
+
+        public static void Run(int internalResourceVersion, Platform platforms, string outputDirectory, string buildEventHandlerTypeName)
+        {
+            Run((int?)internalResourceVersion, platforms, outputDirectory, buildEventHandlerTypeName);
+        }
+
+        private static void Run(int? internalResourceVersion, Platform platforms, string outputDirectory, string buildEventHandlerTypeName)
         {
             AssetBundleBuilderController controller = new AssetBundleBuilderController();
             if (!controller.Load())
@@ -55,6 +90,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             else
             {
                 Debug.Log("Load configuration success.");
+            }
+
+            if (platforms != Platform.Undefined)
+            {
+                controller.Platforms = platforms;
             }
 
             if (internalResourceVersion.HasValue)

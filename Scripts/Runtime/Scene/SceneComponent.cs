@@ -8,6 +8,7 @@
 using GameFramework;
 using GameFramework.Resource;
 using GameFramework.Scene;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -131,6 +132,15 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取已加载场景的资源名称。
+        /// </summary>
+        /// <param name="results">已加载场景的资源名称。</param>
+        public void GetLoadedSceneAssetNames(List<string> results)
+        {
+            m_SceneManager.GetLoadedSceneAssetNames(results);
+        }
+
+        /// <summary>
         /// 获取场景是否正在加载。
         /// </summary>
         /// <param name="sceneAssetName">场景资源名称。</param>
@@ -150,6 +160,15 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取正在加载场景的资源名称。
+        /// </summary>
+        /// <param name="results">正在加载场景的资源名称。</param>
+        public void GetLoadingSceneAssetNames(List<string> results)
+        {
+            m_SceneManager.GetLoadingSceneAssetNames(results);
+        }
+
+        /// <summary>
         /// 获取场景是否正在卸载。
         /// </summary>
         /// <param name="sceneAssetName">场景资源名称。</param>
@@ -166,6 +185,15 @@ namespace UnityGameFramework.Runtime
         public string[] GetUnloadingSceneAssetNames()
         {
             return m_SceneManager.GetUnloadingSceneAssetNames();
+        }
+
+        /// <summary>
+        /// 获取正在卸载场景的资源名称。
+        /// </summary>
+        /// <param name="results">正在卸载场景的资源名称。</param>
+        public void GetUnloadingSceneAssetNames(List<string> results)
+        {
+            m_SceneManager.GetUnloadingSceneAssetNames(results);
         }
 
         /// <summary>

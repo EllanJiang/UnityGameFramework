@@ -7,6 +7,7 @@
 
 using GameFramework;
 using GameFramework.Network;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -90,6 +91,15 @@ namespace UnityGameFramework.Runtime
         public INetworkChannel[] GetAllNetworkChannels()
         {
             return m_NetworkManager.GetAllNetworkChannels();
+        }
+
+        /// <summary>
+        /// 获取所有网络频道。
+        /// </summary>
+        /// <param name="results">所有网络频道。</param>
+        public void GetAllNetworkChannels(List<INetworkChannel> results)
+        {
+            m_NetworkManager.GetAllNetworkChannels(results);
         }
 
         /// <summary>

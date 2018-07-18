@@ -8,6 +8,7 @@
 using GameFramework;
 using GameFramework.ObjectPool;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -147,11 +148,30 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 获取所有对象池。
         /// </summary>
+        /// <param name="results">所有对象池。</param>
+        public void GetAllObjectPools(List<ObjectPoolBase> results)
+        {
+            m_ObjectPoolManager.GetAllObjectPools(results);
+        }
+
+        /// <summary>
+        /// 获取所有对象池。
+        /// </summary>
         /// <param name="sort">是否根据对象池的优先级排序。</param>
         /// <returns>所有对象池。</returns>
         public ObjectPoolBase[] GetAllObjectPools(bool sort)
         {
             return m_ObjectPoolManager.GetAllObjectPools(sort);
+        }
+
+        /// <summary>
+        /// 获取所有对象池。
+        /// </summary>
+        /// <param name="sort">是否根据对象池的优先级排序。</param>
+        /// <param name="results">所有对象池。</param>
+        public void GetAllObjectPools(bool sort, List<ObjectPoolBase> results)
+        {
+            m_ObjectPoolManager.GetAllObjectPools(sort, results);
         }
 
         /// <summary>

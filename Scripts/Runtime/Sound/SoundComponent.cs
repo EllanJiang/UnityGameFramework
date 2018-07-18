@@ -11,6 +11,7 @@ using GameFramework.Resource;
 using GameFramework.Scene;
 #endif
 using GameFramework.Sound;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -224,6 +225,15 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取所有声音组。
+        /// </summary>
+        /// <param name="results">所有声音组。</param>
+        public void GetAllSoundGroups(List<ISoundGroup> results)
+        {
+            m_SoundManager.GetAllSoundGroups(results);
+        }
+
+        /// <summary>
         /// 增加声音组。
         /// </summary>
         /// <param name="soundGroupName">声音组名称。</param>
@@ -298,6 +308,15 @@ namespace UnityGameFramework.Runtime
         public int[] GetAllLoadingSoundSerialIds()
         {
             return m_SoundManager.GetAllLoadingSoundSerialIds();
+        }
+
+        /// <summary>
+        /// 获取所有正在加载声音的序列编号。
+        /// </summary>
+        /// <param name="results">所有正在加载声音的序列编号。</param>
+        public void GetAllLoadingSoundSerialIds(List<int> results)
+        {
+            m_SoundManager.GetAllLoadingSoundSerialIds(results);
         }
 
         /// <summary>

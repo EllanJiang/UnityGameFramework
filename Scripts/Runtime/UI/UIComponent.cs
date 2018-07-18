@@ -9,6 +9,7 @@ using GameFramework;
 using GameFramework.ObjectPool;
 using GameFramework.Resource;
 using GameFramework.UI;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -24,6 +25,7 @@ namespace UnityGameFramework.Runtime
 
         private IUIManager m_UIManager = null;
         private EventComponent m_EventComponent = null;
+        private List<IUIForm> m_InternalUIFormResultsCache = null;
 
         [SerializeField]
         private bool m_EnableOpenUIFormSuccessEvent = true;
@@ -160,6 +162,8 @@ namespace UnityGameFramework.Runtime
             m_UIManager.OpenUIFormUpdate += OnOpenUIFormUpdate;
             m_UIManager.OpenUIFormDependencyAsset += OnOpenUIFormDependencyAsset;
             m_UIManager.CloseUIFormComplete += OnCloseUIFormComplete;
+
+            m_InternalUIFormResultsCache = new List<IUIForm>();
         }
 
         private void Start()
@@ -253,6 +257,15 @@ namespace UnityGameFramework.Runtime
         public IUIGroup[] GetAllUIGroups()
         {
             return m_UIManager.GetAllUIGroups();
+        }
+
+        /// <summary>
+        /// 获取所有界面组。
+        /// </summary>
+        /// <param name="results">所有界面组。</param>
+        public void GetAllUIGroups(List<IUIGroup> results)
+        {
+            m_UIManager.GetAllUIGroups(results);
         }
 
         /// <summary>
@@ -352,6 +365,27 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取界面。
+        /// </summary>
+        /// <param name="uiFormAssetName">界面资源名称。</param>
+        /// <param name="results">要获取的界面。</param>
+        public void GetUIForms(string uiFormAssetName, List<UIForm> results)
+        {
+            if (results == null)
+            {
+                Log.Error("Results is invalid.");
+                return;
+            }
+
+            results.Clear();
+            m_UIManager.GetUIForms(uiFormAssetName, m_InternalUIFormResultsCache);
+            foreach (IUIForm uiForm in m_InternalUIFormResultsCache)
+            {
+                results.Add((UIForm)uiForm);
+            }
+        }
+
+        /// <summary>
         /// 获取所有已加载的界面。
         /// </summary>
         /// <returns>所有已加载的界面。</returns>
@@ -368,12 +402,41 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取所有已加载的界面。
+        /// </summary>
+        /// <param name="results">所有已加载的界面。</param>
+        public void GetAllLoadedUIForms(List<UIForm> results)
+        {
+            if (results == null)
+            {
+                Log.Error("Results is invalid.");
+                return;
+            }
+
+            results.Clear();
+            m_UIManager.GetAllLoadedUIForms(m_InternalUIFormResultsCache);
+            foreach (IUIForm uiForm in m_InternalUIFormResultsCache)
+            {
+                results.Add((UIForm)uiForm);
+            }
+        }
+
+        /// <summary>
         /// 获取所有正在加载界面的序列编号。
         /// </summary>
         /// <returns>所有正在加载界面的序列编号。</returns>
         public int[] GetAllLoadingUIFormSerialIds()
         {
             return m_UIManager.GetAllLoadingUIFormSerialIds();
+        }
+
+        /// <summary>
+        /// 获取所有正在加载界面的序列编号。
+        /// </summary>
+        /// <param name="results">所有正在加载界面的序列编号。</param>
+        public void GetAllLoadingUIFormSerialIds(List<int> results)
+        {
+            m_UIManager.GetAllLoadingUIFormSerialIds(results);
         }
 
         /// <summary>

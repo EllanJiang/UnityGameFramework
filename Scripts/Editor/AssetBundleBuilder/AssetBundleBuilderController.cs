@@ -1315,7 +1315,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 #if UNITY_2017_3_OR_NEWER
                     return BuildTarget.StandaloneOSX;
 #else
-                    return BuildTarget.StandaloneOSXUniversal:
+                    return BuildTarget.StandaloneOSXUniversal;
 #endif
                 case Platform.Linux:
                     return BuildTarget.StandaloneLinux;

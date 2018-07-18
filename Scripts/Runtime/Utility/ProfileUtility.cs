@@ -13,7 +13,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 性能分析工具集。
     /// </summary>
-    public static class ProfilerUtility
+    public static class ProfileUtility
     {
         /// <summary>
         /// 开始采样。

@@ -206,7 +206,7 @@ namespace UnityGameFramework.Runtime
             m_ResourceChildName = resourceChildName;
             if (isScene)
             {
-                int sceneNamePosition = resourceChildName.IndexOf('.');
+                int sceneNamePosition = resourceChildName.LastIndexOf('.');
                 string sceneName = sceneNamePosition > 0 ? resourceChildName.Substring(0, sceneNamePosition) : resourceChildName;
                 m_AsyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             }

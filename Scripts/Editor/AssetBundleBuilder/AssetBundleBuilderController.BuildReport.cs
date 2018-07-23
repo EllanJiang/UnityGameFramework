@@ -75,6 +75,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 LogInternal("ERROR", format, args);
             }
 
+            public void LogFatal(string format, params object[] args)
+            {
+                LogInternal("FATAL", format, args);
+            }
+
             public void SaveReport()
             {
                 XmlElement xmlElement = null;

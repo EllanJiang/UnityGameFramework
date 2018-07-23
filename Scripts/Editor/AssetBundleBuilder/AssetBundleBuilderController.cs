@@ -600,14 +600,21 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
                 if (m_BuildEventHandler != null)
                 {
-                    m_BuildReport.LogInfo("Execute build event handler 'PreProcessBuildAll'...");
-                    m_BuildEventHandler.PreProcessBuildAll(ProductName, CompanyName, GameIdentifier, ApplicableGameVersion, InternalResourceVersion, UnityVersion, buildAssetBundleOptions, ZipSelected, OutputDirectory, WorkingPath, OutputPackagePath, OutputFullPath, OutputPackedPath, BuildReportPath);
+                    m_BuildReport.LogInfo("Execute build event handler 'PreprocessAllPlatforms'...");
+                    m_BuildEventHandler.PreprocessAllPlatforms(ProductName, CompanyName, GameIdentifier, ApplicableGameVersion, InternalResourceVersion, UnityVersion, buildAssetBundleOptions, ZipSelected, OutputDirectory, WorkingPath, OutputPackagePath, OutputFullPath, OutputPackedPath, BuildReportPath);
                 }
 
                 m_BuildReport.LogInfo("Start prepare AssetBundle collection...");
                 if (!m_AssetBundleCollection.Load())
                 {
                     m_BuildReport.LogError("Can not parse 'AssetBundleCollection.xml', please use 'AssetBundle Editor' tool first.");
+
+                    if (m_BuildEventHandler != null)
+                    {
+                        m_BuildReport.LogInfo("Execute build event handler 'PostprocessAllPlatforms'...");
+                        m_BuildEventHandler.PostprocessAllPlatforms(ProductName, CompanyName, GameIdentifier, ApplicableGameVersion, InternalResourceVersion, UnityVersion, buildAssetBundleOptions, ZipSelected, OutputDirectory, WorkingPath, OutputPackagePath, OutputFullPath, OutputPackedPath, BuildReportPath);
+                    }
+
                     m_BuildReport.SaveReport();
                     return false;
                 }
@@ -615,6 +622,13 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 if (Platforms == Platform.Undefined)
                 {
                     m_BuildReport.LogError("Platform undefined.");
+
+                    if (m_BuildEventHandler != null)
+                    {
+                        m_BuildReport.LogInfo("Execute build event handler 'PostprocessAllPlatforms'...");
+                        m_BuildEventHandler.PostprocessAllPlatforms(ProductName, CompanyName, GameIdentifier, ApplicableGameVersion, InternalResourceVersion, UnityVersion, buildAssetBundleOptions, ZipSelected, OutputDirectory, WorkingPath, OutputPackagePath, OutputFullPath, OutputPackedPath, BuildReportPath);
+                    }
+
                     m_BuildReport.SaveReport();
                     return false;
                 }
@@ -631,6 +645,13 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 if (buildMap == null || buildMap.Length <= 0)
                 {
                     m_BuildReport.LogError("Build map is empty.");
+
+                    if (m_BuildEventHandler != null)
+                    {
+                        m_BuildReport.LogInfo("Execute build event handler 'PostprocessAllPlatforms'...");
+                        m_BuildEventHandler.PostprocessAllPlatforms(ProductName, CompanyName, GameIdentifier, ApplicableGameVersion, InternalResourceVersion, UnityVersion, buildAssetBundleOptions, ZipSelected, OutputDirectory, WorkingPath, OutputPackagePath, OutputFullPath, OutputPackedPath, BuildReportPath);
+                    }
+
                     m_BuildReport.SaveReport();
                     return false;
                 }
@@ -638,23 +659,61 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 m_BuildReport.LogInfo("Prepare build map complete.");
                 m_BuildReport.LogInfo("Start build AssetBundles for selected platforms...");
 
-                BuildAssetBundles(Platform.Windows, buildMap, buildAssetBundleOptions, ZipSelected);
-                BuildAssetBundles(Platform.Windows64, buildMap, buildAssetBundleOptions, ZipSelected);
-                BuildAssetBundles(Platform.MacOS, buildMap, buildAssetBundleOptions, ZipSelected);
-                BuildAssetBundles(Platform.Linux, buildMap, buildAssetBundleOptions, ZipSelected);
-                BuildAssetBundles(Platform.Linux64, buildMap, buildAssetBundleOptions, ZipSelected);
-                BuildAssetBundles(Platform.LinuxUniversal, buildMap, buildAssetBundleOptions, ZipSelected);
-                BuildAssetBundles(Platform.IOS, buildMap, buildAssetBundleOptions, ZipSelected);
-                BuildAssetBundles(Platform.Android, buildMap, buildAssetBundleOptions, ZipSelected);
-                BuildAssetBundles(Platform.WindowsStore, buildMap, buildAssetBundleOptions, ZipSelected);
-                BuildAssetBundles(Platform.WebGL, buildMap, buildAssetBundleOptions, ZipSelected);
+                bool watchResult = m_BuildEventHandler == null || !m_BuildEventHandler.ContinueOnFailure;
+                bool isSuccess = false;
+                isSuccess = BuildAssetBundles(Platform.Windows, buildMap, buildAssetBundleOptions, ZipSelected);
+
+                if (!watchResult || isSuccess)
+                {
+                    isSuccess = BuildAssetBundles(Platform.Windows64, buildMap, buildAssetBundleOptions, ZipSelected);
+                }
+
+                if (!watchResult || isSuccess)
+                {
+                    isSuccess = BuildAssetBundles(Platform.MacOS, buildMap, buildAssetBundleOptions, ZipSelected);
+                }
+
+                if (!watchResult || isSuccess)
+                {
+                    isSuccess = BuildAssetBundles(Platform.Linux, buildMap, buildAssetBundleOptions, ZipSelected);
+                }
+
+                if (!watchResult || isSuccess)
+                {
+                    isSuccess = BuildAssetBundles(Platform.Linux64, buildMap, buildAssetBundleOptions, ZipSelected);
+                }
+
+                if (!watchResult || isSuccess)
+                {
+                    isSuccess = BuildAssetBundles(Platform.LinuxUniversal, buildMap, buildAssetBundleOptions, ZipSelected);
+                }
+
+                if (!watchResult || isSuccess)
+                {
+                    isSuccess = BuildAssetBundles(Platform.IOS, buildMap, buildAssetBundleOptions, ZipSelected);
+                }
+
+                if (!watchResult || isSuccess)
+                {
+                    isSuccess = BuildAssetBundles(Platform.Android, buildMap, buildAssetBundleOptions, ZipSelected);
+                }
+
+                if (!watchResult || isSuccess)
+                {
+                    isSuccess = BuildAssetBundles(Platform.WindowsStore, buildMap, buildAssetBundleOptions, ZipSelected);
+                }
+
+                if (!watchResult || isSuccess)
+                {
+                    isSuccess = BuildAssetBundles(Platform.WebGL, buildMap, buildAssetBundleOptions, ZipSelected);
+                }
 
                 ProcessRecord(OutputDirectory);
 
                 if (m_BuildEventHandler != null)
                 {
-                    m_BuildReport.LogInfo("Execute build event handler 'PostProcessBuildAll'...");
-                    m_BuildEventHandler.PostProcessBuildAll(ProductName, CompanyName, GameIdentifier, ApplicableGameVersion, InternalResourceVersion, UnityVersion, buildAssetBundleOptions, ZipSelected, OutputDirectory, WorkingPath, OutputPackagePath, OutputFullPath, OutputPackedPath, BuildReportPath);
+                    m_BuildReport.LogInfo("Execute build event handler 'PostprocessAllPlatforms'...");
+                    m_BuildEventHandler.PostprocessAllPlatforms(ProductName, CompanyName, GameIdentifier, ApplicableGameVersion, InternalResourceVersion, UnityVersion, buildAssetBundleOptions, ZipSelected, OutputDirectory, WorkingPath, OutputPackagePath, OutputFullPath, OutputPackedPath, BuildReportPath);
                 }
 
                 m_BuildReport.LogInfo("Build AssetBundles for selected platforms complete.");
@@ -663,7 +722,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
             catch (Exception exception)
             {
-                m_BuildReport.LogError(exception.Message);
+                m_BuildReport.LogFatal(string.Format("{0}\n{1}", exception.Message, exception.StackTrace));
                 m_BuildReport.SaveReport();
                 if (BuildAssetBundlesError != null)
                 {
@@ -674,11 +733,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
         }
 
-        private void BuildAssetBundles(Platform platform, AssetBundleBuild[] buildMap, BuildAssetBundleOptions buildOptions, bool zip)
+        private bool BuildAssetBundles(Platform platform, AssetBundleBuild[] buildMap, BuildAssetBundleOptions buildOptions, bool zip)
         {
             if (!IsPlatformSelected(platform))
             {
-                return;
+                return true;
             }
 
             string platformName = platform.ToString();
@@ -744,8 +803,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
             if (m_BuildEventHandler != null)
             {
-                m_BuildReport.LogInfo("Execute build event handler 'PreProcessBuild' for '{0}'...", platformName);
-                m_BuildEventHandler.PreProcessBuild(platform, workingPath, outputPackagePath, outputFullPath, outputPackedPath);
+                m_BuildReport.LogInfo("Execute build event handler 'PreprocessPlatform' for '{0}'...", platformName);
+                m_BuildEventHandler.PreprocessPlatform(platform, workingPath, outputPackagePath, outputFullPath, outputPackedPath);
             }
 
             // Build AssetBundles
@@ -754,7 +813,14 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             if (assetBundleManifest == null)
             {
                 m_BuildReport.LogError("Build AssetBundles for '{0}' failure.", platformName);
-                return;
+
+                if (m_BuildEventHandler != null)
+                {
+                    m_BuildReport.LogInfo("Execute build event handler 'PostprocessPlatform' for '{0}'...", platformName);
+                    m_BuildEventHandler.PostprocessPlatform(platform, workingPath, outputPackagePath, outputFullPath, outputPackedPath, false);
+                }
+
+                return false;
             }
 
             m_BuildReport.LogInfo("Unity build AssetBundles for '{0}' complete.", platformName);
@@ -768,7 +834,14 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     if (ProcessingAssetBundle(assetBundleFullName, (float)(i + 1) / buildMap.Length))
                     {
                         m_BuildReport.LogWarning("The build has been canceled by user.");
-                        return;
+
+                        if (m_BuildEventHandler != null)
+                        {
+                            m_BuildReport.LogInfo("Execute build event handler 'PostprocessPlatform' for '{0}'...", platformName);
+                            m_BuildEventHandler.PostprocessPlatform(platform, workingPath, outputPackagePath, outputFullPath, outputPackedPath, false);
+                        }
+
+                        return false;
                     }
                 }
 
@@ -792,8 +865,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
             if (m_BuildEventHandler != null)
             {
-                m_BuildReport.LogInfo("Execute build event handler 'PostProcessBuild' for '{0}'...", platformName);
-                m_BuildEventHandler.PostProcessBuild(platform, workingPath, outputPackagePath, outputFullPath, outputPackedPath);
+                m_BuildReport.LogInfo("Execute build event handler 'PostprocessPlatform' for '{0}'...", platformName);
+                m_BuildEventHandler.PostprocessPlatform(platform, workingPath, outputPackagePath, outputFullPath, outputPackedPath, true);
             }
 
             if (ProcessAssetBundleComplete != null)
@@ -802,6 +875,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
 
             m_BuildReport.LogInfo("Build AssetBundles for '{0}' success.", platformName);
+            return true;
         }
 
         private void ProcessAssetBundle(Platform platform, string workingPath, string outputPackagePath, string outputFullPath, string outputPackedPath, bool zip, string assetBundleName, string assetBundleVariant)

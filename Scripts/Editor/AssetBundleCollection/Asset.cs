@@ -12,7 +12,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
     /// <summary>
     /// 资源。
     /// </summary>
-    internal sealed class Asset
+    public sealed class Asset
     {
         private Asset(string guid, AssetBundle assetBundle)
         {

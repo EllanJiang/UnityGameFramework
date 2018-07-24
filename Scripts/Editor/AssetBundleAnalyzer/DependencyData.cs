@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal sealed class DependencyData
+    public sealed class DependencyData
     {
         private List<AssetBundle> m_DependencyAssetBundles;
         private List<Asset> m_DependencyAssets;

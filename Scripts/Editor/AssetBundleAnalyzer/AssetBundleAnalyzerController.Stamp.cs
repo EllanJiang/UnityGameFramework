@@ -7,7 +7,7 @@
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal sealed partial class AssetBundleAnalyzerController
+    public sealed partial class AssetBundleAnalyzerController
     {
         private struct Stamp
         {

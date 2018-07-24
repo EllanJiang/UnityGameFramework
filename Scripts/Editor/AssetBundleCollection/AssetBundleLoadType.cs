@@ -10,7 +10,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
     /// <summary>
     /// 资源加载方式类型。
     /// </summary>
-    internal enum AssetBundleLoadType
+    public enum AssetBundleLoadType
     {
         /// <summary>
         /// 从文件加载。

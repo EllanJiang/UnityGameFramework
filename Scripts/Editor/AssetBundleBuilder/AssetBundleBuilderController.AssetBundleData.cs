@@ -6,11 +6,10 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
-using UnityEditor;
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal partial class AssetBundleBuilderController
+    public sealed partial class AssetBundleBuilderController
     {
         private sealed class AssetBundleData
         {
@@ -105,11 +104,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 m_AssetDatas.Add(new AssetData(guid, name, length, hashCode, dependencyAssetNames));
             }
 
-            public AssetBundleCode GetCode(BuildTarget buildTarget)
+            public AssetBundleCode GetCode(Platform platform)
             {
                 foreach (AssetBundleCode code in m_Codes)
                 {
-                    if (code.BuildTarget == buildTarget)
+                    if (code.Platform == platform)
                     {
                         return code;
                     }
@@ -123,9 +122,9 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 return m_Codes.ToArray();
             }
 
-            public void AddCode(BuildTarget buildTarget, int length, int hashCode, int zipLength, int zipHashCode)
+            public void AddCode(Platform platform, int length, int hashCode, int zipLength, int zipHashCode)
             {
-                m_Codes.Add(new AssetBundleCode(buildTarget, length, hashCode, zipLength, zipHashCode));
+                m_Codes.Add(new AssetBundleCode(platform, length, hashCode, zipLength, zipHashCode));
             }
         }
     }

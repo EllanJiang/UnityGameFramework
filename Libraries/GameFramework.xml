@@ -494,11 +494,6 @@
             游戏框架入口。
             </summary>
         </member>
-        <member name="P:GameFramework.GameFrameworkEntry.Version">
-            <summary>
-            获取游戏框架版本号。
-            </summary>
-        </member>
         <member name="M:GameFramework.GameFrameworkEntry.Update(System.Single,System.Single)">
             <summary>
             所有游戏框架模块轮询。
@@ -1614,6 +1609,47 @@
             重置变量值。
             </summary>
         </member>
+        <member name="T:GameFramework.Version">
+            <summary>
+            版本号类。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Version.GameFrameworkVersion">
+            <summary>
+            获取游戏框架版本号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Version.GameVersion">
+            <summary>
+            获取游戏版本号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Version.InternalGameVersion">
+            <summary>
+            获取内部游戏版本号。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Version.SetVersionHelper(GameFramework.Version.IVersionHelper)">
+            <summary>
+            设置版本号辅助器。
+            </summary>
+            <param name="versionHelper">要设置的版本号辅助器。</param>
+        </member>
+        <member name="T:GameFramework.Version.IVersionHelper">
+            <summary>
+            版本号辅助器接口。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Version.IVersionHelper.GameVersion">
+            <summary>
+            获取游戏版本号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Version.IVersionHelper.InternalGameVersion">
+            <summary>
+            获取内部游戏版本号。
+            </summary>
+        </member>
         <member name="T:GameFramework.Config.ConfigManager">
             <summary>
             配置管理器。
@@ -2361,6 +2397,12 @@
             </summary>
             <returns>所有子数据结点。</returns>
         </member>
+        <member name="M:GameFramework.DataNode.DataNodeManager.DataNode.GetAllChild(System.Collections.Generic.List{GameFramework.DataNode.IDataNode})">
+            <summary>
+            获取所有子数据结点。
+            </summary>
+            <param name="results">所有子数据结点。</param>
+        </member>
         <member name="M:GameFramework.DataNode.DataNodeManager.DataNode.RemoveChild(System.Int32)">
             <summary>
             根据索引移除子数据结点。
@@ -2474,6 +2516,12 @@
             获取所有子数据结点。
             </summary>
             <returns>所有子数据结点。</returns>
+        </member>
+        <member name="M:GameFramework.DataNode.IDataNode.GetAllChild(System.Collections.Generic.List{GameFramework.DataNode.IDataNode})">
+            <summary>
+            获取所有子数据结点。
+            </summary>
+            <param name="results">所有子数据结点。</param>
         </member>
         <member name="M:GameFramework.DataNode.IDataNode.RemoveChild(System.Int32)">
             <summary>
@@ -2821,6 +2869,12 @@
             </summary>
             <returns>所有数据表。</returns>
         </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.GetAllDataTables(System.Collections.Generic.List{GameFramework.DataTable.DataTableBase})">
+            <summary>
+            获取所有数据表。
+            </summary>
+            <param name="results">所有数据表。</param>
+        </member>
         <member name="M:GameFramework.DataTable.DataTableManager.CreateDataTable``1(System.String)">
             <summary>
             创建数据表。
@@ -2957,12 +3011,25 @@
             </summary>
             <returns>所有数据表行。</returns>
         </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Collections.Generic.List{`0})">
+            <summary>
+            获取所有数据表行。
+            </summary>
+            <param name="results">所有数据表行。</param>
+        </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Predicate{`0})">
             <summary>
             获取所有符合条件的数据表行。
             </summary>
             <param name="condition">要检查的条件。</param>
             <returns>所有符合条件的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Predicate{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取所有符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="results">所有符合条件的数据表行。</param>
         </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Comparison{`0})">
             <summary>
@@ -2971,6 +3038,13 @@
             <param name="comparison">要排序的条件。</param>
             <returns>所有排序后的数据表行。</returns>
         </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Comparison{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取所有排序后的数据表行。
+            </summary>
+            <param name="comparison">要排序的条件。</param>
+            <param name="results">所有排序后的数据表行。</param>
+        </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Predicate{`0},System.Comparison{`0})">
             <summary>
             获取所有排序后的符合条件的数据表行。
@@ -2978,6 +3052,14 @@
             <param name="condition">要检查的条件。</param>
             <param name="comparison">要排序的条件。</param>
             <returns>所有排序后的符合条件的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Predicate{`0},System.Comparison{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取所有排序后的符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="comparison">要排序的条件。</param>
+            <param name="results">所有排序后的符合条件的数据表行。</param>
         </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetEnumerator">
             <summary>
@@ -3085,12 +3167,25 @@
             </summary>
             <returns>所有数据表行。</returns>
         </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Collections.Generic.List{`0})">
+            <summary>
+            获取所有数据表行。
+            </summary>
+            <param name="results">所有数据表行。</param>
+        </member>
         <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Predicate{`0})">
             <summary>
             获取所有符合条件的数据表行。
             </summary>
             <param name="condition">要检查的条件。</param>
             <returns>所有符合条件的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Predicate{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取所有符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="results">所有符合条件的数据表行。</param>
         </member>
         <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Comparison{`0})">
             <summary>
@@ -3099,6 +3194,13 @@
             <param name="comparison">要排序的条件。</param>
             <returns>所有排序后的数据表行。</returns>
         </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Comparison{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取所有排序后的数据表行。
+            </summary>
+            <param name="comparison">要排序的条件。</param>
+            <param name="results">所有排序后的数据表行。</param>
+        </member>
         <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Predicate{`0},System.Comparison{`0})">
             <summary>
             获取所有排序后的符合条件的数据表行。
@@ -3106,6 +3208,14 @@
             <param name="condition">要检查的条件。</param>
             <param name="comparison">要排序的条件。</param>
             <returns>所有排序后的符合条件的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Predicate{`0},System.Comparison{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取所有排序后的符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="comparison">要排序的条件。</param>
+            <param name="results">所有排序后的符合条件的数据表行。</param>
         </member>
         <member name="T:GameFramework.DataTable.IDataTableHelper">
             <summary>
@@ -3268,6 +3378,12 @@
             获取所有数据表。
             </summary>
             <returns>所有数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.GetAllDataTables(System.Collections.Generic.List{GameFramework.DataTable.DataTableBase})">
+            <summary>
+            获取所有数据表。
+            </summary>
+            <param name="results">所有数据表。</param>
         </member>
         <member name="M:GameFramework.DataTable.IDataTableManager.CreateDataTable``1(System.String)">
             <summary>
@@ -4501,6 +4617,12 @@
             </summary>
             <returns>所有实体组。</returns>
         </member>
+        <member name="M:GameFramework.Entity.EntityManager.GetAllEntityGroups(System.Collections.Generic.List{GameFramework.Entity.IEntityGroup})">
+            <summary>
+            获取所有实体组。
+            </summary>
+            <param name="results">所有实体组。</param>
+        </member>
         <member name="M:GameFramework.Entity.EntityManager.AddEntityGroup(System.String,System.Single,System.Int32,System.Single,System.Int32,GameFramework.Entity.IEntityGroupHelper)">
             <summary>
             增加实体组。
@@ -4548,17 +4670,36 @@
             <param name="entityAssetName">实体资源名称。</param>
             <returns>要获取的实体。</returns>
         </member>
+        <member name="M:GameFramework.Entity.EntityManager.GetEntities(System.String,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
+            <summary>
+            获取实体。
+            </summary>
+            <param name="entityAssetName">实体资源名称。</param>
+            <param name="results">要获取的实体。</param>
+        </member>
         <member name="M:GameFramework.Entity.EntityManager.GetAllLoadedEntities">
             <summary>
             获取所有已加载的实体。
             </summary>
             <returns>所有已加载的实体。</returns>
         </member>
+        <member name="M:GameFramework.Entity.EntityManager.GetAllLoadedEntities(System.Collections.Generic.List{GameFramework.Entity.IEntity})">
+            <summary>
+            获取所有已加载的实体。
+            </summary>
+            <param name="results">所有已加载的实体。</param>
+        </member>
         <member name="M:GameFramework.Entity.EntityManager.GetAllLoadingEntityIds">
             <summary>
             获取所有正在加载实体的编号。
             </summary>
             <returns>所有正在加载实体的编号。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.EntityManager.GetAllLoadingEntityIds(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            获取所有正在加载实体的编号。
+            </summary>
+            <param name="results">所有正在加载实体的编号。</param>
         </member>
         <member name="M:GameFramework.Entity.EntityManager.IsLoadingEntity(System.Int32)">
             <summary>
@@ -4673,12 +4814,26 @@
             <param name="parentEntityId">要获取子实体的父实体的实体编号。</param>
             <returns>子实体数组。</returns>
         </member>
+        <member name="M:GameFramework.Entity.EntityManager.GetChildEntities(System.Int32,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
+            <summary>
+            获取子实体。
+            </summary>
+            <param name="parentEntityId">要获取子实体的父实体的实体编号。</param>
+            <param name="results">子实体数组。</param>
+        </member>
         <member name="M:GameFramework.Entity.EntityManager.GetChildEntities(GameFramework.Entity.IEntity)">
             <summary>
             获取子实体。
             </summary>
             <param name="parentEntity">要获取子实体的父实体。</param>
             <returns>子实体数组。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.EntityManager.GetChildEntities(GameFramework.Entity.IEntity,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
+            <summary>
+            获取子实体。
+            </summary>
+            <param name="parentEntity">要获取子实体的父实体。</param>
+            <param name="results">子实体数组。</param>
         </member>
         <member name="M:GameFramework.Entity.EntityManager.AttachEntity(System.Int32,System.Int32)">
             <summary>
@@ -4893,11 +5048,24 @@
             <param name="entityAssetName">实体资源名称。</param>
             <returns>要获取的实体。</returns>
         </member>
+        <member name="M:GameFramework.Entity.EntityManager.EntityGroup.GetEntities(System.String,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
+            <summary>
+            从实体组中获取实体。
+            </summary>
+            <param name="entityAssetName">实体资源名称。</param>
+            <param name="results">要获取的实体。</param>
+        </member>
         <member name="M:GameFramework.Entity.EntityManager.EntityGroup.GetAllEntities">
             <summary>
             从实体组中获取所有实体。
             </summary>
             <returns>实体组中的所有实体。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.EntityManager.EntityGroup.GetAllEntities(System.Collections.Generic.List{GameFramework.Entity.IEntity})">
+            <summary>
+            从实体组中获取所有实体。
+            </summary>
+            <param name="results">实体组中的所有实体。</param>
         </member>
         <member name="M:GameFramework.Entity.EntityManager.EntityGroup.AddEntity(GameFramework.Entity.IEntity)">
             <summary>
@@ -5122,11 +5290,24 @@
             <param name="entityAssetName">实体资源名称。</param>
             <returns>要获取的实体。</returns>
         </member>
+        <member name="M:GameFramework.Entity.IEntityGroup.GetEntities(System.String,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
+            <summary>
+            从实体组中获取实体。
+            </summary>
+            <param name="entityAssetName">实体资源名称。</param>
+            <param name="results">要获取的实体。</param>
+        </member>
         <member name="M:GameFramework.Entity.IEntityGroup.GetAllEntities">
             <summary>
             从实体组中获取所有实体。
             </summary>
             <returns>实体组中的所有实体。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.IEntityGroup.GetAllEntities(System.Collections.Generic.List{GameFramework.Entity.IEntity})">
+            <summary>
+            从实体组中获取所有实体。
+            </summary>
+            <param name="results">实体组中的所有实体。</param>
         </member>
         <member name="M:GameFramework.Entity.IEntityGroup.SetEntityInstanceLocked(System.Object,System.Boolean)">
             <summary>
@@ -5253,6 +5434,12 @@
             </summary>
             <returns>所有实体组。</returns>
         </member>
+        <member name="M:GameFramework.Entity.IEntityManager.GetAllEntityGroups(System.Collections.Generic.List{GameFramework.Entity.IEntityGroup})">
+            <summary>
+            获取所有实体组。
+            </summary>
+            <param name="results">所有实体组。</param>
+        </member>
         <member name="M:GameFramework.Entity.IEntityManager.AddEntityGroup(System.String,System.Single,System.Int32,System.Single,System.Int32,GameFramework.Entity.IEntityGroupHelper)">
             <summary>
             增加实体组。
@@ -5300,17 +5487,36 @@
             <param name="entityAssetName">实体资源名称。</param>
             <returns>要获取的实体。</returns>
         </member>
+        <member name="M:GameFramework.Entity.IEntityManager.GetEntities(System.String,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
+            <summary>
+            获取实体。
+            </summary>
+            <param name="entityAssetName">实体资源名称。</param>
+            <param name="results">要获取的实体。</param>
+        </member>
         <member name="M:GameFramework.Entity.IEntityManager.GetAllLoadedEntities">
             <summary>
             获取所有已加载的实体。
             </summary>
             <returns>所有已加载的实体。</returns>
         </member>
+        <member name="M:GameFramework.Entity.IEntityManager.GetAllLoadedEntities(System.Collections.Generic.List{GameFramework.Entity.IEntity})">
+            <summary>
+            获取所有已加载的实体。
+            </summary>
+            <param name="results">所有已加载的实体。</param>
+        </member>
         <member name="M:GameFramework.Entity.IEntityManager.GetAllLoadingEntityIds">
             <summary>
             获取所有正在加载实体的编号。
             </summary>
             <returns>所有正在加载实体的编号。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.IEntityManager.GetAllLoadingEntityIds(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            获取所有正在加载实体的编号。
+            </summary>
+            <param name="results">所有正在加载实体的编号。</param>
         </member>
         <member name="M:GameFramework.Entity.IEntityManager.IsLoadingEntity(System.Int32)">
             <summary>
@@ -5425,12 +5631,26 @@
             <param name="parentEntityId">要获取子实体的父实体的实体编号。</param>
             <returns>子实体数组。</returns>
         </member>
+        <member name="M:GameFramework.Entity.IEntityManager.GetChildEntities(System.Int32,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
+            <summary>
+            获取子实体。
+            </summary>
+            <param name="parentEntityId">要获取子实体的父实体的实体编号。</param>
+            <param name="results">子实体数组。</param>
+        </member>
         <member name="M:GameFramework.Entity.IEntityManager.GetChildEntities(GameFramework.Entity.IEntity)">
             <summary>
             获取子实体。
             </summary>
             <param name="parentEntity">要获取子实体的父实体。</param>
             <returns>子实体数组。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.IEntityManager.GetChildEntities(GameFramework.Entity.IEntity,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
+            <summary>
+            获取子实体。
+            </summary>
+            <param name="parentEntity">要获取子实体的父实体。</param>
+            <param name="results">子实体数组。</param>
         </member>
         <member name="M:GameFramework.Entity.IEntityManager.AttachEntity(System.Int32,System.Int32)">
             <summary>
@@ -5936,6 +6156,12 @@
             </summary>
             <returns>有限状态机的所有状态。</returns>
         </member>
+        <member name="M:GameFramework.Fsm.Fsm`1.GetAllStates(System.Collections.Generic.List{GameFramework.Fsm.FsmState{`0}})">
+            <summary>
+            获取有限状态机的所有状态。
+            </summary>
+            <param name="results">有限状态机的所有状态。</param>
+        </member>
         <member name="M:GameFramework.Fsm.Fsm`1.FireEvent(System.Object,System.Int32)">
             <summary>
             抛出有限状态机事件。
@@ -6190,6 +6416,12 @@
             </summary>
             <returns>所有有限状态机。</returns>
         </member>
+        <member name="M:GameFramework.Fsm.FsmManager.GetAllFsms(System.Collections.Generic.List{GameFramework.Fsm.FsmBase})">
+            <summary>
+            获取所有有限状态机。
+            </summary>
+            <param name="results">所有有限状态机。</param>
+        </member>
         <member name="M:GameFramework.Fsm.FsmManager.CreateFsm``1(``0,GameFramework.Fsm.FsmState{``0}[])">
             <summary>
             创建有限状态机。
@@ -6422,6 +6654,12 @@
             </summary>
             <returns>有限状态机的所有状态。</returns>
         </member>
+        <member name="M:GameFramework.Fsm.IFsm`1.GetAllStates(System.Collections.Generic.List{GameFramework.Fsm.FsmState{`0}})">
+            <summary>
+            获取有限状态机的所有状态。
+            </summary>
+            <param name="results">有限状态机的所有状态。</param>
+        </member>
         <member name="M:GameFramework.Fsm.IFsm`1.FireEvent(System.Object,System.Int32)">
             <summary>
             抛出有限状态机事件。
@@ -6556,6 +6794,12 @@
             获取所有有限状态机。
             </summary>
             <returns>所有有限状态机。</returns>
+        </member>
+        <member name="M:GameFramework.Fsm.IFsmManager.GetAllFsms(System.Collections.Generic.List{GameFramework.Fsm.FsmBase})">
+            <summary>
+            获取所有有限状态机。
+            </summary>
+            <param name="results">所有有限状态机。</param>
         </member>
         <member name="M:GameFramework.Fsm.IFsmManager.CreateFsm``1(``0,GameFramework.Fsm.FsmState{``0}[])">
             <summary>
@@ -7534,6 +7778,12 @@
             </summary>
             <returns>所有网络频道。</returns>
         </member>
+        <member name="M:GameFramework.Network.INetworkManager.GetAllNetworkChannels(System.Collections.Generic.List{GameFramework.Network.INetworkChannel})">
+            <summary>
+            获取所有网络频道。
+            </summary>
+            <param name="results">所有网络频道。</param>
+        </member>
         <member name="M:GameFramework.Network.INetworkManager.CreateNetworkChannel(System.String,GameFramework.Network.INetworkChannelHelper)">
             <summary>
             创建网络频道。
@@ -7780,6 +8030,12 @@
             获取所有网络频道。
             </summary>
             <returns>所有网络频道。</returns>
+        </member>
+        <member name="M:GameFramework.Network.NetworkManager.GetAllNetworkChannels(System.Collections.Generic.List{GameFramework.Network.INetworkChannel})">
+            <summary>
+            获取所有网络频道。
+            </summary>
+            <param name="results">所有网络频道。</param>
         </member>
         <member name="M:GameFramework.Network.NetworkManager.CreateNetworkChannel(System.String,GameFramework.Network.INetworkChannelHelper)">
             <summary>
@@ -8211,12 +8467,25 @@
             </summary>
             <returns>所有对象池。</returns>
         </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetAllObjectPools(System.Collections.Generic.List{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取所有对象池。
+            </summary>
+            <param name="results">所有对象池。</param>
+        </member>
         <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetAllObjectPools(System.Boolean)">
             <summary>
             获取所有对象池。
             </summary>
             <param name="sort">是否根据对象池的优先级排序。</param>
             <returns>所有对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetAllObjectPools(System.Boolean,System.Collections.Generic.List{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取所有对象池。
+            </summary>
+            <param name="sort">是否根据对象池的优先级排序。</param>
+            <param name="results">所有对象池。</param>
         </member>
         <member name="M:GameFramework.ObjectPool.IObjectPoolManager.CreateSingleSpawnObjectPool``1">
             <summary>
@@ -8472,6 +8741,30 @@
             <param name="priority">对象池的优先级。</param>
             <returns>要创建的允许单次获取的对象池。</returns>
         </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.CreateSingleSpawnObjectPool``1(System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许单次获取的对象池。
+            </summary>
+            <typeparam name="T">对象类型。</typeparam>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许单次获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.CreateSingleSpawnObjectPool(System.Type,System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许单次获取的对象池。
+            </summary>
+            <param name="objectType">对象类型。</param>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许单次获取的对象池。</returns>
+        </member>
         <member name="M:GameFramework.ObjectPool.IObjectPoolManager.CreateMultiSpawnObjectPool``1">
             <summary>
             创建允许多次获取的对象池。
@@ -8721,6 +9014,30 @@
             </summary>
             <param name="objectType">对象类型。</param>
             <param name="name">对象池名称。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许多次获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.CreateMultiSpawnObjectPool``1(System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许多次获取的对象池。
+            </summary>
+            <typeparam name="T">对象类型。</typeparam>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许多次获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.CreateMultiSpawnObjectPool(System.Type,System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许多次获取的对象池。
+            </summary>
+            <param name="objectType">对象类型。</param>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
             <param name="capacity">对象池的容量。</param>
             <param name="expireTime">对象池对象过期秒数。</param>
             <param name="priority">对象池的优先级。</param>
@@ -9097,12 +9414,25 @@
             </summary>
             <returns>所有对象池。</returns>
         </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetAllObjectPools(System.Collections.Generic.List{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取所有对象池。
+            </summary>
+            <param name="results">所有对象池。</param>
+        </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetAllObjectPools(System.Boolean)">
             <summary>
             获取所有对象池。
             </summary>
             <param name="sort">是否根据对象池的优先级排序。</param>
             <returns>所有对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetAllObjectPools(System.Boolean,System.Collections.Generic.List{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取所有对象池。
+            </summary>
+            <param name="sort">是否根据对象池的优先级排序。</param>
+            <param name="results">所有对象池。</param>
         </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.CreateSingleSpawnObjectPool``1">
             <summary>
@@ -9353,6 +9683,30 @@
             </summary>
             <param name="objectType">对象类型。</param>
             <param name="name">对象池名称。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许单次获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.CreateSingleSpawnObjectPool``1(System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许单次获取的对象池。
+            </summary>
+            <typeparam name="T">对象类型。</typeparam>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许单次获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.CreateSingleSpawnObjectPool(System.Type,System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许单次获取的对象池。
+            </summary>
+            <param name="objectType">对象类型。</param>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
             <param name="capacity">对象池的容量。</param>
             <param name="expireTime">对象池对象过期秒数。</param>
             <param name="priority">对象池的优先级。</param>
@@ -9612,6 +9966,30 @@
             <param name="priority">对象池的优先级。</param>
             <returns>要创建的允许多次获取的对象池。</returns>
         </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.CreateMultiSpawnObjectPool``1(System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许多次获取的对象池。
+            </summary>
+            <typeparam name="T">对象类型。</typeparam>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许多次获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.CreateMultiSpawnObjectPool(System.Type,System.String,System.Single,System.Int32,System.Single,System.Int32)">
+            <summary>
+            创建允许多次获取的对象池。
+            </summary>
+            <param name="objectType">对象类型。</param>
+            <param name="name">对象池名称。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
+            <param name="capacity">对象池的容量。</param>
+            <param name="expireTime">对象池对象过期秒数。</param>
+            <param name="priority">对象池的优先级。</param>
+            <returns>要创建的允许多次获取的对象池。</returns>
+        </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.DestroyObjectPool``1">
             <summary>
             销毁对象池。
@@ -9744,12 +10122,13 @@
             </summary>
             <typeparam name="T">对象类型。</typeparam>
         </member>
-        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.ObjectPool`1.#ctor(System.String,System.Boolean,System.Int32,System.Single,System.Int32)">
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.ObjectPool`1.#ctor(System.String,System.Boolean,System.Single,System.Int32,System.Single,System.Int32)">
             <summary>
             初始化对象池的新实例。
             </summary>
             <param name="name">对象池名称。</param>
             <param name="allowMultiSpawn">是否允许对象被多次获取。</param>
+            <param name="autoReleaseInterval">对象池自动释放可释放对象的间隔秒数。</param>
             <param name="capacity">对象池的容量。</param>
             <param name="expireTime">对象池对象过期秒数。</param>
             <param name="priority">对象池的优先级。</param>
@@ -10261,7 +10640,7 @@
         </member>
         <member name="P:GameFramework.Resource.IResourceManager.InternalResourceVersion">
             <summary>
-            获取当前资源内部版本号。
+            获取当前内部资源版本号。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.IResourceManager.AssetCount">
@@ -10468,7 +10847,7 @@
             <summary>
             使用可更新模式并检查版本资源列表。
             </summary>
-            <param name="latestInternalResourceVersion">最新的资源内部版本号。</param>
+            <param name="latestInternalResourceVersion">最新的内部资源版本号。</param>
             <returns>检查版本资源列表结果。</returns>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.UpdateVersionList(System.Int32,System.Int32,System.Int32,System.Int32)">
@@ -10490,11 +10869,11 @@
             使用可更新模式并更新资源。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.IResourceManager.ExistAsset(System.String)">
+        <member name="M:GameFramework.Resource.IResourceManager.HasAsset(System.String)">
             <summary>
             检查资源是否存在。
             </summary>
-            <param name="assetName">要检查的资源。</param>
+            <param name="assetName">要检查资源的名称。</param>
             <returns>资源是否存在。</returns>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.LoadAsset(System.String,GameFramework.Resource.LoadAssetCallbacks)">
@@ -11206,7 +11585,7 @@
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.InternalResourceVersion">
             <summary>
-            获取当前资源内部版本号。
+            获取当前内部资源版本号。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.AssetCount">
@@ -11425,7 +11804,7 @@
             <summary>
             使用可更新模式并检查版本资源列表。
             </summary>
-            <param name="latestInternalResourceVersion">最新的资源内部版本号。</param>
+            <param name="latestInternalResourceVersion">最新的内部资源版本号。</param>
             <returns>检查版本资源列表结果。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.UpdateVersionList(System.Int32,System.Int32,System.Int32,System.Int32)">
@@ -11447,11 +11826,11 @@
             使用可更新模式并更新资源。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ExistAsset(System.String)">
+        <member name="M:GameFramework.Resource.ResourceManager.HasAsset(System.String)">
             <summary>
             检查资源是否存在。
             </summary>
-            <param name="assetName">要检查的资源。</param>
+            <param name="assetName">要检查资源的名称。</param>
             <returns>资源是否存在。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.LoadAsset(System.String,GameFramework.Resource.LoadAssetCallbacks)">
@@ -12032,11 +12411,11 @@
             <param name="readWritePath">资源读写区路径。</param>
             <param name="decryptResourceCallback">要设置的解密资源回调函数。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.ExistAsset(System.String)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.HasAsset(System.String)">
             <summary>
             检查资源是否存在。
             </summary>
-            <param name="assetName">要检查的资源。</param>
+            <param name="assetName">要检查资源的名称。</param>
             <returns>资源是否存在。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadAsset(System.String,System.Type,System.Int32,GameFramework.Resource.LoadAssetCallbacks,System.Object)">
@@ -12319,7 +12698,7 @@
             <summary>
             检查版本资源列表。
             </summary>
-            <param name="latestInternalResourceVersion">最新的资源内部版本号。</param>
+            <param name="latestInternalResourceVersion">最新的内部资源版本号。</param>
             <returns>检查版本资源列表结果。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.VersionListProcessor.UpdateVersionList(System.Int32,System.Int32,System.Int32,System.Int32)">
@@ -12668,6 +13047,12 @@
             </summary>
             <returns>已加载场景的资源名称。</returns>
         </member>
+        <member name="M:GameFramework.Scene.ISceneManager.GetLoadedSceneAssetNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取已加载场景的资源名称。
+            </summary>
+            <param name="results">已加载场景的资源名称。</param>
+        </member>
         <member name="M:GameFramework.Scene.ISceneManager.SceneIsLoading(System.String)">
             <summary>
             获取场景是否正在加载。
@@ -12681,6 +13066,12 @@
             </summary>
             <returns>正在加载场景的资源名称。</returns>
         </member>
+        <member name="M:GameFramework.Scene.ISceneManager.GetLoadingSceneAssetNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取正在加载场景的资源名称。
+            </summary>
+            <param name="results">正在加载场景的资源名称。</param>
+        </member>
         <member name="M:GameFramework.Scene.ISceneManager.SceneIsUnloading(System.String)">
             <summary>
             获取场景是否正在卸载。
@@ -12693,6 +13084,12 @@
             获取正在卸载场景的资源名称。
             </summary>
             <returns>正在卸载场景的资源名称。</returns>
+        </member>
+        <member name="M:GameFramework.Scene.ISceneManager.GetUnloadingSceneAssetNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取正在卸载场景的资源名称。
+            </summary>
+            <param name="results">正在卸载场景的资源名称。</param>
         </member>
         <member name="M:GameFramework.Scene.ISceneManager.LoadScene(System.String)">
             <summary>
@@ -12936,6 +13333,12 @@
             </summary>
             <returns>已加载场景的资源名称。</returns>
         </member>
+        <member name="M:GameFramework.Scene.SceneManager.GetLoadedSceneAssetNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取已加载场景的资源名称。
+            </summary>
+            <param name="results">已加载场景的资源名称。</param>
+        </member>
         <member name="M:GameFramework.Scene.SceneManager.SceneIsLoading(System.String)">
             <summary>
             获取场景是否正在加载。
@@ -12949,6 +13352,12 @@
             </summary>
             <returns>正在加载场景的资源名称。</returns>
         </member>
+        <member name="M:GameFramework.Scene.SceneManager.GetLoadingSceneAssetNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取正在加载场景的资源名称。
+            </summary>
+            <param name="results">正在加载场景的资源名称。</param>
+        </member>
         <member name="M:GameFramework.Scene.SceneManager.SceneIsUnloading(System.String)">
             <summary>
             获取场景是否正在卸载。
@@ -12961,6 +13370,12 @@
             获取正在卸载场景的资源名称。
             </summary>
             <returns>正在卸载场景的资源名称。</returns>
+        </member>
+        <member name="M:GameFramework.Scene.SceneManager.GetUnloadingSceneAssetNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取正在卸载场景的资源名称。
+            </summary>
+            <param name="results">正在卸载场景的资源名称。</param>
         </member>
         <member name="M:GameFramework.Scene.SceneManager.LoadScene(System.String)">
             <summary>
@@ -13956,6 +14371,12 @@
             </summary>
             <returns>所有声音组。</returns>
         </member>
+        <member name="M:GameFramework.Sound.ISoundManager.GetAllSoundGroups(System.Collections.Generic.List{GameFramework.Sound.ISoundGroup})">
+            <summary>
+            获取所有声音组。
+            </summary>
+            <param name="results">所有声音组。</param>
+        </member>
         <member name="M:GameFramework.Sound.ISoundManager.AddSoundGroup(System.String,GameFramework.Sound.ISoundGroupHelper)">
             <summary>
             增加声音组。
@@ -13987,6 +14408,12 @@
             获取所有正在加载声音的序列编号。
             </summary>
             <returns>所有正在加载声音的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Sound.ISoundManager.GetAllLoadingSoundSerialIds(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            获取所有正在加载声音的序列编号。
+            </summary>
+            <param name="results">所有正在加载声音的序列编号。</param>
         </member>
         <member name="M:GameFramework.Sound.ISoundManager.IsLoadingSound(System.Int32)">
             <summary>
@@ -14508,6 +14935,12 @@
             </summary>
             <returns>所有声音组。</returns>
         </member>
+        <member name="M:GameFramework.Sound.SoundManager.GetAllSoundGroups(System.Collections.Generic.List{GameFramework.Sound.ISoundGroup})">
+            <summary>
+            获取所有声音组。
+            </summary>
+            <param name="results">所有声音组。</param>
+        </member>
         <member name="M:GameFramework.Sound.SoundManager.AddSoundGroup(System.String,GameFramework.Sound.ISoundGroupHelper)">
             <summary>
             增加声音组。
@@ -14539,6 +14972,12 @@
             获取所有正在加载声音的序列编号。
             </summary>
             <returns>所有正在加载声音的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Sound.SoundManager.GetAllLoadingSoundSerialIds(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            获取所有正在加载声音的序列编号。
+            </summary>
+            <param name="results">所有正在加载声音的序列编号。</param>
         </member>
         <member name="M:GameFramework.Sound.SoundManager.IsLoadingSound(System.Int32)">
             <summary>
@@ -15156,11 +15595,24 @@
             <param name="uiFormAssetName">界面资源名称。</param>
             <returns>要获取的界面。</returns>
         </member>
+        <member name="M:GameFramework.UI.IUIGroup.GetUIForms(System.String,System.Collections.Generic.List{GameFramework.UI.IUIForm})">
+            <summary>
+            从界面组中获取界面。
+            </summary>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="results">要获取的界面。</param>
+        </member>
         <member name="M:GameFramework.UI.IUIGroup.GetAllUIForms">
             <summary>
             从界面组中获取所有界面。
             </summary>
             <returns>界面组中的所有界面。</returns>
+        </member>
+        <member name="M:GameFramework.UI.IUIGroup.GetAllUIForms(System.Collections.Generic.List{GameFramework.UI.IUIForm})">
+            <summary>
+            从界面组中获取所有界面。
+            </summary>
+            <param name="results">界面组中的所有界面。</param>
         </member>
         <member name="T:GameFramework.UI.IUIGroupHelper">
             <summary>
@@ -15266,6 +15718,12 @@
             </summary>
             <returns>所有界面组。</returns>
         </member>
+        <member name="M:GameFramework.UI.IUIManager.GetAllUIGroups(System.Collections.Generic.List{GameFramework.UI.IUIGroup})">
+            <summary>
+            获取所有界面组。
+            </summary>
+            <param name="results">所有界面组。</param>
+        </member>
         <member name="M:GameFramework.UI.IUIManager.AddUIGroup(System.String,GameFramework.UI.IUIGroupHelper)">
             <summary>
             增加界面组。
@@ -15318,17 +15776,36 @@
             <param name="uiFormAssetName">界面资源名称。</param>
             <returns>要获取的界面。</returns>
         </member>
+        <member name="M:GameFramework.UI.IUIManager.GetUIForms(System.String,System.Collections.Generic.List{GameFramework.UI.IUIForm})">
+            <summary>
+            获取界面。
+            </summary>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="results">要获取的界面。</param>
+        </member>
         <member name="M:GameFramework.UI.IUIManager.GetAllLoadedUIForms">
             <summary>
             获取所有已加载的界面。
             </summary>
             <returns>所有已加载的界面。</returns>
         </member>
+        <member name="M:GameFramework.UI.IUIManager.GetAllLoadedUIForms(System.Collections.Generic.List{GameFramework.UI.IUIForm})">
+            <summary>
+            获取所有已加载的界面。
+            </summary>
+            <param name="results">所有已加载的界面。</param>
+        </member>
         <member name="M:GameFramework.UI.IUIManager.GetAllLoadingUIFormSerialIds">
             <summary>
             获取所有正在加载界面的序列编号。
             </summary>
             <returns>所有正在加载界面的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.UI.IUIManager.GetAllLoadingUIFormSerialIds(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            获取所有正在加载界面的序列编号。
+            </summary>
+            <param name="results">所有正在加载界面的序列编号。</param>
         </member>
         <member name="M:GameFramework.UI.IUIManager.IsLoadingUIForm(System.Int32)">
             <summary>
@@ -15784,6 +16261,12 @@
             </summary>
             <returns>所有界面组。</returns>
         </member>
+        <member name="M:GameFramework.UI.UIManager.GetAllUIGroups(System.Collections.Generic.List{GameFramework.UI.IUIGroup})">
+            <summary>
+            获取所有界面组。
+            </summary>
+            <param name="results">所有界面组。</param>
+        </member>
         <member name="M:GameFramework.UI.UIManager.AddUIGroup(System.String,GameFramework.UI.IUIGroupHelper)">
             <summary>
             增加界面组。
@@ -15836,17 +16319,36 @@
             <param name="uiFormAssetName">界面资源名称。</param>
             <returns>要获取的界面。</returns>
         </member>
+        <member name="M:GameFramework.UI.UIManager.GetUIForms(System.String,System.Collections.Generic.List{GameFramework.UI.IUIForm})">
+            <summary>
+            获取界面。
+            </summary>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="results">要获取的界面。</param>
+        </member>
         <member name="M:GameFramework.UI.UIManager.GetAllLoadedUIForms">
             <summary>
             获取所有已加载的界面。
             </summary>
             <returns>所有已加载的界面。</returns>
         </member>
+        <member name="M:GameFramework.UI.UIManager.GetAllLoadedUIForms(System.Collections.Generic.List{GameFramework.UI.IUIForm})">
+            <summary>
+            获取所有已加载的界面。
+            </summary>
+            <param name="results">所有已加载的界面。</param>
+        </member>
         <member name="M:GameFramework.UI.UIManager.GetAllLoadingUIFormSerialIds">
             <summary>
             获取所有正在加载界面的序列编号。
             </summary>
             <returns>所有正在加载界面的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.UI.UIManager.GetAllLoadingUIFormSerialIds(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            获取所有正在加载界面的序列编号。
+            </summary>
+            <param name="results">所有正在加载界面的序列编号。</param>
         </member>
         <member name="M:GameFramework.UI.UIManager.IsLoadingUIForm(System.Int32)">
             <summary>
@@ -16104,11 +16606,24 @@
             <param name="uiFormAssetName">界面资源名称。</param>
             <returns>要获取的界面。</returns>
         </member>
+        <member name="M:GameFramework.UI.UIManager.UIGroup.GetUIForms(System.String,System.Collections.Generic.List{GameFramework.UI.IUIForm})">
+            <summary>
+            从界面组中获取界面。
+            </summary>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="results">要获取的界面。</param>
+        </member>
         <member name="M:GameFramework.UI.UIManager.UIGroup.GetAllUIForms">
             <summary>
             从界面组中获取所有界面。
             </summary>
             <returns>界面组中的所有界面。</returns>
+        </member>
+        <member name="M:GameFramework.UI.UIManager.UIGroup.GetAllUIForms(System.Collections.Generic.List{GameFramework.UI.IUIForm})">
+            <summary>
+            从界面组中获取所有界面。
+            </summary>
+            <param name="results">界面组中的所有界面。</param>
         </member>
         <member name="M:GameFramework.UI.UIManager.UIGroup.AddUIForm(GameFramework.UI.IUIForm)">
             <summary>
@@ -16181,6 +16696,12 @@
             获取已加载的程序集中的所有类型。
             </summary>
             <returns>已加载的程序集中的所有类型。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Assembly.GetTypes(System.Collections.Generic.List{System.Type})">
+            <summary>
+            获取已加载的程序集中的所有类型。
+            </summary>
+            <param name="results">已加载的程序集中的所有类型。</param>
         </member>
         <member name="M:GameFramework.Utility.Assembly.GetType(System.String)">
             <summary>

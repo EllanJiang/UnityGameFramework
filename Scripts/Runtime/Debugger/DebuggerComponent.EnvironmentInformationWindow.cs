@@ -49,9 +49,8 @@ namespace UnityGameFramework.Runtime
 #else
                     DrawItem("Game Identifier:", Application.bundleIdentifier);
 #endif
-                    DrawItem("Game Framework Version:", GameFrameworkEntry.Version);
-                    DrawItem("Unity Game Framework Version:", GameEntry.Version);
-                    DrawItem("Game Version:", string.Format("{0} ({1})", m_BaseComponent.GameVersion, m_BaseComponent.InternalApplicationVersion.ToString()));
+                    DrawItem("Game Framework Version:", Version.GameFrameworkVersion);
+                    DrawItem("Game Version:", string.Format("{0} ({1})", Version.GameVersion, Version.InternalGameVersion.ToString()));
                     DrawItem("Resource Version:", m_BaseComponent.EditorResourceMode ? "Unavailable in editor resource mode" : (string.IsNullOrEmpty(m_ResourceComponent.ApplicableGameVersion) ? "Unknown" : string.Format("{0} ({1})", m_ResourceComponent.ApplicableGameVersion, m_ResourceComponent.InternalResourceVersion.ToString())));
                     DrawItem("Application Version:", Application.version);
                     DrawItem("Unity Version:", Application.unityVersion);

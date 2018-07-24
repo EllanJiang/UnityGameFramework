@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal sealed partial class AssetBundleAnalyzerController
+    public sealed partial class AssetBundleAnalyzerController
     {
         private readonly AssetBundleCollection m_AssetBundleCollection;
 
@@ -145,14 +145,13 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     continue;
                 }
 
-
                 if (dependencyAssetName.EndsWith(".unity"))
                 {
                     // 忽略对场景的依赖
                     continue;
                 }
 
-                Stamp stamp = new Stamp(assetName, dependencyAssetName);
+                Stamp stamp = new Stamp(hostAsset.Name, dependencyAssetName);
                 if (m_AnalyzedStamps.Contains(stamp))
                 {
                     continue;

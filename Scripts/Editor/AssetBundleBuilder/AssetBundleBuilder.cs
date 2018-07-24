@@ -24,7 +24,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         private static void Open()
         {
             AssetBundleBuilder window = GetWindow<AssetBundleBuilder>(true, "AssetBundle Builder", true);
-            window.minSize = window.maxSize = new Vector2(666f, 570f);
+            window.minSize = window.maxSize = new Vector2(700f, 570f);
         }
 
         private void OnEnable()
@@ -111,20 +111,33 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 {
                     EditorGUILayout.BeginVertical();
                     {
-                        EditorGUILayout.LabelField("Build Target", EditorStyles.boldLabel);
-                        EditorGUILayout.BeginVertical("box");
+                        EditorGUILayout.LabelField("Platforms", EditorStyles.boldLabel);
+                        EditorGUILayout.BeginHorizontal("box");
                         {
-                            m_Controller.WindowsSelected = EditorGUILayout.ToggleLeft("Microsoft Windows", m_Controller.WindowsSelected);
-                            m_Controller.MacOSXSelected = EditorGUILayout.ToggleLeft("Apple Mac OS X", m_Controller.MacOSXSelected);
-                            m_Controller.IOSSelected = EditorGUILayout.ToggleLeft("Apple iPhone/iPad", m_Controller.IOSSelected);
-                            m_Controller.AndroidSelected = EditorGUILayout.ToggleLeft("Google Android", m_Controller.AndroidSelected);
-                            m_Controller.WindowsStoreSelected = EditorGUILayout.ToggleLeft("Microsoft Windows Store", m_Controller.WindowsStoreSelected);
+                            EditorGUILayout.BeginVertical();
+                            {
+                                DrawPlatform(Platform.Windows, "Microsoft Windows (x86)");
+                                DrawPlatform(Platform.Windows64, "Microsoft Windows (x64)");
+                                DrawPlatform(Platform.MacOS, "Apple macOS");
+                                DrawPlatform(Platform.Linux, "Linux (x86)");
+                                DrawPlatform(Platform.Linux64, "Linux (x64)");
+                                DrawPlatform(Platform.LinuxUniversal, "Linux (Universal)");
+                            }
+                            EditorGUILayout.EndVertical();
+                            EditorGUILayout.BeginVertical();
+                            {
+                                DrawPlatform(Platform.IOS, "Apple iOS");
+                                DrawPlatform(Platform.Android, "Google Android");
+                                DrawPlatform(Platform.WindowsStore, "Microsoft Windows Store");
+                                DrawPlatform(Platform.WebGL, "WebGL");
+                            }
+                            EditorGUILayout.EndVertical();
                         }
-                        EditorGUILayout.EndVertical();
+                        EditorGUILayout.EndHorizontal();
                         EditorGUILayout.BeginVertical();
                         {
                             m_Controller.ZipSelected = EditorGUILayout.ToggleLeft("Zip All AssetBundles", m_Controller.ZipSelected);
-                            m_Controller.RecordScatteredDependencyAssetsSelected = EditorGUILayout.ToggleLeft("Record Scattered Dependency Assets", m_Controller.RecordScatteredDependencyAssetsSelected);
+                            //m_Controller.RecordScatteredDependencyAssetsSelected = EditorGUILayout.ToggleLeft("Record Scattered Dependency Assets", m_Controller.RecordScatteredDependencyAssetsSelected);
                         }
                         EditorGUILayout.EndVertical();
                     }
@@ -277,7 +290,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 GUILayout.Space(2f);
                 EditorGUILayout.BeginHorizontal();
                 {
-                    EditorGUI.BeginDisabledGroup(!m_Controller.IsValidOutputDirectory);
+                    EditorGUI.BeginDisabledGroup(m_Controller.Platforms == Platform.Undefined || !m_Controller.IsValidOutputDirectory);
                     {
                         if (GUILayout.Button("Start Build AssetBundles"))
                         {
@@ -346,6 +359,13 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
         private void GetBuildMessage(out string message, out MessageType messageType)
         {
+            if (m_Controller.Platforms == Platform.Undefined)
+            {
+                message = "Platform undefined.";
+                messageType = MessageType.Error;
+                return;
+            }
+
             if (!m_Controller.IsValidOutputDirectory)
             {
                 message = "Output directory is invalid.";
@@ -416,6 +436,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
         }
 
+        private void DrawPlatform(Platform platform, string platformName)
+        {
+            m_Controller.SelectPlatform(platform, EditorGUILayout.ToggleLeft(platformName, m_Controller.IsPlatformSelected(platform)));
+        }
+
         private void OnLoadingAssetBundle(int index, int count)
         {
             EditorUtility.DisplayProgressBar("Loading AssetBundles", string.Format("Loading AssetBundles, {0}/{1} loaded.", index.ToString(), count.ToString()), (float)index / count);
@@ -455,10 +480,10 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
         }
 
-        private void OnProcessAssetBundleComplete(BuildTarget buildTarget, string versionListPath, int versionListLength, int versionListHashCode, int versionListZipLength, int versionListZipHashCode)
+        private void OnProcessAssetBundleComplete(Platform platform, string versionListPath, int versionListLength, int versionListHashCode, int versionListZipLength, int versionListZipHashCode)
         {
             EditorUtility.ClearProgressBar();
-            Debug.Log(string.Format("Build AssetBundles for '{0}' complete, version list path is '{1}', length is '{2}', hash code is '{3}', zip length is '{4}', zip hash code is '{5}'.", buildTarget.ToString(), versionListPath, versionListLength.ToString(), versionListHashCode.ToString("X8"), versionListZipLength.ToString(), versionListZipHashCode.ToString("X8")));
+            Debug.Log(string.Format("Build AssetBundles for '{0}' complete, version list path is '{1}', length is '{2}', hash code is '{3}', zip length is '{4}', zip hash code is '{5}'.", platform.ToString(), versionListPath, versionListLength.ToString(), versionListHashCode.ToString("X8"), versionListZipLength.ToString(), versionListZipHashCode.ToString("X8")));
         }
 
         private void OnBuildAssetBundlesError(string errorMessage)

@@ -8,9 +8,6 @@
 using GameFramework;
 using System;
 using System.Collections.Generic;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,24 +18,12 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public static class GameEntry
     {
-        private const string UnityGameFrameworkVersion = "3.1.3";
         private static readonly LinkedList<GameFrameworkComponent> s_GameFrameworkComponents = new LinkedList<GameFrameworkComponent>();
 
         /// <summary>
         /// 游戏框架所在的场景编号。
         /// </summary>
         internal const int GameFrameworkSceneId = 0;
-
-        /// <summary>
-        /// 获取 Unity 游戏框架版本号。
-        /// </summary>
-        public static string Version
-        {
-            get
-            {
-                return UnityGameFrameworkVersion;
-            }
-        }
 
         /// <summary>
         /// 获取游戏框架组件。
@@ -124,7 +109,7 @@ namespace UnityGameFramework.Runtime
             {
                 Application.Quit();
 #if UNITY_EDITOR
-                EditorApplication.isPlaying = false;
+                UnityEditor.EditorApplication.isPlaying = false;
 #endif
                 return;
             }

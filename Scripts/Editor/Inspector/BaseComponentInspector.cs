@@ -23,6 +23,7 @@ namespace UnityGameFramework.Editor
 
         private SerializedProperty m_EditorResourceMode = null;
         private SerializedProperty m_EditorLanguage = null;
+        private SerializedProperty m_VersionHelperTypeName = null;
         private SerializedProperty m_LogHelperTypeName = null;
         private SerializedProperty m_ZipHelperTypeName = null;
         private SerializedProperty m_JsonHelperTypeName = null;
@@ -32,6 +33,8 @@ namespace UnityGameFramework.Editor
         private SerializedProperty m_RunInBackground = null;
         private SerializedProperty m_NeverSleep = null;
 
+        private string[] m_VersionHelperTypeNames = null;
+        private int m_VersionHelperTypeNameIndex = 0;
         private string[] m_LogHelperTypeNames = null;
         private int m_LogHelperTypeNameIndex = 0;
         private string[] m_ZipHelperTypeNames = null;
@@ -62,6 +65,13 @@ namespace UnityGameFramework.Editor
                 EditorGUILayout.BeginVertical("box");
                 {
                     EditorGUILayout.LabelField("Global Helpers", EditorStyles.boldLabel);
+
+                    int versionHelperSelectedIndex = EditorGUILayout.Popup("Version Helper", m_VersionHelperTypeNameIndex, m_VersionHelperTypeNames);
+                    if (versionHelperSelectedIndex != m_VersionHelperTypeNameIndex)
+                    {
+                        m_VersionHelperTypeNameIndex = versionHelperSelectedIndex;
+                        m_VersionHelperTypeName.stringValue = (versionHelperSelectedIndex <= 0 ? null : m_VersionHelperTypeNames[versionHelperSelectedIndex]);
+                    }
 
                     int logHelperSelectedIndex = EditorGUILayout.Popup("Log Helper", m_LogHelperTypeNameIndex, m_LogHelperTypeNames);
                     if (logHelperSelectedIndex != m_LogHelperTypeNameIndex)
@@ -171,6 +181,7 @@ namespace UnityGameFramework.Editor
         {
             m_EditorResourceMode = serializedObject.FindProperty("m_EditorResourceMode");
             m_EditorLanguage = serializedObject.FindProperty("m_EditorLanguage");
+            m_VersionHelperTypeName = serializedObject.FindProperty("m_VersionHelperTypeName");
             m_LogHelperTypeName = serializedObject.FindProperty("m_LogHelperTypeName");
             m_ZipHelperTypeName = serializedObject.FindProperty("m_ZipHelperTypeName");
             m_JsonHelperTypeName = serializedObject.FindProperty("m_JsonHelperTypeName");
@@ -185,6 +196,21 @@ namespace UnityGameFramework.Editor
 
         private void RefreshTypeNames()
         {
+            List<string> versionHelperTypeNames = new List<string>();
+            versionHelperTypeNames.Add(NoneOptionName);
+            versionHelperTypeNames.AddRange(Type.GetTypeNames(typeof(Version.IVersionHelper)));
+            m_VersionHelperTypeNames = versionHelperTypeNames.ToArray();
+            m_VersionHelperTypeNameIndex = 0;
+            if (!string.IsNullOrEmpty(m_VersionHelperTypeName.stringValue))
+            {
+                m_VersionHelperTypeNameIndex = versionHelperTypeNames.IndexOf(m_VersionHelperTypeName.stringValue);
+                if (m_VersionHelperTypeNameIndex <= 0)
+                {
+                    m_VersionHelperTypeNameIndex = 0;
+                    m_VersionHelperTypeName.stringValue = null;
+                }
+            }
+
             List<string> logHelperTypeNames = new List<string>();
             logHelperTypeNames.Add(NoneOptionName);
             logHelperTypeNames.AddRange(Type.GetTypeNames(typeof(Log.ILogHelper)));

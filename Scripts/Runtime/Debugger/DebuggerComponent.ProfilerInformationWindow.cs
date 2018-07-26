@@ -44,7 +44,9 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Total Reserved Memory:", string.Format("{0} MB", (Profiler.GetTotalReservedMemory() / (float)MBSize).ToString("F3")));
                     DrawItem("Total Unused Reserved Memory:", string.Format("{0} MB", (Profiler.GetTotalUnusedReservedMemory() / (float)MBSize).ToString("F3")));
 #endif
+#if UNITY_2018_1_OR_NEWER
                     DrawItem("Allocated Memory For Graphics Driver:", string.Format("{0} MB", (Profiler.GetAllocatedMemoryForGraphicsDriver() / (float)MBSize).ToString("F3")));
+#endif
 #if UNITY_5_5_OR_NEWER
                     DrawItem("Temp Allocator Size:", string.Format("{0} MB", (Profiler.GetTempAllocatorSize() / (float)MBSize).ToString("F3")));
 #endif

@@ -191,6 +191,7 @@ namespace UnityGameFramework.Runtime
             InitLogHelper();
             Log.Info("Game Framework Version: {0}", GameFramework.Version.GameFrameworkVersion);
             Log.Info("Game Version: {0} ({1})", GameFramework.Version.GameVersion, GameFramework.Version.InternalGameVersion.ToString());
+            Log.Info("Unity Version: {0}", Application.unityVersion);
 
 #if UNITY_5_3_OR_NEWER || UNITY_5_3
             InitZipHelper();

@@ -1406,7 +1406,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 case Platform.WebGL:
                     return BuildTarget.WebGL;
                 default:
-                    return BuildTarget.NoTarget;
+                    throw new GameFrameworkException("Platform is invalid.");
             }
         }
 

@@ -81,7 +81,9 @@ namespace UnityGameFramework.Runtime
 #if UNITY_5_6_OR_NEWER
                     DrawItem("Is Focused:", Application.isFocused.ToString());
 #endif
+#if UNITY_2018_2_OR_NEWER
                     DrawItem("Is Batch Mode:", Application.isBatchMode.ToString());
+#endif
 #if UNITY_5_3
                     DrawItem("Stack Trace Log Type:", Application.stackTraceLogType.ToString());
 #endif

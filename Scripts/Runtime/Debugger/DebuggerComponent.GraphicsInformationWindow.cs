@@ -65,8 +65,10 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Supports Async GPU Readback", SystemInfo.supportsAsyncGPUReadback.ToString());
                     DrawItem("Supports GPU Fence", SystemInfo.supportsGPUFence.ToString());
                     DrawItem("Supports Hardware Quad Topology", SystemInfo.supportsHardwareQuadTopology.ToString());
+#if UNITY_2018_2_OR_NEWER
                     DrawItem("Supports Mip Streaming", SystemInfo.supportsMipStreaming.ToString());
                     DrawItem("Supports Multisample Auto Resolve", SystemInfo.supportsMultisampleAutoResolve.ToString());
+#endif
                     DrawItem("Supports Multisampled Textures", SystemInfo.supportsMultisampledTextures.ToString());
                     DrawItem("Supports Texture Wrap Mirror Once", SystemInfo.supportsTextureWrapMirrorOnce.ToString());
 #if UNITY_5_6_OR_NEWER

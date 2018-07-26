@@ -86,6 +86,12 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Soft Particles:", QualitySettings.softParticles.ToString());
 #endif
                     DrawItem("Soft Vegetation:", QualitySettings.softVegetation.ToString());
+                    DrawItem("Streaming Mipmaps Active", QualitySettings.streamingMipmapsActive.ToString());
+                    DrawItem("Streaming Mipmaps Add All Cameras", QualitySettings.streamingMipmapsAddAllCameras.ToString());
+                    DrawItem("Streaming Mipmaps Max File IO Requests", QualitySettings.streamingMipmapsMaxFileIORequests.ToString());
+                    DrawItem("Streaming Mipmaps Max Level Reduction", QualitySettings.streamingMipmapsMaxLevelReduction.ToString());
+                    DrawItem("Streaming Mipmaps Memory Budget", QualitySettings.streamingMipmapsMemoryBudget.ToString());
+                    DrawItem("Streaming Mipmaps Renderers Per Frame", QualitySettings.streamingMipmapsRenderersPerFrame.ToString());
                 }
                 GUILayout.EndVertical();
             }

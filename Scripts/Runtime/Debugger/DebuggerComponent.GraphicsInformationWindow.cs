@@ -60,6 +60,15 @@ namespace UnityGameFramework.Runtime
 #if UNITY_5_4_OR_NEWER
                     DrawItem("Supports Motion Vectors:", SystemInfo.supportsMotionVectors.ToString());
 #endif
+                    DrawItem("Supports 32bits Index Buffer", SystemInfo.supports32bitsIndexBuffer.ToString());
+                    DrawItem("Supports Async Compute", SystemInfo.supportsAsyncCompute.ToString());
+                    DrawItem("Supports Async GPU Readback", SystemInfo.supportsAsyncGPUReadback.ToString());
+                    DrawItem("Supports GPU Fence", SystemInfo.supportsGPUFence.ToString());
+                    DrawItem("Supports Hardware Quad Topology", SystemInfo.supportsHardwareQuadTopology.ToString());
+                    DrawItem("Supports Mip Streaming", SystemInfo.supportsMipStreaming.ToString());
+                    DrawItem("Supports Multisample Auto Resolve", SystemInfo.supportsMultisampleAutoResolve.ToString());
+                    DrawItem("Supports Multisampled Textures", SystemInfo.supportsMultisampledTextures.ToString());
+                    DrawItem("Supports Texture Wrap Mirror Once", SystemInfo.supportsTextureWrapMirrorOnce.ToString());
 #if UNITY_5_6_OR_NEWER
                     DrawItem("Graphics UV Starts At Top:", SystemInfo.graphicsUVStartsAtTop.ToString());
 #endif

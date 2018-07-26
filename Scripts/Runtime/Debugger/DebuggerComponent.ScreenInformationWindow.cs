@@ -25,6 +25,7 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Screen DPI", Screen.dpi.ToString("F2"));
                     DrawItem("Screen Orientation", Screen.orientation.ToString());
                     DrawItem("Is Full Screen", Screen.fullScreen.ToString());
+                    DrawItem("Full Screen Mode", Screen.fullScreenMode.ToString());
                     DrawItem("Sleep Timeout", GetSleepTimeoutDescription(Screen.sleepTimeout));
                     DrawItem("Cursor Visible", Cursor.visible.ToString());
                     DrawItem("Cursor Lock State", Cursor.lockState.ToString());
@@ -32,6 +33,7 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Auto Landscape Right", Screen.autorotateToLandscapeRight.ToString());
                     DrawItem("Auto Portrait", Screen.autorotateToPortrait.ToString());
                     DrawItem("Auto Portrait Upside Down", Screen.autorotateToPortraitUpsideDown.ToString());
+                    DrawItem("Safe Area", Screen.safeArea.ToString());
                     DrawItem("Support Resolutions", GetResolutionsString(Screen.resolutions));
                 }
                 GUILayout.EndVertical();

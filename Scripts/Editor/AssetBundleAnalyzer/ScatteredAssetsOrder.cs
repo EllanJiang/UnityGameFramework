@@ -7,7 +7,7 @@
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal enum ScatteredAssetsOrder
+    public enum ScatteredAssetsOrder
     {
         AssetNameAsc,
         AssetNameDesc,

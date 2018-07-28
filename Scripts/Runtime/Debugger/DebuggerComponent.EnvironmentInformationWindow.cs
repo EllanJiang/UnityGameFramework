@@ -49,9 +49,8 @@ namespace UnityGameFramework.Runtime
 #else
                     DrawItem("Game Identifier:", Application.bundleIdentifier);
 #endif
-                    DrawItem("Game Framework Version:", GameFrameworkEntry.Version);
-                    DrawItem("Unity Game Framework Version:", GameEntry.Version);
-                    DrawItem("Game Version:", string.Format("{0} ({1})", m_BaseComponent.GameVersion, m_BaseComponent.InternalApplicationVersion.ToString()));
+                    DrawItem("Game Framework Version:", Version.GameFrameworkVersion);
+                    DrawItem("Game Version:", string.Format("{0} ({1})", Version.GameVersion, Version.InternalGameVersion.ToString()));
                     DrawItem("Resource Version:", m_BaseComponent.EditorResourceMode ? "Unavailable in editor resource mode" : (string.IsNullOrEmpty(m_ResourceComponent.ApplicableGameVersion) ? "Unknown" : string.Format("{0} ({1})", m_ResourceComponent.ApplicableGameVersion, m_ResourceComponent.InternalResourceVersion.ToString())));
                     DrawItem("Application Version:", Application.version);
                     DrawItem("Unity Version:", Application.unityVersion);
@@ -81,6 +80,9 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Is Editor:", Application.isEditor.ToString());
 #if UNITY_5_6_OR_NEWER
                     DrawItem("Is Focused:", Application.isFocused.ToString());
+#endif
+#if UNITY_2018_2_OR_NEWER
+                    DrawItem("Is Batch Mode:", Application.isBatchMode.ToString());
 #endif
 #if UNITY_5_3
                     DrawItem("Stack Trace Log Type:", Application.stackTraceLogType.ToString());

@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal sealed class SourceAsset
+    public sealed class SourceAsset
     {
         private Texture m_CachedIcon;
 

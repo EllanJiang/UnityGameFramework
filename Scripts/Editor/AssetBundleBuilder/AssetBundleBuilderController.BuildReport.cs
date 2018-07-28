@@ -14,7 +14,7 @@ using System.Xml;
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal partial class AssetBundleBuilderController
+    public sealed partial class AssetBundleBuilderController
     {
         private sealed class BuildReport
         {
@@ -29,11 +29,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             private string m_ApplicableGameVersion = null;
             private int m_InternalResourceVersion = 0;
             private string m_UnityVersion = null;
-            private bool m_WindowsSelected = false;
-            private bool m_MacOSXSelected = false;
-            private bool m_IOSSelected = false;
-            private bool m_AndroidSelected = false;
-            private bool m_WindowsStoreSelected = false;
+            private Platform m_Platforms = Platform.Undefined;
             private bool m_ZipSelected = false;
             private bool m_RecordScatteredDependencyAssetsSelected = false;
             private int m_BuildAssetBundleOptions = 0;
@@ -41,7 +37,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             private SortedDictionary<string, AssetBundleData> m_AssetBundleDatas = null;
 
             public void Initialize(string buildReportPath, string productName, string companyName, string gameIdentifier, string applicableGameVersion, int internalResourceVersion, string unityVersion,
-                bool windowsSelected, bool macOSXSelected, bool iOSSelected, bool androidSelected, bool windowsStoreSelected, bool zipSelected, bool recordScatteredDependencyAssetsSelected, int buildAssetBundleOptions, SortedDictionary<string, AssetBundleData> assetBundleDatas)
+                Platform platforms, bool zipSelected, bool recordScatteredDependencyAssetsSelected, int buildAssetBundleOptions, SortedDictionary<string, AssetBundleData> assetBundleDatas)
             {
                 if (string.IsNullOrEmpty(buildReportPath))
                 {
@@ -56,11 +52,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 m_ApplicableGameVersion = applicableGameVersion;
                 m_UnityVersion = unityVersion;
                 m_InternalResourceVersion = internalResourceVersion;
-                m_WindowsSelected = windowsSelected;
-                m_MacOSXSelected = macOSXSelected;
-                m_IOSSelected = iOSSelected;
-                m_AndroidSelected = androidSelected;
-                m_WindowsStoreSelected = windowsStoreSelected;
+                m_Platforms = platforms;
                 m_ZipSelected = zipSelected;
                 m_RecordScatteredDependencyAssetsSelected = recordScatteredDependencyAssetsSelected;
                 m_BuildAssetBundleOptions = buildAssetBundleOptions;
@@ -81,6 +73,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             public void LogError(string format, params object[] args)
             {
                 LogInternal("ERROR", format, args);
+            }
+
+            public void LogFatal(string format, params object[] args)
+            {
+                LogInternal("FATAL", format, args);
             }
 
             public void SaveReport()
@@ -118,20 +115,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 xmlElement = xmlDocument.CreateElement("UnityVersion");
                 xmlElement.InnerText = m_UnityVersion;
                 xmlSummary.AppendChild(xmlElement);
-                xmlElement = xmlDocument.CreateElement("WindowsSelected");
-                xmlElement.InnerText = m_WindowsSelected.ToString();
-                xmlSummary.AppendChild(xmlElement);
-                xmlElement = xmlDocument.CreateElement("MacOSXSelected");
-                xmlElement.InnerText = m_MacOSXSelected.ToString();
-                xmlSummary.AppendChild(xmlElement);
-                xmlElement = xmlDocument.CreateElement("IOSSelected");
-                xmlElement.InnerText = m_IOSSelected.ToString();
-                xmlSummary.AppendChild(xmlElement);
-                xmlElement = xmlDocument.CreateElement("AndroidSelected");
-                xmlElement.InnerText = m_AndroidSelected.ToString();
-                xmlSummary.AppendChild(xmlElement);
-                xmlElement = xmlDocument.CreateElement("WindowsStoreSelected");
-                xmlElement.InnerText = m_WindowsStoreSelected.ToString();
+                xmlElement = xmlDocument.CreateElement("Platforms");
+                xmlElement.InnerText = m_Platforms.ToString();
                 xmlSummary.AppendChild(xmlElement);
                 xmlElement = xmlDocument.CreateElement("ZipSelected");
                 xmlElement.InnerText = m_ZipSelected.ToString();
@@ -213,7 +198,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     xmlAssetBundle.AppendChild(xmlCodes);
                     foreach (AssetBundleCode assetBundleCode in assetBundleData.GetCodes())
                     {
-                        XmlElement xmlCode = xmlDocument.CreateElement(assetBundleCode.BuildTarget.ToString());
+                        XmlElement xmlCode = xmlDocument.CreateElement(assetBundleCode.Platform.ToString());
                         xmlAttribute = xmlDocument.CreateAttribute("Length");
                         xmlAttribute.Value = assetBundleCode.Length.ToString();
                         xmlCode.Attributes.SetNamedItem(xmlAttribute);

@@ -48,6 +48,14 @@ namespace UnityGameFramework.Runtime
 #if UNITY_2017_1_OR_NEWER
                     DrawItem("Resolution Scaling Fixed DPI Factor:", QualitySettings.resolutionScalingFixedDPIFactor.ToString());
 #endif
+#if UNITY_2018_2_OR_NEWER
+                    DrawItem("Streaming Mipmaps Active", QualitySettings.streamingMipmapsActive.ToString());
+                    DrawItem("Streaming Mipmaps Add All Cameras", QualitySettings.streamingMipmapsAddAllCameras.ToString());
+                    DrawItem("Streaming Mipmaps Memory Budget", QualitySettings.streamingMipmapsMemoryBudget.ToString());
+                    DrawItem("Streaming Mipmaps Renderers Per Frame", QualitySettings.streamingMipmapsRenderersPerFrame.ToString());
+                    DrawItem("Streaming Mipmaps Max Level Reduction", QualitySettings.streamingMipmapsMaxLevelReduction.ToString());
+                    DrawItem("Streaming Mipmaps Max File IO Requests", QualitySettings.streamingMipmapsMaxFileIORequests.ToString());
+#endif
                 }
                 GUILayout.EndVertical();
 

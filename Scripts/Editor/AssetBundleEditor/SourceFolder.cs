@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal sealed class SourceFolder
+    public sealed class SourceFolder
     {
         private static Texture s_CachedIcon = null;
 

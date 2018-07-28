@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal sealed partial class AssetBundleAnalyzerController
+    public sealed partial class AssetBundleAnalyzerController
     {
         private sealed class CircularDependencyChecker
         {

@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal sealed partial class AssetBundleEditorController
+    public sealed partial class AssetBundleEditorController
     {
         private const string DefaultSourceAssetRootPath = "Assets";
 
@@ -503,6 +503,18 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
 
             return removeAssets.Count;
+        }
+
+        public SourceAsset[] GetSourceAssets()
+        {
+            int count = 0;
+            SourceAsset[] sourceAssets = new SourceAsset[m_SourceAssets.Count];
+            foreach (KeyValuePair<string, SourceAsset> sourceAsset in m_SourceAssets)
+            {
+                sourceAssets[count++] = sourceAsset.Value;
+            }
+
+            return sourceAssets;
         }
 
         public SourceAsset GetSourceAsset(string assetGuid)

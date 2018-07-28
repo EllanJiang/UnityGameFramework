@@ -172,7 +172,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取当前资源内部版本号。
+        /// 获取当前内部资源版本号。
         /// </summary>
         public int InternalResourceVersion
         {
@@ -463,15 +463,10 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_ResourceManager.ResourceInitComplete += OnResourceInitComplete;
-            m_ResourceManager.VersionListUpdateSuccess += OnVersionListUpdateSuccess;
-            m_ResourceManager.VersionListUpdateFailure += OnVersionListUpdateFailure;
-            m_ResourceManager.ResourceCheckComplete += OnResourceCheckComplete;
             m_ResourceManager.ResourceUpdateStart += OnResourceUpdateStart;
             m_ResourceManager.ResourceUpdateChanged += OnResourceUpdateChanged;
             m_ResourceManager.ResourceUpdateSuccess += OnResourceUpdateSuccess;
             m_ResourceManager.ResourceUpdateFailure += OnResourceUpdateFailure;
-            m_ResourceManager.ResourceUpdateAllComplete += OnResourceUpdateAllComplete;
 
             m_ResourceManager.SetReadOnlyPath(Application.streamingAssetsPath);
             if (m_ReadWritePathType == ReadWritePathType.TemporaryCache)
@@ -618,15 +613,16 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 使用单机模式并初始化资源。
         /// </summary>
-        public void InitResources()
+        /// <param name="initResourcesCompleteCallback">使用单机模式并初始化资源完成的回调函数。</param>
+        public void InitResources(InitResourcesCompleteCallback initResourcesCompleteCallback)
         {
-            m_ResourceManager.InitResources();
+            m_ResourceManager.InitResources(initResourcesCompleteCallback);
         }
 
         /// <summary>
         /// 使用可更新模式并检查版本资源列表。
         /// </summary>
-        /// <param name="latestInternalResourceVersion">最新的资源内部版本号。</param>
+        /// <param name="latestInternalResourceVersion">最新的内部资源版本号。</param>
         /// <returns>检查版本资源列表结果。</returns>
         public CheckVersionListResult CheckVersionList(int latestInternalResourceVersion)
         {
@@ -640,25 +636,38 @@ namespace UnityGameFramework.Runtime
         /// <param name="versionListHashCode">版本资源列表哈希值。</param>
         /// <param name="versionListZipLength">版本资源列表压缩后大小。</param>
         /// <param name="versionListZipHashCode">版本资源列表压缩后哈希值。</param>
-        public void UpdateVersionList(int versionListLength, int versionListHashCode, int versionListZipLength, int versionListZipHashCode)
+        /// <param name="updateVersionListCallbacks">版本资源列表更新回调函数集。</param>
+        public void UpdateVersionList(int versionListLength, int versionListHashCode, int versionListZipLength, int versionListZipHashCode, UpdateVersionListCallbacks updateVersionListCallbacks)
         {
-            m_ResourceManager.UpdateVersionList(versionListLength, versionListHashCode, versionListZipLength, versionListZipHashCode);
+            m_ResourceManager.UpdateVersionList(versionListLength, versionListHashCode, versionListZipLength, versionListZipHashCode, updateVersionListCallbacks);
         }
 
         /// <summary>
         /// 使用可更新模式并检查资源。
         /// </summary>
-        public void CheckResources()
+        /// <param name="checkResourcesCompleteCallback">使用可更新模式并检查资源完成的回调函数。</param>
+        public void CheckResources(CheckResourcesCompleteCallback checkResourcesCompleteCallback)
         {
-            m_ResourceManager.CheckResources();
+            m_ResourceManager.CheckResources(checkResourcesCompleteCallback);
         }
 
         /// <summary>
         /// 使用可更新模式并更新资源。
         /// </summary>
-        public void UpdateResources()
+        /// <param name="updateResourcesCompleteCallback">使用可更新模式并更新资源全部完成的回调函数。</param>
+        public void UpdateResources(UpdateResourcesCompleteCallback updateResourcesCompleteCallback)
         {
-            m_ResourceManager.UpdateResources();
+            m_ResourceManager.UpdateResources(updateResourcesCompleteCallback);
+        }
+
+        /// <summary>
+        /// 检查资源是否存在。
+        /// </summary>
+        /// <param name="assetName">要检查资源的名称。</param>
+        /// <returns>资源是否存在。</returns>
+        public bool HasAsset(string assetName)
+        {
+            return m_ResourceManager.HasAsset(assetName);
         }
 
         /// <summary>
@@ -837,26 +846,6 @@ namespace UnityGameFramework.Runtime
             m_ResourceManager.AddLoadResourceAgentHelper(loadResourceAgentHelper);
         }
 
-        private void OnResourceInitComplete(object sender, GameFramework.Resource.ResourceInitCompleteEventArgs e)
-        {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceInitCompleteEventArgs>().Fill(e));
-        }
-
-        private void OnVersionListUpdateSuccess(object sender, GameFramework.Resource.VersionListUpdateSuccessEventArgs e)
-        {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<VersionListUpdateSuccessEventArgs>().Fill(e));
-        }
-
-        private void OnVersionListUpdateFailure(object sender, GameFramework.Resource.VersionListUpdateFailureEventArgs e)
-        {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<VersionListUpdateFailureEventArgs>().Fill(e));
-        }
-
-        private void OnResourceCheckComplete(object sender, GameFramework.Resource.ResourceCheckCompleteEventArgs e)
-        {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceCheckCompleteEventArgs>().Fill(e));
-        }
-
         private void OnResourceUpdateStart(object sender, GameFramework.Resource.ResourceUpdateStartEventArgs e)
         {
             m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceUpdateStartEventArgs>().Fill(e));
@@ -875,11 +864,6 @@ namespace UnityGameFramework.Runtime
         private void OnResourceUpdateFailure(object sender, GameFramework.Resource.ResourceUpdateFailureEventArgs e)
         {
             m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceUpdateFailureEventArgs>().Fill(e));
-        }
-
-        private void OnResourceUpdateAllComplete(object sender, GameFramework.Resource.ResourceUpdateAllCompleteEventArgs e)
-        {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceUpdateAllCompleteEventArgs>().Fill(e));
         }
     }
 }

@@ -15,7 +15,15 @@ namespace UnityGameFramework.Editor.AssetBundleTools
     public interface IBuildEventHandler
     {
         /// <summary>
-        /// 所有生成开始前的预处理事件。
+        /// 获取当某个平台生成失败时，是否继续生成下一个平台。
+        /// </summary>
+        bool ContinueOnFailure
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 所有平台生成开始前的预处理事件。
         /// </summary>
         /// <param name="productName">产品名称。</param>
         /// <param name="companyName">公司名称。</param>
@@ -31,12 +39,12 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         /// <param name="outputFullPath">为可更新模式生成的所有文件存放于此路径。若游戏是网络游戏，生成结束后应将此目录上传至 Web 服务器，供玩家下载用。</param>
         /// <param name="outputPackedPath">为可更新模式生成的文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
         /// <param name="buildReportPath">生成报告路径。</param>
-        void PreProcessBuildAll(string productName, string companyName, string gameIdentifier,
+        void PreprocessAllPlatforms(string productName, string companyName, string gameIdentifier,
             string applicableGameVersion, int internalResourceVersion, string unityVersion, BuildAssetBundleOptions buildOptions, bool zip,
             string outputDirectory, string workingPath, string outputPackagePath, string outputFullPath, string outputPackedPath, string buildReportPath);
 
         /// <summary>
-        /// 所有生成结束后的后处理事件。
+        /// 所有平台生成结束后的后处理事件。
         /// </summary>
         /// <param name="productName">产品名称。</param>
         /// <param name="companyName">公司名称。</param>
@@ -52,28 +60,29 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         /// <param name="outputFullPath">为可更新模式生成的所有文件存放于此路径。若游戏是网络游戏，生成结束后应将此目录上传至 Web 服务器，供玩家下载用。</param>
         /// <param name="outputPackedPath">为可更新模式生成的文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
         /// <param name="buildReportPath">生成报告路径。</param>
-        void PostProcessBuildAll(string productName, string companyName, string gameIdentifier,
+        void PostprocessAllPlatforms(string productName, string companyName, string gameIdentifier,
             string applicableGameVersion, int internalResourceVersion, string unityVersion, BuildAssetBundleOptions buildOptions, bool zip,
             string outputDirectory, string workingPath, string outputPackagePath, string outputFullPath, string outputPackedPath, string buildReportPath);
 
         /// <summary>
-        /// 生成某个平台开始前的预处理事件。
+        /// 某个平台生成开始前的预处理事件。
         /// </summary>
-        /// <param name="buildTarget">生成平台。</param>
+        /// <param name="platform">生成平台。</param>
         /// <param name="workingPath">生成时的工作路径。</param>
         /// <param name="outputPackagePath">为单机模式生成的文件存放于此路径。若游戏是单机游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
         /// <param name="outputFullPath">为可更新模式生成的所有文件存放于此路径。若游戏是网络游戏，生成结束后应将此目录上传至 Web 服务器，供玩家下载用。</param>
         /// <param name="outputPackedPath">为可更新模式生成的文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
-        void PreProcessBuild(BuildTarget buildTarget, string workingPath, string outputPackagePath, string outputFullPath, string outputPackedPath);
+        void PreprocessPlatform(Platform platform, string workingPath, string outputPackagePath, string outputFullPath, string outputPackedPath);
 
         /// <summary>
-        /// 生成某个平台结束后的后处理事件。
+        /// 某个平台生成结束后的后处理事件。
         /// </summary>
-        /// <param name="buildTarget">生成平台。</param>
+        /// <param name="platform">生成平台。</param>
         /// <param name="workingPath">生成时的工作路径。</param>
         /// <param name="outputPackagePath">为单机模式生成的文件存放于此路径。若游戏是单机游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
         /// <param name="outputFullPath">为可更新模式生成的所有文件存放于此路径。若游戏是网络游戏，生成结束后应将此目录上传至 Web 服务器，供玩家下载用。</param>
         /// <param name="outputPackedPath">为可更新模式生成的文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
-        void PostProcessBuild(BuildTarget buildTarget, string workingPath, string outputPackagePath, string outputFullPath, string outputPackedPath);
+        /// <param name="isSuccess">生成是否成功。</param>
+        void PostprocessPlatform(Platform platform, string workingPath, string outputPackagePath, string outputFullPath, string outputPackedPath, bool isSuccess);
     }
 }

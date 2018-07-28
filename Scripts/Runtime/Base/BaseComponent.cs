@@ -23,8 +23,6 @@ namespace UnityGameFramework.Runtime
     {
         private const int DefaultDpi = 96;  // default windows dpi
 
-        private string m_GameVersion = string.Empty;
-        private int m_InternalApplicationVersion = 0;
         private float m_GameSpeedBeforePause = 1f;
 
         [SerializeField]
@@ -34,16 +32,19 @@ namespace UnityGameFramework.Runtime
         private Language m_EditorLanguage = Language.Unspecified;
 
         [SerializeField]
-        private string m_LogHelperTypeName = "UnityGameFramework.Runtime.LogHelper";
+        private string m_VersionHelperTypeName = "UnityGameFramework.Runtime.DefaultVersionHelper";
 
         [SerializeField]
-        private string m_ZipHelperTypeName = "UnityGameFramework.Runtime.ZipHelper";
+        private string m_LogHelperTypeName = "UnityGameFramework.Runtime.DefaultLogHelper";
 
         [SerializeField]
-        private string m_JsonHelperTypeName = "UnityGameFramework.Runtime.JsonHelper";
+        private string m_ZipHelperTypeName = "UnityGameFramework.Runtime.DefaultZipHelper";
 
         [SerializeField]
-        private string m_ProfilerHelperTypeName = "UnityGameFramework.Runtime.ProfilerHelper";
+        private string m_JsonHelperTypeName = "UnityGameFramework.Runtime.DefaultJsonHelper";
+
+        [SerializeField]
+        private string m_ProfilerHelperTypeName = "UnityGameFramework.Runtime.DefaultProfilerHelper";
 
         [SerializeField]
         private int m_FrameRate = 30;
@@ -56,36 +57,6 @@ namespace UnityGameFramework.Runtime
 
         [SerializeField]
         private bool m_NeverSleep = true;
-
-        /// <summary>
-        /// 获取或设置游戏版本号。
-        /// </summary>
-        public string GameVersion
-        {
-            get
-            {
-                return m_GameVersion;
-            }
-            set
-            {
-                m_GameVersion = value;
-            }
-        }
-
-        /// <summary>
-        /// 获取或设置应用程序内部版本号。
-        /// </summary>
-        public int InternalApplicationVersion
-        {
-            get
-            {
-                return m_InternalApplicationVersion;
-            }
-            set
-            {
-                m_InternalApplicationVersion = value;
-            }
-        }
 
         /// <summary>
         /// 获取或设置是否使用编辑器资源模式（仅编辑器内有效）。
@@ -216,8 +187,11 @@ namespace UnityGameFramework.Runtime
         {
             base.Awake();
 
+            InitVersionHelper();
             InitLogHelper();
-            Log.Info("Game Framework version is {0}. Unity Game Framework version is {1}.", GameFrameworkEntry.Version, GameEntry.Version);
+            Log.Info("Game Framework Version: {0}", GameFramework.Version.GameFrameworkVersion);
+            Log.Info("Game Version: {0} ({1})", GameFramework.Version.GameVersion, GameFramework.Version.InternalGameVersion.ToString());
+            Log.Info("Unity Version: {0}", Application.unityVersion);
 
 #if UNITY_5_3_OR_NEWER || UNITY_5_3
             InitZipHelper();
@@ -310,6 +284,28 @@ namespace UnityGameFramework.Runtime
         internal void Shutdown()
         {
             Destroy(gameObject);
+        }
+
+        private void InitVersionHelper()
+        {
+            if (string.IsNullOrEmpty(m_VersionHelperTypeName))
+            {
+                return;
+            }
+
+            Type versionHelperType = Utility.Assembly.GetType(m_VersionHelperTypeName);
+            if (versionHelperType == null)
+            {
+                throw new GameFrameworkException(string.Format("Can not find version helper type '{0}'.", m_VersionHelperTypeName));
+            }
+
+            GameFramework.Version.IVersionHelper versionHelper = (GameFramework.Version.IVersionHelper)Activator.CreateInstance(versionHelperType);
+            if (versionHelper == null)
+            {
+                throw new GameFrameworkException(string.Format("Can not create version helper instance '{0}'.", m_VersionHelperTypeName));
+            }
+
+            GameFramework.Version.SetVersionHelper(versionHelper);
         }
 
         private void InitLogHelper()

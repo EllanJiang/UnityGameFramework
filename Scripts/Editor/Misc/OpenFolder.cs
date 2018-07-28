@@ -15,13 +15,13 @@ namespace UnityGameFramework.Editor
     /// <summary>
     /// 打开文件夹相关的实用函数。
     /// </summary>
-    internal static class OpenFolder
+    public static class OpenFolder
     {
         /// <summary>
         /// 打开 Temporary Cache Path 文件夹。
         /// </summary>
         [MenuItem("Game Framework/Open Folder/Temporary Cache Path", false, 10)]
-        private static void OpenFolderTemporaryCachePath()
+        public static void OpenFolderTemporaryCachePath()
         {
             InternalOpenFolder(Application.temporaryCachePath);
         }
@@ -30,7 +30,7 @@ namespace UnityGameFramework.Editor
         /// 打开 Persistent Data Path 文件夹。
         /// </summary>
         [MenuItem("Game Framework/Open Folder/Persistent Data Path", false, 11)]
-        private static void OpenFolderPersistentDataPath()
+        public static void OpenFolderPersistentDataPath()
         {
             InternalOpenFolder(Application.persistentDataPath);
         }
@@ -39,7 +39,7 @@ namespace UnityGameFramework.Editor
         /// 打开 Streaming Assets Path 文件夹。
         /// </summary>
         [MenuItem("Game Framework/Open Folder/Streaming Assets Path", false, 12)]
-        private static void OpenFolderStreamingAssetsPath()
+        public static void OpenFolderStreamingAssetsPath()
         {
             InternalOpenFolder(Application.streamingAssetsPath);
         }
@@ -48,7 +48,7 @@ namespace UnityGameFramework.Editor
         /// 打开 Data Path 文件夹。
         /// </summary>
         [MenuItem("Game Framework/Open Folder/Data Path", false, 13)]
-        private static void OpenFolderDataPath()
+        public static void OpenFolderDataPath()
         {
             InternalOpenFolder(Application.dataPath);
         }

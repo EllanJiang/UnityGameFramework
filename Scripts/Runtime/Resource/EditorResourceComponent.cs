@@ -354,26 +354,6 @@ namespace UnityGameFramework.Runtime
 #pragma warning disable 0067, 0414
 
         /// <summary>
-        /// 资源初始化完成事件。
-        /// </summary>
-        public event EventHandler<GameFramework.Resource.ResourceInitCompleteEventArgs> ResourceInitComplete = null;
-
-        /// <summary>
-        /// 版本资源列表更新成功事件。
-        /// </summary>
-        public event EventHandler<GameFramework.Resource.VersionListUpdateSuccessEventArgs> VersionListUpdateSuccess = null;
-
-        /// <summary>
-        /// 版本资源列表更新失败事件。
-        /// </summary>
-        public event EventHandler<GameFramework.Resource.VersionListUpdateFailureEventArgs> VersionListUpdateFailure = null;
-
-        /// <summary>
-        /// 资源检查完成事件。
-        /// </summary>
-        public event EventHandler<GameFramework.Resource.ResourceCheckCompleteEventArgs> ResourceCheckComplete = null;
-
-        /// <summary>
         /// 资源更新开始事件。
         /// </summary>
         public event EventHandler<GameFramework.Resource.ResourceUpdateStartEventArgs> ResourceUpdateStart = null;
@@ -392,11 +372,6 @@ namespace UnityGameFramework.Runtime
         /// 资源更新失败事件。
         /// </summary>
         public event EventHandler<GameFramework.Resource.ResourceUpdateFailureEventArgs> ResourceUpdateFailure = null;
-
-        /// <summary>
-        /// 资源更新全部完成事件。
-        /// </summary>
-        public event EventHandler<GameFramework.Resource.ResourceUpdateAllCompleteEventArgs> ResourceUpdateAllComplete = null;
 
 #pragma warning restore 0067, 0414
 
@@ -651,7 +626,8 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 使用单机模式并初始化资源。
         /// </summary>
-        public void InitResources()
+        /// <param name="initResourcesCompleteCallback">使用单机模式并初始化资源完成的回调函数。</param>
+        public void InitResources(InitResourcesCompleteCallback initResourcesCompleteCallback)
         {
             throw new NotSupportedException("InitResources");
         }
@@ -667,29 +643,32 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 更新版本资源列表。
+        /// 使用可更新模式并更新版本资源列表。
         /// </summary>
         /// <param name="versionListLength">版本资源列表大小。</param>
         /// <param name="versionListHashCode">版本资源列表哈希值。</param>
         /// <param name="versionListZipLength">版本资源列表压缩后大小。</param>
         /// <param name="versionListZipHashCode">版本资源列表压缩后哈希值。</param>
-        public void UpdateVersionList(int versionListLength, int versionListHashCode, int versionListZipLength, int versionListZipHashCode)
+        /// <param name="updateVersionListCallbacks">版本资源列表更新回调函数集。</param>
+        public void UpdateVersionList(int versionListLength, int versionListHashCode, int versionListZipLength, int versionListZipHashCode, UpdateVersionListCallbacks updateVersionListCallbacks)
         {
             throw new NotSupportedException("UpdateVersionList");
         }
 
         /// <summary>
-        /// 检查资源。
+        /// 使用可更新模式并检查资源。
         /// </summary>
-        public void CheckResources()
+        /// <param name="checkResourcesCompleteCallback">使用可更新模式并检查资源完成的回调函数。</param>
+        public void CheckResources(CheckResourcesCompleteCallback checkResourcesCompleteCallback)
         {
             throw new NotSupportedException("CheckResources");
         }
 
         /// <summary>
-        /// 更新资源。
+        /// 使用可更新模式并更新资源。
         /// </summary>
-        public void UpdateResources()
+        /// <param name="updateResourcesCompleteCallback">使用可更新模式并更新资源全部完成的回调函数。</param>
+        public void UpdateResources(UpdateResourcesCompleteCallback updateResourcesCompleteCallback)
         {
             throw new NotSupportedException("UpdateResources");
         }

@@ -10476,6 +10476,16 @@
             <param name="procedureType">要获取的流程类型。</param>
             <returns>要获取的流程。</returns>
         </member>
+        <member name="T:GameFramework.Resource.CheckResourcesCompleteCallback">
+            <summary>
+            使用可更新模式并检查资源完成的回调函数。
+            </summary>
+            <param name="needUpdateResources">是否需要进行资源更新。</param>
+            <param name="removedCount">已移除的资源数量。</param>
+            <param name="updateCount">要更新的资源数量。</param>
+            <param name="updateTotalLength">要更新的资源总大小。</param>
+            <param name="updateTotalZipLength">要更新的压缩包总大小。</param>
+        </member>
         <member name="T:GameFramework.Resource.CheckVersionListResult">
             <summary>
             检查版本资源列表结果。
@@ -10580,6 +10590,11 @@
         <member name="M:GameFramework.Resource.ILoadResourceAgentHelper.Reset">
             <summary>
             重置加载资源代理辅助器。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Resource.InitResourcesCompleteCallback">
+            <summary>
+            使用单机模式并初始化资源完成的回调函数。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.IResourceHelper">
@@ -10738,26 +10753,6 @@
             获取或设置资源对象池的优先级。
             </summary>
         </member>
-        <member name="E:GameFramework.Resource.IResourceManager.ResourceInitComplete">
-            <summary>
-            资源初始化完成事件。
-            </summary>
-        </member>
-        <member name="E:GameFramework.Resource.IResourceManager.VersionListUpdateSuccess">
-            <summary>
-            版本资源列表更新成功事件。
-            </summary>
-        </member>
-        <member name="E:GameFramework.Resource.IResourceManager.VersionListUpdateFailure">
-            <summary>
-            版本资源列表更新失败事件。
-            </summary>
-        </member>
-        <member name="E:GameFramework.Resource.IResourceManager.ResourceCheckComplete">
-            <summary>
-            资源检查完成事件。
-            </summary>
-        </member>
         <member name="E:GameFramework.Resource.IResourceManager.ResourceUpdateStart">
             <summary>
             资源更新开始事件。
@@ -10776,11 +10771,6 @@
         <member name="E:GameFramework.Resource.IResourceManager.ResourceUpdateFailure">
             <summary>
             资源更新失败事件。
-            </summary>
-        </member>
-        <member name="E:GameFramework.Resource.IResourceManager.ResourceUpdateAllComplete">
-            <summary>
-            资源更新全部完成事件。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.SetReadOnlyPath(System.String)">
@@ -10838,10 +10828,11 @@
             </summary>
             <param name="loadResourceAgentHelper">要增加的加载资源代理辅助器。</param>
         </member>
-        <member name="M:GameFramework.Resource.IResourceManager.InitResources">
+        <member name="M:GameFramework.Resource.IResourceManager.InitResources(GameFramework.Resource.InitResourcesCompleteCallback)">
             <summary>
             使用单机模式并初始化资源。
             </summary>
+            <param name="initResourcesCompleteCallback">使用单机模式并初始化资源完成的回调函数。</param>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.CheckVersionList(System.Int32)">
             <summary>
@@ -10850,7 +10841,7 @@
             <param name="latestInternalResourceVersion">最新的内部资源版本号。</param>
             <returns>检查版本资源列表结果。</returns>
         </member>
-        <member name="M:GameFramework.Resource.IResourceManager.UpdateVersionList(System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:GameFramework.Resource.IResourceManager.UpdateVersionList(System.Int32,System.Int32,System.Int32,System.Int32,GameFramework.Resource.UpdateVersionListCallbacks)">
             <summary>
             使用可更新模式并更新版本资源列表。
             </summary>
@@ -10858,16 +10849,19 @@
             <param name="versionListHashCode">版本资源列表哈希值。</param>
             <param name="versionListZipLength">版本资源列表压缩后大小。</param>
             <param name="versionListZipHashCode">版本资源列表压缩后哈希值。</param>
+            <param name="updateVersionListCallbacks">版本资源列表更新回调函数集。</param>
         </member>
-        <member name="M:GameFramework.Resource.IResourceManager.CheckResources">
+        <member name="M:GameFramework.Resource.IResourceManager.CheckResources(GameFramework.Resource.CheckResourcesCompleteCallback)">
             <summary>
             使用可更新模式并检查资源。
             </summary>
+            <param name="checkResourcesCompleteCallback">使用可更新模式并检查资源完成的回调函数。</param>
         </member>
-        <member name="M:GameFramework.Resource.IResourceManager.UpdateResources">
+        <member name="M:GameFramework.Resource.IResourceManager.UpdateResources(GameFramework.Resource.UpdateResourcesCompleteCallback)">
             <summary>
             使用可更新模式并更新资源。
             </summary>
+            <param name="updateResourcesCompleteCallback">使用可更新模式并更新资源全部完成的回调函数。</param>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.HasAsset(System.String)">
             <summary>
@@ -11147,12 +11141,12 @@
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="T:GameFramework.Resource.LoadBytesCallback">
-             <summary>
+            <summary>
             读取数据流回调函数。
-             </summary>
-             <param name="fileUri">文件路径。</param>
-             <param name="bytes">数据流。</param>
-             <param name="errorMessage">错误信息。</param>
+            </summary>
+            <param name="fileUri">文件路径。</param>
+            <param name="bytes">数据流。</param>
+            <param name="errorMessage">错误信息。</param>
         </member>
         <member name="T:GameFramework.Resource.LoadResourceAgentHelperErrorEventArgs">
             <summary>
@@ -11446,50 +11440,6 @@
             <param name="progress">加载场景进度。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="T:GameFramework.Resource.ResourceCheckCompleteEventArgs">
-            <summary>
-            资源检查完成事件。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceCheckCompleteEventArgs.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            初始化资源检查完成事件的新实例。
-            </summary>
-            <param name="removedCount">已移除的资源数量。</param>
-            <param name="updateCount">要更新的资源数量。</param>
-            <param name="updateTotalLength">要更新的资源总大小。</param>
-            <param name="updateTotalZipLength">要更新的压缩包总大小。</param>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceCheckCompleteEventArgs.RemovedCount">
-            <summary>
-            获取已移除的资源数量。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceCheckCompleteEventArgs.UpdateCount">
-            <summary>
-            获取要更新的资源数量。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceCheckCompleteEventArgs.UpdateTotalLength">
-            <summary>
-            获取要更新的资源总大小。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceCheckCompleteEventArgs.UpdateTotalZipLength">
-            <summary>
-            获取要更新的压缩包总大小。
-            </summary>
-        </member>
-        <member name="T:GameFramework.Resource.ResourceInitCompleteEventArgs">
-            <summary>
-            资源初始化完成事件。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceInitCompleteEventArgs.#ctor">
-            <summary>
-            初始化资源初始化完成事件的新实例。
-            </summary>
-        </member>
         <member name="T:GameFramework.Resource.ResourceManager">
             <summary>
             资源管理器。
@@ -11683,26 +11633,6 @@
             获取或设置资源对象池的优先级。
             </summary>
         </member>
-        <member name="E:GameFramework.Resource.ResourceManager.ResourceInitComplete">
-            <summary>
-            资源初始化完成事件。
-            </summary>
-        </member>
-        <member name="E:GameFramework.Resource.ResourceManager.VersionListUpdateSuccess">
-            <summary>
-            版本资源列表更新成功事件。
-            </summary>
-        </member>
-        <member name="E:GameFramework.Resource.ResourceManager.VersionListUpdateFailure">
-            <summary>
-            版本资源列表更新失败事件。
-            </summary>
-        </member>
-        <member name="E:GameFramework.Resource.ResourceManager.ResourceCheckComplete">
-            <summary>
-            资源检查完成事件。
-            </summary>
-        </member>
         <member name="E:GameFramework.Resource.ResourceManager.ResourceUpdateStart">
             <summary>
             资源更新开始事件。
@@ -11721,11 +11651,6 @@
         <member name="E:GameFramework.Resource.ResourceManager.ResourceUpdateFailure">
             <summary>
             资源更新失败事件。
-            </summary>
-        </member>
-        <member name="E:GameFramework.Resource.ResourceManager.ResourceUpdateAllComplete">
-            <summary>
-            资源更新全部完成事件。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.Update(System.Single,System.Single)">
@@ -11795,10 +11720,11 @@
             </summary>
             <param name="loadResourceAgentHelper">要增加的加载资源代理辅助器。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.InitResources">
+        <member name="M:GameFramework.Resource.ResourceManager.InitResources(GameFramework.Resource.InitResourcesCompleteCallback)">
             <summary>
             使用单机模式并初始化资源。
             </summary>
+            <param name="initResourcesCompleteCallback">使用单机模式并初始化资源完成的回调函数。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.CheckVersionList(System.Int32)">
             <summary>
@@ -11807,7 +11733,7 @@
             <param name="latestInternalResourceVersion">最新的内部资源版本号。</param>
             <returns>检查版本资源列表结果。</returns>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.UpdateVersionList(System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:GameFramework.Resource.ResourceManager.UpdateVersionList(System.Int32,System.Int32,System.Int32,System.Int32,GameFramework.Resource.UpdateVersionListCallbacks)">
             <summary>
             使用可更新模式并更新版本资源列表。
             </summary>
@@ -11815,16 +11741,19 @@
             <param name="versionListHashCode">版本资源列表哈希值。</param>
             <param name="versionListZipLength">版本资源列表压缩后大小。</param>
             <param name="versionListZipHashCode">版本资源列表压缩后哈希值。</param>
+            <param name="updateVersionListCallbacks">版本资源列表更新回调函数集。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.CheckResources">
+        <member name="M:GameFramework.Resource.ResourceManager.CheckResources(GameFramework.Resource.CheckResourcesCompleteCallback)">
             <summary>
             使用可更新模式并检查资源。
             </summary>
+            <param name="checkResourcesCompleteCallback">使用可更新模式并检查资源完成的回调函数。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.UpdateResources">
+        <member name="M:GameFramework.Resource.ResourceManager.UpdateResources(GameFramework.Resource.UpdateResourcesCompleteCallback)">
             <summary>
             使用可更新模式并更新资源。
             </summary>
+            <param name="updateResourcesCompleteCallback">使用可更新模式并更新资源全部完成的回调函数。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.HasAsset(System.String)">
             <summary>
@@ -12730,16 +12659,6 @@
             可更新模式。
             </summary>
         </member>
-        <member name="T:GameFramework.Resource.ResourceUpdateAllCompleteEventArgs">
-            <summary>
-            资源更新全部完成事件。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceUpdateAllCompleteEventArgs.#ctor">
-            <summary>
-            初始化资源更新全部完成事件的新实例。
-            </summary>
-        </member>
         <member name="T:GameFramework.Resource.ResourceUpdateChangedEventArgs">
             <summary>
             资源更新改变事件。
@@ -12949,49 +12868,52 @@
             <param name="sceneAssetName">要卸载的场景资源名称。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="T:GameFramework.Resource.VersionListUpdateFailureEventArgs">
+        <member name="T:GameFramework.Resource.UpdateResourcesCompleteCallback">
             <summary>
-            版本资源列表更新失败事件。
+            使用可更新模式并更新资源全部完成的回调函数。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.VersionListUpdateFailureEventArgs.#ctor(System.String,System.String)">
+        <member name="T:GameFramework.Resource.UpdateVersionListCallbacks">
             <summary>
-            初始化版本资源列表更新失败事件的新实例。
+            版本资源列表更新回调函数集。
             </summary>
-            <param name="downloadUri">下载地址。</param>
+        </member>
+        <member name="M:GameFramework.Resource.UpdateVersionListCallbacks.#ctor(GameFramework.Resource.UpdateVersionListSuccessCallback)">
+            <summary>
+            初始化版本资源列表更新回调函数集的新实例。
+            </summary>
+            <param name="updateVersionListSuccessCallback">版本资源列表更新成功回调函数。</param>
+        </member>
+        <member name="M:GameFramework.Resource.UpdateVersionListCallbacks.#ctor(GameFramework.Resource.UpdateVersionListSuccessCallback,GameFramework.Resource.UpdateVersionListFailureCallback)">
+            <summary>
+            初始化版本资源列表更新回调函数集的新实例。
+            </summary>
+            <param name="updateVersionListSuccessCallback">版本资源列表更新成功回调函数。</param>
+            <param name="updateVersionListFailureCallback">版本资源列表更新失败回调函数。</param>
+        </member>
+        <member name="P:GameFramework.Resource.UpdateVersionListCallbacks.UpdateVersionListSuccessCallback">
+            <summary>
+            获取版本资源列表更新成功回调函数。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdateVersionListCallbacks.UpdateVersionListFailureCallback">
+            <summary>
+            获取版本资源列表更新失败回调函数。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Resource.UpdateVersionListFailureCallback">
+            <summary>
+            版本资源列表更新失败回调函数。
+            </summary>
+            <param name="downloadUri">版本资源列表更新地址。</param>
             <param name="errorMessage">错误信息。</param>
         </member>
-        <member name="P:GameFramework.Resource.VersionListUpdateFailureEventArgs.DownloadUri">
+        <member name="T:GameFramework.Resource.UpdateVersionListSuccessCallback">
             <summary>
-            获取下载地址。
+            版本资源列表更新成功回调函数。
             </summary>
-        </member>
-        <member name="P:GameFramework.Resource.VersionListUpdateFailureEventArgs.ErrorMessage">
-            <summary>
-            获取错误信息。
-            </summary>
-        </member>
-        <member name="T:GameFramework.Resource.VersionListUpdateSuccessEventArgs">
-            <summary>
-            版本资源列表更新成功事件。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Resource.VersionListUpdateSuccessEventArgs.#ctor(System.String,System.String)">
-            <summary>
-            初始化版本资源列表更新成功事件的新实例。
-            </summary>
-            <param name="downloadPath">资源下载后存放路径。</param>
-            <param name="downloadUri">资源下载地址。</param>
-        </member>
-        <member name="P:GameFramework.Resource.VersionListUpdateSuccessEventArgs.DownloadPath">
-            <summary>
-            获取资源下载后存放路径。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.VersionListUpdateSuccessEventArgs.DownloadUri">
-            <summary>
-            获取下载地址。
-            </summary>
+            <param name="downloadPath">版本资源列表更新后存放路径。</param>
+            <param name="downloadUri">版本资源列表更新地址。</param>
         </member>
         <member name="T:GameFramework.Scene.ISceneManager">
             <summary>

@@ -26,7 +26,8 @@ namespace UnityGameFramework.Runtime
 
         private IEntityManager m_EntityManager = null;
         private EventComponent m_EventComponent = null;
-        private List<IEntity> m_InternalEntityResultsCache = null;
+
+        private readonly List<IEntity> m_InternalEntityResultsCache = new List<IEntity>();
 
         [SerializeField]
         private bool m_EnableShowEntitySuccessEvent = true;
@@ -102,8 +103,6 @@ namespace UnityGameFramework.Runtime
             m_EntityManager.ShowEntityUpdate += OnShowEntityUpdate;
             m_EntityManager.ShowEntityDependencyAsset += OnShowEntityDependencyAsset;
             m_EntityManager.HideEntityComplete += OnHideEntityComplete;
-
-            m_InternalEntityResultsCache = new List<IEntity>();
         }
 
         private void Start()

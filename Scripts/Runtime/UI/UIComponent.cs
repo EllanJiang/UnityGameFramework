@@ -25,7 +25,8 @@ namespace UnityGameFramework.Runtime
 
         private IUIManager m_UIManager = null;
         private EventComponent m_EventComponent = null;
-        private List<IUIForm> m_InternalUIFormResultsCache = null;
+
+        private readonly List<IUIForm> m_InternalUIFormResultsCache = new List<IUIForm>();
 
         [SerializeField]
         private bool m_EnableOpenUIFormSuccessEvent = true;
@@ -162,8 +163,6 @@ namespace UnityGameFramework.Runtime
             m_UIManager.OpenUIFormUpdate += OnOpenUIFormUpdate;
             m_UIManager.OpenUIFormDependencyAsset += OnOpenUIFormDependencyAsset;
             m_UIManager.CloseUIFormComplete += OnCloseUIFormComplete;
-
-            m_InternalUIFormResultsCache = new List<IUIForm>();
         }
 
         private void Start()

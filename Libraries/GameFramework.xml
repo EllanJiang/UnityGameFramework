@@ -31,7 +31,12 @@
             </summary>
             <param name="mode">事件池模式。</param>
         </member>
-        <member name="P:GameFramework.EventPool`1.Count">
+        <member name="P:GameFramework.EventPool`1.EventHandlerCount">
+            <summary>
+            获取事件处理函数的数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.EventPool`1.EventCount">
             <summary>
             获取事件数量。
             </summary>
@@ -53,9 +58,16 @@
             清理事件。
             </summary>
         </member>
+        <member name="M:GameFramework.EventPool`1.Count(System.Int32)">
+            <summary>
+            获取事件处理函数的数量。
+            </summary>
+            <param name="id">事件类型编号。</param>
+            <returns>事件处理函数的数量。</returns>
+        </member>
         <member name="M:GameFramework.EventPool`1.Check(System.Int32,System.EventHandler{`0})">
             <summary>
-            检查订阅事件处理函数。
+            检查是否存在事件处理函数。
             </summary>
             <param name="id">事件类型编号。</param>
             <param name="handler">要检查的事件处理函数。</param>
@@ -5934,7 +5946,12 @@
             初始化事件管理器的新实例。
             </summary>
         </member>
-        <member name="P:GameFramework.Event.EventManager.Count">
+        <member name="P:GameFramework.Event.EventManager.EventHandlerCount">
+            <summary>
+            获取事件处理函数的数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Event.EventManager.EventCount">
             <summary>
             获取事件数量。
             </summary>
@@ -5957,9 +5974,16 @@
             关闭并清理事件管理器。
             </summary>
         </member>
+        <member name="M:GameFramework.Event.EventManager.Count(System.Int32)">
+            <summary>
+            获取事件处理函数的数量。
+            </summary>
+            <param name="id">事件类型编号。</param>
+            <returns>事件处理函数的数量。</returns>
+        </member>
         <member name="M:GameFramework.Event.EventManager.Check(System.Int32,System.EventHandler{GameFramework.Event.GameEventArgs})">
             <summary>
-            检查订阅事件处理函数。
+            检查是否存在事件处理函数。
             </summary>
             <param name="id">事件类型编号。</param>
             <param name="handler">要检查的事件处理函数。</param>
@@ -6009,14 +6033,26 @@
             事件管理器接口。
             </summary>
         </member>
-        <member name="P:GameFramework.Event.IEventManager.Count">
+        <member name="P:GameFramework.Event.IEventManager.EventHandlerCount">
+            <summary>
+            获取事件处理函数的数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Event.IEventManager.EventCount">
             <summary>
             获取事件数量。
             </summary>
         </member>
+        <member name="M:GameFramework.Event.IEventManager.Count(System.Int32)">
+            <summary>
+            获取事件处理函数的数量。
+            </summary>
+            <param name="id">事件类型编号。</param>
+            <returns>事件处理函数的数量。</returns>
+        </member>
         <member name="M:GameFramework.Event.IEventManager.Check(System.Int32,System.EventHandler{GameFramework.Event.GameEventArgs})">
             <summary>
-            检查订阅事件处理函数。
+            检查是否存在事件处理函数。
             </summary>
             <param name="id">事件类型编号。</param>
             <param name="handler">要检查的事件处理函数。</param>

@@ -255,7 +255,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     return string.Empty;
                 }
 
-                return string.Format("{0}/Working/", OutputDirectory);
+                return new DirectoryInfo(string.Format("{0}/Working/", OutputDirectory)).FullName;
             }
         }
 
@@ -268,7 +268,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     return string.Empty;
                 }
 
-                return string.Format("{0}/Package/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString());
+                return new DirectoryInfo(string.Format("{0}/Package/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName;
             }
         }
 
@@ -281,7 +281,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     return string.Empty;
                 }
 
-                return string.Format("{0}/Full/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString());
+                return new DirectoryInfo(string.Format("{0}/Full/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName;
             }
         }
 
@@ -294,7 +294,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     return string.Empty;
                 }
 
-                return string.Format("{0}/Packed/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString());
+                return new DirectoryInfo(string.Format("{0}/Packed/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName;
             }
         }
 
@@ -307,7 +307,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     return string.Empty;
                 }
 
-                return string.Format("{0}/BuildReport/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString());
+                return new DirectoryInfo(string.Format("{0}/BuildReport/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName;
             }
         }
 
@@ -768,7 +768,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
             if (Directory.Exists(workingPath))
             {
-                Uri workingUri = new Uri(workingPath, UriKind.RelativeOrAbsolute);
+                Uri workingUri = new Uri(workingPath, UriKind.Absolute);
                 string[] fileNames = Directory.GetFiles(workingPath, "*", SearchOption.AllDirectories);
                 foreach (string fileName in fileNames)
                 {
@@ -777,7 +777,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                         continue;
                     }
 
-                    string relativeName = workingUri.MakeRelativeUri(new Uri(fileName)).ToString();
+                    string relativeName = workingUri.MakeRelativeUri(new Uri(fileName, UriKind.Absolute)).ToString();
                     if (!validNames.Contains(relativeName))
                     {
                         File.Delete(fileName);

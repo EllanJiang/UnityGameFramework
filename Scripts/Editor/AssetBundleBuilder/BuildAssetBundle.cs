@@ -114,7 +114,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
             if (!controller.IsValidOutputDirectory)
             {
-                throw new GameFrameworkException(string.Format("Output directory '{0}' is invalid.", controller.OutputDirectory));
+                throw new GameFrameworkException(Utility.Text.Format("Output directory '{0}' is invalid.", controller.OutputDirectory));
             }
 
             if (!controller.BuildAssetBundles())

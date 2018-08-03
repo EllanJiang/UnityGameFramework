@@ -308,10 +308,10 @@ namespace UnityGameFramework.Runtime
                     }
                     m_LockScroll = GUILayout.Toggle(m_LockScroll, "Lock Scroll", GUILayout.Width(90f));
                     GUILayout.FlexibleSpace();
-                    m_InfoFilter = GUILayout.Toggle(m_InfoFilter, string.Format("Info ({0})", m_InfoCount.ToString()), GUILayout.Width(90f));
-                    m_WarningFilter = GUILayout.Toggle(m_WarningFilter, string.Format("Warning ({0})", m_WarningCount.ToString()), GUILayout.Width(90f));
-                    m_ErrorFilter = GUILayout.Toggle(m_ErrorFilter, string.Format("Error ({0})", m_ErrorCount.ToString()), GUILayout.Width(90f));
-                    m_FatalFilter = GUILayout.Toggle(m_FatalFilter, string.Format("Fatal ({0})", m_FatalCount.ToString()), GUILayout.Width(90f));
+                    m_InfoFilter = GUILayout.Toggle(m_InfoFilter, Utility.Text.Format("Info ({0})", m_InfoCount.ToString()), GUILayout.Width(90f));
+                    m_WarningFilter = GUILayout.Toggle(m_WarningFilter, Utility.Text.Format("Warning ({0})", m_WarningCount.ToString()), GUILayout.Width(90f));
+                    m_ErrorFilter = GUILayout.Toggle(m_ErrorFilter, Utility.Text.Format("Error ({0})", m_ErrorCount.ToString()), GUILayout.Width(90f));
+                    m_FatalFilter = GUILayout.Toggle(m_FatalFilter, Utility.Text.Format("Fatal ({0})", m_FatalCount.ToString()), GUILayout.Width(90f));
                 }
                 GUILayout.EndHorizontal();
 
@@ -381,11 +381,11 @@ namespace UnityGameFramework.Runtime
                         {
                             GUILayout.BeginHorizontal();
                             Color32 color = GetLogStringColor(m_SelectedNode.Value.LogType);
-                            GUILayout.Label(string.Format("<color=#{0}{1}{2}{3}><b>{4}</b></color>", color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"), m_SelectedNode.Value.LogMessage));
+                            GUILayout.Label(Utility.Text.Format("<color=#{0}{1}{2}{3}><b>{4}</b></color>", color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"), m_SelectedNode.Value.LogMessage));
                             if (GUILayout.Button("COPY", GUILayout.Width(60f), GUILayout.Height(30f)))
                             {
                                 TextEditor textEditor = new TextEditor();
-                                textEditor.text = string.Format("{0}\n\n{1}", m_SelectedNode.Value.LogMessage, m_SelectedNode.Value.StackTrack);
+                                textEditor.text = Utility.Text.Format("{0}\n\n{1}", m_SelectedNode.Value.LogMessage, m_SelectedNode.Value.StackTrack);
                                 textEditor.OnFocus();
                                 textEditor.Copy();
                             }
@@ -446,7 +446,7 @@ namespace UnityGameFramework.Runtime
             private string GetLogString(LogNode logNode)
             {
                 Color32 color = GetLogStringColor(logNode.LogType);
-                return string.Format("<color=#{0}{1}{2}{3}>{4}{5}</color>",
+                return Utility.Text.Format("<color=#{0}{1}{2}{3}>{4}{5}</color>",
                     color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"),
                     logNode.LogTime.ToString(m_DateTimeFormat), logNode.LogMessage);
             }

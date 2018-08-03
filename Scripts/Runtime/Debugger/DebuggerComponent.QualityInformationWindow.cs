@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -88,8 +89,8 @@ namespace UnityGameFramework.Runtime
                     DrawItem("LOD Bias:", QualitySettings.lodBias.ToString());
                     DrawItem("Maximum LOD Level:", QualitySettings.maximumLODLevel.ToString());
                     DrawItem("Particle Raycast Budget:", QualitySettings.particleRaycastBudget.ToString());
-                    DrawItem("Async Upload Time Slice:", string.Format("{0} ms", QualitySettings.asyncUploadTimeSlice.ToString()));
-                    DrawItem("Async Upload Buffer Size:", string.Format("{0} MB", QualitySettings.asyncUploadBufferSize.ToString()));
+                    DrawItem("Async Upload Time Slice:", Utility.Text.Format("{0} ms", QualitySettings.asyncUploadTimeSlice.ToString()));
+                    DrawItem("Async Upload Buffer Size:", Utility.Text.Format("{0} MB", QualitySettings.asyncUploadBufferSize.ToString()));
 #if UNITY_5_5_OR_NEWER
                     DrawItem("Soft Particles:", QualitySettings.softParticles.ToString());
 #endif

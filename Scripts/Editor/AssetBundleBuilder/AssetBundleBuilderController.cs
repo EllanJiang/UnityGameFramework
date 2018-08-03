@@ -255,7 +255,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     return string.Empty;
                 }
 
-                return new DirectoryInfo(string.Format("{0}/Working/", OutputDirectory)).FullName;
+                return new DirectoryInfo(Utility.Text.Format("{0}/Working/", OutputDirectory)).FullName;
             }
         }
 
@@ -268,7 +268,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     return string.Empty;
                 }
 
-                return new DirectoryInfo(string.Format("{0}/Package/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName;
+                return new DirectoryInfo(Utility.Text.Format("{0}/Package/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName;
             }
         }
 
@@ -281,7 +281,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     return string.Empty;
                 }
 
-                return new DirectoryInfo(string.Format("{0}/Full/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName;
+                return new DirectoryInfo(Utility.Text.Format("{0}/Full/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName;
             }
         }
 
@@ -294,7 +294,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     return string.Empty;
                 }
 
-                return new DirectoryInfo(string.Format("{0}/Packed/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName;
+                return new DirectoryInfo(Utility.Text.Format("{0}/Packed/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName;
             }
         }
 
@@ -307,7 +307,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     return string.Empty;
                 }
 
-                return new DirectoryInfo(string.Format("{0}/BuildReport/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName;
+                return new DirectoryInfo(Utility.Text.Format("{0}/BuildReport/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName;
             }
         }
 
@@ -722,7 +722,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
             catch (Exception exception)
             {
-                m_BuildReport.LogFatal(string.Format("{0}\n{1}", exception.Message, exception.StackTrace));
+                m_BuildReport.LogFatal(Utility.Text.Format("{0}\n{1}", exception.Message, exception.StackTrace));
                 m_BuildReport.SaveReport();
                 if (BuildAssetBundlesError != null)
                 {
@@ -743,18 +743,18 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             string platformName = platform.ToString();
             m_BuildReport.LogInfo("Start build AssetBundles for '{0}'...", platformName);
 
-            string workingPath = string.Format("{0}{1}/", WorkingPath, platformName);
+            string workingPath = Utility.Text.Format("{0}{1}/", WorkingPath, platformName);
             m_BuildReport.LogInfo("Working path is '{0}'.", workingPath);
 
-            string outputPackagePath = string.Format("{0}{1}/", OutputPackagePath, platformName);
+            string outputPackagePath = Utility.Text.Format("{0}{1}/", OutputPackagePath, platformName);
             Directory.CreateDirectory(outputPackagePath);
             m_BuildReport.LogInfo("Output package path is '{0}'.", outputPackagePath);
 
-            string outputFullPath = string.Format("{0}{1}/", OutputFullPath, platformName);
+            string outputFullPath = Utility.Text.Format("{0}{1}/", OutputFullPath, platformName);
             Directory.CreateDirectory(outputFullPath);
             m_BuildReport.LogInfo("Output full path is '{0}'.", outputFullPath);
 
-            string outputPackedPath = string.Format("{0}{1}/", OutputPackedPath, platformName);
+            string outputPackedPath = Utility.Text.Format("{0}{1}/", OutputPackedPath, platformName);
             Directory.CreateDirectory(outputPackedPath);
             m_BuildReport.LogInfo("Output packed path is '{0}'.", outputPackedPath);
 
@@ -976,7 +976,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                         byte[] nameBytes = GetXorBytes(Utility.Converter.GetBytes(assetBundleData.Name), encryptBytes);
                         if (nameBytes.Length > byte.MaxValue)
                         {
-                            throw new GameFrameworkException(string.Format("AssetBundle name '{0}' is too long.", assetBundleData.Name));
+                            throw new GameFrameworkException(Utility.Text.Format("AssetBundle name '{0}' is too long.", assetBundleData.Name));
                         }
 
                         binaryWriter.Write((byte)nameBytes.Length);
@@ -991,7 +991,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                             byte[] variantBytes = GetXorBytes(Utility.Converter.GetBytes(assetBundleData.Variant), encryptBytes);
                             if (variantBytes.Length > byte.MaxValue)
                             {
-                                throw new GameFrameworkException(string.Format("AssetBundle variant '{0}' is too long.", assetBundleData.Variant));
+                                throw new GameFrameworkException(Utility.Text.Format("AssetBundle variant '{0}' is too long.", assetBundleData.Variant));
                             }
 
                             binaryWriter.Write((byte)variantBytes.Length);
@@ -1010,7 +1010,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                             byte[] assetNameBytes = GetXorBytes(Utility.Converter.GetBytes(assetName), Utility.Converter.GetBytes(assetBundleCode.HashCode));
                             if (assetNameBytes.Length > byte.MaxValue)
                             {
-                                throw new GameFrameworkException(string.Format("Asset name '{0}' is too long.", assetName));
+                                throw new GameFrameworkException(Utility.Text.Format("Asset name '{0}' is too long.", assetName));
                             }
 
                             binaryWriter.Write((byte)assetNameBytes.Length);
@@ -1024,7 +1024,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                                 byte[] dependencyAssetNameBytes = GetXorBytes(Utility.Converter.GetBytes(dependencyAssetName), Utility.Converter.GetBytes(assetBundleCode.HashCode));
                                 if (dependencyAssetNameBytes.Length > byte.MaxValue)
                                 {
-                                    throw new GameFrameworkException(string.Format("Dependency asset name '{0}' is too long.", dependencyAssetName));
+                                    throw new GameFrameworkException(Utility.Text.Format("Dependency asset name '{0}' is too long.", dependencyAssetName));
                                 }
 
                                 binaryWriter.Write((byte)dependencyAssetNameBytes.Length);
@@ -1073,7 +1073,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                         byte[] nameBytes = GetXorBytes(Utility.Converter.GetBytes(assetBundleData.Name), encryptBytes);
                         if (nameBytes.Length > byte.MaxValue)
                         {
-                            throw new GameFrameworkException(string.Format("AssetBundle name '{0}' is too long.", assetBundleData.Name));
+                            throw new GameFrameworkException(Utility.Text.Format("AssetBundle name '{0}' is too long.", assetBundleData.Name));
                         }
 
                         binaryWriter.Write((byte)nameBytes.Length);
@@ -1088,7 +1088,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                             byte[] variantBytes = GetXorBytes(Utility.Converter.GetBytes(assetBundleData.Variant), encryptBytes);
                             if (variantBytes.Length > byte.MaxValue)
                             {
-                                throw new GameFrameworkException(string.Format("AssetBundle variant '{0}' is too long.", assetBundleData.Variant));
+                                throw new GameFrameworkException(Utility.Text.Format("AssetBundle variant '{0}' is too long.", assetBundleData.Variant));
                             }
 
                             binaryWriter.Write((byte)variantBytes.Length);
@@ -1109,7 +1109,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                             byte[] assetNameBytes = GetXorBytes(Utility.Converter.GetBytes(assetName), Utility.Converter.GetBytes(assetBundleCode.HashCode));
                             if (assetNameBytes.Length > byte.MaxValue)
                             {
-                                throw new GameFrameworkException(string.Format("Asset name '{0}' is too long.", assetName));
+                                throw new GameFrameworkException(Utility.Text.Format("Asset name '{0}' is too long.", assetName));
                             }
 
                             binaryWriter.Write((byte)assetNameBytes.Length);
@@ -1123,7 +1123,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                                 byte[] dependencyAssetNameBytes = GetXorBytes(Utility.Converter.GetBytes(dependencyAssetName), Utility.Converter.GetBytes(assetBundleCode.HashCode));
                                 if (dependencyAssetNameBytes.Length > byte.MaxValue)
                                 {
-                                    throw new GameFrameworkException(string.Format("Dependency asset name '{0}' is too long.", dependencyAssetName));
+                                    throw new GameFrameworkException(Utility.Text.Format("Dependency asset name '{0}' is too long.", dependencyAssetName));
                                 }
 
                                 binaryWriter.Write((byte)dependencyAssetNameBytes.Length);
@@ -1185,7 +1185,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                         byte[] nameBytes = GetXorBytes(Utility.Converter.GetBytes(assetBundleData.Name), encryptBytes);
                         if (nameBytes.Length > byte.MaxValue)
                         {
-                            throw new GameFrameworkException(string.Format("AssetBundle name '{0}' is too long.", assetBundleData.Name));
+                            throw new GameFrameworkException(Utility.Text.Format("AssetBundle name '{0}' is too long.", assetBundleData.Name));
                         }
 
                         binaryWriter.Write((byte)nameBytes.Length);
@@ -1200,7 +1200,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                             byte[] variantBytes = GetXorBytes(Utility.Converter.GetBytes(assetBundleData.Variant), encryptBytes);
                             if (variantBytes.Length > byte.MaxValue)
                             {
-                                throw new GameFrameworkException(string.Format("AssetBundle variant '{0}' is too long.", assetBundleData.Variant));
+                                throw new GameFrameworkException(Utility.Text.Format("AssetBundle variant '{0}' is too long.", assetBundleData.Variant));
                             }
 
                             binaryWriter.Write((byte)variantBytes.Length);
@@ -1222,7 +1222,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
         private void ProcessRecord(string outputRecordPath)
         {
-            string recordPath = Utility.Path.GetCombinePath(outputRecordPath, string.Format("{0}_{1}.xml", RecordName, ApplicableGameVersion.Replace('.', '_')));
+            string recordPath = Utility.Path.GetCombinePath(outputRecordPath, Utility.Text.Format("{0}_{1}.xml", RecordName, ApplicableGameVersion.Replace('.', '_')));
 
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.AppendChild(xmlDocument.CreateXmlDeclaration("1.0", "UTF-8", null));
@@ -1374,7 +1374,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
         private string GetAssetBundleFullName(string assetBundleName, string assetBundleVariant)
         {
-            return (!string.IsNullOrEmpty(assetBundleVariant) ? string.Format("{0}.{1}", assetBundleName, assetBundleVariant) : assetBundleName).ToLower();
+            return (!string.IsNullOrEmpty(assetBundleVariant) ? Utility.Text.Format("{0}.{1}", assetBundleName, assetBundleVariant) : assetBundleName).ToLower();
         }
 
         private BuildTarget GetBuildTarget(Platform platform)

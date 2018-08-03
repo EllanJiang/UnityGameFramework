@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -24,7 +25,7 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Device Vendor:", SystemInfo.graphicsDeviceVendor);
                     DrawItem("Device Type:", SystemInfo.graphicsDeviceType.ToString());
                     DrawItem("Device Version:", SystemInfo.graphicsDeviceVersion);
-                    DrawItem("Memory Size:", string.Format("{0} MB", SystemInfo.graphicsMemorySize.ToString()));
+                    DrawItem("Memory Size:", Utility.Text.Format("{0} MB", SystemInfo.graphicsMemorySize.ToString()));
                     DrawItem("Multi Threaded:", SystemInfo.graphicsMultiThreaded.ToString());
                     DrawItem("Shader Level:", GetShaderLevelString(SystemInfo.graphicsShaderLevel));
                     DrawItem("NPOT Support:", SystemInfo.npotSupport.ToString());
@@ -85,7 +86,7 @@ namespace UnityGameFramework.Runtime
 
             private string GetShaderLevelString(int shaderLevel)
             {
-                return string.Format("Shader Model {0}.{1}", (shaderLevel / 10).ToString(), (shaderLevel % 10).ToString());
+                return Utility.Text.Format("Shader Model {0}.{1}", (shaderLevel / 10).ToString(), (shaderLevel % 10).ToString());
             }
         }
     }

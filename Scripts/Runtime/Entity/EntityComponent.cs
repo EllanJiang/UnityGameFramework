@@ -139,7 +139,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            entityHelper.name = string.Format("Entity Helper");
+            entityHelper.name = "Entity Helper";
             Transform transform = entityHelper.transform;
             transform.SetParent(this.transform);
             transform.localScale = Vector3.one;
@@ -224,7 +224,7 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
-            entityGroupHelper.name = string.Format("Entity Group - {0}", entityGroupName);
+            entityGroupHelper.name = Utility.Text.Format("Entity Group - {0}", entityGroupName);
             Transform transform = entityGroupHelper.transform;
             transform.SetParent(m_InstanceRoot);
             transform.localScale = Vector3.one;

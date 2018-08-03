@@ -203,7 +203,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            uiFormHelper.name = string.Format("UI Form Helper");
+            uiFormHelper.name = "UI Form Helper";
             Transform transform = uiFormHelper.transform;
             transform.SetParent(this.transform);
             transform.localScale = Vector3.one;
@@ -297,7 +297,7 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
-            uiGroupHelper.name = string.Format("UI Group - {0}", uiGroupName);
+            uiGroupHelper.name = Utility.Text.Format("UI Group - {0}", uiGroupName);
             uiGroupHelper.gameObject.layer = LayerMask.NameToLayer("UI");
             Transform transform = uiGroupHelper.transform;
             transform.SetParent(m_InstanceRoot);

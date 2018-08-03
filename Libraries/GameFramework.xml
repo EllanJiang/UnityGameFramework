@@ -17282,7 +17282,7 @@
             </summary>
             <param name="format">字符串格式。</param>
             <param name="arg0">字符串参数 0。</param>
-            <returns></returns>
+            <returns>格式化后的字符串。</returns>
         </member>
         <member name="M:GameFramework.Utility.Text.Format(System.String,System.Object,System.Object)">
             <summary>
@@ -17291,7 +17291,7 @@
             <param name="format">字符串格式。</param>
             <param name="arg0">字符串参数 0。</param>
             <param name="arg1">字符串参数 1。</param>
-            <returns></returns>
+            <returns>格式化后的字符串。</returns>
         </member>
         <member name="M:GameFramework.Utility.Text.Format(System.String,System.Object,System.Object,System.Object)">
             <summary>
@@ -17301,7 +17301,7 @@
             <param name="arg0">字符串参数 0。</param>
             <param name="arg1">字符串参数 1。</param>
             <param name="arg2">字符串参数 2。</param>
-            <returns></returns>
+            <returns>格式化后的字符串。</returns>
         </member>
         <member name="M:GameFramework.Utility.Text.Format(System.String,System.Object[])">
             <summary>
@@ -17309,7 +17309,7 @@
             </summary>
             <param name="format">字符串格式。</param>
             <param name="args">字符串参数。</param>
-            <returns></returns>
+            <returns>格式化后的字符串。</returns>
         </member>
         <member name="M:GameFramework.Utility.Text.SplitToLines(System.String)">
             <summary>

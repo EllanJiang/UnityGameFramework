@@ -20,8 +20,8 @@ namespace UnityGameFramework.Runtime
                 GUILayout.BeginVertical("box");
                 {
                     DrawItem("Current Resolution", GetResolutionString(Screen.currentResolution));
-                    DrawItem("Screen Width", string.Format("{0} px / {1} in / {2} cm", Screen.width.ToString(), Utility.Converter.GetInchesFromPixels(Screen.width).ToString("F2"), Utility.Converter.GetCentimetersFromPixels(Screen.width).ToString("F2")));
-                    DrawItem("Screen Height", string.Format("{0} px / {1} in / {2} cm", Screen.height.ToString(), Utility.Converter.GetInchesFromPixels(Screen.height).ToString("F2"), Utility.Converter.GetCentimetersFromPixels(Screen.height).ToString("F2")));
+                    DrawItem("Screen Width", Utility.Text.Format("{0} px / {1} in / {2} cm", Screen.width.ToString(), Utility.Converter.GetInchesFromPixels(Screen.width).ToString("F2"), Utility.Converter.GetCentimetersFromPixels(Screen.width).ToString("F2")));
+                    DrawItem("Screen Height", Utility.Text.Format("{0} px / {1} in / {2} cm", Screen.height.ToString(), Utility.Converter.GetInchesFromPixels(Screen.height).ToString("F2"), Utility.Converter.GetCentimetersFromPixels(Screen.height).ToString("F2")));
                     DrawItem("Screen DPI", Screen.dpi.ToString("F2"));
                     DrawItem("Screen Orientation", Screen.orientation.ToString());
                     DrawItem("Is Full Screen", Screen.fullScreen.ToString());
@@ -60,7 +60,7 @@ namespace UnityGameFramework.Runtime
 
             private string GetResolutionString(Resolution resolution)
             {
-                return string.Format("{0} x {1} @ {2}Hz", resolution.width.ToString(), resolution.height.ToString(), resolution.refreshRate.ToString());
+                return Utility.Text.Format("{0} x {1} @ {2}Hz", resolution.width.ToString(), resolution.height.ToString(), resolution.refreshRate.ToString());
             }
 
             private string GetResolutionsString(Resolution[] resolutions)

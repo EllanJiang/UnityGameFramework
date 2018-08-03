@@ -44,7 +44,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         {
             get
             {
-                return Folder == null ? string.Empty : (Folder.Folder == null ? Name : string.Format("{0}/{1}", Folder.FromRootPath, Name));
+                return Folder == null ? string.Empty : (Folder.Folder == null ? Name : Utility.Text.Format("{0}/{1}", Folder.FromRootPath, Name));
             }
         }
 
@@ -160,7 +160,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             SourceAsset asset = GetAsset(name);
             if (asset != null)
             {
-                throw new GameFrameworkException(string.Format("Source asset '{0}' is already exist.", name));
+                throw new GameFrameworkException(Utility.Text.Format("Source asset '{0}' is already exist.", name));
             }
 
             asset = new SourceAsset(guid, path, name, this);

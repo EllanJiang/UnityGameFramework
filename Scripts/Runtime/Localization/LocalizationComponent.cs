@@ -131,7 +131,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            localizationHelper.name = string.Format("Localization Helper");
+            localizationHelper.name = "Localization Helper";
             Transform transform = localizationHelper.transform;
             transform.SetParent(this.transform);
             transform.localScale = Vector3.one;

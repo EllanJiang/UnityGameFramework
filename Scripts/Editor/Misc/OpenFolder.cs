@@ -55,7 +55,7 @@ namespace UnityGameFramework.Editor
 
         private static void InternalOpenFolder(string folder)
         {
-            folder = string.Format("\"{0}\"", folder);
+            folder = Utility.Text.Format("\"{0}\"", folder);
             switch (Application.platform)
             {
                 case RuntimePlatform.WindowsEditor:
@@ -65,7 +65,7 @@ namespace UnityGameFramework.Editor
                     Process.Start("open", folder);
                     break;
                 default:
-                    throw new GameFrameworkException(string.Format("Not support open folder on '{0}' platform.", Application.platform.ToString()));
+                    throw new GameFrameworkException(Utility.Text.Format("Not support open folder on '{0}' platform.", Application.platform.ToString()));
             }
         }
     }

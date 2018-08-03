@@ -512,7 +512,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_ResourceHelper.name = string.Format("Resource Helper");
+            m_ResourceHelper.name = "Resource Helper";
             Transform transform = m_ResourceHelper.transform;
             transform.SetParent(this.transform);
             transform.localScale = Vector3.one;
@@ -838,7 +838,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            loadResourceAgentHelper.name = string.Format("Load Resource Agent Helper - {0}", index.ToString());
+            loadResourceAgentHelper.name = Utility.Text.Format("Load Resource Agent Helper - {0}", index.ToString());
             Transform transform = loadResourceAgentHelper.transform;
             transform.SetParent(m_InstanceRoot);
             transform.localScale = Vector3.one;

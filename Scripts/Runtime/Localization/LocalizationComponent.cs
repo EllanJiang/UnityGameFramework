@@ -215,6 +215,52 @@ namespace UnityGameFramework.Runtime
         /// 根据字典主键获取字典内容字符串。
         /// </summary>
         /// <param name="key">字典主键。</param>
+        /// <returns>要获取的字典内容字符串。</returns>
+        public string GetString(string key)
+        {
+            return m_LocalizationManager.GetString(key);
+        }
+
+        /// <summary>
+        /// 根据字典主键获取字典内容字符串。
+        /// </summary>
+        /// <param name="key">字典主键。</param>
+        /// <param name="arg0">字典参数 0。</param>
+        /// <returns>要获取的字典内容字符串。</returns>
+        public string GetString(string key, object arg0)
+        {
+            return m_LocalizationManager.GetString(key, arg0);
+        }
+
+        /// <summary>
+        /// 根据字典主键获取字典内容字符串。
+        /// </summary>
+        /// <param name="key">字典主键。</param>
+        /// <param name="arg0">字典参数 0。</param>
+        /// <param name="arg1">字典参数 1。</param>
+        /// <returns>要获取的字典内容字符串。</returns>
+        public string GetString(string key, object arg0, object arg1)
+        {
+            return m_LocalizationManager.GetString(key, arg0, arg1);
+        }
+
+        /// <summary>
+        /// 根据字典主键获取字典内容字符串。
+        /// </summary>
+        /// <param name="key">字典主键。</param>
+        /// <param name="arg0">字典参数 0。</param>
+        /// <param name="arg1">字典参数 1。</param>
+        /// <param name="arg2">字典参数 2。</param>
+        /// <returns>要获取的字典内容字符串。</returns>
+        public string GetString(string key, object arg0, object arg1, object arg2)
+        {
+            return m_LocalizationManager.GetString(key, arg0, arg1, arg2);
+        }
+
+        /// <summary>
+        /// 根据字典主键获取字典内容字符串。
+        /// </summary>
+        /// <param name="key">字典主键。</param>
         /// <param name="args">字典参数。</param>
         /// <returns>要获取的字典内容字符串。</returns>
         public string GetString(string key, params object[] args)

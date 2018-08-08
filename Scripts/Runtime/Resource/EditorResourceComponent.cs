@@ -11,6 +11,7 @@ using GameFramework.ObjectPool;
 using GameFramework.Resource;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,6 +24,7 @@ namespace UnityGameFramework.Runtime
     public sealed class EditorResourceComponent : MonoBehaviour, IResourceManager
     {
         private const int DefaultPriority = 0;
+        private static readonly int AssetsSubstringLength = "Assets/".Length;
 
         [SerializeField]
         private float m_MinLoadAssetRandomDelaySeconds = 0f;
@@ -788,6 +790,12 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
+            if (!ExistsFile(assetName))
+            {
+                Log.Error("Asset '{0}' is not exist.", assetName);
+                return;
+            }
+
             m_LoadAssetInfos.AddLast(new LoadAssetInfo(assetName, assetType, priority, DateTime.Now, m_MinLoadAssetRandomDelaySeconds + (float)Utility.Random.GetRandomDouble() * (m_MaxLoadAssetRandomDelaySeconds - m_MinLoadAssetRandomDelaySeconds), loadAssetCallbacks, userData));
         }
 
@@ -853,6 +861,12 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
+            if (!ExistsFile(sceneAssetName))
+            {
+                Log.Error("Scene '{0}' is not exist.", sceneAssetName);
+                return;
+            }
+
 #if UNITY_5_5_OR_NEWER
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneAssetName, LoadSceneMode.Additive);
 #else
@@ -893,6 +907,12 @@ namespace UnityGameFramework.Runtime
             if (unloadSceneCallbacks == null)
             {
                 Log.Error("Unload scene callbacks is invalid.");
+                return;
+            }
+
+            if (!ExistsFile(sceneAssetName))
+            {
+                Log.Error("Scene '{0}' is not exist.", sceneAssetName);
                 return;
             }
 
@@ -974,6 +994,47 @@ namespace UnityGameFramework.Runtime
         public float GetResourceGroupProgress(string resourceGroupName)
         {
             throw new NotSupportedException("GetResourceGroupProgress");
+        }
+
+        private bool ExistsFile(string assetName)
+        {
+            if (string.IsNullOrEmpty(assetName))
+            {
+                return false;
+            }
+
+            string assetFullName = Utility.Path.GetCombinePath(Application.dataPath, assetName.Substring(AssetsSubstringLength));
+            string[] splitedAssetFullName = assetFullName.Split('/');
+            string currentPath = Path.GetPathRoot(assetFullName);
+            for (int i = 1; i < splitedAssetFullName.Length - 1; i++)
+            {
+                string[] directoryNames = Directory.GetDirectories(currentPath, splitedAssetFullName[i]);
+                if (directoryNames.Length != 1)
+                {
+                    return false;
+                }
+
+                currentPath = directoryNames[0];
+            }
+
+            string[] fileNames = Directory.GetFiles(currentPath, splitedAssetFullName[splitedAssetFullName.Length - 1]);
+            if (fileNames.Length != 1)
+            {
+                return false;
+            }
+
+            string fileFullName = Utility.Path.GetRegularPath(fileNames[0]);
+            if (assetFullName != fileFullName)
+            {
+                if (assetFullName.ToLower() == fileFullName.ToLower())
+                {
+                    Log.Warning("The real path of the specific asset '{0}' is '{1}'. Check the case of letters in the path.", assetName, "Assets" + fileFullName.Substring(Application.dataPath.Length));
+                }
+
+                return false;
+            }
+
+            return true;
         }
 
         private sealed class LoadAssetInfo

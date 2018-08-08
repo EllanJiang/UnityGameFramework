@@ -8295,17 +8295,6 @@
             </summary>
             <param name="disposing">释放资源标记。</param>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.ReceiveState.Dispose">
-            <summary>
-            释放资源。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.ReceiveState.Dispose(System.Boolean)">
-            <summary>
-            释放资源。
-            </summary>
-            <param name="disposing">释放资源标记。</param>
-        </member>
         <member name="T:GameFramework.Network.NetworkMissHeartBeatEventArgs">
             <summary>
             网络心跳包丢失事件。

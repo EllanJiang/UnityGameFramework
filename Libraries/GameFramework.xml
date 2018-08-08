@@ -7802,13 +7802,14 @@
             </summary>
             <returns>是否发送心跳消息包成功。</returns>
         </member>
-        <member name="M:GameFramework.Network.INetworkChannelHelper.Serialize``1(``0)">
+        <member name="M:GameFramework.Network.INetworkChannelHelper.Serialize``1(``0,System.IO.Stream)">
             <summary>
             序列化消息包。
             </summary>
             <typeparam name="T">消息包类型。</typeparam>
             <param name="packet">要序列化的消息包。</param>
-            <returns>序列化后的消息包字节流。</returns>
+            <param name="destination">要序列化的目标流。</param>
+            <returns>是否序列化成功。</returns>
         </member>
         <member name="M:GameFramework.Network.INetworkChannelHelper.DeserializePacketHeader(System.IO.Stream,System.Object@)">
             <summary>

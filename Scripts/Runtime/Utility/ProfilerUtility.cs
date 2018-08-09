@@ -19,6 +19,7 @@ namespace UnityGameFramework.Runtime
         /// 开始采样。
         /// </summary>
         /// <param name="name">采样名称。</param>
+        /// <remarks>仅在带有 ENABLE_PROFILER 预编译选项时生效。</remarks>
         [Conditional("ENABLE_PROFILER")]
         public static void BeginSample(string name)
         {
@@ -28,6 +29,7 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 结束采样。
         /// </summary>
+        /// <remarks>仅在带有 ENABLE_PROFILER 预编译选项时生效。</remarks>
         [Conditional("ENABLE_PROFILER")]
         public static void EndSample()
         {

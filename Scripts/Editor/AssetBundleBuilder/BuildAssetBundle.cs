@@ -19,7 +19,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         /// <summary>
         /// 运行生成资源包。
         /// </summary>
-        [MenuItem("Game Framework/AssetBundle Tools/Build AssetBundle", false, 30)]
+        [MenuItem("Game Framework/AssetBundle Tools/Build AssetBundle", false, 40)]
         public static void Run()
         {
             Run(null, Platform.Undefined, null, null);

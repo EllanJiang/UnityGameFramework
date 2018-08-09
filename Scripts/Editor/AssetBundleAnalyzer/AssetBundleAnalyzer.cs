@@ -47,7 +47,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         private string[][] m_CachedCircularDependencyDatas = null;
         private Vector2 m_CircularDependencyScroll = Vector2.zero;
 
-        [MenuItem("Game Framework/AssetBundle Tools/AssetBundle Analyzer", false, 33)]
+        [MenuItem("Game Framework/AssetBundle Tools/AssetBundle Analyzer", false, 43)]
         private static void Open()
         {
             AssetBundleAnalyzer window = GetWindow<AssetBundleAnalyzer>(true, "AssetBundle Analyzer", true);

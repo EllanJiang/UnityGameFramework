@@ -44,7 +44,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         private int m_CurrentAssetBundleRowOnDraw = 0;
         private int m_CurrentSourceRowOnDraw = 0;
 
-        [MenuItem("Game Framework/AssetBundle Tools/AssetBundle Editor", false, 32)]
+        [MenuItem("Game Framework/AssetBundle Tools/AssetBundle Editor", false, 42)]
         private static void Open()
         {
             AssetBundleEditor window = GetWindow<AssetBundleEditor>(true, "AssetBundle Editor", true);

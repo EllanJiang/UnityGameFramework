@@ -21,7 +21,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         private bool m_OrderBuildAssetBundles = false;
         private int m_BuildEventHandlerTypeNameIndex = 0;
 
-        [MenuItem("Game Framework/AssetBundle Tools/AssetBundle Builder", false, 31)]
+        [MenuItem("Game Framework/AssetBundle Tools/AssetBundle Builder", false, 41)]
         private static void Open()
         {
             AssetBundleBuilder window = GetWindow<AssetBundleBuilder>(true, "AssetBundle Builder", true);

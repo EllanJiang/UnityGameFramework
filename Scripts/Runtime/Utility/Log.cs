@@ -13,32 +13,32 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 日志工具集。
     /// </summary>
-    public static class LogUtility
+    public static class Log
     {
         /// <summary>
         /// 记录调试级别日志，用于记录调试类日志信息。
         /// </summary>
         /// <param name="message">日志内容。</param>
-        /// <remarks>仅在带有 ENABLE_LOG、ENABLE_DEBUG_LOG 或 ENABLE_DEBUG_AND_ABOVE_LOG 预编译选项，且 GameFramework.dll 带有 DEBUG 预编译选项时生效。</remarks>
+        /// <remarks>仅在带有 DEBUG 预编译选项且带有 ENABLE_LOG、ENABLE_DEBUG_LOG 或 ENABLE_DEBUG_AND_ABOVE_LOG 预编译选项时生效。</remarks>
         [Conditional("ENABLE_LOG")]
         [Conditional("ENABLE_DEBUG_LOG")]
         [Conditional("ENABLE_DEBUG_AND_ABOVE_LOG")]
         public static void Debug(object message)
         {
-            Log.Debug(message);
+            GameFrameworkLog.Debug(message);
         }
 
         /// <summary>
         /// 记录调试级别日志，用于记录调试类日志信息。
         /// </summary>
         /// <param name="message">日志内容。</param>
-        /// <remarks>仅在带有 ENABLE_LOG、ENABLE_DEBUG_LOG 或 ENABLE_DEBUG_AND_ABOVE_LOG 预编译选项，且 GameFramework.dll 带有 DEBUG 预编译选项时生效。</remarks>
+        /// <remarks>仅在带有 DEBUG 预编译选项且带有 ENABLE_LOG、ENABLE_DEBUG_LOG 或 ENABLE_DEBUG_AND_ABOVE_LOG 预编译选项时生效。</remarks>
         [Conditional("ENABLE_LOG")]
         [Conditional("ENABLE_DEBUG_LOG")]
         [Conditional("ENABLE_DEBUG_AND_ABOVE_LOG")]
         public static void Debug(string message)
         {
-            Log.Debug(message);
+            GameFrameworkLog.Debug(message);
         }
 
         /// <summary>
@@ -46,13 +46,13 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="format">日志格式。</param>
         /// <param name="arg0">日志参数 0。</param>
-        /// <remarks>仅在带有 ENABLE_LOG、ENABLE_DEBUG_LOG 或 ENABLE_DEBUG_AND_ABOVE_LOG 预编译选项，且 GameFramework.dll 带有 DEBUG 预编译选项时生效。</remarks>
+        /// <remarks>仅在带有 DEBUG 预编译选项且带有 ENABLE_LOG、ENABLE_DEBUG_LOG 或 ENABLE_DEBUG_AND_ABOVE_LOG 预编译选项时生效。</remarks>
         [Conditional("ENABLE_LOG")]
         [Conditional("ENABLE_DEBUG_LOG")]
         [Conditional("ENABLE_DEBUG_AND_ABOVE_LOG")]
         public static void Debug(string format, object arg0)
         {
-            Log.Debug(format, arg0);
+            GameFrameworkLog.Debug(format, arg0);
         }
 
         /// <summary>
@@ -61,13 +61,13 @@ namespace UnityGameFramework.Runtime
         /// <param name="format">日志格式。</param>
         /// <param name="arg0">日志参数 0。</param>
         /// <param name="arg1">日志参数 1。</param>
-        /// <remarks>仅在带有 ENABLE_LOG、ENABLE_DEBUG_LOG 或 ENABLE_DEBUG_AND_ABOVE_LOG 预编译选项，且 GameFramework.dll 带有 DEBUG 预编译选项时生效。</remarks>
+        /// <remarks>仅在带有 DEBUG 预编译选项且带有 ENABLE_LOG、ENABLE_DEBUG_LOG 或 ENABLE_DEBUG_AND_ABOVE_LOG 预编译选项时生效。</remarks>
         [Conditional("ENABLE_LOG")]
         [Conditional("ENABLE_DEBUG_LOG")]
         [Conditional("ENABLE_DEBUG_AND_ABOVE_LOG")]
         public static void Debug(string format, object arg0, object arg1)
         {
-            Log.Debug(format, arg0, arg1);
+            GameFrameworkLog.Debug(format, arg0, arg1);
         }
 
         /// <summary>
@@ -77,13 +77,13 @@ namespace UnityGameFramework.Runtime
         /// <param name="arg0">日志参数 0。</param>
         /// <param name="arg1">日志参数 1。</param>
         /// <param name="arg2">日志参数 2。</param>
-        /// <remarks>仅在带有 ENABLE_LOG、ENABLE_DEBUG_LOG 或 ENABLE_DEBUG_AND_ABOVE_LOG 预编译选项，且 GameFramework.dll 带有 DEBUG 预编译选项时生效。</remarks>
+        /// <remarks>仅在带有 DEBUG 预编译选项且带有 ENABLE_LOG、ENABLE_DEBUG_LOG 或 ENABLE_DEBUG_AND_ABOVE_LOG 预编译选项时生效。</remarks>
         [Conditional("ENABLE_LOG")]
         [Conditional("ENABLE_DEBUG_LOG")]
         [Conditional("ENABLE_DEBUG_AND_ABOVE_LOG")]
         public static void Debug(string format, object arg0, object arg1, object arg2)
         {
-            Log.Debug(format, arg0, arg1, arg2);
+            GameFrameworkLog.Debug(format, arg0, arg1, arg2);
         }
 
         /// <summary>
@@ -91,13 +91,13 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="format">日志格式。</param>
         /// <param name="args">日志参数。</param>
-        /// <remarks>仅在带有 ENABLE_LOG、ENABLE_DEBUG_LOG 或 ENABLE_DEBUG_AND_ABOVE_LOG 预编译选项，且 GameFramework.dll 带有 DEBUG 预编译选项时生效。</remarks>
+        /// <remarks>仅在带有 DEBUG 预编译选项且带有 ENABLE_LOG、ENABLE_DEBUG_LOG 或 ENABLE_DEBUG_AND_ABOVE_LOG 预编译选项时生效。</remarks>
         [Conditional("ENABLE_LOG")]
         [Conditional("ENABLE_DEBUG_LOG")]
         [Conditional("ENABLE_DEBUG_AND_ABOVE_LOG")]
         public static void Debug(string format, params object[] args)
         {
-            Log.Debug(format, args);
+            GameFrameworkLog.Debug(format, args);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_INFO_AND_ABOVE_LOG")]
         public static void Info(object message)
         {
-            Log.Info(message);
+            GameFrameworkLog.Info(message);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_INFO_AND_ABOVE_LOG")]
         public static void Info(string message)
         {
-            Log.Info(message);
+            GameFrameworkLog.Info(message);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_INFO_AND_ABOVE_LOG")]
         public static void Info(string format, object arg0)
         {
-            Log.Info(format, arg0);
+            GameFrameworkLog.Info(format, arg0);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_INFO_AND_ABOVE_LOG")]
         public static void Info(string format, object arg0, object arg1)
         {
-            Log.Info(format, arg0, arg1);
+            GameFrameworkLog.Info(format, arg0, arg1);
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_INFO_AND_ABOVE_LOG")]
         public static void Info(string format, object arg0, object arg1, object arg2)
         {
-            Log.Info(format, arg0, arg1, arg2);
+            GameFrameworkLog.Info(format, arg0, arg1, arg2);
         }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_INFO_AND_ABOVE_LOG")]
         public static void Info(string format, params object[] args)
         {
-            Log.Info(format, args);
+            GameFrameworkLog.Info(format, args);
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_WARNING_AND_ABOVE_LOG")]
         public static void Warning(object message)
         {
-            Log.Warning(message);
+            GameFrameworkLog.Warning(message);
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_WARNING_AND_ABOVE_LOG")]
         public static void Warning(string message)
         {
-            Log.Warning(message);
+            GameFrameworkLog.Warning(message);
         }
 
         /// <summary>
@@ -234,7 +234,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_WARNING_AND_ABOVE_LOG")]
         public static void Warning(string format, object arg0)
         {
-            Log.Warning(format, arg0);
+            GameFrameworkLog.Warning(format, arg0);
         }
 
         /// <summary>
@@ -251,7 +251,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_WARNING_AND_ABOVE_LOG")]
         public static void Warning(string format, object arg0, object arg1)
         {
-            Log.Warning(format, arg0, arg1);
+            GameFrameworkLog.Warning(format, arg0, arg1);
         }
 
         /// <summary>
@@ -269,7 +269,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_WARNING_AND_ABOVE_LOG")]
         public static void Warning(string format, object arg0, object arg1, object arg2)
         {
-            Log.Warning(format, arg0, arg1, arg2);
+            GameFrameworkLog.Warning(format, arg0, arg1, arg2);
         }
 
         /// <summary>
@@ -285,7 +285,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_WARNING_AND_ABOVE_LOG")]
         public static void Warning(string format, params object[] args)
         {
-            Log.Warning(format, args);
+            GameFrameworkLog.Warning(format, args);
         }
 
         /// <summary>
@@ -301,7 +301,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_ERROR_AND_ABOVE_LOG")]
         public static void Error(object message)
         {
-            Log.Error(message);
+            GameFrameworkLog.Error(message);
         }
 
         /// <summary>
@@ -317,7 +317,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_ERROR_AND_ABOVE_LOG")]
         public static void Error(string message)
         {
-            Log.Error(message);
+            GameFrameworkLog.Error(message);
         }
 
         /// <summary>
@@ -334,7 +334,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_ERROR_AND_ABOVE_LOG")]
         public static void Error(string format, object arg0)
         {
-            Log.Error(format, arg0);
+            GameFrameworkLog.Error(format, arg0);
         }
 
         /// <summary>
@@ -352,7 +352,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_ERROR_AND_ABOVE_LOG")]
         public static void Error(string format, object arg0, object arg1)
         {
-            Log.Error(format, arg0, arg1);
+            GameFrameworkLog.Error(format, arg0, arg1);
         }
 
         /// <summary>
@@ -371,7 +371,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_ERROR_AND_ABOVE_LOG")]
         public static void Error(string format, object arg0, object arg1, object arg2)
         {
-            Log.Error(format, arg0, arg1, arg2);
+            GameFrameworkLog.Error(format, arg0, arg1, arg2);
         }
 
         /// <summary>
@@ -388,7 +388,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_ERROR_AND_ABOVE_LOG")]
         public static void Error(string format, params object[] args)
         {
-            Log.Error(format, args);
+            GameFrameworkLog.Error(format, args);
         }
 
         /// <summary>
@@ -405,7 +405,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_FATAL_AND_ABOVE_LOG")]
         public static void Fatal(object message)
         {
-            Log.Fatal(message);
+            GameFrameworkLog.Fatal(message);
         }
 
         /// <summary>
@@ -422,7 +422,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_FATAL_AND_ABOVE_LOG")]
         public static void Fatal(string message)
         {
-            Log.Fatal(message);
+            GameFrameworkLog.Fatal(message);
         }
 
         /// <summary>
@@ -440,7 +440,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_FATAL_AND_ABOVE_LOG")]
         public static void Fatal(string format, object arg0)
         {
-            Log.Fatal(format, arg0);
+            GameFrameworkLog.Fatal(format, arg0);
         }
 
         /// <summary>
@@ -459,7 +459,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_FATAL_AND_ABOVE_LOG")]
         public static void Fatal(string format, object arg0, object arg1)
         {
-            Log.Fatal(format, arg0, arg1);
+            GameFrameworkLog.Fatal(format, arg0, arg1);
         }
 
         /// <summary>
@@ -479,7 +479,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_FATAL_AND_ABOVE_LOG")]
         public static void Fatal(string format, object arg0, object arg1, object arg2)
         {
-            Log.Fatal(format, arg0, arg1, arg2);
+            GameFrameworkLog.Fatal(format, arg0, arg1, arg2);
         }
 
         /// <summary>
@@ -497,7 +497,7 @@ namespace UnityGameFramework.Runtime
         [Conditional("ENABLE_FATAL_AND_ABOVE_LOG")]
         public static void Fatal(string format, params object[] args)
         {
-            Log.Fatal(format, args);
+            GameFrameworkLog.Fatal(format, args);
         }
     }
 }

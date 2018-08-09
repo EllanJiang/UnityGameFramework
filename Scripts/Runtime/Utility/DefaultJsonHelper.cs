@@ -12,7 +12,7 @@ using UnityEngine;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// JSON 函数集辅助器。
+    /// 默认 JSON 函数集辅助器。
     /// </summary>
     public class DefaultJsonHelper : Utility.Json.IJsonHelper
     {

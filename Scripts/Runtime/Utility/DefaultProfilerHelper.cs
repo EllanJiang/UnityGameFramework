@@ -11,7 +11,7 @@ using System.Threading;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// 性能分析辅助器。
+    /// 默认性能分析辅助器。
     /// </summary>
     public class DefaultProfilerHelper : Utility.Profiler.IProfilerHelper
     {

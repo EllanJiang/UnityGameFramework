@@ -12,7 +12,7 @@ using System.IO;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// 压缩解压缩辅助器。
+    /// 默认压缩解压缩辅助器。
     /// </summary>
     public class DefaultZipHelper : Utility.Zip.IZipHelper
     {

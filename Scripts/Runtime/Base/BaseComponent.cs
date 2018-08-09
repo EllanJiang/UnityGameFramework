@@ -321,13 +321,13 @@ namespace UnityGameFramework.Runtime
                 throw new GameFrameworkException(Utility.Text.Format("Can not find log helper type '{0}'.", m_LogHelperTypeName));
             }
 
-            Log.ILogHelper logHelper = (Log.ILogHelper)Activator.CreateInstance(logHelperType);
+            GameFrameworkLog.ILogHelper logHelper = (GameFrameworkLog.ILogHelper)Activator.CreateInstance(logHelperType);
             if (logHelper == null)
             {
                 throw new GameFrameworkException(Utility.Text.Format("Can not create log helper instance '{0}'.", m_LogHelperTypeName));
             }
 
-            Log.SetLogHelper(logHelper);
+            GameFrameworkLog.SetLogHelper(logHelper);
         }
 
         private void InitZipHelper()

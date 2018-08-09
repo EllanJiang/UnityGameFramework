@@ -11,7 +11,7 @@ using UnityEngine;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// 版本号辅助器。
+    /// 默认版本号辅助器。
     /// </summary>
     public class DefaultVersionHelper : Version.IVersionHelper
     {

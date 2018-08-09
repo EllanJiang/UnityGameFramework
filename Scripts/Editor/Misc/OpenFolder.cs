@@ -23,7 +23,7 @@ namespace UnityGameFramework.Editor
         [MenuItem("Game Framework/Open Folder/Temporary Cache Path", false, 10)]
         public static void OpenFolderTemporaryCachePath()
         {
-            InternalOpenFolder(Application.temporaryCachePath);
+            Execute(Application.temporaryCachePath);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace UnityGameFramework.Editor
         [MenuItem("Game Framework/Open Folder/Persistent Data Path", false, 11)]
         public static void OpenFolderPersistentDataPath()
         {
-            InternalOpenFolder(Application.persistentDataPath);
+            Execute(Application.persistentDataPath);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace UnityGameFramework.Editor
         [MenuItem("Game Framework/Open Folder/Streaming Assets Path", false, 12)]
         public static void OpenFolderStreamingAssetsPath()
         {
-            InternalOpenFolder(Application.streamingAssetsPath);
+            Execute(Application.streamingAssetsPath);
         }
 
         /// <summary>
@@ -50,10 +50,14 @@ namespace UnityGameFramework.Editor
         [MenuItem("Game Framework/Open Folder/Data Path", false, 13)]
         public static void OpenFolderDataPath()
         {
-            InternalOpenFolder(Application.dataPath);
+            Execute(Application.dataPath);
         }
 
-        private static void InternalOpenFolder(string folder)
+        /// <summary>
+        /// 打开指定路径的文件夹。
+        /// </summary>
+        /// <param name="folder">要打开的文件夹的路径。</param>
+        public static void Execute(string folder)
         {
             folder = Utility.Text.Format("\"{0}\"", folder);
             switch (Application.platform)

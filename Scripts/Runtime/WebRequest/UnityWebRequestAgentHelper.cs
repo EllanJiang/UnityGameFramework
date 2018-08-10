@@ -5,7 +5,6 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
-using GameFramework;
 using GameFramework.WebRequest;
 using System;
 #if UNITY_5_4_OR_NEWER

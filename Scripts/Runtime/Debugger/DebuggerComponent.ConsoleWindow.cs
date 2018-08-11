@@ -19,14 +19,14 @@ namespace UnityGameFramework.Runtime
         private sealed partial class ConsoleWindow : IDebuggerWindow
         {
             private SettingComponent m_SettingComponent = null;
-            private LinkedList<LogNode> m_Logs = new LinkedList<LogNode>();
+            private Queue<LogNode> m_Logs = new Queue<LogNode>();
             private Vector2 m_LogScrollPosition = Vector2.zero;
             private Vector2 m_StackScrollPosition = Vector2.zero;
             private int m_InfoCount = 0;
             private int m_WarningCount = 0;
             private int m_ErrorCount = 0;
             private int m_FatalCount = 0;
-            private LinkedListNode<LogNode> m_SelectedNode = null;
+            private LogNode m_SelectedNode = null;
             private bool m_LastLockScroll = true;
             private bool m_LastInfoFilter = true;
             private bool m_LastWarningFilter = true;
@@ -325,9 +325,9 @@ namespace UnityGameFramework.Runtime
                     m_LogScrollPosition = GUILayout.BeginScrollView(m_LogScrollPosition);
                     {
                         bool selected = false;
-                        for (LinkedListNode<LogNode> i = m_Logs.First; i != null; i = i.Next)
+                        foreach (LogNode i in m_Logs)
                         {
-                            switch (i.Value.LogType)
+                            switch (i.LogType)
                             {
                                 case LogType.Log:
                                     if (!m_InfoFilter)
@@ -354,7 +354,7 @@ namespace UnityGameFramework.Runtime
                                     }
                                     break;
                             }
-                            if (GUILayout.Toggle(m_SelectedNode == i, GetLogString(i.Value)))
+                            if (GUILayout.Toggle(m_SelectedNode == i, GetLogString(i)))
                             {
                                 selected = true;
                                 if (m_SelectedNode != i)
@@ -380,17 +380,17 @@ namespace UnityGameFramework.Runtime
                         if (m_SelectedNode != null)
                         {
                             GUILayout.BeginHorizontal();
-                            Color32 color = GetLogStringColor(m_SelectedNode.Value.LogType);
-                            GUILayout.Label(Utility.Text.Format("<color=#{0}{1}{2}{3}><b>{4}</b></color>", color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"), m_SelectedNode.Value.LogMessage));
+                            Color32 color = GetLogStringColor(m_SelectedNode.LogType);
+                            GUILayout.Label(Utility.Text.Format("<color=#{0}{1}{2}{3}><b>{4}</b></color>", color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"), m_SelectedNode.LogMessage));
                             if (GUILayout.Button("COPY", GUILayout.Width(60f), GUILayout.Height(30f)))
                             {
                                 TextEditor textEditor = new TextEditor();
-                                textEditor.text = Utility.Text.Format("{0}\n\n{1}", m_SelectedNode.Value.LogMessage, m_SelectedNode.Value.StackTrack);
+                                textEditor.text = Utility.Text.Format("{0}\n\n{1}", m_SelectedNode.LogMessage, m_SelectedNode.StackTrack);
                                 textEditor.OnFocus();
                                 textEditor.Copy();
                             }
                             GUILayout.EndHorizontal();
-                            GUILayout.Label(m_SelectedNode.Value.StackTrack);
+                            GUILayout.Label(m_SelectedNode.StackTrack);
                         }
                         GUILayout.EndScrollView();
                     }
@@ -409,9 +409,9 @@ namespace UnityGameFramework.Runtime
                 m_WarningCount = 0;
                 m_ErrorCount = 0;
                 m_FatalCount = 0;
-                for (LinkedListNode<LogNode> i = m_Logs.First; i != null; i = i.Next)
+                foreach (LogNode i in m_Logs)
                 {
-                    switch (i.Value.LogType)
+                    switch (i.LogType)
                     {
                         case LogType.Log:
                             m_InfoCount++;
@@ -436,10 +436,10 @@ namespace UnityGameFramework.Runtime
                     logType = LogType.Error;
                 }
 
-                m_Logs.AddLast(new LogNode(logType, logMessage, stackTrace));
+                m_Logs.Enqueue(new LogNode(logType, logMessage, stackTrace));
                 while (m_Logs.Count > m_MaxLine)
                 {
-                    m_Logs.RemoveFirst();
+                    m_Logs.Dequeue();
                 }
             }
 

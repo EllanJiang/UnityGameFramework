@@ -16,10 +16,10 @@ namespace UnityGameFramework.Runtime
     public partial class DebuggerComponent
     {
         [Serializable]
-        private sealed partial class ConsoleWindow : IDebuggerWindow
+        private partial class ConsoleWindow : IDebuggerWindow
         {
             private SettingComponent m_SettingComponent = null;
-            private Queue<LogNode> m_Logs = new Queue<LogNode>();
+            private Queue<LogNode> m_LogNodes = new Queue<LogNode>();
             private Vector2 m_LogScrollPosition = Vector2.zero;
             private Vector2 m_StackScrollPosition = Vector2.zero;
             private int m_InfoCount = 0;
@@ -325,9 +325,9 @@ namespace UnityGameFramework.Runtime
                     m_LogScrollPosition = GUILayout.BeginScrollView(m_LogScrollPosition);
                     {
                         bool selected = false;
-                        foreach (LogNode i in m_Logs)
+                        foreach (LogNode logNode in m_LogNodes)
                         {
-                            switch (i.LogType)
+                            switch (logNode.LogType)
                             {
                                 case LogType.Log:
                                     if (!m_InfoFilter)
@@ -354,12 +354,12 @@ namespace UnityGameFramework.Runtime
                                     }
                                     break;
                             }
-                            if (GUILayout.Toggle(m_SelectedNode == i, GetLogString(i)))
+                            if (GUILayout.Toggle(m_SelectedNode == logNode, GetLogString(logNode)))
                             {
                                 selected = true;
-                                if (m_SelectedNode != i)
+                                if (m_SelectedNode != logNode)
                                 {
-                                    m_SelectedNode = i;
+                                    m_SelectedNode = logNode;
                                     m_StackScrollPosition = Vector2.zero;
                                 }
                             }
@@ -400,7 +400,7 @@ namespace UnityGameFramework.Runtime
 
             private void Clear()
             {
-                m_Logs.Clear();
+                m_LogNodes.Clear();
             }
 
             public void RefreshCount()
@@ -409,9 +409,9 @@ namespace UnityGameFramework.Runtime
                 m_WarningCount = 0;
                 m_ErrorCount = 0;
                 m_FatalCount = 0;
-                foreach (LogNode i in m_Logs)
+                foreach (LogNode logNode in m_LogNodes)
                 {
-                    switch (i.LogType)
+                    switch (logNode.LogType)
                     {
                         case LogType.Log:
                             m_InfoCount++;
@@ -429,6 +429,54 @@ namespace UnityGameFramework.Runtime
                 }
             }
 
+            public void GetRecentLogs(List<LogNode> results)
+            {
+                if (results == null)
+                {
+                    Log.Error("Results is invalid.");
+                    return;
+                }
+
+                results.Clear();
+                foreach (LogNode logNode in m_LogNodes)
+                {
+                    results.Add(logNode);
+                }
+            }
+
+            public void GetRecentLogs(List<LogNode> results, int count)
+            {
+                if (results == null)
+                {
+                    Log.Error("Results is invalid.");
+                    return;
+                }
+
+                if (count <= 0)
+                {
+                    Log.Error("Count is invalid.");
+                    return;
+                }
+
+                int position = m_LogNodes.Count - count;
+                if (position < 0)
+                {
+                    position = 0;
+                }
+
+                int index = 0;
+                results.Clear();
+                foreach (LogNode logNode in m_LogNodes)
+                {
+                    if (index++ < position)
+                    {
+                        continue;
+                    }
+
+                    results.Add(logNode);
+                }
+            }
+
             private void OnLogMessageReceived(string logMessage, string stackTrace, LogType logType)
             {
                 if (logType == LogType.Assert)
@@ -436,10 +484,10 @@ namespace UnityGameFramework.Runtime
                     logType = LogType.Error;
                 }
 
-                m_Logs.Enqueue(new LogNode(logType, logMessage, stackTrace));
-                while (m_Logs.Count > m_MaxLine)
+                m_LogNodes.Enqueue(ReferencePool.Acquire<LogNode>().Fill(logType, logMessage, stackTrace));
+                while (m_LogNodes.Count > m_MaxLine)
                 {
-                    m_Logs.Dequeue();
+                    ReferencePool.Release(m_LogNodes.Dequeue());
                 }
             }
 

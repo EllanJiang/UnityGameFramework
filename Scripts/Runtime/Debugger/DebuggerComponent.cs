@@ -284,6 +284,25 @@ namespace UnityGameFramework.Runtime
             return m_DebuggerManager.SelectDebuggerWindow(path);
         }
 
+        /// <summary>
+        /// 获取记录的全部日志。
+        /// </summary>
+        /// <param name="results">要获取的日志。</param>
+        public void GetRecentLogs(List<LogNode> results)
+        {
+            m_ConsoleWindow.GetRecentLogs(results);
+        }
+
+        /// <summary>
+        /// 获取记录的最近日志。
+        /// </summary>
+        /// <param name="results">要获取的日志。</param>
+        /// <param name="count">要获取最近日志的数量。</param>
+        public void GetRecentLogs(List<LogNode> results, int count)
+        {
+            m_ConsoleWindow.GetRecentLogs(results, count);
+        }
+
         private void DrawWindow(int windowId)
         {
             GUI.DragWindow(m_DragRect);

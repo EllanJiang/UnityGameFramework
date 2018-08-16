@@ -28,6 +28,7 @@ namespace UnityGameFramework.Runtime
                 return bytes;
             }
 
+            byte[] result = null;
             MemoryStream memoryStream = null;
             try
             {
@@ -35,14 +36,9 @@ namespace UnityGameFramework.Runtime
                 using (GZipOutputStream gZipOutputStream = new GZipOutputStream(memoryStream))
                 {
                     gZipOutputStream.Write(bytes, 0, bytes.Length);
-                    memoryStream.Position = 4;
-                    memoryStream.WriteByte(25);
-                    memoryStream.WriteByte(134);
-                    memoryStream.WriteByte(2);
-                    memoryStream.WriteByte(32);
                 }
 
-                return memoryStream.ToArray();
+                result = memoryStream.ToArray();
             }
             finally
             {
@@ -52,6 +48,16 @@ namespace UnityGameFramework.Runtime
                     memoryStream = null;
                 }
             }
+
+            if (result != null && result.Length >= 8)
+            {
+                result[4] = 25;
+                result[5] = 134;
+                result[6] = 2;
+                result[7] = 32;
+            }
+
+            return result;
         }
 
         /// <summary>

@@ -35,6 +35,11 @@ namespace UnityGameFramework.Runtime
                 using (GZipOutputStream gZipOutputStream = new GZipOutputStream(memoryStream))
                 {
                     gZipOutputStream.Write(bytes, 0, bytes.Length);
+                    memoryStream.Position = 4;
+                    memoryStream.WriteByte(25);
+                    memoryStream.WriteByte(134);
+                    memoryStream.WriteByte(2);
+                    memoryStream.WriteByte(32);
                 }
 
                 return memoryStream.ToArray();

@@ -39,6 +39,18 @@ namespace UnityGameFramework.Runtime
                 }
 
                 result = memoryStream.ToArray();
+
+                if (result.Length >= 8)
+                {
+                    result[4] = 25;
+                    result[5] = 134;
+                    result[6] = 2;
+                    result[7] = 32;
+                }
+            }
+            catch
+            {
+
             }
             finally
             {
@@ -47,14 +59,6 @@ namespace UnityGameFramework.Runtime
                     memoryStream.Dispose();
                     memoryStream = null;
                 }
-            }
-
-            if (result != null && result.Length >= 8)
-            {
-                result[4] = 25;
-                result[5] = 134;
-                result[6] = 2;
-                result[7] = 32;
             }
 
             return result;
@@ -69,7 +73,7 @@ namespace UnityGameFramework.Runtime
         {
             if (bytes == null || bytes.Length <= 0)
             {
-                return bytes;
+                return null;
             }
 
             MemoryStream decompressedStream = null;
@@ -90,6 +94,10 @@ namespace UnityGameFramework.Runtime
                 }
 
                 return decompressedStream.ToArray();
+            }
+            catch
+            {
+                return null;
             }
             finally
             {

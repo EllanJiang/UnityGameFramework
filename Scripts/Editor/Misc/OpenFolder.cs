@@ -18,12 +18,12 @@ namespace UnityGameFramework.Editor
     public static class OpenFolder
     {
         /// <summary>
-        /// 打开 Temporary Cache Path 文件夹。
+        /// 打开 Data Path 文件夹。
         /// </summary>
-        [MenuItem("Game Framework/Open Folder/Temporary Cache Path", false, 10)]
-        public static void OpenFolderTemporaryCachePath()
+        [MenuItem("Game Framework/Open Folder/Data Path", false, 10)]
+        public static void OpenFolderDataPath()
         {
-            Execute(Application.temporaryCachePath);
+            Execute(Application.dataPath);
         }
 
         /// <summary>
@@ -45,12 +45,12 @@ namespace UnityGameFramework.Editor
         }
 
         /// <summary>
-        /// 打开 Data Path 文件夹。
+        /// 打开 Temporary Cache Path 文件夹。
         /// </summary>
-        [MenuItem("Game Framework/Open Folder/Data Path", false, 13)]
-        public static void OpenFolderDataPath()
+        [MenuItem("Game Framework/Open Folder/Temporary Cache Path", false, 13)]
+        public static void OpenFolderTemporaryCachePath()
         {
-            Execute(Application.dataPath);
+            Execute(Application.temporaryCachePath);
         }
 
         /// <summary>

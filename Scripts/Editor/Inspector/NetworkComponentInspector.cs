@@ -55,9 +55,9 @@ namespace UnityGameFramework.Editor
                 EditorGUILayout.LabelField("Network Type", networkChannel.NetworkType.ToString());
                 EditorGUILayout.LabelField("Local Address", networkChannel.Connected ? Utility.Text.Format("{0}:{1}", networkChannel.LocalIPAddress.ToString(), networkChannel.LocalPort.ToString()) : "Unavailable");
                 EditorGUILayout.LabelField("Remote Address", networkChannel.Connected ? Utility.Text.Format("{0}:{1}", networkChannel.RemoteIPAddress.ToString(), networkChannel.RemotePort.ToString()) : "Unavailable");
-                EditorGUILayout.LabelField("Send Packet Count", networkChannel.SendPacketCount.ToString());
-                EditorGUILayout.LabelField("Receive Packet Count", networkChannel.ReceivePacketCount.ToString());
-                EditorGUILayout.LabelField("Heart Beat Interval", networkChannel.HeartBeatInterval.ToString());
+                EditorGUILayout.LabelField("Send Packet", Utility.Text.Format("{0} / {1}", networkChannel.SendPacketCount.ToString(), networkChannel.SentPacketCount.ToString()));
+                EditorGUILayout.LabelField("Receive Packet", Utility.Text.Format("{0} / {1}", networkChannel.ReceivePacketCount.ToString(), networkChannel.ReceivedPacketCount.ToString()));
+                EditorGUILayout.LabelField("Heart Beat", Utility.Text.Format("{0} / {1}", networkChannel.HeartBeatElapseSeconds.ToString("F2"), networkChannel.HeartBeatInterval.ToString("F2")));
                 EditorGUI.BeginDisabledGroup(!networkChannel.Connected);
                 {
                     if (GUILayout.Button("Disconnect"))

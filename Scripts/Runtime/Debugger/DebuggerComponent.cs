@@ -335,6 +335,11 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
+            if (debuggerWindowGroup.SelectedWindow == null)
+            {
+                return;
+            }
+
             if (debuggerWindowGroup.SelectedIndex != toolbarIndex)
             {
                 debuggerWindowGroup.SelectedWindow.OnLeave();
@@ -348,10 +353,7 @@ namespace UnityGameFramework.Runtime
                 DrawDebuggerWindowGroup(subDebuggerWindowGroup);
             }
 
-            if (debuggerWindowGroup.SelectedWindow != null)
-            {
-                debuggerWindowGroup.SelectedWindow.OnDraw();
-            }
+            debuggerWindowGroup.SelectedWindow.OnDraw();
         }
 
         private void DrawDebuggerWindowIcon(int windowId)

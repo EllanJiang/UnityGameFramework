@@ -1004,6 +1004,11 @@ namespace UnityGameFramework.Runtime
             }
 
             string assetFullName = Utility.Path.GetCombinePath(Application.dataPath, assetName.Substring(AssetsSubstringLength));
+            if (string.IsNullOrEmpty(assetFullName))
+            {
+                return false;
+            }
+
             string[] splitedAssetFullName = assetFullName.Split('/');
             string currentPath = Path.GetPathRoot(assetFullName);
             for (int i = 1; i < splitedAssetFullName.Length - 1; i++)
@@ -1024,6 +1029,11 @@ namespace UnityGameFramework.Runtime
             }
 
             string fileFullName = Utility.Path.GetRegularPath(fileNames[0]);
+            if (fileFullName == null)
+            {
+                return false;
+            }
+
             if (assetFullName != fileFullName)
             {
                 if (assetFullName.ToLower() == fileFullName.ToLower())

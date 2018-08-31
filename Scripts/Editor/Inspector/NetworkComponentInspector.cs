@@ -57,6 +57,7 @@ namespace UnityGameFramework.Editor
                 EditorGUILayout.LabelField("Remote Address", networkChannel.Connected ? Utility.Text.Format("{0}:{1}", networkChannel.RemoteIPAddress.ToString(), networkChannel.RemotePort.ToString()) : "Unavailable");
                 EditorGUILayout.LabelField("Send Packet", Utility.Text.Format("{0} / {1}", networkChannel.SendPacketCount.ToString(), networkChannel.SentPacketCount.ToString()));
                 EditorGUILayout.LabelField("Receive Packet", Utility.Text.Format("{0} / {1}", networkChannel.ReceivePacketCount.ToString(), networkChannel.ReceivedPacketCount.ToString()));
+                EditorGUILayout.LabelField("Miss Heart Beat Count", networkChannel.MissHeartBeatCount.ToString());
                 EditorGUILayout.LabelField("Heart Beat", Utility.Text.Format("{0} / {1}", networkChannel.HeartBeatElapseSeconds.ToString("F2"), networkChannel.HeartBeatInterval.ToString("F2")));
                 EditorGUI.BeginDisabledGroup(!networkChannel.Connected);
                 {

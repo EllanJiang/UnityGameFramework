@@ -7737,6 +7737,11 @@
             获取或设置当收到消息包时是否重置心跳流逝时间。
             </summary>
         </member>
+        <member name="P:GameFramework.Network.INetworkChannel.MissHeartBeatCount">
+            <summary>
+            获取丢失心跳的次数。
+            </summary>
+        </member>
         <member name="P:GameFramework.Network.INetworkChannel.HeartBeatInterval">
             <summary>
             获取或设置心跳间隔时长，以秒为单位。
@@ -8248,6 +8253,11 @@
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.ResetHeartBeatElapseSecondsWhenReceivePacket">
             <summary>
             获取或设置当收到消息包时是否重置心跳流逝时间。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.MissHeartBeatCount">
+            <summary>
+            获取丢失心跳的次数。
             </summary>
         </member>
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.HeartBeatInterval">

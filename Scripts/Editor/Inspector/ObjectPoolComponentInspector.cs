@@ -52,18 +52,17 @@ namespace UnityGameFramework.Editor
 
         private void DrawObjectPool(ObjectPoolBase objectPool)
         {
-            string fullName = Utility.Text.GetFullName(objectPool.ObjectType, objectPool.Name);
-            bool lastState = m_OpenedItems.Contains(fullName);
-            bool currentState = EditorGUILayout.Foldout(lastState, string.IsNullOrEmpty(objectPool.Name) ? "<Unnamed>" : objectPool.Name);
+            bool lastState = m_OpenedItems.Contains(objectPool.FullName);
+            bool currentState = EditorGUILayout.Foldout(lastState, objectPool.FullName);
             if (currentState != lastState)
             {
                 if (currentState)
                 {
-                    m_OpenedItems.Add(fullName);
+                    m_OpenedItems.Add(objectPool.FullName);
                 }
                 else
                 {
-                    m_OpenedItems.Remove(fullName);
+                    m_OpenedItems.Remove(objectPool.FullName);
                 }
             }
 
@@ -71,6 +70,7 @@ namespace UnityGameFramework.Editor
             {
                 EditorGUILayout.BeginVertical("box");
                 {
+                    EditorGUILayout.LabelField("Name", objectPool.Name);
                     EditorGUILayout.LabelField("Type", objectPool.ObjectType.FullName);
                     EditorGUILayout.LabelField("Auto Release Interval", objectPool.AutoReleaseInterval.ToString());
                     EditorGUILayout.LabelField("Capacity", objectPool.Capacity.ToString());

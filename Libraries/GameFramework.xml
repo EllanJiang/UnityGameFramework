@@ -3023,6 +3023,50 @@
             <returns>符合条件的数据表行。</returns>
             <remarks>当存在多个符合条件的数据表行时，仅返回第一个符合条件的数据表行。</remarks>
         </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetDataRows(System.Predicate{`0})">
+            <summary>
+            获取符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>符合条件的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetDataRows(System.Predicate{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="results">符合条件的数据表行。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetDataRows(System.Comparison{`0})">
+            <summary>
+            获取排序后的数据表行。
+            </summary>
+            <param name="comparison">要排序的条件。</param>
+            <returns>排序后的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetDataRows(System.Comparison{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取排序后的数据表行。
+            </summary>
+            <param name="comparison">要排序的条件。</param>
+            <param name="results">排序后的数据表行。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetDataRows(System.Predicate{`0},System.Comparison{`0})">
+            <summary>
+            获取排序后的符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="comparison">要排序的条件。</param>
+            <returns>排序后的符合条件的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetDataRows(System.Predicate{`0},System.Comparison{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取排序后的符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="comparison">要排序的条件。</param>
+            <param name="results">排序后的符合条件的数据表行。</param>
+        </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows">
             <summary>
             获取所有数据表行。
@@ -3034,50 +3078,6 @@
             获取所有数据表行。
             </summary>
             <param name="results">所有数据表行。</param>
-        </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Predicate{`0})">
-            <summary>
-            获取所有符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <returns>所有符合条件的数据表行。</returns>
-        </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Predicate{`0},System.Collections.Generic.List{`0})">
-            <summary>
-            获取所有符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <param name="results">所有符合条件的数据表行。</param>
-        </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Comparison{`0})">
-            <summary>
-            获取所有排序后的数据表行。
-            </summary>
-            <param name="comparison">要排序的条件。</param>
-            <returns>所有排序后的数据表行。</returns>
-        </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Comparison{`0},System.Collections.Generic.List{`0})">
-            <summary>
-            获取所有排序后的数据表行。
-            </summary>
-            <param name="comparison">要排序的条件。</param>
-            <param name="results">所有排序后的数据表行。</param>
-        </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Predicate{`0},System.Comparison{`0})">
-            <summary>
-            获取所有排序后的符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <param name="comparison">要排序的条件。</param>
-            <returns>所有排序后的符合条件的数据表行。</returns>
-        </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Predicate{`0},System.Comparison{`0},System.Collections.Generic.List{`0})">
-            <summary>
-            获取所有排序后的符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <param name="comparison">要排序的条件。</param>
-            <param name="results">所有排序后的符合条件的数据表行。</param>
         </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetEnumerator">
             <summary>
@@ -3179,6 +3179,50 @@
             <returns>符合条件的数据表行。</returns>
             <remarks>当存在多个符合条件的数据表行时，仅返回第一个符合条件的数据表行。</remarks>
         </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetDataRows(System.Predicate{`0})">
+            <summary>
+            获取符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>符合条件的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetDataRows(System.Predicate{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="results">符合条件的数据表行。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetDataRows(System.Comparison{`0})">
+            <summary>
+            获取排序后的数据表行。
+            </summary>
+            <param name="comparison">要排序的条件。</param>
+            <returns>排序后的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetDataRows(System.Comparison{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取排序后的数据表行。
+            </summary>
+            <param name="comparison">要排序的条件。</param>
+            <param name="results">排序后的数据表行。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetDataRows(System.Predicate{`0},System.Comparison{`0})">
+            <summary>
+            获取排序后的符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="comparison">要排序的条件。</param>
+            <returns>排序后的符合条件的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetDataRows(System.Predicate{`0},System.Comparison{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取排序后的符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="comparison">要排序的条件。</param>
+            <param name="results">排序后的符合条件的数据表行。</param>
+        </member>
         <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows">
             <summary>
             获取所有数据表行。
@@ -3190,50 +3234,6 @@
             获取所有数据表行。
             </summary>
             <param name="results">所有数据表行。</param>
-        </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Predicate{`0})">
-            <summary>
-            获取所有符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <returns>所有符合条件的数据表行。</returns>
-        </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Predicate{`0},System.Collections.Generic.List{`0})">
-            <summary>
-            获取所有符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <param name="results">所有符合条件的数据表行。</param>
-        </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Comparison{`0})">
-            <summary>
-            获取所有排序后的数据表行。
-            </summary>
-            <param name="comparison">要排序的条件。</param>
-            <returns>所有排序后的数据表行。</returns>
-        </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Comparison{`0},System.Collections.Generic.List{`0})">
-            <summary>
-            获取所有排序后的数据表行。
-            </summary>
-            <param name="comparison">要排序的条件。</param>
-            <param name="results">所有排序后的数据表行。</param>
-        </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Predicate{`0},System.Comparison{`0})">
-            <summary>
-            获取所有排序后的符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <param name="comparison">要排序的条件。</param>
-            <returns>所有排序后的符合条件的数据表行。</returns>
-        </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Predicate{`0},System.Comparison{`0},System.Collections.Generic.List{`0})">
-            <summary>
-            获取所有排序后的符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <param name="comparison">要排序的条件。</param>
-            <param name="results">所有排序后的符合条件的数据表行。</param>
         </member>
         <member name="T:GameFramework.DataTable.IDataTableHelper">
             <summary>
@@ -8400,6 +8400,11 @@
             获取对象池名称。
             </summary>
         </member>
+        <member name="P:GameFramework.ObjectPool.IObjectPool`1.FullName">
+            <summary>
+            获取对象池完整名称。
+            </summary>
+        </member>
         <member name="P:GameFramework.ObjectPool.IObjectPool`1.ObjectType">
             <summary>
             获取对象池对象类型。
@@ -8582,6 +8587,20 @@
             <param name="name">对象池名称。</param>
             <returns>是否存在对象池。</returns>
         </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.HasObjectPool(System.String)">
+            <summary>
+            检查是否存在对象池。
+            </summary>
+            <param name="fullName">对象池完整名称。</param>
+            <returns>是否存在对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.HasObjectPool(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            检查是否存在对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>是否存在对象池。</returns>
+        </member>
         <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetObjectPool``1">
             <summary>
             获取对象池。
@@ -8611,6 +8630,34 @@
             <param name="objectType">对象类型。</param>
             <param name="name">对象池名称。</param>
             <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetObjectPool(System.String)">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="fullName">对象池完整名称。</param>
+            <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetObjectPool(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetObjectPools(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetObjectPools(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase},System.Collections.Generic.List{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="results">要获取的对象池。</param>
         </member>
         <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetAllObjectPools">
             <summary>
@@ -9404,6 +9451,11 @@
             获取对象池名称。
             </summary>
         </member>
+        <member name="P:GameFramework.ObjectPool.ObjectPoolBase.FullName">
+            <summary>
+            获取对象池完整名称。
+            </summary>
+        </member>
         <member name="P:GameFramework.ObjectPool.ObjectPoolBase.ObjectType">
             <summary>
             获取对象池对象类型。
@@ -9529,6 +9581,20 @@
             <param name="name">对象池名称。</param>
             <returns>是否存在对象池。</returns>
         </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.HasObjectPool(System.String)">
+            <summary>
+            检查是否存在对象池。
+            </summary>
+            <param name="fullName">对象池完整名称。</param>
+            <returns>是否存在对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.HasObjectPool(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            检查是否存在对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>是否存在对象池。</returns>
+        </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetObjectPool``1">
             <summary>
             获取对象池。
@@ -9558,6 +9624,34 @@
             <param name="objectType">对象类型。</param>
             <param name="name">对象池名称。</param>
             <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetObjectPool(System.String)">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="fullName">对象池完整名称。</param>
+            <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetObjectPool(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetObjectPools(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetObjectPools(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase},System.Collections.Generic.List{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="results">要获取的对象池。</param>
         </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetAllObjectPools">
             <summary>

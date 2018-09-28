@@ -118,8 +118,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
                     if (!AddAssetBundle(assetBundleName, assetBundleVariant, (AssetBundleLoadType)assetBundleLoadType, assetBundlePacked))
                     {
-                        string assetBundleFullName = assetBundleVariant != null ? string.Format("{0}.{1}", assetBundleName, assetBundleVariant) : assetBundleName;
-                        Debug.LogWarning(string.Format("Can not add AssetBundle '{0}'.", assetBundleFullName));
+                        string assetBundleFullName = assetBundleVariant != null ? Utility.Text.Format("{0}.{1}", assetBundleName, assetBundleVariant) : assetBundleName;
+                        Debug.LogWarning(Utility.Text.Format("Can not add AssetBundle '{0}'.", assetBundleFullName));
                         continue;
                     }
                 }
@@ -144,8 +144,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     string assetBundleVariant = xmlNode.Attributes.GetNamedItem("AssetBundleVariant") != null ? xmlNode.Attributes.GetNamedItem("AssetBundleVariant").Value : null;
                     if (!AssignAsset(assetGuid, assetBundleName, assetBundleVariant))
                     {
-                        string assetBundleFullName = assetBundleVariant != null ? string.Format("{0}.{1}", assetBundleName, assetBundleVariant) : assetBundleName;
-                        Debug.LogWarning(string.Format("Can not assign asset '{0}' to AssetBundle '{1}'.", assetGuid, assetBundleFullName));
+                        string assetBundleFullName = assetBundleVariant != null ? Utility.Text.Format("{0}.{1}", assetBundleName, assetBundleVariant) : assetBundleName;
+                        Debug.LogWarning(Utility.Text.Format("Can not assign asset '{0}' to AssetBundle '{1}'.", assetGuid, assetBundleFullName));
                         continue;
                     }
                 }
@@ -573,7 +573,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
         private string GetAssetBundleFullName(string assetBundleName, string assetBundleVariant)
         {
-            return (!string.IsNullOrEmpty(assetBundleVariant) ? string.Format("{0}.{1}", assetBundleName, assetBundleVariant) : assetBundleName);
+            return (!string.IsNullOrEmpty(assetBundleVariant) ? Utility.Text.Format("{0}.{1}", assetBundleName, assetBundleVariant) : assetBundleName);
         }
     }
 }

@@ -31,7 +31,12 @@
             </summary>
             <param name="mode">事件池模式。</param>
         </member>
-        <member name="P:GameFramework.EventPool`1.Count">
+        <member name="P:GameFramework.EventPool`1.EventHandlerCount">
+            <summary>
+            获取事件处理函数的数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.EventPool`1.EventCount">
             <summary>
             获取事件数量。
             </summary>
@@ -53,9 +58,16 @@
             清理事件。
             </summary>
         </member>
+        <member name="M:GameFramework.EventPool`1.Count(System.Int32)">
+            <summary>
+            获取事件处理函数的数量。
+            </summary>
+            <param name="id">事件类型编号。</param>
+            <returns>事件处理函数的数量。</returns>
+        </member>
         <member name="M:GameFramework.EventPool`1.Check(System.Int32,System.EventHandler{`0})">
             <summary>
-            检查订阅事件处理函数。
+            检查是否存在事件处理函数。
             </summary>
             <param name="id">事件类型编号。</param>
             <param name="handler">要检查的事件处理函数。</param>
@@ -983,80 +995,86 @@
             关闭并清理游戏框架模块。
             </summary>
         </member>
-        <member name="T:GameFramework.Log">
+        <member name="T:GameFramework.GameFrameworkLog">
             <summary>
-            日志类。
+            游戏框架日志类。
             </summary>
         </member>
-        <member name="M:GameFramework.Log.SetLogHelper(GameFramework.Log.ILogHelper)">
+        <member name="M:GameFramework.GameFrameworkLog.SetLogHelper(GameFramework.GameFrameworkLog.ILogHelper)">
             <summary>
-            设置日志辅助器。
+            设置游戏框架日志辅助器。
             </summary>
-            <param name="logHelper">要设置的日志辅助器。</param>
+            <param name="logHelper">要设置的游戏框架日志辅助器。</param>
         </member>
-        <member name="M:GameFramework.Log.Debug(System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Debug(System.Object)">
             <summary>
-            记录调试级别日志，仅在带有 DEBUG 预编译选项时产生。
-            </summary>
-            <param name="message">日志内容。</param>
-        </member>
-        <member name="M:GameFramework.Log.Debug(System.String)">
-            <summary>
-            记录调试级别日志，仅在带有 DEBUG 预编译选项时产生。
+            记录调试级别日志，用于记录调试类日志信息。
             </summary>
             <param name="message">日志内容。</param>
+            <remarks>仅在带有 DEBUG 预编译选项时生效。</remarks>
         </member>
-        <member name="M:GameFramework.Log.Debug(System.String,System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Debug(System.String)">
             <summary>
-            记录调试级别日志，仅在带有 DEBUG 预编译选项时产生。
+            记录调试级别日志，用于记录调试类日志信息。
+            </summary>
+            <param name="message">日志内容。</param>
+            <remarks>仅在带有 DEBUG 预编译选项时生效。</remarks>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLog.Debug(System.String,System.Object)">
+            <summary>
+            记录调试级别日志，用于记录调试类日志信息。
             </summary>
             <param name="format">日志格式。</param>
             <param name="arg0">日志参数 0。</param>
+            <remarks>仅在带有 DEBUG 预编译选项时生效。</remarks>
         </member>
-        <member name="M:GameFramework.Log.Debug(System.String,System.Object,System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Debug(System.String,System.Object,System.Object)">
             <summary>
-            记录调试级别日志，仅在带有 DEBUG 预编译选项时产生。
+            记录调试级别日志，用于记录调试类日志信息。
             </summary>
             <param name="format">日志格式。</param>
             <param name="arg0">日志参数 0。</param>
             <param name="arg1">日志参数 1。</param>
+            <remarks>仅在带有 DEBUG 预编译选项时生效。</remarks>
         </member>
-        <member name="M:GameFramework.Log.Debug(System.String,System.Object,System.Object,System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Debug(System.String,System.Object,System.Object,System.Object)">
             <summary>
-            记录调试级别日志，仅在带有 DEBUG 预编译选项时产生。
+            记录调试级别日志，用于记录调试类日志信息。
             </summary>
             <param name="format">日志格式。</param>
             <param name="arg0">日志参数 0。</param>
             <param name="arg1">日志参数 1。</param>
             <param name="arg2">日志参数 2。</param>
+            <remarks>仅在带有 DEBUG 预编译选项时生效。</remarks>
         </member>
-        <member name="M:GameFramework.Log.Debug(System.String,System.Object[])">
+        <member name="M:GameFramework.GameFrameworkLog.Debug(System.String,System.Object[])">
             <summary>
-            记录调试级别日志，仅在带有 DEBUG 预编译选项时产生。
+            记录调试级别日志，用于记录调试类日志信息。
             </summary>
             <param name="format">日志格式。</param>
             <param name="args">日志参数。</param>
+            <remarks>仅在带有 DEBUG 预编译选项时生效。</remarks>
         </member>
-        <member name="M:GameFramework.Log.Info(System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Info(System.Object)">
             <summary>
             打印信息级别日志，用于记录程序正常运行日志信息。
             </summary>
             <param name="message">日志内容</param>
         </member>
-        <member name="M:GameFramework.Log.Info(System.String)">
+        <member name="M:GameFramework.GameFrameworkLog.Info(System.String)">
             <summary>
             打印信息级别日志，用于记录程序正常运行日志信息。
             </summary>
             <param name="message">日志内容</param>
         </member>
-        <member name="M:GameFramework.Log.Info(System.String,System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Info(System.String,System.Object)">
             <summary>
             打印信息级别日志，用于记录程序正常运行日志信息。
             </summary>
             <param name="format">日志格式。</param>
             <param name="arg0">日志参数 0。</param>
         </member>
-        <member name="M:GameFramework.Log.Info(System.String,System.Object,System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Info(System.String,System.Object,System.Object)">
             <summary>
             打印信息级别日志，用于记录程序正常运行日志信息。
             </summary>
@@ -1064,7 +1082,7 @@
             <param name="arg0">日志参数 0。</param>
             <param name="arg1">日志参数 1。</param>
         </member>
-        <member name="M:GameFramework.Log.Info(System.String,System.Object,System.Object,System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Info(System.String,System.Object,System.Object,System.Object)">
             <summary>
             打印信息级别日志，用于记录程序正常运行日志信息。
             </summary>
@@ -1073,33 +1091,33 @@
             <param name="arg1">日志参数 1。</param>
             <param name="arg2">日志参数 2。</param>
         </member>
-        <member name="M:GameFramework.Log.Info(System.String,System.Object[])">
+        <member name="M:GameFramework.GameFrameworkLog.Info(System.String,System.Object[])">
             <summary>
             打印信息级别日志，用于记录程序正常运行日志信息。
             </summary>
             <param name="format">日志格式。</param>
             <param name="args">日志参数。</param>
         </member>
-        <member name="M:GameFramework.Log.Warning(System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Warning(System.Object)">
             <summary>
             打印警告级别日志，建议在发生局部功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
             </summary>
             <param name="message">日志内容。</param>
         </member>
-        <member name="M:GameFramework.Log.Warning(System.String)">
+        <member name="M:GameFramework.GameFrameworkLog.Warning(System.String)">
             <summary>
             打印警告级别日志，建议在发生局部功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
             </summary>
             <param name="message">日志内容。</param>
         </member>
-        <member name="M:GameFramework.Log.Warning(System.String,System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Warning(System.String,System.Object)">
             <summary>
             打印警告级别日志，建议在发生局部功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
             </summary>
             <param name="format">日志格式。</param>
             <param name="arg0">日志参数 0。</param>
         </member>
-        <member name="M:GameFramework.Log.Warning(System.String,System.Object,System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Warning(System.String,System.Object,System.Object)">
             <summary>
             打印警告级别日志，建议在发生局部功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
             </summary>
@@ -1107,85 +1125,85 @@
             <param name="arg0">日志参数 0。</param>
             <param name="arg1">日志参数 1。</param>
         </member>
-        <member name="M:GameFramework.Log.Warning(System.String,System.Object,System.Object,System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Warning(System.String,System.Object,System.Object,System.Object)">
             <summary>
             打印警告级别日志，建议在发生局部功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
-            </summary>
-            <param name="format">日志格式。</param>
-            <param name="arg0">日志参数 0。</param>
-            <param name="arg1">日志参数 1。</param>
-            <param name="arg2">日志参数 2。</param>
-        </member>
-        <member name="M:GameFramework.Log.Warning(System.String,System.Object[])">
-            <summary>
-            打印警告级别日志，建议在发生局部功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
-            </summary>
-            <param name="format">日志格式。</param>
-            <param name="args">日志参数。</param>
-        </member>
-        <member name="M:GameFramework.Log.Error(System.Object)">
-            <summary>
-            打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
-            </summary>
-            <param name="message">日志内容。</param>
-        </member>
-        <member name="M:GameFramework.Log.Error(System.String)">
-            <summary>
-            打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
-            </summary>
-            <param name="message">日志内容。</param>
-        </member>
-        <member name="M:GameFramework.Log.Error(System.String,System.Object)">
-            <summary>
-            打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
-            </summary>
-            <param name="format">日志格式。</param>
-            <param name="arg0">日志参数 0。</param>
-        </member>
-        <member name="M:GameFramework.Log.Error(System.String,System.Object,System.Object)">
-            <summary>
-            打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
-            </summary>
-            <param name="format">日志格式。</param>
-            <param name="arg0">日志参数 0。</param>
-            <param name="arg1">日志参数 1。</param>
-        </member>
-        <member name="M:GameFramework.Log.Error(System.String,System.Object,System.Object,System.Object)">
-            <summary>
-            打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
             </summary>
             <param name="format">日志格式。</param>
             <param name="arg0">日志参数 0。</param>
             <param name="arg1">日志参数 1。</param>
             <param name="arg2">日志参数 2。</param>
         </member>
-        <member name="M:GameFramework.Log.Error(System.String,System.Object[])">
+        <member name="M:GameFramework.GameFrameworkLog.Warning(System.String,System.Object[])">
+            <summary>
+            打印警告级别日志，建议在发生局部功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
+            </summary>
+            <param name="format">日志格式。</param>
+            <param name="args">日志参数。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLog.Error(System.Object)">
+            <summary>
+            打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
+            </summary>
+            <param name="message">日志内容。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLog.Error(System.String)">
+            <summary>
+            打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
+            </summary>
+            <param name="message">日志内容。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLog.Error(System.String,System.Object)">
+            <summary>
+            打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
+            </summary>
+            <param name="format">日志格式。</param>
+            <param name="arg0">日志参数 0。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLog.Error(System.String,System.Object,System.Object)">
+            <summary>
+            打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
+            </summary>
+            <param name="format">日志格式。</param>
+            <param name="arg0">日志参数 0。</param>
+            <param name="arg1">日志参数 1。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLog.Error(System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
+            </summary>
+            <param name="format">日志格式。</param>
+            <param name="arg0">日志参数 0。</param>
+            <param name="arg1">日志参数 1。</param>
+            <param name="arg2">日志参数 2。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLog.Error(System.String,System.Object[])">
             <summary>
             打印错误级别日志，建议在发生功能逻辑错误，但尚不会导致游戏崩溃或异常时使用。
             </summary>
             <param name="format">日志格式。</param>
             <param name="args">日志参数。</param>
         </member>
-        <member name="M:GameFramework.Log.Fatal(System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Fatal(System.Object)">
             <summary>
             打印严重错误级别日志，建议在发生严重错误，可能导致游戏崩溃或异常时使用，此时应尝试重启进程或重建游戏框架。
             </summary>
             <param name="message">日志内容。</param>
         </member>
-        <member name="M:GameFramework.Log.Fatal(System.String)">
+        <member name="M:GameFramework.GameFrameworkLog.Fatal(System.String)">
             <summary>
             打印严重错误级别日志，建议在发生严重错误，可能导致游戏崩溃或异常时使用，此时应尝试重启进程或重建游戏框架。
             </summary>
             <param name="message">日志内容。</param>
         </member>
-        <member name="M:GameFramework.Log.Fatal(System.String,System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Fatal(System.String,System.Object)">
             <summary>
             打印严重错误级别日志，建议在发生严重错误，可能导致游戏崩溃或异常时使用，此时应尝试重启进程或重建游戏框架。
             </summary>
             <param name="format">日志格式。</param>
             <param name="arg0">日志参数 0。</param>
         </member>
-        <member name="M:GameFramework.Log.Fatal(System.String,System.Object,System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Fatal(System.String,System.Object,System.Object)">
             <summary>
             打印严重错误级别日志，建议在发生严重错误，可能导致游戏崩溃或异常时使用，此时应尝试重启进程或重建游戏框架。
             </summary>
@@ -1193,7 +1211,7 @@
             <param name="arg0">日志参数 0。</param>
             <param name="arg1">日志参数 1。</param>
         </member>
-        <member name="M:GameFramework.Log.Fatal(System.String,System.Object,System.Object,System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.Fatal(System.String,System.Object,System.Object,System.Object)">
             <summary>
             打印严重错误级别日志，建议在发生严重错误，可能导致游戏崩溃或异常时使用，此时应尝试重启进程或重建游戏框架。
             </summary>
@@ -1202,51 +1220,51 @@
             <param name="arg1">日志参数 1。</param>
             <param name="arg2">日志参数 2。</param>
         </member>
-        <member name="M:GameFramework.Log.Fatal(System.String,System.Object[])">
+        <member name="M:GameFramework.GameFrameworkLog.Fatal(System.String,System.Object[])">
             <summary>
             打印严重错误级别日志，建议在发生严重错误，可能导致游戏崩溃或异常时使用，此时应尝试重启进程或重建游戏框架。
             </summary>
             <param name="format">日志格式。</param>
             <param name="args">日志参数。</param>
         </member>
-        <member name="T:GameFramework.Log.ILogHelper">
+        <member name="T:GameFramework.GameFrameworkLog.ILogHelper">
             <summary>
-            日志辅助器接口。
+            游戏框架日志辅助器接口。
             </summary>
         </member>
-        <member name="M:GameFramework.Log.ILogHelper.Log(GameFramework.LogLevel,System.Object)">
+        <member name="M:GameFramework.GameFrameworkLog.ILogHelper.Log(GameFramework.GameFrameworkLogLevel,System.Object)">
             <summary>
             记录日志。
             </summary>
-            <param name="level">日志等级。</param>
+            <param name="level">游戏框架日志等级。</param>
             <param name="message">日志内容。</param>
         </member>
-        <member name="T:GameFramework.LogLevel">
+        <member name="T:GameFramework.GameFrameworkLogLevel">
             <summary>
-            日志等级。
+            游戏框架日志等级。
             </summary>
         </member>
-        <member name="F:GameFramework.LogLevel.Debug">
+        <member name="F:GameFramework.GameFrameworkLogLevel.Debug">
             <summary>
             调试。
             </summary>
         </member>
-        <member name="F:GameFramework.LogLevel.Info">
+        <member name="F:GameFramework.GameFrameworkLogLevel.Info">
             <summary>
             信息。
             </summary>
         </member>
-        <member name="F:GameFramework.LogLevel.Warning">
+        <member name="F:GameFramework.GameFrameworkLogLevel.Warning">
             <summary>
             警告。
             </summary>
         </member>
-        <member name="F:GameFramework.LogLevel.Error">
+        <member name="F:GameFramework.GameFrameworkLogLevel.Error">
             <summary>
             错误。
             </summary>
         </member>
-        <member name="F:GameFramework.LogLevel.Fatal">
+        <member name="F:GameFramework.GameFrameworkLogLevel.Fatal">
             <summary>
             严重错误。
             </summary>
@@ -3005,6 +3023,50 @@
             <returns>符合条件的数据表行。</returns>
             <remarks>当存在多个符合条件的数据表行时，仅返回第一个符合条件的数据表行。</remarks>
         </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetDataRows(System.Predicate{`0})">
+            <summary>
+            获取符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>符合条件的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetDataRows(System.Predicate{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="results">符合条件的数据表行。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetDataRows(System.Comparison{`0})">
+            <summary>
+            获取排序后的数据表行。
+            </summary>
+            <param name="comparison">要排序的条件。</param>
+            <returns>排序后的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetDataRows(System.Comparison{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取排序后的数据表行。
+            </summary>
+            <param name="comparison">要排序的条件。</param>
+            <param name="results">排序后的数据表行。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetDataRows(System.Predicate{`0},System.Comparison{`0})">
+            <summary>
+            获取排序后的符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="comparison">要排序的条件。</param>
+            <returns>排序后的符合条件的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetDataRows(System.Predicate{`0},System.Comparison{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取排序后的符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="comparison">要排序的条件。</param>
+            <param name="results">排序后的符合条件的数据表行。</param>
+        </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows">
             <summary>
             获取所有数据表行。
@@ -3016,50 +3078,6 @@
             获取所有数据表行。
             </summary>
             <param name="results">所有数据表行。</param>
-        </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Predicate{`0})">
-            <summary>
-            获取所有符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <returns>所有符合条件的数据表行。</returns>
-        </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Predicate{`0},System.Collections.Generic.List{`0})">
-            <summary>
-            获取所有符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <param name="results">所有符合条件的数据表行。</param>
-        </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Comparison{`0})">
-            <summary>
-            获取所有排序后的数据表行。
-            </summary>
-            <param name="comparison">要排序的条件。</param>
-            <returns>所有排序后的数据表行。</returns>
-        </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Comparison{`0},System.Collections.Generic.List{`0})">
-            <summary>
-            获取所有排序后的数据表行。
-            </summary>
-            <param name="comparison">要排序的条件。</param>
-            <param name="results">所有排序后的数据表行。</param>
-        </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Predicate{`0},System.Comparison{`0})">
-            <summary>
-            获取所有排序后的符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <param name="comparison">要排序的条件。</param>
-            <returns>所有排序后的符合条件的数据表行。</returns>
-        </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetAllDataRows(System.Predicate{`0},System.Comparison{`0},System.Collections.Generic.List{`0})">
-            <summary>
-            获取所有排序后的符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <param name="comparison">要排序的条件。</param>
-            <param name="results">所有排序后的符合条件的数据表行。</param>
         </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetEnumerator">
             <summary>
@@ -3161,6 +3179,50 @@
             <returns>符合条件的数据表行。</returns>
             <remarks>当存在多个符合条件的数据表行时，仅返回第一个符合条件的数据表行。</remarks>
         </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetDataRows(System.Predicate{`0})">
+            <summary>
+            获取符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>符合条件的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetDataRows(System.Predicate{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="results">符合条件的数据表行。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetDataRows(System.Comparison{`0})">
+            <summary>
+            获取排序后的数据表行。
+            </summary>
+            <param name="comparison">要排序的条件。</param>
+            <returns>排序后的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetDataRows(System.Comparison{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取排序后的数据表行。
+            </summary>
+            <param name="comparison">要排序的条件。</param>
+            <param name="results">排序后的数据表行。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetDataRows(System.Predicate{`0},System.Comparison{`0})">
+            <summary>
+            获取排序后的符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="comparison">要排序的条件。</param>
+            <returns>排序后的符合条件的数据表行。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.GetDataRows(System.Predicate{`0},System.Comparison{`0},System.Collections.Generic.List{`0})">
+            <summary>
+            获取排序后的符合条件的数据表行。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="comparison">要排序的条件。</param>
+            <param name="results">排序后的符合条件的数据表行。</param>
+        </member>
         <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows">
             <summary>
             获取所有数据表行。
@@ -3172,50 +3234,6 @@
             获取所有数据表行。
             </summary>
             <param name="results">所有数据表行。</param>
-        </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Predicate{`0})">
-            <summary>
-            获取所有符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <returns>所有符合条件的数据表行。</returns>
-        </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Predicate{`0},System.Collections.Generic.List{`0})">
-            <summary>
-            获取所有符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <param name="results">所有符合条件的数据表行。</param>
-        </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Comparison{`0})">
-            <summary>
-            获取所有排序后的数据表行。
-            </summary>
-            <param name="comparison">要排序的条件。</param>
-            <returns>所有排序后的数据表行。</returns>
-        </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Comparison{`0},System.Collections.Generic.List{`0})">
-            <summary>
-            获取所有排序后的数据表行。
-            </summary>
-            <param name="comparison">要排序的条件。</param>
-            <param name="results">所有排序后的数据表行。</param>
-        </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Predicate{`0},System.Comparison{`0})">
-            <summary>
-            获取所有排序后的符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <param name="comparison">要排序的条件。</param>
-            <returns>所有排序后的符合条件的数据表行。</returns>
-        </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.GetAllDataRows(System.Predicate{`0},System.Comparison{`0},System.Collections.Generic.List{`0})">
-            <summary>
-            获取所有排序后的符合条件的数据表行。
-            </summary>
-            <param name="condition">要检查的条件。</param>
-            <param name="comparison">要排序的条件。</param>
-            <param name="results">所有排序后的符合条件的数据表行。</param>
         </member>
         <member name="T:GameFramework.DataTable.IDataTableHelper">
             <summary>
@@ -5934,7 +5952,12 @@
             初始化事件管理器的新实例。
             </summary>
         </member>
-        <member name="P:GameFramework.Event.EventManager.Count">
+        <member name="P:GameFramework.Event.EventManager.EventHandlerCount">
+            <summary>
+            获取事件处理函数的数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Event.EventManager.EventCount">
             <summary>
             获取事件数量。
             </summary>
@@ -5957,9 +5980,16 @@
             关闭并清理事件管理器。
             </summary>
         </member>
+        <member name="M:GameFramework.Event.EventManager.Count(System.Int32)">
+            <summary>
+            获取事件处理函数的数量。
+            </summary>
+            <param name="id">事件类型编号。</param>
+            <returns>事件处理函数的数量。</returns>
+        </member>
         <member name="M:GameFramework.Event.EventManager.Check(System.Int32,System.EventHandler{GameFramework.Event.GameEventArgs})">
             <summary>
-            检查订阅事件处理函数。
+            检查是否存在事件处理函数。
             </summary>
             <param name="id">事件类型编号。</param>
             <param name="handler">要检查的事件处理函数。</param>
@@ -6009,14 +6039,26 @@
             事件管理器接口。
             </summary>
         </member>
-        <member name="P:GameFramework.Event.IEventManager.Count">
+        <member name="P:GameFramework.Event.IEventManager.EventHandlerCount">
+            <summary>
+            获取事件处理函数的数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Event.IEventManager.EventCount">
             <summary>
             获取事件数量。
             </summary>
         </member>
+        <member name="M:GameFramework.Event.IEventManager.Count(System.Int32)">
+            <summary>
+            获取事件处理函数的数量。
+            </summary>
+            <param name="id">事件类型编号。</param>
+            <returns>事件处理函数的数量。</returns>
+        </member>
         <member name="M:GameFramework.Event.IEventManager.Check(System.Int32,System.EventHandler{GameFramework.Event.GameEventArgs})">
             <summary>
-            检查订阅事件处理函数。
+            检查是否存在事件处理函数。
             </summary>
             <param name="id">事件类型编号。</param>
             <param name="handler">要检查的事件处理函数。</param>
@@ -6992,6 +7034,40 @@
             <param name="userData">用户自定义数据。</param>
             <returns>是否解析字典成功。</returns>
         </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.GetString(System.String)">
+            <summary>
+            根据字典主键获取字典内容字符串。
+            </summary>
+            <param name="key">字典主键。</param>
+            <returns>要获取的字典内容字符串。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.GetString(System.String,System.Object)">
+            <summary>
+            根据字典主键获取字典内容字符串。
+            </summary>
+            <param name="key">字典主键。</param>
+            <param name="arg0">字典参数 0。</param>
+            <returns>要获取的字典内容字符串。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.GetString(System.String,System.Object,System.Object)">
+            <summary>
+            根据字典主键获取字典内容字符串。
+            </summary>
+            <param name="key">字典主键。</param>
+            <param name="arg0">字典参数 0。</param>
+            <param name="arg1">字典参数 1。</param>
+            <returns>要获取的字典内容字符串。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.GetString(System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            根据字典主键获取字典内容字符串。
+            </summary>
+            <param name="key">字典主键。</param>
+            <param name="arg0">字典参数 0。</param>
+            <param name="arg1">字典参数 1。</param>
+            <param name="arg2">字典参数 2。</param>
+            <returns>要获取的字典内容字符串。</returns>
+        </member>
         <member name="M:GameFramework.Localization.ILocalizationManager.GetString(System.String,System.Object[])">
             <summary>
             根据字典主键获取字典内容字符串。
@@ -7525,6 +7601,40 @@
             <param name="userData">用户自定义数据。</param>
             <returns>是否解析字典成功。</returns>
         </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.GetString(System.String)">
+            <summary>
+            根据字典主键获取字典内容字符串。
+            </summary>
+            <param name="key">字典主键。</param>
+            <returns>要获取的字典内容字符串。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.GetString(System.String,System.Object)">
+            <summary>
+            根据字典主键获取字典内容字符串。
+            </summary>
+            <param name="key">字典主键。</param>
+            <param name="arg0">字典参数 0。</param>
+            <returns>要获取的字典内容字符串。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.GetString(System.String,System.Object,System.Object)">
+            <summary>
+            根据字典主键获取字典内容字符串。
+            </summary>
+            <param name="key">字典主键。</param>
+            <param name="arg0">字典参数 0。</param>
+            <param name="arg1">字典参数 1。</param>
+            <returns>要获取的字典内容字符串。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.GetString(System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            根据字典主键获取字典内容字符串。
+            </summary>
+            <param name="key">字典主键。</param>
+            <param name="arg0">字典参数 0。</param>
+            <param name="arg1">字典参数 1。</param>
+            <param name="arg2">字典参数 2。</param>
+            <returns>要获取的字典内容字符串。</returns>
+        </member>
         <member name="M:GameFramework.Localization.LocalizationManager.GetString(System.String,System.Object[])">
             <summary>
             根据字典主键获取字典内容字符串。
@@ -7604,12 +7714,22 @@
         </member>
         <member name="P:GameFramework.Network.INetworkChannel.SendPacketCount">
             <summary>
-            要发送的消息包数量。
+            获取要发送的消息包数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.INetworkChannel.SentPacketCount">
+            <summary>
+            获取累计发送的消息包数量。
             </summary>
         </member>
         <member name="P:GameFramework.Network.INetworkChannel.ReceivePacketCount">
             <summary>
-            已接收未处理的消息包数量。
+            获取已接收未处理的消息包数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.INetworkChannel.ReceivedPacketCount">
+            <summary>
+            获取累计已接收的消息包数量。
             </summary>
         </member>
         <member name="P:GameFramework.Network.INetworkChannel.ResetHeartBeatElapseSecondsWhenReceivePacket">
@@ -7617,9 +7737,19 @@
             获取或设置当收到消息包时是否重置心跳流逝时间。
             </summary>
         </member>
+        <member name="P:GameFramework.Network.INetworkChannel.MissHeartBeatCount">
+            <summary>
+            获取丢失心跳的次数。
+            </summary>
+        </member>
         <member name="P:GameFramework.Network.INetworkChannel.HeartBeatInterval">
             <summary>
             获取或设置心跳间隔时长，以秒为单位。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.INetworkChannel.HeartBeatElapseSeconds">
+            <summary>
+            获取心跳等待时长，以秒为单位。
             </summary>
         </member>
         <member name="P:GameFramework.Network.INetworkChannel.ReceiveBufferSize">
@@ -7698,13 +7828,14 @@
             </summary>
             <returns>是否发送心跳消息包成功。</returns>
         </member>
-        <member name="M:GameFramework.Network.INetworkChannelHelper.Serialize``1(``0)">
+        <member name="M:GameFramework.Network.INetworkChannelHelper.Serialize``1(``0,System.IO.Stream)">
             <summary>
             序列化消息包。
             </summary>
             <typeparam name="T">消息包类型。</typeparam>
             <param name="packet">要序列化的消息包。</param>
-            <returns>序列化后的消息包字节流。</returns>
+            <param name="destination">要序列化的目标流。</param>
+            <returns>是否序列化成功。</returns>
         </member>
         <member name="M:GameFramework.Network.INetworkChannelHelper.DeserializePacketHeader(System.IO.Stream,System.Object@)">
             <summary>
@@ -8101,12 +8232,22 @@
         </member>
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.SendPacketCount">
             <summary>
-            要发送的消息包数量。
+            获取要发送的消息包数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.SentPacketCount">
+            <summary>
+            获取累计发送的消息包数量。
             </summary>
         </member>
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.ReceivePacketCount">
             <summary>
-            已接收未处理的消息包数量。
+            获取已接收未处理的消息包数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.ReceivedPacketCount">
+            <summary>
+            获取累计已接收的消息包数量。
             </summary>
         </member>
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.ResetHeartBeatElapseSecondsWhenReceivePacket">
@@ -8114,9 +8255,19 @@
             获取或设置当收到消息包时是否重置心跳流逝时间。
             </summary>
         </member>
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.MissHeartBeatCount">
+            <summary>
+            获取丢失心跳的次数。
+            </summary>
+        </member>
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.HeartBeatInterval">
             <summary>
             获取或设置心跳间隔时长，以秒为单位。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.HeartBeatElapseSeconds">
+            <summary>
+            获取心跳等待时长，以秒为单位。
             </summary>
         </member>
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.ReceiveBufferSize">
@@ -8247,6 +8398,11 @@
         <member name="P:GameFramework.ObjectPool.IObjectPool`1.Name">
             <summary>
             获取对象池名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ObjectPool.IObjectPool`1.FullName">
+            <summary>
+            获取对象池完整名称。
             </summary>
         </member>
         <member name="P:GameFramework.ObjectPool.IObjectPool`1.ObjectType">
@@ -8431,6 +8587,20 @@
             <param name="name">对象池名称。</param>
             <returns>是否存在对象池。</returns>
         </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.HasObjectPool(System.String)">
+            <summary>
+            检查是否存在对象池。
+            </summary>
+            <param name="fullName">对象池完整名称。</param>
+            <returns>是否存在对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.HasObjectPool(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            检查是否存在对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>是否存在对象池。</returns>
+        </member>
         <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetObjectPool``1">
             <summary>
             获取对象池。
@@ -8460,6 +8630,34 @@
             <param name="objectType">对象类型。</param>
             <param name="name">对象池名称。</param>
             <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetObjectPool(System.String)">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="fullName">对象池完整名称。</param>
+            <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetObjectPool(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetObjectPools(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetObjectPools(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase},System.Collections.Generic.List{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="results">要获取的对象池。</param>
         </member>
         <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetAllObjectPools">
             <summary>
@@ -9253,6 +9451,11 @@
             获取对象池名称。
             </summary>
         </member>
+        <member name="P:GameFramework.ObjectPool.ObjectPoolBase.FullName">
+            <summary>
+            获取对象池完整名称。
+            </summary>
+        </member>
         <member name="P:GameFramework.ObjectPool.ObjectPoolBase.ObjectType">
             <summary>
             获取对象池对象类型。
@@ -9378,6 +9581,20 @@
             <param name="name">对象池名称。</param>
             <returns>是否存在对象池。</returns>
         </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.HasObjectPool(System.String)">
+            <summary>
+            检查是否存在对象池。
+            </summary>
+            <param name="fullName">对象池完整名称。</param>
+            <returns>是否存在对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.HasObjectPool(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            检查是否存在对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>是否存在对象池。</returns>
+        </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetObjectPool``1">
             <summary>
             获取对象池。
@@ -9407,6 +9624,34 @@
             <param name="objectType">对象类型。</param>
             <param name="name">对象池名称。</param>
             <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetObjectPool(System.String)">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="fullName">对象池完整名称。</param>
+            <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetObjectPool(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetObjectPools(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <returns>要获取的对象池。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetObjectPools(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase},System.Collections.Generic.List{GameFramework.ObjectPool.ObjectPoolBase})">
+            <summary>
+            获取对象池。
+            </summary>
+            <param name="condition">要检查的条件。</param>
+            <param name="results">要获取的对象池。</param>
         </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetAllObjectPools">
             <summary>
@@ -17101,11 +17346,13 @@
             开始采样。
             </summary>
             <param name="name">采样名称。</param>
+            <remarks>仅在带有 DEBUG 预编译选项时生效。</remarks>
         </member>
         <member name="M:GameFramework.Utility.Profiler.EndSample">
             <summary>
             结束采样。
             </summary>
+            <remarks>仅在带有 DEBUG 预编译选项时生效。</remarks>
         </member>
         <member name="T:GameFramework.Utility.Profiler.IProfilerHelper">
             <summary>
@@ -17172,6 +17419,41 @@
             字符相关的实用函数。
             </summary>
         </member>
+        <member name="M:GameFramework.Utility.Text.Format(System.String,System.Object)">
+            <summary>
+            获取格式化字符串。
+            </summary>
+            <param name="format">字符串格式。</param>
+            <param name="arg0">字符串参数 0。</param>
+            <returns>格式化后的字符串。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Text.Format(System.String,System.Object,System.Object)">
+            <summary>
+            获取格式化字符串。
+            </summary>
+            <param name="format">字符串格式。</param>
+            <param name="arg0">字符串参数 0。</param>
+            <param name="arg1">字符串参数 1。</param>
+            <returns>格式化后的字符串。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Text.Format(System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            获取格式化字符串。
+            </summary>
+            <param name="format">字符串格式。</param>
+            <param name="arg0">字符串参数 0。</param>
+            <param name="arg1">字符串参数 1。</param>
+            <param name="arg2">字符串参数 2。</param>
+            <returns>格式化后的字符串。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Text.Format(System.String,System.Object[])">
+            <summary>
+            获取格式化字符串。
+            </summary>
+            <param name="format">字符串格式。</param>
+            <param name="args">字符串参数。</param>
+            <returns>格式化后的字符串。</returns>
+        </member>
         <member name="M:GameFramework.Utility.Text.SplitToLines(System.String)">
             <summary>
             将文本按行切分。
@@ -17201,14 +17483,6 @@
             </summary>
             <param name="fieldName">字段名称。</param>
             <returns>编辑器显示名称。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Text.ReadLine(System.String,System.Int32@)">
-            <summary>
-            读取一行文本。
-            </summary>
-            <param name="text">要读取的文本。</param>
-            <param name="position">开始的位置。</param>
-            <returns>一行文本。</returns>
         </member>
         <member name="T:GameFramework.Utility.Verifier">
             <summary>

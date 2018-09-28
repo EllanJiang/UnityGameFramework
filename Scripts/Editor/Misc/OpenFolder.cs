@@ -18,12 +18,12 @@ namespace UnityGameFramework.Editor
     public static class OpenFolder
     {
         /// <summary>
-        /// 打开 Temporary Cache Path 文件夹。
+        /// 打开 Data Path 文件夹。
         /// </summary>
-        [MenuItem("Game Framework/Open Folder/Temporary Cache Path", false, 10)]
-        public static void OpenFolderTemporaryCachePath()
+        [MenuItem("Game Framework/Open Folder/Data Path", false, 10)]
+        public static void OpenFolderDataPath()
         {
-            InternalOpenFolder(Application.temporaryCachePath);
+            Execute(Application.dataPath);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace UnityGameFramework.Editor
         [MenuItem("Game Framework/Open Folder/Persistent Data Path", false, 11)]
         public static void OpenFolderPersistentDataPath()
         {
-            InternalOpenFolder(Application.persistentDataPath);
+            Execute(Application.persistentDataPath);
         }
 
         /// <summary>
@@ -41,21 +41,25 @@ namespace UnityGameFramework.Editor
         [MenuItem("Game Framework/Open Folder/Streaming Assets Path", false, 12)]
         public static void OpenFolderStreamingAssetsPath()
         {
-            InternalOpenFolder(Application.streamingAssetsPath);
+            Execute(Application.streamingAssetsPath);
         }
 
         /// <summary>
-        /// 打开 Data Path 文件夹。
+        /// 打开 Temporary Cache Path 文件夹。
         /// </summary>
-        [MenuItem("Game Framework/Open Folder/Data Path", false, 13)]
-        public static void OpenFolderDataPath()
+        [MenuItem("Game Framework/Open Folder/Temporary Cache Path", false, 13)]
+        public static void OpenFolderTemporaryCachePath()
         {
-            InternalOpenFolder(Application.dataPath);
+            Execute(Application.temporaryCachePath);
         }
 
-        private static void InternalOpenFolder(string folder)
+        /// <summary>
+        /// 打开指定路径的文件夹。
+        /// </summary>
+        /// <param name="folder">要打开的文件夹的路径。</param>
+        public static void Execute(string folder)
         {
-            folder = string.Format("\"{0}\"", folder);
+            folder = Utility.Text.Format("\"{0}\"", folder);
             switch (Application.platform)
             {
                 case RuntimePlatform.WindowsEditor:
@@ -65,7 +69,7 @@ namespace UnityGameFramework.Editor
                     Process.Start("open", folder);
                     break;
                 default:
-                    throw new GameFrameworkException(string.Format("Not support open folder on '{0}' platform.", Application.platform.ToString()));
+                    throw new GameFrameworkException(Utility.Text.Format("Not support open folder on '{0}' platform.", Application.platform.ToString()));
             }
         }
     }

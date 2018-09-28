@@ -5,11 +5,8 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
-using GameFramework.Event;
 using GameFramework.Fsm;
-using GameFramework.Network;
 using GameFramework.Procedure;
-using System;
 using System.Collections.Generic;
 
 namespace UnityGameFramework.Runtime
@@ -18,8 +15,6 @@ namespace UnityGameFramework.Runtime
     {
         private static void NeverCalledMethod()
         {
-            new Dictionary<int, EventHandler<GameEventArgs>>();
-            new Dictionary<int, EventHandler<Packet>>();
             new Dictionary<int, FsmEventHandler<IProcedureManager>>();
         }
     }

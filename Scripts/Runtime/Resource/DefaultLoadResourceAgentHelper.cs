@@ -302,7 +302,7 @@ namespace UnityGameFramework.Runtime
                     }
                     else
                     {
-                        m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.NotExist, string.Format("Can not load asset bundle '{0}' with error message '{1}'.", m_BytesFullPath, m_WWW.error)));
+                        m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.NotExist, Utility.Text.Format("Can not load asset bundle '{0}' with error message '{1}'.", m_BytesFullPath, m_WWW.error)));
                     }
                 }
                 else
@@ -330,7 +330,7 @@ namespace UnityGameFramework.Runtime
                     }
                     else
                     {
-                        m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.NotExist, string.Format("Can not load asset bundle from file '{0}' which is not a valid asset bundle.", m_FileFullPath)));
+                        m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.NotExist, Utility.Text.Format("Can not load asset bundle from file '{0}' which is not a valid asset bundle.", m_FileFullPath)));
                     }
                 }
                 else
@@ -382,7 +382,7 @@ namespace UnityGameFramework.Runtime
                     }
                     else
                     {
-                        m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.ChildAssetError, string.Format("Can not load asset '{0}' from asset bundle which is not exist.", m_ResourceChildName)));
+                        m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.ChildAssetError, Utility.Text.Format("Can not load asset '{0}' from asset bundle which is not exist.", m_ResourceChildName)));
                     }
                 }
                 else
@@ -406,7 +406,7 @@ namespace UnityGameFramework.Runtime
                     }
                     else
                     {
-                        m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.SceneAssetError, string.Format("Can not load scene asset '{0}' from asset bundle.", m_ResourceChildName)));
+                        m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.SceneAssetError, Utility.Text.Format("Can not load scene asset '{0}' from asset bundle.", m_ResourceChildName)));
                     }
                 }
                 else

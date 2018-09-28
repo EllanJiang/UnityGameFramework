@@ -46,7 +46,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             {
                 get
                 {
-                    return Folder == null ? string.Empty : (Folder.Folder == null ? Name : string.Format("{0}/{1}", Folder.FromRootPath, Name));
+                    return Folder == null ? string.Empty : (Folder.Folder == null ? Name : Utility.Text.Format("{0}/{1}", Folder.FromRootPath, Name));
                 }
             }
 

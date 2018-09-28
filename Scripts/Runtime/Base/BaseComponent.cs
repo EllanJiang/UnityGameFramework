@@ -296,13 +296,13 @@ namespace UnityGameFramework.Runtime
             Type versionHelperType = Utility.Assembly.GetType(m_VersionHelperTypeName);
             if (versionHelperType == null)
             {
-                throw new GameFrameworkException(string.Format("Can not find version helper type '{0}'.", m_VersionHelperTypeName));
+                throw new GameFrameworkException(Utility.Text.Format("Can not find version helper type '{0}'.", m_VersionHelperTypeName));
             }
 
             GameFramework.Version.IVersionHelper versionHelper = (GameFramework.Version.IVersionHelper)Activator.CreateInstance(versionHelperType);
             if (versionHelper == null)
             {
-                throw new GameFrameworkException(string.Format("Can not create version helper instance '{0}'.", m_VersionHelperTypeName));
+                throw new GameFrameworkException(Utility.Text.Format("Can not create version helper instance '{0}'.", m_VersionHelperTypeName));
             }
 
             GameFramework.Version.SetVersionHelper(versionHelper);
@@ -318,16 +318,16 @@ namespace UnityGameFramework.Runtime
             Type logHelperType = Utility.Assembly.GetType(m_LogHelperTypeName);
             if (logHelperType == null)
             {
-                throw new GameFrameworkException(string.Format("Can not find log helper type '{0}'.", m_LogHelperTypeName));
+                throw new GameFrameworkException(Utility.Text.Format("Can not find log helper type '{0}'.", m_LogHelperTypeName));
             }
 
-            Log.ILogHelper logHelper = (Log.ILogHelper)Activator.CreateInstance(logHelperType);
+            GameFrameworkLog.ILogHelper logHelper = (GameFrameworkLog.ILogHelper)Activator.CreateInstance(logHelperType);
             if (logHelper == null)
             {
-                throw new GameFrameworkException(string.Format("Can not create log helper instance '{0}'.", m_LogHelperTypeName));
+                throw new GameFrameworkException(Utility.Text.Format("Can not create log helper instance '{0}'.", m_LogHelperTypeName));
             }
 
-            Log.SetLogHelper(logHelper);
+            GameFrameworkLog.SetLogHelper(logHelper);
         }
 
         private void InitZipHelper()

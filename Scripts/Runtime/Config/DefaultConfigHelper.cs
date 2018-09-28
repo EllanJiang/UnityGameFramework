@@ -71,7 +71,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Warning("Can not parse config '{0}' with exception '{1}'.", text, string.Format("{0}\n{1}", exception.Message, exception.StackTrace));
+                Log.Warning("Can not parse config '{0}' with exception '{1}'.", text, Utility.Text.Format("{0}\n{1}", exception.Message, exception.StackTrace));
                 return false;
             }
         }

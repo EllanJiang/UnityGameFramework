@@ -19,7 +19,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         /// <summary>
         /// 运行生成资源包。
         /// </summary>
-        [MenuItem("Game Framework/AssetBundle Tools/Build AssetBundle", false, 30)]
+        [MenuItem("Game Framework/AssetBundle Tools/Build AssetBundle", false, 40)]
         public static void Run()
         {
             Run(null, Platform.Undefined, null, null);
@@ -114,7 +114,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
             if (!controller.IsValidOutputDirectory)
             {
-                throw new GameFrameworkException(string.Format("Output directory '{0}' is invalid.", controller.OutputDirectory));
+                throw new GameFrameworkException(Utility.Text.Format("Output directory '{0}' is invalid.", controller.OutputDirectory));
             }
 
             if (!controller.BuildAssetBundles())

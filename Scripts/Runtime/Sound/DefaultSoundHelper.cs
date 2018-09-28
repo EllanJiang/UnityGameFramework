@@ -5,8 +5,6 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
-using GameFramework;
-
 namespace UnityGameFramework.Runtime
 {
     /// <summary>

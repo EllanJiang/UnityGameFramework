@@ -27,7 +27,8 @@ namespace UnityGameFramework.Editor
 
             if (PrefabUtility.GetPrefabType(t.gameObject) != PrefabType.Prefab)
             {
-                EditorGUILayout.LabelField("Event Count", t.Count.ToString());
+                EditorGUILayout.LabelField("Event Handler Count", t.EventHandlerCount.ToString());
+                EditorGUILayout.LabelField("Event Count", t.EventCount.ToString());
             }
 
             Repaint();

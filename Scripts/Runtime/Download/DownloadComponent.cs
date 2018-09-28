@@ -248,7 +248,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            downloadAgentHelper.name = string.Format("Download Agent Helper - {0}", index.ToString());
+            downloadAgentHelper.name = Utility.Text.Format("Download Agent Helper - {0}", index.ToString());
             Transform transform = downloadAgentHelper.transform;
             transform.SetParent(m_InstanceRoot);
             transform.localScale = Vector3.one;

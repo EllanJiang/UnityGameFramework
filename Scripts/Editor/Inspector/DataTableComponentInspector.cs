@@ -78,7 +78,7 @@ namespace UnityGameFramework.Editor
 
         private void DrawDataTable(DataTableBase dataTable)
         {
-            EditorGUILayout.LabelField(Utility.Text.GetFullName(dataTable.Type, dataTable.Name), string.Format("{0} Rows", dataTable.Count.ToString()));
+            EditorGUILayout.LabelField(Utility.Text.GetFullName(dataTable.Type, dataTable.Name), Utility.Text.Format("{0} Rows", dataTable.Count.ToString()));
         }
 
         private void RefreshTypeNames()

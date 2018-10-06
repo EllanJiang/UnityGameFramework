@@ -109,8 +109,11 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            Dictionary<string, string> header = new Dictionary<string, string>();
-            header.Add("Range", GameFramework.Utility.Text.Format("bytes={0}-", fromPosition.ToString()));
+            Dictionary<string, string> header = new Dictionary<string, string>
+            {
+                { "Range", GameFramework.Utility.Text.Format("bytes={0}-", fromPosition.ToString()) }
+            };
+
             m_UnityWebRequest = UnityWebRequest.Post(downloadUri, header);
 #if UNITY_2017_2_OR_NEWER
             m_UnityWebRequest.SendWebRequest();
@@ -134,8 +137,11 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            Dictionary<string, string> header = new Dictionary<string, string>();
-            header.Add("Range", GameFramework.Utility.Text.Format("bytes={0}-{1}", fromPosition.ToString(), toPosition.ToString()));
+            Dictionary<string, string> header = new Dictionary<string, string>
+            {
+                { "Range", GameFramework.Utility.Text.Format("bytes={0}-{1}", fromPosition.ToString(), toPosition.ToString()) }
+            };
+
             m_UnityWebRequest = UnityWebRequest.Post(downloadUri, header);
 #if UNITY_2017_2_OR_NEWER
             m_UnityWebRequest.SendWebRequest();

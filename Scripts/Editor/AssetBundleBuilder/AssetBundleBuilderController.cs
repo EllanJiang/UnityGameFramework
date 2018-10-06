@@ -92,8 +92,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             m_VersionListDatas = new Dictionary<Platform, VersionListData>();
             m_BuildReport = new BuildReport();
 
-            m_BuildEventHandlerTypeNames = new List<string>();
-            m_BuildEventHandlerTypeNames.Add(NoneOptionName);
+            m_BuildEventHandlerTypeNames = new List<string>
+            {
+                NoneOptionName
+            };
+
             m_BuildEventHandlerTypeNames.AddRange(Type.GetEditorTypeNames(typeof(IBuildEventHandler)));
             m_BuildEventHandler = null;
 

@@ -61,8 +61,11 @@ namespace UnityGameFramework.Editor
 
         public void Refresh()
         {
-            List<string> helperTypeNameList = new List<string>();
-            helperTypeNameList.Add(CustomOptionName);
+            List<string> helperTypeNameList = new List<string>
+            {
+                CustomOptionName
+            };
+
             helperTypeNameList.AddRange(Type.GetTypeNames(typeof(T)));
             m_HelperTypeNames = helperTypeNameList.ToArray();
 

@@ -32,7 +32,7 @@ namespace UnityGameFramework.Editor
 
         private FieldInfo m_EditorResourceModeFieldInfo = null;
 
-        private string[] m_ResourceModeNames = new string[] { "Package", "Updatable" };
+        private readonly string[] m_ResourceModeNames = new string[] { "Package", "Updatable" };
         private int m_ResourceModeIndex = 0;
         private HelperInfo<ResourceHelperBase> m_ResourceHelperInfo = new HelperInfo<ResourceHelperBase>("Resource");
         private HelperInfo<LoadResourceAgentHelperBase> m_LoadResourceAgentHelperInfo = new HelperInfo<LoadResourceAgentHelperBase>("LoadResourceAgent");

@@ -15,7 +15,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class DefaultProfilerHelper : Utility.Profiler.IProfilerHelper
     {
-        private Thread m_MainThread = null;
+        private readonly Thread m_MainThread = null;
 
         /// <summary>
         /// 初始化性能分析辅助器的新实例。

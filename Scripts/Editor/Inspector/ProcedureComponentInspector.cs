@@ -92,6 +92,8 @@ namespace UnityGameFramework.Editor
             EditorGUI.EndDisabledGroup();
 
             serializedObject.ApplyModifiedProperties();
+
+            Repaint();
         }
 
         protected override void OnCompileComplete()

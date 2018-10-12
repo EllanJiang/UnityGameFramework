@@ -784,6 +784,12 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
+            if (!assetName.StartsWith("Assets/"))
+            {
+                Log.Error("Asset name '{0}' is invalid.", assetName);
+                return;
+            }
+
             if (loadAssetCallbacks == null)
             {
                 Log.Error("Load asset callbacks is invalid.");
@@ -855,6 +861,12 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
+            if (!sceneAssetName.StartsWith("Assets/") || !sceneAssetName.EndsWith(".unity"))
+            {
+                Log.Error("Scene asset name '{0}' is invalid.", sceneAssetName);
+                return;
+            }
+
             if (loadSceneCallbacks == null)
             {
                 Log.Error("Load scene callbacks is invalid.");
@@ -901,6 +913,12 @@ namespace UnityGameFramework.Runtime
             if (string.IsNullOrEmpty(sceneAssetName))
             {
                 Log.Error("Scene asset name is invalid.");
+                return;
+            }
+
+            if (!sceneAssetName.StartsWith("Assets/") || !sceneAssetName.EndsWith(".unity"))
+            {
+                Log.Error("Scene asset name '{0}' is invalid.", sceneAssetName);
                 return;
             }
 

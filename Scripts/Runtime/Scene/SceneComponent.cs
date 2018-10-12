@@ -233,6 +233,18 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public void LoadScene(string sceneAssetName, int priority, object userData)
         {
+            if (string.IsNullOrEmpty(sceneAssetName))
+            {
+                Log.Error("Scene asset name is invalid.");
+                return;
+            }
+
+            if (!sceneAssetName.StartsWith("Assets/") || !sceneAssetName.EndsWith(".unity"))
+            {
+                Log.Error("Scene asset name '{0}' is invalid.", sceneAssetName);
+                return;
+            }
+
             m_SceneManager.LoadScene(sceneAssetName, priority, userData);
         }
 
@@ -252,6 +264,18 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public void UnloadScene(string sceneAssetName, object userData)
         {
+            if (string.IsNullOrEmpty(sceneAssetName))
+            {
+                Log.Error("Scene asset name is invalid.");
+                return;
+            }
+
+            if (!sceneAssetName.StartsWith("Assets/") || !sceneAssetName.EndsWith(".unity"))
+            {
+                Log.Error("Scene asset name '{0}' is invalid.", sceneAssetName);
+                return;
+            }
+
             m_SceneManager.UnloadScene(sceneAssetName, userData);
         }
 

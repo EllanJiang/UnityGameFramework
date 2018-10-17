@@ -54,7 +54,7 @@ namespace UnityGameFramework.Editor
                 return false;
             }
 
-            if (match.Groups[1].Value.Contains("Log.cs"))
+            if (match.Groups[1].Value.Contains("GameFrameworkLog.cs"))
             {
                 // 直接使用 GameFramework.dll 源码而非 dll 的工程会多一次匹配的堆栈
                 match = match.NextMatch();

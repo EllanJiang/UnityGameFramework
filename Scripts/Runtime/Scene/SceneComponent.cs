@@ -357,6 +357,7 @@ namespace UnityGameFramework.Runtime
 
         private void OnUnloadSceneSuccess(object sender, GameFramework.Scene.UnloadSceneSuccessEventArgs e)
         {
+            m_MainCamera = Camera.main;
             if (m_EnableUnloadSceneSuccessEvent)
             {
                 m_EventComponent.Fire(this, ReferencePool.Acquire<UnloadSceneSuccessEventArgs>().Fill(e));

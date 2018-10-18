@@ -24,7 +24,7 @@ namespace UnityGameFramework.Runtime
     public sealed class EditorResourceComponent : MonoBehaviour, IResourceManager
     {
         private const int DefaultPriority = 0;
-        private static readonly int AssetsSubstringLength = "Assets/".Length;
+        private static readonly int AssetsStringLength = "Assets".Length;
 
         [SerializeField]
         private float m_MinLoadAssetRandomDelaySeconds = 0f;
@@ -1021,7 +1021,7 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
-            string assetFullName = Utility.Path.GetCombinePath(Application.dataPath, assetName.Substring(AssetsSubstringLength));
+            string assetFullName = Application.dataPath.Substring(0, Application.dataPath.Length - AssetsStringLength) + assetName;
             if (string.IsNullOrEmpty(assetFullName))
             {
                 return false;

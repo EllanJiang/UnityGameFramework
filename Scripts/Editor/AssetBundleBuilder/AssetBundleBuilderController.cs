@@ -25,7 +25,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         private static readonly char[] PackageListHeader = new char[] { 'E', 'L', 'P' };
         private static readonly char[] VersionListHeader = new char[] { 'E', 'L', 'V' };
         private static readonly char[] ReadOnlyListHeader = new char[] { 'E', 'L', 'R' };
-        private static readonly int AssetsSubstringLength = "Assets/".Length;
+        private static readonly int AssetsStringLength = "Assets".Length;
         private const byte PackageListVersion = 0;
         private const byte VersionListVersion = 0;
         private const byte ReadOnlyListVersion = 0;
@@ -1325,7 +1325,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     return null;
                 }
 
-                string assetFileFullName = Utility.Path.GetCombinePath(Application.dataPath, assetName.Substring(AssetsSubstringLength));
+                string assetFileFullName = Application.dataPath.Substring(0, Application.dataPath.Length - AssetsStringLength) + assetName;
                 if (!File.Exists(assetFileFullName))
                 {
                     m_BuildReport.LogError("Can not find asset '{0}'.", assetFileFullName);

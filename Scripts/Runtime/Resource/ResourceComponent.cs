@@ -774,6 +774,69 @@ namespace UnityGameFramework.Runtime
             m_ResourceManager.LoadAsset(assetName, assetType, priority, loadAssetCallbacks, userData);
         }
 
+        /// ChangeBy: Shine Wu 2018/10/16 同步加载资源
+        /// <summary>
+        /// 同步加载资源
+        /// </summary>
+        /// <returns>Asset资源对象。</returns>
+        /// <param name="assetName">要加载资源的名称。</param>
+        public object LoadAssetSync(string assetName)
+        {
+            return LoadAssetSync(assetName, null);
+        }
+
+        /// <summary>
+        /// 同步加载资源
+        /// </summary>
+        /// <returns>资源对象。</returns>
+        /// <param name="assetName">要加载资源的名称。</param>
+        /// <param name="subName">要加载子资源的名称。</param>
+        public object LoadAssetSync(string assetName, string subName)
+        {
+            return m_ResourceManager.LoadAssetSync(assetName, subName, SyncLoadAssetBundle, SyncLoadAssetObject);
+        }
+
+        private object SyncLoadAssetBundle(string fullPath, byte[] bytes)
+        {
+            if (!string.IsNullOrEmpty(fullPath)) {
+                return AssetBundle.LoadFromFile(fullPath);
+            }
+            else if (bytes != null) {
+                return AssetBundle.LoadFromMemory(bytes);
+            }
+            return null;
+        }
+
+        private object SyncLoadAssetObject(object resource, string assetName, string subName)
+        {
+            AssetBundle assetBundle = resource as AssetBundle;
+            if (assetBundle == null)
+            {
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(assetName))
+            {
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(subName))
+            {
+                return assetBundle.LoadAsset(assetName);
+            }
+            else {
+                UnityEngine.Object[] objs = assetBundle.LoadAssetWithSubAssets(assetName);
+                for (int i = 0; i < objs.Length; i++)
+                {
+                    if (objs[i].name == subName)
+                    {
+                        return objs[i];
+                    }
+                }
+                return null;
+            }
+        }
+
         /// <summary>
         /// 卸载资源。
         /// </summary>

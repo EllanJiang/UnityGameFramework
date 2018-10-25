@@ -805,6 +805,60 @@ namespace UnityGameFramework.Runtime
             m_LoadAssetInfos.AddLast(new LoadAssetInfo(assetName, assetType, priority, DateTime.Now, m_MinLoadAssetRandomDelaySeconds + (float)Utility.Random.GetRandomDouble() * (m_MaxLoadAssetRandomDelaySeconds - m_MinLoadAssetRandomDelaySeconds), loadAssetCallbacks, userData));
         }
 
+        /// ChangeBy: Shine Wu 2018/10/16 同步加载资源
+        /// <summary>
+        /// 同步加载资源
+        /// </summary>
+        /// <returns>Asset资源对象。</returns>
+        /// <param name="assetName">要加载资源的名称。</param>
+        /// <param name="syncAssetBundleCallback">加载AssetBundle回调。</param>
+        /// <param name="syncAssetObjectCallback">加载AssetObject回调。</param>
+        public object LoadAssetSync(string assetName, string subName, SyncAssetBundleCallback syncAssetBundleCallback, SyncAssetObjectCallback syncAssetObjectCallback)
+        {
+            if (string.IsNullOrEmpty(assetName))
+            {
+                Log.Error("Asset name is invalid.");
+                return null;
+            }
+
+            if (syncAssetBundleCallback == null)
+            {
+                Log.Error("Sync Asset Bundle callback is invalid.");
+                return null;
+            }
+
+            if (syncAssetObjectCallback == null)
+            {
+                Log.Error("Sync Asset Object callback is invalid.");
+                return null;
+            }
+
+            if (!ExistsFile(assetName))
+            {
+                Log.Error("Asset '{0}' is not exist.", assetName);
+                return null;
+            }
+
+#if UNITY_EDITOR
+            if (string.IsNullOrEmpty(subName)) {
+                return UnityEditor.AssetDatabase.LoadMainAssetAtPath(assetName);
+            }
+            else {
+                UnityEngine.Object[] objs = UnityEditor.AssetDatabase.LoadAllAssetsAtPath(assetName);
+                for (int i = 0; i < objs.Length; i++)
+                {
+                    if (objs[i].name == subName)
+                    {
+                        return objs[i];
+                    }
+                }
+                return null;
+            }
+#else
+            return null;
+#endif
+        }
+
         /// <summary>
         /// 卸载资源。
         /// </summary>

@@ -210,11 +210,11 @@ namespace UnityGameFramework.Editor
                     {
                         if (EditorApplication.isPlaying)
                         {
-                            t.UpdateRetryCount = resourceCapacity;
+                            t.UpdateRetryCount = updateRetryCount;
                         }
                         else
                         {
-                            m_UpdateRetryCount.intValue = resourceCapacity;
+                            m_UpdateRetryCount.intValue = updateRetryCount;
                         }
                     }
                 }

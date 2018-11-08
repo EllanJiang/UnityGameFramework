@@ -725,11 +725,12 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
             catch (Exception exception)
             {
-                m_BuildReport.LogFatal(Utility.Text.Format("{0}\n{1}", exception.Message, exception.StackTrace));
+                string errorMessage = Utility.Text.Format("{0}\n{1}", exception.Message, exception.StackTrace);
+                m_BuildReport.LogFatal(errorMessage);
                 m_BuildReport.SaveReport();
                 if (BuildAssetBundlesError != null)
                 {
-                    BuildAssetBundlesError(exception.Message);
+                    BuildAssetBundlesError(errorMessage);
                 }
 
                 return false;

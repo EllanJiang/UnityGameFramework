@@ -14,6 +14,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public abstract class EntityLogic : MonoBehaviour
     {
+        private bool m_Available = false;
         private int m_OriginalLayer = 0;
         private Transform m_OriginalTransform = null;
 
@@ -46,11 +47,31 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 获取实体是否可用。
         /// </summary>
-        public bool IsAvailable
+        public bool Available
         {
             get
             {
-                return gameObject.activeSelf;
+                return m_Available;
+            }
+        }
+
+        /// <summary>
+        /// 获取或设置实体是否可见。
+        /// </summary>
+        public bool Visible
+        {
+            get
+            {
+                return m_Available && gameObject.activeSelf;
+            }
+            set
+            {
+                if (!m_Available)
+                {
+                    return;
+                }
+
+                gameObject.SetActive(value);
             }
         }
 
@@ -84,7 +105,8 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         protected internal virtual void OnShow(object userData)
         {
-            gameObject.SetActive(true);
+            m_Available = true;
+            Visible = true;
         }
 
         /// <summary>
@@ -94,7 +116,8 @@ namespace UnityGameFramework.Runtime
         protected internal virtual void OnHide(object userData)
         {
             gameObject.SetLayerRecursively(m_OriginalLayer);
-            gameObject.SetActive(false);
+            Visible = false;
+            m_Available = false;
         }
 
         /// <summary>

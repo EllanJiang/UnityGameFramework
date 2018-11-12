@@ -14,6 +14,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public abstract class UIFormLogic : MonoBehaviour
     {
+        private bool m_Available = false;
         private int m_OriginalLayer = 0;
 
         /// <summary>
@@ -45,11 +46,11 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 获取界面是否可用。
         /// </summary>
-        public bool IsAvailable
+        public bool Available
         {
             get
             {
-                return gameObject.activeSelf;
+                return m_Available;
             }
         }
 
@@ -82,6 +83,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         protected internal virtual void OnOpen(object userData)
         {
+            m_Available = true;
             gameObject.SetActive(true);
         }
 
@@ -93,6 +95,7 @@ namespace UnityGameFramework.Runtime
         {
             gameObject.SetLayerRecursively(m_OriginalLayer);
             gameObject.SetActive(false);
+            m_Available = false;
         }
 
         /// <summary>

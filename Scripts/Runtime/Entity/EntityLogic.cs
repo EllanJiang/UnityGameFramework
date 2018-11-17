@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -15,6 +16,7 @@ namespace UnityGameFramework.Runtime
     public abstract class EntityLogic : MonoBehaviour
     {
         private bool m_Available = false;
+        private bool m_Visible = false;
         private int m_OriginalLayer = 0;
         private Transform m_OriginalTransform = null;
 
@@ -62,16 +64,17 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return m_Available && gameObject.activeSelf;
+                return m_Available && m_Visible;
             }
             set
             {
                 if (!m_Available)
                 {
-                    return;
+                    throw new GameFrameworkException(Utility.Text.Format("Entity '{0}' is not available.", Name));
                 }
 
-                gameObject.SetActive(value);
+                m_Visible = value;
+                InternalSetVisible(value);
             }
         }
 
@@ -170,6 +173,15 @@ namespace UnityGameFramework.Runtime
         protected internal virtual void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
 
+        }
+
+        /// <summary>
+        /// 设置实体的可见性。
+        /// </summary>
+        /// <param name="visible">实体的可见性。</param>
+        protected virtual void InternalSetVisible(bool visible)
+        {
+            gameObject.SetActive(visible);
         }
     }
 }

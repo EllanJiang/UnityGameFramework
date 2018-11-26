@@ -9702,12 +9702,13 @@
             对象信息。
             </summary>
         </member>
-        <member name="M:GameFramework.ObjectPool.ObjectInfo.#ctor(System.String,System.Boolean,System.Int32,System.DateTime,System.Int32)">
+        <member name="M:GameFramework.ObjectPool.ObjectInfo.#ctor(System.String,System.Boolean,System.Boolean,System.Int32,System.DateTime,System.Int32)">
             <summary>
             初始化对象信息的新实例。
             </summary>
             <param name="name">对象名称。</param>
             <param name="locked">对象是否被加锁。</param>
+            <param name="customCanReleaseFlag">对象自定义释放检查标记。</param>
             <param name="priority">对象的优先级。</param>
             <param name="lastUseTime">对象上次使用时间。</param>
             <param name="spawnCount">对象的获取计数。</param>
@@ -9720,6 +9721,11 @@
         <member name="P:GameFramework.ObjectPool.ObjectInfo.Locked">
             <summary>
             获取对象是否被加锁。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ObjectPool.ObjectInfo.CustomCanReleaseFlag">
+            <summary>
+            获取对象自定义释放检查标记。
             </summary>
         </member>
         <member name="P:GameFramework.ObjectPool.ObjectInfo.Priority">

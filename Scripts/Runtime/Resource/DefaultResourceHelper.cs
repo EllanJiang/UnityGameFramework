@@ -17,8 +17,6 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class DefaultResourceHelper : ResourceHelperBase
     {
-        private ResourceComponent m_ResourceComponent = null;
-
         /// <summary>
         /// 直接从指定文件路径读取数据流。
         /// </summary>
@@ -74,7 +72,6 @@ namespace UnityGameFramework.Runtime
             if (assetBundle != null)
             {
                 assetBundle.Unload(true);
-                m_ResourceComponent.ForceUnloadUnusedAssets(false);
                 return;
             }
 
@@ -104,12 +101,7 @@ namespace UnityGameFramework.Runtime
 
         private void Start()
         {
-            m_ResourceComponent = GameEntry.GetComponent<ResourceComponent>();
-            if (m_ResourceComponent == null)
-            {
-                Log.Fatal("Resource component is invalid.");
-                return;
-            }
+
         }
 
         private IEnumerator LoadBytesCo(string fileUri, LoadBytesCallback loadBytesCallback)

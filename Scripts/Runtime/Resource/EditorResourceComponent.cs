@@ -27,10 +27,13 @@ namespace UnityGameFramework.Runtime
         private static readonly int AssetsStringLength = "Assets".Length;
 
         [SerializeField]
+        private int m_LoadAssetCountPerFrame = 1;
+
+        [SerializeField]
         private float m_MinLoadAssetRandomDelaySeconds = 0f;
 
         [SerializeField]
-        private float m_MaxLoadAssetRandomDelaySeconds = 1f;
+        private float m_MaxLoadAssetRandomDelaySeconds = 0f;
 
         private string m_ReadOnlyPath = null;
         private string m_ReadWritePath = null;
@@ -407,8 +410,9 @@ namespace UnityGameFramework.Runtime
         {
             if (m_LoadAssetInfos.Count > 0)
             {
+                int count = 0;
                 LinkedListNode<LoadAssetInfo> current = m_LoadAssetInfos.First;
-                while (current != null)
+                while (current != null && count < m_LoadAssetCountPerFrame)
                 {
                     LoadAssetInfo loadAssetInfo = current.Value;
                     float elapseSeconds = (float)(DateTime.Now - loadAssetInfo.StartTime).TotalSeconds;
@@ -444,6 +448,7 @@ namespace UnityGameFramework.Runtime
                         LinkedListNode<LoadAssetInfo> next = current.Next;
                         m_LoadAssetInfos.Remove(loadAssetInfo);
                         current = next;
+                        count++;
                     }
                     else
                     {

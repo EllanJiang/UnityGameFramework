@@ -1320,11 +1320,10 @@
             <typeparam name="T">引用类型。</typeparam>
             <param name="reference">引用。</param>
         </member>
-        <member name="M:GameFramework.ReferencePool.Release(System.Type,GameFramework.IReference)">
+        <member name="M:GameFramework.ReferencePool.Release(GameFramework.IReference)">
             <summary>
             将引用归还引用池。
             </summary>
-            <param name="referenceType">引用类型。</param>
             <param name="reference">引用。</param>
         </member>
         <member name="M:GameFramework.ReferencePool.Add``1(System.Int32)">
@@ -9303,7 +9302,7 @@
         </member>
         <member name="M:GameFramework.ObjectPool.ObjectBase.#ctor(System.Object)">
             <summary>
-            初始化对象的新实例。
+            初始化对象基类的新实例。
             </summary>
             <param name="target">对象。</param>
         </member>
@@ -9390,12 +9389,13 @@
             对象信息。
             </summary>
         </member>
-        <member name="M:GameFramework.ObjectPool.ObjectInfo.#ctor(System.String,System.Boolean,System.Int32,System.DateTime,System.Int32)">
+        <member name="M:GameFramework.ObjectPool.ObjectInfo.#ctor(System.String,System.Boolean,System.Boolean,System.Int32,System.DateTime,System.Int32)">
             <summary>
             初始化对象信息的新实例。
             </summary>
             <param name="name">对象名称。</param>
             <param name="locked">对象是否被加锁。</param>
+            <param name="customCanReleaseFlag">对象自定义释放检查标记。</param>
             <param name="priority">对象的优先级。</param>
             <param name="lastUseTime">对象上次使用时间。</param>
             <param name="spawnCount">对象的获取计数。</param>
@@ -9408,6 +9408,11 @@
         <member name="P:GameFramework.ObjectPool.ObjectInfo.Locked">
             <summary>
             获取对象是否被加锁。
+            </summary>
+        </member>
+        <member name="P:GameFramework.ObjectPool.ObjectInfo.CustomCanReleaseFlag">
+            <summary>
+            获取对象自定义释放检查标记。
             </summary>
         </member>
         <member name="P:GameFramework.ObjectPool.ObjectInfo.Priority">
@@ -15526,6 +15531,319 @@
             停止所有已加载的声音。
             </summary>
             <param name="fadeOutSeconds">声音淡出时间，以秒为单位。</param>
+        </member>
+        <member name="T:GameFramework.Task.ConditionalTask">
+            <summary>
+            条件任务。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Task.ConditionalTask.#ctor">
+            <summary>
+            初始化条件任务的新实例。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Task.ConditionalTask.SetCondition(System.Predicate{GameFramework.Task.ConditionalTask})">
+            <summary>
+            设置任务完成的条件。
+            </summary>
+            <param name="condition">任务完成的条件。</param>
+        </member>
+        <member name="M:GameFramework.Task.ConditionalTask.SetCompleteAction(GameFramework.GameFrameworkAction{GameFramework.Task.ConditionalTask,System.String})">
+            <summary>
+            设置任务完成时的行为。
+            </summary>
+            <param name="completeAction">任务完成时的行为。</param>
+        </member>
+        <member name="M:GameFramework.Task.ConditionalTask.SetFailureAction(GameFramework.GameFrameworkAction{GameFramework.Task.ConditionalTask,System.String})">
+            <summary>
+            设置任务失败时的行为。
+            </summary>
+            <param name="failureAction">任务失败时的行为。</param>
+        </member>
+        <member name="M:GameFramework.Task.ConditionalTask.SetCancelAction(GameFramework.GameFrameworkAction{GameFramework.Task.ConditionalTask,System.String})">
+            <summary>
+            设置任务取消时的行为。
+            </summary>
+            <param name="cancelAction">任务取消时的行为。</param>
+        </member>
+        <member name="M:GameFramework.Task.ConditionalTask.OnStart">
+            <summary>
+            任务开始时调用。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Task.ConditionalTask.OnUpdate(System.Single,System.Single)">
+            <summary>
+            任务轮询时调用。
+            </summary>
+            <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
+            <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
+        </member>
+        <member name="M:GameFramework.Task.ConditionalTask.OnComplete(System.String)">
+            <summary>
+            任务完成时调用。
+            </summary>
+            <param name="reason">任务完成的原因。</param>
+        </member>
+        <member name="M:GameFramework.Task.ConditionalTask.OnFailure(System.String)">
+            <summary>
+            任务失败时调用。
+            </summary>
+            <param name="reason">任务失败的原因。</param>
+        </member>
+        <member name="M:GameFramework.Task.ConditionalTask.OnCancel(System.String)">
+            <summary>
+            任务取消时调用。
+            </summary>
+            <param name="reason">任务取消的原因。</param>
+        </member>
+        <member name="T:GameFramework.Task.ITaskManager">
+            <summary>
+            任务管理器。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Task.ITaskManager.Count">
+            <summary>
+            获取任务数量。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Task.ITaskManager.GenerateTask``1">
+            <summary>
+            生成任务。
+            </summary>
+            <typeparam name="T">任务的类型。</typeparam>
+            <returns>生成的指定类型的任务。</returns>
+        </member>
+        <member name="M:GameFramework.Task.ITaskManager.GenerateTask``1(System.Int32)">
+            <summary>
+            生成任务。
+            </summary>
+            <typeparam name="T">任务的类型。</typeparam>
+            <param name="priority">任务的优先级。</param>
+            <returns>生成的指定类型的任务。</returns>
+        </member>
+        <member name="M:GameFramework.Task.ITaskManager.CancelTask(System.Int32)">
+            <summary>
+            取消任务。
+            </summary>
+            <param name="serialId">要取消的任务的序列编号。</param>
+            <returns>取消任务是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.Task.ITaskManager.CancelTask(System.Int32,System.String)">
+            <summary>
+            取消任务。
+            </summary>
+            <param name="serialId">要取消的任务的序列编号。</param>
+            <param name="reason">任务取消的原因。</param>
+            <returns>取消任务是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.Task.ITaskManager.CancelTask(GameFramework.Task.TaskBase)">
+            <summary>
+            取消任务。
+            </summary>
+            <param name="task">要取消的任务。</param>
+            <returns>取消任务是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.Task.ITaskManager.CancelTask(GameFramework.Task.TaskBase,System.String)">
+            <summary>
+            取消任务。
+            </summary>
+            <param name="task">要取消的任务。</param>
+            <param name="reason">任务取消的原因。</param>
+            <returns>取消任务是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.Task.ITaskManager.CancelAllTasks(System.String)">
+            <summary>
+            取消所有任务。
+            </summary>
+            <param name="reason">任务取消的原因。</param>
+        </member>
+        <member name="T:GameFramework.Task.TaskBase">
+            <summary>
+            任务基类。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Task.TaskBase.DefaultPriority">
+            <summary>
+            任务默认优先级。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Task.TaskBase.#ctor">
+            <summary>
+            初始化任务基类的新实例。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Task.TaskBase.SerialId">
+            <summary>
+            获取任务的序列编号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Task.TaskBase.Priority">
+            <summary>
+            获取任务的优先级。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Task.TaskBase.Status">
+            <summary>
+            获取任务的状态。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Task.TaskBase.UserData">
+            <summary>
+            获取或设置用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Task.TaskBase.Clear">
+            <summary>
+            清理任务基类。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Task.TaskBase.OnGenerate">
+            <summary>
+            任务生成时调用。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Task.TaskBase.OnStart">
+            <summary>
+            任务开始时调用。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Task.TaskBase.OnUpdate(System.Single,System.Single)">
+            <summary>
+            任务轮询时调用。
+            </summary>
+            <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
+            <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
+        </member>
+        <member name="M:GameFramework.Task.TaskBase.OnComplete(System.String)">
+            <summary>
+            任务完成时调用。
+            </summary>
+            <param name="reason">任务完成的原因。</param>
+        </member>
+        <member name="M:GameFramework.Task.TaskBase.OnFailure(System.String)">
+            <summary>
+            任务失败时调用。
+            </summary>
+            <param name="reason">任务失败的原因。</param>
+        </member>
+        <member name="M:GameFramework.Task.TaskBase.OnCancel(System.String)">
+            <summary>
+            任务取消时调用。
+            </summary>
+            <param name="reason">任务取消的原因。</param>
+        </member>
+        <member name="T:GameFramework.Task.TaskManager">
+            <summary>
+            任务管理器。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Task.TaskManager.#ctor">
+            <summary>
+            初始化任务管理器的新实例。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Task.TaskManager.Count">
+            <summary>
+            获取任务数量。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Task.TaskManager.Update(System.Single,System.Single)">
+            <summary>
+            任务管理器轮询。
+            </summary>
+            <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
+            <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
+        </member>
+        <member name="M:GameFramework.Task.TaskManager.Shutdown">
+            <summary>
+            关闭并清理任务管理器。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Task.TaskManager.GenerateTask``1">
+            <summary>
+            生成任务。
+            </summary>
+            <typeparam name="T">任务的类型。</typeparam>
+            <returns>生成的指定类型的任务。</returns>
+        </member>
+        <member name="M:GameFramework.Task.TaskManager.GenerateTask``1(System.Int32)">
+            <summary>
+            生成任务。
+            </summary>
+            <typeparam name="T">任务的类型。</typeparam>
+            <param name="priority">任务的优先级。</param>
+            <returns>生成的指定类型的任务。</returns>
+        </member>
+        <member name="M:GameFramework.Task.TaskManager.CancelTask(System.Int32)">
+            <summary>
+            取消任务。
+            </summary>
+            <param name="serialId">要取消的任务的序列编号。</param>
+            <returns>取消任务是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.Task.TaskManager.CancelTask(System.Int32,System.String)">
+            <summary>
+            取消任务。
+            </summary>
+            <param name="serialId">要取消的任务的序列编号。</param>
+            <param name="reason">任务取消的原因。</param>
+            <returns>取消任务是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.Task.TaskManager.CancelTask(GameFramework.Task.TaskBase)">
+            <summary>
+            取消任务。
+            </summary>
+            <param name="task">要取消的任务。</param>
+            <returns>取消任务是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.Task.TaskManager.CancelTask(GameFramework.Task.TaskBase,System.String)">
+            <summary>
+            取消任务。
+            </summary>
+            <param name="task">要取消的任务。</param>
+            <param name="reason">任务取消的原因。</param>
+            <returns>取消任务是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.Task.TaskManager.CancelAllTasks(System.String)">
+            <summary>
+            取消所有任务。
+            </summary>
+            <param name="reason">任务取消的原因。</param>
+        </member>
+        <member name="T:GameFramework.Task.TaskStatus">
+            <summary>
+            任务状态。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Task.TaskStatus.Free">
+            <summary>
+            空闲。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Task.TaskStatus.Waiting">
+            <summary>
+            等待中。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Task.TaskStatus.Running">
+            <summary>
+            运行中。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Task.TaskStatus.Completed">
+            <summary>
+            已完成。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Task.TaskStatus.Failed">
+            <summary>
+            已失败。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Task.TaskStatus.Canceled">
+            <summary>
+            已取消。
+            </summary>
         </member>
         <member name="T:GameFramework.UI.CloseUIFormCompleteEventArgs">
             <summary>

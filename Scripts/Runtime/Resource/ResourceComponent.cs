@@ -759,6 +759,18 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public void LoadAsset(string assetName, Type assetType, int priority, LoadAssetCallbacks loadAssetCallbacks, object userData)
         {
+            if (string.IsNullOrEmpty(assetName))
+            {
+                Log.Error("Asset name is invalid.");
+                return;
+            }
+
+            if (!assetName.StartsWith("Assets/"))
+            {
+                Log.Error("Asset name '{0}' is invalid.", assetName);
+                return;
+            }
+
             m_ResourceManager.LoadAsset(assetName, assetType, priority, loadAssetCallbacks, userData);
         }
 

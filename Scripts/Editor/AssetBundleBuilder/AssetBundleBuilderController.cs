@@ -25,7 +25,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         private static readonly char[] PackageListHeader = new char[] { 'E', 'L', 'P' };
         private static readonly char[] VersionListHeader = new char[] { 'E', 'L', 'V' };
         private static readonly char[] ReadOnlyListHeader = new char[] { 'E', 'L', 'R' };
-        private static readonly int AssetsSubstringLength = "Assets/".Length;
+        private static readonly int AssetsStringLength = "Assets".Length;
         private const byte PackageListVersion = 0;
         private const byte VersionListVersion = 0;
         private const byte ReadOnlyListVersion = 0;
@@ -92,8 +92,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             m_VersionListDatas = new Dictionary<Platform, VersionListData>();
             m_BuildReport = new BuildReport();
 
-            m_BuildEventHandlerTypeNames = new List<string>();
-            m_BuildEventHandlerTypeNames.Add(NoneOptionName);
+            m_BuildEventHandlerTypeNames = new List<string>
+            {
+                NoneOptionName
+            };
+
             m_BuildEventHandlerTypeNames.AddRange(Type.GetEditorTypeNames(typeof(IBuildEventHandler)));
             m_BuildEventHandler = null;
 
@@ -722,11 +725,12 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
             catch (Exception exception)
             {
-                m_BuildReport.LogFatal(Utility.Text.Format("{0}\n{1}", exception.Message, exception.StackTrace));
+                string errorMessage = Utility.Text.Format("{0}\n{1}", exception.Message, exception.StackTrace);
+                m_BuildReport.LogFatal(errorMessage);
                 m_BuildReport.SaveReport();
                 if (BuildAssetBundlesError != null)
                 {
-                    BuildAssetBundlesError(exception.Message);
+                    BuildAssetBundlesError(errorMessage);
                 }
 
                 return false;
@@ -1322,7 +1326,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     return null;
                 }
 
-                string assetFileFullName = Utility.Path.GetCombinePath(Application.dataPath, assetName.Substring(AssetsSubstringLength));
+                string assetFileFullName = Application.dataPath.Substring(0, Application.dataPath.Length - AssetsStringLength) + assetName;
                 if (!File.Exists(assetFileFullName))
                 {
                     m_BuildReport.LogError("Can not find asset '{0}'.", assetFileFullName);

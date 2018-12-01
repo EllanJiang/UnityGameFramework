@@ -1,5 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <linker>
   <assembly fullname="GameFramework" preserve="all" />
   <assembly fullname="UnityGameFramework.Runtime" preserve="all" />
 </linker>
+
+<!--
+
+Unity 2018.3（不含）以前的版本，请删除以上内容，并使用以下内容。
+For versions before Unity 2018.3 (excluded), please delete the above contents and use the following contents.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<linker>
+  <assembly fullname="GameFramework">
+    <namespace fullname="GameFramework" preserve="all" />
+    <namespace fullname="GameFramework.Config" preserve="all" />
+    <namespace fullname="GameFramework.DataNode" preserve="all" />
+    <namespace fullname="GameFramework.DataTable" preserve="all" />
+    <namespace fullname="GameFramework.Debugger" preserve="all" />
+    <namespace fullname="GameFramework.Download" preserve="all" />
+    <namespace fullname="GameFramework.Entity" preserve="all" />
+    <namespace fullname="GameFramework.Event" preserve="all" />
+    <namespace fullname="GameFramework.Fsm" preserve="all" />
+    <namespace fullname="GameFramework.Localization" preserve="all" />
+    <namespace fullname="GameFramework.Network" preserve="all" />
+    <namespace fullname="GameFramework.ObjectPool" preserve="all" />
+    <namespace fullname="GameFramework.Procedure" preserve="all" />
+    <namespace fullname="GameFramework.Resource" preserve="all" />
+    <namespace fullname="GameFramework.Scene" preserve="all" />
+    <namespace fullname="GameFramework.Setting" preserve="all" />
+    <namespace fullname="GameFramework.Sound" preserve="all" />
+    <namespace fullname="GameFramework.UI" preserve="all" />
+    <namespace fullname="GameFramework.WebRequest" preserve="all" />
+  </assembly>
+  <assembly fullname="Assembly-CSharp">
+    <namespace fullname="UnityGameFramework.Runtime" preserve="all" />
+  </assembly>
+</linker>
+
+-->

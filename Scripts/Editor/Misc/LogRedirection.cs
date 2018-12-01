@@ -47,14 +47,13 @@ namespace UnityGameFramework.Editor
                 return false;
             }
 
-            // 跳过第一次匹配的堆栈
             match = match.NextMatch();
             if (!match.Success)
             {
                 return false;
             }
 
-            if (match.Groups[1].Value.Contains("Log.cs"))
+            if (match.Groups[1].Value.Contains("GameFrameworkLog.cs"))
             {
                 // 直接使用 GameFramework.dll 源码而非 dll 的工程会多一次匹配的堆栈
                 match = match.NextMatch();
@@ -62,6 +61,17 @@ namespace UnityGameFramework.Editor
                 {
                     return false;
                 }
+            }
+
+            if (!match.Groups[1].Value.Contains("Log.cs"))
+            {
+                return false;
+            }
+
+            match = match.NextMatch();
+            if (!match.Success)
+            {
+                return false;
             }
 
             InternalEditorUtility.OpenFileAtLineExternal(Utility.Path.GetCombinePath(Application.dataPath, match.Groups[1].Value.Substring(7)), int.Parse(match.Groups[2].Value));

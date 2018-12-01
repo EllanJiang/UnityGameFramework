@@ -24,13 +24,16 @@ namespace UnityGameFramework.Runtime
     public sealed class EditorResourceComponent : MonoBehaviour, IResourceManager
     {
         private const int DefaultPriority = 0;
-        private static readonly int AssetsSubstringLength = "Assets/".Length;
+        private static readonly int AssetsStringLength = "Assets".Length;
+
+        [SerializeField]
+        private int m_LoadAssetCountPerFrame = 1;
 
         [SerializeField]
         private float m_MinLoadAssetRandomDelaySeconds = 0f;
 
         [SerializeField]
-        private float m_MaxLoadAssetRandomDelaySeconds = 1f;
+        private float m_MaxLoadAssetRandomDelaySeconds = 0f;
 
         private string m_ReadOnlyPath = null;
         private string m_ReadWritePath = null;
@@ -407,8 +410,9 @@ namespace UnityGameFramework.Runtime
         {
             if (m_LoadAssetInfos.Count > 0)
             {
+                int count = 0;
                 LinkedListNode<LoadAssetInfo> current = m_LoadAssetInfos.First;
-                while (current != null)
+                while (current != null && count < m_LoadAssetCountPerFrame)
                 {
                     LoadAssetInfo loadAssetInfo = current.Value;
                     float elapseSeconds = (float)(DateTime.Now - loadAssetInfo.StartTime).TotalSeconds;
@@ -444,6 +448,7 @@ namespace UnityGameFramework.Runtime
                         LinkedListNode<LoadAssetInfo> next = current.Next;
                         m_LoadAssetInfos.Remove(loadAssetInfo);
                         current = next;
+                        count++;
                     }
                     else
                     {
@@ -784,6 +789,12 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
+            if (!assetName.StartsWith("Assets/"))
+            {
+                Log.Error("Asset name '{0}' is invalid.", assetName);
+                return;
+            }
+
             if (loadAssetCallbacks == null)
             {
                 Log.Error("Load asset callbacks is invalid.");
@@ -855,6 +866,12 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
+            if (!sceneAssetName.StartsWith("Assets/") || !sceneAssetName.EndsWith(".unity"))
+            {
+                Log.Error("Scene asset name '{0}' is invalid.", sceneAssetName);
+                return;
+            }
+
             if (loadSceneCallbacks == null)
             {
                 Log.Error("Load scene callbacks is invalid.");
@@ -901,6 +918,12 @@ namespace UnityGameFramework.Runtime
             if (string.IsNullOrEmpty(sceneAssetName))
             {
                 Log.Error("Scene asset name is invalid.");
+                return;
+            }
+
+            if (!sceneAssetName.StartsWith("Assets/") || !sceneAssetName.EndsWith(".unity"))
+            {
+                Log.Error("Scene asset name '{0}' is invalid.", sceneAssetName);
                 return;
             }
 
@@ -1003,7 +1026,7 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
-            string assetFullName = Utility.Path.GetCombinePath(Application.dataPath, assetName.Substring(AssetsSubstringLength));
+            string assetFullName = Application.dataPath.Substring(0, Application.dataPath.Length - AssetsStringLength) + assetName;
             if (string.IsNullOrEmpty(assetFullName))
             {
                 return false;

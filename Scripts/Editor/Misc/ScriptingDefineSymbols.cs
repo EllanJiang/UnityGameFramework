@@ -66,8 +66,11 @@ namespace UnityGameFramework.Editor
                 return;
             }
 
-            List<string> scriptingDefineSymbols = new List<string>(GetScriptingDefineSymbols(buildTargetGroup));
-            scriptingDefineSymbols.Add(scriptingDefineSymbol);
+            List<string> scriptingDefineSymbols = new List<string>(GetScriptingDefineSymbols(buildTargetGroup))
+            {
+                scriptingDefineSymbol
+            };
+
             SetScriptingDefineSymbols(buildTargetGroup, scriptingDefineSymbols.ToArray());
         }
 

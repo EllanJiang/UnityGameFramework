@@ -101,8 +101,11 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            Dictionary<string, string> header = new Dictionary<string, string>();
-            header.Add("Range", Utility.Text.Format("bytes={0}-", fromPosition.ToString()));
+            Dictionary<string, string> header = new Dictionary<string, string>
+            {
+                { "Range", Utility.Text.Format("bytes={0}-", fromPosition.ToString()) }
+            };
+
             m_WWW = new WWW(downloadUri, null, header);
         }
 
@@ -121,8 +124,11 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            Dictionary<string, string> header = new Dictionary<string, string>();
-            header.Add("Range", Utility.Text.Format("bytes={0}-{1}", fromPosition.ToString(), toPosition.ToString()));
+            Dictionary<string, string> header = new Dictionary<string, string>
+            {
+                { "Range", Utility.Text.Format("bytes={0}-{1}", fromPosition.ToString(), toPosition.ToString()) }
+            };
+
             m_WWW = new WWW(downloadUri, null, header);
         }
 

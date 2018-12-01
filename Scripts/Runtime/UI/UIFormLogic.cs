@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -14,6 +15,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public abstract class UIFormLogic : MonoBehaviour
     {
+        private bool m_Available = false;
+        private bool m_Visible = false;
         private int m_OriginalLayer = 0;
 
         /// <summary>
@@ -45,11 +48,32 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 获取界面是否可用。
         /// </summary>
-        public bool IsAvailable
+        public bool Available
         {
             get
             {
-                return gameObject.activeSelf;
+                return m_Available;
+            }
+        }
+
+        /// <summary>
+        /// 获取或设置界面是否可见。
+        /// </summary>
+        public bool Visible
+        {
+            get
+            {
+                return m_Available && m_Visible;
+            }
+            set
+            {
+                if (!m_Available)
+                {
+                    throw new GameFrameworkException(Utility.Text.Format("UI form '{0}' is not available.", Name));
+                }
+
+                m_Visible = value;
+                InternalSetVisible(value);
             }
         }
 
@@ -82,7 +106,8 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         protected internal virtual void OnOpen(object userData)
         {
-            gameObject.SetActive(true);
+            m_Available = true;
+            Visible = true;
         }
 
         /// <summary>
@@ -92,7 +117,8 @@ namespace UnityGameFramework.Runtime
         protected internal virtual void OnClose(object userData)
         {
             gameObject.SetLayerRecursively(m_OriginalLayer);
-            gameObject.SetActive(false);
+            Visible = false;
+            m_Available = false;
         }
 
         /// <summary>
@@ -100,7 +126,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         protected internal virtual void OnPause()
         {
-            gameObject.SetActive(false);
+            Visible = false;
         }
 
         /// <summary>
@@ -108,7 +134,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         protected internal virtual void OnResume()
         {
-            gameObject.SetActive(true);
+            Visible = true;
         }
 
         /// <summary>
@@ -154,6 +180,15 @@ namespace UnityGameFramework.Runtime
         protected internal virtual void OnDepthChanged(int uiGroupDepth, int depthInUIGroup)
         {
 
+        }
+
+        /// <summary>
+        /// 设置界面的可见性。
+        /// </summary>
+        /// <param name="visible">界面的可见性。</param>
+        protected virtual void InternalSetVisible(bool visible)
+        {
+            gameObject.SetActive(visible);
         }
     }
 }

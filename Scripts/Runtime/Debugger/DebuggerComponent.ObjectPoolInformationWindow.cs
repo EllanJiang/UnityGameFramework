@@ -61,6 +61,7 @@ namespace UnityGameFramework.Runtime
                         GUILayout.Label("<b>Name</b>");
                         GUILayout.Label("<b>Locked</b>", GUILayout.Width(60f));
                         GUILayout.Label(objectPool.AllowMultiSpawn ? "<b>Count</b>" : "<b>In Use</b>", GUILayout.Width(60f));
+                        GUILayout.Label("<b>Flag</b>", GUILayout.Width(60f));
                         GUILayout.Label("<b>Priority</b>", GUILayout.Width(60f));
                         GUILayout.Label("<b>Last Use Time</b>", GUILayout.Width(120f));
                     }
@@ -75,6 +76,7 @@ namespace UnityGameFramework.Runtime
                                 GUILayout.Label(objectInfos[i].Name);
                                 GUILayout.Label(objectInfos[i].Locked.ToString(), GUILayout.Width(60f));
                                 GUILayout.Label(objectPool.AllowMultiSpawn ? objectInfos[i].SpawnCount.ToString() : objectInfos[i].IsInUse.ToString(), GUILayout.Width(60f));
+                                GUILayout.Label(objectInfos[i].CustomCanReleaseFlag.ToString(), GUILayout.Width(60f));
                                 GUILayout.Label(objectInfos[i].Priority.ToString(), GUILayout.Width(60f));
                                 GUILayout.Label(objectInfos[i].LastUseTime.ToString("yyyy-MM-dd HH:mm:ss"), GUILayout.Width(120f));
                             }

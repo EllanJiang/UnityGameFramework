@@ -196,8 +196,11 @@ namespace UnityGameFramework.Editor
 
         private void RefreshTypeNames()
         {
-            List<string> versionHelperTypeNames = new List<string>();
-            versionHelperTypeNames.Add(NoneOptionName);
+            List<string> versionHelperTypeNames = new List<string>
+            {
+                NoneOptionName
+            };
+
             versionHelperTypeNames.AddRange(Type.GetTypeNames(typeof(Version.IVersionHelper)));
             m_VersionHelperTypeNames = versionHelperTypeNames.ToArray();
             m_VersionHelperTypeNameIndex = 0;
@@ -211,8 +214,11 @@ namespace UnityGameFramework.Editor
                 }
             }
 
-            List<string> logHelperTypeNames = new List<string>();
-            logHelperTypeNames.Add(NoneOptionName);
+            List<string> logHelperTypeNames = new List<string>
+            {
+                NoneOptionName
+            };
+
             logHelperTypeNames.AddRange(Type.GetTypeNames(typeof(GameFrameworkLog.ILogHelper)));
             m_LogHelperTypeNames = logHelperTypeNames.ToArray();
             m_LogHelperTypeNameIndex = 0;
@@ -226,8 +232,11 @@ namespace UnityGameFramework.Editor
                 }
             }
 
-            List<string> zipHelperTypeNames = new List<string>();
-            zipHelperTypeNames.Add(NoneOptionName);
+            List<string> zipHelperTypeNames = new List<string>
+            {
+                NoneOptionName
+            };
+
             zipHelperTypeNames.AddRange(Type.GetTypeNames(typeof(Utility.Zip.IZipHelper)));
             m_ZipHelperTypeNames = zipHelperTypeNames.ToArray();
             m_ZipHelperTypeNameIndex = 0;
@@ -242,8 +251,11 @@ namespace UnityGameFramework.Editor
             }
 
             List<string> jsonHelperTypeNames = new List<string>();
-            jsonHelperTypeNames = new List<string>();
-            jsonHelperTypeNames.Add(NoneOptionName);
+            jsonHelperTypeNames = new List<string>
+            {
+                NoneOptionName
+            };
+
             jsonHelperTypeNames.AddRange(Type.GetTypeNames(typeof(Utility.Json.IJsonHelper)));
             m_JsonHelperTypeNames = jsonHelperTypeNames.ToArray();
             m_JsonHelperTypeNameIndex = 0;
@@ -257,8 +269,11 @@ namespace UnityGameFramework.Editor
                 }
             }
 
-            List<string> profilerHelperTypeNames = new List<string>();
-            profilerHelperTypeNames.Add(NoneOptionName);
+            List<string> profilerHelperTypeNames = new List<string>
+            {
+                NoneOptionName
+            };
+
             profilerHelperTypeNames.AddRange(Type.GetTypeNames(typeof(Utility.Profiler.IProfilerHelper)));
             m_ProfilerHelperTypeNames = profilerHelperTypeNames.ToArray();
             m_ProfilerHelperTypeNameIndex = 0;

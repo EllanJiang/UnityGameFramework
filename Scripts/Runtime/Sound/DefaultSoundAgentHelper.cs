@@ -369,7 +369,7 @@ namespace UnityGameFramework.Runtime
 
         private void UpdateAgentPosition()
         {
-            if (m_BindingEntityLogic.IsAvailable)
+            if (m_BindingEntityLogic.Available)
             {
                 m_CachedTransform.position = m_BindingEntityLogic.CachedTransform.position;
                 return;

@@ -76,8 +76,8 @@ namespace UnityGameFramework.Runtime
             }
 
             /* Unity 当前 Resources.UnloadAsset 在 iOS 设备上会导致一些诡异问题，先不用这部分
-            DummySceneObject dummySceneObject = objectToRelease as DummySceneObject;
-            if (dummySceneObject != null)
+            SceneAsset sceneAsset = objectToRelease as SceneAsset;
+            if (sceneAsset != null)
             {
                 return;
             }

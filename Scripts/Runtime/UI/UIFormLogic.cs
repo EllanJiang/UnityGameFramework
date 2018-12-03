@@ -72,6 +72,11 @@ namespace UnityGameFramework.Runtime
                     throw new GameFrameworkException(Utility.Text.Format("UI form '{0}' is not available.", Name));
                 }
 
+                if (m_Visible == value)
+                {
+                    return;
+                }
+
                 m_Visible = value;
                 InternalSetVisible(value);
             }

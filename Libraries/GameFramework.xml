@@ -10833,7 +10833,7 @@
             通过加载资源代理辅助器开始异步加载资源。
             </summary>
             <param name="resource">资源。</param>
-            <param name="resourceChildName">要加载的子资源名。</param>
+            <param name="resourceChildName">要加载的子资源名称。</param>
             <param name="assetType">要加载资源的类型。</param>
             <param name="isScene">要加载的资源是否是场景。</param>
         </member>
@@ -11730,12 +11730,13 @@
             资源信息。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.AssetInfo.#ctor(System.String,GameFramework.Resource.ResourceManager.ResourceName)">
+        <member name="M:GameFramework.Resource.ResourceManager.AssetInfo.#ctor(System.String,GameFramework.Resource.ResourceManager.ResourceName,System.String)">
             <summary>
             初始化资源信息的新实例。
             </summary>
             <param name="assetName">资源名称。</param>
             <param name="resourceName">所在资源名称。</param>
+            <param name="resourceChildName">子资源名称。</param>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.AssetInfo.AssetName">
             <summary>
@@ -11745,6 +11746,11 @@
         <member name="P:GameFramework.Resource.ResourceManager.AssetInfo.ResourceName">
             <summary>
             获取所在资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.AssetInfo.ResourceChildName">
+            <summary>
+            获取子资源名称。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.#ctor">
@@ -17485,13 +17491,46 @@
             <param name="code">异或二进制流。</param>
             <returns>异或后的二进制流。</returns>
         </member>
+        <member name="M:GameFramework.Utility.Encryption.GetQuickSelfXorBytes(System.Byte[],System.Byte[])">
+            <summary>
+            将 bytes 使用 code 做异或运算的快速版本。此方法将复用并改写传入的 bytes 作为返回值，而不额外分配内存空间。
+            </summary>
+            <param name="bytes">原始及异或后的二进制流。</param>
+            <param name="code">异或二进制流。</param>
+            <returns>异或后的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Encryption.GetXorBytes(System.Byte[],System.Byte[])">
+            <summary>
+            将 bytes 使用 code 做异或运算。
+            </summary>
+            <param name="bytes">原始二进制流。</param>
+            <param name="code">异或二进制流。</param>
+            <returns>异或后的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Encryption.GetSelfXorBytes(System.Byte[],System.Byte[])">
+            <summary>
+            将 bytes 使用 code 做异或运算。此方法将复用并改写传入的 bytes 作为返回值，而不额外分配内存空间。
+            </summary>
+            <param name="bytes">原始及异或后的二进制流。</param>
+            <param name="code">异或二进制流。</param>
+            <returns>异或后的二进制流。</returns>
+        </member>
         <member name="M:GameFramework.Utility.Encryption.GetXorBytes(System.Byte[],System.Byte[],System.Int32)">
             <summary>
             将 bytes 使用 code 做异或运算。
             </summary>
             <param name="bytes">原始二进制流。</param>
             <param name="code">异或二进制流。</param>
-            <param name="length">异或计算长度，若小于等于 0，则计算整个二进制流。</param>
+            <param name="length">异或计算长度，若小于 0，则计算整个二进制流。</param>
+            <returns>异或后的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Encryption.GetSelfXorBytes(System.Byte[],System.Byte[],System.Int32)">
+            <summary>
+            将 bytes 使用 code 做异或运算。此方法将复用并改写传入的 bytes 作为返回值，而不额外分配内存空间。
+            </summary>
+            <param name="bytes">原始及异或后的二进制流。</param>
+            <param name="code">异或二进制流。</param>
+            <param name="length">异或计算长度，若小于 0，则计算整个二进制流。</param>
             <returns>异或后的二进制流。</returns>
         </member>
         <member name="T:GameFramework.Utility.Json">
@@ -17778,6 +17817,13 @@
             </summary>
             <param name="text">要切分的文本。</param>
             <returns>按行切分后的文本。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Text.SplitToLines(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            将文本按行切分。
+            </summary>
+            <param name="text">要切分的文本。</param>
+            <param name="results">按行切分后的文本。</param>
         </member>
         <member name="M:GameFramework.Utility.Text.GetFullName``1(System.String)">
             <summary>

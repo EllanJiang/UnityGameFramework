@@ -1039,8 +1039,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
                     // TODO: Resource group.
                     binaryWriter.Write(0);
-
-                    binaryWriter.Close();
                 }
             }
 
@@ -1138,8 +1136,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
                     // TODO: Resource group.
                     binaryWriter.Write(0);
-
-                    binaryWriter.Close();
                 }
             }
 
@@ -1216,8 +1212,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                         binaryWriter.Write(assetBundleCode.Length);
                         binaryWriter.Write(assetBundleCode.HashCode);
                     }
-
-                    binaryWriter.Close();
                 }
             }
 

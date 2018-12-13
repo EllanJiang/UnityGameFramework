@@ -162,7 +162,7 @@ namespace UnityGameFramework.Runtime
         /// 设置声音资源。
         /// </summary>
         /// <param name="soundAsset">声音资源。</param>
-        /// <returns>设置声音资源是否成功。</returns>
+        /// <returns>是否设置声音资源成功。</returns>
         public abstract bool SetSoundAsset(object soundAsset);
 
         /// <summary>

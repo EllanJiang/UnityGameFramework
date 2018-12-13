@@ -33,6 +33,11 @@ namespace UnityGameFramework.Runtime
             int position = 0;
             while ((dataRowSegment = ReadLine(text, ref position)) != default(GameFrameworkSegment<string>))
             {
+                if (text[dataRowSegment.Offset] == '#')
+                {
+                    continue;
+                }
+
                 dataRowSegments.Add(dataRowSegment);
             }
 
@@ -46,7 +51,21 @@ namespace UnityGameFramework.Runtime
         /// <returns>数据表行片段。</returns>
         public override IEnumerable<GameFrameworkSegment<byte[]>> GetDataRowSegments(byte[] bytes)
         {
-            throw new System.NotSupportedException();
+            List<GameFrameworkSegment<byte[]>> dataRowSegments = new List<GameFrameworkSegment<byte[]>>();
+            using (MemoryStream stream = new MemoryStream(bytes, false))
+            {
+                using (BinaryReader binaryReader = new BinaryReader(stream))
+                {
+                    while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
+                    {
+                        int length = binaryReader.ReadInt32();
+                        dataRowSegments.Add(new GameFrameworkSegment<byte[]>(bytes, (int)binaryReader.BaseStream.Position, length));
+                        binaryReader.BaseStream.Position += length;
+                    }
+                }
+            }
+
+            return dataRowSegments;
         }
 
         /// <summary>
@@ -56,7 +75,18 @@ namespace UnityGameFramework.Runtime
         /// <returns>数据表行片段。</returns>
         public override IEnumerable<GameFrameworkSegment<Stream>> GetDataRowSegments(Stream stream)
         {
-            throw new System.NotSupportedException();
+            List<GameFrameworkSegment<Stream>> dataRowSegments = new List<GameFrameworkSegment<Stream>>();
+            using (BinaryReader binaryReader = new BinaryReader(stream))
+            {
+                while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
+                {
+                    int length = binaryReader.ReadInt32();
+                    dataRowSegments.Add(new GameFrameworkSegment<Stream>(stream, (int)binaryReader.BaseStream.Position, length));
+                    binaryReader.BaseStream.Position += length;
+                }
+            }
+
+            return dataRowSegments;
         }
 
         /// <summary>
@@ -107,14 +137,21 @@ namespace UnityGameFramework.Runtime
                 {
                     case '\r':
                     case '\n':
-                        GameFrameworkSegment<string> segment = new GameFrameworkSegment<string>(text, position, offset - position);
-                        position = offset + 1;
-                        if (((ch == '\r') && (position < length)) && (text[position] == '\n'))
+                        if (offset - position > 0)
                         {
-                            position++;
+                            GameFrameworkSegment<string> segment = new GameFrameworkSegment<string>(text, position, offset - position);
+                            position = offset + 1;
+                            if (((ch == '\r') && (position < length)) && (text[position] == '\n'))
+                            {
+                                position++;
+                            }
+
+                            return segment;
                         }
 
-                        return segment;
+                        offset++;
+                        position++;
+                        break;
                     default:
                         offset++;
                         break;

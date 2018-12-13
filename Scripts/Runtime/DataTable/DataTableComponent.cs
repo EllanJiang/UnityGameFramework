@@ -10,6 +10,7 @@ using GameFramework.DataTable;
 using GameFramework.Resource;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -472,6 +473,98 @@ namespace UnityGameFramework.Runtime
         public DataTableBase CreateDataTable(Type dataRowType, string name, string text)
         {
             return m_DataTableManager.CreateDataTable(dataRowType, name, text);
+        }
+
+        /// <summary>
+        /// 创建数据表。
+        /// </summary>
+        /// <typeparam name="T">数据表行的类型。</typeparam>
+        /// <param name="bytes">要解析的数据表二进制流。</param>
+        /// <returns>要创建的数据表。</returns>
+        public IDataTable<T> CreateDataTable<T>(byte[] bytes) where T : class, IDataRow, new()
+        {
+            return m_DataTableManager.CreateDataTable<T>(bytes);
+        }
+
+        /// <summary>
+        /// 创建数据表。
+        /// </summary>
+        /// <param name="dataRowType">数据表行的类型。</param>
+        /// <param name="bytes">要解析的数据表二进制流。</param>
+        /// <returns>要创建的数据表。</returns>
+        public DataTableBase CreateDataTable(Type dataRowType, byte[] bytes)
+        {
+            return m_DataTableManager.CreateDataTable(dataRowType, bytes);
+        }
+
+        /// <summary>
+        /// 创建数据表。
+        /// </summary>
+        /// <typeparam name="T">数据表行的类型。</typeparam>
+        /// <param name="name">数据表名称。</param>
+        /// <param name="bytes">要解析的数据表二进制流。</param>
+        /// <returns>要创建的数据表。</returns>
+        public IDataTable<T> CreateDataTable<T>(string name, byte[] bytes) where T : class, IDataRow, new()
+        {
+            return m_DataTableManager.CreateDataTable<T>(name, bytes);
+        }
+
+        /// <summary>
+        /// 创建数据表。
+        /// </summary>
+        /// <param name="dataRowType">数据表行的类型。</param>
+        /// <param name="name">数据表名称。</param>
+        /// <param name="bytes">要解析的数据表二进制流。</param>
+        /// <returns>要创建的数据表。</returns>
+        public DataTableBase CreateDataTable(Type dataRowType, string name, byte[] bytes)
+        {
+            return m_DataTableManager.CreateDataTable(dataRowType, name, bytes);
+        }
+
+        /// <summary>
+        /// 创建数据表。
+        /// </summary>
+        /// <typeparam name="T">数据表行的类型。</typeparam>
+        /// <param name="stream">要解析的数据表二进制流。</param>
+        /// <returns>要创建的数据表。</returns>
+        public IDataTable<T> CreateDataTable<T>(Stream stream) where T : class, IDataRow, new()
+        {
+            return m_DataTableManager.CreateDataTable<T>(stream);
+        }
+
+        /// <summary>
+        /// 创建数据表。
+        /// </summary>
+        /// <param name="dataRowType">数据表行的类型。</param>
+        /// <param name="stream">要解析的数据表二进制流。</param>
+        /// <returns>要创建的数据表。</returns>
+        public DataTableBase CreateDataTable(Type dataRowType, Stream stream)
+        {
+            return m_DataTableManager.CreateDataTable(dataRowType, stream);
+        }
+
+        /// <summary>
+        /// 创建数据表。
+        /// </summary>
+        /// <typeparam name="T">数据表行的类型。</typeparam>
+        /// <param name="name">数据表名称。</param>
+        /// <param name="stream">要解析的数据表二进制流。</param>
+        /// <returns>要创建的数据表。</returns>
+        public IDataTable<T> CreateDataTable<T>(string name, Stream stream) where T : class, IDataRow, new()
+        {
+            return m_DataTableManager.CreateDataTable<T>(name, stream);
+        }
+
+        /// <summary>
+        /// 创建数据表。
+        /// </summary>
+        /// <param name="dataRowType">数据表行的类型。</param>
+        /// <param name="name">数据表名称。</param>
+        /// <param name="stream">要解析的数据表二进制流。</param>
+        /// <returns>要创建的数据表。</returns>
+        public DataTableBase CreateDataTable(Type dataRowType, string name, Stream stream)
+        {
+            return m_DataTableManager.CreateDataTable(dataRowType, name, stream);
         }
 
         /// <summary>

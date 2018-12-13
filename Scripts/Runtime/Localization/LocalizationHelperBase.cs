@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 
 using GameFramework.Localization;
+using System.IO;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -28,7 +29,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="dictionaryAsset">字典资源。</param>
         /// <param name="userData">用户自定义数据。</param>
-        /// <returns>加载是否成功。</returns>
+        /// <returns>是否加载成功。</returns>
         public bool LoadDictionary(object dictionaryAsset, object userData)
         {
             LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)userData;
@@ -44,6 +45,22 @@ namespace UnityGameFramework.Runtime
         public abstract bool ParseDictionary(string text, object userData);
 
         /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="bytes">要解析的字典二进制流。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public abstract bool ParseDictionary(byte[] bytes, object userData);
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="stream">要解析的字典二进制流。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public abstract bool ParseDictionary(Stream stream, object userData);
+
+        /// <summary>
         /// 释放字典资源。
         /// </summary>
         /// <param name="dictionaryAsset">要释放的字典资源。</param>
@@ -55,7 +72,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="dictionaryName">字典名称。</param>
         /// <param name="dictionaryAsset">字典资源。</param>
         /// <param name="userData">用户自定义数据。</param>
-        /// <returns>加载是否成功。</returns>
+        /// <returns>是否加载成功。</returns>
         protected abstract bool LoadDictionary(string dictionaryName, object dictionaryAsset, object userData);
     }
 }

@@ -8,6 +8,7 @@
 using GameFramework;
 using GameFramework.Localization;
 using System;
+using System.IO;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -17,6 +18,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class DefaultLocalizationHelper : LocalizationHelperBase
     {
+        private static readonly string[] RowSplit = new string[] { "\r\n", "\r", "\n" };
         private static readonly string[] ColumnSplit = new string[] { "\t" };
         private const int ColumnCount = 4;
 
@@ -90,7 +92,7 @@ namespace UnityGameFramework.Runtime
         {
             try
             {
-                string[] rowTexts = Utility.Text.SplitToLines(text);
+                string[] rowTexts = text.Split(RowSplit, StringSplitOptions.None);
                 for (int i = 0; i < rowTexts.Length; i++)
                 {
                     if (rowTexts[i].Length <= 0 || rowTexts[i][0] == '#')
@@ -105,11 +107,11 @@ namespace UnityGameFramework.Runtime
                         return false;
                     }
 
-                    string key = splitLine[1];
-                    string value = splitLine[3];
-                    if (!AddRawString(key, value))
+                    string dictionaryName = splitLine[1];
+                    string dictionaryValue = splitLine[3];
+                    if (!AddRawString(dictionaryName, dictionaryValue))
                     {
-                        Log.Warning("Can not add raw string with key '{0}' which may be invalid or duplicate.", key);
+                        Log.Warning("Can not add raw string with key '{0}' which may be invalid or duplicate.", dictionaryName);
                         return false;
                     }
                 }
@@ -119,6 +121,53 @@ namespace UnityGameFramework.Runtime
             catch (Exception exception)
             {
                 Log.Warning("Can not parse dictionary '{0}' with exception '{1}'.", text, Utility.Text.Format("{0}\n{1}", exception.Message, exception.StackTrace));
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="bytes">要解析的字典二进制流。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public override bool ParseDictionary(byte[] bytes, object userData)
+        {
+            using (MemoryStream memoryStream = new MemoryStream(bytes, false))
+            {
+                return ParseDictionary(memoryStream, userData);
+            }
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="stream">要解析的字典二进制流。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public override bool ParseDictionary(Stream stream, object userData)
+        {
+            try
+            {
+                using (BinaryReader binaryReader = new BinaryReader(stream))
+                {
+                    while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
+                    {
+                        string dictionaryName = binaryReader.ReadString();
+                        string dictionaryValue = binaryReader.ReadString();
+                        if (!AddRawString(dictionaryName, dictionaryValue))
+                        {
+                            Log.Warning("Can not add raw string with config name '{0}' which may be invalid or duplicate.", dictionaryName);
+                            return false;
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Log.Warning("Can not parse config with exception '{0}'.", Utility.Text.Format("{0}\n{1}", exception.Message, exception.StackTrace));
                 return false;
             }
         }
@@ -138,7 +187,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="dictionaryName">字典名称。</param>
         /// <param name="dictionaryAsset">字典资源。</param>
         /// <param name="userData">用户自定义数据。</param>
-        /// <returns>加载是否成功。</returns>
+        /// <returns>是否加载成功。</returns>
         protected override bool LoadDictionary(string dictionaryName, object dictionaryAsset, object userData)
         {
             TextAsset textAsset = dictionaryAsset as TextAsset;
@@ -160,12 +209,12 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 增加字典。
         /// </summary>
-        /// <param name="key">字典主键。</param>
-        /// <param name="value">字典内容。</param>
+        /// <param name="dictionaryKey">字典主键。</param>
+        /// <param name="dictionaryValue">字典内容。</param>
         /// <returns>是否增加字典成功。</returns>
-        protected bool AddRawString(string key, string value)
+        protected bool AddRawString(string dictionaryKey, string dictionaryValue)
         {
-            return m_LocalizationManager.AddRawString(key, value);
+            return m_LocalizationManager.AddRawString(dictionaryKey, dictionaryValue);
         }
 
         private void Start()

@@ -8,6 +8,7 @@
 using GameFramework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -21,25 +22,41 @@ namespace UnityGameFramework.Runtime
         private ResourceComponent m_ResourceComponent = null;
 
         /// <summary>
-        /// 将要解析的数据表文本分割为数据表行文本。
+        /// 获取数据表行片段。
         /// </summary>
         /// <param name="text">要解析的数据表文本。</param>
-        /// <returns>数据表行文本。</returns>
-        public override string[] SplitToDataRows(string text)
+        /// <returns>数据表行片段。</returns>
+        public override IEnumerable<GameFrameworkSegment<string>> GetDataRowSegments(string text)
         {
-            List<string> texts = new List<string>();
-            string[] rowTexts = Utility.Text.SplitToLines(text);
-            for (int i = 0; i < rowTexts.Length; i++)
+            List<GameFrameworkSegment<string>> dataRowSegments = new List<GameFrameworkSegment<string>>();
+            GameFrameworkSegment<string> dataRowSegment;
+            int position = 0;
+            while ((dataRowSegment = ReadLine(text, ref position)) != default(GameFrameworkSegment<string>))
             {
-                if (rowTexts[i].Length <= 0 || rowTexts[i][0] == '#')
-                {
-                    continue;
-                }
-
-                texts.Add(rowTexts[i]);
+                dataRowSegments.Add(dataRowSegment);
             }
 
-            return texts.ToArray();
+            return dataRowSegments;
+        }
+
+        /// <summary>
+        /// 获取数据表行片段。
+        /// </summary>
+        /// <param name="bytes">要解析的数据表二进制流。</param>
+        /// <returns>数据表行片段。</returns>
+        public override IEnumerable<GameFrameworkSegment<byte[]>> GetDataRowSegments(byte[] bytes)
+        {
+            throw new System.NotSupportedException();
+        }
+
+        /// <summary>
+        /// 获取数据表行片段。
+        /// </summary>
+        /// <param name="stream">要解析的数据表二进制流。</param>
+        /// <returns>数据表行片段。</returns>
+        public override IEnumerable<GameFrameworkSegment<Stream>> GetDataRowSegments(Stream stream)
+        {
+            throw new System.NotSupportedException();
         }
 
         /// <summary>
@@ -59,7 +76,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="dataTableNameInType">数据表类型下的名称。</param>
         /// <param name="dataTableAsset">数据表资源。</param>
         /// <param name="userData">用户自定义数据。</param>
-        /// <returns>加载是否成功。</returns>
+        /// <returns>是否加载成功。</returns>
         protected override bool LoadDataTable(Type dataRowType, string dataTableName, string dataTableNameInType, object dataTableAsset, object userData)
         {
             TextAsset textAsset = dataTableAsset as TextAsset;
@@ -77,6 +94,41 @@ namespace UnityGameFramework.Runtime
 
             m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, textAsset.text);
             return true;
+        }
+
+        private GameFrameworkSegment<string> ReadLine(string text, ref int position)
+        {
+            int length = text.Length;
+            int offset = position;
+            while (offset < length)
+            {
+                char ch = text[offset];
+                switch (ch)
+                {
+                    case '\r':
+                    case '\n':
+                        GameFrameworkSegment<string> segment = new GameFrameworkSegment<string>(text, position, offset - position);
+                        position = offset + 1;
+                        if (((ch == '\r') && (position < length)) && (text[position] == '\n'))
+                        {
+                            position++;
+                        }
+
+                        return segment;
+                    default:
+                        offset++;
+                        break;
+                }
+            }
+
+            if (offset > position)
+            {
+                GameFrameworkSegment<string> segment = new GameFrameworkSegment<string>(text, position, offset - position);
+                position = offset;
+                return segment;
+            }
+
+            return default(GameFrameworkSegment<string>);
         }
 
         private void Start()

@@ -8,6 +8,7 @@
 using GameFramework;
 using GameFramework.Localization;
 using GameFramework.Resource;
+using System.IO;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -209,6 +210,48 @@ namespace UnityGameFramework.Runtime
         public bool ParseDictionary(string text, object userData)
         {
             return m_LocalizationManager.ParseDictionary(text, userData);
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="bytes">要解析的字典二进制流。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public bool ParseDictionary(byte[] bytes)
+        {
+            return m_LocalizationManager.ParseDictionary(bytes);
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="bytes">要解析的字典二进制流。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public bool ParseDictionary(byte[] bytes, object userData)
+        {
+            return m_LocalizationManager.ParseDictionary(bytes, userData);
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="stream">要解析的字典二进制流。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public bool ParseDictionary(Stream stream)
+        {
+            return m_LocalizationManager.ParseDictionary(stream);
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="stream">要解析的字典二进制流。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public bool ParseDictionary(Stream stream, object userData)
+        {
+            return m_LocalizationManager.ParseDictionary(stream, userData);
         }
 
         /// <summary>

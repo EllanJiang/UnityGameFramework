@@ -8,6 +8,7 @@
 using GameFramework;
 using GameFramework.Config;
 using GameFramework.Resource;
+using System.IO;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -182,6 +183,48 @@ namespace UnityGameFramework.Runtime
         public bool ParseConfig(string text, object userData)
         {
             return m_ConfigManager.ParseConfig(text, userData);
+        }
+
+        /// <summary>
+        /// 解析配置。
+        /// </summary>
+        /// <param name="bytes">要解析的配置二进制流。</param>
+        /// <returns>是否解析配置成功。</returns>
+        public bool ParseConfig(byte[] bytes)
+        {
+            return m_ConfigManager.ParseConfig(bytes);
+        }
+
+        /// <summary>
+        /// 解析配置。
+        /// </summary>
+        /// <param name="bytes">要解析的配置二进制流。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析配置成功。</returns>
+        public bool ParseConfig(byte[] bytes, object userData)
+        {
+            return m_ConfigManager.ParseConfig(bytes, userData);
+        }
+
+        /// <summary>
+        /// 解析配置。
+        /// </summary>
+        /// <param name="stream">要解析的配置二进制流。</param>
+        /// <returns>是否解析配置成功。</returns>
+        public bool ParseConfig(Stream stream)
+        {
+            return m_ConfigManager.ParseConfig(stream);
+        }
+
+        /// <summary>
+        /// 解析配置。
+        /// </summary>
+        /// <param name="stream">要解析的配置二进制流。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析配置成功。</returns>
+        public bool ParseConfig(Stream stream, object userData)
+        {
+            return m_ConfigManager.ParseConfig(stream, userData);
         }
 
         /// <summary>

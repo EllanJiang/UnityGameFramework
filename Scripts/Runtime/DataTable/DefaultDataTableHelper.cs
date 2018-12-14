@@ -105,9 +105,10 @@ namespace UnityGameFramework.Runtime
         /// <param name="dataTableName">数据表名称。</param>
         /// <param name="dataTableNameInType">数据表类型下的名称。</param>
         /// <param name="dataTableAsset">数据表资源。</param>
+        /// <param name="loadType">数据表加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        protected override bool LoadDataTable(Type dataRowType, string dataTableName, string dataTableNameInType, object dataTableAsset, object userData)
+        protected override bool LoadDataTable(Type dataRowType, string dataTableName, string dataTableNameInType, object dataTableAsset, LoadType loadType, object userData)
         {
             TextAsset textAsset = dataTableAsset as TextAsset;
             if (textAsset == null)
@@ -122,8 +123,23 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
-            m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, textAsset.text);
-            return true;
+            switch (loadType)
+            {
+                case LoadType.Text:
+                    m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, textAsset.text);
+                    return true;
+                case LoadType.Bytes:
+                    m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, textAsset.bytes);
+                    return true;
+                case LoadType.Stream:
+                    using (MemoryStream stream = new MemoryStream(textAsset.bytes, false))
+                    {
+                        m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, stream);
+                    }
+                    return true;
+            }
+
+            return false;
         }
 
         private GameFrameworkSegment<string> ReadLine(string text, ref int position)

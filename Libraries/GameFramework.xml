@@ -4,6 +4,26 @@
         <name>GameFramework</name>
     </assembly>
     <members>
+        <member name="T:GameFramework.LoadType">
+            <summary>
+            加载方式。
+            </summary>
+        </member>
+        <member name="F:GameFramework.LoadType.Text">
+            <summary>
+            按文本加载。
+            </summary>
+        </member>
+        <member name="F:GameFramework.LoadType.Bytes">
+            <summary>
+            按二进制流加载。
+            </summary>
+        </member>
+        <member name="F:GameFramework.LoadType.Stream">
+            <summary>
+            按二进制流加载。
+            </summary>
+        </member>
         <member name="T:GameFramework.BaseEventArgs">
             <summary>
             事件基类。
@@ -1791,31 +1811,35 @@
             </summary>
             <param name="configHelper">配置辅助器。</param>
         </member>
-        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String)">
+        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,GameFramework.LoadType)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
         </member>
-        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,System.Int32)">
+        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,GameFramework.LoadType,System.Int32)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="priority">加载配置资源的优先级。</param>
         </member>
-        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,System.Object)">
+        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,GameFramework.LoadType,System.Object)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,GameFramework.LoadType,System.Int32,System.Object)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="priority">加载配置资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -1958,11 +1982,12 @@
             配置辅助器接口。
             </summary>
         </member>
-        <member name="M:GameFramework.Config.IConfigHelper.LoadConfig(System.Object,System.Object)">
+        <member name="M:GameFramework.Config.IConfigHelper.LoadConfig(System.Object,GameFramework.LoadType,System.Object)">
             <summary>
             加载配置。
             </summary>
             <param name="configAsset">配置资源。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否加载成功。</returns>
         </member>
@@ -2038,31 +2063,35 @@
             </summary>
             <param name="configHelper">配置辅助器。</param>
         </member>
-        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String)">
+        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,GameFramework.LoadType)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
         </member>
-        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,System.Int32)">
+        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,GameFramework.LoadType,System.Int32)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="priority">加载配置资源的优先级。</param>
         </member>
-        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,System.Object)">
+        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,GameFramework.LoadType,System.Object)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,GameFramework.LoadType,System.Int32,System.Object)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="priority">加载配置资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -2945,31 +2974,35 @@
             </summary>
             <param name="dataTableHelper">数据表辅助器。</param>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String)">
+        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,GameFramework.LoadType)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,System.Int32)">
+        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,GameFramework.LoadType,System.Int32)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="priority">加载数据表资源的优先级。</param>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,System.Object)">
+        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,GameFramework.LoadType,System.Object)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,GameFramework.LoadType,System.Int32,System.Object)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="priority">加载数据表资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -3487,11 +3520,12 @@
             数据表辅助器接口。
             </summary>
         </member>
-        <member name="M:GameFramework.DataTable.IDataTableHelper.LoadDataTable(System.Object,System.Object)">
+        <member name="M:GameFramework.DataTable.IDataTableHelper.LoadDataTable(System.Object,GameFramework.LoadType,System.Object)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAsset">数据表资源。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否加载成功。</returns>
         </member>
@@ -3564,31 +3598,35 @@
             </summary>
             <param name="dataTableHelper">数据表辅助器。</param>
         </member>
-        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String)">
+        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,GameFramework.LoadType)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
         </member>
-        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,System.Int32)">
+        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,GameFramework.LoadType,System.Int32)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="priority">加载数据表资源的优先级。</param>
         </member>
-        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,System.Object)">
+        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,GameFramework.LoadType,System.Object)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,GameFramework.LoadType,System.Int32,System.Object)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="priority">加载数据表资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -7246,11 +7284,12 @@
             获取系统语言。
             </summary>
         </member>
-        <member name="M:GameFramework.Localization.ILocalizationHelper.LoadDictionary(System.Object,System.Object)">
+        <member name="M:GameFramework.Localization.ILocalizationHelper.LoadDictionary(System.Object,GameFramework.LoadType,System.Object)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAsset">字典资源。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否加载成功。</returns>
         </member>
@@ -7336,31 +7375,35 @@
             </summary>
             <param name="localizationHelper">本地化辅助器。</param>
         </member>
-        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String)">
+        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,GameFramework.LoadType)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
         </member>
-        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,System.Int32)">
+        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,GameFramework.LoadType,System.Int32)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="priority">加载字典资源的优先级。</param>
         </member>
-        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,System.Object)">
+        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,GameFramework.LoadType,System.Object)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,GameFramework.LoadType,System.Int32,System.Object)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="priority">加载字典资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -7933,31 +7976,35 @@
             </summary>
             <param name="localizationHelper">本地化辅助器。</param>
         </member>
-        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String)">
+        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,GameFramework.LoadType)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
         </member>
-        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,System.Int32)">
+        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,GameFramework.LoadType,System.Int32)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="priority">加载字典资源的优先级。</param>
         </member>
-        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,System.Object)">
+        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,GameFramework.LoadType,System.Object)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,GameFramework.LoadType,System.Int32,System.Object)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="priority">加载字典资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>

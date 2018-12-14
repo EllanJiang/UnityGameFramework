@@ -146,9 +146,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="dictionaryName">字典名称。</param>
         /// <param name="dictionaryAssetName">字典资源名称。</param>
-        public void LoadDictionary(string dictionaryName, string dictionaryAssetName)
+        /// <param name="loadType">字典加载方式。</param>
+        public void LoadDictionary(string dictionaryName, string dictionaryAssetName, LoadType loadType)
         {
-            LoadDictionary(dictionaryName, dictionaryAssetName, DefaultPriority, null);
+            LoadDictionary(dictionaryName, dictionaryAssetName, loadType, DefaultPriority, null);
         }
 
         /// <summary>
@@ -156,10 +157,11 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="dictionaryName">字典名称。</param>
         /// <param name="dictionaryAssetName">字典资源名称。</param>
+        /// <param name="loadType">字典加载方式。</param>
         /// <param name="priority">加载字典资源的优先级。</param>
-        public void LoadDictionary(string dictionaryName, string dictionaryAssetName, int priority)
+        public void LoadDictionary(string dictionaryName, string dictionaryAssetName, LoadType loadType, int priority)
         {
-            LoadDictionary(dictionaryName, dictionaryAssetName, priority, null);
+            LoadDictionary(dictionaryName, dictionaryAssetName, loadType, priority, null);
         }
 
         /// <summary>
@@ -167,10 +169,11 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="dictionaryName">字典名称。</param>
         /// <param name="dictionaryAssetName">字典资源名称。</param>
+        /// <param name="loadType">字典加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadDictionary(string dictionaryName, string dictionaryAssetName, object userData)
+        public void LoadDictionary(string dictionaryName, string dictionaryAssetName, LoadType loadType, object userData)
         {
-            LoadDictionary(dictionaryName, dictionaryAssetName, DefaultPriority, userData);
+            LoadDictionary(dictionaryName, dictionaryAssetName, loadType, DefaultPriority, userData);
         }
 
         /// <summary>
@@ -178,9 +181,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="dictionaryName">字典名称。</param>
         /// <param name="dictionaryAssetName">字典资源名称。</param>
+        /// <param name="loadType">字典加载方式。</param>
         /// <param name="priority">加载字典资源的优先级。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadDictionary(string dictionaryName, string dictionaryAssetName, int priority, object userData)
+        public void LoadDictionary(string dictionaryName, string dictionaryAssetName, LoadType loadType, int priority, object userData)
         {
             if (string.IsNullOrEmpty(dictionaryName))
             {
@@ -188,7 +192,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_LocalizationManager.LoadDictionary(dictionaryAssetName, priority, new LoadDictionaryInfo(dictionaryName, userData));
+            m_LocalizationManager.LoadDictionary(dictionaryAssetName, loadType, priority, new LoadDictionaryInfo(dictionaryName, userData));
         }
 
         /// <summary>

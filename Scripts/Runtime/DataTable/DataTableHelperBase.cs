@@ -23,12 +23,13 @@ namespace UnityGameFramework.Runtime
         /// 加载数据表。
         /// </summary>
         /// <param name="dataTableAsset">数据表资源。</param>
+        /// <param name="loadType">数据表加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        public bool LoadDataTable(object dataTableAsset, object userData)
+        public bool LoadDataTable(object dataTableAsset, LoadType loadType, object userData)
         {
             LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)userData;
-            return LoadDataTable(loadDataTableInfo.DataRowType, loadDataTableInfo.DataTableName, loadDataTableInfo.DataTableNameInType, dataTableAsset, loadDataTableInfo.UserData);
+            return LoadDataTable(loadDataTableInfo.DataRowType, loadDataTableInfo.DataTableName, loadDataTableInfo.DataTableNameInType, dataTableAsset, loadType, loadDataTableInfo.UserData);
         }
 
         /// <summary>
@@ -65,8 +66,9 @@ namespace UnityGameFramework.Runtime
         /// <param name="dataTableName">数据表名称。</param>
         /// <param name="dataTableNameInType">数据表类型下的名称。</param>
         /// <param name="dataTableAsset">数据表资源。</param>
+        /// <param name="loadType">数据表加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        protected abstract bool LoadDataTable(Type dataRowType, string dataTableName, string dataTableNameInType, object dataTableAsset, object userData);
+        protected abstract bool LoadDataTable(Type dataRowType, string dataTableName, string dataTableNameInType, object dataTableAsset, LoadType loadType, object userData);
     }
 }

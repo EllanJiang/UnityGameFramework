@@ -186,9 +186,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="dictionaryName">字典名称。</param>
         /// <param name="dictionaryAsset">字典资源。</param>
+        /// <param name="loadType">字典加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        protected override bool LoadDictionary(string dictionaryName, object dictionaryAsset, object userData)
+        protected override bool LoadDictionary(string dictionaryName, object dictionaryAsset, LoadType loadType, object userData)
         {
             TextAsset textAsset = dictionaryAsset as TextAsset;
             if (textAsset == null)
@@ -197,7 +198,23 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
-            bool retVal = m_LocalizationManager.ParseDictionary(textAsset.text, userData);
+            bool retVal = false;
+            switch (loadType)
+            {
+                case LoadType.Text:
+                    retVal = m_LocalizationManager.ParseDictionary(textAsset.text, userData);
+                    break;
+                case LoadType.Bytes:
+                    retVal = m_LocalizationManager.ParseDictionary(textAsset.bytes, userData);
+                    break;
+                case LoadType.Stream:
+                    using (MemoryStream stream = new MemoryStream(textAsset.bytes, false))
+                    {
+                        retVal = m_LocalizationManager.ParseDictionary(stream, userData);
+                    }
+                    break;
+            }
+
             if (!retVal)
             {
                 Log.Warning("Dictionary asset '{0}' parse failure.", dictionaryName);

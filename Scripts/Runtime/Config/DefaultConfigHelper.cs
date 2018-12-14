@@ -129,9 +129,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">配置名称。</param>
         /// <param name="configAsset">配置资源。</param>
+        /// <param name="loadType">配置加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        protected override bool LoadConfig(string configName, object configAsset, object userData)
+        protected override bool LoadConfig(string configName, object configAsset, LoadType loadType, object userData)
         {
             TextAsset textAsset = configAsset as TextAsset;
             if (textAsset == null)
@@ -140,7 +141,23 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
-            bool retVal = m_ConfigManager.ParseConfig(textAsset.text, userData);
+            bool retVal = false;
+            switch (loadType)
+            {
+                case LoadType.Text:
+                    retVal = m_ConfigManager.ParseConfig(textAsset.text, userData);
+                    break;
+                case LoadType.Bytes:
+                    retVal = m_ConfigManager.ParseConfig(textAsset.bytes, userData);
+                    break;
+                case LoadType.Stream:
+                    using (MemoryStream stream = new MemoryStream(textAsset.bytes, false))
+                    {
+                        retVal = m_ConfigManager.ParseConfig(stream, userData);
+                    }
+                    break;
+            }
+
             if (!retVal)
             {
                 Log.Warning("Config asset '{0}' parse failure.", configName);

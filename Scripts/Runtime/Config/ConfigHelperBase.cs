@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Config;
 using System.IO;
 using UnityEngine;
@@ -20,12 +21,13 @@ namespace UnityGameFramework.Runtime
         /// 加载配置。
         /// </summary>
         /// <param name="configAsset">配置资源。</param>
+        /// <param name="loadType">配置加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        public bool LoadConfig(object configAsset, object userData)
+        public bool LoadConfig(object configAsset, LoadType loadType, object userData)
         {
             LoadConfigInfo loadConfigInfo = (LoadConfigInfo)userData;
-            return LoadConfig(loadConfigInfo.ConfigName, configAsset, loadConfigInfo.UserData);
+            return LoadConfig(loadConfigInfo.ConfigName, configAsset, loadType, loadConfigInfo.UserData);
         }
 
         /// <summary>
@@ -63,8 +65,9 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">配置名称。</param>
         /// <param name="configAsset">配置资源。</param>
+        /// <param name="loadType">配置加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        protected abstract bool LoadConfig(string configName, object configAsset, object userData);
+        protected abstract bool LoadConfig(string configName, object configAsset, LoadType loadType, object userData);
     }
 }

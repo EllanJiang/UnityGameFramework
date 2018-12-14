@@ -119,9 +119,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">配置名称。</param>
         /// <param name="configAssetName">配置资源名称。</param>
-        public void LoadConfig(string configName, string configAssetName)
+        /// <param name="loadType">配置加载方式。</param>
+        public void LoadConfig(string configName, string configAssetName, LoadType loadType)
         {
-            LoadConfig(configName, configAssetName, DefaultPriority, null);
+            LoadConfig(configName, configAssetName, loadType, DefaultPriority, null);
         }
 
         /// <summary>
@@ -129,10 +130,11 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">配置名称。</param>
         /// <param name="configAssetName">配置资源名称。</param>
+        /// <param name="loadType">配置加载方式。</param>
         /// <param name="priority">加载配置资源的优先级。</param>
-        public void LoadConfig(string configName, string configAssetName, int priority)
+        public void LoadConfig(string configName, string configAssetName, LoadType loadType, int priority)
         {
-            LoadConfig(configName, configAssetName, priority, null);
+            LoadConfig(configName, configAssetName, loadType, priority, null);
         }
 
         /// <summary>
@@ -140,10 +142,11 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">配置名称。</param>
         /// <param name="configAssetName">配置资源名称。</param>
+        /// <param name="loadType">配置加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadConfig(string configName, string configAssetName, object userData)
+        public void LoadConfig(string configName, string configAssetName, LoadType loadType, object userData)
         {
-            LoadConfig(configName, configAssetName, DefaultPriority, userData);
+            LoadConfig(configName, configAssetName, loadType, DefaultPriority, userData);
         }
 
         /// <summary>
@@ -151,9 +154,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">配置名称。</param>
         /// <param name="configAssetName">配置资源名称。</param>
+        /// <param name="loadType">配置加载方式。</param>
         /// <param name="priority">加载配置资源的优先级。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadConfig(string configName, string configAssetName, int priority, object userData)
+        public void LoadConfig(string configName, string configAssetName, LoadType loadType, int priority, object userData)
         {
             if (string.IsNullOrEmpty(configName))
             {
@@ -161,7 +165,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_ConfigManager.LoadConfig(configAssetName, priority, new LoadConfigInfo(configName, userData));
+            m_ConfigManager.LoadConfig(configAssetName, loadType, priority, new LoadConfigInfo(configName, userData));
         }
 
         /// <summary>

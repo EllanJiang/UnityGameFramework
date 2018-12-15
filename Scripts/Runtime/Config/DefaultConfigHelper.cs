@@ -156,6 +156,9 @@ namespace UnityGameFramework.Runtime
                         retVal = m_ConfigManager.ParseConfig(stream, userData);
                     }
                     break;
+                default:
+                    Log.Warning("Unknown load type.");
+                    return false;
             }
 
             if (!retVal)

@@ -213,6 +213,9 @@ namespace UnityGameFramework.Runtime
                         retVal = m_LocalizationManager.ParseDictionary(stream, userData);
                     }
                     break;
+                default:
+                    Log.Warning("Unknown load type.");
+                    return false;
             }
 
             if (!retVal)

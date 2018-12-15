@@ -31,7 +31,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>是否解析数据表行成功。</returns>
         public virtual bool ParseDataRow(GameFrameworkSegment<string> dataRowSegment)
         {
-            Log.Error("Not implemented ParseDataRow(GameFrameworkSegment<string>)");
+            Log.Warning("Not implemented ParseDataRow(GameFrameworkSegment<string>)");
             return false;
         }
 
@@ -42,7 +42,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>是否解析数据表行成功。</returns>
         public virtual bool ParseDataRow(GameFrameworkSegment<byte[]> dataRowSegment)
         {
-            Log.Error("Not implemented ParseDataRow(GameFrameworkSegment<byte[]>)");
+            Log.Warning("Not implemented ParseDataRow(GameFrameworkSegment<byte[]>)");
             return false;
         }
 
@@ -53,7 +53,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>是否解析数据表行成功。</returns>
         public virtual bool ParseDataRow(GameFrameworkSegment<Stream> dataRowSegment)
         {
-            Log.Error("Not implemented ParseDataRow(GameFrameworkSegment<Stream>)");
+            Log.Warning("Not implemented ParseDataRow(GameFrameworkSegment<Stream>)");
             return false;
         }
     }

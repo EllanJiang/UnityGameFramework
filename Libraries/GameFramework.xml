@@ -2897,18 +2897,21 @@
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
         </member>
         <member name="M:GameFramework.DataTable.DataTableBase.AddDataRow(GameFramework.GameFrameworkSegment{System.Byte[]})">
             <summary>
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
         </member>
         <member name="M:GameFramework.DataTable.DataTableBase.AddDataRow(GameFramework.GameFrameworkSegment{System.IO.Stream})">
             <summary>
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
         </member>
         <member name="M:GameFramework.DataTable.DataTableBase.Shutdown">
             <summary>
@@ -3348,18 +3351,21 @@
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
         </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.Byte[]})">
             <summary>
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
         </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.IO.Stream})">
             <summary>
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
         </member>
         <member name="T:GameFramework.DataTable.IDataRow">
             <summary>

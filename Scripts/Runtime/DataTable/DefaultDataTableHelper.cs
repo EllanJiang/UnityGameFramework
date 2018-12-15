@@ -127,19 +127,22 @@ namespace UnityGameFramework.Runtime
             {
                 case LoadType.Text:
                     m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, textAsset.text);
-                    return true;
+                    break;
                 case LoadType.Bytes:
                     m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, textAsset.bytes);
-                    return true;
+                    break;
                 case LoadType.Stream:
                     using (MemoryStream stream = new MemoryStream(textAsset.bytes, false))
                     {
                         m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, stream);
                     }
-                    return true;
+                    break;
+                default:
+                    Log.Warning("Unknown load type.");
+                    return false;
             }
 
-            return false;
+            return true;
         }
 
         private GameFrameworkSegment<string> ReadLine(string text, ref int position)

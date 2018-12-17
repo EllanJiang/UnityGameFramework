@@ -48,5 +48,19 @@ namespace UnityGameFramework.Editor
         {
 
         }
+
+        protected bool IsPrefabInHierarchy(UnityEngine.Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+#if UNITY_2018_3_OR_NEWER
+            return true;
+#else
+            return PrefabUtility.GetPrefabType(obj) != PrefabType.Prefab;
+#endif
+        }
     }
 }

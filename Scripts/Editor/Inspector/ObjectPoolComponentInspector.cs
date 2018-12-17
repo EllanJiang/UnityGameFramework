@@ -31,7 +31,7 @@ namespace UnityGameFramework.Editor
 
             ObjectPoolComponent t = (ObjectPoolComponent)target;
 
-            if (PrefabUtility.GetPrefabType(t.gameObject) != PrefabType.Prefab)
+            if (IsPrefabInHierarchy(t.gameObject))
             {
                 EditorGUILayout.LabelField("Object Pool Count", t.Count.ToString());
 

@@ -26,7 +26,7 @@ namespace UnityGameFramework.Editor
 
             DataNodeComponent t = (DataNodeComponent)target;
 
-            if (PrefabUtility.GetPrefabType(t.gameObject) != PrefabType.Prefab)
+            if (IsPrefabInHierarchy(t.gameObject))
             {
                 DrawDataNode(t.Root);
             }

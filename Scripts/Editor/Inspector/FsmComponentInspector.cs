@@ -27,7 +27,7 @@ namespace UnityGameFramework.Editor
 
             FsmComponent t = (FsmComponent)target;
 
-            if (PrefabUtility.GetPrefabType(t.gameObject) != PrefabType.Prefab)
+            if (IsPrefabInHierarchy(t.gameObject))
             {
                 EditorGUILayout.LabelField("FSM Count", t.Count.ToString());
 

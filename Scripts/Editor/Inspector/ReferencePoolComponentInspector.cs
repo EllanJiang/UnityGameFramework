@@ -26,7 +26,7 @@ namespace UnityGameFramework.Editor
 
             ReferencePoolComponent t = (ReferencePoolComponent)target;
 
-            if (PrefabUtility.GetPrefabType(t.gameObject) != PrefabType.Prefab)
+            if (IsPrefabInHierarchy(t.gameObject))
             {
                 EditorGUILayout.LabelField("Reference Pool Count", ReferencePool.Count.ToString());
 

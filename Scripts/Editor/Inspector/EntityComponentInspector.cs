@@ -49,7 +49,7 @@ namespace UnityGameFramework.Editor
             }
             EditorGUI.EndDisabledGroup();
 
-            if (EditorApplication.isPlaying && PrefabUtility.GetPrefabType(t.gameObject) != PrefabType.Prefab)
+            if (EditorApplication.isPlaying && IsPrefabInHierarchy(t.gameObject))
             {
                 EditorGUILayout.LabelField("Entity Group Count", t.EntityGroupCount.ToString());
                 EditorGUILayout.LabelField("Entity Count (Total)", t.EntityCount.ToString());

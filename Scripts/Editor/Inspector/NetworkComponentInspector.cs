@@ -28,7 +28,7 @@ namespace UnityGameFramework.Editor
 
             NetworkComponent t = (NetworkComponent)target;
 
-            if (PrefabUtility.GetPrefabType(t.gameObject) != PrefabType.Prefab)
+            if (IsPrefabInHierarchy(t.gameObject))
             {
                 EditorGUILayout.LabelField("Network Channel Count", t.NetworkChannelCount.ToString());
 

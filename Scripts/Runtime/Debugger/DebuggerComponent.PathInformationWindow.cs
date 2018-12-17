@@ -22,6 +22,9 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Persistent Data Path:", Application.persistentDataPath);
                     DrawItem("Streaming Assets Path:", Application.streamingAssetsPath);
                     DrawItem("Temporary Cache Path:", Application.temporaryCachePath);
+#if UNITY_2018_3_OR_NEWER
+                    DrawItem("Console Log Path:", Application.consoleLogPath);
+#endif
                 }
                 GUILayout.EndVertical();
             }

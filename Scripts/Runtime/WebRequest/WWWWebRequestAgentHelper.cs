@@ -5,6 +5,8 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+#if !UNITY_2018_3_OR_NEWER
+
 using GameFramework.WebRequest;
 using System;
 using UnityEngine;
@@ -12,9 +14,9 @@ using UnityEngine;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// 默认 Web 请求代理辅助器。
+    /// WWW Web 请求代理辅助器。
     /// </summary>
-    public class DefaultWebRequestAgentHelper : WebRequestAgentHelperBase, IDisposable
+    public class WWWWebRequestAgentHelper : WebRequestAgentHelperBase, IDisposable
     {
         private WWW m_WWW = null;
         private bool m_Disposed = false;
@@ -155,3 +157,5 @@ namespace UnityGameFramework.Runtime
         }
     }
 }
+
+#endif

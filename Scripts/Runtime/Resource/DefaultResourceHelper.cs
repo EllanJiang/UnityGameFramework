@@ -8,6 +8,9 @@
 using GameFramework.Resource;
 using System.Collections;
 using UnityEngine;
+#if UNITY_5_4_OR_NEWER
+using UnityEngine.Networking;
+#endif
 using UnityEngine.SceneManagement;
 
 namespace UnityGameFramework.Runtime
@@ -106,12 +109,30 @@ namespace UnityGameFramework.Runtime
 
         private IEnumerator LoadBytesCo(string fileUri, LoadBytesCallback loadBytesCallback)
         {
+            byte[] bytes = null;
+            string errorMessage = null;
+
+#if UNITY_5_4_OR_NEWER
+            UnityWebRequest unityWebRequest = new UnityWebRequest(fileUri);
+            yield return unityWebRequest;
+
+            bool isError = false;
+#if UNITY_2017_1_OR_NEWER
+            isError = unityWebRequest.isNetworkError;
+#else
+            isError = unityWebRequest.isError;
+#endif
+            bytes = unityWebRequest.downloadHandler.data;
+            errorMessage = isError ? unityWebRequest.error : null;
+            unityWebRequest.Dispose();
+#else
             WWW www = new WWW(fileUri);
             yield return www;
 
-            byte[] bytes = www.bytes;
-            string errorMessage = www.error;
+            bytes = www.bytes;
+            errorMessage = www.error;
             www.Dispose();
+#endif
 
             if (loadBytesCallback != null)
             {

@@ -5,6 +5,8 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+#if !UNITY_2018_3_OR_NEWER
+
 using GameFramework;
 using GameFramework.Download;
 using System;
@@ -14,9 +16,9 @@ using UnityEngine;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// 默认下载代理辅助器。
+    /// WWW 下载代理辅助器。
     /// </summary>
-    public class DefaultDownloadAgentHelper : DownloadAgentHelperBase, IDisposable
+    public class WWWDownloadAgentHelper : DownloadAgentHelperBase, IDisposable
     {
         private WWW m_WWW = null;
         private int m_LastDownloadedSize = 0;
@@ -207,3 +209,5 @@ namespace UnityGameFramework.Runtime
         }
     }
 }
+
+#endif

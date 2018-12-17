@@ -6,8 +6,8 @@
 
 <!--
 
-Unity 2018.3（不含）以前的版本，请删除以上内容，并使用以下内容。
-For versions before Unity 2018.3 (excluded), please delete the above contents and use the following contents.
+Unity 2017.3（不含）以前的版本，请删除以上内容，并使用以下内容。
+For versions before Unity 2017.3 (excluded), please delete the above contents and use the following contents.
 
 <?xml version="1.0" encoding="UTF-8"?>
 <linker>

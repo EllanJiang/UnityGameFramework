@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
-// Game Framework v3.x
-// Copyright © 2013-2018 Jiang Yin. All rights reserved.
+// Game Framework
+// Copyright © 2013-2019 Jiang Yin. All rights reserved.
 // Homepage: http://gameframework.cn/
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
@@ -8,6 +8,7 @@
 using GameFramework;
 using GameFramework.Config;
 using System;
+using System.IO;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -17,6 +18,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class DefaultConfigHelper : ConfigHelperBase
     {
+        private static readonly string[] RowSplit = new string[] { "\r\n", "\r", "\n" };
         private static readonly string[] ColumnSplit = new string[] { "\t" };
         private const int ColumnCount = 4;
 
@@ -33,7 +35,7 @@ namespace UnityGameFramework.Runtime
         {
             try
             {
-                string[] rowTexts = Utility.Text.SplitToLines(text);
+                string[] rowTexts = text.Split(RowSplit, StringSplitOptions.None);
                 for (int i = 0; i < rowTexts.Length; i++)
                 {
                     if (rowTexts[i].Length <= 0 || rowTexts[i][0] == '#')
@@ -49,18 +51,8 @@ namespace UnityGameFramework.Runtime
                     }
 
                     string configName = splitLine[1];
-                    string stringValue = splitLine[3];
-
-                    bool boolValue = default(bool);
-                    bool.TryParse(stringValue, out boolValue);
-
-                    int intValue = default(int);
-                    int.TryParse(stringValue, out intValue);
-
-                    float floatValue = default(float);
-                    float.TryParse(stringValue, out floatValue);
-
-                    if (!AddConfig(configName, boolValue, intValue, floatValue, stringValue))
+                    string configValue = splitLine[3];
+                    if (!AddConfig(configName, configValue))
                     {
                         Log.Warning("Can not add raw string with config name '{0}' which may be invalid or duplicate.", configName);
                         return false;
@@ -72,6 +64,53 @@ namespace UnityGameFramework.Runtime
             catch (Exception exception)
             {
                 Log.Warning("Can not parse config '{0}' with exception '{1}'.", text, Utility.Text.Format("{0}\n{1}", exception.Message, exception.StackTrace));
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 解析配置。
+        /// </summary>
+        /// <param name="bytes">要解析的配置二进制流。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析配置成功。</returns>
+        public override bool ParseConfig(byte[] bytes, object userData)
+        {
+            using (MemoryStream memoryStream = new MemoryStream(bytes, false))
+            {
+                return ParseConfig(memoryStream, userData);
+            }
+        }
+
+        /// <summary>
+        /// 解析配置。
+        /// </summary>
+        /// <param name="stream">要解析的配置二进制流。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析配置成功。</returns>
+        public override bool ParseConfig(Stream stream, object userData)
+        {
+            try
+            {
+                using (BinaryReader binaryReader = new BinaryReader(stream))
+                {
+                    while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
+                    {
+                        string configName = binaryReader.ReadString();
+                        string configValue = binaryReader.ReadString();
+                        if (!AddConfig(configName, configValue))
+                        {
+                            Log.Warning("Can not add raw string with config name '{0}' which may be invalid or duplicate.", configName);
+                            return false;
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Log.Warning("Can not parse config with exception '{0}'.", Utility.Text.Format("{0}\n{1}", exception.Message, exception.StackTrace));
                 return false;
             }
         }
@@ -90,9 +129,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">配置名称。</param>
         /// <param name="configAsset">配置资源。</param>
+        /// <param name="loadType">配置加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
-        /// <returns>加载是否成功。</returns>
-        protected override bool LoadConfig(string configName, object configAsset, object userData)
+        /// <returns>是否加载成功。</returns>
+        protected override bool LoadConfig(string configName, object configAsset, LoadType loadType, object userData)
         {
             TextAsset textAsset = configAsset as TextAsset;
             if (textAsset == null)
@@ -101,13 +141,52 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
-            bool retVal = m_ConfigManager.ParseConfig(textAsset.text, userData);
+            bool retVal = false;
+            switch (loadType)
+            {
+                case LoadType.Text:
+                    retVal = m_ConfigManager.ParseConfig(textAsset.text, userData);
+                    break;
+                case LoadType.Bytes:
+                    retVal = m_ConfigManager.ParseConfig(textAsset.bytes, userData);
+                    break;
+                case LoadType.Stream:
+                    using (MemoryStream stream = new MemoryStream(textAsset.bytes, false))
+                    {
+                        retVal = m_ConfigManager.ParseConfig(stream, userData);
+                    }
+                    break;
+                default:
+                    Log.Warning("Unknown load type.");
+                    return false;
+            }
+
             if (!retVal)
             {
                 Log.Warning("Config asset '{0}' parse failure.", configName);
             }
 
             return retVal;
+        }
+
+        /// <summary>
+        /// 增加指定配置项。
+        /// </summary>
+        /// <param name="configName">要增加配置项的名称。</param>
+        /// <param name="configValue">要增加配置项的值。</param>
+        /// <returns></returns>
+        protected bool AddConfig(string configName, string configValue)
+        {
+            bool boolValue = default(bool);
+            bool.TryParse(configValue, out boolValue);
+
+            int intValue = default(int);
+            int.TryParse(configValue, out intValue);
+
+            float floatValue = default(float);
+            float.TryParse(configValue, out floatValue);
+
+            return AddConfig(configName, boolValue, intValue, floatValue, configValue);
         }
 
         /// <summary>

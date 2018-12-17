@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
-// Game Framework v3.x
-// Copyright © 2013-2018 Jiang Yin. All rights reserved.
+// Game Framework
+// Copyright © 2013-2019 Jiang Yin. All rights reserved.
 // Homepage: http://gameframework.cn/
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
@@ -27,8 +27,14 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Supported:", Profiler.supported.ToString());
                     DrawItem("Enabled:", Profiler.enabled.ToString());
                     DrawItem("Enable Binary Log:", Profiler.enableBinaryLog ? Utility.Text.Format("True, {0}", Profiler.logFile) : "False");
+#if UNITY_2018_3_OR_NEWER
+                    DrawItem("Area Count:", Profiler.areaCount.ToString());
+#endif
 #if UNITY_5_3 || UNITY_5_4
                     DrawItem("Max Samples Number Per Frame:", Profiler.maxNumberOfSamplesPerFrame.ToString());
+#endif
+#if UNITY_2018_3_OR_NEWER
+                    DrawItem("Max Used Memory:", Profiler.maxUsedMemory.ToString());
 #endif
 #if UNITY_5_6_OR_NEWER
                     DrawItem("Mono Used Size:", Utility.Text.Format("{0} MB", (Profiler.GetMonoUsedSizeLong() / (float)MBSize).ToString("F3")));

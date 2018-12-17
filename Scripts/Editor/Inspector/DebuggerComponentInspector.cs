@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
-// Game Framework v3.x
-// Copyright © 2013-2018 Jiang Yin. All rights reserved.
+// Game Framework
+// Copyright © 2013-2019 Jiang Yin. All rights reserved.
 // Homepage: http://gameframework.cn/
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
@@ -28,7 +28,7 @@ namespace UnityGameFramework.Editor
 
             EditorGUILayout.PropertyField(m_Skin);
 
-            if (EditorApplication.isPlaying && PrefabUtility.GetPrefabType(t.gameObject) != PrefabType.Prefab)
+            if (EditorApplication.isPlaying && IsPrefabInHierarchy(t.gameObject))
             {
                 bool activeWindow = EditorGUILayout.Toggle("Active Window", t.ActiveWindow);
                 if (activeWindow != t.ActiveWindow)

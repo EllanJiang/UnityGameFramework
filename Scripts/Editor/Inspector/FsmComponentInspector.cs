@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
-// Game Framework v3.x
-// Copyright © 2013-2018 Jiang Yin. All rights reserved.
+// Game Framework
+// Copyright © 2013-2019 Jiang Yin. All rights reserved.
 // Homepage: http://gameframework.cn/
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
@@ -27,7 +27,7 @@ namespace UnityGameFramework.Editor
 
             FsmComponent t = (FsmComponent)target;
 
-            if (PrefabUtility.GetPrefabType(t.gameObject) != PrefabType.Prefab)
+            if (IsPrefabInHierarchy(t.gameObject))
             {
                 EditorGUILayout.LabelField("FSM Count", t.Count.ToString());
 

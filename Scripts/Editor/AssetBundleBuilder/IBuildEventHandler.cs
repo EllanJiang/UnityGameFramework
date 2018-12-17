@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
-// Game Framework v3.x
-// Copyright © 2013-2018 Jiang Yin. All rights reserved.
+// Game Framework
+// Copyright © 2013-2019 Jiang Yin. All rights reserved.
 // Homepage: http://gameframework.cn/
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
@@ -82,7 +82,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         /// <param name="outputPackagePath">为单机模式生成的文件存放于此路径。若游戏是单机游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
         /// <param name="outputFullPath">为可更新模式生成的所有文件存放于此路径。若游戏是网络游戏，生成结束后应将此目录上传至 Web 服务器，供玩家下载用。</param>
         /// <param name="outputPackedPath">为可更新模式生成的文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
-        /// <param name="isSuccess">生成是否成功。</param>
+        /// <param name="isSuccess">是否生成成功。</param>
         void PostprocessPlatform(Platform platform, string workingPath, string outputPackagePath, string outputFullPath, string outputPackedPath, bool isSuccess);
     }
 }

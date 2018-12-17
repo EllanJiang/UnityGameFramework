@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
-// Game Framework v3.x
-// Copyright © 2013-2018 Jiang Yin. All rights reserved.
+// Game Framework
+// Copyright © 2013-2019 Jiang Yin. All rights reserved.
 // Homepage: http://gameframework.cn/
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
@@ -22,6 +22,9 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Persistent Data Path:", Application.persistentDataPath);
                     DrawItem("Streaming Assets Path:", Application.streamingAssetsPath);
                     DrawItem("Temporary Cache Path:", Application.temporaryCachePath);
+#if UNITY_2018_3_OR_NEWER
+                    DrawItem("Console Log Path:", Application.consoleLogPath);
+#endif
                 }
                 GUILayout.EndVertical();
             }

@@ -4,6 +4,26 @@
         <name>GameFramework</name>
     </assembly>
     <members>
+        <member name="T:GameFramework.LoadType">
+            <summary>
+            加载方式。
+            </summary>
+        </member>
+        <member name="F:GameFramework.LoadType.Text">
+            <summary>
+            按文本加载。
+            </summary>
+        </member>
+        <member name="F:GameFramework.LoadType.Bytes">
+            <summary>
+            按二进制流加载。
+            </summary>
+        </member>
+        <member name="F:GameFramework.LoadType.Stream">
+            <summary>
+            按二进制流加载。
+            </summary>
+        </member>
         <member name="T:GameFramework.BaseEventArgs">
             <summary>
             事件基类。
@@ -995,6 +1015,71 @@
             关闭并清理游戏框架模块。
             </summary>
         </member>
+        <member name="T:GameFramework.GameFrameworkSegment`1">
+            <summary>
+            数据片段。
+            </summary>
+            <typeparam name="T">数据源类型。</typeparam>
+        </member>
+        <member name="M:GameFramework.GameFrameworkSegment`1.#ctor(`0,System.Int32,System.Int32)">
+            <summary>
+            初始化数据片段的新实例。
+            </summary>
+            <param name="source">数据源。</param>
+            <param name="offset">偏移。</param>
+            <param name="length">长度。</param>
+        </member>
+        <member name="P:GameFramework.GameFrameworkSegment`1.Source">
+            <summary>
+            获取数据源。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkSegment`1.Offset">
+            <summary>
+            获取偏移。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkSegment`1.Length">
+            <summary>
+            获取长度。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkSegment`1.GetHashCode">
+            <summary>
+            获取对象的哈希值。
+            </summary>
+            <returns>对象的哈希值。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkSegment`1.Equals(System.Object)">
+            <summary>
+            比较对象是否与自身相等。
+            </summary>
+            <param name="obj">要比较的对象。</param>
+            <returns>被比较的对象是否与自身相等。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkSegment`1.Equals(GameFramework.GameFrameworkSegment{`0})">
+            <summary>
+            比较对象是否与自身相等。
+            </summary>
+            <param name="obj">要比较的对象。</param>
+            <returns>被比较的对象是否与自身相等。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkSegment`1.op_Equality(GameFramework.GameFrameworkSegment{`0},GameFramework.GameFrameworkSegment{`0})">
+            <summary>
+            判断两个对象是否相等。
+            </summary>
+            <param name="a">值 a。</param>
+            <param name="b">值 b。</param>
+            <returns>两个对象是否相等。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkSegment`1.op_Inequality(GameFramework.GameFrameworkSegment{`0},GameFramework.GameFrameworkSegment{`0})">
+            <summary>
+            判断两个对象是否不相等。
+            </summary>
+            <param name="a">值 a。</param>
+            <param name="b">值 b。</param>
+            <returns>两个对象是否不相等。</returns>
+        </member>
         <member name="T:GameFramework.GameFrameworkLog">
             <summary>
             游戏框架日志类。
@@ -1726,31 +1811,35 @@
             </summary>
             <param name="configHelper">配置辅助器。</param>
         </member>
-        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String)">
+        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,GameFramework.LoadType)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
         </member>
-        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,System.Int32)">
+        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,GameFramework.LoadType,System.Int32)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="priority">加载配置资源的优先级。</param>
         </member>
-        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,System.Object)">
+        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,GameFramework.LoadType,System.Object)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Config.ConfigManager.LoadConfig(System.String,GameFramework.LoadType,System.Int32,System.Object)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="priority">加载配置资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -1766,6 +1855,36 @@
             解析配置。
             </summary>
             <param name="text">要解析的配置文本。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.ParseConfig(System.Byte[])">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="bytes">要解析的配置二进制流。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.ParseConfig(System.Byte[],System.Object)">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="bytes">要解析的配置二进制流。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.ParseConfig(System.IO.Stream)">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="stream">要解析的配置二进制流。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.ParseConfig(System.IO.Stream,System.Object)">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="stream">要解析的配置二进制流。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否解析配置成功。</returns>
         </member>
@@ -1863,19 +1982,36 @@
             配置辅助器接口。
             </summary>
         </member>
-        <member name="M:GameFramework.Config.IConfigHelper.LoadConfig(System.Object,System.Object)">
+        <member name="M:GameFramework.Config.IConfigHelper.LoadConfig(System.Object,GameFramework.LoadType,System.Object)">
             <summary>
             加载配置。
             </summary>
             <param name="configAsset">配置资源。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="userData">用户自定义数据。</param>
-            <returns>加载是否成功。</returns>
+            <returns>是否加载成功。</returns>
         </member>
         <member name="M:GameFramework.Config.IConfigHelper.ParseConfig(System.String,System.Object)">
             <summary>
             解析配置。
             </summary>
             <param name="text">要解析的配置文本。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigHelper.ParseConfig(System.Byte[],System.Object)">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="bytes">要解析的配置二进制流。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigHelper.ParseConfig(System.IO.Stream,System.Object)">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="stream">要解析的配置二进制流。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否解析配置成功。</returns>
         </member>
@@ -1927,31 +2063,35 @@
             </summary>
             <param name="configHelper">配置辅助器。</param>
         </member>
-        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String)">
+        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,GameFramework.LoadType)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
         </member>
-        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,System.Int32)">
+        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,GameFramework.LoadType,System.Int32)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="priority">加载配置资源的优先级。</param>
         </member>
-        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,System.Object)">
+        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,GameFramework.LoadType,System.Object)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Config.IConfigManager.LoadConfig(System.String,GameFramework.LoadType,System.Int32,System.Object)">
             <summary>
             加载配置。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="priority">加载配置资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -1967,6 +2107,36 @@
             解析配置。
             </summary>
             <param name="text">要解析的配置文本。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.ParseConfig(System.Byte[])">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="bytes">要解析的配置二进制流。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.ParseConfig(System.Byte[],System.Object)">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="bytes">要解析的配置二进制流。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.ParseConfig(System.IO.Stream)">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="stream">要解析的配置二进制流。</param>
+            <returns>是否解析配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.ParseConfig(System.IO.Stream,System.Object)">
+            <summary>
+            解析配置。
+            </summary>
+            <param name="stream">要解析的配置二进制流。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否解析配置成功。</returns>
         </member>
@@ -2722,11 +2892,26 @@
             获取数据表行数。
             </summary>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableBase.AddDataRow(System.String)">
+        <member name="M:GameFramework.DataTable.DataTableBase.AddDataRow(GameFramework.GameFrameworkSegment{System.String})">
             <summary>
             增加数据表行。
             </summary>
-            <param name="dataRowText">要解析的数据表行文本。</param>
+            <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableBase.AddDataRow(GameFramework.GameFrameworkSegment{System.Byte[]})">
+            <summary>
+            增加数据表行。
+            </summary>
+            <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableBase.AddDataRow(GameFramework.GameFrameworkSegment{System.IO.Stream})">
+            <summary>
+            增加数据表行。
+            </summary>
+            <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
         </member>
         <member name="M:GameFramework.DataTable.DataTableBase.Shutdown">
             <summary>
@@ -2792,31 +2977,35 @@
             </summary>
             <param name="dataTableHelper">数据表辅助器。</param>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String)">
+        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,GameFramework.LoadType)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,System.Int32)">
+        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,GameFramework.LoadType,System.Int32)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="priority">加载数据表资源的优先级。</param>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,System.Object)">
+        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,GameFramework.LoadType,System.Object)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.DataTable.DataTableManager.LoadDataTable(System.String,GameFramework.LoadType,System.Int32,System.Object)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="priority">加载数据表资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -2924,6 +3113,74 @@
             <param name="dataRowType">数据表行的类型。</param>
             <param name="name">数据表名称。</param>
             <param name="text">要解析的数据表文本。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.CreateDataTable``1(System.Byte[])">
+            <summary>
+            创建数据表。
+            </summary>
+            <typeparam name="T">数据表行的类型。</typeparam>
+            <param name="bytes">要解析的数据表二进制流。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.CreateDataTable(System.Type,System.Byte[])">
+            <summary>
+            创建数据表。
+            </summary>
+            <param name="dataRowType">数据表行的类型。</param>
+            <param name="bytes">要解析的数据表二进制流。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.CreateDataTable``1(System.String,System.Byte[])">
+            <summary>
+            创建数据表。
+            </summary>
+            <typeparam name="T">数据表行的类型。</typeparam>
+            <param name="name">数据表名称。</param>
+            <param name="bytes">要解析的数据表二进制流。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.CreateDataTable(System.Type,System.String,System.Byte[])">
+            <summary>
+            创建数据表。
+            </summary>
+            <param name="dataRowType">数据表行的类型。</param>
+            <param name="name">数据表名称。</param>
+            <param name="bytes">要解析的数据表二进制流。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.CreateDataTable``1(System.IO.Stream)">
+            <summary>
+            创建数据表。
+            </summary>
+            <typeparam name="T">数据表行的类型。</typeparam>
+            <param name="stream">要解析的数据表二进制流。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.CreateDataTable(System.Type,System.IO.Stream)">
+            <summary>
+            创建数据表。
+            </summary>
+            <param name="dataRowType">数据表行的类型。</param>
+            <param name="stream">要解析的数据表二进制流。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.CreateDataTable``1(System.String,System.IO.Stream)">
+            <summary>
+            创建数据表。
+            </summary>
+            <typeparam name="T">数据表行的类型。</typeparam>
+            <param name="name">数据表名称。</param>
+            <param name="stream">要解析的数据表二进制流。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.CreateDataTable(System.Type,System.String,System.IO.Stream)">
+            <summary>
+            创建数据表。
+            </summary>
+            <param name="dataRowType">数据表行的类型。</param>
+            <param name="name">数据表名称。</param>
+            <param name="stream">要解析的数据表二进制流。</param>
             <returns>要创建的数据表。</returns>
         </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DestroyDataTable``1">
@@ -3089,11 +3346,26 @@
             关闭并清理数据表。
             </summary>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.AddDataRow(System.String)">
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.String})">
             <summary>
             增加数据表行。
             </summary>
-            <param name="dataRowText">要解析的数据表行文本。</param>
+            <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.Byte[]})">
+            <summary>
+            增加数据表行。
+            </summary>
+            <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.IO.Stream})">
+            <summary>
+            增加数据表行。
+            </summary>
+            <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
         </member>
         <member name="T:GameFramework.DataTable.IDataRow">
             <summary>
@@ -3105,11 +3377,26 @@
             获取数据表行的编号。
             </summary>
         </member>
-        <member name="M:GameFramework.DataTable.IDataRow.ParseDataRow(System.String)">
+        <member name="M:GameFramework.DataTable.IDataRow.ParseDataRow(GameFramework.GameFrameworkSegment{System.String})">
             <summary>
-            数据表行文本内容解析器。
+            数据表行文本解析器。
             </summary>
-            <param name="dataRowText">要解析的文本内容。</param>
+            <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否解析数据表行成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataRow.ParseDataRow(GameFramework.GameFrameworkSegment{System.Byte[]})">
+            <summary>
+            数据表行二进制流解析器。
+            </summary>
+            <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否解析数据表行成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataRow.ParseDataRow(GameFramework.GameFrameworkSegment{System.IO.Stream})">
+            <summary>
+            数据表行二进制流解析器。
+            </summary>
+            <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否解析数据表行成功。</returns>
         </member>
         <member name="T:GameFramework.DataTable.IDataTable`1">
             <summary>
@@ -3239,20 +3526,35 @@
             数据表辅助器接口。
             </summary>
         </member>
-        <member name="M:GameFramework.DataTable.IDataTableHelper.LoadDataTable(System.Object,System.Object)">
+        <member name="M:GameFramework.DataTable.IDataTableHelper.LoadDataTable(System.Object,GameFramework.LoadType,System.Object)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAsset">数据表资源。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="userData">用户自定义数据。</param>
-            <returns>加载是否成功。</returns>
+            <returns>是否加载成功。</returns>
         </member>
-        <member name="M:GameFramework.DataTable.IDataTableHelper.SplitToDataRows(System.String)">
+        <member name="M:GameFramework.DataTable.IDataTableHelper.GetDataRowSegments(System.String)">
             <summary>
-            将要解析的数据表文本分割为数据表行文本。
+            获取数据表行片段。
             </summary>
             <param name="text">要解析的数据表文本。</param>
-            <returns>数据表行文本。</returns>
+            <returns>数据表行片段。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableHelper.GetDataRowSegments(System.Byte[])">
+            <summary>
+            获取数据表行片段。
+            </summary>
+            <param name="bytes">要解析的数据表二进制流。</param>
+            <returns>数据表行片段。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableHelper.GetDataRowSegments(System.IO.Stream)">
+            <summary>
+            获取数据表行片段。
+            </summary>
+            <param name="stream">要解析的数据表二进制流。</param>
+            <returns>数据表行片段。</returns>
         </member>
         <member name="M:GameFramework.DataTable.IDataTableHelper.ReleaseDataTableAsset(System.Object)">
             <summary>
@@ -3302,31 +3604,35 @@
             </summary>
             <param name="dataTableHelper">数据表辅助器。</param>
         </member>
-        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String)">
+        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,GameFramework.LoadType)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
         </member>
-        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,System.Int32)">
+        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,GameFramework.LoadType,System.Int32)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="priority">加载数据表资源的优先级。</param>
         </member>
-        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,System.Object)">
+        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,GameFramework.LoadType,System.Object)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.DataTable.IDataTableManager.LoadDataTable(System.String,GameFramework.LoadType,System.Int32,System.Object)">
             <summary>
             加载数据表。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="priority">加载数据表资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -3434,6 +3740,74 @@
             <param name="dataRowType">数据表行的类型。</param>
             <param name="name">数据表名称。</param>
             <param name="text">要解析的数据表文本。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.CreateDataTable``1(System.Byte[])">
+            <summary>
+            创建数据表。
+            </summary>
+            <typeparam name="T">数据表行的类型。</typeparam>
+            <param name="bytes">要解析的数据表二进制流。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.CreateDataTable(System.Type,System.Byte[])">
+            <summary>
+            创建数据表。
+            </summary>
+            <param name="dataRowType">数据表行的类型。</param>
+            <param name="bytes">要解析的数据表二进制流。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.CreateDataTable``1(System.String,System.Byte[])">
+            <summary>
+            创建数据表。
+            </summary>
+            <typeparam name="T">数据表行的类型。</typeparam>
+            <param name="name">数据表名称。</param>
+            <param name="bytes">要解析的数据表二进制流。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.CreateDataTable(System.Type,System.String,System.Byte[])">
+            <summary>
+            创建数据表。
+            </summary>
+            <param name="dataRowType">数据表行的类型。</param>
+            <param name="name">数据表名称。</param>
+            <param name="bytes">要解析的数据表二进制流。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.CreateDataTable``1(System.IO.Stream)">
+            <summary>
+            创建数据表。
+            </summary>
+            <typeparam name="T">数据表行的类型。</typeparam>
+            <param name="stream">要解析的数据表二进制流。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.CreateDataTable(System.Type,System.IO.Stream)">
+            <summary>
+            创建数据表。
+            </summary>
+            <param name="dataRowType">数据表行的类型。</param>
+            <param name="stream">要解析的数据表二进制流。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.CreateDataTable``1(System.String,System.IO.Stream)">
+            <summary>
+            创建数据表。
+            </summary>
+            <typeparam name="T">数据表行的类型。</typeparam>
+            <param name="name">数据表名称。</param>
+            <param name="stream">要解析的数据表二进制流。</param>
+            <returns>要创建的数据表。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.CreateDataTable(System.Type,System.String,System.IO.Stream)">
+            <summary>
+            创建数据表。
+            </summary>
+            <param name="dataRowType">数据表行的类型。</param>
+            <param name="name">数据表名称。</param>
+            <param name="stream">要解析的数据表二进制流。</param>
             <returns>要创建的数据表。</returns>
         </member>
         <member name="M:GameFramework.DataTable.IDataTableManager.DestroyDataTable``1">
@@ -6916,19 +7290,36 @@
             获取系统语言。
             </summary>
         </member>
-        <member name="M:GameFramework.Localization.ILocalizationHelper.LoadDictionary(System.Object,System.Object)">
+        <member name="M:GameFramework.Localization.ILocalizationHelper.LoadDictionary(System.Object,GameFramework.LoadType,System.Object)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAsset">字典资源。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="userData">用户自定义数据。</param>
-            <returns>加载是否成功。</returns>
+            <returns>是否加载成功。</returns>
         </member>
         <member name="M:GameFramework.Localization.ILocalizationHelper.ParseDictionary(System.String,System.Object)">
             <summary>
             解析字典。
             </summary>
             <param name="text">要解析的字典文本。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationHelper.ParseDictionary(System.Byte[],System.Object)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="bytes">要解析的字典二进制流。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationHelper.ParseDictionary(System.IO.Stream,System.Object)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="stream">要解析的字典二进制流。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否解析字典成功。</returns>
         </member>
@@ -6990,31 +7381,35 @@
             </summary>
             <param name="localizationHelper">本地化辅助器。</param>
         </member>
-        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String)">
+        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,GameFramework.LoadType)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
         </member>
-        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,System.Int32)">
+        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,GameFramework.LoadType,System.Int32)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="priority">加载字典资源的优先级。</param>
         </member>
-        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,System.Object)">
+        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,GameFramework.LoadType,System.Object)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Localization.ILocalizationManager.LoadDictionary(System.String,GameFramework.LoadType,System.Int32,System.Object)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="priority">加载字典资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -7030,6 +7425,36 @@
             解析字典。
             </summary>
             <param name="text">要解析的字典文本。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.ParseDictionary(System.Byte[])">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="bytes">要解析的字典二进制流。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.ParseDictionary(System.Byte[],System.Object)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="bytes">要解析的字典二进制流。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.ParseDictionary(System.IO.Stream)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="stream">要解析的字典二进制流。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.ParseDictionary(System.IO.Stream,System.Object)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="stream">要解析的字典二进制流。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否解析字典成功。</returns>
         </member>
@@ -7557,31 +7982,35 @@
             </summary>
             <param name="localizationHelper">本地化辅助器。</param>
         </member>
-        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String)">
+        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,GameFramework.LoadType)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
         </member>
-        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,System.Int32)">
+        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,GameFramework.LoadType,System.Int32)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="priority">加载字典资源的优先级。</param>
         </member>
-        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,System.Object)">
+        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,GameFramework.LoadType,System.Object)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Localization.LocalizationManager.LoadDictionary(System.String,GameFramework.LoadType,System.Int32,System.Object)">
             <summary>
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="priority">加载字典资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
@@ -7597,6 +8026,36 @@
             解析字典。
             </summary>
             <param name="text">要解析的字典文本。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.ParseDictionary(System.Byte[])">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="bytes">要解析的字典二进制流。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.ParseDictionary(System.Byte[],System.Object)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="bytes">要解析的字典二进制流。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.ParseDictionary(System.IO.Stream)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="stream">要解析的字典二进制流。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.ParseDictionary(System.IO.Stream,System.Object)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="stream">要解析的字典二进制流。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否解析字典成功。</returns>
         </member>
@@ -10833,7 +11292,7 @@
             通过加载资源代理辅助器开始异步加载资源。
             </summary>
             <param name="resource">资源。</param>
-            <param name="resourceChildName">要加载的子资源名。</param>
+            <param name="resourceChildName">要加载的子资源名称。</param>
             <param name="assetType">要加载资源的类型。</param>
             <param name="isScene">要加载的资源是否是场景。</param>
         </member>
@@ -11730,12 +12189,13 @@
             资源信息。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.AssetInfo.#ctor(System.String,GameFramework.Resource.ResourceManager.ResourceName)">
+        <member name="M:GameFramework.Resource.ResourceManager.AssetInfo.#ctor(System.String,GameFramework.Resource.ResourceManager.ResourceName,System.String)">
             <summary>
             初始化资源信息的新实例。
             </summary>
             <param name="assetName">资源名称。</param>
             <param name="resourceName">所在资源名称。</param>
+            <param name="resourceChildName">子资源名称。</param>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.AssetInfo.AssetName">
             <summary>
@@ -11745,6 +12205,11 @@
         <member name="P:GameFramework.Resource.ResourceManager.AssetInfo.ResourceName">
             <summary>
             获取所在资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.AssetInfo.ResourceChildName">
+            <summary>
+            获取子资源名称。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.#ctor">
@@ -14417,7 +14882,7 @@
             设置声音资源。
             </summary>
             <param name="soundAsset">声音资源。</param>
-            <returns>设置声音资源是否成功。</returns>
+            <returns>是否设置声音资源成功。</returns>
         </member>
         <member name="T:GameFramework.Sound.ISoundGroup">
             <summary>
@@ -15626,7 +16091,7 @@
             取消任务。
             </summary>
             <param name="serialId">要取消的任务的序列编号。</param>
-            <returns>取消任务是否成功。</returns>
+            <returns>是否取消任务成功。</returns>
         </member>
         <member name="M:GameFramework.Task.ITaskManager.CancelTask(System.Int32,System.String)">
             <summary>
@@ -15634,14 +16099,14 @@
             </summary>
             <param name="serialId">要取消的任务的序列编号。</param>
             <param name="reason">任务取消的原因。</param>
-            <returns>取消任务是否成功。</returns>
+            <returns>是否取消任务成功。</returns>
         </member>
         <member name="M:GameFramework.Task.ITaskManager.CancelTask(GameFramework.Task.TaskBase)">
             <summary>
             取消任务。
             </summary>
             <param name="task">要取消的任务。</param>
-            <returns>取消任务是否成功。</returns>
+            <returns>是否取消任务成功。</returns>
         </member>
         <member name="M:GameFramework.Task.ITaskManager.CancelTask(GameFramework.Task.TaskBase,System.String)">
             <summary>
@@ -15649,7 +16114,7 @@
             </summary>
             <param name="task">要取消的任务。</param>
             <param name="reason">任务取消的原因。</param>
-            <returns>取消任务是否成功。</returns>
+            <returns>是否取消任务成功。</returns>
         </member>
         <member name="M:GameFramework.Task.ITaskManager.CancelAllTasks(System.String)">
             <summary>
@@ -15779,7 +16244,7 @@
             取消任务。
             </summary>
             <param name="serialId">要取消的任务的序列编号。</param>
-            <returns>取消任务是否成功。</returns>
+            <returns>是否取消任务成功。</returns>
         </member>
         <member name="M:GameFramework.Task.TaskManager.CancelTask(System.Int32,System.String)">
             <summary>
@@ -15787,14 +16252,14 @@
             </summary>
             <param name="serialId">要取消的任务的序列编号。</param>
             <param name="reason">任务取消的原因。</param>
-            <returns>取消任务是否成功。</returns>
+            <returns>是否取消任务成功。</returns>
         </member>
         <member name="M:GameFramework.Task.TaskManager.CancelTask(GameFramework.Task.TaskBase)">
             <summary>
             取消任务。
             </summary>
             <param name="task">要取消的任务。</param>
-            <returns>取消任务是否成功。</returns>
+            <returns>是否取消任务成功。</returns>
         </member>
         <member name="M:GameFramework.Task.TaskManager.CancelTask(GameFramework.Task.TaskBase,System.String)">
             <summary>
@@ -15802,7 +16267,7 @@
             </summary>
             <param name="task">要取消的任务。</param>
             <param name="reason">任务取消的原因。</param>
-            <returns>取消任务是否成功。</returns>
+            <returns>是否取消任务成功。</returns>
         </member>
         <member name="M:GameFramework.Task.TaskManager.CancelAllTasks(System.String)">
             <summary>
@@ -17485,13 +17950,46 @@
             <param name="code">异或二进制流。</param>
             <returns>异或后的二进制流。</returns>
         </member>
+        <member name="M:GameFramework.Utility.Encryption.GetQuickSelfXorBytes(System.Byte[],System.Byte[])">
+            <summary>
+            将 bytes 使用 code 做异或运算的快速版本。此方法将复用并改写传入的 bytes 作为返回值，而不额外分配内存空间。
+            </summary>
+            <param name="bytes">原始及异或后的二进制流。</param>
+            <param name="code">异或二进制流。</param>
+            <returns>异或后的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Encryption.GetXorBytes(System.Byte[],System.Byte[])">
+            <summary>
+            将 bytes 使用 code 做异或运算。
+            </summary>
+            <param name="bytes">原始二进制流。</param>
+            <param name="code">异或二进制流。</param>
+            <returns>异或后的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Encryption.GetSelfXorBytes(System.Byte[],System.Byte[])">
+            <summary>
+            将 bytes 使用 code 做异或运算。此方法将复用并改写传入的 bytes 作为返回值，而不额外分配内存空间。
+            </summary>
+            <param name="bytes">原始及异或后的二进制流。</param>
+            <param name="code">异或二进制流。</param>
+            <returns>异或后的二进制流。</returns>
+        </member>
         <member name="M:GameFramework.Utility.Encryption.GetXorBytes(System.Byte[],System.Byte[],System.Int32)">
             <summary>
             将 bytes 使用 code 做异或运算。
             </summary>
             <param name="bytes">原始二进制流。</param>
             <param name="code">异或二进制流。</param>
-            <param name="length">异或计算长度，若小于等于 0，则计算整个二进制流。</param>
+            <param name="length">异或计算长度，若小于 0，则计算整个二进制流。</param>
+            <returns>异或后的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Encryption.GetSelfXorBytes(System.Byte[],System.Byte[],System.Int32)">
+            <summary>
+            将 bytes 使用 code 做异或运算。此方法将复用并改写传入的 bytes 作为返回值，而不额外分配内存空间。
+            </summary>
+            <param name="bytes">原始及异或后的二进制流。</param>
+            <param name="code">异或二进制流。</param>
+            <param name="length">异或计算长度，若小于 0，则计算整个二进制流。</param>
             <returns>异或后的二进制流。</returns>
         </member>
         <member name="T:GameFramework.Utility.Json">
@@ -17772,13 +18270,6 @@
             <param name="args">字符串参数。</param>
             <returns>格式化后的字符串。</returns>
         </member>
-        <member name="M:GameFramework.Utility.Text.SplitToLines(System.String)">
-            <summary>
-            将文本按行切分。
-            </summary>
-            <param name="text">要切分的文本。</param>
-            <returns>按行切分后的文本。</returns>
-        </member>
         <member name="M:GameFramework.Utility.Text.GetFullName``1(System.String)">
             <summary>
             根据类型和名称获取完整名称。
@@ -17794,13 +18285,6 @@
             <param name="type">类型。</param>
             <param name="name">名称。</param>
             <returns>完整名称。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Text.FieldNameForDisplay(System.String)">
-            <summary>
-            获取用于编辑器显示的名称。
-            </summary>
-            <param name="fieldName">字段名称。</param>
-            <returns>编辑器显示名称。</returns>
         </member>
         <member name="T:GameFramework.Utility.Verifier">
             <summary>

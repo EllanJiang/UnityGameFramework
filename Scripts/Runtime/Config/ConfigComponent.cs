@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
-// Game Framework v3.x
-// Copyright © 2013-2018 Jiang Yin. All rights reserved.
+// Game Framework
+// Copyright © 2013-2019 Jiang Yin. All rights reserved.
 // Homepage: http://gameframework.cn/
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
@@ -8,6 +8,7 @@
 using GameFramework;
 using GameFramework.Config;
 using GameFramework.Resource;
+using System.IO;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -118,9 +119,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">配置名称。</param>
         /// <param name="configAssetName">配置资源名称。</param>
-        public void LoadConfig(string configName, string configAssetName)
+        /// <param name="loadType">配置加载方式。</param>
+        public void LoadConfig(string configName, string configAssetName, LoadType loadType)
         {
-            LoadConfig(configName, configAssetName, DefaultPriority, null);
+            LoadConfig(configName, configAssetName, loadType, DefaultPriority, null);
         }
 
         /// <summary>
@@ -128,10 +130,11 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">配置名称。</param>
         /// <param name="configAssetName">配置资源名称。</param>
+        /// <param name="loadType">配置加载方式。</param>
         /// <param name="priority">加载配置资源的优先级。</param>
-        public void LoadConfig(string configName, string configAssetName, int priority)
+        public void LoadConfig(string configName, string configAssetName, LoadType loadType, int priority)
         {
-            LoadConfig(configName, configAssetName, priority, null);
+            LoadConfig(configName, configAssetName, loadType, priority, null);
         }
 
         /// <summary>
@@ -139,10 +142,11 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">配置名称。</param>
         /// <param name="configAssetName">配置资源名称。</param>
+        /// <param name="loadType">配置加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadConfig(string configName, string configAssetName, object userData)
+        public void LoadConfig(string configName, string configAssetName, LoadType loadType, object userData)
         {
-            LoadConfig(configName, configAssetName, DefaultPriority, userData);
+            LoadConfig(configName, configAssetName, loadType, DefaultPriority, userData);
         }
 
         /// <summary>
@@ -150,9 +154,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">配置名称。</param>
         /// <param name="configAssetName">配置资源名称。</param>
+        /// <param name="loadType">配置加载方式。</param>
         /// <param name="priority">加载配置资源的优先级。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadConfig(string configName, string configAssetName, int priority, object userData)
+        public void LoadConfig(string configName, string configAssetName, LoadType loadType, int priority, object userData)
         {
             if (string.IsNullOrEmpty(configName))
             {
@@ -160,7 +165,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_ConfigManager.LoadConfig(configAssetName, priority, new LoadConfigInfo(configName, userData));
+            m_ConfigManager.LoadConfig(configAssetName, loadType, priority, new LoadConfigInfo(configName, userData));
         }
 
         /// <summary>
@@ -182,6 +187,48 @@ namespace UnityGameFramework.Runtime
         public bool ParseConfig(string text, object userData)
         {
             return m_ConfigManager.ParseConfig(text, userData);
+        }
+
+        /// <summary>
+        /// 解析配置。
+        /// </summary>
+        /// <param name="bytes">要解析的配置二进制流。</param>
+        /// <returns>是否解析配置成功。</returns>
+        public bool ParseConfig(byte[] bytes)
+        {
+            return m_ConfigManager.ParseConfig(bytes);
+        }
+
+        /// <summary>
+        /// 解析配置。
+        /// </summary>
+        /// <param name="bytes">要解析的配置二进制流。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析配置成功。</returns>
+        public bool ParseConfig(byte[] bytes, object userData)
+        {
+            return m_ConfigManager.ParseConfig(bytes, userData);
+        }
+
+        /// <summary>
+        /// 解析配置。
+        /// </summary>
+        /// <param name="stream">要解析的配置二进制流。</param>
+        /// <returns>是否解析配置成功。</returns>
+        public bool ParseConfig(Stream stream)
+        {
+            return m_ConfigManager.ParseConfig(stream);
+        }
+
+        /// <summary>
+        /// 解析配置。
+        /// </summary>
+        /// <param name="stream">要解析的配置二进制流。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析配置成功。</returns>
+        public bool ParseConfig(Stream stream, object userData)
+        {
+            return m_ConfigManager.ParseConfig(stream, userData);
         }
 
         /// <summary>

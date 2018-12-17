@@ -5,7 +5,6 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
-using GameFramework;
 using GameFramework.Resource;
 using System;
 using UnityEngine;
@@ -165,7 +164,12 @@ namespace UnityGameFramework.Runtime
             m_BytesFullPath = fullPath;
             m_LoadType = loadType;
 #if UNITY_5_4_OR_NEWER
-            m_UnityWebRequest = new UnityWebRequest(GameFramework.Utility.Path.GetRemotePath(fullPath));
+            m_UnityWebRequest = UnityWebRequest.Get(GameFramework.Utility.Path.GetRemotePath(fullPath));
+#if UNITY_2017_2_OR_NEWER
+            m_UnityWebRequest.SendWebRequest();
+#else
+            m_UnityWebRequest.Send();
+#endif
 #else
             m_WWW = new WWW(Utility.Path.GetRemotePath(fullPath));
 #endif

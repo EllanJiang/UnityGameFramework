@@ -113,8 +113,12 @@ namespace UnityGameFramework.Runtime
             string errorMessage = null;
 
 #if UNITY_5_4_OR_NEWER
-            UnityWebRequest unityWebRequest = new UnityWebRequest(fileUri);
-            yield return unityWebRequest;
+            UnityWebRequest unityWebRequest = UnityWebRequest.Get(fileUri);
+#if UNITY_2017_2_OR_NEWER
+            yield return unityWebRequest.SendWebRequest();
+#else
+            yield return unityWebRequest.Send();
+#endif
 
             bool isError = false;
 #if UNITY_2017_1_OR_NEWER

@@ -1439,7 +1439,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
 
             byte[] result = new byte[bytesLength];
-            System.Buffer.BlockCopy(bytes, 0, result, 0, bytesLength);
+            Buffer.BlockCopy(bytes, 0, result, 0, bytesLength);
 
             for (int i = 0; i < length; i++)
             {

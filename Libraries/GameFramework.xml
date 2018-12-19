@@ -14669,6 +14669,11 @@
             获取当前是否正在播放。
             </summary>
         </member>
+        <member name="P:GameFramework.Sound.ISoundAgent.Length">
+            <summary>
+            获取声音长度。
+            </summary>
+        </member>
         <member name="P:GameFramework.Sound.ISoundAgent.Time">
             <summary>
             获取或设置播放位置。
@@ -14791,6 +14796,11 @@
         <member name="P:GameFramework.Sound.ISoundAgentHelper.IsPlaying">
             <summary>
             获取当前是否正在播放。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Sound.ISoundAgentHelper.Length">
+            <summary>
+            获取声音长度。
             </summary>
         </member>
         <member name="P:GameFramework.Sound.ISoundAgentHelper.Time">
@@ -15782,6 +15792,11 @@
         <member name="P:GameFramework.Sound.SoundManager.SoundAgent.IsPlaying">
             <summary>
             获取当前是否正在播放。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Sound.SoundManager.SoundAgent.Length">
+            <summary>
+            获取声音长度。
             </summary>
         </member>
         <member name="P:GameFramework.Sound.SoundManager.SoundAgent.Time">

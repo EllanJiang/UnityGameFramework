@@ -26,6 +26,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取声音长度。
+        /// </summary>
+        public abstract float Length
+        {
+            get;
+        }
+
+        /// <summary>
         /// 获取或设置播放位置。
         /// </summary>
         public abstract float Time

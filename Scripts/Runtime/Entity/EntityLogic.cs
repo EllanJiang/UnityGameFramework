@@ -70,7 +70,8 @@ namespace UnityGameFramework.Runtime
             {
                 if (!m_Available)
                 {
-                    throw new GameFrameworkException(Utility.Text.Format("Entity '{0}' is not available.", Name));
+                    Log.Warning("Entity '{0}' is not available.", Name);
+                    return;
                 }
 
                 if (m_Visible == value)

@@ -556,15 +556,15 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 }
 
                 string assetPath = fullPath.Substring(SourceAssetRootPath.Length + 1);
-                string[] splitedPath = assetPath.Split('/');
+                string[] splitPath = assetPath.Split('/');
                 SourceFolder folder = m_SourceAssetRoot;
-                for (int i = 0; i < splitedPath.Length - 1; i++)
+                for (int i = 0; i < splitPath.Length - 1; i++)
                 {
-                    SourceFolder subFolder = folder.GetFolder(splitedPath[i]);
-                    folder = subFolder == null ? folder.AddFolder(splitedPath[i]) : subFolder;
+                    SourceFolder subFolder = folder.GetFolder(splitPath[i]);
+                    folder = subFolder == null ? folder.AddFolder(splitPath[i]) : subFolder;
                 }
 
-                SourceAsset asset = folder.AddAsset(assetGuid, fullPath, splitedPath[splitedPath.Length - 1]);
+                SourceAsset asset = folder.AddAsset(assetGuid, fullPath, splitPath[splitPath.Length - 1]);
                 m_SourceAssets.Add(asset.Guid, asset);
             }
         }

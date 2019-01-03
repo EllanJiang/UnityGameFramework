@@ -758,15 +758,15 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             AssetBundle[] assetBundles = m_Controller.GetAssetBundles();
             foreach (AssetBundle assetBundle in assetBundles)
             {
-                string[] splitedPath = assetBundle.Name.Split('/');
+                string[] splitPath = assetBundle.Name.Split('/');
                 AssetBundleFolder folder = m_AssetBundleRoot;
-                for (int i = 0; i < splitedPath.Length - 1; i++)
+                for (int i = 0; i < splitPath.Length - 1; i++)
                 {
-                    AssetBundleFolder subFolder = folder.GetFolder(splitedPath[i]);
-                    folder = subFolder == null ? folder.AddFolder(splitedPath[i]) : subFolder;
+                    AssetBundleFolder subFolder = folder.GetFolder(splitPath[i]);
+                    folder = subFolder == null ? folder.AddFolder(splitPath[i]) : subFolder;
                 }
 
-                string assetBundleFullName = assetBundle.Variant != null ? Utility.Text.Format("{0}.{1}", splitedPath[splitedPath.Length - 1], assetBundle.Variant) : splitedPath[splitedPath.Length - 1];
+                string assetBundleFullName = assetBundle.Variant != null ? Utility.Text.Format("{0}.{1}", splitPath[splitPath.Length - 1], assetBundle.Variant) : splitPath[splitPath.Length - 1];
                 folder.AddItem(assetBundleFullName, assetBundle);
             }
         }

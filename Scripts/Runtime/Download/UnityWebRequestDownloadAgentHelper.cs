@@ -13,6 +13,7 @@ using UnityEngine.Networking;
 #else
 using UnityEngine.Experimental.Networking;
 #endif
+using Utility = GameFramework.Utility;
 
 namespace UnityGameFramework.Runtime
 {
@@ -111,7 +112,7 @@ namespace UnityGameFramework.Runtime
 
             Dictionary<string, string> header = new Dictionary<string, string>
             {
-                { "Range", GameFramework.Utility.Text.Format("bytes={0}-", fromPosition.ToString()) }
+                { "Range", Utility.Text.Format("bytes={0}-", fromPosition.ToString()) }
             };
 
             m_UnityWebRequest = UnityWebRequest.Post(downloadUri, header);
@@ -139,7 +140,7 @@ namespace UnityGameFramework.Runtime
 
             Dictionary<string, string> header = new Dictionary<string, string>
             {
-                { "Range", GameFramework.Utility.Text.Format("bytes={0}-{1}", fromPosition.ToString(), toPosition.ToString()) }
+                { "Range", Utility.Text.Format("bytes={0}-{1}", fromPosition.ToString(), toPosition.ToString()) }
             };
 
             m_UnityWebRequest = UnityWebRequest.Post(downloadUri, header);

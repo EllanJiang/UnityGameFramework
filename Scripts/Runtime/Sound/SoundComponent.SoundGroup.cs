@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace UnityGameFramework.Runtime
 {
-    public partial class SoundComponent
+    public sealed partial class SoundComponent : GameFrameworkComponent
     {
         [Serializable]
         private sealed class SoundGroup

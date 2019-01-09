@@ -15,7 +15,7 @@ using UnityEngine.Profiling;
 
 namespace UnityGameFramework.Runtime
 {
-    public partial class DebuggerComponent
+    public sealed partial class DebuggerComponent : GameFrameworkComponent
     {
         private sealed partial class RuntimeMemoryInformationWindow<T> : ScrollableDebuggerWindowBase where T : UnityEngine.Object
         {

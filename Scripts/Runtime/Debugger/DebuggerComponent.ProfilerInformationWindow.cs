@@ -13,7 +13,7 @@ using UnityEngine.Profiling;
 
 namespace UnityGameFramework.Runtime
 {
-    public partial class DebuggerComponent
+    public sealed partial class DebuggerComponent : GameFrameworkComponent
     {
         private sealed class ProfilerInformationWindow : ScrollableDebuggerWindowBase
         {

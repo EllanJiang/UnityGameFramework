@@ -13,10 +13,10 @@ using UnityEngine;
 
 namespace UnityGameFramework.Runtime
 {
-    public partial class DebuggerComponent
+    public sealed partial class DebuggerComponent : GameFrameworkComponent
     {
         [Serializable]
-        private partial class ConsoleWindow : IDebuggerWindow
+        private sealed class ConsoleWindow : IDebuggerWindow
         {
             private SettingComponent m_SettingComponent = null;
             private Queue<LogNode> m_LogNodes = new Queue<LogNode>();

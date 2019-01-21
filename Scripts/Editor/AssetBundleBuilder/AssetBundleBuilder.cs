@@ -260,20 +260,29 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.BeginHorizontal();
                     {
+                        EditorGUI.BeginDisabledGroup(!m_Controller.OutputPackageSelected);
                         EditorGUILayout.LabelField("Output Package Path", GUILayout.Width(160f));
                         GUILayout.Label(m_Controller.OutputPackagePath);
+                        EditorGUI.EndDisabledGroup();
+                        m_Controller.OutputPackageSelected = EditorGUILayout.ToggleLeft("Generate", m_Controller.OutputPackageSelected, GUILayout.Width(70f));
                     }
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.BeginHorizontal();
                     {
+                        EditorGUI.BeginDisabledGroup(!m_Controller.OutputFullSelected);
                         EditorGUILayout.LabelField("Output Full Path", GUILayout.Width(160f));
                         GUILayout.Label(m_Controller.OutputFullPath);
+                        EditorGUI.EndDisabledGroup();
+                        m_Controller.OutputFullSelected = EditorGUILayout.ToggleLeft("Generate", m_Controller.OutputFullSelected, GUILayout.Width(70f));
                     }
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.BeginHorizontal();
                     {
+                        EditorGUI.BeginDisabledGroup(!m_Controller.OutputPackedSelected);
                         EditorGUILayout.LabelField("Output Packed Path", GUILayout.Width(160f));
                         GUILayout.Label(m_Controller.OutputPackedPath);
+                        EditorGUI.EndDisabledGroup();
+                        m_Controller.OutputPackedSelected = EditorGUILayout.ToggleLeft("Generate", m_Controller.OutputPackedSelected, GUILayout.Width(70f));
                     }
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.BeginHorizontal();
@@ -481,10 +490,10 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
         }
 
-        private void OnProcessAssetBundleComplete(Platform platform, string versionListPath, int versionListLength, int versionListHashCode, int versionListZipLength, int versionListZipHashCode)
+        private void OnProcessAssetBundleComplete(Platform platform)
         {
             EditorUtility.ClearProgressBar();
-            Debug.Log(Utility.Text.Format("Build AssetBundles for '{0}' complete, version list path is '{1}', length is '{2}', hash code is '{3}', zip length is '{4}', zip hash code is '{5}'.", platform.ToString(), versionListPath, versionListLength.ToString(), versionListHashCode.ToString("X8"), versionListZipLength.ToString(), versionListZipHashCode.ToString("X8")));
+            Debug.Log(Utility.Text.Format("Build AssetBundles for '{0}' complete.", platform.ToString()));
         }
 
         private void OnBuildAssetBundlesError(string errorMessage)

@@ -278,7 +278,7 @@ namespace UnityGameFramework.Editor.DataTableTools
             {
                 using (FileStream fileStream = new FileStream(outputFileName, FileMode.Create))
                 {
-                    using (DataTableBinaryWriter stream = new DataTableBinaryWriter(fileStream, encoding))
+                    using (BinaryWriter stream = new BinaryWriter(fileStream, encoding))
                     {
                         for (int i = m_ContentStartRow; i < m_RawRowCount; i++)
                         {

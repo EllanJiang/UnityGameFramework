@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace UnityGameFramework.Editor.DataTableTools
 {
@@ -28,7 +29,7 @@ namespace UnityGameFramework.Editor.DataTableTools
                 return DateTime.Parse(value);
             }
 
-            public override void WriteToStream(DataTableBinaryWriter stream, string value)
+            public override void WriteToStream(BinaryWriter stream, string value)
             {
                 stream.Write(Parse(value).Ticks);
             }

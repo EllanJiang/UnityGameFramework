@@ -1,4 +1,6 @@
-﻿namespace UnityGameFramework.Editor.DataTableTools
+﻿using System.IO;
+
+namespace UnityGameFramework.Editor.DataTableTools
 {
     public sealed partial class DataTableProcessor
     {
@@ -27,7 +29,7 @@
                 return ulong.Parse(value);
             }
 
-            public override void WriteToStream(DataTableBinaryWriter stream, string value)
+            public override void WriteToStream(BinaryWriter stream, string value)
             {
                 stream.Write(Parse(value));
             }

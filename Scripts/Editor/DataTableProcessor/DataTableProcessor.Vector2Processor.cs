@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 
 namespace UnityGameFramework.Editor.DataTableTools
 {
@@ -29,7 +30,7 @@ namespace UnityGameFramework.Editor.DataTableTools
                 return new Vector2(float.Parse(splitValue[0]), float.Parse(splitValue[1]));
             }
 
-            public override void WriteToStream(DataTableBinaryWriter stream, string value)
+            public override void WriteToStream(BinaryWriter stream, string value)
             {
                 Vector2 vector2 = Parse(value);
                 stream.Write(vector2.x);

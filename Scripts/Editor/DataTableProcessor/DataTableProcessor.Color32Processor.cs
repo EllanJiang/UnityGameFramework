@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 
 namespace UnityGameFramework.Editor.DataTableTools
 {
@@ -29,7 +30,7 @@ namespace UnityGameFramework.Editor.DataTableTools
                 return new Color32(byte.Parse(splitValue[0]), byte.Parse(splitValue[1]), byte.Parse(splitValue[2]), byte.Parse(splitValue[3]));
             }
 
-            public override void WriteToStream(DataTableBinaryWriter stream, string value)
+            public override void WriteToStream(BinaryWriter stream, string value)
             {
                 Color32 color32 = Parse(value);
                 stream.Write(color32.r);

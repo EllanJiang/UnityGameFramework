@@ -287,6 +287,8 @@ namespace UnityGameFramework.Editor.DataTableTools
                                 continue;
                             }
 
+                            int startPosition = (int)stream.BaseStream.Position;
+                            stream.BaseStream.Position += sizeof(int);
                             for (int j = 0; j < m_RawColumnCount; j++)
                             {
                                 if (!m_DataColumnInfo[j].ValidColumn)
@@ -320,6 +322,12 @@ namespace UnityGameFramework.Editor.DataTableTools
                                     }
                                 }
                             }
+
+                            int endPosition = (int)stream.BaseStream.Position;
+                            int length = endPosition - startPosition - sizeof(int);
+                            stream.BaseStream.Position = startPosition;
+                            stream.Write(length);
+                            stream.BaseStream.Position = endPosition;
                         }
                     }
                 }
@@ -354,7 +362,7 @@ namespace UnityGameFramework.Editor.DataTableTools
             m_CodeGenerator = codeGenerator;
         }
 
-        public bool GenerateCodeFile(string outputFileName, Encoding encoding, object userData)
+        public bool GenerateCodeFile(string outputFileName, Encoding encoding, object userData = null)
         {
             if (string.IsNullOrEmpty(m_CodeTemplate))
             {

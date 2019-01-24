@@ -54,14 +54,11 @@ namespace UnityGameFramework.Runtime
             List<GameFrameworkSegment<byte[]>> dataRowSegments = new List<GameFrameworkSegment<byte[]>>();
             using (MemoryStream stream = new MemoryStream(bytes, false))
             {
-                using (BinaryReader binaryReader = new BinaryReader(stream))
+                while (stream.Position < stream.Length)
                 {
-                    while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
-                    {
-                        int length = binaryReader.ReadInt32();
-                        dataRowSegments.Add(new GameFrameworkSegment<byte[]>(bytes, (int)binaryReader.BaseStream.Position, length));
-                        binaryReader.BaseStream.Position += length;
-                    }
+                    int length = ReadInt32(stream);
+                    dataRowSegments.Add(new GameFrameworkSegment<byte[]>(bytes, (int)stream.Position, length));
+                    stream.Position += length;
                 }
             }
 
@@ -76,14 +73,11 @@ namespace UnityGameFramework.Runtime
         public override IEnumerable<GameFrameworkSegment<Stream>> GetDataRowSegments(Stream stream)
         {
             List<GameFrameworkSegment<Stream>> dataRowSegments = new List<GameFrameworkSegment<Stream>>();
-            using (BinaryReader binaryReader = new BinaryReader(stream))
+            while (stream.Position < stream.Length)
             {
-                while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
-                {
-                    int length = binaryReader.ReadInt32();
-                    dataRowSegments.Add(new GameFrameworkSegment<Stream>(stream, (int)binaryReader.BaseStream.Position, length));
-                    binaryReader.BaseStream.Position += length;
-                }
+                int length = ReadInt32(stream);
+                dataRowSegments.Add(new GameFrameworkSegment<Stream>(stream, (int)stream.Position, length));
+                stream.Position += length;
             }
 
             return dataRowSegments;
@@ -143,6 +137,11 @@ namespace UnityGameFramework.Runtime
             }
 
             return true;
+        }
+
+        private int ReadInt32(Stream stream)
+        {
+            return stream.ReadByte() | (stream.ReadByte() << 8) | (stream.ReadByte() << 16) | (stream.ReadByte() << 24);
         }
 
         private GameFrameworkSegment<string> ReadLine(string text, ref int position)

@@ -6,11 +6,19 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private sealed class ShortProcessor : GenericDataProcessor<short>
         {
-            public override string StandardTypeString
+            public override string LanguageKeyword
             {
                 get
                 {
                     return "short";
+                }
+            }
+
+            public override string TypeName
+            {
+                get
+                {
+                    return "Int16";
                 }
             }
 

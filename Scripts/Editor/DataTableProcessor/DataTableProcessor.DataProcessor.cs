@@ -16,7 +16,12 @@ namespace UnityGameFramework.Editor.DataTableTools
                 get;
             }
 
-            public abstract string StandardTypeString
+            public abstract string LanguageKeyword
+            {
+                get;
+            }
+
+            public abstract string TypeName
             {
                 get;
             }

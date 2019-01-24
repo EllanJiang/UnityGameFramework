@@ -7,7 +7,15 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private sealed class Vector2Processor : GenericDataProcessor<Vector2>
         {
-            public override string StandardTypeString
+            public override string LanguageKeyword
+            {
+                get
+                {
+                    return "Vector2";
+                }
+            }
+
+            public override string TypeName
             {
                 get
                 {

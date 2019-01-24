@@ -202,14 +202,24 @@ namespace UnityGameFramework.Editor.DataTableTools
             return m_TypeRow[rawColumn];
         }
 
-        public string GetStandardType(int rawColumn)
+        public string GetLanguageKeyword(int rawColumn)
         {
             if (rawColumn < 0 || rawColumn >= m_RawColumnCount)
             {
                 throw new GameFrameworkException(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
             }
 
-            return m_DataColumnInfo[rawColumn].DataProcessor.StandardTypeString;
+            return m_DataColumnInfo[rawColumn].DataProcessor.LanguageKeyword;
+        }
+
+        public string GetTypeName(int rawColumn)
+        {
+            if (rawColumn < 0 || rawColumn >= m_RawColumnCount)
+            {
+                throw new GameFrameworkException(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
+            }
+
+            return m_DataColumnInfo[rawColumn].DataProcessor.TypeName;
         }
 
         public string GetDefaultValue(int rawColumn)

@@ -7,7 +7,15 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private sealed class DateTimeProcessor : GenericDataProcessor<DateTime>
         {
-            public override string StandardTypeString
+            public override string LanguageKeyword
+            {
+                get
+                {
+                    return "DateTime";
+                }
+            }
+
+            public override string TypeName
             {
                 get
                 {

@@ -7,7 +7,15 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private sealed class RectProcessor : GenericDataProcessor<Rect>
         {
-            public override string StandardTypeString
+            public override string LanguageKeyword
+            {
+                get
+                {
+                    return "Rect";
+                }
+            }
+
+            public override string TypeName
             {
                 get
                 {

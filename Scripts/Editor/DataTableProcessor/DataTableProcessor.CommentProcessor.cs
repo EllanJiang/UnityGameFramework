@@ -22,7 +22,15 @@ namespace UnityGameFramework.Editor.DataTableTools
                 }
             }
 
-            public override string StandardTypeString
+            public override string LanguageKeyword
+            {
+                get
+                {
+                    return null;
+                }
+            }
+
+            public override string TypeName
             {
                 get
                 {

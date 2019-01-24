@@ -6,11 +6,19 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private sealed class DecimalProcessor : GenericDataProcessor<decimal>
         {
-            public override string StandardTypeString
+            public override string LanguageKeyword
             {
                 get
                 {
                     return "decimal";
+                }
+            }
+
+            public override string TypeName
+            {
+                get
+                {
+                    return "Decimal";
                 }
             }
 

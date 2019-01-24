@@ -6,11 +6,19 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private sealed class SByteProcessor : GenericDataProcessor<sbyte>
         {
-            public override string StandardTypeString
+            public override string LanguageKeyword
             {
                 get
                 {
                     return "sbyte";
+                }
+            }
+
+            public override string TypeName
+            {
+                get
+                {
+                    return "SByte";
                 }
             }
 

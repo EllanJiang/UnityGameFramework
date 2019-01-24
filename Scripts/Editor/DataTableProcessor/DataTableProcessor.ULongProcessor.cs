@@ -6,11 +6,19 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private sealed class ULongProcessor : GenericDataProcessor<ulong>
         {
-            public override string StandardTypeString
+            public override string LanguageKeyword
             {
                 get
                 {
                     return "ulong";
+                }
+            }
+
+            public override string TypeName
+            {
+                get
+                {
+                    return "UInt64";
                 }
             }
 

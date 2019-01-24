@@ -6,11 +6,19 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private sealed class CharProcessor : GenericDataProcessor<char>
         {
-            public override string StandardTypeString
+            public override string LanguageKeyword
             {
                 get
                 {
                     return "char";
+                }
+            }
+
+            public override string TypeName
+            {
+                get
+                {
+                    return "Char";
                 }
             }
 

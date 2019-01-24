@@ -18373,6 +18373,13 @@
             <param name="bytes">指定的二进制流。</param>
             <returns>计算后的 MD5。</returns>
         </member>
+        <member name="M:GameFramework.Utility.Verifier.GetMD5(System.String)">
+            <summary>
+            计算文件的 MD5。
+            </summary>
+            <param name="fileName">指定文件的完全限定名称。</param>
+            <returns>计算后的 MD5。</returns>
+        </member>
         <member name="T:GameFramework.Utility.Zip">
             <summary>
             压缩解压缩相关的实用函数。

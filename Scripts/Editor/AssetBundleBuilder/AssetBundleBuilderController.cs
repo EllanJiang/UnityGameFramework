@@ -9,6 +9,7 @@ using GameFramework;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Xml;
 using UnityEditor;
 using UnityEngine;
@@ -1023,7 +1024,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             string packageListPath = Utility.Path.GetCombinePath(outputPackagePath, VersionListFileName);
             using (FileStream fileStream = new FileStream(packageListPath, FileMode.CreateNew, FileAccess.Write))
             {
-                using (BinaryWriter binaryWriter = new BinaryWriter(fileStream))
+                using (BinaryWriter binaryWriter = new BinaryWriter(fileStream, Encoding.UTF8))
                 {
                     binaryWriter.Write(PackageListHeader);
                     binaryWriter.Write(PackageListVersion);
@@ -1118,7 +1119,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             string versionListPath = Utility.Path.GetCombinePath(outputFullPath, VersionListFileName);
             using (FileStream fileStream = new FileStream(versionListPath, FileMode.CreateNew, FileAccess.Write))
             {
-                using (BinaryWriter binaryWriter = new BinaryWriter(fileStream))
+                using (BinaryWriter binaryWriter = new BinaryWriter(fileStream, Encoding.UTF8))
                 {
                     binaryWriter.Write(VersionListHeader);
                     binaryWriter.Write(VersionListVersion);
@@ -1238,7 +1239,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             string readOnlyListPath = Utility.Path.GetCombinePath(outputPackedPath, ResourceListFileName);
             using (FileStream fileStream = new FileStream(readOnlyListPath, FileMode.CreateNew, FileAccess.Write))
             {
-                using (BinaryWriter binaryWriter = new BinaryWriter(fileStream))
+                using (BinaryWriter binaryWriter = new BinaryWriter(fileStream, Encoding.UTF8))
                 {
                     binaryWriter.Write(ReadOnlyListHeader);
                     binaryWriter.Write(ReadOnlyListVersion);

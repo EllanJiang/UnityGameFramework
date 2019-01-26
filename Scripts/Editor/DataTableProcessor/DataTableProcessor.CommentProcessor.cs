@@ -10,7 +10,15 @@ namespace UnityGameFramework.Editor.DataTableTools
             {
                 get
                 {
-                    return typeof(CommentProcessor);
+                    return null;
+                }
+            }
+
+            public override bool IsId
+            {
+                get
+                {
+                    return false;
                 }
             }
 
@@ -22,15 +30,15 @@ namespace UnityGameFramework.Editor.DataTableTools
                 }
             }
 
-            public override string LanguageKeyword
+            public override bool IsSystem
             {
                 get
                 {
-                    return null;
+                    return false;
                 }
             }
 
-            public override string TypeName
+            public override string LanguageKeyword
             {
                 get
                 {

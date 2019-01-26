@@ -6,19 +6,19 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private sealed class IntProcessor : GenericDataProcessor<int>
         {
+            public override bool IsSystem
+            {
+                get
+                {
+                    return true;
+                }
+            }
+
             public override string LanguageKeyword
             {
                 get
                 {
                     return "int";
-                }
-            }
-
-            public override string TypeName
-            {
-                get
-                {
-                    return "Int32";
                 }
             }
 

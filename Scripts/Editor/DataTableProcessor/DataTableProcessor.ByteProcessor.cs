@@ -6,19 +6,19 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private sealed class ByteProcessor : GenericDataProcessor<byte>
         {
+            public override bool IsSystem
+            {
+                get
+                {
+                    return true;
+                }
+            }
+
             public override string LanguageKeyword
             {
                 get
                 {
                     return "byte";
-                }
-            }
-
-            public override string TypeName
-            {
-                get
-                {
-                    return "Byte";
                 }
             }
 

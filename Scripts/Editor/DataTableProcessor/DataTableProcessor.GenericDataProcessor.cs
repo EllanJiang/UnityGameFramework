@@ -12,6 +12,14 @@
                 }
             }
 
+            public override bool IsId
+            {
+                get
+                {
+                    return false;
+                }
+            }
+
             public override bool IsComment
             {
                 get

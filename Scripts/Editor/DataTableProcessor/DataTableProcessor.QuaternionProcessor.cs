@@ -7,15 +7,15 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private sealed class QuaternionProcessor : GenericDataProcessor<Quaternion>
         {
-            public override string LanguageKeyword
+            public override bool IsSystem
             {
                 get
                 {
-                    return "Quaternion";
+                    return false;
                 }
             }
 
-            public override string TypeName
+            public override string LanguageKeyword
             {
                 get
                 {

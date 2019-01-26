@@ -6,19 +6,19 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private sealed class FloatProcessor : GenericDataProcessor<float>
         {
+            public override bool IsSystem
+            {
+                get
+                {
+                    return true;
+                }
+            }
+
             public override string LanguageKeyword
             {
                 get
                 {
                     return "float";
-                }
-            }
-
-            public override string TypeName
-            {
-                get
-                {
-                    return "Single";
                 }
             }
 

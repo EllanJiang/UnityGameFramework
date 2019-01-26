@@ -7,15 +7,15 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private sealed class Color32Processor : GenericDataProcessor<Color32>
         {
-            public override string LanguageKeyword
+            public override bool IsSystem
             {
                 get
                 {
-                    return "Color32";
+                    return false;
                 }
             }
 
-            public override string TypeName
+            public override string LanguageKeyword
             {
                 get
                 {

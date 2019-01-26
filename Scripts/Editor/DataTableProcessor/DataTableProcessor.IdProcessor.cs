@@ -1,12 +1,35 @@
 ﻿using System.IO;
-using UnityEngine;
 
 namespace UnityGameFramework.Editor.DataTableTools
 {
     public sealed partial class DataTableProcessor
     {
-        private sealed class RectProcessor : GenericDataProcessor<Rect>
+        private sealed class IdProcessor : DataProcessor
         {
+            public override System.Type Type
+            {
+                get
+                {
+                    return typeof(int);
+                }
+            }
+
+            public override bool IsId
+            {
+                get
+                {
+                    return true;
+                }
+            }
+
+            public override bool IsComment
+            {
+                get
+                {
+                    return false;
+                }
+            }
+
             public override bool IsSystem
             {
                 get
@@ -19,7 +42,7 @@ namespace UnityGameFramework.Editor.DataTableTools
             {
                 get
                 {
-                    return "Rect";
+                    return "int";
                 }
             }
 
@@ -27,24 +50,13 @@ namespace UnityGameFramework.Editor.DataTableTools
             {
                 return new string[]
                 {
-                    "rect",
-                    "unityengine.rect"
+                    "id"
                 };
-            }
-
-            public override Rect Parse(string value)
-            {
-                string[] splitValue = value.Split(',');
-                return new Rect(float.Parse(splitValue[0]), float.Parse(splitValue[1]), float.Parse(splitValue[2]), float.Parse(splitValue[3]));
             }
 
             public override void WriteToStream(BinaryWriter stream, string value)
             {
-                Rect rect = Parse(value);
-                stream.Write(rect.x);
-                stream.Write(rect.y);
-                stream.Write(rect.width);
-                stream.Write(rect.height);
+                stream.Write(int.Parse(value));
             }
         }
     }

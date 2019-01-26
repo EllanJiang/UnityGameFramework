@@ -6,19 +6,19 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private sealed class LongProcessor : GenericDataProcessor<long>
         {
+            public override bool IsSystem
+            {
+                get
+                {
+                    return true;
+                }
+            }
+
             public override string LanguageKeyword
             {
                 get
                 {
                     return "long";
-                }
-            }
-
-            public override string TypeName
-            {
-                get
-                {
-                    return "Int64";
                 }
             }
 

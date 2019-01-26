@@ -11,17 +11,22 @@ namespace UnityGameFramework.Editor.DataTableTools
                 get;
             }
 
+            public abstract bool IsId
+            {
+                get;
+            }
+
             public abstract bool IsComment
             {
                 get;
             }
 
-            public abstract string LanguageKeyword
+            public abstract bool IsSystem
             {
                 get;
             }
 
-            public abstract string TypeName
+            public abstract string LanguageKeyword
             {
                 get;
             }

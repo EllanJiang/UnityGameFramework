@@ -25,6 +25,7 @@ namespace UnityGameFramework.Runtime
         private string m_BytesFullPath = null;
         private int m_LoadType = 0;
         private string m_ResourceChildName = null;
+        private float m_LastProgress = 0f;
         private bool m_Disposed = false;
 #if UNITY_5_4_OR_NEWER
         private UnityWebRequest m_UnityWebRequest = null;
@@ -248,6 +249,7 @@ namespace UnityGameFramework.Runtime
             m_BytesFullPath = null;
             m_LoadType = 0;
             m_ResourceChildName = null;
+            m_LastProgress = 0f;
 
 #if UNITY_5_4_OR_NEWER
             if (m_UnityWebRequest != null)
@@ -336,6 +338,7 @@ namespace UnityGameFramework.Runtime
                         m_UnityWebRequest = null;
                         m_BytesFullPath = null;
                         m_LoadType = 0;
+                        m_LastProgress = 0f;
                     }
                     else
                     {
@@ -348,8 +351,9 @@ namespace UnityGameFramework.Runtime
                         m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.NotExist, Utility.Text.Format("Can not load asset bundle '{0}' with error message '{1}'.", m_BytesFullPath, isError ? m_UnityWebRequest.error : null)));
                     }
                 }
-                else
+                else if (m_UnityWebRequest.downloadProgress != m_LastProgress)
                 {
+                    m_LastProgress = m_UnityWebRequest.downloadProgress;
                     m_LoadResourceAgentHelperUpdateEventHandler(this, new LoadResourceAgentHelperUpdateEventArgs(LoadResourceProgress.ReadResource, m_UnityWebRequest.downloadProgress));
                 }
             }
@@ -368,14 +372,16 @@ namespace UnityGameFramework.Runtime
                         m_WWW = null;
                         m_BytesFullPath = null;
                         m_LoadType = 0;
+                        m_LastProgress = 0f;
                     }
                     else
                     {
                         m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.NotExist, Utility.Text.Format("Can not load asset bundle '{0}' with error message '{1}'.", m_BytesFullPath, m_WWW.error)));
                     }
                 }
-                else
+                else if (m_WWW.progress != m_LastProgress)
                 {
+                    m_LastProgress = m_WWW.progress;
                     m_LoadResourceAgentHelperUpdateEventHandler(this, new LoadResourceAgentHelperUpdateEventArgs(LoadResourceProgress.ReadResource, m_WWW.progress));
                 }
             }
@@ -396,6 +402,7 @@ namespace UnityGameFramework.Runtime
                         if (m_FileAssetBundleCreateRequest == oldFileAssetBundleCreateRequest)
                         {
                             m_FileAssetBundleCreateRequest = null;
+                            m_LastProgress = 0f;
                         }
                     }
                     else
@@ -403,8 +410,9 @@ namespace UnityGameFramework.Runtime
                         m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.NotExist, Utility.Text.Format("Can not load asset bundle from file '{0}' which is not a valid asset bundle.", m_FileFullPath)));
                     }
                 }
-                else
+                else if (m_FileAssetBundleCreateRequest.progress != m_LastProgress)
                 {
+                    m_LastProgress = m_FileAssetBundleCreateRequest.progress;
                     m_LoadResourceAgentHelperUpdateEventHandler(this, new LoadResourceAgentHelperUpdateEventArgs(LoadResourceProgress.LoadResource, m_FileAssetBundleCreateRequest.progress));
                 }
             }
@@ -424,6 +432,7 @@ namespace UnityGameFramework.Runtime
                         if (m_BytesAssetBundleCreateRequest == oldBytesAssetBundleCreateRequest)
                         {
                             m_BytesAssetBundleCreateRequest = null;
+                            m_LastProgress = 0f;
                         }
                     }
                     else
@@ -431,8 +440,9 @@ namespace UnityGameFramework.Runtime
                         m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.NotExist, "Can not load asset bundle from memory which is not a valid asset bundle."));
                     }
                 }
-                else
+                else if (m_BytesAssetBundleCreateRequest.progress != m_LastProgress)
                 {
+                    m_LastProgress = m_BytesAssetBundleCreateRequest.progress;
                     m_LoadResourceAgentHelperUpdateEventHandler(this, new LoadResourceAgentHelperUpdateEventArgs(LoadResourceProgress.LoadResource, m_BytesAssetBundleCreateRequest.progress));
                 }
             }
@@ -448,6 +458,7 @@ namespace UnityGameFramework.Runtime
                     {
                         m_LoadResourceAgentHelperLoadCompleteEventHandler(this, new LoadResourceAgentHelperLoadCompleteEventArgs(m_AssetBundleRequest.asset));
                         m_ResourceChildName = null;
+                        m_LastProgress = 0f;
                         m_AssetBundleRequest = null;
                     }
                     else
@@ -455,8 +466,9 @@ namespace UnityGameFramework.Runtime
                         m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.ChildAssetError, Utility.Text.Format("Can not load asset '{0}' from asset bundle which is not exist.", m_ResourceChildName)));
                     }
                 }
-                else
+                else if (m_AssetBundleRequest.progress != m_LastProgress)
                 {
+                    m_LastProgress = m_AssetBundleRequest.progress;
                     m_LoadResourceAgentHelperUpdateEventHandler(this, new LoadResourceAgentHelperUpdateEventArgs(LoadResourceProgress.LoadAsset, m_AssetBundleRequest.progress));
                 }
             }
@@ -472,6 +484,7 @@ namespace UnityGameFramework.Runtime
                     {
                         m_LoadResourceAgentHelperLoadCompleteEventHandler(this, new LoadResourceAgentHelperLoadCompleteEventArgs(new SceneAsset()));
                         m_ResourceChildName = null;
+                        m_LastProgress = 0f;
                         m_AsyncOperation = null;
                     }
                     else
@@ -479,8 +492,9 @@ namespace UnityGameFramework.Runtime
                         m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.SceneAssetError, Utility.Text.Format("Can not load scene asset '{0}' from asset bundle.", m_ResourceChildName)));
                     }
                 }
-                else
+                else if (m_AsyncOperation.progress != m_LastProgress)
                 {
+                    m_LastProgress = m_AsyncOperation.progress;
                     m_LoadResourceAgentHelperUpdateEventHandler(this, new LoadResourceAgentHelperUpdateEventArgs(LoadResourceProgress.LoadScene, m_AsyncOperation.progress));
                 }
             }

@@ -24,7 +24,7 @@ namespace UnityGameFramework.Runtime
         private string m_FileFullPath = null;
         private string m_BytesFullPath = null;
         private int m_LoadType = 0;
-        private string m_ResourceChildName = null;
+        private string m_AssetName = null;
         private float m_LastProgress = 0f;
         private bool m_Disposed = false;
 #if UNITY_5_4_OR_NEWER
@@ -196,10 +196,10 @@ namespace UnityGameFramework.Runtime
         /// 通过加载资源代理辅助器开始异步加载资源。
         /// </summary>
         /// <param name="resource">资源。</param>
-        /// <param name="resourceChildName">要加载的子资源名称。</param>
+        /// <param name="assetName">要加载的资源名称。</param>
         /// <param name="assetType">要加载资源的类型。</param>
         /// <param name="isScene">要加载的资源是否是场景。</param>
-        public override void LoadAsset(object resource, string resourceChildName, Type assetType, bool isScene)
+        public override void LoadAsset(object resource, string assetName, Type assetType, bool isScene)
         {
             if (m_LoadResourceAgentHelperLoadCompleteEventHandler == null || m_LoadResourceAgentHelperUpdateEventHandler == null || m_LoadResourceAgentHelperErrorEventHandler == null)
             {
@@ -214,28 +214,35 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            if (string.IsNullOrEmpty(resourceChildName))
+            if (string.IsNullOrEmpty(assetName))
             {
-                m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.ChildAssetError, "Can not load asset from asset bundle which child name is invalid."));
+                m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.AssetError, "Can not load asset from asset bundle which child name is invalid."));
                 return;
             }
 
-            m_ResourceChildName = resourceChildName;
+            m_AssetName = assetName;
             if (isScene)
             {
-                int sceneNamePosition = resourceChildName.LastIndexOf('.');
-                string sceneName = sceneNamePosition > 0 ? resourceChildName.Substring(0, sceneNamePosition) : resourceChildName;
+                int sceneNamePositionStart = assetName.LastIndexOf('/');
+                int sceneNamePositionEnd = assetName.LastIndexOf('.');
+                if (sceneNamePositionStart <= 0 || sceneNamePositionEnd <= 0 || sceneNamePositionStart > sceneNamePositionEnd)
+                {
+                    m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.AssetError, Utility.Text.Format("Scene name '{0}' is invalid.", assetName)));
+                    return;
+                }
+
+                string sceneName = assetName.Substring(sceneNamePositionStart + 1, sceneNamePositionEnd - sceneNamePositionStart - 1);
                 m_AsyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             }
             else
             {
                 if (assetType != null)
                 {
-                    m_AssetBundleRequest = assetBundle.LoadAssetAsync(resourceChildName, assetType);
+                    m_AssetBundleRequest = assetBundle.LoadAssetAsync(assetName, assetType);
                 }
                 else
                 {
-                    m_AssetBundleRequest = assetBundle.LoadAssetAsync(resourceChildName);
+                    m_AssetBundleRequest = assetBundle.LoadAssetAsync(assetName);
                 }
             }
         }
@@ -248,7 +255,7 @@ namespace UnityGameFramework.Runtime
             m_FileFullPath = null;
             m_BytesFullPath = null;
             m_LoadType = 0;
-            m_ResourceChildName = null;
+            m_AssetName = null;
             m_LastProgress = 0f;
 
 #if UNITY_5_4_OR_NEWER
@@ -457,13 +464,13 @@ namespace UnityGameFramework.Runtime
                     if (m_AssetBundleRequest.asset != null)
                     {
                         m_LoadResourceAgentHelperLoadCompleteEventHandler(this, new LoadResourceAgentHelperLoadCompleteEventArgs(m_AssetBundleRequest.asset));
-                        m_ResourceChildName = null;
+                        m_AssetName = null;
                         m_LastProgress = 0f;
                         m_AssetBundleRequest = null;
                     }
                     else
                     {
-                        m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.ChildAssetError, Utility.Text.Format("Can not load asset '{0}' from asset bundle which is not exist.", m_ResourceChildName)));
+                        m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.AssetError, Utility.Text.Format("Can not load asset '{0}' from asset bundle which is not exist.", m_AssetName)));
                     }
                 }
                 else if (m_AssetBundleRequest.progress != m_LastProgress)
@@ -483,13 +490,13 @@ namespace UnityGameFramework.Runtime
                     if (m_AsyncOperation.allowSceneActivation)
                     {
                         m_LoadResourceAgentHelperLoadCompleteEventHandler(this, new LoadResourceAgentHelperLoadCompleteEventArgs(new SceneAsset()));
-                        m_ResourceChildName = null;
+                        m_AssetName = null;
                         m_LastProgress = 0f;
                         m_AsyncOperation = null;
                     }
                     else
                     {
-                        m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.SceneAssetError, Utility.Text.Format("Can not load scene asset '{0}' from asset bundle.", m_ResourceChildName)));
+                        m_LoadResourceAgentHelperErrorEventHandler(this, new LoadResourceAgentHelperErrorEventArgs(LoadResourceStatus.AssetError, Utility.Text.Format("Can not load scene asset '{0}' from asset bundle.", m_AssetName)));
                     }
                 }
                 else if (m_AsyncOperation.progress != m_LastProgress)

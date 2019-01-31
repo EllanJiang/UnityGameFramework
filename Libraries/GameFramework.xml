@@ -11292,7 +11292,7 @@
             通过加载资源代理辅助器开始异步加载资源。
             </summary>
             <param name="resource">资源。</param>
-            <param name="resourceChildName">要加载的子资源名称。</param>
+            <param name="assetName">要加载的资源名称。</param>
             <param name="assetType">要加载资源的类型。</param>
             <param name="isScene">要加载的资源是否是场景。</param>
         </member>
@@ -12027,14 +12027,9 @@
             资源类型错误。
             </summary>
         </member>
-        <member name="F:GameFramework.Resource.LoadResourceStatus.ChildAssetError">
+        <member name="F:GameFramework.Resource.LoadResourceStatus.AssetError">
             <summary>
-            加载子资源错误。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Resource.LoadResourceStatus.SceneAssetError">
-            <summary>
-            加载场景资源错误。
+            加载资源错误。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.LoadSceneCallbacks">
@@ -12154,41 +12149,18 @@
             资源管理器。
             </summary>
         </member>
-        <member name="T:GameFramework.Resource.ResourceManager.AssetDependencyInfo">
-            <summary>
-            资源依赖信息。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.AssetDependencyInfo.#ctor(System.String,System.String[])">
-            <summary>
-            初始化资源依赖信息的新实例。
-            </summary>
-            <param name="assetName">资源名称。</param>
-            <param name="dependencyAssetNames">依赖资源名称。</param>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.AssetDependencyInfo.AssetName">
-            <summary>
-            获取资源名称。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.AssetDependencyInfo.GetDependencyAssetNames">
-            <summary>
-            获取依赖资源名称。
-            </summary>
-            <returns>依赖资源名称。</returns>
-        </member>
         <member name="T:GameFramework.Resource.ResourceManager.AssetInfo">
             <summary>
             资源信息。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.AssetInfo.#ctor(System.String,GameFramework.Resource.ResourceManager.ResourceName,System.String)">
+        <member name="M:GameFramework.Resource.ResourceManager.AssetInfo.#ctor(System.String,GameFramework.Resource.ResourceManager.ResourceName,System.String[])">
             <summary>
             初始化资源信息的新实例。
             </summary>
             <param name="assetName">资源名称。</param>
             <param name="resourceName">所在资源名称。</param>
-            <param name="resourceChildName">子资源名称。</param>
+            <param name="dependencyAssetNames">依赖资源名称。</param>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.AssetInfo.AssetName">
             <summary>
@@ -12200,10 +12172,11 @@
             获取所在资源名称。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.AssetInfo.ResourceChildName">
+        <member name="M:GameFramework.Resource.ResourceManager.AssetInfo.GetDependencyAssetNames">
             <summary>
-            获取子资源名称。
+            获取依赖资源名称。
             </summary>
+            <returns>依赖资源名称。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.#ctor">
             <summary>

@@ -1089,9 +1089,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                             }
                         }
                     }
-
-                    // TODO: Resource group.
-                    binaryWriter.Write(0);
                 }
             }
 
@@ -1186,9 +1183,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                             }
                         }
                     }
-
-                    // TODO: Resource group.
-                    binaryWriter.Write(0);
                 }
             }
 

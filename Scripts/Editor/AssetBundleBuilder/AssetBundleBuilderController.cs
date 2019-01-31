@@ -101,7 +101,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
             Platforms = Platform.Undefined;
             ZipSelected = true;
-            RecordScatteredDependencyAssetsSelected = false;
             DeterministicAssetBundleSelected = ChunkBasedCompressionSelected = true;
             UncompressedAssetBundleSelected = DisableWriteTypeTreeSelected = ForceRebuildAssetBundleSelected = IgnoreTypeTreeChangesSelected = AppendHashToAssetBundleNameSelected = false;
             OutputPackageSelected = OutputFullSelected = OutputPackedSelected = true;
@@ -166,12 +165,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         }
 
         public bool ZipSelected
-        {
-            get;
-            set;
-        }
-
-        public bool RecordScatteredDependencyAssetsSelected
         {
             get;
             set;
@@ -381,9 +374,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                         case "ZipSelected":
                             ZipSelected = bool.Parse(xmlNode.InnerText);
                             break;
-                        case "RecordScatteredDependencyAssetsSelected":
-                            RecordScatteredDependencyAssetsSelected = bool.Parse(xmlNode.InnerText);
-                            break;
                         case "UncompressedAssetBundleSelected":
                             UncompressedAssetBundleSelected = bool.Parse(xmlNode.InnerText);
                             if (UncompressedAssetBundleSelected)
@@ -475,9 +465,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 xmlSettings.AppendChild(xmlElement);
                 xmlElement = xmlDocument.CreateElement("ZipSelected");
                 xmlElement.InnerText = ZipSelected.ToString();
-                xmlSettings.AppendChild(xmlElement);
-                xmlElement = xmlDocument.CreateElement("RecordScatteredDependencyAssetsSelected");
-                xmlElement.InnerText = RecordScatteredDependencyAssetsSelected.ToString();
                 xmlSettings.AppendChild(xmlElement);
                 xmlElement = xmlDocument.CreateElement("UncompressedAssetBundleSelected");
                 xmlElement.InnerText = UncompressedAssetBundleSelected.ToString();
@@ -629,7 +616,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
             BuildAssetBundleOptions buildAssetBundleOptions = GetBuildAssetBundleOptions();
             m_BuildReport.Initialize(BuildReportPath, ProductName, CompanyName, GameIdentifier, ApplicableGameVersion, InternalResourceVersion, UnityVersion,
-                Platforms, ZipSelected, RecordScatteredDependencyAssetsSelected, (int)buildAssetBundleOptions, m_AssetBundleDatas);
+                Platforms, ZipSelected, (int)buildAssetBundleOptions, m_AssetBundleDatas);
 
             try
             {
@@ -1362,11 +1349,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 foreach (Asset dependencyAsset in dependencyAssets)
                 {
                     dependencyAssetNames.Add(dependencyAsset.Name);
-                }
-
-                if (RecordScatteredDependencyAssetsSelected)
-                {
-                    dependencyAssetNames.AddRange(dependencyData.GetScatteredDependencyAssetNames());
                 }
 
                 dependencyAssetNames.Sort();

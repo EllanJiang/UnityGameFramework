@@ -9,9 +9,9 @@ namespace UnityGameFramework.Editor.DataTableTools
 {
     public sealed partial class DataTableProcessor
     {
-        private const char DataSplitSeparator = '\t';
-        private const char DataTrimSeparator = '\"';
         private const string CommentLineSeparator = "#";
+        private static readonly char[] DataSplitSeparators = new char[] { '\t' };
+        private static readonly char[] DataTrimSeparators = new char[] { '\"' };
 
         private readonly string[] m_NameRow;
         private readonly string[] m_TypeRow;
@@ -21,7 +21,7 @@ namespace UnityGameFramework.Editor.DataTableTools
         private readonly int m_IdColumn;
 
         private readonly DataProcessor[] m_DataProcessor;
-        private readonly string[][] m_RawValues; 
+        private readonly string[][] m_RawValues;
 
         private string m_CodeTemplate;
         private DataTableCodeGenerator m_CodeGenerator;
@@ -50,10 +50,10 @@ namespace UnityGameFramework.Editor.DataTableTools
             List<string[]> rawValues = new List<string[]>();
             for (int i = 0; i < lines.Length; i++)
             {
-                string[] rawValue = lines[i].Split(DataSplitSeparator);
+                string[] rawValue = lines[i].Split(DataSplitSeparators);
                 for (int j = 0; j < rawValue.Length; j++)
                 {
-                    rawValue[j] = rawValue[j].Trim(DataTrimSeparator);
+                    rawValue[j] = rawValue[j].Trim(DataTrimSeparators);
                 }
 
                 if (i == 0)

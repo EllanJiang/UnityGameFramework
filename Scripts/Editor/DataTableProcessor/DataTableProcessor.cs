@@ -10,6 +10,7 @@ namespace UnityGameFramework.Editor.DataTableTools
     public sealed partial class DataTableProcessor
     {
         private const char DataSplitSeparator = '\t';
+        private const char DataTrimSeparator = '\"';
         private const string CommentLineSeparator = "#";
 
         private readonly string[] m_NameRow;
@@ -52,7 +53,7 @@ namespace UnityGameFramework.Editor.DataTableTools
                 string[] rawValue = lines[i].Split(DataSplitSeparator);
                 for (int j = 0; j < rawValue.Length; j++)
                 {
-                    rawValue[j] = rawValue[j].Trim('\"');
+                    rawValue[j] = rawValue[j].Trim(DataTrimSeparator);
                 }
 
                 if (i == 0)

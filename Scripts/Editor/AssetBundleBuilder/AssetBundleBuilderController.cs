@@ -1021,12 +1021,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     binaryWriter.Write((byte)applicableGameVersionBytes.Length);
                     binaryWriter.Write(applicableGameVersionBytes);
                     binaryWriter.Write(InternalResourceVersion);
-
-                    binaryWriter.Write(m_AssetBundleDatas.Count);
-                    if (m_AssetBundleDatas.Count > ushort.MaxValue)
-                    {
-                        throw new GameFrameworkException("Package list can only contains 65535 resources in version 0.");
-                    }
+                    binaryWriter.Write(m_AssetBundleCollection.AssetCount);
+                    binaryWriter.Write(m_AssetBundleCollection.AssetBundleCount);
 
                     foreach (AssetBundleData assetBundleData in m_AssetBundleDatas.Values)
                     {
@@ -1113,12 +1109,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     binaryWriter.Write((byte)applicableGameVersionBytes.Length);
                     binaryWriter.Write(applicableGameVersionBytes);
                     binaryWriter.Write(InternalResourceVersion);
-
-                    binaryWriter.Write(m_AssetBundleDatas.Count);
-                    if (m_AssetBundleDatas.Count > ushort.MaxValue)
-                    {
-                        throw new GameFrameworkException("Version list can only contains 65535 resources in version 0.");
-                    }
+                    binaryWriter.Write(m_AssetBundleCollection.AssetCount);
+                    binaryWriter.Write(m_AssetBundleCollection.AssetBundleCount);
 
                     foreach (AssetBundleData assetBundleData in m_AssetBundleDatas.Values)
                     {

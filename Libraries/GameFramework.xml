@@ -11377,11 +11377,6 @@
             获取已准备完毕资源数量。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.IResourceManager.ResourceGroupCount">
-            <summary>
-            获取资源组数量。
-            </summary>
-        </member>
         <member name="P:GameFramework.Resource.IResourceManager.UpdatePrefixUri">
             <summary>
             获取或设置资源更新下载地址。
@@ -11699,42 +11694,6 @@
             <param name="sceneAssetName">要卸载场景资源的名称。</param>
             <param name="unloadSceneCallbacks">卸载场景回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
-        </member>
-        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupReady(System.String)">
-            <summary>
-            获取资源组是否准备完毕。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupResourceCount(System.String)">
-            <summary>
-            获取资源组资源数量。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupReadyResourceCount(System.String)">
-            <summary>
-            获取资源组已准备完成资源数量。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupTotalLength(System.String)">
-            <summary>
-            获取资源组总大小。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupTotalReadyLength(System.String)">
-            <summary>
-            获取资源组已准备完成总大小。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupProgress(System.String)">
-            <summary>
-            获取资源组准备进度。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
         </member>
         <member name="T:GameFramework.Resource.LoadAssetCallbacks">
             <summary>
@@ -12229,11 +12188,6 @@
             获取已准备完毕资源数量。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCount">
-            <summary>
-            获取资源组数量。
-            </summary>
-        </member>
         <member name="P:GameFramework.Resource.ResourceManager.UpdatePrefixUri">
             <summary>
             获取或设置资源更新下载地址前缀。
@@ -12564,42 +12518,6 @@
             <param name="unloadSceneCallbacks">卸载场景回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupReady(System.String)">
-            <summary>
-            获取资源组是否准备完毕。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupResourceCount(System.String)">
-            <summary>
-            获取资源组资源数量。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupReadyResourceCount(System.String)">
-            <summary>
-            获取资源组已准备完成资源数量。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupTotalLength(System.String)">
-            <summary>
-            获取资源组总大小。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupTotalReadyLength(System.String)">
-            <summary>
-            获取资源组已准备完成总大小。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupProgress(System.String)">
-            <summary>
-            获取资源组准备进度。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
         <member name="T:GameFramework.Resource.ResourceManager.LoadType">
             <summary>
             资源加载方式类型。
@@ -12798,55 +12716,6 @@
             <param name="fileUri">读写区资源列表文件路径。</param>
             <param name="bytes">要解析的数据。</param>
             <param name="errorMessage">错误信息。</param>
-        </member>
-        <member name="T:GameFramework.Resource.ResourceManager.ResourceGroup">
-            <summary>
-            资源组。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroup.#ctor(System.Collections.Generic.Dictionary{GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.ResourceInfo})">
-            <summary>
-            初始化资源组的新实例。
-            </summary>
-            <param name="resourceInfos">资源信息引用。</param>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.Ready">
-            <summary>
-            获取资源组是否准备完毕。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.ResourceCount">
-            <summary>
-            获取资源组资源数量。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.ReadyResourceCount">
-            <summary>
-            获取资源组已准备完成资源数量。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.TotalLength">
-            <summary>
-            获取资源组总大小。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.TotalReadyLength">
-            <summary>
-            获取资源组已准备完成总大小。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.Progress">
-            <summary>
-            获取资源组准备进度。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroup.AddResource(System.String,System.String,System.Int32)">
-            <summary>
-            向资源组中增加资源。
-            </summary>
-            <param name="name">资源名称。</param>
-            <param name="variant">变体名称。</param>
-            <param name="length">资源大小。</param>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceInfo">
             <summary>

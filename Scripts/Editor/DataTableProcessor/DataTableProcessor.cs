@@ -213,6 +213,11 @@ namespace UnityGameFramework.Editor.DataTableTools
                 throw new GameFrameworkException(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
             }
 
+            if (IsIdColumn(rawColumn))
+            {
+                return "Id";
+            }
+
             return m_NameRow[rawColumn];
         }
 

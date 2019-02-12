@@ -205,17 +205,6 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取资源组数量。
-        /// </summary>
-        public int ResourceGroupCount
-        {
-            get
-            {
-                return m_ResourceManager.ResourceGroupCount;
-            }
-        }
-
-        /// <summary>
         /// 获取或设置资源更新下载地址。
         /// </summary>
         public string UpdatePrefixUri
@@ -781,60 +770,6 @@ namespace UnityGameFramework.Runtime
         public void UnloadAsset(object asset)
         {
             m_ResourceManager.UnloadAsset(asset);
-        }
-
-        /// <summary>
-        /// 获取资源组是否准备完毕。
-        /// </summary>
-        /// <param name="resourceGroupName">要检查的资源组名称。</param>
-        public bool GetResourceGroupReady(string resourceGroupName)
-        {
-            return m_ResourceManager.GetResourceGroupReady(resourceGroupName);
-        }
-
-        /// <summary>
-        /// 获取资源组资源数量。
-        /// </summary>
-        /// <param name="resourceGroupName">要检查的资源组名称。</param>
-        public int GetResourceGroupResourceCount(string resourceGroupName)
-        {
-            return m_ResourceManager.GetResourceGroupResourceCount(resourceGroupName);
-        }
-
-        /// <summary>
-        /// 获取资源组已准备完成资源数量。
-        /// </summary>
-        /// <param name="resourceGroupName">要检查的资源组名称。</param>
-        public int GetResourceGroupReadyResourceCount(string resourceGroupName)
-        {
-            return m_ResourceManager.GetResourceGroupReadyResourceCount(resourceGroupName);
-        }
-
-        /// <summary>
-        /// 获取资源组总大小。
-        /// </summary>
-        /// <param name="resourceGroupName">要检查的资源组名称。</param>
-        public int GetResourceGroupTotalLength(string resourceGroupName)
-        {
-            return m_ResourceManager.GetResourceGroupTotalLength(resourceGroupName);
-        }
-
-        /// <summary>
-        /// 获取资源组已准备完成总大小。
-        /// </summary>
-        /// <param name="resourceGroupName">要检查的资源组名称。</param>
-        public int GetResourceGroupTotalReadyLength(string resourceGroupName)
-        {
-            return m_ResourceManager.GetResourceGroupTotalReadyLength(resourceGroupName);
-        }
-
-        /// <summary>
-        /// 获取资源组准备进度。
-        /// </summary>
-        /// <param name="resourceGroupName">要检查的资源组名称。</param>
-        public float GetResourceGroupProgress(string resourceGroupName)
-        {
-            return m_ResourceManager.GetResourceGroupProgress(resourceGroupName);
         }
 
         /// <summary>

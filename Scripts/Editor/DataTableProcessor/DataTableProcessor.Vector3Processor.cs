@@ -1,4 +1,11 @@
-﻿using System.IO;
+﻿//------------------------------------------------------------
+// Game Framework
+// Copyright © 2013-2019 Jiang Yin. All rights reserved.
+// Homepage: http://gameframework.cn/
+// Feedback: mailto:jiangyin@gameframework.cn
+//------------------------------------------------------------
+
+using System.IO;
 using UnityEngine;
 
 namespace UnityGameFramework.Editor.DataTableTools

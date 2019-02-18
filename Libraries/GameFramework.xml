@@ -11382,6 +11382,16 @@
             获取或设置资源更新下载地址。
             </summary>
         </member>
+        <member name="P:GameFramework.Resource.IResourceManager.UpdateFileCacheLength">
+            <summary>
+            获取或设置更新文件缓存大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceManager.GenerateReadWriteListLength">
+            <summary>
+            获取或设置每下载多少字节的资源，刷新一次资源列表。
+            </summary>
+        </member>
         <member name="P:GameFramework.Resource.IResourceManager.UpdateRetryCount">
             <summary>
             获取或设置资源更新重试次数。
@@ -12191,6 +12201,16 @@
         <member name="P:GameFramework.Resource.ResourceManager.UpdatePrefixUri">
             <summary>
             获取或设置资源更新下载地址前缀。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.UpdateFileCacheLength">
+            <summary>
+            获取或设置更新文件缓存大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.GenerateReadWriteListLength">
+            <summary>
+            获取或设置每下载多少字节的资源，刷新一次资源列表。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.UpdateRetryCount">
@@ -13028,6 +13048,11 @@
             初始化资源更新器的新实例。
             </summary>
             <param name="resourceManager">资源管理器。</param>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.GenerateReadWriteListLength">
+            <summary>
+            获取或设置每下载多少字节的资源，刷新一次资源列表。
+            </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.RetryCount">
             <summary>
@@ -18353,11 +18378,20 @@
             <param name="bytes">指定的二进制流。</param>
             <returns>计算后的 CRC32。</returns>
         </member>
-        <member name="M:GameFramework.Utility.Verifier.GetCrc32(System.String)">
+        <member name="M:GameFramework.Utility.Verifier.GetCrc32(System.Byte[],System.Int32,System.Int32)">
             <summary>
-            计算指定文件的 CRC32。
+            计算二进制流的 CRC32。
             </summary>
-            <param name="fileName">指定文件的完全限定名称。</param>
+            <param name="bytes">指定的二进制流。</param>
+            <param name="offset">二进制流的偏移。</param>
+            <param name="length">二进制流的长度。</param>
+            <returns>计算后的 CRC32。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Verifier.GetCrc32(System.IO.Stream)">
+            <summary>
+            计算二进制流的 CRC32。
+            </summary>
+            <param name="stream">指定的二进制流。</param>
             <returns>计算后的 CRC32。</returns>
         </member>
         <member name="M:GameFramework.Utility.Verifier.GetMD5(System.Byte[])">
@@ -18367,11 +18401,20 @@
             <param name="bytes">指定的二进制流。</param>
             <returns>计算后的 MD5。</returns>
         </member>
-        <member name="M:GameFramework.Utility.Verifier.GetMD5(System.String)">
+        <member name="M:GameFramework.Utility.Verifier.GetMD5(System.Byte[],System.Int32,System.Int32)">
             <summary>
-            计算文件的 MD5。
+            计算二进制流的 MD5。
             </summary>
-            <param name="fileName">指定文件的完全限定名称。</param>
+            <param name="bytes">指定的二进制流。</param>
+            <param name="offset">二进制流的偏移。</param>
+            <param name="length">二进制流的长度。</param>
+            <returns>计算后的 MD5。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Verifier.GetMD5(System.IO.Stream)">
+            <summary>
+            计算二进制流的 MD5。
+            </summary>
+            <param name="stream">指定的二进制流。</param>
             <returns>计算后的 MD5。</returns>
         </member>
         <member name="T:GameFramework.Utility.Zip">
@@ -18389,34 +18432,94 @@
             <summary>
             压缩数据。
             </summary>
-            <param name="bytes">要压缩的数据。</param>
-            <returns>压缩后的数据。</returns>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <returns>压缩后的数据的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.Compress(System.Byte[],System.IO.Stream)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <param name="compressedStream">压缩后的数据的二进制流。</param>
+            <returns>是否压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.Compress(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <param name="offset">要压缩的数据的二进制流的偏移。</param>
+            <param name="length">要压缩的数据的二进制流的长度。</param>
+            <returns>压缩后的数据的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.Compress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <param name="offset">要压缩的数据的二进制流的偏移。</param>
+            <param name="length">要压缩的数据的二进制流的长度。</param>
+            <param name="compressedStream">压缩后的数据的二进制流。</param>
+            <returns>是否压缩数据成功。</returns>
         </member>
         <member name="M:GameFramework.Utility.Zip.Decompress(System.Byte[])">
             <summary>
             解压缩数据。
             </summary>
-            <param name="bytes">要解压缩的数据。</param>
-            <returns>解压缩后的数据。</returns>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <returns>解压缩后的数据的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.Decompress(System.Byte[],System.IO.Stream)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.Decompress(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <param name="offset">要解压缩的数据的二进制流的偏移。</param>
+            <param name="length">要解压缩的数据的二进制流的长度。</param>
+            <returns>解压缩后的数据的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.Decompress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <param name="offset">要解压缩的数据的二进制流的偏移。</param>
+            <param name="length">要解压缩的数据的二进制流的长度。</param>
+            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
         </member>
         <member name="T:GameFramework.Utility.Zip.IZipHelper">
             <summary>
             压缩解压缩辅助器接口。
             </summary>
         </member>
-        <member name="M:GameFramework.Utility.Zip.IZipHelper.Compress(System.Byte[])">
+        <member name="M:GameFramework.Utility.Zip.IZipHelper.Compress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
             <summary>
             压缩数据。
             </summary>
-            <param name="bytes">要压缩的数据。</param>
-            <returns>压缩后的数据。</returns>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <param name="offset">要压缩的数据的二进制流的偏移。</param>
+            <param name="length">要压缩的数据的二进制流的长度。</param>
+            <param name="compressedStream">压缩后的数据的二进制流。</param>
+            <returns>是否压缩数据成功。</returns>
         </member>
-        <member name="M:GameFramework.Utility.Zip.IZipHelper.Decompress(System.Byte[])">
+        <member name="M:GameFramework.Utility.Zip.IZipHelper.Decompress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
             <summary>
             解压缩数据。
             </summary>
-            <param name="bytes">要解压缩的数据。</param>
-            <returns>解压缩后的数据。</returns>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <param name="offset">要解压缩的数据的二进制流的偏移。</param>
+            <param name="length">要解压缩的数据的二进制流的长度。</param>
+            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
         </member>
         <member name="T:GameFramework.WebRequest.Constant">
             <summary>

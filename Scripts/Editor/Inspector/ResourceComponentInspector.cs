@@ -28,6 +28,8 @@ namespace UnityGameFramework.Editor
         private SerializedProperty m_ResourceExpireTime = null;
         private SerializedProperty m_ResourcePriority = null;
         private SerializedProperty m_UpdatePrefixUri = null;
+        private SerializedProperty m_UpdateFileCacheLength = null;
+        private SerializedProperty m_GenerateReadWriteListLength = null;
         private SerializedProperty m_UpdateRetryCount = null;
         private SerializedProperty m_InstanceRoot = null;
         private SerializedProperty m_LoadResourceAgentHelperCount = null;
@@ -206,6 +208,32 @@ namespace UnityGameFramework.Editor
                         }
                     }
 
+                    int updateFileCacheLength = EditorGUILayout.DelayedIntField("Update File Cache Length", m_UpdateFileCacheLength.intValue);
+                    if (updateFileCacheLength != m_UpdateFileCacheLength.intValue)
+                    {
+                        if (EditorApplication.isPlaying)
+                        {
+                            t.UpdateFileCacheLength = updateFileCacheLength;
+                        }
+                        else
+                        {
+                            m_UpdateFileCacheLength.intValue = updateFileCacheLength;
+                        }
+                    }
+
+                    int generateReadWriteListLength = EditorGUILayout.DelayedIntField("Generate Read Write List Length", m_GenerateReadWriteListLength.intValue);
+                    if (generateReadWriteListLength != m_GenerateReadWriteListLength.intValue)
+                    {
+                        if (EditorApplication.isPlaying)
+                        {
+                            t.GenerateReadWriteListLength = generateReadWriteListLength;
+                        }
+                        else
+                        {
+                            m_GenerateReadWriteListLength.intValue = generateReadWriteListLength;
+                        }
+                    }
+
                     int updateRetryCount = EditorGUILayout.DelayedIntField("Update Retry Count", m_UpdateRetryCount.intValue);
                     if (updateRetryCount != m_UpdateRetryCount.intValue)
                     {
@@ -278,6 +306,8 @@ namespace UnityGameFramework.Editor
             m_ResourceExpireTime = serializedObject.FindProperty("m_ResourceExpireTime");
             m_ResourcePriority = serializedObject.FindProperty("m_ResourcePriority");
             m_UpdatePrefixUri = serializedObject.FindProperty("m_UpdatePrefixUri");
+            m_UpdateFileCacheLength = serializedObject.FindProperty("m_UpdateFileCacheLength");
+            m_GenerateReadWriteListLength = serializedObject.FindProperty("m_GenerateReadWriteListLength");
             m_UpdateRetryCount = serializedObject.FindProperty("m_UpdateRetryCount");
             m_InstanceRoot = serializedObject.FindProperty("m_InstanceRoot");
             m_LoadResourceAgentHelperCount = serializedObject.FindProperty("m_LoadResourceAgentHelperCount");

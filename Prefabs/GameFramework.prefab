@@ -840,6 +840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26ec20b78ec32048bfb6c0ff875d8cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_LoadAssetCountPerFrame: 1
   m_MinLoadAssetRandomDelaySeconds: 0
   m_MaxLoadAssetRandomDelaySeconds: 0
 --- !u!114 &11472694
@@ -915,6 +916,8 @@ MonoBehaviour:
   m_ResourceExpireTime: 60
   m_ResourcePriority: 20000
   m_UpdatePrefixUri: 
+  m_UpdateFileCacheLength: 1048576
+  m_GenerateReadWriteListLength: 1048576
   m_UpdateRetryCount: 3
   m_InstanceRoot: {fileID: 0}
   m_ResourceHelperTypeName: UnityGameFramework.Runtime.DefaultResourceHelper

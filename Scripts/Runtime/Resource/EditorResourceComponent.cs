@@ -156,6 +156,36 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取或设置更新文件缓存大小。
+        /// </summary>
+        public int UpdateFileCacheLength
+        {
+            get
+            {
+                throw new NotSupportedException("UpdateFileCacheLength");
+            }
+            set
+            {
+                throw new NotSupportedException("UpdateFileCacheLength");
+            }
+        }
+
+        /// <summary>
+        /// 获取或设置每下载多少字节的资源，刷新一次资源列表。
+        /// </summary>
+        public int GenerateReadWriteListLength
+        {
+            get
+            {
+                throw new NotSupportedException("GenerateReadWriteListLength");
+            }
+            set
+            {
+                throw new NotSupportedException("GenerateReadWriteListLength");
+            }
+        }
+
+        /// <summary>
         /// 获取或设置资源更新重试次数。
         /// </summary>
         public int UpdateRetryCount

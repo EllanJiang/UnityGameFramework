@@ -16,7 +16,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class DefaultZipHelper : Utility.Zip.IZipHelper
     {
-        private readonly byte[] m_BytesCache = new byte[1024 * 1024];
+        private readonly byte[] m_BytesCache = new byte[0x10000];
 
         /// <summary>
         /// 压缩数据。

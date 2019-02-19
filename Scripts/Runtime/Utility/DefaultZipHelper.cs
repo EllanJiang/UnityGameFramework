@@ -53,13 +53,15 @@ namespace UnityGameFramework.Runtime
                 using (GZipOutputStream gZipOutputStream = new GZipOutputStream(compressedStream))
                 {
                     gZipOutputStream.Write(bytes, offset, length);
-                    if (compressedStream.Length >= 8)
+                    if (compressedStream.Length >= 8L)
                     {
-                        compressedStream.Position = 4;
+                        long current = compressedStream.Position;
+                        compressedStream.Position = 4L;
                         compressedStream.WriteByte(25);
                         compressedStream.WriteByte(134);
                         compressedStream.WriteByte(2);
                         compressedStream.WriteByte(32);
+                        compressedStream.Position = current;
                     }
                 }
 

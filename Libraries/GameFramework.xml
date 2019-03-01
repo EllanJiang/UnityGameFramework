@@ -12955,14 +12955,12 @@
             加载资源代理。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadResourceAgent.#ctor(GameFramework.Resource.ILoadResourceAgentHelper,GameFramework.Resource.IResourceHelper,GameFramework.ObjectPool.IObjectPool{GameFramework.Resource.ResourceManager.ResourceLoader.AssetObject},GameFramework.ObjectPool.IObjectPool{GameFramework.Resource.ResourceManager.ResourceLoader.ResourceObject},GameFramework.Resource.ResourceManager.ResourceLoader,System.String,System.String,GameFramework.Resource.DecryptResourceCallback)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadResourceAgent.#ctor(GameFramework.Resource.ILoadResourceAgentHelper,GameFramework.Resource.IResourceHelper,GameFramework.Resource.ResourceManager.ResourceLoader,System.String,System.String,GameFramework.Resource.DecryptResourceCallback)">
             <summary>
             初始化加载资源代理的新实例。
             </summary>
             <param name="loadResourceAgentHelper">加载资源代理辅助器。</param>
             <param name="resourceHelper">资源辅助器。</param>
-            <param name="assetPool">资源对象池。</param>
-            <param name="resourcePool">资源对象池。</param>
             <param name="resourceLoader">加载资源器。</param>
             <param name="readOnlyPath">资源只读区路径。</param>
             <param name="readWritePath">资源读写区路径。</param>

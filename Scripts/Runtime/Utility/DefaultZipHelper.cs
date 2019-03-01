@@ -16,97 +16,114 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class DefaultZipHelper : Utility.Zip.IZipHelper
     {
+        private readonly byte[] m_BytesCache = new byte[0x10000];
+
         /// <summary>
         /// 压缩数据。
         /// </summary>
-        /// <param name="bytes">要压缩的数据。</param>
-        /// <returns>压缩后的数据。</returns>
-        public byte[] Compress(byte[] bytes)
+        /// <param name="bytes">要压缩的数据的二进制流。</param>
+        /// <param name="offset">要压缩的数据的二进制流的偏移。</param>
+        /// <param name="length">要压缩的数据的二进制流的长度。</param>
+        /// <param name="compressedStream">压缩后的数据的二进制流。</param>
+        /// <returns>是否压缩数据成功。</returns>
+        public bool Compress(byte[] bytes, int offset, int length, Stream compressedStream)
         {
-            if (bytes == null || bytes.Length <= 0)
+            if (bytes == null)
             {
-                return bytes;
+                return false;
             }
 
-            byte[] result = null;
-            MemoryStream memoryStream = null;
+            if (offset < 0)
+            {
+                return false;
+            }
+
+            if (length > bytes.Length)
+            {
+                return false;
+            }
+
+            if (compressedStream == null)
+            {
+                return false;
+            }
+
             try
             {
-                memoryStream = new MemoryStream();
-                using (GZipOutputStream gZipOutputStream = new GZipOutputStream(memoryStream))
+                using (GZipOutputStream gZipOutputStream = new GZipOutputStream(compressedStream))
                 {
-                    gZipOutputStream.Write(bytes, 0, bytes.Length);
+                    gZipOutputStream.Write(bytes, offset, length);
+                    if (compressedStream.Length >= 8L)
+                    {
+                        long current = compressedStream.Position;
+                        compressedStream.Position = 4L;
+                        compressedStream.WriteByte(25);
+                        compressedStream.WriteByte(134);
+                        compressedStream.WriteByte(2);
+                        compressedStream.WriteByte(32);
+                        compressedStream.Position = current;
+                    }
                 }
 
-                result = memoryStream.ToArray();
-
-                if (result.Length >= 8)
-                {
-                    result[4] = 25;
-                    result[5] = 134;
-                    result[6] = 2;
-                    result[7] = 32;
-                }
+                return true;
             }
             catch
             {
-
+                return false;
             }
-            finally
-            {
-                if (memoryStream != null)
-                {
-                    memoryStream.Dispose();
-                    memoryStream = null;
-                }
-            }
-
-            return result;
         }
 
         /// <summary>
         /// 解压缩数据。
         /// </summary>
-        /// <param name="bytes">要解压缩的数据。</param>
-        /// <returns>解压缩后的数据。</returns>
-        public byte[] Decompress(byte[] bytes)
+        /// <param name="bytes">要解压缩的数据的二进制流。</param>
+        /// <param name="offset">要解压缩的数据的二进制流的偏移。</param>
+        /// <param name="length">要解压缩的数据的二进制流的长度。</param>
+        /// <param name="decompressedStream">解压缩后的数据的二进制流。</param>
+        /// <returns>是否解压缩数据成功。</returns>
+        public bool Decompress(byte[] bytes, int offset, int length, Stream decompressedStream)
         {
-            if (bytes == null || bytes.Length <= 0)
+            if (bytes == null)
             {
-                return null;
+                return false;
             }
 
-            MemoryStream decompressedStream = null;
+            if (offset < 0)
+            {
+                return false;
+            }
+
+            if (length > bytes.Length)
+            {
+                return false;
+            }
+
+            if (decompressedStream == null)
+            {
+                return false;
+            }
+
             MemoryStream memoryStream = null;
             try
             {
-                decompressedStream = new MemoryStream();
-                memoryStream = new MemoryStream(bytes);
+                memoryStream = new MemoryStream(bytes, offset, length, false);
                 using (GZipInputStream gZipInputStream = new GZipInputStream(memoryStream))
                 {
-                    memoryStream = null;
                     int bytesRead = 0;
-                    byte[] clip = new byte[0x1000];
-                    while ((bytesRead = gZipInputStream.Read(clip, 0, clip.Length)) != 0)
+                    while ((bytesRead = gZipInputStream.Read(m_BytesCache, 0, m_BytesCache.Length)) > 0)
                     {
-                        decompressedStream.Write(clip, 0, bytesRead);
+                        decompressedStream.Write(m_BytesCache, 0, bytesRead);
                     }
                 }
 
-                return decompressedStream.ToArray();
+                return true;
             }
             catch
             {
-                return null;
+                return false;
             }
             finally
             {
-                if (decompressedStream != null)
-                {
-                    decompressedStream.Dispose();
-                    decompressedStream = null;
-                }
-
                 if (memoryStream != null)
                 {
                     memoryStream.Dispose();

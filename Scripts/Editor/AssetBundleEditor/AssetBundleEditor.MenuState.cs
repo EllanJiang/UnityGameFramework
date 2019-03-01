@@ -5,9 +5,11 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using UnityEditor;
+
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal sealed partial class AssetBundleEditor
+    internal sealed partial class AssetBundleEditor : EditorWindow
     {
         private enum MenuState
         {

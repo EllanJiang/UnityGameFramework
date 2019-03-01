@@ -11292,7 +11292,7 @@
             通过加载资源代理辅助器开始异步加载资源。
             </summary>
             <param name="resource">资源。</param>
-            <param name="resourceChildName">要加载的子资源名称。</param>
+            <param name="assetName">要加载的资源名称。</param>
             <param name="assetType">要加载资源的类型。</param>
             <param name="isScene">要加载的资源是否是场景。</param>
         </member>
@@ -11377,14 +11377,19 @@
             获取已准备完毕资源数量。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.IResourceManager.ResourceGroupCount">
-            <summary>
-            获取资源组数量。
-            </summary>
-        </member>
         <member name="P:GameFramework.Resource.IResourceManager.UpdatePrefixUri">
             <summary>
             获取或设置资源更新下载地址。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceManager.UpdateFileCacheLength">
+            <summary>
+            获取或设置更新文件缓存大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceManager.GenerateReadWriteListLength">
+            <summary>
+            获取或设置每下载多少字节的资源，刷新一次资源列表。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.IResourceManager.UpdateRetryCount">
@@ -11700,42 +11705,6 @@
             <param name="unloadSceneCallbacks">卸载场景回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupReady(System.String)">
-            <summary>
-            获取资源组是否准备完毕。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupResourceCount(System.String)">
-            <summary>
-            获取资源组资源数量。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupReadyResourceCount(System.String)">
-            <summary>
-            获取资源组已准备完成资源数量。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupTotalLength(System.String)">
-            <summary>
-            获取资源组总大小。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupTotalReadyLength(System.String)">
-            <summary>
-            获取资源组已准备完成总大小。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupProgress(System.String)">
-            <summary>
-            获取资源组准备进度。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
         <member name="T:GameFramework.Resource.LoadAssetCallbacks">
             <summary>
             加载资源回调函数集。
@@ -12027,14 +11996,9 @@
             资源类型错误。
             </summary>
         </member>
-        <member name="F:GameFramework.Resource.LoadResourceStatus.ChildAssetError">
+        <member name="F:GameFramework.Resource.LoadResourceStatus.AssetError">
             <summary>
-            加载子资源错误。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Resource.LoadResourceStatus.SceneAssetError">
-            <summary>
-            加载场景资源错误。
+            加载资源错误。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.LoadSceneCallbacks">
@@ -12154,48 +12118,18 @@
             资源管理器。
             </summary>
         </member>
-        <member name="T:GameFramework.Resource.ResourceManager.AssetDependencyInfo">
-            <summary>
-            资源依赖信息。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.AssetDependencyInfo.#ctor(System.String,System.String[],System.String[])">
-            <summary>
-            初始化资源依赖信息的新实例。
-            </summary>
-            <param name="assetName">资源名称。</param>
-            <param name="dependencyAssetNames">依赖资源名称。</param>
-            <param name="scatteredDependencyAssetNames">依赖零散资源名称。</param>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.AssetDependencyInfo.AssetName">
-            <summary>
-            获取资源名称。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.AssetDependencyInfo.GetDependencyAssetNames">
-            <summary>
-            获取依赖资源名称。
-            </summary>
-            <returns>依赖资源名称。</returns>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.AssetDependencyInfo.GetScatteredDependencyAssetNames">
-            <summary>
-            获取依赖零散资源名称。
-            </summary>
-            <returns>依赖零散资源名称。</returns>
-        </member>
         <member name="T:GameFramework.Resource.ResourceManager.AssetInfo">
             <summary>
             资源信息。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.AssetInfo.#ctor(System.String,GameFramework.Resource.ResourceManager.ResourceName,System.String)">
+        <member name="M:GameFramework.Resource.ResourceManager.AssetInfo.#ctor(System.String,GameFramework.Resource.ResourceManager.ResourceName,System.String[])">
             <summary>
             初始化资源信息的新实例。
             </summary>
             <param name="assetName">资源名称。</param>
             <param name="resourceName">所在资源名称。</param>
-            <param name="resourceChildName">子资源名称。</param>
+            <param name="dependencyAssetNames">依赖资源名称。</param>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.AssetInfo.AssetName">
             <summary>
@@ -12207,10 +12141,11 @@
             获取所在资源名称。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.AssetInfo.ResourceChildName">
+        <member name="M:GameFramework.Resource.ResourceManager.AssetInfo.GetDependencyAssetNames">
             <summary>
-            获取子资源名称。
+            获取依赖资源名称。
             </summary>
+            <returns>依赖资源名称。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.#ctor">
             <summary>
@@ -12263,14 +12198,19 @@
             获取已准备完毕资源数量。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCount">
-            <summary>
-            获取资源组数量。
-            </summary>
-        </member>
         <member name="P:GameFramework.Resource.ResourceManager.UpdatePrefixUri">
             <summary>
             获取或设置资源更新下载地址前缀。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.UpdateFileCacheLength">
+            <summary>
+            获取或设置更新文件缓存大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.GenerateReadWriteListLength">
+            <summary>
+            获取或设置每下载多少字节的资源，刷新一次资源列表。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.UpdateRetryCount">
@@ -12598,42 +12538,6 @@
             <param name="unloadSceneCallbacks">卸载场景回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupReady(System.String)">
-            <summary>
-            获取资源组是否准备完毕。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupResourceCount(System.String)">
-            <summary>
-            获取资源组资源数量。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupReadyResourceCount(System.String)">
-            <summary>
-            获取资源组已准备完成资源数量。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupTotalLength(System.String)">
-            <summary>
-            获取资源组总大小。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupTotalReadyLength(System.String)">
-            <summary>
-            获取资源组已准备完成总大小。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupProgress(System.String)">
-            <summary>
-            获取资源组准备进度。
-            </summary>
-            <param name="resourceGroupName">要检查的资源组名称。</param>
-        </member>
         <member name="T:GameFramework.Resource.ResourceManager.LoadType">
             <summary>
             资源加载方式类型。
@@ -12832,55 +12736,6 @@
             <param name="fileUri">读写区资源列表文件路径。</param>
             <param name="bytes">要解析的数据。</param>
             <param name="errorMessage">错误信息。</param>
-        </member>
-        <member name="T:GameFramework.Resource.ResourceManager.ResourceGroup">
-            <summary>
-            资源组。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroup.#ctor(System.Collections.Generic.Dictionary{GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.ResourceInfo})">
-            <summary>
-            初始化资源组的新实例。
-            </summary>
-            <param name="resourceInfos">资源信息引用。</param>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.Ready">
-            <summary>
-            获取资源组是否准备完毕。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.ResourceCount">
-            <summary>
-            获取资源组资源数量。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.ReadyResourceCount">
-            <summary>
-            获取资源组已准备完成资源数量。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.TotalLength">
-            <summary>
-            获取资源组总大小。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.TotalReadyLength">
-            <summary>
-            获取资源组已准备完成总大小。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.Progress">
-            <summary>
-            获取资源组准备进度。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroup.AddResource(System.String,System.String,System.Int32)">
-            <summary>
-            向资源组中增加资源。
-            </summary>
-            <param name="name">资源名称。</param>
-            <param name="variant">变体名称。</param>
-            <param name="length">资源大小。</param>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceInfo">
             <summary>
@@ -13100,14 +12955,12 @@
             加载资源代理。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadResourceAgent.#ctor(GameFramework.Resource.ILoadResourceAgentHelper,GameFramework.Resource.IResourceHelper,GameFramework.ObjectPool.IObjectPool{GameFramework.Resource.ResourceManager.ResourceLoader.AssetObject},GameFramework.ObjectPool.IObjectPool{GameFramework.Resource.ResourceManager.ResourceLoader.ResourceObject},GameFramework.Resource.ResourceManager.ResourceLoader,System.String,System.String,GameFramework.Resource.DecryptResourceCallback)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadResourceAgent.#ctor(GameFramework.Resource.ILoadResourceAgentHelper,GameFramework.Resource.IResourceHelper,GameFramework.Resource.ResourceManager.ResourceLoader,System.String,System.String,GameFramework.Resource.DecryptResourceCallback)">
             <summary>
             初始化加载资源代理的新实例。
             </summary>
             <param name="loadResourceAgentHelper">加载资源代理辅助器。</param>
             <param name="resourceHelper">资源辅助器。</param>
-            <param name="assetPool">资源对象池。</param>
-            <param name="resourcePool">资源对象池。</param>
             <param name="resourceLoader">加载资源器。</param>
             <param name="readOnlyPath">资源只读区路径。</param>
             <param name="readWritePath">资源读写区路径。</param>
@@ -13193,6 +13046,11 @@
             初始化资源更新器的新实例。
             </summary>
             <param name="resourceManager">资源管理器。</param>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.GenerateReadWriteListLength">
+            <summary>
+            获取或设置每下载多少字节的资源，刷新一次资源列表。
+            </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.RetryCount">
             <summary>
@@ -17720,10 +17578,25 @@
         </member>
         <member name="M:GameFramework.Utility.Converter.GetBytes(System.Boolean)">
             <summary>
-            以字节数组的形式返回指定的布尔值。
+            以字节数组的形式获取指定的布尔值。
             </summary>
             <param name="value">要转换的布尔值。</param>
-            <returns>长度为 1 的字节数组。</returns>
+            <returns>用于存放结果的字节数组。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.Boolean,System.Byte[])">
+            <summary>
+            以字节数组的形式获取指定的布尔值。
+            </summary>
+            <param name="value">要转换的布尔值。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.Boolean,System.Byte[],System.Int32)">
+            <summary>
+            以字节数组的形式获取指定的布尔值。
+            </summary>
+            <param name="value">要转换的布尔值。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <param name="startIndex">buffer 内的起始位置。</param>
         </member>
         <member name="M:GameFramework.Utility.Converter.GetBoolean(System.Byte[])">
             <summary>
@@ -17742,10 +17615,25 @@
         </member>
         <member name="M:GameFramework.Utility.Converter.GetBytes(System.Char)">
             <summary>
-            以字节数组的形式返回指定的 Unicode 字符值。
+            以字节数组的形式获取指定的 Unicode 字符值。
             </summary>
             <param name="value">要转换的字符。</param>
-            <returns>长度为 2 的字节数组。</returns>
+            <returns>用于存放结果的字节数组。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.Char,System.Byte[])">
+            <summary>
+            以字节数组的形式获取指定的 Unicode 字符值。
+            </summary>
+            <param name="value">要转换的字符。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.Char,System.Byte[],System.Int32)">
+            <summary>
+            以字节数组的形式获取指定的 Unicode 字符值。
+            </summary>
+            <param name="value">要转换的字符。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <param name="startIndex">buffer 内的起始位置。</param>
         </member>
         <member name="M:GameFramework.Utility.Converter.GetChar(System.Byte[])">
             <summary>
@@ -17764,10 +17652,25 @@
         </member>
         <member name="M:GameFramework.Utility.Converter.GetBytes(System.Int16)">
             <summary>
-            以字节数组的形式返回指定的 16 位有符号整数值。
+            以字节数组的形式获取指定的 16 位有符号整数值。
             </summary>
             <param name="value">要转换的数字。</param>
-            <returns>长度为 2 的字节数组。</returns>
+            <returns>用于存放结果的字节数组。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.Int16,System.Byte[])">
+            <summary>
+            以字节数组的形式获取指定的 16 位有符号整数值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.Int16,System.Byte[],System.Int32)">
+            <summary>
+            以字节数组的形式获取指定的 16 位有符号整数值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <param name="startIndex">buffer 内的起始位置。</param>
         </member>
         <member name="M:GameFramework.Utility.Converter.GetInt16(System.Byte[])">
             <summary>
@@ -17786,10 +17689,25 @@
         </member>
         <member name="M:GameFramework.Utility.Converter.GetBytes(System.UInt16)">
             <summary>
-            以字节数组的形式返回指定的 16 位无符号整数值。
+            以字节数组的形式获取指定的 16 位无符号整数值。
             </summary>
             <param name="value">要转换的数字。</param>
-            <returns>长度为 2 的字节数组。</returns>
+            <returns>用于存放结果的字节数组。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.UInt16,System.Byte[])">
+            <summary>
+            以字节数组的形式获取指定的 16 位无符号整数值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.UInt16,System.Byte[],System.Int32)">
+            <summary>
+            以字节数组的形式获取指定的 16 位无符号整数值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <param name="startIndex">buffer 内的起始位置。</param>
         </member>
         <member name="M:GameFramework.Utility.Converter.GetUInt16(System.Byte[])">
             <summary>
@@ -17808,10 +17726,25 @@
         </member>
         <member name="M:GameFramework.Utility.Converter.GetBytes(System.Int32)">
             <summary>
-            以字节数组的形式返回指定的 32 位有符号整数值。
+            以字节数组的形式获取指定的 32 位有符号整数值。
             </summary>
             <param name="value">要转换的数字。</param>
-            <returns>长度为 4 的字节数组。</returns>
+            <returns>用于存放结果的字节数组。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.Int32,System.Byte[])">
+            <summary>
+            以字节数组的形式获取指定的 32 位有符号整数值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            以字节数组的形式获取指定的 32 位有符号整数值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <param name="startIndex">buffer 内的起始位置。</param>
         </member>
         <member name="M:GameFramework.Utility.Converter.GetInt32(System.Byte[])">
             <summary>
@@ -17830,10 +17763,25 @@
         </member>
         <member name="M:GameFramework.Utility.Converter.GetBytes(System.UInt32)">
             <summary>
-            以字节数组的形式返回指定的 32 位无符号整数值。
+            以字节数组的形式获取指定的 32 位无符号整数值。
             </summary>
             <param name="value">要转换的数字。</param>
-            <returns>长度为 4 的字节数组。</returns>
+            <returns>用于存放结果的字节数组。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.UInt32,System.Byte[])">
+            <summary>
+            以字节数组的形式获取指定的 32 位无符号整数值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.UInt32,System.Byte[],System.Int32)">
+            <summary>
+            以字节数组的形式获取指定的 32 位无符号整数值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <param name="startIndex">buffer 内的起始位置。</param>
         </member>
         <member name="M:GameFramework.Utility.Converter.GetUInt32(System.Byte[])">
             <summary>
@@ -17852,10 +17800,25 @@
         </member>
         <member name="M:GameFramework.Utility.Converter.GetBytes(System.Int64)">
             <summary>
-            以字节数组的形式返回指定的 64 位有符号整数值。
+            以字节数组的形式获取指定的 64 位有符号整数值。
             </summary>
             <param name="value">要转换的数字。</param>
-            <returns>长度为 8 的字节数组。</returns>
+            <returns>用于存放结果的字节数组。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.Int64,System.Byte[])">
+            <summary>
+            以字节数组的形式获取指定的 64 位有符号整数值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.Int64,System.Byte[],System.Int32)">
+            <summary>
+            以字节数组的形式获取指定的 64 位有符号整数值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <param name="startIndex">buffer 内的起始位置。</param>
         </member>
         <member name="M:GameFramework.Utility.Converter.GetInt64(System.Byte[])">
             <summary>
@@ -17874,10 +17837,25 @@
         </member>
         <member name="M:GameFramework.Utility.Converter.GetBytes(System.UInt64)">
             <summary>
-            以字节数组的形式返回指定的 64 位无符号整数值。
+            以字节数组的形式获取指定的 64 位无符号整数值。
             </summary>
             <param name="value">要转换的数字。</param>
-            <returns>长度为 8 的字节数组。</returns>
+            <returns>用于存放结果的字节数组。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.UInt64,System.Byte[])">
+            <summary>
+            以字节数组的形式获取指定的 64 位无符号整数值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.UInt64,System.Byte[],System.Int32)">
+            <summary>
+            以字节数组的形式获取指定的 64 位无符号整数值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <param name="startIndex">buffer 内的起始位置。</param>
         </member>
         <member name="M:GameFramework.Utility.Converter.GetUInt64(System.Byte[])">
             <summary>
@@ -17896,10 +17874,25 @@
         </member>
         <member name="M:GameFramework.Utility.Converter.GetBytes(System.Single)">
             <summary>
-            以字节数组的形式返回指定的单精度浮点值。
+            以字节数组的形式获取指定的单精度浮点值。
             </summary>
             <param name="value">要转换的数字。</param>
-            <returns>长度为 4 的字节数组。</returns>
+            <returns>用于存放结果的字节数组。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.Single,System.Byte[])">
+            <summary>
+            以字节数组的形式获取指定的单精度浮点值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.Single,System.Byte[],System.Int32)">
+            <summary>
+            以字节数组的形式获取指定的单精度浮点值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <param name="startIndex">buffer 内的起始位置。</param>
         </member>
         <member name="M:GameFramework.Utility.Converter.GetSingle(System.Byte[])">
             <summary>
@@ -17918,10 +17911,25 @@
         </member>
         <member name="M:GameFramework.Utility.Converter.GetBytes(System.Double)">
             <summary>
-            以字节数组的形式返回指定的双精度浮点值。
+            以字节数组的形式获取指定的双精度浮点值。
             </summary>
             <param name="value">要转换的数字。</param>
-            <returns>长度为 8 的字节数组。</returns>
+            <returns>用于存放结果的字节数组。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.Double,System.Byte[])">
+            <summary>
+            以字节数组的形式获取指定的双精度浮点值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.Double,System.Byte[],System.Int32)">
+            <summary>
+            以字节数组的形式获取指定的双精度浮点值。
+            </summary>
+            <param name="value">要转换的数字。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <param name="startIndex">buffer 内的起始位置。</param>
         </member>
         <member name="M:GameFramework.Utility.Converter.GetDouble(System.Byte[])">
             <summary>
@@ -17940,17 +17948,26 @@
         </member>
         <member name="M:GameFramework.Utility.Converter.GetBytes(System.String)">
             <summary>
-            以 UTF-8 字节数组的形式返回指定的字符串。
+            以字节数组的形式获取指定的 UTF-8 字符串。
             </summary>
             <param name="value">要转换的字符串。</param>
-            <returns>UTF-8 字节数组。</returns>
+            <returns>用于存放结果的字节数组。</returns>
         </member>
         <member name="M:GameFramework.Utility.Converter.GetString(System.Byte[])">
             <summary>
-            返回由 UTF-8 字节数组转换来的字符串。
+            返回由字节数组转换来的 UTF-8 字符串。
             </summary>
-            <param name="value">UTF-8 字节数组。</param>
-            <returns>字符串。</returns>
+            <param name="value">字节数组。</param>
+            <returns>UTF-8 字符串。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetString(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            返回由字节数组转换来的 UTF-8 字符串。
+            </summary>
+            <param name="value">字节数组。</param>
+            <param name="startIndex">value 内的起始位置。</param>
+            <param name="length">长度。</param>
+            <returns>UTF-8 字符串。</returns>
         </member>
         <member name="T:GameFramework.Utility.Encryption">
             <summary>
@@ -18359,11 +18376,20 @@
             <param name="bytes">指定的二进制流。</param>
             <returns>计算后的 CRC32。</returns>
         </member>
-        <member name="M:GameFramework.Utility.Verifier.GetCrc32(System.String)">
+        <member name="M:GameFramework.Utility.Verifier.GetCrc32(System.Byte[],System.Int32,System.Int32)">
             <summary>
-            计算指定文件的 CRC32。
+            计算二进制流的 CRC32。
             </summary>
-            <param name="fileName">指定文件的完全限定名称。</param>
+            <param name="bytes">指定的二进制流。</param>
+            <param name="offset">二进制流的偏移。</param>
+            <param name="length">二进制流的长度。</param>
+            <returns>计算后的 CRC32。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Verifier.GetCrc32(System.IO.Stream)">
+            <summary>
+            计算二进制流的 CRC32。
+            </summary>
+            <param name="stream">指定的二进制流。</param>
             <returns>计算后的 CRC32。</returns>
         </member>
         <member name="M:GameFramework.Utility.Verifier.GetMD5(System.Byte[])">
@@ -18371,6 +18397,22 @@
             计算二进制流的 MD5。
             </summary>
             <param name="bytes">指定的二进制流。</param>
+            <returns>计算后的 MD5。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Verifier.GetMD5(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            计算二进制流的 MD5。
+            </summary>
+            <param name="bytes">指定的二进制流。</param>
+            <param name="offset">二进制流的偏移。</param>
+            <param name="length">二进制流的长度。</param>
+            <returns>计算后的 MD5。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Verifier.GetMD5(System.IO.Stream)">
+            <summary>
+            计算二进制流的 MD5。
+            </summary>
+            <param name="stream">指定的二进制流。</param>
             <returns>计算后的 MD5。</returns>
         </member>
         <member name="T:GameFramework.Utility.Zip">
@@ -18388,34 +18430,94 @@
             <summary>
             压缩数据。
             </summary>
-            <param name="bytes">要压缩的数据。</param>
-            <returns>压缩后的数据。</returns>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <returns>压缩后的数据的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.Compress(System.Byte[],System.IO.Stream)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <param name="compressedStream">压缩后的数据的二进制流。</param>
+            <returns>是否压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.Compress(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <param name="offset">要压缩的数据的二进制流的偏移。</param>
+            <param name="length">要压缩的数据的二进制流的长度。</param>
+            <returns>压缩后的数据的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.Compress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <param name="offset">要压缩的数据的二进制流的偏移。</param>
+            <param name="length">要压缩的数据的二进制流的长度。</param>
+            <param name="compressedStream">压缩后的数据的二进制流。</param>
+            <returns>是否压缩数据成功。</returns>
         </member>
         <member name="M:GameFramework.Utility.Zip.Decompress(System.Byte[])">
             <summary>
             解压缩数据。
             </summary>
-            <param name="bytes">要解压缩的数据。</param>
-            <returns>解压缩后的数据。</returns>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <returns>解压缩后的数据的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.Decompress(System.Byte[],System.IO.Stream)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.Decompress(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <param name="offset">要解压缩的数据的二进制流的偏移。</param>
+            <param name="length">要解压缩的数据的二进制流的长度。</param>
+            <returns>解压缩后的数据的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.Decompress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <param name="offset">要解压缩的数据的二进制流的偏移。</param>
+            <param name="length">要解压缩的数据的二进制流的长度。</param>
+            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
         </member>
         <member name="T:GameFramework.Utility.Zip.IZipHelper">
             <summary>
             压缩解压缩辅助器接口。
             </summary>
         </member>
-        <member name="M:GameFramework.Utility.Zip.IZipHelper.Compress(System.Byte[])">
+        <member name="M:GameFramework.Utility.Zip.IZipHelper.Compress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
             <summary>
             压缩数据。
             </summary>
-            <param name="bytes">要压缩的数据。</param>
-            <returns>压缩后的数据。</returns>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <param name="offset">要压缩的数据的二进制流的偏移。</param>
+            <param name="length">要压缩的数据的二进制流的长度。</param>
+            <param name="compressedStream">压缩后的数据的二进制流。</param>
+            <returns>是否压缩数据成功。</returns>
         </member>
-        <member name="M:GameFramework.Utility.Zip.IZipHelper.Decompress(System.Byte[])">
+        <member name="M:GameFramework.Utility.Zip.IZipHelper.Decompress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
             <summary>
             解压缩数据。
             </summary>
-            <param name="bytes">要解压缩的数据。</param>
-            <returns>解压缩后的数据。</returns>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <param name="offset">要解压缩的数据的二进制流的偏移。</param>
+            <param name="length">要解压缩的数据的二进制流的长度。</param>
+            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
         </member>
         <member name="T:GameFramework.WebRequest.Constant">
             <summary>

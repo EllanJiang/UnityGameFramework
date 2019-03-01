@@ -7,9 +7,9 @@
 
 namespace UnityGameFramework.Runtime
 {
-    public partial class DebuggerComponent
+    public sealed partial class DebuggerComponent : GameFrameworkComponent
     {
-        private sealed partial class RuntimeMemoryInformationWindow<T>
+        private sealed partial class RuntimeMemoryInformationWindow<T> : ScrollableDebuggerWindowBase where T : UnityEngine.Object
         {
             private sealed class Sample
             {

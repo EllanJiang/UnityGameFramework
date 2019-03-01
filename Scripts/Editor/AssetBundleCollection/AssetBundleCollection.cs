@@ -22,9 +22,9 @@ namespace UnityGameFramework.Editor.AssetBundleTools
     /// </summary>
     public sealed class AssetBundleCollection
     {
-        private const string AssetBundleNamePattern = @"^([A-Za-z0-9\._-]+/)*[A-Za-z0-9\._-]+$";
-        private const string AssetBundleVariantPattern = @"^[a-z0-9_-]+$";
         private const string PostfixOfScene = ".unity";
+        private static readonly Regex AssetBundleNameRegex = new Regex(@"^([A-Za-z0-9\._-]+/)*[A-Za-z0-9\._-]+$");
+        private static readonly Regex AssetBundleVariantRegex = new Regex(@"^[a-z0-9_-]+$");
 
         private readonly string m_ConfigurationPath;
         private readonly SortedDictionary<string, AssetBundle> m_AssetBundles;
@@ -464,7 +464,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     continue;
                 }
 
-                if (Path.GetFileName(assetInAssetBundle.Name).ToLower() == Path.GetFileName(assetName).ToLower())
+                if (assetInAssetBundle.Name.ToLower() == assetName.ToLower())
                 {
                     return false;
                 }
@@ -512,12 +512,12 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 return false;
             }
 
-            if (!Regex.IsMatch(assetBundleName, AssetBundleNamePattern))
+            if (!AssetBundleNameRegex.IsMatch(assetBundleName))
             {
                 return false;
             }
 
-            if (assetBundleVariant != null && !Regex.IsMatch(assetBundleVariant, AssetBundleVariantPattern))
+            if (assetBundleVariant != null && !AssetBundleVariantRegex.IsMatch(assetBundleVariant))
             {
                 return false;
             }

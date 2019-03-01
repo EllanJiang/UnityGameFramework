@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    internal sealed partial class AssetBundleEditor
+    internal sealed partial class AssetBundleEditor : EditorWindow
     {
         private sealed class AssetBundleItem
         {

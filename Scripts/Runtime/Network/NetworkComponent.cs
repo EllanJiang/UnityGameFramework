@@ -17,7 +17,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     [DisallowMultipleComponent]
     [AddComponentMenu("Game Framework/Network")]
-    public sealed partial class NetworkComponent : GameFrameworkComponent
+    public sealed class NetworkComponent : GameFrameworkComponent
     {
         private INetworkManager m_NetworkManager = null;
         private EventComponent m_EventComponent = null;

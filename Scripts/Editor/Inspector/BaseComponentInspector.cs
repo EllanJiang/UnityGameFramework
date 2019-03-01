@@ -17,9 +17,8 @@ namespace UnityGameFramework.Editor
     internal sealed class BaseComponentInspector : GameFrameworkInspector
     {
         private const string NoneOptionName = "<None>";
-
-        private readonly float[] GameSpeed = new float[] { 0f, 0.25f, 0.5f, 1f, 1.5f, 2f, 4f, 8f };
-        private readonly string[] GameSpeedTexts = new string[] { "0x", "0.25x", "0.5x", "1x", "1.5x", "2x", "4x", "8x" };
+        private static readonly float[] GameSpeed = new float[] { 0f, 0.01f, 0.1f, 0.25f, 0.5f, 1f, 1.5f, 2f, 4f, 8f };
+        private static readonly string[] GameSpeedTexts = new string[] { "0x", "0.01x", "0.1x", "0.25x", "0.5x", "1x", "1.5x", "2x", "4x", "8x" };
 
         private SerializedProperty m_EditorResourceMode = null;
         private SerializedProperty m_EditorLanguage = null;
@@ -121,7 +120,7 @@ namespace UnityGameFramework.Editor
             EditorGUILayout.BeginVertical("box");
             {
                 float gameSpeed = EditorGUILayout.Slider("Game Speed", m_GameSpeed.floatValue, 0f, 8f);
-                int selectedGameSpeed = GUILayout.SelectionGrid(GetSelectedGameSpeed(gameSpeed), GameSpeedTexts, 4);
+                int selectedGameSpeed = GUILayout.SelectionGrid(GetSelectedGameSpeed(gameSpeed), GameSpeedTexts, 5);
                 if (selectedGameSpeed >= 0)
                 {
                     gameSpeed = GetGameSpeed(selectedGameSpeed);

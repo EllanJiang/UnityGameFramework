@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace UnityGameFramework.Runtime
 {
-    public partial class DebuggerComponent
+    public sealed partial class DebuggerComponent : GameFrameworkComponent
     {
         private sealed class ObjectPoolInformationWindow : ScrollableDebuggerWindowBase
         {

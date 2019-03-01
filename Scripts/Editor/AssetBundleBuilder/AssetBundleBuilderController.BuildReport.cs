@@ -31,13 +31,12 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             private string m_UnityVersion = null;
             private Platform m_Platforms = Platform.Undefined;
             private bool m_ZipSelected = false;
-            private bool m_RecordScatteredDependencyAssetsSelected = false;
             private int m_BuildAssetBundleOptions = 0;
             private StringBuilder m_LogBuilder = null;
             private SortedDictionary<string, AssetBundleData> m_AssetBundleDatas = null;
 
             public void Initialize(string buildReportPath, string productName, string companyName, string gameIdentifier, string applicableGameVersion, int internalResourceVersion, string unityVersion,
-                Platform platforms, bool zipSelected, bool recordScatteredDependencyAssetsSelected, int buildAssetBundleOptions, SortedDictionary<string, AssetBundleData> assetBundleDatas)
+                Platform platforms, bool zipSelected, int buildAssetBundleOptions, SortedDictionary<string, AssetBundleData> assetBundleDatas)
             {
                 if (string.IsNullOrEmpty(buildReportPath))
                 {
@@ -54,7 +53,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 m_InternalResourceVersion = internalResourceVersion;
                 m_Platforms = platforms;
                 m_ZipSelected = zipSelected;
-                m_RecordScatteredDependencyAssetsSelected = recordScatteredDependencyAssetsSelected;
                 m_BuildAssetBundleOptions = buildAssetBundleOptions;
                 m_LogBuilder = new StringBuilder();
                 m_AssetBundleDatas = assetBundleDatas;
@@ -120,9 +118,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 xmlSummary.AppendChild(xmlElement);
                 xmlElement = xmlDocument.CreateElement("ZipSelected");
                 xmlElement.InnerText = m_ZipSelected.ToString();
-                xmlSummary.AppendChild(xmlElement);
-                xmlElement = xmlDocument.CreateElement("RecordScatteredDependencyAssetsSelected");
-                xmlElement.InnerText = m_RecordScatteredDependencyAssetsSelected.ToString();
                 xmlSummary.AppendChild(xmlElement);
                 xmlElement = xmlDocument.CreateElement("BuildAssetBundleOptions");
                 xmlElement.InnerText = m_BuildAssetBundleOptions.ToString();

@@ -9,6 +9,7 @@ using GameFramework;
 using GameFramework.Localization;
 using System;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -149,7 +150,7 @@ namespace UnityGameFramework.Runtime
         {
             try
             {
-                using (BinaryReader binaryReader = new BinaryReader(stream))
+                using (BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8))
                 {
                     while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
                     {

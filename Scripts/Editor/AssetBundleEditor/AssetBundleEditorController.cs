@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
-    public sealed partial class AssetBundleEditorController
+    public sealed class AssetBundleEditorController
     {
         private const string DefaultSourceAssetRootPath = "Assets";
 

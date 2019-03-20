@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 
 using UnityEditor;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace UnityGameFramework.Editor
@@ -42,6 +43,15 @@ namespace UnityGameFramework.Editor
             }
 
             EditorGUILayout.PropertyField(m_ShowFullWindow);
+
+            if (EditorApplication.isPlaying)
+            {
+                if (GUILayout.Button("Reset Layout"))
+                {
+                    t.ResetLayout();
+                }
+            }
+
             EditorGUILayout.PropertyField(m_ConsoleWindow, true);
 
             serializedObject.ApplyModifiedProperties();

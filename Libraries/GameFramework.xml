@@ -11379,6 +11379,11 @@
             获取等待更新资源数量。
             </summary>
         </member>
+        <member name="P:GameFramework.Resource.IResourceManager.UpdateFailureCount">
+            <summary>
+            获取更新失败资源数量。
+            </summary>
+        </member>
         <member name="P:GameFramework.Resource.IResourceManager.UpdatingCount">
             <summary>
             获取正在更新资源数量。
@@ -12198,6 +12203,11 @@
         <member name="P:GameFramework.Resource.ResourceManager.UpdateWaitingCount">
             <summary>
             获取等待更新资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.UpdateFailureCount">
+            <summary>
+            获取更新失败资源数量。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.UpdatingCount">
@@ -13037,12 +13047,17 @@
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateWaitingCount">
             <summary>
-            获取等待更新队列大小。
+            获取等待更新资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateFailureCount">
+            <summary>
+            获取更新失败资源数量。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdatingCount">
             <summary>
-            获取正在更新队列大小。
+            获取正在更新资源数量。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.Update(System.Single,System.Single)">
@@ -13063,7 +13078,7 @@
             </summary>
             <param name="downloadManager">下载管理器。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.AddResourceUpdate(GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.String,System.Int32)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.AddResourceUpdate(GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
             <summary>
             增加资源更新。
             </summary>
@@ -13073,9 +13088,7 @@
             <param name="hashCode">资源哈希值。</param>
             <param name="zipLength">压缩包大小。</param>
             <param name="zipHashCode">压缩包哈希值。</param>
-            <param name="downloadPath">下载后存放路径。</param>
-            <param name="downloadUri">下载地址。</param>
-            <param name="retryCount">已重试次数。</param>
+            <param name="resourcePath">资源路径。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.CheckResourceComplete(System.Boolean)">
             <summary>
@@ -13093,7 +13106,7 @@
             更新信息。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.String,System.Int32)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
             <summary>
             初始化更新信息的新实例。
             </summary>
@@ -13103,9 +13116,7 @@
             <param name="hashCode">资源哈希值。</param>
             <param name="zipLength">压缩包大小。</param>
             <param name="zipHashCode">压缩包哈希值。</param>
-            <param name="downloadPath">资源更新下载后存放路径。</param>
-            <param name="downloadUri">资源更新下载地址。</param>
-            <param name="retryCount">已重试次数。</param>
+            <param name="resourcePath">资源路径。</param>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.ResourceName">
             <summary>
@@ -13137,19 +13148,14 @@
             获取压缩包哈希值。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.DownloadPath">
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.ResourcePath">
             <summary>
-            获取下载后存放路径。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.DownloadUri">
-            <summary>
-            获取下载地址。
+            获取资源路径。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.RetryCount">
             <summary>
-            获取已重试次数。
+            获取或设置已重试次数。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.VersionListProcessor">
@@ -13423,6 +13429,7 @@
             <summary>
             使用可更新模式并更新资源全部完成的回调函数。
             </summary>
+            <param name="success">更新资源是否全部成功。</param>
         </member>
         <member name="T:GameFramework.Resource.UpdateVersionListCallbacks">
             <summary>

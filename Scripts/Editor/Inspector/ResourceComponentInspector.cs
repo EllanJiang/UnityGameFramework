@@ -272,6 +272,7 @@ namespace UnityGameFramework.Editor
                 if (m_ResourceModeIndex == 1)
                 {
                     EditorGUILayout.LabelField("Update Waiting Count", isEditorResourceMode ? "N/A" : t.UpdateWaitingCount.ToString());
+                    EditorGUILayout.LabelField("Update Failure Count", isEditorResourceMode ? "N/A" : t.UpdateFailureCount.ToString());
                     EditorGUILayout.LabelField("Updating Count", isEditorResourceMode ? "N/A" : t.UpdatingCount.ToString());
                 }
                 EditorGUILayout.LabelField("Load Total Agent Count", isEditorResourceMode ? "N/A" : t.LoadTotalAgentCount.ToString());

@@ -191,8 +191,12 @@ namespace UnityGameFramework.Runtime
             {
                 if (m_LastDownloadedSize < m_WWW.bytesDownloaded)
                 {
-                    m_LastDownloadedSize = m_WWW.bytesDownloaded;
-                    m_DownloadAgentHelperUpdateEventHandler(this, new DownloadAgentHelperUpdateEventArgs(m_WWW.bytesDownloaded, null));
+                    int deltaLength = m_WWW.bytesDownloaded - m_LastDownloadedSize;
+                    if (deltaLength > 0)
+                    {
+                        m_LastDownloadedSize = m_WWW.bytesDownloaded;
+                        m_DownloadAgentHelperUpdateEventHandler(this, new DownloadAgentHelperUpdateEventArgs(deltaLength));
+                    }
                 }
 
                 return;
@@ -204,7 +208,7 @@ namespace UnityGameFramework.Runtime
             }
             else
             {
-                m_DownloadAgentHelperCompleteEventHandler(this, new DownloadAgentHelperCompleteEventArgs(m_WWW.bytesDownloaded, m_WWW.bytes));
+                m_DownloadAgentHelperCompleteEventHandler(this, new DownloadAgentHelperCompleteEventArgs(m_WWW.bytes));
             }
         }
     }

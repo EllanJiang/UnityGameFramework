@@ -4258,17 +4258,11 @@
              下载代理辅助器完成事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.#ctor(System.Int32,System.Byte[])">
+        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.#ctor(System.Byte[])">
             <summary>
             初始化下载代理辅助器完成事件的新实例。
             </summary>
-            <param name="length">下载的数据大小。</param>
             <param name="bytes">下载的数据流。</param>
-        </member>
-        <member name="P:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.Length">
-            <summary>
-            获取下载的数据大小。
-            </summary>
         </member>
         <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.GetBytes">
             <summary>
@@ -4296,21 +4290,15 @@
              下载代理辅助器更新事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateEventArgs.#ctor(System.Int32,System.Byte[])">
+        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateEventArgs.#ctor(System.Int32)">
             <summary>
             初始化下载代理辅助器更新事件的新实例。
             </summary>
-            <param name="length">下载的数据大小。</param>
-            <param name="bytes">下载的数据流。</param>
+            <param name="deltaLength">下载的数据增量大小。</param>
         </member>
-        <member name="P:GameFramework.Download.DownloadAgentHelperUpdateEventArgs.Length">
+        <member name="P:GameFramework.Download.DownloadAgentHelperUpdateEventArgs.DeltaLength">
             <summary>
-            获取下载的数据大小。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateEventArgs.GetBytes">
-            <summary>
-            获取下载的数据流。
+            获取下载的数据增量大小。
             </summary>
         </member>
         <member name="T:GameFramework.Download.DownloadFailureEventArgs">
@@ -13429,7 +13417,7 @@
             <summary>
             使用可更新模式并更新资源全部完成的回调函数。
             </summary>
-            <param name="success">更新资源是否全部成功。</param>
+            <param name="result">更新资源结果，全部成功为 true，否则为 false。</param>
         </member>
         <member name="T:GameFramework.Resource.UpdateVersionListCallbacks">
             <summary>

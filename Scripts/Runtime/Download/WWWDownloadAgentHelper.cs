@@ -222,7 +222,7 @@ namespace UnityGameFramework.Runtime
             else
             {
                 byte[] bytes = m_WWW.bytes;
-                m_DownloadAgentHelperUpdateBytesEventHandler(this, new DownloadAgentHelperUpdateBytesEventArgs(bytes));
+                m_DownloadAgentHelperUpdateBytesEventHandler(this, new DownloadAgentHelperUpdateBytesEventArgs(bytes, 0, bytes.Length));
                 m_DownloadAgentHelperCompleteEventHandler(this, new DownloadAgentHelperCompleteEventArgs(bytes.Length));
             }
         }

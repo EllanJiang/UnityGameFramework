@@ -4290,11 +4290,23 @@
              下载代理辅助器更新数据流事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.#ctor(System.Byte[])">
+        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.#ctor(System.Byte[],System.Int32,System.Int32)">
             <summary>
             初始化下载代理辅助器更新数据流事件的新实例。
             </summary>
             <param name="bytes">下载的数据流。</param>
+            <param name="offset">数据流的偏移。</param>
+            <param name="length">数据流的长度。</param>
+        </member>
+        <member name="P:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.Offset">
+            <summary>
+            获取数据流的偏移。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.Length">
+            <summary>
+            获取数据流的长度。
+            </summary>
         </member>
         <member name="M:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.GetBytes">
             <summary>

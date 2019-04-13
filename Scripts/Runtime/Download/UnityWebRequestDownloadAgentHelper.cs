@@ -7,7 +7,6 @@
 
 using GameFramework.Download;
 using System;
-using System.Collections.Generic;
 #if UNITY_5_4_OR_NEWER
 using UnityEngine.Networking;
 #else
@@ -22,8 +21,10 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class UnityWebRequestDownloadAgentHelper : DownloadAgentHelperBase, IDisposable
     {
+        private const int OneMegaBytes = 1024 * 1024;
+        private readonly byte[] m_DownloadCache = new byte[OneMegaBytes];
+
         private UnityWebRequest m_UnityWebRequest = null;
-        private int m_LastDownloadedSize = 0;
         private bool m_Disposed = false;
 
         private EventHandler<DownloadAgentHelperUpdateBytesEventArgs> m_DownloadAgentHelperUpdateBytesEventHandler = null;
@@ -104,7 +105,8 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_UnityWebRequest = UnityWebRequest.Get(downloadUri);
+            m_UnityWebRequest = new UnityWebRequest(downloadUri);
+            m_UnityWebRequest.downloadHandler = new DownloadHandler(this);
 #if UNITY_2017_2_OR_NEWER
             m_UnityWebRequest.SendWebRequest();
 #else
@@ -126,12 +128,9 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            Dictionary<string, string> header = new Dictionary<string, string>
-            {
-                { "Range", Utility.Text.Format("bytes={0}-", fromPosition.ToString()) }
-            };
-
-            m_UnityWebRequest = UnityWebRequest.Post(downloadUri, header);
+            m_UnityWebRequest = new UnityWebRequest(downloadUri);
+            m_UnityWebRequest.SetRequestHeader("Range", Utility.Text.Format("bytes={0}-", fromPosition.ToString()));
+            m_UnityWebRequest.downloadHandler = new DownloadHandler(this);
 #if UNITY_2017_2_OR_NEWER
             m_UnityWebRequest.SendWebRequest();
 #else
@@ -154,12 +153,9 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            Dictionary<string, string> header = new Dictionary<string, string>
-            {
-                { "Range", Utility.Text.Format("bytes={0}-{1}", fromPosition.ToString(), toPosition.ToString()) }
-            };
-
-            m_UnityWebRequest = UnityWebRequest.Post(downloadUri, header);
+            m_UnityWebRequest = new UnityWebRequest(downloadUri);
+            m_UnityWebRequest.SetRequestHeader("Range", Utility.Text.Format("bytes={0}-{1}", fromPosition.ToString(), toPosition.ToString()));
+            m_UnityWebRequest.downloadHandler = new DownloadHandler(this);
 #if UNITY_2017_2_OR_NEWER
             m_UnityWebRequest.SendWebRequest();
 #else
@@ -174,11 +170,10 @@ namespace UnityGameFramework.Runtime
         {
             if (m_UnityWebRequest != null)
             {
+                m_UnityWebRequest.Abort();
                 m_UnityWebRequest.Dispose();
                 m_UnityWebRequest = null;
             }
-
-            m_LastDownloadedSize = 0;
         }
 
         /// <summary>
@@ -220,13 +215,6 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            int deltaLength = (int)m_UnityWebRequest.downloadedBytes - m_LastDownloadedSize;
-            if (deltaLength > 0)
-            {
-                m_LastDownloadedSize = (int)m_UnityWebRequest.downloadedBytes;
-                m_DownloadAgentHelperUpdateLengthEventHandler(this, new DownloadAgentHelperUpdateLengthEventArgs(deltaLength));
-            }
-
             if (!m_UnityWebRequest.isDone)
             {
                 return;
@@ -242,10 +230,31 @@ namespace UnityGameFramework.Runtime
             {
                 m_DownloadAgentHelperErrorEventHandler(this, new DownloadAgentHelperErrorEventArgs(m_UnityWebRequest.error));
             }
-            else if (m_UnityWebRequest.downloadHandler.isDone)
+            else
             {
-                m_DownloadAgentHelperUpdateBytesEventHandler(this, new DownloadAgentHelperUpdateBytesEventArgs(m_UnityWebRequest.downloadHandler.data));
                 m_DownloadAgentHelperCompleteEventHandler(this, new DownloadAgentHelperCompleteEventArgs((int)m_UnityWebRequest.downloadedBytes));
+            }
+        }
+
+        private class DownloadHandler : DownloadHandlerScript
+        {
+            private readonly UnityWebRequestDownloadAgentHelper m_Owner;
+
+            public DownloadHandler(UnityWebRequestDownloadAgentHelper owner)
+                : base(owner.m_DownloadCache)
+            {
+                m_Owner = owner;
+            }
+
+            protected override bool ReceiveData(byte[] data, int dataLength)
+            {
+                if (m_Owner != null)
+                {
+                    m_Owner.m_DownloadAgentHelperUpdateBytesEventHandler(this, new DownloadAgentHelperUpdateBytesEventArgs(data, 0, dataLength));
+                    m_Owner.m_DownloadAgentHelperUpdateLengthEventHandler(this, new DownloadAgentHelperUpdateLengthEventArgs(dataLength));
+                }
+
+                return base.ReceiveData(data, dataLength);
             }
         }
     }

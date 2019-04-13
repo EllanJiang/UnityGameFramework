@@ -4258,15 +4258,15 @@
              下载代理辅助器完成事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.#ctor(System.Byte[])">
+        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.#ctor(System.Int32)">
             <summary>
             初始化下载代理辅助器完成事件的新实例。
             </summary>
-            <param name="bytes">下载的数据流。</param>
+            <param name="length">下载的数据大小。</param>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.GetBytes">
+        <member name="P:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.Length">
             <summary>
-            获取下载的数据流。
+            获取下载的数据大小。
             </summary>
         </member>
         <member name="T:GameFramework.Download.DownloadAgentHelperErrorEventArgs">
@@ -4285,20 +4285,36 @@
             获取错误信息。
             </summary>
         </member>
-        <member name="T:GameFramework.Download.DownloadAgentHelperUpdateEventArgs">
+        <member name="T:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs">
             <summary>
-             下载代理辅助器更新事件。
+             下载代理辅助器更新数据流事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateEventArgs.#ctor(System.Int32)">
+        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.#ctor(System.Byte[])">
             <summary>
-            初始化下载代理辅助器更新事件的新实例。
+            初始化下载代理辅助器更新数据流事件的新实例。
             </summary>
-            <param name="deltaLength">下载的数据增量大小。</param>
+            <param name="bytes">下载的数据流。</param>
         </member>
-        <member name="P:GameFramework.Download.DownloadAgentHelperUpdateEventArgs.DeltaLength">
+        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.GetBytes">
             <summary>
-            获取下载的数据增量大小。
+            获取下载的数据流。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Download.DownloadAgentHelperUpdateLengthEventArgs">
+            <summary>
+             下载代理辅助器更新数据大小事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateLengthEventArgs.#ctor(System.Int32)">
+            <summary>
+            初始化下载代理辅助器更新数据大小事件的新实例。
+            </summary>
+            <param name="deltaLength">下载的增量数据大小。</param>
+        </member>
+        <member name="P:GameFramework.Download.DownloadAgentHelperUpdateLengthEventArgs.DeltaLength">
+            <summary>
+            获取下载的增量数据大小。
             </summary>
         </member>
         <member name="T:GameFramework.Download.DownloadFailureEventArgs">
@@ -4770,9 +4786,14 @@
             下载代理辅助器接口。
             </summary>
         </member>
-        <member name="E:GameFramework.Download.IDownloadAgentHelper.DownloadAgentHelperUpdate">
+        <member name="E:GameFramework.Download.IDownloadAgentHelper.DownloadAgentHelperUpdateBytes">
             <summary>
-            下载代理辅助器更新事件。
+            下载代理辅助器更新数据流事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Download.IDownloadAgentHelper.DownloadAgentHelperUpdateLength">
+            <summary>
+            下载代理辅助器更新数据大小事件。
             </summary>
         </member>
         <member name="E:GameFramework.Download.IDownloadAgentHelper.DownloadAgentHelperComplete">

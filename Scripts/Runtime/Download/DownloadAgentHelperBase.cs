@@ -17,9 +17,14 @@ namespace UnityGameFramework.Runtime
     public abstract class DownloadAgentHelperBase : MonoBehaviour, IDownloadAgentHelper
     {
         /// <summary>
-        /// 下载代理辅助器更新事件。
+        /// 下载代理辅助器更新数据流事件。
         /// </summary>
-        public abstract event EventHandler<DownloadAgentHelperUpdateEventArgs> DownloadAgentHelperUpdate;
+        public abstract event EventHandler<DownloadAgentHelperUpdateBytesEventArgs> DownloadAgentHelperUpdateBytes;
+
+        /// <summary>
+        /// 下载代理辅助器更新数据大小事件。
+        /// </summary>
+        public abstract event EventHandler<DownloadAgentHelperUpdateLengthEventArgs> DownloadAgentHelperUpdateLength;
 
         /// <summary>
         /// 下载代理辅助器完成事件。

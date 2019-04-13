@@ -19,7 +19,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 使用 UnityWebRequest 实现的下载代理辅助器。
     /// </summary>
-    public class UnityWebRequestDownloadAgentHelper : DownloadAgentHelperBase, IDisposable
+    public partial class UnityWebRequestDownloadAgentHelper : DownloadAgentHelperBase, IDisposable
     {
         private const int OneMegaBytes = 1024 * 1024;
         private readonly byte[] m_DownloadCache = new byte[OneMegaBytes];
@@ -233,28 +233,6 @@ namespace UnityGameFramework.Runtime
             else
             {
                 m_DownloadAgentHelperCompleteEventHandler(this, new DownloadAgentHelperCompleteEventArgs((int)m_UnityWebRequest.downloadedBytes));
-            }
-        }
-
-        private class DownloadHandler : DownloadHandlerScript
-        {
-            private readonly UnityWebRequestDownloadAgentHelper m_Owner;
-
-            public DownloadHandler(UnityWebRequestDownloadAgentHelper owner)
-                : base(owner.m_DownloadCache)
-            {
-                m_Owner = owner;
-            }
-
-            protected override bool ReceiveData(byte[] data, int dataLength)
-            {
-                if (m_Owner != null)
-                {
-                    m_Owner.m_DownloadAgentHelperUpdateBytesEventHandler(this, new DownloadAgentHelperUpdateBytesEventArgs(data, 0, dataLength));
-                    m_Owner.m_DownloadAgentHelperUpdateLengthEventHandler(this, new DownloadAgentHelperUpdateLengthEventArgs(dataLength));
-                }
-
-                return base.ReceiveData(data, dataLength);
             }
         }
     }

@@ -29,7 +29,7 @@ namespace UnityGameFramework.Runtime
 
             protected override bool ReceiveData(byte[] data, int dataLength)
             {
-                if (m_Owner != null)
+                if (m_Owner != null && dataLength > 0)
                 {
                     m_Owner.m_DownloadAgentHelperUpdateBytesEventHandler(this, new DownloadAgentHelperUpdateBytesEventArgs(data, 0, dataLength));
                     m_Owner.m_DownloadAgentHelperUpdateLengthEventHandler(this, new DownloadAgentHelperUpdateLengthEventArgs(dataLength));

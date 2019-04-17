@@ -89,6 +89,16 @@ namespace UnityGameFramework.Editor
                             EditorGUILayout.LabelField(objectInfo.Name, Utility.Text.Format("{0}, {1}, {2}, {3}, {4}", objectInfo.Locked.ToString(), objectPool.AllowMultiSpawn ? objectInfo.SpawnCount.ToString() : objectInfo.IsInUse.ToString(), objectInfo.CustomCanReleaseFlag.ToString(), objectInfo.Priority.ToString(), objectInfo.LastUseTime.ToString("yyyy-MM-dd HH:mm:ss")));
                         }
 
+                        if (GUILayout.Button("Release"))
+                        {
+                            objectPool.Release();
+                        }
+
+                        if (GUILayout.Button("Release All Unused"))
+                        {
+                            objectPool.ReleaseAllUnused();
+                        }
+
                         if (GUILayout.Button("Export CSV Data"))
                         {
                             string exportFileName = EditorUtility.SaveFilePanel("Export CSV Data", string.Empty, Utility.Text.Format("Object Pool Data - {0}.csv", objectPool.Name), string.Empty);

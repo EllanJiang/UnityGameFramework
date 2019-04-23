@@ -119,7 +119,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 #else
                         iconName = "PrefabNormal Icon";
 #endif
-                        s_CachedUnknownIcon = GetIcon(iconName);
+                        s_CachedAssetIcon = GetIcon(iconName);
                     }
 
                     return s_CachedAssetIcon;

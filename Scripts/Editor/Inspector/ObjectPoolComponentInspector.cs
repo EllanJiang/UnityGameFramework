@@ -50,7 +50,6 @@ namespace UnityGameFramework.Editor
 
         private void OnEnable()
         {
-
         }
 
         private void DrawObjectPool(ObjectPoolBase objectPool)

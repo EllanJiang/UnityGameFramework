@@ -78,8 +78,10 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     {
                         case AssetBundleType.Asset:
                             return CachedAssetIcon;
+
                         case AssetBundleType.Scene:
                             return CachedSceneIcon;
+
                         default:
                             return CachedUnknownIcon;
                     }

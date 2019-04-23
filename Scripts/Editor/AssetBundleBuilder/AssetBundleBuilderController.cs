@@ -368,12 +368,15 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                         case "InternalResourceVersion":
                             InternalResourceVersion = int.Parse(xmlNode.InnerText) + 1;
                             break;
+
                         case "Platforms":
                             Platforms = (Platform)int.Parse(xmlNode.InnerText);
                             break;
+
                         case "ZipSelected":
                             ZipSelected = bool.Parse(xmlNode.InnerText);
                             break;
+
                         case "UncompressedAssetBundleSelected":
                             UncompressedAssetBundleSelected = bool.Parse(xmlNode.InnerText);
                             if (UncompressedAssetBundleSelected)
@@ -381,6 +384,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                                 ChunkBasedCompressionSelected = false;
                             }
                             break;
+
                         case "DisableWriteTypeTreeSelected":
                             DisableWriteTypeTreeSelected = bool.Parse(xmlNode.InnerText);
                             if (DisableWriteTypeTreeSelected)
@@ -388,12 +392,15 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                                 IgnoreTypeTreeChangesSelected = false;
                             }
                             break;
+
                         case "DeterministicAssetBundleSelected":
                             DeterministicAssetBundleSelected = bool.Parse(xmlNode.InnerText);
                             break;
+
                         case "ForceRebuildAssetBundleSelected":
                             ForceRebuildAssetBundleSelected = bool.Parse(xmlNode.InnerText);
                             break;
+
                         case "IgnoreTypeTreeChangesSelected":
                             IgnoreTypeTreeChangesSelected = bool.Parse(xmlNode.InnerText);
                             if (IgnoreTypeTreeChangesSelected)
@@ -401,9 +408,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                                 DisableWriteTypeTreeSelected = false;
                             }
                             break;
+
                         case "AppendHashToAssetBundleNameSelected":
                             AppendHashToAssetBundleNameSelected = false;
                             break;
+
                         case "ChunkBasedCompressionSelected":
                             ChunkBasedCompressionSelected = bool.Parse(xmlNode.InnerText);
                             if (ChunkBasedCompressionSelected)
@@ -411,19 +420,24 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                                 UncompressedAssetBundleSelected = false;
                             }
                             break;
+
                         case "OutputPackageSelected":
                             OutputPackageSelected = bool.Parse(xmlNode.InnerText);
                             break;
+
                         case "OutputFullSelected":
                             OutputFullSelected = bool.Parse(xmlNode.InnerText);
                             break;
+
                         case "OutputPackedSelected":
                             OutputPackedSelected = bool.Parse(xmlNode.InnerText);
                             break;
+
                         case "BuildEventHandlerTypeName":
                             BuildEventHandlerTypeName = xmlNode.InnerText;
                             RefreshBuildEventHandler();
                             break;
+
                         case "OutputDirectory":
                             OutputDirectory = xmlNode.InnerText;
                             break;
@@ -1375,8 +1389,10 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             {
                 case Platform.Windows:
                     return BuildTarget.StandaloneWindows;
+
                 case Platform.Windows64:
                     return BuildTarget.StandaloneWindows64;
+
                 case Platform.MacOS:
 #if UNITY_2017_3_OR_NEWER
                     return BuildTarget.StandaloneOSX;
@@ -1385,18 +1401,25 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 #endif
                 case Platform.Linux:
                     return BuildTarget.StandaloneLinux;
+
                 case Platform.Linux64:
                     return BuildTarget.StandaloneLinux64;
+
                 case Platform.LinuxUniversal:
                     return BuildTarget.StandaloneLinuxUniversal;
+
                 case Platform.IOS:
                     return BuildTarget.iOS;
+
                 case Platform.Android:
                     return BuildTarget.Android;
+
                 case Platform.WindowsStore:
                     return BuildTarget.WSAPlayer;
+
                 case Platform.WebGL:
                     return BuildTarget.WebGL;
+
                 default:
                     throw new GameFrameworkException("Platform is invalid.");
             }

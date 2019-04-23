@@ -110,12 +110,15 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     case 0:
                         DrawSummary();
                         break;
+
                     case 1:
                         DrawAssetDependencyViewer();
                         break;
+
                     case 2:
                         DrawScatteredAssetViewer();
                         break;
+
                     case 3:
                         DrawCircularDependencyViewer();
                         break;

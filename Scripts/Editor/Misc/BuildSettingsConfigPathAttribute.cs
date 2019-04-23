@@ -12,6 +12,5 @@ namespace UnityGameFramework.Editor
     /// </summary>
     public sealed class BuildSettingsConfigPathAttribute : ConfigPathAttribute
     {
-
     }
 }

@@ -19,27 +19,22 @@ namespace UnityGameFramework.Runtime
 
             public virtual void Initialize(params object[] args)
             {
-
             }
 
             public virtual void Shutdown()
             {
-
             }
 
             public virtual void OnEnter()
             {
-
             }
 
             public virtual void OnLeave()
             {
-
             }
 
             public virtual void OnUpdate(float elapseSeconds, float realElapseSeconds)
             {
-
             }
 
             public void OnDraw()

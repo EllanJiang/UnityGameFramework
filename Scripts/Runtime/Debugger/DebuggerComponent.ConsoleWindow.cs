@@ -255,12 +255,10 @@ namespace UnityGameFramework.Runtime
 
             public void OnEnter()
             {
-
             }
 
             public void OnLeave()
             {
-
             }
 
             public void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -335,18 +333,21 @@ namespace UnityGameFramework.Runtime
                                         continue;
                                     }
                                     break;
+
                                 case LogType.Warning:
                                     if (!m_WarningFilter)
                                     {
                                         continue;
                                     }
                                     break;
+
                                 case LogType.Error:
                                     if (!m_ErrorFilter)
                                     {
                                         continue;
                                     }
                                     break;
+
                                 case LogType.Exception:
                                     if (!m_FatalFilter)
                                     {
@@ -419,12 +420,15 @@ namespace UnityGameFramework.Runtime
                         case LogType.Log:
                             m_InfoCount++;
                             break;
+
                         case LogType.Warning:
                             m_WarningCount++;
                             break;
+
                         case LogType.Error:
                             m_ErrorCount++;
                             break;
+
                         case LogType.Exception:
                             m_FatalCount++;
                             break;
@@ -510,12 +514,15 @@ namespace UnityGameFramework.Runtime
                     case LogType.Log:
                         color = m_InfoColor;
                         break;
+
                     case LogType.Warning:
                         color = m_WarningColor;
                         break;
+
                     case LogType.Error:
                         color = m_ErrorColor;
                         break;
+
                     case LogType.Exception:
                         color = m_FatalColor;
                         break;

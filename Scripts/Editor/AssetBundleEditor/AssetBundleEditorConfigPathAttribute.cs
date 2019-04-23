@@ -12,6 +12,5 @@ namespace UnityGameFramework.Editor.AssetBundleTools
     /// </summary>
     public sealed class AssetBundleEditorConfigPathAttribute : ConfigPathAttribute
     {
-
     }
 }

@@ -104,7 +104,6 @@ namespace UnityGameFramework.Runtime
 
         private void Start()
         {
-
         }
 
         private IEnumerator LoadBytesCo(string fileUri, LoadBytesCallback loadBytesCallback)

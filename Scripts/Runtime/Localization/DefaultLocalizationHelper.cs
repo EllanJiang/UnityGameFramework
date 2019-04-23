@@ -205,15 +205,18 @@ namespace UnityGameFramework.Runtime
                 case LoadType.Text:
                     retVal = m_LocalizationManager.ParseDictionary(textAsset.text, userData);
                     break;
+
                 case LoadType.Bytes:
                     retVal = m_LocalizationManager.ParseDictionary(textAsset.bytes, userData);
                     break;
+
                 case LoadType.Stream:
                     using (MemoryStream stream = new MemoryStream(textAsset.bytes, false))
                     {
                         retVal = m_LocalizationManager.ParseDictionary(stream, userData);
                     }
                     break;
+
                 default:
                     Log.Warning("Unknown load type.");
                     return false;

@@ -241,6 +241,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                         case "SourceAssetRootPath":
                             SourceAssetRootPath = xmlNode.InnerText;
                             break;
+
                         case "SourceAssetSearchPaths":
                             m_SourceAssetSearchRelativePaths.Clear();
                             XmlNodeList xmlNodeListInner = xmlNode.ChildNodes;
@@ -256,18 +257,23 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                                 m_SourceAssetSearchRelativePaths.Add(xmlNodeInner.Attributes.GetNamedItem("RelativePath").Value);
                             }
                             break;
+
                         case "SourceAssetUnionTypeFilter":
                             SourceAssetUnionTypeFilter = xmlNode.InnerText;
                             break;
+
                         case "SourceAssetUnionLabelFilter":
                             SourceAssetUnionLabelFilter = xmlNode.InnerText;
                             break;
+
                         case "SourceAssetExceptTypeFilter":
                             SourceAssetExceptTypeFilter = xmlNode.InnerText;
                             break;
+
                         case "SourceAssetExceptLabelFilter":
                             SourceAssetExceptLabelFilter = xmlNode.InnerText;
                             break;
+
                         case "AssetSorter":
                             AssetSorter = (AssetSorterType)Enum.Parse(typeof(AssetSorterType), xmlNode.InnerText);
                             break;
@@ -443,9 +449,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 case AssetSorterType.Path:
                     assets.Sort(AssetPathComparer);
                     break;
+
                 case AssetSorterType.Name:
                     assets.Sort(AssetNameComparer);
                     break;
+
                 case AssetSorterType.Guid:
                     assets.Sort(AssetGuidComparer);
                     break;

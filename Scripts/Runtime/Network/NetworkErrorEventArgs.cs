@@ -16,12 +16,12 @@ namespace UnityGameFramework.Runtime
     public sealed class NetworkErrorEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 连接错误事件编号。
+        /// 网络错误事件编号。
         /// </summary>
         public static readonly int EventId = typeof(NetworkErrorEventArgs).GetHashCode();
 
         /// <summary>
-        /// 获取连接错误事件编号。
+        /// 获取网络错误事件编号。
         /// </summary>
         public override int Id
         {

@@ -74,7 +74,6 @@ namespace UnityGameFramework.Editor
             }
             catch
             {
-
             }
         }
 

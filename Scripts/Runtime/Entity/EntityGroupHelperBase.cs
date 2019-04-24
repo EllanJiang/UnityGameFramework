@@ -15,6 +15,5 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public abstract class EntityGroupHelperBase : MonoBehaviour, IEntityGroupHelper
     {
-
     }
 }

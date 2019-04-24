@@ -42,7 +42,6 @@ namespace UnityGameFramework.Editor
 
         private void OnEnable()
         {
-
         }
 
         private void DrawReferencePoolInfo(ReferencePoolInfo referencePoolInfo)

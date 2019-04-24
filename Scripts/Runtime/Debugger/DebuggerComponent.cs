@@ -285,6 +285,16 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 还原调试窗口布局。
+        /// </summary>
+        public void ResetLayout()
+        {
+            IconRect = DefaultIconRect;
+            WindowRect = DefaultWindowRect;
+            WindowScale = DefaultWindowScale;
+        }
+
+        /// <summary>
         /// 获取记录的全部日志。
         /// </summary>
         /// <param name="results">要获取的日志。</param>

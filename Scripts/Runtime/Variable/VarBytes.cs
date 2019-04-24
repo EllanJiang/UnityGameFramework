@@ -14,13 +14,11 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class VarBytes : Variable<byte[]>
     {
-
         /// <summary>
         /// 初始化 byte[] 变量类的新实例。
         /// </summary>
         public VarBytes()
         {
-
         }
 
         /// <summary>
@@ -30,7 +28,6 @@ namespace UnityGameFramework.Runtime
         public VarBytes(byte[] value)
             : base(value)
         {
-
         }
 
         /// <summary>

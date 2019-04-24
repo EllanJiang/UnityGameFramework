@@ -38,7 +38,6 @@ namespace UnityGameFramework.Editor
         /// </summary>
         protected virtual void OnCompileStart()
         {
-
         }
 
         /// <summary>
@@ -46,7 +45,6 @@ namespace UnityGameFramework.Editor
         /// </summary>
         protected virtual void OnCompileComplete()
         {
-
         }
 
         protected bool IsPrefabInHierarchy(UnityEngine.Object obj)

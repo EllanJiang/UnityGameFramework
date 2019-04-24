@@ -44,7 +44,6 @@ namespace UnityGameFramework.Editor
 
         private void OnEnable()
         {
-
         }
 
         private void DrawNetworkChannel(INetworkChannel networkChannel)
@@ -53,8 +52,8 @@ namespace UnityGameFramework.Editor
             {
                 EditorGUILayout.LabelField(networkChannel.Name, networkChannel.Connected ? "Connected" : "Disconnected");
                 EditorGUILayout.LabelField("Network Type", networkChannel.NetworkType.ToString());
-                EditorGUILayout.LabelField("Local Address", networkChannel.Connected ? Utility.Text.Format("{0}:{1}", networkChannel.LocalIPAddress.ToString(), networkChannel.LocalPort.ToString()) : "Unavailable");
-                EditorGUILayout.LabelField("Remote Address", networkChannel.Connected ? Utility.Text.Format("{0}:{1}", networkChannel.RemoteIPAddress.ToString(), networkChannel.RemotePort.ToString()) : "Unavailable");
+                EditorGUILayout.LabelField("Local Address", networkChannel.Connected ? networkChannel.Socket.LocalEndPoint.ToString() : "Unavailable");
+                EditorGUILayout.LabelField("Remote Address", networkChannel.Connected ? networkChannel.Socket.RemoteEndPoint.ToString() : "Unavailable");
                 EditorGUILayout.LabelField("Send Packet", Utility.Text.Format("{0} / {1}", networkChannel.SendPacketCount.ToString(), networkChannel.SentPacketCount.ToString()));
                 EditorGUILayout.LabelField("Receive Packet", Utility.Text.Format("{0} / {1}", networkChannel.ReceivePacketCount.ToString(), networkChannel.ReceivedPacketCount.ToString()));
                 EditorGUILayout.LabelField("Miss Heart Beat Count", networkChannel.MissHeartBeatCount.ToString());

@@ -25,7 +25,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         public AssetBundleAnalyzerController()
             : this(null)
         {
-
         }
 
         public AssetBundleAnalyzerController(AssetBundleCollection assetBundleCollection)
@@ -209,27 +208,35 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 case AssetsOrder.AssetNameAsc:
                     orderedResult = filteredResult.OrderBy(pair => pair.Key);
                     break;
+
                 case AssetsOrder.AssetNameDesc:
                     orderedResult = filteredResult.OrderByDescending(pair => pair.Key);
                     break;
+
                 case AssetsOrder.DependencyAssetBundleCountAsc:
                     orderedResult = filteredResult.OrderBy(pair => pair.Value.DependencyAssetBundleCount);
                     break;
+
                 case AssetsOrder.DependencyAssetBundleCountDesc:
                     orderedResult = filteredResult.OrderByDescending(pair => pair.Value.DependencyAssetBundleCount);
                     break;
+
                 case AssetsOrder.DependencyAssetCountAsc:
                     orderedResult = filteredResult.OrderBy(pair => pair.Value.DependencyAssetCount);
                     break;
+
                 case AssetsOrder.DependencyAssetCountDesc:
                     orderedResult = filteredResult.OrderByDescending(pair => pair.Value.DependencyAssetCount);
                     break;
+
                 case AssetsOrder.ScatteredDependencyAssetCountAsc:
                     orderedResult = filteredResult.OrderBy(pair => pair.Value.ScatteredDependencyAssetCount);
                     break;
+
                 case AssetsOrder.ScatteredDependencyAssetCountDesc:
                     orderedResult = filteredResult.OrderByDescending(pair => pair.Value.ScatteredDependencyAssetCount);
                     break;
+
                 default:
                     orderedResult = filteredResult;
                     break;
@@ -264,15 +271,19 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 case ScatteredAssetsOrder.AssetNameAsc:
                     orderedResult = filteredResult.OrderBy(pair => pair.Key);
                     break;
+
                 case ScatteredAssetsOrder.AssetNameDesc:
                     orderedResult = filteredResult.OrderByDescending(pair => pair.Key);
                     break;
+
                 case ScatteredAssetsOrder.HostAssetCountAsc:
                     orderedResult = filteredResult.OrderBy(pair => pair.Value.Count);
                     break;
+
                 case ScatteredAssetsOrder.HostAssetCountDesc:
                     orderedResult = filteredResult.OrderByDescending(pair => pair.Value.Count);
                     break;
+
                 default:
                     orderedResult = filteredResult;
                     break;

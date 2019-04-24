@@ -92,6 +92,5 @@ namespace UnityGameFramework.Runtime
 
             return this;
         }
-
     }
 }

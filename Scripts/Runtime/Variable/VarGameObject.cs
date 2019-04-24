@@ -20,7 +20,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public VarGameObject()
         {
-
         }
 
         /// <summary>
@@ -30,7 +29,6 @@ namespace UnityGameFramework.Runtime
         public VarGameObject(GameObject value)
             : base(value)
         {
-
         }
 
         /// <summary>

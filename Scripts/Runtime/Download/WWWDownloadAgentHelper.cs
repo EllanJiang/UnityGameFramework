@@ -24,22 +24,38 @@ namespace UnityGameFramework.Runtime
         private int m_LastDownloadedSize = 0;
         private bool m_Disposed = false;
 
-        private EventHandler<DownloadAgentHelperUpdateEventArgs> m_DownloadAgentHelperUpdateEventHandler = null;
+        private EventHandler<DownloadAgentHelperUpdateBytesEventArgs> m_DownloadAgentHelperUpdateBytesEventHandler = null;
+        private EventHandler<DownloadAgentHelperUpdateLengthEventArgs> m_DownloadAgentHelperUpdateLengthEventHandler = null;
         private EventHandler<DownloadAgentHelperCompleteEventArgs> m_DownloadAgentHelperCompleteEventHandler = null;
         private EventHandler<DownloadAgentHelperErrorEventArgs> m_DownloadAgentHelperErrorEventHandler = null;
 
         /// <summary>
-        /// 下载代理辅助器更新事件。
+        /// 下载代理辅助器更新数据流事件。
         /// </summary>
-        public override event EventHandler<DownloadAgentHelperUpdateEventArgs> DownloadAgentHelperUpdate
+        public override event EventHandler<DownloadAgentHelperUpdateBytesEventArgs> DownloadAgentHelperUpdateBytes
         {
             add
             {
-                m_DownloadAgentHelperUpdateEventHandler += value;
+                m_DownloadAgentHelperUpdateBytesEventHandler += value;
             }
             remove
             {
-                m_DownloadAgentHelperUpdateEventHandler -= value;
+                m_DownloadAgentHelperUpdateBytesEventHandler -= value;
+            }
+        }
+
+        /// <summary>
+        /// 下载代理辅助器更新数据大小事件。
+        /// </summary>
+        public override event EventHandler<DownloadAgentHelperUpdateLengthEventArgs> DownloadAgentHelperUpdateLength
+        {
+            add
+            {
+                m_DownloadAgentHelperUpdateLengthEventHandler += value;
+            }
+            remove
+            {
+                m_DownloadAgentHelperUpdateLengthEventHandler -= value;
             }
         }
 
@@ -80,7 +96,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public override void Download(string downloadUri, object userData)
         {
-            if (m_DownloadAgentHelperUpdateEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
+            if (m_DownloadAgentHelperUpdateBytesEventHandler == null || m_DownloadAgentHelperUpdateLengthEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
             {
                 Log.Fatal("Download agent helper handler is invalid.");
                 return;
@@ -97,7 +113,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public override void Download(string downloadUri, int fromPosition, object userData)
         {
-            if (m_DownloadAgentHelperUpdateEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
+            if (m_DownloadAgentHelperUpdateBytesEventHandler == null || m_DownloadAgentHelperUpdateLengthEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
             {
                 Log.Fatal("Download agent helper handler is invalid.");
                 return;
@@ -120,7 +136,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public override void Download(string downloadUri, int fromPosition, int toPosition, object userData)
         {
-            if (m_DownloadAgentHelperUpdateEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
+            if (m_DownloadAgentHelperUpdateBytesEventHandler == null || m_DownloadAgentHelperUpdateLengthEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
             {
                 Log.Fatal("Download agent helper handler is invalid.");
                 return;
@@ -187,14 +203,15 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
+            int deltaLength = m_WWW.bytesDownloaded - m_LastDownloadedSize;
+            if (deltaLength > 0)
+            {
+                m_LastDownloadedSize = m_WWW.bytesDownloaded;
+                m_DownloadAgentHelperUpdateLengthEventHandler(this, new DownloadAgentHelperUpdateLengthEventArgs(deltaLength));
+            }
+
             if (!m_WWW.isDone)
             {
-                if (m_LastDownloadedSize < m_WWW.bytesDownloaded)
-                {
-                    m_LastDownloadedSize = m_WWW.bytesDownloaded;
-                    m_DownloadAgentHelperUpdateEventHandler(this, new DownloadAgentHelperUpdateEventArgs(m_WWW.bytesDownloaded, null));
-                }
-
                 return;
             }
 
@@ -204,7 +221,9 @@ namespace UnityGameFramework.Runtime
             }
             else
             {
-                m_DownloadAgentHelperCompleteEventHandler(this, new DownloadAgentHelperCompleteEventArgs(m_WWW.bytesDownloaded, m_WWW.bytes));
+                byte[] bytes = m_WWW.bytes;
+                m_DownloadAgentHelperUpdateBytesEventHandler(this, new DownloadAgentHelperUpdateBytesEventArgs(bytes, 0, bytes.Length));
+                m_DownloadAgentHelperCompleteEventHandler(this, new DownloadAgentHelperCompleteEventArgs(bytes.Length));
             }
         }
     }

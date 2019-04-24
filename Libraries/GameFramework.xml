@@ -1556,10 +1556,36 @@
             开始处理任务。
             </summary>
             <param name="task">要处理的任务。</param>
+            <returns>开始处理任务的状态。</returns>
         </member>
         <member name="M:GameFramework.ITaskAgent`1.Reset">
             <summary>
             停止正在处理的任务并重置任务代理。
+            </summary>
+        </member>
+        <member name="T:GameFramework.StartTaskStatus">
+            <summary>
+            开始处理任务的状态。
+            </summary>
+        </member>
+        <member name="F:GameFramework.StartTaskStatus.Done">
+            <summary>
+            可以立刻处理完成此任务。
+            </summary>
+        </member>
+        <member name="F:GameFramework.StartTaskStatus.CanResume">
+            <summary>
+            可以继续处理此任务。
+            </summary>
+        </member>
+        <member name="F:GameFramework.StartTaskStatus.HasToWait">
+            <summary>
+            不能继续处理此任务，需等待其它任务执行完成。
+            </summary>
+        </member>
+        <member name="F:GameFramework.StartTaskStatus.UnknownError">
+            <summary>
+            不能继续处理此任务，出现未知错误。
             </summary>
         </member>
         <member name="T:GameFramework.TaskPool`1">
@@ -4232,21 +4258,15 @@
              下载代理辅助器完成事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.#ctor(System.Int32,System.Byte[])">
+        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.#ctor(System.Int32)">
             <summary>
             初始化下载代理辅助器完成事件的新实例。
             </summary>
             <param name="length">下载的数据大小。</param>
-            <param name="bytes">下载的数据流。</param>
         </member>
         <member name="P:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.Length">
             <summary>
             获取下载的数据大小。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.GetBytes">
-            <summary>
-            获取下载的数据流。
             </summary>
         </member>
         <member name="T:GameFramework.Download.DownloadAgentHelperErrorEventArgs">
@@ -4265,26 +4285,48 @@
             获取错误信息。
             </summary>
         </member>
-        <member name="T:GameFramework.Download.DownloadAgentHelperUpdateEventArgs">
+        <member name="T:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs">
             <summary>
-             下载代理辅助器更新事件。
+             下载代理辅助器更新数据流事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateEventArgs.#ctor(System.Int32,System.Byte[])">
+        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.#ctor(System.Byte[],System.Int32,System.Int32)">
             <summary>
-            初始化下载代理辅助器更新事件的新实例。
+            初始化下载代理辅助器更新数据流事件的新实例。
             </summary>
-            <param name="length">下载的数据大小。</param>
             <param name="bytes">下载的数据流。</param>
+            <param name="offset">数据流的偏移。</param>
+            <param name="length">数据流的长度。</param>
         </member>
-        <member name="P:GameFramework.Download.DownloadAgentHelperUpdateEventArgs.Length">
+        <member name="P:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.Offset">
             <summary>
-            获取下载的数据大小。
+            获取数据流的偏移。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateEventArgs.GetBytes">
+        <member name="P:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.Length">
+            <summary>
+            获取数据流的长度。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.GetBytes">
             <summary>
             获取下载的数据流。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Download.DownloadAgentHelperUpdateLengthEventArgs">
+            <summary>
+             下载代理辅助器更新数据大小事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateLengthEventArgs.#ctor(System.Int32)">
+            <summary>
+            初始化下载代理辅助器更新数据大小事件的新实例。
+            </summary>
+            <param name="deltaLength">下载的增量数据大小。</param>
+        </member>
+        <member name="P:GameFramework.Download.DownloadAgentHelperUpdateLengthEventArgs.DeltaLength">
+            <summary>
+            获取下载的增量数据大小。
             </summary>
         </member>
         <member name="T:GameFramework.Download.DownloadFailureEventArgs">
@@ -4527,6 +4569,7 @@
             开始处理下载任务。
             </summary>
             <param name="task">要处理的下载任务。</param>
+            <returns>开始处理任务的状态。</returns>
         </member>
         <member name="M:GameFramework.Download.DownloadManager.DownloadAgent.Reset">
             <summary>
@@ -4755,9 +4798,14 @@
             下载代理辅助器接口。
             </summary>
         </member>
-        <member name="E:GameFramework.Download.IDownloadAgentHelper.DownloadAgentHelperUpdate">
+        <member name="E:GameFramework.Download.IDownloadAgentHelper.DownloadAgentHelperUpdateBytes">
             <summary>
-            下载代理辅助器更新事件。
+            下载代理辅助器更新数据流事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Download.IDownloadAgentHelper.DownloadAgentHelperUpdateLength">
+            <summary>
+            下载代理辅助器更新数据大小事件。
             </summary>
         </member>
         <member name="E:GameFramework.Download.IDownloadAgentHelper.DownloadAgentHelperComplete">
@@ -8140,6 +8188,11 @@
             获取网络频道名称。
             </summary>
         </member>
+        <member name="P:GameFramework.Network.INetworkChannel.Socket">
+            <summary>
+            获取网络频道所使用的 Socket。
+            </summary>
+        </member>
         <member name="P:GameFramework.Network.INetworkChannel.Connected">
             <summary>
             获取是否已连接。
@@ -8148,26 +8201,6 @@
         <member name="P:GameFramework.Network.INetworkChannel.NetworkType">
             <summary>
             获取网络类型。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.INetworkChannel.LocalIPAddress">
-            <summary>
-            获取本地终结点的 IP 地址。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.INetworkChannel.LocalPort">
-            <summary>
-            获取本地终结点的端口号。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.INetworkChannel.RemoteIPAddress">
-            <summary>
-            获取远程终结点的 IP 地址。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.INetworkChannel.RemotePort">
-            <summary>
-            获取远程终结点的端口号。
             </summary>
         </member>
         <member name="P:GameFramework.Network.INetworkChannel.SendPacketCount">
@@ -8208,16 +8241,6 @@
         <member name="P:GameFramework.Network.INetworkChannel.HeartBeatElapseSeconds">
             <summary>
             获取心跳等待时长，以秒为单位。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.INetworkChannel.ReceiveBufferSize">
-            <summary>
-            获取或设置接收缓冲区字节数。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.INetworkChannel.SendBufferSize">
-            <summary>
-            获取或设置发送缓冲区字节数。
             </summary>
         </member>
         <member name="M:GameFramework.Network.INetworkChannel.RegisterHandler(GameFramework.Network.IPacketHandler)">
@@ -8658,6 +8681,11 @@
             获取网络频道名称。
             </summary>
         </member>
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.Socket">
+            <summary>
+            获取网络频道所使用的 Socket。
+            </summary>
+        </member>
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.Connected">
             <summary>
             获取是否已连接。
@@ -8666,26 +8694,6 @@
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.NetworkType">
             <summary>
             获取网络类型。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.LocalIPAddress">
-            <summary>
-            获取本地终结点的 IP 地址。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.LocalPort">
-            <summary>
-            获取本地终结点的端口号。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.RemoteIPAddress">
-            <summary>
-            获取远程终结点的 IP 地址。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.RemotePort">
-            <summary>
-            获取远程终结点的端口号。
             </summary>
         </member>
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.SendPacketCount">
@@ -8726,16 +8734,6 @@
         <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.HeartBeatElapseSeconds">
             <summary>
             获取心跳等待时长，以秒为单位。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.ReceiveBufferSize">
-            <summary>
-            获取或设置接收缓冲区字节数。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.SendBufferSize">
-            <summary>
-            获取或设置发送缓冲区字节数。
             </summary>
         </member>
         <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Update(System.Single,System.Single)">
@@ -8940,7 +8938,7 @@
             <summary>
             回收对象。
             </summary>
-            <param name="obj">要回收的内部对象。</param>
+            <param name="obj">要回收的对象。</param>
         </member>
         <member name="M:GameFramework.ObjectPool.IObjectPool`1.Unspawn(System.Object)">
             <summary>
@@ -8952,7 +8950,7 @@
             <summary>
             设置对象是否被加锁。
             </summary>
-            <param name="obj">要设置被加锁的内部对象。</param>
+            <param name="obj">要设置被加锁的对象。</param>
             <param name="locked">是否被加锁。</param>
         </member>
         <member name="M:GameFramework.ObjectPool.IObjectPool`1.SetLocked(System.Object,System.Boolean)">
@@ -8966,7 +8964,7 @@
             <summary>
             设置对象的优先级。
             </summary>
-            <param name="obj">要设置优先级的内部对象。</param>
+            <param name="obj">要设置优先级的对象。</param>
             <param name="priority">优先级。</param>
         </member>
         <member name="M:GameFramework.ObjectPool.IObjectPool`1.SetPriority(System.Object,System.Int32)">
@@ -10919,7 +10917,7 @@
             <summary>
             回收对象。
             </summary>
-            <param name="obj">要回收的内部对象。</param>
+            <param name="obj">要回收的对象。</param>
         </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.ObjectPool`1.Unspawn(System.Object)">
             <summary>
@@ -10931,7 +10929,7 @@
             <summary>
             设置对象是否被加锁。
             </summary>
-            <param name="obj">要设置被加锁的内部对象。</param>
+            <param name="obj">要设置被加锁的对象。</param>
             <param name="locked">是否被加锁。</param>
         </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.ObjectPool`1.SetLocked(System.Object,System.Boolean)">
@@ -10945,7 +10943,7 @@
             <summary>
             设置对象的优先级。
             </summary>
-            <param name="obj">要设置优先级的内部对象。</param>
+            <param name="obj">要设置优先级的对象。</param>
             <param name="priority">优先级。</param>
         </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.ObjectPool`1.SetPriority(System.Object,System.Int32)">
@@ -11400,6 +11398,11 @@
         <member name="P:GameFramework.Resource.IResourceManager.UpdateWaitingCount">
             <summary>
             获取等待更新资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceManager.UpdateFailureCount">
+            <summary>
+            获取更新失败资源数量。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.IResourceManager.UpdatingCount">
@@ -12223,6 +12226,11 @@
             获取等待更新资源数量。
             </summary>
         </member>
+        <member name="P:GameFramework.Resource.ResourceManager.UpdateFailureCount">
+            <summary>
+            获取更新失败资源数量。
+            </summary>
+        </member>
         <member name="P:GameFramework.Resource.ResourceManager.UpdatingCount">
             <summary>
             获取正在更新资源数量。
@@ -12993,6 +13001,7 @@
             开始处理加载资源任务。
             </summary>
             <param name="task">要处理的加载资源任务。</param>
+            <returns>开始处理任务的状态。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadResourceAgent.Reset">
             <summary>
@@ -13059,12 +13068,17 @@
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateWaitingCount">
             <summary>
-            获取等待更新队列大小。
+            获取等待更新资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateFailureCount">
+            <summary>
+            获取更新失败资源数量。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdatingCount">
             <summary>
-            获取正在更新队列大小。
+            获取正在更新资源数量。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.Update(System.Single,System.Single)">
@@ -13085,7 +13099,7 @@
             </summary>
             <param name="downloadManager">下载管理器。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.AddResourceUpdate(GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.String,System.Int32)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.AddResourceUpdate(GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
             <summary>
             增加资源更新。
             </summary>
@@ -13095,9 +13109,7 @@
             <param name="hashCode">资源哈希值。</param>
             <param name="zipLength">压缩包大小。</param>
             <param name="zipHashCode">压缩包哈希值。</param>
-            <param name="downloadPath">下载后存放路径。</param>
-            <param name="downloadUri">下载地址。</param>
-            <param name="retryCount">已重试次数。</param>
+            <param name="resourcePath">资源路径。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.CheckResourceComplete(System.Boolean)">
             <summary>
@@ -13115,7 +13127,7 @@
             更新信息。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.String,System.Int32)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
             <summary>
             初始化更新信息的新实例。
             </summary>
@@ -13125,9 +13137,7 @@
             <param name="hashCode">资源哈希值。</param>
             <param name="zipLength">压缩包大小。</param>
             <param name="zipHashCode">压缩包哈希值。</param>
-            <param name="downloadPath">资源更新下载后存放路径。</param>
-            <param name="downloadUri">资源更新下载地址。</param>
-            <param name="retryCount">已重试次数。</param>
+            <param name="resourcePath">资源路径。</param>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.ResourceName">
             <summary>
@@ -13159,19 +13169,14 @@
             获取压缩包哈希值。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.DownloadPath">
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.ResourcePath">
             <summary>
-            获取下载后存放路径。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.DownloadUri">
-            <summary>
-            获取下载地址。
+            获取资源路径。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.RetryCount">
             <summary>
-            获取已重试次数。
+            获取或设置已重试次数。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.VersionListProcessor">
@@ -13445,6 +13450,7 @@
             <summary>
             使用可更新模式并更新资源全部完成的回调函数。
             </summary>
+            <param name="result">更新资源结果，全部成功为 true，否则为 false。</param>
         </member>
         <member name="T:GameFramework.Resource.UpdateVersionListCallbacks">
             <summary>
@@ -18953,6 +18959,7 @@
             开始处理 Web 请求任务。
             </summary>
             <param name="task">要处理的 Web 请求任务。</param>
+            <returns>开始处理任务的状态。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestAgent.Reset">
             <summary>

@@ -20,7 +20,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public VarColor32()
         {
-
         }
 
         /// <summary>
@@ -30,7 +29,6 @@ namespace UnityGameFramework.Runtime
         public VarColor32(Color32 value)
             : base(value)
         {
-
         }
 
         /// <summary>

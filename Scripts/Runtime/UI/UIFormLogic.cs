@@ -147,7 +147,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         protected internal virtual void OnCover()
         {
-
         }
 
         /// <summary>
@@ -155,7 +154,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         protected internal virtual void OnReveal()
         {
-
         }
 
         /// <summary>
@@ -164,7 +162,6 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         protected internal virtual void OnRefocus(object userData)
         {
-
         }
 
         /// <summary>
@@ -174,7 +171,6 @@ namespace UnityGameFramework.Runtime
         /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
         protected internal virtual void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
-
         }
 
         /// <summary>
@@ -184,7 +180,6 @@ namespace UnityGameFramework.Runtime
         /// <param name="depthInUIGroup">界面在界面组中的深度。</param>
         protected internal virtual void OnDepthChanged(int uiGroupDepth, int depthInUIGroup)
         {
-
         }
 
         /// <summary>

@@ -122,15 +122,18 @@ namespace UnityGameFramework.Runtime
                 case LoadType.Text:
                     m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, textAsset.text);
                     break;
+
                 case LoadType.Bytes:
                     m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, textAsset.bytes);
                     break;
+
                 case LoadType.Stream:
                     using (MemoryStream stream = new MemoryStream(textAsset.bytes, false))
                     {
                         m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, stream);
                     }
                     break;
+
                 default:
                     Log.Warning("Unknown load type.");
                     return false;
@@ -170,6 +173,7 @@ namespace UnityGameFramework.Runtime
                         offset++;
                         position++;
                         break;
+
                     default:
                         offset++;
                         break;

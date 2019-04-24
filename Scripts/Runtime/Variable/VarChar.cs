@@ -19,7 +19,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public VarChar()
         {
-
         }
 
         /// <summary>
@@ -29,7 +28,6 @@ namespace UnityGameFramework.Runtime
         public VarChar(char value)
             : base(value)
         {
-
         }
 
         /// <summary>

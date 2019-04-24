@@ -20,7 +20,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public VarMaterial()
         {
-
         }
 
         /// <summary>
@@ -30,7 +29,6 @@ namespace UnityGameFramework.Runtime
         public VarMaterial(Material value)
             : base(value)
         {
-
         }
 
         /// <summary>

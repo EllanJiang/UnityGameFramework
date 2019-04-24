@@ -207,11 +207,9 @@ namespace UnityGameFramework.Runtime
                     }
                     GUILayout.EndHorizontal();
 
-                    if (GUILayout.Button("Reset Window Settings", GUILayout.Height(30f)))
+                    if (GUILayout.Button("Reset Layout", GUILayout.Height(30f)))
                     {
-                        m_DebuggerComponent.IconRect = DefaultIconRect;
-                        m_DebuggerComponent.WindowRect = DefaultWindowRect;
-                        m_DebuggerComponent.WindowScale = DefaultWindowScale;
+                        m_DebuggerComponent.ResetLayout();
                     }
                 }
                 GUILayout.EndVertical();

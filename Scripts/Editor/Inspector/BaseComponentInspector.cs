@@ -249,8 +249,7 @@ namespace UnityGameFramework.Editor
                 }
             }
 
-            List<string> jsonHelperTypeNames = new List<string>();
-            jsonHelperTypeNames = new List<string>
+            List<string> jsonHelperTypeNames = new List<string>
             {
                 NoneOptionName
             };

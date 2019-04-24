@@ -19,7 +19,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public VarString()
         {
-
         }
 
         /// <summary>
@@ -29,7 +28,6 @@ namespace UnityGameFramework.Runtime
         public VarString(string value)
             : base(value)
         {
-
         }
 
         /// <summary>

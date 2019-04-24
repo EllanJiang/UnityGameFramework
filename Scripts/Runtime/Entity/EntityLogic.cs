@@ -136,7 +136,6 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         protected internal virtual void OnAttached(EntityLogic childEntity, Transform parentTransform, object userData)
         {
-
         }
 
         /// <summary>
@@ -146,7 +145,6 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         protected internal virtual void OnDetached(EntityLogic childEntity, object userData)
         {
-
         }
 
         /// <summary>
@@ -177,7 +175,6 @@ namespace UnityGameFramework.Runtime
         /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
         protected internal virtual void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
-
         }
 
         /// <summary>

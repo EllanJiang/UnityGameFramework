@@ -12,6 +12,5 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class DefaultEntityGroupHelper : EntityGroupHelperBase
     {
-
     }
 }

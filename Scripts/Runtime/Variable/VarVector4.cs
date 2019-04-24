@@ -20,7 +20,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public VarVector4()
         {
-
         }
 
         /// <summary>
@@ -30,7 +29,6 @@ namespace UnityGameFramework.Runtime
         public VarVector4(Vector4 value)
             : base(value)
         {
-
         }
 
         /// <summary>

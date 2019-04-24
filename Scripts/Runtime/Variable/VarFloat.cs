@@ -19,7 +19,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public VarFloat()
         {
-
         }
 
         /// <summary>
@@ -29,7 +28,6 @@ namespace UnityGameFramework.Runtime
         public VarFloat(float value)
             : base(value)
         {
-
         }
 
         /// <summary>

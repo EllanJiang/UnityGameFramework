@@ -7,7 +7,6 @@
 
 using GameFramework.Download;
 using System;
-using System.Collections.Generic;
 #if UNITY_5_4_OR_NEWER
 using UnityEngine.Networking;
 #else
@@ -20,28 +19,46 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 使用 UnityWebRequest 实现的下载代理辅助器。
     /// </summary>
-    public class UnityWebRequestDownloadAgentHelper : DownloadAgentHelperBase, IDisposable
+    public partial class UnityWebRequestDownloadAgentHelper : DownloadAgentHelperBase, IDisposable
     {
+        private const int OneMegaBytes = 1024 * 1024;
+        private readonly byte[] m_DownloadCache = new byte[OneMegaBytes];
+
         private UnityWebRequest m_UnityWebRequest = null;
-        private int m_LastDownloadedSize = 0;
         private bool m_Disposed = false;
 
-        private EventHandler<DownloadAgentHelperUpdateEventArgs> m_DownloadAgentHelperUpdateEventHandler = null;
+        private EventHandler<DownloadAgentHelperUpdateBytesEventArgs> m_DownloadAgentHelperUpdateBytesEventHandler = null;
+        private EventHandler<DownloadAgentHelperUpdateLengthEventArgs> m_DownloadAgentHelperUpdateLengthEventHandler = null;
         private EventHandler<DownloadAgentHelperCompleteEventArgs> m_DownloadAgentHelperCompleteEventHandler = null;
         private EventHandler<DownloadAgentHelperErrorEventArgs> m_DownloadAgentHelperErrorEventHandler = null;
 
         /// <summary>
-        /// 下载代理辅助器更新事件。
+        /// 下载代理辅助器更新数据流事件。
         /// </summary>
-        public override event EventHandler<DownloadAgentHelperUpdateEventArgs> DownloadAgentHelperUpdate
+        public override event EventHandler<DownloadAgentHelperUpdateBytesEventArgs> DownloadAgentHelperUpdateBytes
         {
             add
             {
-                m_DownloadAgentHelperUpdateEventHandler += value;
+                m_DownloadAgentHelperUpdateBytesEventHandler += value;
             }
             remove
             {
-                m_DownloadAgentHelperUpdateEventHandler -= value;
+                m_DownloadAgentHelperUpdateBytesEventHandler -= value;
+            }
+        }
+
+        /// <summary>
+        /// 下载代理辅助器更新数据大小事件。
+        /// </summary>
+        public override event EventHandler<DownloadAgentHelperUpdateLengthEventArgs> DownloadAgentHelperUpdateLength
+        {
+            add
+            {
+                m_DownloadAgentHelperUpdateLengthEventHandler += value;
+            }
+            remove
+            {
+                m_DownloadAgentHelperUpdateLengthEventHandler -= value;
             }
         }
 
@@ -82,13 +99,14 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public override void Download(string downloadUri, object userData)
         {
-            if (m_DownloadAgentHelperUpdateEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
+            if (m_DownloadAgentHelperUpdateBytesEventHandler == null || m_DownloadAgentHelperUpdateLengthEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
             {
                 Log.Fatal("Download agent helper handler is invalid.");
                 return;
             }
 
-            m_UnityWebRequest = UnityWebRequest.Get(downloadUri);
+            m_UnityWebRequest = new UnityWebRequest(downloadUri);
+            m_UnityWebRequest.downloadHandler = new DownloadHandler(this);
 #if UNITY_2017_2_OR_NEWER
             m_UnityWebRequest.SendWebRequest();
 #else
@@ -104,18 +122,15 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public override void Download(string downloadUri, int fromPosition, object userData)
         {
-            if (m_DownloadAgentHelperUpdateEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
+            if (m_DownloadAgentHelperUpdateBytesEventHandler == null || m_DownloadAgentHelperUpdateLengthEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
             {
                 Log.Fatal("Download agent helper handler is invalid.");
                 return;
             }
 
-            Dictionary<string, string> header = new Dictionary<string, string>
-            {
-                { "Range", Utility.Text.Format("bytes={0}-", fromPosition.ToString()) }
-            };
-
-            m_UnityWebRequest = UnityWebRequest.Post(downloadUri, header);
+            m_UnityWebRequest = new UnityWebRequest(downloadUri);
+            m_UnityWebRequest.SetRequestHeader("Range", Utility.Text.Format("bytes={0}-", fromPosition.ToString()));
+            m_UnityWebRequest.downloadHandler = new DownloadHandler(this);
 #if UNITY_2017_2_OR_NEWER
             m_UnityWebRequest.SendWebRequest();
 #else
@@ -132,18 +147,15 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public override void Download(string downloadUri, int fromPosition, int toPosition, object userData)
         {
-            if (m_DownloadAgentHelperUpdateEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
+            if (m_DownloadAgentHelperUpdateBytesEventHandler == null || m_DownloadAgentHelperUpdateLengthEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
             {
                 Log.Fatal("Download agent helper handler is invalid.");
                 return;
             }
 
-            Dictionary<string, string> header = new Dictionary<string, string>
-            {
-                { "Range", Utility.Text.Format("bytes={0}-{1}", fromPosition.ToString(), toPosition.ToString()) }
-            };
-
-            m_UnityWebRequest = UnityWebRequest.Post(downloadUri, header);
+            m_UnityWebRequest = new UnityWebRequest(downloadUri);
+            m_UnityWebRequest.SetRequestHeader("Range", Utility.Text.Format("bytes={0}-{1}", fromPosition.ToString(), toPosition.ToString()));
+            m_UnityWebRequest.downloadHandler = new DownloadHandler(this);
 #if UNITY_2017_2_OR_NEWER
             m_UnityWebRequest.SendWebRequest();
 #else
@@ -158,11 +170,10 @@ namespace UnityGameFramework.Runtime
         {
             if (m_UnityWebRequest != null)
             {
+                m_UnityWebRequest.Abort();
                 m_UnityWebRequest.Dispose();
                 m_UnityWebRequest = null;
             }
-
-            m_LastDownloadedSize = 0;
         }
 
         /// <summary>
@@ -206,12 +217,6 @@ namespace UnityGameFramework.Runtime
 
             if (!m_UnityWebRequest.isDone)
             {
-                if (m_LastDownloadedSize < (int)m_UnityWebRequest.downloadedBytes)
-                {
-                    m_LastDownloadedSize = (int)m_UnityWebRequest.downloadedBytes;
-                    m_DownloadAgentHelperUpdateEventHandler(this, new DownloadAgentHelperUpdateEventArgs((int)m_UnityWebRequest.downloadedBytes, null));
-                }
-
                 return;
             }
 
@@ -225,9 +230,9 @@ namespace UnityGameFramework.Runtime
             {
                 m_DownloadAgentHelperErrorEventHandler(this, new DownloadAgentHelperErrorEventArgs(m_UnityWebRequest.error));
             }
-            else if (m_UnityWebRequest.downloadHandler.isDone)
+            else
             {
-                m_DownloadAgentHelperCompleteEventHandler(this, new DownloadAgentHelperCompleteEventArgs((int)m_UnityWebRequest.downloadedBytes, m_UnityWebRequest.downloadHandler.data));
+                m_DownloadAgentHelperCompleteEventHandler(this, new DownloadAgentHelperCompleteEventArgs((int)m_UnityWebRequest.downloadedBytes));
             }
         }
     }

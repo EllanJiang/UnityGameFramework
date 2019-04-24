@@ -282,6 +282,17 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取更新失败资源数量。
+        /// </summary>
+        public int UpdateFailureCount
+        {
+            get
+            {
+                return m_ResourceManager.UpdateFailureCount;
+            }
+        }
+
+        /// <summary>
         /// 获取正在更新资源数量。
         /// </summary>
         public int UpdatingCount

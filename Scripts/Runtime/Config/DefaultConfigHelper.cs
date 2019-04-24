@@ -148,15 +148,18 @@ namespace UnityGameFramework.Runtime
                 case LoadType.Text:
                     retVal = m_ConfigManager.ParseConfig(textAsset.text, userData);
                     break;
+
                 case LoadType.Bytes:
                     retVal = m_ConfigManager.ParseConfig(textAsset.bytes, userData);
                     break;
+
                 case LoadType.Stream:
                     using (MemoryStream stream = new MemoryStream(textAsset.bytes, false))
                     {
                         retVal = m_ConfigManager.ParseConfig(stream, userData);
                     }
                     break;
+
                 default:
                     Log.Warning("Unknown load type.");
                     return false;

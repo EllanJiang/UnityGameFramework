@@ -19,7 +19,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public VarDouble()
         {
-
         }
 
         /// <summary>
@@ -29,7 +28,6 @@ namespace UnityGameFramework.Runtime
         public VarDouble(double value)
             : base(value)
         {
-
         }
 
         /// <summary>

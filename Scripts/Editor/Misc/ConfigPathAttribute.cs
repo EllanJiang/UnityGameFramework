@@ -14,6 +14,5 @@ namespace UnityGameFramework.Editor
     /// </summary>
     public abstract class ConfigPathAttribute : Attribute
     {
-
     }
 }

@@ -16,6 +16,5 @@ namespace UnityGameFramework.Runtime
     [AddComponentMenu("Game Framework/ReferencePool")]
     public sealed class ReferencePoolComponent : GameFrameworkComponent
     {
-
     }
 }

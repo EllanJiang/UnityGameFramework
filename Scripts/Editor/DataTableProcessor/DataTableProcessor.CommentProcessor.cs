@@ -65,7 +65,6 @@ namespace UnityGameFramework.Editor.DataTableTools
 
             public override void WriteToStream(BinaryWriter stream, string value)
             {
-
             }
         }
     }

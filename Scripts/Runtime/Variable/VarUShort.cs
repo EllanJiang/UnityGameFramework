@@ -19,7 +19,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public VarUShort()
         {
-
         }
 
         /// <summary>
@@ -29,7 +28,6 @@ namespace UnityGameFramework.Runtime
         public VarUShort(ushort value)
             : base(value)
         {
-
         }
 
         /// <summary>

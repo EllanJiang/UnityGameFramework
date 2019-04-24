@@ -36,7 +36,6 @@ namespace UnityGameFramework.Editor
 
         private void OnEnable()
         {
-
         }
 
         private void DrawDataNode(IDataNode dataNode)

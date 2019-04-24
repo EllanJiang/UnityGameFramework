@@ -20,7 +20,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public VarQuaternion()
         {
-
         }
 
         /// <summary>
@@ -30,7 +29,6 @@ namespace UnityGameFramework.Runtime
         public VarQuaternion(Quaternion value)
             : base(value)
         {
-
         }
 
         /// <summary>

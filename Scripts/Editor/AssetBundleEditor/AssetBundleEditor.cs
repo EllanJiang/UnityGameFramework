@@ -240,12 +240,15 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 case MenuState.Normal:
                     DrawAssetBundlesMenu_Normal();
                     break;
+
                 case MenuState.Add:
                     DrawAssetBundlesMenu_Add();
                     break;
+
                 case MenuState.Rename:
                     DrawAssetBundlesMenu_Rename();
                     break;
+
                 case MenuState.Remove:
                     DrawAssetBundlesMenu_Remove();
                     break;

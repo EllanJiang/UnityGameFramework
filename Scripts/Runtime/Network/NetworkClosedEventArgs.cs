@@ -16,12 +16,12 @@ namespace UnityGameFramework.Runtime
     public sealed class NetworkClosedEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 连接成功事件编号。
+        /// 网络连接关闭事件编号。
         /// </summary>
         public static readonly int EventId = typeof(NetworkClosedEventArgs).GetHashCode();
 
         /// <summary>
-        /// 获取连接成功事件编号。
+        /// 获取网络连接关闭事件编号。
         /// </summary>
         public override int Id
         {

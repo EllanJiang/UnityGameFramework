@@ -28,6 +28,8 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Memory Size:", Utility.Text.Format("{0} MB", SystemInfo.graphicsMemorySize.ToString()));
                     DrawItem("Multi Threaded:", SystemInfo.graphicsMultiThreaded.ToString());
                     DrawItem("Shader Level:", GetShaderLevelString(SystemInfo.graphicsShaderLevel));
+                    DrawItem("Active Tier", Graphics.activeTier.ToString());
+                    DrawItem("Active Color Gamut", Graphics.activeColorGamut.ToString());
                     DrawItem("NPOT Support:", SystemInfo.npotSupport.ToString());
                     DrawItem("Max Texture Size:", SystemInfo.maxTextureSize.ToString());
                     DrawItem("Supported Render Target Count:", SystemInfo.supportedRenderTargetCount.ToString());

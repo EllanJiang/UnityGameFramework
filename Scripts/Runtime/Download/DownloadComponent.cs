@@ -19,6 +19,7 @@ namespace UnityGameFramework.Runtime
     public sealed class DownloadComponent : GameFrameworkComponent
     {
         private const int DefaultPriority = 0;
+        private const int OneMegaBytes = 1024 * 1024;
 
         private IDownloadManager m_DownloadManager = null;
         private EventComponent m_EventComponent = null;
@@ -39,7 +40,7 @@ namespace UnityGameFramework.Runtime
         private float m_Timeout = 30f;
 
         [SerializeField]
-        private int m_FlushSize = 1024 * 1024;
+        private int m_FlushSize = OneMegaBytes;
 
         /// <summary>
         /// 获取下载代理总数量。

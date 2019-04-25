@@ -22,6 +22,7 @@ namespace UnityGameFramework.Runtime
     public sealed class ResourceComponent : GameFrameworkComponent
     {
         private const int DefaultPriority = 0;
+        private const int OneMegaBytes = 1024 * 1024;
 
         private IResourceManager m_ResourceManager = null;
         private EventComponent m_EventComponent = null;
@@ -70,10 +71,10 @@ namespace UnityGameFramework.Runtime
         private string m_UpdatePrefixUri = null;
 
         [SerializeField]
-        private int m_UpdateFileCacheLength = 1024 * 1024;
+        private int m_UpdateFileCacheLength = OneMegaBytes;
 
         [SerializeField]
-        private int m_GenerateReadWriteListLength = 1024 * 1024;
+        private int m_GenerateReadWriteListLength = OneMegaBytes;
 
         [SerializeField]
         private int m_UpdateRetryCount = 3;

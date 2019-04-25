@@ -41,6 +41,9 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Max Cubemap Size:", SystemInfo.maxCubemapSize.ToString());
                     DrawItem("Graphics UV Starts At Top:", SystemInfo.graphicsUVStartsAtTop.ToString());
 #endif
+#if UNITY_2019_1_OR_NEWER
+                    DrawItem("Min Constant Buffer Offset Alignment:", SystemInfo.minConstantBufferOffsetAlignment.ToString());
+#endif
 #if UNITY_2018_3_OR_NEWER
                     DrawItem("Has Hidden Surface Removal On GPU:", SystemInfo.hasHiddenSurfaceRemovalOnGPU.ToString());
                     DrawItem("Has Dynamic Uniform Array Indexing In Fragment Shaders:", SystemInfo.hasDynamicUniformArrayIndexingInFragmentShaders.ToString());
@@ -94,6 +97,9 @@ namespace UnityGameFramework.Runtime
 #endif
 #if UNITY_2018_3_OR_NEWER
                     DrawItem("Supports Separated Render Targets Blend:", SystemInfo.supportsSeparatedRenderTargetsBlend.ToString());
+#endif
+#if UNITY_2019_1_OR_NEWER
+                    DrawItem("Supports Set Constant Buffer:", SystemInfo.supportsSetConstantBuffer.ToString());
 #endif
                 }
                 GUILayout.EndVertical();

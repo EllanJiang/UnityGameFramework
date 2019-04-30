@@ -8548,12 +8548,13 @@
             网络错误事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkErrorEventArgs.#ctor(GameFramework.Network.INetworkChannel,GameFramework.Network.NetworkErrorCode,System.String)">
+        <member name="M:GameFramework.Network.NetworkErrorEventArgs.#ctor(GameFramework.Network.INetworkChannel,GameFramework.Network.NetworkErrorCode,System.Net.Sockets.SocketError,System.String)">
             <summary>
             初始化网络错误事件的新实例。
             </summary>
             <param name="networkChannel">网络频道。</param>
             <param name="errorCode">错误码。</param>
+            <param name="socketErrorCode">Socket 错误码。</param>
             <param name="errorMessage">错误信息。</param>
         </member>
         <member name="P:GameFramework.Network.NetworkErrorEventArgs.NetworkChannel">
@@ -8564,6 +8565,11 @@
         <member name="P:GameFramework.Network.NetworkErrorEventArgs.ErrorCode">
             <summary>
             获取错误码。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.NetworkErrorEventArgs.SocketErrorCode">
+            <summary>
+            获取 Socket 错误码。
             </summary>
         </member>
         <member name="P:GameFramework.Network.NetworkErrorEventArgs.ErrorMessage">

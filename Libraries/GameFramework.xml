@@ -2300,17 +2300,23 @@
             加载配置失败事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Config.LoadConfigFailureEventArgs.#ctor(System.String,System.String,System.Object)">
+        <member name="M:GameFramework.Config.LoadConfigFailureEventArgs.#ctor(System.String,GameFramework.LoadType,System.String,System.Object)">
             <summary>
             初始化加载配置失败事件的新实例。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="errorMessage">错误信息。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Config.LoadConfigFailureEventArgs.ConfigAssetName">
             <summary>
             获取配置资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigFailureEventArgs.LoadType">
+            <summary>
+            获取配置加载方式。
             </summary>
         </member>
         <member name="P:GameFramework.Config.LoadConfigFailureEventArgs.ErrorMessage">
@@ -2328,17 +2334,23 @@
             加载配置成功事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Config.LoadConfigSuccessEventArgs.#ctor(System.String,System.Single,System.Object)">
+        <member name="M:GameFramework.Config.LoadConfigSuccessEventArgs.#ctor(System.String,GameFramework.LoadType,System.Single,System.Object)">
             <summary>
             初始化加载配置成功事件的新实例。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="duration">加载持续时间。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Config.LoadConfigSuccessEventArgs.ConfigAssetName">
             <summary>
             获取配置资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigSuccessEventArgs.LoadType">
+            <summary>
+            获取配置加载方式。
             </summary>
         </member>
         <member name="P:GameFramework.Config.LoadConfigSuccessEventArgs.Duration">
@@ -2356,17 +2368,23 @@
             加载配置更新事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Config.LoadConfigUpdateEventArgs.#ctor(System.String,System.Single,System.Object)">
+        <member name="M:GameFramework.Config.LoadConfigUpdateEventArgs.#ctor(System.String,GameFramework.LoadType,System.Single,System.Object)">
             <summary>
             初始化加载配置更新事件的新实例。
             </summary>
             <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
             <param name="progress">加载配置进度。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Config.LoadConfigUpdateEventArgs.ConfigAssetName">
             <summary>
             获取配置资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Config.LoadConfigUpdateEventArgs.LoadType">
+            <summary>
+            获取配置加载方式。
             </summary>
         </member>
         <member name="P:GameFramework.Config.LoadConfigUpdateEventArgs.Progress">
@@ -3911,17 +3929,23 @@
             加载数据表失败事件。
             </summary>
         </member>
-        <member name="M:GameFramework.DataTable.LoadDataTableFailureEventArgs.#ctor(System.String,System.String,System.Object)">
+        <member name="M:GameFramework.DataTable.LoadDataTableFailureEventArgs.#ctor(System.String,GameFramework.LoadType,System.String,System.Object)">
             <summary>
             初始化加载数据表失败事件的新实例。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="errorMessage">错误信息。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.DataTable.LoadDataTableFailureEventArgs.DataTableAssetName">
             <summary>
             获取数据表资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.DataTable.LoadDataTableFailureEventArgs.LoadType">
+            <summary>
+            获取数据表加载方式。
             </summary>
         </member>
         <member name="P:GameFramework.DataTable.LoadDataTableFailureEventArgs.ErrorMessage">
@@ -3939,17 +3963,23 @@
             加载数据表成功事件。
             </summary>
         </member>
-        <member name="M:GameFramework.DataTable.LoadDataTableSuccessEventArgs.#ctor(System.String,System.Single,System.Object)">
+        <member name="M:GameFramework.DataTable.LoadDataTableSuccessEventArgs.#ctor(System.String,GameFramework.LoadType,System.Single,System.Object)">
             <summary>
             初始化加载数据表成功事件的新实例。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="duration">加载持续时间。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.DataTable.LoadDataTableSuccessEventArgs.DataTableAssetName">
             <summary>
             获取数据表资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.DataTable.LoadDataTableSuccessEventArgs.LoadType">
+            <summary>
+            获取数据表加载方式。
             </summary>
         </member>
         <member name="P:GameFramework.DataTable.LoadDataTableSuccessEventArgs.Duration">
@@ -3967,17 +3997,23 @@
             加载数据表更新事件。
             </summary>
         </member>
-        <member name="M:GameFramework.DataTable.LoadDataTableUpdateEventArgs.#ctor(System.String,System.Single,System.Object)">
+        <member name="M:GameFramework.DataTable.LoadDataTableUpdateEventArgs.#ctor(System.String,GameFramework.LoadType,System.Single,System.Object)">
             <summary>
             初始化加载数据表更新事件的新实例。
             </summary>
             <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
             <param name="progress">加载数据表进度。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.DataTable.LoadDataTableUpdateEventArgs.DataTableAssetName">
             <summary>
             获取数据表资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.DataTable.LoadDataTableUpdateEventArgs.LoadType">
+            <summary>
+            获取数据表加载方式。
             </summary>
         </member>
         <member name="P:GameFramework.DataTable.LoadDataTableUpdateEventArgs.Progress">
@@ -7882,17 +7918,23 @@
             加载字典失败事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Localization.LoadDictionaryFailureEventArgs.#ctor(System.String,System.String,System.Object)">
+        <member name="M:GameFramework.Localization.LoadDictionaryFailureEventArgs.#ctor(System.String,GameFramework.LoadType,System.String,System.Object)">
             <summary>
             初始化加载字典失败事件的新实例。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="errorMessage">错误信息。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Localization.LoadDictionaryFailureEventArgs.DictionaryAssetName">
             <summary>
             获取字典资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Localization.LoadDictionaryFailureEventArgs.LoadType">
+            <summary>
+            获取字典加载方式。
             </summary>
         </member>
         <member name="P:GameFramework.Localization.LoadDictionaryFailureEventArgs.ErrorMessage">
@@ -7910,17 +7952,23 @@
             加载字典成功事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Localization.LoadDictionarySuccessEventArgs.#ctor(System.String,System.Single,System.Object)">
+        <member name="M:GameFramework.Localization.LoadDictionarySuccessEventArgs.#ctor(System.String,GameFramework.LoadType,System.Single,System.Object)">
             <summary>
             初始化加载字典成功事件的新实例。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="duration">加载持续时间。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Localization.LoadDictionarySuccessEventArgs.DictionaryAssetName">
             <summary>
             获取字典资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Localization.LoadDictionarySuccessEventArgs.LoadType">
+            <summary>
+            获取字典加载方式。
             </summary>
         </member>
         <member name="P:GameFramework.Localization.LoadDictionarySuccessEventArgs.Duration">
@@ -7938,17 +7986,23 @@
             加载字典更新事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Localization.LoadDictionaryUpdateEventArgs.#ctor(System.String,System.Single,System.Object)">
+        <member name="M:GameFramework.Localization.LoadDictionaryUpdateEventArgs.#ctor(System.String,GameFramework.LoadType,System.Single,System.Object)">
             <summary>
             初始化加载字典更新事件的新实例。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
             <param name="progress">加载字典进度。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Localization.LoadDictionaryUpdateEventArgs.DictionaryAssetName">
             <summary>
             获取字典资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Localization.LoadDictionaryUpdateEventArgs.LoadType">
+            <summary>
+            获取字典加载方式。
             </summary>
         </member>
         <member name="P:GameFramework.Localization.LoadDictionaryUpdateEventArgs.Progress">

@@ -758,7 +758,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
             catch (Exception exception)
             {
-                string errorMessage = Utility.Text.Format("{0}\n{1}", exception.Message, exception.StackTrace);
+                string errorMessage = exception.ToString();
                 m_BuildReport.LogFatal(errorMessage);
                 m_BuildReport.SaveReport();
                 if (BuildAssetBundlesError != null)

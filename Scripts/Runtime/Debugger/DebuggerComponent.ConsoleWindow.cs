@@ -387,7 +387,7 @@ namespace UnityGameFramework.Runtime
                             {
                                 TextEditor textEditor = new TextEditor
                                 {
-                                    text = Utility.Text.Format("{0}\n\n{1}", m_SelectedNode.LogMessage, m_SelectedNode.StackTrack)
+                                    text = Utility.Text.Format("{0}{2}{2}{1}", m_SelectedNode.LogMessage, m_SelectedNode.StackTrack, Environment.NewLine)
                                 };
 
                                 textEditor.OnFocus();

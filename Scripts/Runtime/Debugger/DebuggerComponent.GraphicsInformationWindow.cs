@@ -28,6 +28,7 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Memory Size:", Utility.Text.Format("{0} MB", SystemInfo.graphicsMemorySize.ToString()));
                     DrawItem("Multi Threaded:", SystemInfo.graphicsMultiThreaded.ToString());
                     DrawItem("Shader Level:", GetShaderLevelString(SystemInfo.graphicsShaderLevel));
+                    DrawItem("Global Maximum LOD:", Shader.globalMaximumLOD.ToString());
 #if UNITY_5_5_OR_NEWER
                     DrawItem("Active Tier", Graphics.activeTier.ToString());
 #endif

@@ -1037,6 +1037,10 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     binaryWriter.Write(InternalResourceVersion);
                     binaryWriter.Write(m_AssetBundleCollection.AssetCount);
                     binaryWriter.Write(m_AssetBundleCollection.AssetBundleCount);
+                    if (m_AssetBundleCollection.AssetBundleCount > ushort.MaxValue)
+                    {
+                        throw new GameFrameworkException("Package list can only contains 65535 resources in version 0.");
+                    }
 
                     foreach (AssetBundleData assetBundleData in m_AssetBundleDatas.Values)
                     {
@@ -1099,6 +1103,9 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                             }
                         }
                     }
+
+                    // TODO: Resource group.
+                    binaryWriter.Write(0);
                 }
             }
 
@@ -1125,6 +1132,10 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     binaryWriter.Write(InternalResourceVersion);
                     binaryWriter.Write(m_AssetBundleCollection.AssetCount);
                     binaryWriter.Write(m_AssetBundleCollection.AssetBundleCount);
+                    if (m_AssetBundleCollection.AssetBundleCount > ushort.MaxValue)
+                    {
+                        throw new GameFrameworkException("Version list can only contains 65535 resources in version 0.");
+                    }
 
                     foreach (AssetBundleData assetBundleData in m_AssetBundleDatas.Values)
                     {
@@ -1189,6 +1200,9 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                             }
                         }
                     }
+
+                    // TODO: Resource group.
+                    binaryWriter.Write(0);
                 }
             }
 

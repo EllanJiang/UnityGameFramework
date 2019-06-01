@@ -11245,13 +11245,12 @@
         </member>
         <member name="T:GameFramework.Resource.CheckResourcesCompleteCallback">
             <summary>
-            使用可更新模式并检查资源完成的回调函数。
+            使用可更新模式并检查资源完成时的回调函数。
             </summary>
-            <param name="needUpdateResources">是否需要进行资源更新。</param>
             <param name="removedCount">已移除的资源数量。</param>
-            <param name="updateCount">要更新的资源数量。</param>
-            <param name="updateTotalLength">要更新的资源总大小。</param>
-            <param name="updateTotalZipLength">要更新的压缩包总大小。</param>
+            <param name="updateCount">可更新的资源数量。</param>
+            <param name="updateTotalLength">可更新的资源总大小。</param>
+            <param name="updateTotalZipLength">可更新的压缩包总大小。</param>
         </member>
         <member name="T:GameFramework.Resource.CheckVersionListResult">
             <summary>
@@ -11361,7 +11360,52 @@
         </member>
         <member name="T:GameFramework.Resource.InitResourcesCompleteCallback">
             <summary>
-            使用单机模式并初始化资源完成的回调函数。
+            使用单机模式并初始化资源完成时的回调函数。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Resource.IResourceGroup">
+            <summary>
+            资源组接口。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroup.Name">
+            <summary>
+            获取资源组名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroup.Ready">
+            <summary>
+            获取资源组是否准备完毕。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroup.ResourceCount">
+            <summary>
+            获取资源组包含资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroup.ReadyCount">
+            <summary>
+            获取资源组中已准备完成资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroup.TotalLength">
+            <summary>
+            获取资源组包含资源的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroup.TotalZipLength">
+            <summary>
+            获取资源组包含资源压缩后的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroup.ReadyLength">
+            <summary>
+            获取资源组中已准备完成资源的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroup.Progress">
+            <summary>
+            获取资源组的完成进度。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.IResourceHelper">
@@ -11435,6 +11479,11 @@
             获取已准备完毕资源数量。
             </summary>
         </member>
+        <member name="P:GameFramework.Resource.IResourceManager.ResourceGroupCount">
+            <summary>
+            获取资源组数量。
+            </summary>
+        </member>
         <member name="P:GameFramework.Resource.IResourceManager.UpdatePrefixUri">
             <summary>
             获取或设置资源更新下载地址。
@@ -11455,14 +11504,19 @@
             获取或设置资源更新重试次数。
             </summary>
         </member>
+        <member name="P:GameFramework.Resource.IResourceManager.UpdatingResourceGroup">
+            <summary>
+            获取正在更新的资源组。
+            </summary>
+        </member>
         <member name="P:GameFramework.Resource.IResourceManager.UpdateWaitingCount">
             <summary>
             获取等待更新资源数量。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.IResourceManager.UpdateFailureCount">
+        <member name="P:GameFramework.Resource.IResourceManager.UpdateCandidateCount">
             <summary>
-            获取更新失败资源数量。
+            获取候选更新资源数量。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.IResourceManager.UpdatingCount">
@@ -11609,7 +11663,7 @@
             <summary>
             使用单机模式并初始化资源。
             </summary>
-            <param name="initResourcesCompleteCallback">使用单机模式并初始化资源完成的回调函数。</param>
+            <param name="initResourcesCompleteCallback">使用单机模式并初始化资源完成时的回调函数。</param>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.CheckVersionList(System.Int32)">
             <summary>
@@ -11632,13 +11686,20 @@
             <summary>
             使用可更新模式并检查资源。
             </summary>
-            <param name="checkResourcesCompleteCallback">使用可更新模式并检查资源完成的回调函数。</param>
+            <param name="checkResourcesCompleteCallback">使用可更新模式并检查资源完成时的回调函数。</param>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.UpdateResources(GameFramework.Resource.UpdateResourcesCompleteCallback)">
             <summary>
-            使用可更新模式并更新资源。
+            使用可更新模式并更新全部资源。
             </summary>
-            <param name="updateResourcesCompleteCallback">使用可更新模式并更新资源全部完成的回调函数。</param>
+            <param name="updateResourcesCompleteCallback">使用可更新模式并更新默认资源组完成时的回调函数。</param>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.UpdateResources(System.String,GameFramework.Resource.UpdateResourcesCompleteCallback)">
+            <summary>
+            使用可更新模式并更新指定资源组的资源。
+            </summary>
+            <param name="resourceGroupName">要更新的资源组名称。</param>
+            <param name="updateResourcesCompleteCallback">使用可更新模式并更新指定资源组完成时的回调函数。</param>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.HasAsset(System.String)">
             <summary>
@@ -11767,6 +11828,20 @@
             <param name="sceneAssetName">要卸载场景资源的名称。</param>
             <param name="unloadSceneCallbacks">卸载场景回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.HasResourceGroup(System.String)">
+            <summary>
+            检查资源组是否存在。
+            </summary>
+            <param name="resourceGroupName">要检查资源组的名称。</param>
+            <returns>资源组是否存在。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroup(System.String)">
+            <summary>
+            获取资源组。
+            </summary>
+            <param name="resourceGroupName">要获取的资源组名称。</param>
+            <returns>要获取的资源组。</returns>
         </member>
         <member name="T:GameFramework.Resource.LoadAssetCallbacks">
             <summary>
@@ -12261,6 +12336,11 @@
             获取已准备完毕资源数量。
             </summary>
         </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCount">
+            <summary>
+            获取资源组数量。
+            </summary>
+        </member>
         <member name="P:GameFramework.Resource.ResourceManager.UpdatePrefixUri">
             <summary>
             获取或设置资源更新下载地址前缀。
@@ -12281,14 +12361,19 @@
             获取或设置资源更新重试次数。
             </summary>
         </member>
+        <member name="P:GameFramework.Resource.ResourceManager.UpdatingResourceGroup">
+            <summary>
+            获取正在更新的资源组。
+            </summary>
+        </member>
         <member name="P:GameFramework.Resource.ResourceManager.UpdateWaitingCount">
             <summary>
             获取等待更新资源数量。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.UpdateFailureCount">
+        <member name="P:GameFramework.Resource.ResourceManager.UpdateCandidateCount">
             <summary>
-            获取更新失败资源数量。
+            获取候选更新资源数量。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.UpdatingCount">
@@ -12447,7 +12532,7 @@
             <summary>
             使用单机模式并初始化资源。
             </summary>
-            <param name="initResourcesCompleteCallback">使用单机模式并初始化资源完成的回调函数。</param>
+            <param name="initResourcesCompleteCallback">使用单机模式并初始化资源完成时的回调函数。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.CheckVersionList(System.Int32)">
             <summary>
@@ -12470,13 +12555,20 @@
             <summary>
             使用可更新模式并检查资源。
             </summary>
-            <param name="checkResourcesCompleteCallback">使用可更新模式并检查资源完成的回调函数。</param>
+            <param name="checkResourcesCompleteCallback">使用可更新模式并检查资源完成时的回调函数。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.UpdateResources(GameFramework.Resource.UpdateResourcesCompleteCallback)">
             <summary>
-            使用可更新模式并更新资源。
+            使用可更新模式并更新全部资源。
             </summary>
-            <param name="updateResourcesCompleteCallback">使用可更新模式并更新资源全部完成的回调函数。</param>
+            <param name="updateResourcesCompleteCallback">使用可更新模式并更新默认资源组完成时的回调函数。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.UpdateResources(System.String,GameFramework.Resource.UpdateResourcesCompleteCallback)">
+            <summary>
+            使用可更新模式并更新指定资源组的资源。
+            </summary>
+            <param name="resourceGroupName">要更新的资源组名称。</param>
+            <param name="updateResourcesCompleteCallback">使用可更新模式并更新指定资源组完成时的回调函数。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.HasAsset(System.String)">
             <summary>
@@ -12605,6 +12697,20 @@
             <param name="sceneAssetName">要卸载场景资源的名称。</param>
             <param name="unloadSceneCallbacks">卸载场景回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.HasResourceGroup(System.String)">
+            <summary>
+            检查资源组是否存在。
+            </summary>
+            <param name="resourceGroupName">要检查资源组的名称。</param>
+            <returns>资源组是否存在。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroup(System.String)">
+            <summary>
+            获取资源组。
+            </summary>
+            <param name="resourceGroupName">要获取的资源组名称。</param>
+            <returns>要获取的资源组。</returns>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.LoadType">
             <summary>
@@ -12805,6 +12911,73 @@
             <param name="bytes">要解析的数据。</param>
             <param name="errorMessage">错误信息。</param>
         </member>
+        <member name="T:GameFramework.Resource.ResourceManager.ResourceGroup">
+            <summary>
+            资源组。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroup.#ctor(System.String,System.Collections.Generic.Dictionary{GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.ResourceInfo})">
+            <summary>
+            初始化资源组的新实例。
+            </summary>
+            <param name="name">资源组名称。</param>
+            <param name="resourceInfos">资源信息引用。</param>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.Name">
+            <summary>
+            获取资源组名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.Ready">
+            <summary>
+            获取资源组是否准备完毕。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.ResourceCount">
+            <summary>
+            获取资源组包含资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.ReadyCount">
+            <summary>
+            获取资源组中已准备完成资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.TotalLength">
+            <summary>
+            获取资源组包含资源的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.TotalZipLength">
+            <summary>
+            获取资源组包含资源压缩后的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.ReadyLength">
+            <summary>
+            获取资源组中已准备完成资源的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.Progress">
+            <summary>
+            获取资源组的完成进度。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroup.HasResource(GameFramework.Resource.ResourceManager.ResourceName)">
+            <summary>
+            检查指定资源是否属于资源组。
+            </summary>
+            <param name="resourceName">要检查的资源的名称。</param>
+            <returns>指定资源是否属于资源组。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroup.AddResource(GameFramework.Resource.ResourceManager.ResourceName,System.Int32,System.Int32)">
+            <summary>
+            向资源组中增加资源。
+            </summary>
+            <param name="resourceName">资源名称。</param>
+            <param name="length">资源大小。</param>
+            <param name="zipLength">资源压缩后的大小。</param>
+        </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceInfo">
             <summary>
             资源信息。
@@ -12873,6 +13046,34 @@
             <param name="fileUri">版本资源列表文件路径。</param>
             <param name="bytes">要解析的数据。</param>
             <param name="errorMessage">错误信息。</param>
+        </member>
+        <member name="T:GameFramework.Resource.ResourceManager.ResourceLength">
+            <summary>
+            资源大小数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLength.#ctor(GameFramework.Resource.ResourceManager.ResourceName,System.Int32,System.Int32)">
+            <summary>
+            初始化资源大小数据的新实例。
+            </summary>
+            <param name="resourceName">资源名称。</param>
+            <param name="length">资源大小。</param>
+            <param name="zipLength">资源压缩后的大小。</param>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceLength.ResourceName">
+            <summary>
+            获取资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceLength.Length">
+            <summary>
+            获取资源大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceLength.ZipLength">
+            <summary>
+            获取资源压缩后的大小。
+            </summary>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceLoader">
             <summary>
@@ -13121,9 +13322,14 @@
             获取或设置每下载多少字节的资源，刷新一次资源列表。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.RetryCount">
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateRetryCount">
             <summary>
             获取或设置资源更新重试次数。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdatingResourceGroup">
+            <summary>
+            获取正在更新的资源组。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateWaitingCount">
@@ -13131,9 +13337,9 @@
             获取等待更新资源数量。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateFailureCount">
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateCandidateCount">
             <summary>
-            获取更新失败资源数量。
+            获取候选更新资源数量。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdatingCount">
@@ -13177,10 +13383,11 @@
             </summary>
             <param name="needGenerateReadWriteList">是否需要生成读写区资源列表。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateResources">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateResources(GameFramework.Resource.ResourceManager.ResourceGroup)">
             <summary>
-            更新资源。
+            更新指定资源组的资源。
             </summary>
+            <param name="resourceGroup">要更新的资源组。</param>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo">
             <summary>
@@ -13508,8 +13715,9 @@
         </member>
         <member name="T:GameFramework.Resource.UpdateResourcesCompleteCallback">
             <summary>
-            使用可更新模式并更新资源全部完成的回调函数。
+            使用可更新模式并更新指定资源组完成时的回调函数。
             </summary>
+            <param name="resourceGroup">更新的资源组。</param>
             <param name="result">更新资源结果，全部成功为 true，否则为 false。</param>
         </member>
         <member name="T:GameFramework.Resource.UpdateVersionListCallbacks">

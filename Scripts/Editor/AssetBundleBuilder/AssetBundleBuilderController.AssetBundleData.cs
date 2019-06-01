@@ -17,15 +17,17 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             private readonly string m_Variant;
             private readonly AssetBundleLoadType m_LoadType;
             private readonly bool m_Packed;
+            private readonly string[] m_ResourceGroups;
             private readonly List<AssetData> m_AssetDatas;
             private readonly List<AssetBundleCode> m_Codes;
 
-            public AssetBundleData(string name, string variant, AssetBundleLoadType loadType, bool packed)
+            public AssetBundleData(string name, string variant, AssetBundleLoadType loadType, bool packed, string[] resourceGroups)
             {
                 m_Name = name;
                 m_Variant = variant;
                 m_LoadType = loadType;
                 m_Packed = packed;
+                m_ResourceGroups = resourceGroups;
                 m_AssetDatas = new List<AssetData>();
                 m_Codes = new List<AssetBundleCode>();
             }
@@ -68,6 +70,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 {
                     return m_AssetDatas.Count;
                 }
+            }
+
+            public string[] GetResourceGroups()
+            {
+                return m_ResourceGroups;
             }
 
             public string[] GetAssetNames()

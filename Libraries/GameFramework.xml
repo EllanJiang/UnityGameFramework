@@ -11378,7 +11378,7 @@
             获取资源组是否准备完毕。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.IResourceGroup.ResourceCount">
+        <member name="P:GameFramework.Resource.IResourceGroup.TotalCount">
             <summary>
             获取资源组包含资源数量。
             </summary>
@@ -11407,6 +11407,12 @@
             <summary>
             获取资源组的完成进度。
             </summary>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceGroup.GetResourceNames">
+            <summary>
+            获取资源组包含的资源名称列表。
+            </summary>
+            <returns>资源组包含的资源名称列表。</returns>
         </member>
         <member name="T:GameFramework.Resource.IResourceHelper">
             <summary>
@@ -12933,7 +12939,7 @@
             获取资源组是否准备完毕。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.ResourceCount">
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.TotalCount">
             <summary>
             获取资源组包含资源数量。
             </summary>
@@ -12962,6 +12968,12 @@
             <summary>
             获取资源组的完成进度。
             </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroup.GetResourceNames">
+            <summary>
+            获取资源组包含的资源名称列表。
+            </summary>
+            <returns>资源组包含的资源名称列表。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceGroup.HasResource(GameFramework.Resource.ResourceManager.ResourceName)">
             <summary>

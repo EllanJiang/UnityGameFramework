@@ -140,12 +140,21 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                         xmlAttribute.Value = assetBundleData.Variant;
                         xmlAssetBundle.Attributes.SetNamedItem(xmlAttribute);
                     }
+
                     xmlAttribute = xmlDocument.CreateAttribute("LoadType");
                     xmlAttribute.Value = ((int)assetBundleData.LoadType).ToString();
                     xmlAssetBundle.Attributes.SetNamedItem(xmlAttribute);
                     xmlAttribute = xmlDocument.CreateAttribute("Packed");
                     xmlAttribute.Value = assetBundleData.Packed.ToString();
                     xmlAssetBundle.Attributes.SetNamedItem(xmlAttribute);
+                    string[] resourceGroups = assetBundleData.GetResourceGroups();
+                    if (resourceGroups.Length > 0)
+                    {
+                        xmlAttribute = xmlDocument.CreateAttribute("ResourceGroups");
+                        xmlAttribute.Value = string.Join(",", resourceGroups);
+                        xmlAssetBundle.Attributes.SetNamedItem(xmlAttribute);
+                    }
+
                     xmlAssetBundles.AppendChild(xmlAssetBundle);
 
                     AssetData[] assetDatas = assetBundleData.GetAssetDatas();

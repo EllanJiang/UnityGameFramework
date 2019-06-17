@@ -408,6 +408,17 @@ namespace UnityGameFramework.Runtime
             }
         }
 
+        /// <summary>
+        /// 获取等待编辑器加载的资源数量。
+        /// </summary>
+        public int LoadWaitingAssetCount
+        {
+            get
+            {
+                return m_LoadAssetInfos.Count;
+            }
+        }
+
 #pragma warning disable 0067, 0414
 
         /// <summary>

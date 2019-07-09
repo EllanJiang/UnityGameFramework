@@ -1599,6 +1599,11 @@
             初始化任务池的新实例。
             </summary>
         </member>
+        <member name="P:GameFramework.TaskPool`1.Paused">
+            <summary>
+            获取或设置任务池是否被暂停。
+            </summary>
+        </member>
         <member name="P:GameFramework.TaskPool`1.TotalAgentCount">
             <summary>
             获取任务代理总数量。
@@ -4421,6 +4426,11 @@
             </summary>
             <remarks>优先级较高的模块会优先轮询，并且关闭操作会后进行。</remarks>
         </member>
+        <member name="P:GameFramework.Download.DownloadManager.Paused">
+            <summary>
+            获取或设置下载是否被暂停。
+            </summary>
+        </member>
         <member name="P:GameFramework.Download.DownloadManager.TotalAgentCount">
             <summary>
             获取下载代理总数量。
@@ -4886,6 +4896,11 @@
         <member name="T:GameFramework.Download.IDownloadManager">
             <summary>
             下载管理器接口。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Download.IDownloadManager.Paused">
+            <summary>
+            获取或设置下载是否被暂停。
             </summary>
         </member>
         <member name="P:GameFramework.Download.IDownloadManager.TotalAgentCount">

@@ -64,6 +64,7 @@ namespace UnityGameFramework.Editor
 
             if (EditorApplication.isPlaying && IsPrefabInHierarchy(t.gameObject))
             {
+                EditorGUILayout.LabelField("Paused", t.Paused.ToString());
                 EditorGUILayout.LabelField("Total Agent Count", t.TotalAgentCount.ToString());
                 EditorGUILayout.LabelField("Free Agent Count", t.FreeAgentCount.ToString());
                 EditorGUILayout.LabelField("Working Agent Count", t.WorkingAgentCount.ToString());

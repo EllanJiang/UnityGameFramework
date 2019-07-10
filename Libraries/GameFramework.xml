@@ -11857,6 +11857,12 @@
             <param name="resourceGroupName">要检查资源组的名称。</param>
             <returns>资源组是否存在。</returns>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroup">
+            <summary>
+            获取默认资源组。
+            </summary>
+            <returns>默认资源组。</returns>
+        </member>
         <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroup(System.String)">
             <summary>
             获取资源组。
@@ -12725,6 +12731,12 @@
             </summary>
             <param name="resourceGroupName">要检查资源组的名称。</param>
             <returns>资源组是否存在。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroup">
+            <summary>
+            获取默认资源组。
+            </summary>
+            <returns>默认资源组。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroup(System.String)">
             <summary>

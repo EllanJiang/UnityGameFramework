@@ -43,6 +43,21 @@ namespace UnityGameFramework.Runtime
         private int m_FlushSize = OneMegaBytes;
 
         /// <summary>
+        /// 获取或设置下载是否被暂停。
+        /// </summary>
+        public bool Paused
+        {
+            get
+            {
+                return m_DownloadManager.Paused;
+            }
+            set
+            {
+                m_DownloadManager.Paused = value;
+            }
+        }
+
+        /// <summary>
         /// 获取下载代理总数量。
         /// </summary>
         public int TotalAgentCount

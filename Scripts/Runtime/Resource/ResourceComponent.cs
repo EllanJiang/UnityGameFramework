@@ -212,6 +212,17 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取资源组数量。
+        /// </summary>
+        public int ResourceGroupCount
+        {
+            get
+            {
+                return m_ResourceManager.ResourceGroupCount;
+            }
+        }
+
+        /// <summary>
         /// 获取或设置资源更新下载地址。
         /// </summary>
         public string UpdatePrefixUri
@@ -272,6 +283,17 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取正在更新的资源组。
+        /// </summary>
+        public IResourceGroup UpdatingResourceGroup
+        {
+            get
+            {
+                return m_ResourceManager.UpdatingResourceGroup;
+            }
+        }
+
+        /// <summary>
         /// 获取等待更新资源数量。
         /// </summary>
         public int UpdateWaitingCount
@@ -283,13 +305,13 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取更新失败资源数量。
+        /// 获取候选更新资源数量。
         /// </summary>
-        public int UpdateFailureCount
+        public int UpdateCandidateCount
         {
             get
             {
-                return m_ResourceManager.UpdateFailureCount;
+                return m_ResourceManager.UpdateCandidateCount;
             }
         }
 
@@ -652,7 +674,7 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 使用单机模式并初始化资源。
         /// </summary>
-        /// <param name="initResourcesCompleteCallback">使用单机模式并初始化资源完成的回调函数。</param>
+        /// <param name="initResourcesCompleteCallback">使用单机模式并初始化资源完成时的回调函数。</param>
         public void InitResources(InitResourcesCompleteCallback initResourcesCompleteCallback)
         {
             m_ResourceManager.InitResources(initResourcesCompleteCallback);
@@ -684,19 +706,29 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 使用可更新模式并检查资源。
         /// </summary>
-        /// <param name="checkResourcesCompleteCallback">使用可更新模式并检查资源完成的回调函数。</param>
+        /// <param name="checkResourcesCompleteCallback">使用可更新模式并检查资源完成时的回调函数。</param>
         public void CheckResources(CheckResourcesCompleteCallback checkResourcesCompleteCallback)
         {
             m_ResourceManager.CheckResources(checkResourcesCompleteCallback);
         }
 
         /// <summary>
-        /// 使用可更新模式并更新资源。
+        /// 使用可更新模式并更新全部资源。
         /// </summary>
-        /// <param name="updateResourcesCompleteCallback">使用可更新模式并更新资源全部完成的回调函数。</param>
+        /// <param name="updateResourcesCompleteCallback">使用可更新模式并更新默认资源组完成时的回调函数。</param>
         public void UpdateResources(UpdateResourcesCompleteCallback updateResourcesCompleteCallback)
         {
             m_ResourceManager.UpdateResources(updateResourcesCompleteCallback);
+        }
+
+        /// <summary>
+        /// 使用可更新模式并更新指定资源组的资源。
+        /// </summary>
+        /// <param name="resourceGroupName">要更新的资源组名称。</param>
+        /// <param name="updateResourcesCompleteCallback">使用可更新模式并更新指定资源组完成时的回调函数。</param>
+        public void UpdateResources(string resourceGroupName, UpdateResourcesCompleteCallback updateResourcesCompleteCallback)
+        {
+            m_ResourceManager.UpdateResources(resourceGroupName, updateResourcesCompleteCallback);
         }
 
         /// <summary>
@@ -820,6 +852,35 @@ namespace UnityGameFramework.Runtime
         public void UnloadAsset(object asset)
         {
             m_ResourceManager.UnloadAsset(asset);
+        }
+
+        /// <summary>
+        /// 检查资源组是否存在。
+        /// </summary>
+        /// <param name="resourceGroupName">要检查资源组的名称。</param>
+        /// <returns>资源组是否存在。</returns>
+        public bool HasResourceGroup(string resourceGroupName)
+        {
+            return m_ResourceManager.HasResourceGroup(resourceGroupName);
+        }
+
+        /// <summary>
+        /// 获取默认资源组。
+        /// </summary>
+        /// <returns>默认资源组。</returns>
+        public IResourceGroup GetResourceGroup()
+        {
+            return m_ResourceManager.GetResourceGroup();
+        }
+
+        /// <summary>
+        /// 获取资源组。
+        /// </summary>
+        /// <param name="resourceGroupName">要获取的资源组名称。</param>
+        /// <returns>要获取的资源组。</returns>
+        public IResourceGroup GetResourceGroup(string resourceGroupName)
+        {
+            return m_ResourceManager.GetResourceGroup(resourceGroupName);
         }
 
         /// <summary>

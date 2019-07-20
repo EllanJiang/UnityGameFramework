@@ -26,7 +26,7 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Processor Type:", SystemInfo.processorType);
                     DrawItem("Processor Count:", SystemInfo.processorCount.ToString());
                     DrawItem("Processor Frequency:", Utility.Text.Format("{0} MHz", SystemInfo.processorFrequency.ToString()));
-                    DrawItem("Memory Size:", Utility.Text.Format("{0} MB", SystemInfo.systemMemorySize.ToString()));
+                    DrawItem("System Memory Size:", Utility.Text.Format("{0} MB", SystemInfo.systemMemorySize.ToString()));
 #if UNITY_5_5_OR_NEWER
                     DrawItem("Operating System Family:", SystemInfo.operatingSystemFamily.ToString());
 #endif

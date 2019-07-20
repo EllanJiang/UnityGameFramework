@@ -9,6 +9,7 @@ using GameFramework;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using UnityEditor;
@@ -758,7 +759,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
             catch (Exception exception)
             {
-                string errorMessage = Utility.Text.Format("{0}\n{1}", exception.Message, exception.StackTrace);
+                string errorMessage = exception.ToString();
                 m_BuildReport.LogFatal(errorMessage);
                 m_BuildReport.SaveReport();
                 if (BuildAssetBundlesError != null)
@@ -1037,6 +1038,10 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     binaryWriter.Write(InternalResourceVersion);
                     binaryWriter.Write(m_AssetBundleCollection.AssetCount);
                     binaryWriter.Write(m_AssetBundleCollection.AssetBundleCount);
+                    if (m_AssetBundleCollection.AssetBundleCount > ushort.MaxValue)
+                    {
+                        throw new GameFrameworkException("Package list can only contains 65535 resources in version 0.");
+                    }
 
                     foreach (AssetBundleData assetBundleData in m_AssetBundleDatas.Values)
                     {
@@ -1099,6 +1104,27 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                             }
                         }
                     }
+
+                    string[] resourceGroups = GetResourceGroups();
+                    binaryWriter.Write(resourceGroups.Length);
+                    foreach (string resourceGroup in resourceGroups)
+                    {
+                        byte[] resourceGroupNameBytes = GetXorBytes(Utility.Converter.GetBytes(resourceGroup), encryptBytes);
+                        if (resourceGroupNameBytes.Length > byte.MaxValue)
+                        {
+                            throw new GameFrameworkException(Utility.Text.Format("Resource group name '{0}' is too long.", resourceGroup));
+                        }
+
+                        binaryWriter.Write((byte)resourceGroupNameBytes.Length);
+                        binaryWriter.Write(resourceGroupNameBytes);
+
+                        ushort[] resourceIndices = GetResourceIndices(resourceGroup);
+                        binaryWriter.Write(resourceIndices.Length);
+                        foreach (ushort resourceIndex in resourceIndices)
+                        {
+                            binaryWriter.Write(resourceIndex);
+                        }
+                    }
                 }
             }
 
@@ -1125,6 +1151,10 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     binaryWriter.Write(InternalResourceVersion);
                     binaryWriter.Write(m_AssetBundleCollection.AssetCount);
                     binaryWriter.Write(m_AssetBundleCollection.AssetBundleCount);
+                    if (m_AssetBundleCollection.AssetBundleCount > ushort.MaxValue)
+                    {
+                        throw new GameFrameworkException("Version list can only contains 65535 resources in version 0.");
+                    }
 
                     foreach (AssetBundleData assetBundleData in m_AssetBundleDatas.Values)
                     {
@@ -1187,6 +1217,27 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                                 binaryWriter.Write((byte)dependencyAssetNameBytes.Length);
                                 binaryWriter.Write(dependencyAssetNameBytes);
                             }
+                        }
+                    }
+
+                    string[] resourceGroups = GetResourceGroups();
+                    binaryWriter.Write(resourceGroups.Length);
+                    foreach (string resourceGroup in resourceGroups)
+                    {
+                        byte[] resourceGroupNameBytes = GetXorBytes(Utility.Converter.GetBytes(resourceGroup), encryptBytes);
+                        if (resourceGroupNameBytes.Length > byte.MaxValue)
+                        {
+                            throw new GameFrameworkException(Utility.Text.Format("Resource group name '{0}' is too long.", resourceGroup));
+                        }
+
+                        binaryWriter.Write((byte)resourceGroupNameBytes.Length);
+                        binaryWriter.Write(resourceGroupNameBytes);
+
+                        ushort[] resourceIndices = GetResourceIndices(resourceGroup);
+                        binaryWriter.Write(resourceIndices.Length);
+                        foreach (ushort resourceIndex in resourceIndices)
+                        {
+                            binaryWriter.Write(resourceIndex);
                         }
                     }
                 }
@@ -1271,6 +1322,45 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             File.Move(readOnlyListPath, Utility.Path.GetResourceNameWithSuffix(readOnlyListPath));
         }
 
+        private string[] GetResourceGroups()
+        {
+            List<string> resourceGroups = new List<string>();
+            foreach (AssetBundleData assetBundleData in m_AssetBundleDatas.Values)
+            {
+                foreach (string resourceGroup in assetBundleData.GetResourceGroups())
+                {
+                    if (resourceGroups.Contains(resourceGroup))
+                    {
+                        continue;
+                    }
+
+                    resourceGroups.Add(resourceGroup);
+                }
+            }
+
+            resourceGroups.Sort();
+            return resourceGroups.ToArray();
+        }
+
+        private ushort[] GetResourceIndices(string resourceGroup)
+        {
+            AssetBundleData[] assetBundleDatas = m_AssetBundleDatas.Values.ToArray();
+            List<ushort> resourceIndices = new List<ushort>();
+            for (ushort i = 0; i < assetBundleDatas.Length; i++)
+            {
+                foreach (string resourceGroupName in assetBundleDatas[i].GetResourceGroups())
+                {
+                    if (resourceGroupName == resourceGroup)
+                    {
+                        resourceIndices.Add(i);
+                        break;
+                    }
+                }
+            }
+
+            return resourceIndices.ToArray();
+        }
+
         private BuildAssetBundleOptions GetBuildAssetBundleOptions()
         {
             BuildAssetBundleOptions buildOptions = BuildAssetBundleOptions.None;
@@ -1320,7 +1410,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             AssetBundle[] assetBundles = m_AssetBundleCollection.GetAssetBundles();
             foreach (AssetBundle assetBundle in assetBundles)
             {
-                m_AssetBundleDatas.Add(assetBundle.FullName.ToLower(), new AssetBundleData(assetBundle.Name.ToLower(), (assetBundle.Variant != null ? assetBundle.Variant.ToLower() : null), assetBundle.LoadType, assetBundle.Packed));
+                m_AssetBundleDatas.Add(assetBundle.FullName.ToLower(), new AssetBundleData(assetBundle.Name.ToLower(), (assetBundle.Variant != null ? assetBundle.Variant.ToLower() : null), assetBundle.LoadType, assetBundle.Packed, assetBundle.GetResourceGroups()));
             }
 
             Asset[] assets = m_AssetBundleCollection.GetAssets();

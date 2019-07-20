@@ -7,6 +7,7 @@
 
 using GameFramework.Event;
 using GameFramework.Network;
+using System.Net.Sockets;
 
 namespace UnityGameFramework.Runtime
 {
@@ -50,6 +51,15 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取 Socket 错误码。
+        /// </summary>
+        public SocketError SocketErrorCode
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取错误信息。
         /// </summary>
         public string ErrorMessage
@@ -77,6 +87,7 @@ namespace UnityGameFramework.Runtime
         {
             NetworkChannel = e.NetworkChannel;
             ErrorCode = e.ErrorCode;
+            SocketErrorCode = e.SocketErrorCode;
             ErrorMessage = e.ErrorMessage;
 
             return this;

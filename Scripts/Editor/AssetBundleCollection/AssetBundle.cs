@@ -16,16 +16,23 @@ namespace UnityGameFramework.Editor.AssetBundleTools
     public sealed class AssetBundle
     {
         private readonly List<Asset> m_Assets;
+        private readonly List<string> m_ResourceGroups;
 
-        private AssetBundle(string name, string variant, AssetBundleLoadType loadType, bool packed)
+        private AssetBundle(string name, string variant, AssetBundleLoadType loadType, bool packed, string[] resourceGroups)
         {
             m_Assets = new List<Asset>();
+            m_ResourceGroups = new List<string>();
 
             Name = name;
             Variant = variant;
             Type = AssetBundleType.Unknown;
             LoadType = loadType;
             Packed = packed;
+
+            foreach (string resourceGroup in resourceGroups)
+            {
+                AddResourceGroup(resourceGroup);
+            }
         }
 
         public string Name
@@ -66,9 +73,9 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             private set;
         }
 
-        public static AssetBundle Create(string name, string variant, AssetBundleLoadType loadType, bool packed)
+        public static AssetBundle Create(string name, string variant, AssetBundleLoadType loadType, bool packed, string[] resourceGroups)
         {
-            return new AssetBundle(name, variant, loadType, packed);
+            return new AssetBundle(name, variant, loadType, packed, resourceGroups);
         }
 
         public Asset[] GetAssets()
@@ -115,6 +122,47 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
         }
 
+        public string[] GetResourceGroups()
+        {
+            return m_ResourceGroups.ToArray();
+        }
+
+        public bool HasResourceGroup(string resourceGroup)
+        {
+            if (string.IsNullOrEmpty(resourceGroup))
+            {
+                return false;
+            }
+
+            return m_ResourceGroups.Contains(resourceGroup);
+        }
+
+        public void AddResourceGroup(string resourceGroup)
+        {
+            if (string.IsNullOrEmpty(resourceGroup))
+            {
+                return;
+            }
+
+            if (m_ResourceGroups.Contains(resourceGroup))
+            {
+                return;
+            }
+
+            m_ResourceGroups.Add(resourceGroup);
+            m_ResourceGroups.Sort();
+        }
+
+        public bool RemoveResourceGroup(string resourceGroup)
+        {
+            if (string.IsNullOrEmpty(resourceGroup))
+            {
+                return false;
+            }
+
+            return m_ResourceGroups.Remove(resourceGroup);
+        }
+
         public void Clear()
         {
             foreach (Asset asset in m_Assets)
@@ -123,6 +171,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
 
             m_Assets.Clear();
+            m_ResourceGroups.Clear();
         }
 
         private int AssetComparer(Asset a, Asset b)

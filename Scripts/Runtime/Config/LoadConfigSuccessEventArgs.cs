@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
@@ -49,6 +50,15 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取配置加载方式。
+        /// </summary>
+        public LoadType LoadType
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取加载持续时间。
         /// </summary>
         public float Duration
@@ -73,6 +83,7 @@ namespace UnityGameFramework.Runtime
         {
             ConfigName = default(string);
             ConfigAssetName = default(string);
+            LoadType = default(LoadType);
             Duration = default(float);
             UserData = default(object);
         }
@@ -87,6 +98,7 @@ namespace UnityGameFramework.Runtime
             LoadConfigInfo loadConfigInfo = (LoadConfigInfo)e.UserData;
             ConfigName = loadConfigInfo.ConfigName;
             ConfigAssetName = e.ConfigAssetName;
+            LoadType = e.LoadType;
             Duration = e.Duration;
             UserData = loadConfigInfo.UserData;
 

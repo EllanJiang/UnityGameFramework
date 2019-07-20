@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 using System;
 
@@ -59,6 +60,15 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取数据表加载方式。
+        /// </summary>
+        public LoadType LoadType
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取加载持续时间。
         /// </summary>
         public float Duration
@@ -84,6 +94,7 @@ namespace UnityGameFramework.Runtime
             DataRowType = default(Type);
             DataTableName = default(string);
             DataTableAssetName = default(string);
+            LoadType = default(LoadType);
             Duration = default(float);
             UserData = default(object);
         }
@@ -99,6 +110,7 @@ namespace UnityGameFramework.Runtime
             DataRowType = loadDataTableInfo.DataRowType;
             DataTableName = loadDataTableInfo.DataTableName;
             DataTableAssetName = e.DataTableAssetName;
+            LoadType = e.LoadType;
             Duration = e.Duration;
             UserData = loadDataTableInfo.UserData;
 

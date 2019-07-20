@@ -110,13 +110,15 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     {
                         int.TryParse(xmlNode.Attributes.GetNamedItem("LoadType").Value, out assetBundleLoadType);
                     }
+
                     bool assetBundlePacked = false;
                     if (xmlNode.Attributes.GetNamedItem("Packed") != null)
                     {
                         bool.TryParse(xmlNode.Attributes.GetNamedItem("Packed").Value, out assetBundlePacked);
                     }
 
-                    if (!AddAssetBundle(assetBundleName, assetBundleVariant, (AssetBundleLoadType)assetBundleLoadType, assetBundlePacked))
+                    string[] assetBundleResourceGroups = xmlNode.Attributes.GetNamedItem("ResourceGroups") != null ? xmlNode.Attributes.GetNamedItem("ResourceGroups").Value.Split(',') : new string[0];
+                    if (!AddAssetBundle(assetBundleName, assetBundleVariant, (AssetBundleLoadType)assetBundleLoadType, assetBundlePacked, assetBundleResourceGroups))
                     {
                         string assetBundleFullName = assetBundleVariant != null ? Utility.Text.Format("{0}.{1}", assetBundleName, assetBundleVariant) : assetBundleName;
                         Debug.LogWarning(Utility.Text.Format("Can not add AssetBundle '{0}'.", assetBundleFullName));
@@ -197,18 +199,28 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     xmlAttribute = xmlDocument.CreateAttribute("Name");
                     xmlAttribute.Value = assetBundle.Name;
                     xmlElement.Attributes.SetNamedItem(xmlAttribute);
+
                     if (assetBundle.Variant != null)
                     {
                         xmlAttribute = xmlDocument.CreateAttribute("Variant");
                         xmlAttribute.Value = assetBundle.Variant;
                         xmlElement.Attributes.SetNamedItem(xmlAttribute);
                     }
+
                     xmlAttribute = xmlDocument.CreateAttribute("LoadType");
                     xmlAttribute.Value = ((int)assetBundle.LoadType).ToString();
                     xmlElement.Attributes.SetNamedItem(xmlAttribute);
                     xmlAttribute = xmlDocument.CreateAttribute("Packed");
                     xmlAttribute.Value = assetBundle.Packed.ToString();
                     xmlElement.Attributes.SetNamedItem(xmlAttribute);
+                    string[] resourceGroups = assetBundle.GetResourceGroups();
+                    if (resourceGroups.Length > 0)
+                    {
+                        xmlAttribute = xmlDocument.CreateAttribute("ResourceGroups");
+                        xmlAttribute.Value = string.Join(",", resourceGroups);
+                        xmlElement.Attributes.SetNamedItem(xmlAttribute);
+                    }
+
                     xmlAssetBundles.AppendChild(xmlElement);
                 }
 
@@ -227,6 +239,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                         xmlAttribute.Value = asset.AssetBundle.Variant;
                         xmlElement.Attributes.SetNamedItem(xmlAttribute);
                     }
+
                     xmlAssets.AppendChild(xmlElement);
                 }
 
@@ -282,7 +295,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             return m_AssetBundles.ContainsKey(GetAssetBundleFullName(assetBundleName, assetBundleVariant).ToLower());
         }
 
-        public bool AddAssetBundle(string assetBundleName, string assetBundleVariant, AssetBundleLoadType assetBundleLoadType, bool assetBundlePacked)
+        public bool AddAssetBundle(string assetBundleName, string assetBundleVariant, AssetBundleLoadType assetBundleLoadType, bool assetBundlePacked, string[] assetBundleResourceGroups)
         {
             if (!IsValidAssetBundleName(assetBundleName, assetBundleVariant))
             {
@@ -294,7 +307,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 return false;
             }
 
-            AssetBundle assetBundle = AssetBundle.Create(assetBundleName, assetBundleVariant, assetBundleLoadType, assetBundlePacked);
+            AssetBundle assetBundle = AssetBundle.Create(assetBundleName, assetBundleVariant, assetBundleLoadType, assetBundlePacked, assetBundleResourceGroups);
             m_AssetBundles.Add(assetBundle.FullName.ToLower(), assetBundle);
 
             return true;

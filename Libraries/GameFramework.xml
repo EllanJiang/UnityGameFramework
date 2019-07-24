@@ -992,6 +992,188 @@
             <param name="arg16">此委托封装的方法的第十六个参数。</param>
             <returns>此委托封装的方法的返回值。</returns>
         </member>
+        <member name="T:GameFramework.GameFrameworkLinkedList`1">
+            <summary>
+            游戏框架链表类。
+            </summary>
+            <typeparam name="T">指定链表的元素类型。</typeparam>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.#ctor">
+            <summary>
+            初始化游戏框架链表类的新实例。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkLinkedList`1.Count">
+            <summary>
+            获取链表中实际包含的结点数。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkLinkedList`1.CacheCount">
+            <summary>
+            获取链表结点缓存数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkLinkedList`1.First">
+            <summary>
+            获取链表的第一个结点。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkLinkedList`1.Last">
+            <summary>
+            获取链表的最后一个结点。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkLinkedList`1.IsReadOnly">
+            <summary>
+            获取一个值，该值指示 ICollection`1 是否为只读。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkLinkedList`1.SyncRoot">
+            <summary>
+            获取可用于同步对 ICollection 的访问的对象。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkLinkedList`1.IsSynchronized">
+            <summary>
+            获取一个值，该值指示是否同步对 ICollection 的访问（线程安全）。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.Add(`0)">
+            <summary>
+            将值添加到 ICollection`1 的结尾处。
+            </summary>
+            <param name="value">要添加的值。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.AddAfter(System.Collections.Generic.LinkedListNode{`0},`0)">
+            <summary>
+            在链表中指定的现有结点后添加包含指定值的新结点。
+            </summary>
+            <param name="node">指定的现有结点。</param>
+            <param name="value">指定值。</param>
+            <returns>包含指定值的新结点。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.AddAfter(System.Collections.Generic.LinkedListNode{`0},System.Collections.Generic.LinkedListNode{`0})">
+            <summary>
+            在链表中指定的现有结点后添加指定的新结点。
+            </summary>
+            <param name="node">指定的现有结点。</param>
+            <param name="newNode">指定的新结点。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.AddBefore(System.Collections.Generic.LinkedListNode{`0},`0)">
+            <summary>
+            在链表中指定的现有结点前添加包含指定值的新结点。
+            </summary>
+            <param name="node">指定的现有结点。</param>
+            <param name="value">指定值。</param>
+            <returns>包含指定值的新结点。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.AddBefore(System.Collections.Generic.LinkedListNode{`0},System.Collections.Generic.LinkedListNode{`0})">
+            <summary>
+            在链表中指定的现有结点前添加指定的新结点。
+            </summary>
+            <param name="node">指定的现有结点。</param>
+            <param name="newNode">指定的新结点。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.AddFirst(`0)">
+            <summary>
+            在链表的开头处添加包含指定值的新结点。
+            </summary>
+            <param name="value">指定值。</param>
+            <returns>包含指定值的新结点。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.AddFirst(System.Collections.Generic.LinkedListNode{`0})">
+            <summary>
+            在链表的开头处添加指定的新结点。
+            </summary>
+            <param name="node">指定的新结点。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.AddLast(`0)">
+            <summary>
+            在链表的结尾处添加包含指定值的新结点。
+            </summary>
+            <param name="value">指定值。</param>
+            <returns>包含指定值的新结点。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.AddLast(System.Collections.Generic.LinkedListNode{`0})">
+            <summary>
+            在链表的结尾处添加指定的新结点。
+            </summary>
+            <param name="node">指定的新结点。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.Clear">
+            <summary>
+            从链表中移除所有结点。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.ClearCache">
+            <summary>
+            清除链表结点缓存。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.Contains(`0)">
+            <summary>
+            确定某值是否在链表中。
+            </summary>
+            <param name="value">指定值。</param>
+            <returns>某值是否在链表中。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.CopyTo(`0[],System.Int32)">
+            <summary>
+            从目标数组的指定索引处开始将整个链表复制到兼容的一维数组。
+            </summary>
+            <param name="array">一维数组，它是从链表复制的元素的目标。数组必须具有从零开始的索引。</param>
+            <param name="index">array 中从零开始的索引，从此处开始复制。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.CopyTo(System.Array,System.Int32)">
+            <summary>
+            从特定的 ICollection 索引开始，将数组的元素复制到一个数组中。
+            </summary>
+            <param name="array">一维数组，它是从 ICollection 复制的元素的目标。数组必须具有从零开始的索引。</param>
+            <param name="index">array 中从零开始的索引，从此处开始复制。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.Find(`0)">
+            <summary>
+            查找包含指定值的第一个结点。
+            </summary>
+            <param name="value">要查找的指定值。</param>
+            <returns>包含指定值的第一个结点。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.FindLast(`0)">
+            <summary>
+            查找包含指定值的最后一个结点。
+            </summary>
+            <param name="value">要查找的指定值。</param>
+            <returns>包含指定值的最后一个结点。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.GetEnumerator">
+            <summary>
+            返回循环访问集合的枚举数。
+            </summary>
+            <returns>循环访问集合的枚举数。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.Remove(`0)">
+            <summary>
+            从链表中移除指定值的第一个匹配项。
+            </summary>
+            <param name="value">指定值。</param>
+            <returns>是否移除成功。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.Remove(System.Collections.Generic.LinkedListNode{`0})">
+            <summary>
+            从链表中移除指定的结点。
+            </summary>
+            <param name="node">指定的结点。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.RemoveFirst">
+            <summary>
+            移除位于链表开头处的结点。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.RemoveLast">
+            <summary>
+            移除位于链表结尾处的结点。
+            </summary>
+        </member>
         <member name="T:GameFramework.GameFrameworkModule">
             <summary>
             游戏框架模块抽象类。
@@ -1653,7 +1835,7 @@
             移除任务。
             </summary>
             <param name="serialId">要移除任务的序列编号。</param>
-            <returns>被移除的任务。</returns>
+            <returns>移除任务是否成功。</returns>
         </member>
         <member name="M:GameFramework.TaskPool`1.RemoveAllTasks">
             <summary>
@@ -2672,7 +2854,7 @@
             <summary>
             检测数据结点名称是否合法。
             </summary>
-            <param name="name">要检测的数据节点名称。</param>
+            <param name="name">要检测的数据结点名称。</param>
             <returns>是否是合法的数据结点名称。</returns>
         </member>
         <member name="T:GameFramework.DataNode.IDataNode">
@@ -4054,7 +4236,7 @@
         </member>
         <member name="P:GameFramework.Debugger.DebuggerManager.DebuggerWindowRoot">
             <summary>
-            调试窗口根节点。
+            调试窗口根结点。
             </summary>
         </member>
         <member name="M:GameFramework.Debugger.DebuggerManager.Update(System.Single,System.Single)">
@@ -4182,7 +4364,7 @@
         </member>
         <member name="P:GameFramework.Debugger.IDebuggerManager.DebuggerWindowRoot">
             <summary>
-            调试窗口根节点。
+            调试窗口根结点。
             </summary>
         </member>
         <member name="M:GameFramework.Debugger.IDebuggerManager.RegisterDebuggerWindow(System.String,GameFramework.Debugger.IDebuggerWindow,System.Object[])">
@@ -4638,16 +4820,10 @@
             下载任务。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadManager.DownloadTask.#ctor(System.String,System.String,System.Int32,System.Int32,System.Single,System.Object)">
+        <member name="M:GameFramework.Download.DownloadManager.DownloadTask.#ctor">
             <summary>
             初始化下载任务的新实例。
             </summary>
-            <param name="downloadPath">下载后存放路径。</param>
-            <param name="downloadUri">原始下载地址。</param>
-            <param name="priority">下载任务的优先级。</param>
-            <param name="flushSize">将缓冲区写入磁盘的临界大小。</param>
-            <param name="timeout">下载超时时长，以秒为单位。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Download.DownloadManager.DownloadTask.SerialId">
             <summary>
@@ -4692,6 +4868,22 @@
         <member name="P:GameFramework.Download.DownloadManager.DownloadTask.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.DownloadTask.Initialize(System.String,System.String,System.Int32,System.Int32,System.Single,System.Object)">
+            <summary>
+            初始化下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="priority">下载任务的优先级。</param>
+            <param name="flushSize">将缓冲区写入磁盘的临界大小。</param>
+            <param name="timeout">下载超时时长，以秒为单位。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.DownloadTask.Clear">
+            <summary>
+            清理下载任务。
             </summary>
         </member>
         <member name="T:GameFramework.Download.DownloadManager.DownloadTaskStatus">
@@ -16343,6 +16535,13 @@
             获取或设置用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Task.TaskBase.Initialize(System.Int32,System.Int32)">
+            <summary>
+            初始化任务基类。
+            </summary>
+            <param name="serialId">任务的序列编号。</param>
+            <param name="priority">任务的优先级。</param>
+        </member>
         <member name="M:GameFramework.Task.TaskBase.Clear">
             <summary>
             清理任务基类。
@@ -19278,16 +19477,6 @@
             Web 请求任务。
             </summary>
         </member>
-        <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.#ctor(System.String,System.Byte[],System.Int32,System.Single,System.Object)">
-            <summary>
-            初始化 Web 请求任务的新实例。
-            </summary>
-            <param name="webRequestUri">要发送的远程地址。</param>
-            <param name="postData">要发送的数据流。</param>
-            <param name="priority">Web 请求任务的优先级。</param>
-            <param name="timeout">下载超时时长，以秒为单位。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
         <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.SerialId">
             <summary>
             获取 Web 请求任务的序列编号。
@@ -19321,6 +19510,21 @@
         <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Initialize(System.String,System.Byte[],System.Int32,System.Single,System.Object)">
+            <summary>
+            初始化 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">要发送的远程地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <param name="timeout">下载超时时长，以秒为单位。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Clear">
+            <summary>
+            清理 Web 请求任务。
             </summary>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.GetPostData">

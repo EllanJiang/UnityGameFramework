@@ -27,6 +27,9 @@ namespace UnityGameFramework.Runtime
         private static readonly int AssetsStringLength = "Assets".Length;
 
         [SerializeField]
+        private bool m_EnableCachedAssets = true;
+
+        [SerializeField]
         private int m_LoadAssetCountPerFrame = 1;
 
         [SerializeField]
@@ -37,9 +40,10 @@ namespace UnityGameFramework.Runtime
 
         private string m_ReadOnlyPath = null;
         private string m_ReadWritePath = null;
-        private LinkedList<LoadAssetInfo> m_LoadAssetInfos = null;
-        private LinkedList<LoadSceneInfo> m_LoadSceneInfos = null;
-        private LinkedList<UnloadSceneInfo> m_UnloadSceneInfos = null;
+        private Dictionary<string, UnityEngine.Object> m_CachedAssets = null;
+        private GameFrameworkLinkedList<LoadAssetInfo> m_LoadAssetInfos = null;
+        private GameFrameworkLinkedList<LoadSceneInfo> m_LoadSceneInfos = null;
+        private GameFrameworkLinkedList<UnloadSceneInfo> m_UnloadSceneInfos = null;
 
         /// <summary>
         /// 获取资源只读区路径。
@@ -447,9 +451,10 @@ namespace UnityGameFramework.Runtime
         {
             m_ReadOnlyPath = null;
             m_ReadWritePath = null;
-            m_LoadAssetInfos = new LinkedList<LoadAssetInfo>();
-            m_LoadSceneInfos = new LinkedList<LoadSceneInfo>();
-            m_UnloadSceneInfos = new LinkedList<UnloadSceneInfo>();
+            m_CachedAssets = new Dictionary<string, UnityEngine.Object>();
+            m_LoadAssetInfos = new GameFrameworkLinkedList<LoadAssetInfo>();
+            m_LoadSceneInfos = new GameFrameworkLinkedList<LoadSceneInfo>();
+            m_UnloadSceneInfos = new GameFrameworkLinkedList<UnloadSceneInfo>();
 
             BaseComponent baseComponent = GetComponent<BaseComponent>();
             if (baseComponent == null)
@@ -481,17 +486,25 @@ namespace UnityGameFramework.Runtime
                     float elapseSeconds = (float)(DateTime.Now - loadAssetInfo.StartTime).TotalSeconds;
                     if (elapseSeconds >= loadAssetInfo.DelaySeconds)
                     {
-                        UnityEngine.Object asset = null;
+                        UnityEngine.Object asset = GetCachedAsset(loadAssetInfo.AssetName);
+                        if (asset == null)
+                        {
 #if UNITY_EDITOR
-                        if (loadAssetInfo.AssetType != null)
-                        {
-                            asset = UnityEditor.AssetDatabase.LoadAssetAtPath(loadAssetInfo.AssetName, loadAssetInfo.AssetType);
-                        }
-                        else
-                        {
-                            asset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(loadAssetInfo.AssetName);
-                        }
+                            if (loadAssetInfo.AssetType != null)
+                            {
+                                asset = UnityEditor.AssetDatabase.LoadAssetAtPath(loadAssetInfo.AssetName, loadAssetInfo.AssetType);
+                            }
+                            else
+                            {
+                                asset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(loadAssetInfo.AssetName);
+                            }
+
+                            if (m_EnableCachedAssets && asset != null)
+                            {
+                                m_CachedAssets.Add(loadAssetInfo.AssetName, asset);
+                            }
 #endif
+                        }
 
                         if (asset != null)
                         {
@@ -1074,6 +1087,11 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
+            if (HasCachedAsset(assetName))
+            {
+                return true;
+            }
+
             string assetFullName = Application.dataPath.Substring(0, Application.dataPath.Length - AssetsStringLength) + assetName;
             if (string.IsNullOrEmpty(assetFullName))
             {
@@ -1116,6 +1134,42 @@ namespace UnityGameFramework.Runtime
             }
 
             return true;
+        }
+
+        private bool HasCachedAsset(string assetName)
+        {
+            if (!m_EnableCachedAssets)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(assetName))
+            {
+                return false;
+            }
+
+            return m_CachedAssets.ContainsKey(assetName);
+        }
+
+        private UnityEngine.Object GetCachedAsset(string assetName)
+        {
+            if (!m_EnableCachedAssets)
+            {
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(assetName))
+            {
+                return null;
+            }
+
+            UnityEngine.Object asset = null;
+            if (m_CachedAssets.TryGetValue(assetName, out asset))
+            {
+                return asset;
+            }
+
+            return null;
         }
 
         private sealed class LoadAssetInfo

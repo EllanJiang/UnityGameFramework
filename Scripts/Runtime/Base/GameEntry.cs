@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public static class GameEntry
     {
-        private static readonly LinkedList<GameFrameworkComponent> s_GameFrameworkComponents = new LinkedList<GameFrameworkComponent>();
+        private static readonly GameFrameworkLinkedList<GameFrameworkComponent> s_GameFrameworkComponents = new GameFrameworkLinkedList<GameFrameworkComponent>();
 
         /// <summary>
         /// 游戏框架所在的场景编号。

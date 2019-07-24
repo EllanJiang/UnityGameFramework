@@ -158,11 +158,27 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_UIManager.OpenUIFormSuccess += OnOpenUIFormSuccess;
+            if (m_EnableOpenUIFormSuccessEvent)
+            {
+                m_UIManager.OpenUIFormSuccess += OnOpenUIFormSuccess;
+            }
+
             m_UIManager.OpenUIFormFailure += OnOpenUIFormFailure;
-            m_UIManager.OpenUIFormUpdate += OnOpenUIFormUpdate;
-            m_UIManager.OpenUIFormDependencyAsset += OnOpenUIFormDependencyAsset;
-            m_UIManager.CloseUIFormComplete += OnCloseUIFormComplete;
+
+            if (m_EnableOpenUIFormUpdateEvent)
+            {
+                m_UIManager.OpenUIFormUpdate += OnOpenUIFormUpdate;
+            }
+
+            if (m_EnableOpenUIFormDependencyAssetEvent)
+            {
+                m_UIManager.OpenUIFormDependencyAsset += OnOpenUIFormDependencyAsset;
+            }
+
+            if (m_EnableCloseUIFormCompleteEvent)
+            {
+                m_UIManager.CloseUIFormComplete += OnCloseUIFormComplete;
+            }
         }
 
         private void Start()
@@ -684,10 +700,7 @@ namespace UnityGameFramework.Runtime
 
         private void OnOpenUIFormSuccess(object sender, GameFramework.UI.OpenUIFormSuccessEventArgs e)
         {
-            if (m_EnableOpenUIFormSuccessEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<OpenUIFormSuccessEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<OpenUIFormSuccessEventArgs>().Fill(e));
         }
 
         private void OnOpenUIFormFailure(object sender, GameFramework.UI.OpenUIFormFailureEventArgs e)
@@ -701,26 +714,17 @@ namespace UnityGameFramework.Runtime
 
         private void OnOpenUIFormUpdate(object sender, GameFramework.UI.OpenUIFormUpdateEventArgs e)
         {
-            if (m_EnableOpenUIFormUpdateEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<OpenUIFormUpdateEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<OpenUIFormUpdateEventArgs>().Fill(e));
         }
 
         private void OnOpenUIFormDependencyAsset(object sender, GameFramework.UI.OpenUIFormDependencyAssetEventArgs e)
         {
-            if (m_EnableOpenUIFormDependencyAssetEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<OpenUIFormDependencyAssetEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<OpenUIFormDependencyAssetEventArgs>().Fill(e));
         }
 
         private void OnCloseUIFormComplete(object sender, GameFramework.UI.CloseUIFormCompleteEventArgs e)
         {
-            if (m_EnableCloseUIFormCompleteEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<CloseUIFormCompleteEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<CloseUIFormCompleteEventArgs>().Fill(e));
         }
     }
 }

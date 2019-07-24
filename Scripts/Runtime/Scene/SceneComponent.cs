@@ -73,8 +73,17 @@ namespace UnityGameFramework.Runtime
 
             m_SceneManager.LoadSceneSuccess += OnLoadSceneSuccess;
             m_SceneManager.LoadSceneFailure += OnLoadSceneFailure;
-            m_SceneManager.LoadSceneUpdate += OnLoadSceneUpdate;
-            m_SceneManager.LoadSceneDependencyAsset += OnLoadSceneDependencyAsset;
+
+            if (m_EnableLoadSceneUpdateEvent)
+            {
+                m_SceneManager.LoadSceneUpdate += OnLoadSceneUpdate;
+            }
+
+            if (m_EnableLoadSceneDependencyAssetEvent)
+            {
+                m_SceneManager.LoadSceneDependencyAsset += OnLoadSceneDependencyAsset;
+            }
+
             m_SceneManager.UnloadSceneSuccess += OnUnloadSceneSuccess;
             m_SceneManager.UnloadSceneFailure += OnUnloadSceneFailure;
 
@@ -341,18 +350,12 @@ namespace UnityGameFramework.Runtime
 
         private void OnLoadSceneUpdate(object sender, GameFramework.Scene.LoadSceneUpdateEventArgs e)
         {
-            if (m_EnableLoadSceneUpdateEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadSceneUpdateEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadSceneUpdateEventArgs>().Fill(e));
         }
 
         private void OnLoadSceneDependencyAsset(object sender, GameFramework.Scene.LoadSceneDependencyAssetEventArgs e)
         {
-            if (m_EnableLoadSceneDependencyAssetEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadSceneDependencyAssetEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadSceneDependencyAssetEventArgs>().Fill(e));
         }
 
         private void OnUnloadSceneSuccess(object sender, GameFramework.Scene.UnloadSceneSuccessEventArgs e)

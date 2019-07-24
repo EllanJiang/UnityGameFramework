@@ -59,10 +59,22 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_DataTableManager.LoadDataTableSuccess += OnLoadDataTableSuccess;
+            if (m_EnableLoadDataTableSuccessEvent)
+            {
+                m_DataTableManager.LoadDataTableSuccess += OnLoadDataTableSuccess;
+            }
+
             m_DataTableManager.LoadDataTableFailure += OnLoadDataTableFailure;
-            m_DataTableManager.LoadDataTableUpdate += OnLoadDataTableUpdate;
-            m_DataTableManager.LoadDataTableDependencyAsset += OnLoadDataTableDependencyAsset;
+
+            if (m_EnableLoadDataTableUpdateEvent)
+            {
+                m_DataTableManager.LoadDataTableUpdate += OnLoadDataTableUpdate;
+            }
+
+            if (m_EnableLoadDataTableDependencyAssetEvent)
+            {
+                m_DataTableManager.LoadDataTableDependencyAsset += OnLoadDataTableDependencyAsset;
+            }
         }
 
         private void Start()
@@ -627,10 +639,7 @@ namespace UnityGameFramework.Runtime
 
         private void OnLoadDataTableSuccess(object sender, GameFramework.DataTable.LoadDataTableSuccessEventArgs e)
         {
-            if (m_EnableLoadDataTableSuccessEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableSuccessEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableSuccessEventArgs>().Fill(e));
         }
 
         private void OnLoadDataTableFailure(object sender, GameFramework.DataTable.LoadDataTableFailureEventArgs e)
@@ -644,18 +653,12 @@ namespace UnityGameFramework.Runtime
 
         private void OnLoadDataTableUpdate(object sender, GameFramework.DataTable.LoadDataTableUpdateEventArgs e)
         {
-            if (m_EnableLoadDataTableUpdateEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableUpdateEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableUpdateEventArgs>().Fill(e));
         }
 
         private void OnLoadDataTableDependencyAsset(object sender, GameFramework.DataTable.LoadDataTableDependencyAssetEventArgs e)
         {
-            if (m_EnableLoadDataTableDependencyAssetEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableDependencyAssetEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableDependencyAssetEventArgs>().Fill(e));
         }
     }
 }

@@ -108,8 +108,16 @@ namespace UnityGameFramework.Runtime
 
             m_SoundManager.PlaySoundSuccess += OnPlaySoundSuccess;
             m_SoundManager.PlaySoundFailure += OnPlaySoundFailure;
-            m_SoundManager.PlaySoundUpdate += OnPlaySoundUpdate;
-            m_SoundManager.PlaySoundDependencyAsset += OnPlaySoundDependencyAsset;
+
+            if (m_EnablePlaySoundUpdateEvent)
+            {
+                m_SoundManager.PlaySoundUpdate += OnPlaySoundUpdate;
+            }
+
+            if (m_EnablePlaySoundDependencyAssetEvent)
+            {
+                m_SoundManager.PlaySoundDependencyAsset += OnPlaySoundDependencyAsset;
+            }
 
             m_AudioListener = gameObject.GetOrAddComponent<AudioListener>();
 
@@ -650,18 +658,12 @@ namespace UnityGameFramework.Runtime
 
         private void OnPlaySoundUpdate(object sender, GameFramework.Sound.PlaySoundUpdateEventArgs e)
         {
-            if (m_EnablePlaySoundUpdateEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<PlaySoundUpdateEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<PlaySoundUpdateEventArgs>().Fill(e));
         }
 
         private void OnPlaySoundDependencyAsset(object sender, GameFramework.Sound.PlaySoundDependencyAssetEventArgs e)
         {
-            if (m_EnablePlaySoundDependencyAssetEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<PlaySoundDependencyAssetEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<PlaySoundDependencyAssetEventArgs>().Fill(e));
         }
 
         private void OnLoadSceneSuccess(object sender, GameFramework.Scene.LoadSceneSuccessEventArgs e)

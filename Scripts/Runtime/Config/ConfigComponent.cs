@@ -68,10 +68,22 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_ConfigManager.LoadConfigSuccess += OnLoadConfigSuccess;
+            if (m_EnableLoadConfigSuccessEvent)
+            {
+                m_ConfigManager.LoadConfigSuccess += OnLoadConfigSuccess;
+            }
+
             m_ConfigManager.LoadConfigFailure += OnLoadConfigFailure;
-            m_ConfigManager.LoadConfigUpdate += OnLoadConfigUpdate;
-            m_ConfigManager.LoadConfigDependencyAsset += OnLoadConfigDependencyAsset;
+
+            if (m_EnableLoadConfigUpdateEvent)
+            {
+                m_ConfigManager.LoadConfigUpdate += OnLoadConfigUpdate;
+            }
+
+            if (m_EnableLoadConfigDependencyAssetEvent)
+            {
+                m_ConfigManager.LoadConfigDependencyAsset += OnLoadConfigDependencyAsset;
+            }
         }
 
         private void Start()
@@ -344,10 +356,7 @@ namespace UnityGameFramework.Runtime
 
         private void OnLoadConfigSuccess(object sender, GameFramework.Config.LoadConfigSuccessEventArgs e)
         {
-            if (m_EnableLoadConfigSuccessEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadConfigSuccessEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadConfigSuccessEventArgs>().Fill(e));
         }
 
         private void OnLoadConfigFailure(object sender, GameFramework.Config.LoadConfigFailureEventArgs e)
@@ -361,18 +370,12 @@ namespace UnityGameFramework.Runtime
 
         private void OnLoadConfigUpdate(object sender, GameFramework.Config.LoadConfigUpdateEventArgs e)
         {
-            if (m_EnableLoadConfigUpdateEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadConfigUpdateEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadConfigUpdateEventArgs>().Fill(e));
         }
 
         private void OnLoadConfigDependencyAsset(object sender, GameFramework.Config.LoadConfigDependencyAssetEventArgs e)
         {
-            if (m_EnableLoadConfigDependencyAssetEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadConfigDependencyAssetEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadConfigDependencyAssetEventArgs>().Fill(e));
         }
     }
 }

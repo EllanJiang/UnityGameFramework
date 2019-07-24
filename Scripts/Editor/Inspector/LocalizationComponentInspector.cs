@@ -28,13 +28,12 @@ namespace UnityGameFramework.Editor
 
             LocalizationComponent t = (LocalizationComponent)target;
 
-            EditorGUILayout.PropertyField(m_EnableLoadDictionarySuccessEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadDictionaryFailureEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadDictionaryUpdateEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadDictionaryDependencyAssetEvent);
-
             EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
             {
+                EditorGUILayout.PropertyField(m_EnableLoadDictionarySuccessEvent);
+                EditorGUILayout.PropertyField(m_EnableLoadDictionaryFailureEvent);
+                EditorGUILayout.PropertyField(m_EnableLoadDictionaryUpdateEvent);
+                EditorGUILayout.PropertyField(m_EnableLoadDictionaryDependencyAssetEvent);
                 m_LocalizationHelperInfo.Draw();
             }
             EditorGUI.EndDisabledGroup();

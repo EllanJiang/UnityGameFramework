@@ -28,13 +28,12 @@ namespace UnityGameFramework.Editor
 
             ConfigComponent t = (ConfigComponent)target;
 
-            EditorGUILayout.PropertyField(m_EnableLoadConfigSuccessEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadConfigFailureEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadConfigUpdateEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadConfigDependencyAssetEvent);
-
             EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
             {
+                EditorGUILayout.PropertyField(m_EnableLoadConfigSuccessEvent);
+                EditorGUILayout.PropertyField(m_EnableLoadConfigFailureEvent);
+                EditorGUILayout.PropertyField(m_EnableLoadConfigUpdateEvent);
+                EditorGUILayout.PropertyField(m_EnableLoadConfigDependencyAssetEvent);
                 m_ConfigHelperInfo.Draw();
             }
             EditorGUI.EndDisabledGroup();

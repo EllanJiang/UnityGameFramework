@@ -29,12 +29,16 @@ namespace UnityGameFramework.Editor
 
             SceneComponent t = (SceneComponent)target;
 
-            EditorGUILayout.PropertyField(m_EnableLoadSceneSuccessEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadSceneFailureEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadSceneUpdateEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadSceneDependencyAssetEvent);
-            EditorGUILayout.PropertyField(m_EnableUnloadSceneSuccessEvent);
-            EditorGUILayout.PropertyField(m_EnableUnloadSceneFailureEvent);
+            EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
+            {
+                EditorGUILayout.PropertyField(m_EnableLoadSceneSuccessEvent);
+                EditorGUILayout.PropertyField(m_EnableLoadSceneFailureEvent);
+                EditorGUILayout.PropertyField(m_EnableLoadSceneUpdateEvent);
+                EditorGUILayout.PropertyField(m_EnableLoadSceneDependencyAssetEvent);
+                EditorGUILayout.PropertyField(m_EnableUnloadSceneSuccessEvent);
+                EditorGUILayout.PropertyField(m_EnableUnloadSceneFailureEvent);
+            }
+            EditorGUI.EndDisabledGroup();
 
             serializedObject.ApplyModifiedProperties();
 

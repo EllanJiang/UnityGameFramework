@@ -94,10 +94,22 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_LocalizationManager.LoadDictionarySuccess += OnLoadDictionarySuccess;
+            if (m_EnableLoadDictionarySuccessEvent)
+            {
+                m_LocalizationManager.LoadDictionarySuccess += OnLoadDictionarySuccess;
+            }
+
             m_LocalizationManager.LoadDictionaryFailure += OnLoadDictionaryFailure;
-            m_LocalizationManager.LoadDictionaryUpdate += OnLoadDictionaryUpdate;
-            m_LocalizationManager.LoadDictionaryDependencyAsset += OnLoadDictionaryDependencyAsset;
+
+            if (m_EnableLoadDictionaryUpdateEvent)
+            {
+                m_LocalizationManager.LoadDictionaryUpdate += OnLoadDictionaryUpdate;
+            }
+
+            if (m_EnableLoadDictionaryDependencyAssetEvent)
+            {
+                m_LocalizationManager.LoadDictionaryDependencyAsset += OnLoadDictionaryDependencyAsset;
+            }
         }
 
         private void Start()
@@ -347,10 +359,7 @@ namespace UnityGameFramework.Runtime
 
         private void OnLoadDictionarySuccess(object sender, GameFramework.Localization.LoadDictionarySuccessEventArgs e)
         {
-            if (m_EnableLoadDictionarySuccessEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionarySuccessEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionarySuccessEventArgs>().Fill(e));
         }
 
         private void OnLoadDictionaryFailure(object sender, GameFramework.Localization.LoadDictionaryFailureEventArgs e)
@@ -364,18 +373,12 @@ namespace UnityGameFramework.Runtime
 
         private void OnLoadDictionaryUpdate(object sender, GameFramework.Localization.LoadDictionaryUpdateEventArgs e)
         {
-            if (m_EnableLoadDictionaryUpdateEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionaryUpdateEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionaryUpdateEventArgs>().Fill(e));
         }
 
         private void OnLoadDictionaryDependencyAsset(object sender, GameFramework.Localization.LoadDictionaryDependencyAssetEventArgs e)
         {
-            if (m_EnableLoadDictionaryDependencyAssetEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionaryDependencyAssetEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionaryDependencyAssetEventArgs>().Fill(e));
         }
     }
 }

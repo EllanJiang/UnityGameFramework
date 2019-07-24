@@ -30,13 +30,12 @@ namespace UnityGameFramework.Editor
 
             DataTableComponent t = (DataTableComponent)target;
 
-            EditorGUILayout.PropertyField(m_EnableLoadDataTableSuccessEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadDataTableFailureEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadDataTableUpdateEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadDataTableDependencyAssetEvent);
-
             EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
             {
+                EditorGUILayout.PropertyField(m_EnableLoadDataTableSuccessEvent);
+                EditorGUILayout.PropertyField(m_EnableLoadDataTableFailureEvent);
+                EditorGUILayout.PropertyField(m_EnableLoadDataTableUpdateEvent);
+                EditorGUILayout.PropertyField(m_EnableLoadDataTableDependencyAssetEvent);
                 m_DataTableHelperInfo.Draw();
             }
             EditorGUI.EndDisabledGroup();

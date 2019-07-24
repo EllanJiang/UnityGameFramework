@@ -36,11 +36,15 @@ namespace UnityGameFramework.Editor
 
             UIComponent t = (UIComponent)target;
 
-            EditorGUILayout.PropertyField(m_EnableOpenUIFormSuccessEvent);
-            EditorGUILayout.PropertyField(m_EnableOpenUIFormFailureEvent);
-            EditorGUILayout.PropertyField(m_EnableOpenUIFormUpdateEvent);
-            EditorGUILayout.PropertyField(m_EnableOpenUIFormDependencyAssetEvent);
-            EditorGUILayout.PropertyField(m_EnableCloseUIFormCompleteEvent);
+            EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
+            {
+                EditorGUILayout.PropertyField(m_EnableOpenUIFormSuccessEvent);
+                EditorGUILayout.PropertyField(m_EnableOpenUIFormFailureEvent);
+                EditorGUILayout.PropertyField(m_EnableOpenUIFormUpdateEvent);
+                EditorGUILayout.PropertyField(m_EnableOpenUIFormDependencyAssetEvent);
+                EditorGUILayout.PropertyField(m_EnableCloseUIFormCompleteEvent);
+            }
+            EditorGUI.EndDisabledGroup();
 
             float instanceAutoReleaseInterval = EditorGUILayout.DelayedFloatField("Instance Auto Release Interval", m_InstanceAutoReleaseInterval.floatValue);
             if (instanceAutoReleaseInterval != m_InstanceAutoReleaseInterval.floatValue)

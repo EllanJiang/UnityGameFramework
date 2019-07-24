@@ -33,13 +33,12 @@ namespace UnityGameFramework.Editor
 
             SoundComponent t = (SoundComponent)target;
 
-            EditorGUILayout.PropertyField(m_EnablePlaySoundSuccessEvent);
-            EditorGUILayout.PropertyField(m_EnablePlaySoundFailureEvent);
-            EditorGUILayout.PropertyField(m_EnablePlaySoundUpdateEvent);
-            EditorGUILayout.PropertyField(m_EnablePlaySoundDependencyAssetEvent);
-
             EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
             {
+                EditorGUILayout.PropertyField(m_EnablePlaySoundSuccessEvent);
+                EditorGUILayout.PropertyField(m_EnablePlaySoundFailureEvent);
+                EditorGUILayout.PropertyField(m_EnablePlaySoundUpdateEvent);
+                EditorGUILayout.PropertyField(m_EnablePlaySoundDependencyAssetEvent);
                 EditorGUILayout.PropertyField(m_InstanceRoot);
                 EditorGUILayout.PropertyField(m_AudioMixer);
                 m_SoundHelperInfo.Draw();

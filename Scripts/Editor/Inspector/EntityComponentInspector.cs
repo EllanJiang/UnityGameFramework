@@ -34,14 +34,13 @@ namespace UnityGameFramework.Editor
 
             EntityComponent t = (EntityComponent)target;
 
-            EditorGUILayout.PropertyField(m_EnableShowEntitySuccessEvent);
-            EditorGUILayout.PropertyField(m_EnableShowEntityFailureEvent);
-            EditorGUILayout.PropertyField(m_EnableShowEntityUpdateEvent);
-            EditorGUILayout.PropertyField(m_EnableShowEntityDependencyAssetEvent);
-            EditorGUILayout.PropertyField(m_EnableHideEntityCompleteEvent);
-
             EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
             {
+                EditorGUILayout.PropertyField(m_EnableShowEntitySuccessEvent);
+                EditorGUILayout.PropertyField(m_EnableShowEntityFailureEvent);
+                EditorGUILayout.PropertyField(m_EnableShowEntityUpdateEvent);
+                EditorGUILayout.PropertyField(m_EnableShowEntityDependencyAssetEvent);
+                EditorGUILayout.PropertyField(m_EnableHideEntityCompleteEvent);
                 EditorGUILayout.PropertyField(m_InstanceRoot);
                 m_EntityHelperInfo.Draw();
                 m_EntityGroupHelperInfo.Draw();

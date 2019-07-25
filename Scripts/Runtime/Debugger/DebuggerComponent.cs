@@ -68,6 +68,7 @@ namespace UnityGameFramework.Runtime
         private QualityInformationWindow m_QualityInformationWindow = new QualityInformationWindow();
         private ProfilerInformationWindow m_ProfilerInformationWindow = new ProfilerInformationWindow();
         private WebPlayerInformationWindow m_WebPlayerInformationWindow = new WebPlayerInformationWindow();
+        private RuntimeMemorySummaryWindow m_RuntimeMemorySummaryWindow = new RuntimeMemorySummaryWindow();
         private RuntimeMemoryInformationWindow<Object> m_RuntimeMemoryAllInformationWindow = new RuntimeMemoryInformationWindow<Object>();
         private RuntimeMemoryInformationWindow<Texture> m_RuntimeMemoryTextureInformationWindow = new RuntimeMemoryInformationWindow<Texture>();
         private RuntimeMemoryInformationWindow<Mesh> m_RuntimeMemoryMeshInformationWindow = new RuntimeMemoryInformationWindow<Mesh>();
@@ -206,6 +207,7 @@ namespace UnityGameFramework.Runtime
             RegisterDebuggerWindow("Information/Other/Quality", m_QualityInformationWindow);
             RegisterDebuggerWindow("Information/Other/Web Player", m_WebPlayerInformationWindow);
             RegisterDebuggerWindow("Profiler/Summary", m_ProfilerInformationWindow);
+            RegisterDebuggerWindow("Profiler/Memory/Summary", m_RuntimeMemorySummaryWindow);
             RegisterDebuggerWindow("Profiler/Memory/All", m_RuntimeMemoryAllInformationWindow);
             RegisterDebuggerWindow("Profiler/Memory/Texture", m_RuntimeMemoryTextureInformationWindow);
             RegisterDebuggerWindow("Profiler/Memory/Mesh", m_RuntimeMemoryMeshInformationWindow);

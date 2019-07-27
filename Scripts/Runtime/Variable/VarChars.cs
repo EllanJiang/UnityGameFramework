@@ -43,7 +43,7 @@ namespace UnityGameFramework.Runtime
         /// 从 char[] 变量类到 char[] 的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
-        public static implicit operator char[] (VarChars value)
+        public static implicit operator char[](VarChars value)
         {
             return value.Value;
         }

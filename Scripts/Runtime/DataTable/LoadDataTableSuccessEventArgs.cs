@@ -114,6 +114,7 @@ namespace UnityGameFramework.Runtime
             Duration = e.Duration;
             UserData = loadDataTableInfo.UserData;
 
+            ReferencePool.Release(loadDataTableInfo);
             return this;
         }
     }

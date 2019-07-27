@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
@@ -90,6 +91,7 @@ namespace UnityGameFramework.Runtime
             ErrorMessage = e.ErrorMessage;
             UserData = wwwFormInfo.UserData;
 
+            ReferencePool.Release(wwwFormInfo);
             return this;
         }
     }

@@ -5,19 +5,20 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using System;
 
 namespace UnityGameFramework.Runtime
 {
-    internal sealed class ShowEntityInfo
+    internal sealed class ShowEntityInfo : IReference
     {
-        private readonly Type m_EntityLogicType;
-        private readonly object m_UserData;
+        private Type m_EntityLogicType;
+        private object m_UserData;
 
-        public ShowEntityInfo(Type entityLogicType, object userData)
+        public ShowEntityInfo()
         {
-            m_EntityLogicType = entityLogicType;
-            m_UserData = userData;
+            m_EntityLogicType = null;
+            m_UserData = null;
         }
 
         public Type EntityLogicType
@@ -34,6 +35,18 @@ namespace UnityGameFramework.Runtime
             {
                 return m_UserData;
             }
+        }
+
+        public void Initialize(Type entityLogicType, object userData)
+        {
+            m_EntityLogicType = entityLogicType;
+            m_UserData = userData;
+        }
+
+        public void Clear()
+        {
+            m_EntityLogicType = null;
+            m_UserData = null;
         }
     }
 }

@@ -43,7 +43,7 @@ namespace UnityGameFramework.Runtime
         /// 从 byte[] 变量类到 byte[] 的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
-        public static implicit operator byte[] (VarBytes value)
+        public static implicit operator byte[](VarBytes value)
         {
             return value.Value;
         }

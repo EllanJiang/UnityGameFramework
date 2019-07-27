@@ -26,12 +26,6 @@ namespace UnityGameFramework.Runtime
         private EventComponent m_EventComponent = null;
 
         [SerializeField]
-        private bool m_EnableLoadConfigSuccessEvent = true;
-
-        [SerializeField]
-        private bool m_EnableLoadConfigFailureEvent = true;
-
-        [SerializeField]
         private bool m_EnableLoadConfigUpdateEvent = false;
 
         [SerializeField]
@@ -68,11 +62,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            if (m_EnableLoadConfigSuccessEvent)
-            {
-                m_ConfigManager.LoadConfigSuccess += OnLoadConfigSuccess;
-            }
-
+            m_ConfigManager.LoadConfigSuccess += OnLoadConfigSuccess;
             m_ConfigManager.LoadConfigFailure += OnLoadConfigFailure;
 
             if (m_EnableLoadConfigUpdateEvent)
@@ -177,7 +167,9 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_ConfigManager.LoadConfig(configAssetName, loadType, priority, new LoadConfigInfo(configName, userData));
+            LoadConfigInfo loadConfigInfo = ReferencePool.Acquire<LoadConfigInfo>();
+            loadConfigInfo.Initialize(configName, userData);
+            m_ConfigManager.LoadConfig(configAssetName, loadType, priority, loadConfigInfo);
         }
 
         /// <summary>
@@ -362,10 +354,7 @@ namespace UnityGameFramework.Runtime
         private void OnLoadConfigFailure(object sender, GameFramework.Config.LoadConfigFailureEventArgs e)
         {
             Log.Warning("Load config failure, asset name '{0}', error message '{1}'.", e.ConfigAssetName, e.ErrorMessage);
-            if (m_EnableLoadConfigFailureEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadConfigFailureEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadConfigFailureEventArgs>().Fill(e));
         }
 
         private void OnLoadConfigUpdate(object sender, GameFramework.Config.LoadConfigUpdateEventArgs e)

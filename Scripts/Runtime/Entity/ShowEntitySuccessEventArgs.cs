@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 using System;
 
@@ -91,6 +92,7 @@ namespace UnityGameFramework.Runtime
             Duration = e.Duration;
             UserData = showEntityInfo.UserData;
 
+            ReferencePool.Release(showEntityInfo);
             return this;
         }
     }

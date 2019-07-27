@@ -5,19 +5,20 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
 {
-    internal sealed class AttachEntityInfo
+    internal sealed class AttachEntityInfo : IReference
     {
-        private readonly Transform m_ParentTransform;
-        private readonly object m_UserData;
+        private Transform m_ParentTransform;
+        private object m_UserData;
 
-        public AttachEntityInfo(Transform parentTransform, object userData)
+        public AttachEntityInfo()
         {
-            m_ParentTransform = parentTransform;
-            m_UserData = userData;
+            m_ParentTransform = null;
+            m_UserData = null;
         }
 
         public Transform ParentTransform
@@ -34,6 +35,18 @@ namespace UnityGameFramework.Runtime
             {
                 return m_UserData;
             }
+        }
+
+        public void Initialize(Transform parentTransform, object userData)
+        {
+            m_ParentTransform = parentTransform;
+            m_UserData = userData;
+        }
+
+        public void Clear()
+        {
+            m_ParentTransform = null;
+            m_UserData = null;
         }
     }
 }

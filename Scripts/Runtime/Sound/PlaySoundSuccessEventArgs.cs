@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 using GameFramework.Sound;
 
@@ -113,6 +114,7 @@ namespace UnityGameFramework.Runtime
             BindingEntity = playSoundInfo.BindingEntity;
             UserData = playSoundInfo.UserData;
 
+            ReferencePool.Release(playSoundInfo);
             return this;
         }
     }

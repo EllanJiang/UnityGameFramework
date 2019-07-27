@@ -28,12 +28,6 @@ namespace UnityGameFramework.Runtime
         private EventComponent m_EventComponent = null;
 
         [SerializeField]
-        private bool m_EnableLoadDataTableSuccessEvent = true;
-
-        [SerializeField]
-        private bool m_EnableLoadDataTableFailureEvent = true;
-
-        [SerializeField]
         private bool m_EnableLoadDataTableUpdateEvent = false;
 
         [SerializeField]
@@ -59,11 +53,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            if (m_EnableLoadDataTableSuccessEvent)
-            {
-                m_DataTableManager.LoadDataTableSuccess += OnLoadDataTableSuccess;
-            }
-
+            m_DataTableManager.LoadDataTableSuccess += OnLoadDataTableSuccess;
             m_DataTableManager.LoadDataTableFailure += OnLoadDataTableFailure;
 
             if (m_EnableLoadDataTableUpdateEvent)
@@ -353,7 +343,9 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_DataTableManager.LoadDataTable(dataTableAssetName, loadType, priority, new LoadDataTableInfo(dataRowType, dataTableName, dataTableNameInType, userData));
+            LoadDataTableInfo loadDataTableInfo = ReferencePool.Acquire<LoadDataTableInfo>();
+            loadDataTableInfo.Initialize(dataRowType, dataTableName, dataTableNameInType, userData);
+            m_DataTableManager.LoadDataTable(dataTableAssetName, loadType, priority, loadDataTableInfo);
         }
 
         /// <summary>
@@ -645,10 +637,7 @@ namespace UnityGameFramework.Runtime
         private void OnLoadDataTableFailure(object sender, GameFramework.DataTable.LoadDataTableFailureEventArgs e)
         {
             Log.Warning("Load data table failure, asset name '{0}', error message '{1}'.", e.DataTableAssetName, e.ErrorMessage);
-            if (m_EnableLoadDataTableFailureEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableFailureEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableFailureEventArgs>().Fill(e));
         }
 
         private void OnLoadDataTableUpdate(object sender, GameFramework.DataTable.LoadDataTableUpdateEventArgs e)

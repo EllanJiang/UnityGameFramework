@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 using GameFramework.Sound;
 
@@ -135,6 +136,7 @@ namespace UnityGameFramework.Runtime
             ErrorMessage = e.ErrorMessage;
             UserData = playSoundInfo.UserData;
 
+            ReferencePool.Release(playSoundInfo);
             return this;
         }
     }

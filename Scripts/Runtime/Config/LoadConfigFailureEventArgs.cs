@@ -102,6 +102,7 @@ namespace UnityGameFramework.Runtime
             ErrorMessage = e.ErrorMessage;
             UserData = loadConfigInfo.UserData;
 
+            ReferencePool.Release(loadConfigInfo);
             return this;
         }
     }

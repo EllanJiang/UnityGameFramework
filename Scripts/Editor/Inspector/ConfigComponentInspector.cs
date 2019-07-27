@@ -13,8 +13,6 @@ namespace UnityGameFramework.Editor
     [CustomEditor(typeof(ConfigComponent))]
     internal sealed class ConfigComponentInspector : GameFrameworkInspector
     {
-        private SerializedProperty m_EnableLoadConfigSuccessEvent = null;
-        private SerializedProperty m_EnableLoadConfigFailureEvent = null;
         private SerializedProperty m_EnableLoadConfigUpdateEvent = null;
         private SerializedProperty m_EnableLoadConfigDependencyAssetEvent = null;
 
@@ -30,8 +28,6 @@ namespace UnityGameFramework.Editor
 
             EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
             {
-                EditorGUILayout.PropertyField(m_EnableLoadConfigSuccessEvent);
-                EditorGUILayout.PropertyField(m_EnableLoadConfigFailureEvent);
                 EditorGUILayout.PropertyField(m_EnableLoadConfigUpdateEvent);
                 EditorGUILayout.PropertyField(m_EnableLoadConfigDependencyAssetEvent);
                 m_ConfigHelperInfo.Draw();
@@ -57,8 +53,6 @@ namespace UnityGameFramework.Editor
 
         private void OnEnable()
         {
-            m_EnableLoadConfigSuccessEvent = serializedObject.FindProperty("m_EnableLoadConfigSuccessEvent");
-            m_EnableLoadConfigFailureEvent = serializedObject.FindProperty("m_EnableLoadConfigFailureEvent");
             m_EnableLoadConfigUpdateEvent = serializedObject.FindProperty("m_EnableLoadConfigUpdateEvent");
             m_EnableLoadConfigDependencyAssetEvent = serializedObject.FindProperty("m_EnableLoadConfigDependencyAssetEvent");
 

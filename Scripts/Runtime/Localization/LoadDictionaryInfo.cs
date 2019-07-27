@@ -5,17 +5,19 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
+
 namespace UnityGameFramework.Runtime
 {
-    internal sealed class LoadDictionaryInfo
+    internal sealed class LoadDictionaryInfo : IReference
     {
-        private readonly string m_DictionaryName;
-        private readonly object m_UserData;
+        private string m_DictionaryName;
+        private object m_UserData;
 
-        public LoadDictionaryInfo(string dictionaryName, object userData)
+        public LoadDictionaryInfo()
         {
-            m_DictionaryName = dictionaryName;
-            m_UserData = userData;
+            m_DictionaryName = null;
+            m_UserData = null;
         }
 
         public string DictionaryName
@@ -32,6 +34,18 @@ namespace UnityGameFramework.Runtime
             {
                 return m_UserData;
             }
+        }
+
+        public void Initialize(string dictionaryName, object userData)
+        {
+            m_DictionaryName = dictionaryName;
+            m_UserData = userData;
+        }
+
+        public void Clear()
+        {
+            m_DictionaryName = null;
+            m_UserData = null;
         }
     }
 }

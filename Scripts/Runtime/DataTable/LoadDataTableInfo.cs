@@ -5,23 +5,24 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using System;
 
 namespace UnityGameFramework.Runtime
 {
-    internal sealed class LoadDataTableInfo
+    internal sealed class LoadDataTableInfo : IReference
     {
-        private readonly Type m_DataRowType;
-        private readonly string m_DataTableName;
-        private readonly string m_DataTableNameInType;
-        private readonly object m_UserData;
+        private Type m_DataRowType;
+        private string m_DataTableName;
+        private string m_DataTableNameInType;
+        private object m_UserData;
 
-        public LoadDataTableInfo(Type dataRowType, string dataTableName, string dataTableNameInType, object userData)
+        public LoadDataTableInfo()
         {
-            m_DataRowType = dataRowType;
-            m_DataTableName = dataTableName;
-            m_DataTableNameInType = dataTableNameInType;
-            m_UserData = userData;
+            m_DataRowType = null;
+            m_DataTableName = null;
+            m_DataTableNameInType = null;
+            m_UserData = null;
         }
 
         public Type DataRowType
@@ -54,6 +55,22 @@ namespace UnityGameFramework.Runtime
             {
                 return m_UserData;
             }
+        }
+
+        public void Initialize(Type dataRowType, string dataTableName, string dataTableNameInType, object userData)
+        {
+            m_DataRowType = dataRowType;
+            m_DataTableName = dataTableName;
+            m_DataTableNameInType = dataTableNameInType;
+            m_UserData = userData;
+        }
+
+        public void Clear()
+        {
+            m_DataRowType = null;
+            m_DataTableName = null;
+            m_DataTableNameInType = null;
+            m_UserData = null;
         }
     }
 }

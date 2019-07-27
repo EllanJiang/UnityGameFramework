@@ -5,17 +5,19 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
+
 namespace UnityGameFramework.Runtime
 {
-    internal sealed class LoadConfigInfo
+    internal sealed class LoadConfigInfo : IReference
     {
-        private readonly string m_ConfigName;
-        private readonly object m_UserData;
+        private string m_ConfigName;
+        private object m_UserData;
 
-        public LoadConfigInfo(string configName, object userData)
+        public LoadConfigInfo()
         {
-            m_ConfigName = configName;
-            m_UserData = userData;
+            m_ConfigName = null;
+            m_UserData = null;
         }
 
         public string ConfigName
@@ -32,6 +34,18 @@ namespace UnityGameFramework.Runtime
             {
                 return m_UserData;
             }
+        }
+
+        public void Initialize(string configName, object userData)
+        {
+            m_ConfigName = configName;
+            m_UserData = userData;
+        }
+
+        public void Clear()
+        {
+            m_ConfigName = null;
+            m_UserData = null;
         }
     }
 }

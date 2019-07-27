@@ -114,6 +114,7 @@ namespace UnityGameFramework.Runtime
             ErrorMessage = e.ErrorMessage;
             UserData = loadDataTableInfo.UserData;
 
+            ReferencePool.Release(loadDataTableInfo);
             return this;
         }
     }

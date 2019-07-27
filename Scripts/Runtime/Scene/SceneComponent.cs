@@ -29,22 +29,10 @@ namespace UnityGameFramework.Runtime
         private Scene m_GameFrameworkScene = default(Scene);
 
         [SerializeField]
-        private bool m_EnableLoadSceneSuccessEvent = true;
-
-        [SerializeField]
-        private bool m_EnableLoadSceneFailureEvent = true;
-
-        [SerializeField]
         private bool m_EnableLoadSceneUpdateEvent = true;
 
         [SerializeField]
         private bool m_EnableLoadSceneDependencyAssetEvent = true;
-
-        [SerializeField]
-        private bool m_EnableUnloadSceneSuccessEvent = true;
-
-        [SerializeField]
-        private bool m_EnableUnloadSceneFailureEvent = true;
 
         /// <summary>
         /// 获取当前场景主摄像机。
@@ -333,19 +321,13 @@ namespace UnityGameFramework.Runtime
                 SceneManager.SetActiveScene(scene);
             }
 
-            if (m_EnableLoadSceneSuccessEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadSceneSuccessEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadSceneSuccessEventArgs>().Fill(e));
         }
 
         private void OnLoadSceneFailure(object sender, GameFramework.Scene.LoadSceneFailureEventArgs e)
         {
             Log.Warning("Load scene failure, scene asset name '{0}', error message '{1}'.", e.SceneAssetName, e.ErrorMessage);
-            if (m_EnableLoadSceneFailureEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadSceneFailureEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadSceneFailureEventArgs>().Fill(e));
         }
 
         private void OnLoadSceneUpdate(object sender, GameFramework.Scene.LoadSceneUpdateEventArgs e)
@@ -361,19 +343,13 @@ namespace UnityGameFramework.Runtime
         private void OnUnloadSceneSuccess(object sender, GameFramework.Scene.UnloadSceneSuccessEventArgs e)
         {
             m_MainCamera = Camera.main;
-            if (m_EnableUnloadSceneSuccessEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<UnloadSceneSuccessEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<UnloadSceneSuccessEventArgs>().Fill(e));
         }
 
         private void OnUnloadSceneFailure(object sender, GameFramework.Scene.UnloadSceneFailureEventArgs e)
         {
             Log.Warning("Unload scene failure, scene asset name '{0}'.", e.SceneAssetName);
-            if (m_EnableUnloadSceneFailureEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<UnloadSceneFailureEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<UnloadSceneFailureEventArgs>().Fill(e));
         }
     }
 }

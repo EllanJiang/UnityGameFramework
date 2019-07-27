@@ -26,12 +26,6 @@ namespace UnityGameFramework.Runtime
         private EventComponent m_EventComponent = null;
 
         [SerializeField]
-        private bool m_EnableLoadDictionarySuccessEvent = true;
-
-        [SerializeField]
-        private bool m_EnableLoadDictionaryFailureEvent = true;
-
-        [SerializeField]
         private bool m_EnableLoadDictionaryUpdateEvent = false;
 
         [SerializeField]
@@ -94,11 +88,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            if (m_EnableLoadDictionarySuccessEvent)
-            {
-                m_LocalizationManager.LoadDictionarySuccess += OnLoadDictionarySuccess;
-            }
-
+            m_LocalizationManager.LoadDictionarySuccess += OnLoadDictionarySuccess;
             m_LocalizationManager.LoadDictionaryFailure += OnLoadDictionaryFailure;
 
             if (m_EnableLoadDictionaryUpdateEvent)
@@ -204,7 +194,9 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_LocalizationManager.LoadDictionary(dictionaryAssetName, loadType, priority, new LoadDictionaryInfo(dictionaryName, userData));
+            LoadDictionaryInfo loadDictionaryInfo = ReferencePool.Acquire<LoadDictionaryInfo>();
+            loadDictionaryInfo.Initialize(dictionaryName, userData);
+            m_LocalizationManager.LoadDictionary(dictionaryAssetName, loadType, priority, loadDictionaryInfo);
         }
 
         /// <summary>
@@ -365,10 +357,7 @@ namespace UnityGameFramework.Runtime
         private void OnLoadDictionaryFailure(object sender, GameFramework.Localization.LoadDictionaryFailureEventArgs e)
         {
             Log.Warning("Load dictionary failure, asset name '{0}', error message '{1}'.", e.DictionaryAssetName, e.ErrorMessage);
-            if (m_EnableLoadDictionaryFailureEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionaryFailureEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionaryFailureEventArgs>().Fill(e));
         }
 
         private void OnLoadDictionaryUpdate(object sender, GameFramework.Localization.LoadDictionaryUpdateEventArgs e)

@@ -13,8 +13,6 @@ namespace UnityGameFramework.Editor
     [CustomEditor(typeof(LocalizationComponent))]
     internal sealed class LocalizationComponentInspector : GameFrameworkInspector
     {
-        private SerializedProperty m_EnableLoadDictionarySuccessEvent = null;
-        private SerializedProperty m_EnableLoadDictionaryFailureEvent = null;
         private SerializedProperty m_EnableLoadDictionaryUpdateEvent = null;
         private SerializedProperty m_EnableLoadDictionaryDependencyAssetEvent = null;
 
@@ -30,8 +28,6 @@ namespace UnityGameFramework.Editor
 
             EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
             {
-                EditorGUILayout.PropertyField(m_EnableLoadDictionarySuccessEvent);
-                EditorGUILayout.PropertyField(m_EnableLoadDictionaryFailureEvent);
                 EditorGUILayout.PropertyField(m_EnableLoadDictionaryUpdateEvent);
                 EditorGUILayout.PropertyField(m_EnableLoadDictionaryDependencyAssetEvent);
                 m_LocalizationHelperInfo.Draw();
@@ -59,8 +55,6 @@ namespace UnityGameFramework.Editor
 
         private void OnEnable()
         {
-            m_EnableLoadDictionarySuccessEvent = serializedObject.FindProperty("m_EnableLoadDictionarySuccessEvent");
-            m_EnableLoadDictionaryFailureEvent = serializedObject.FindProperty("m_EnableLoadDictionaryFailureEvent");
             m_EnableLoadDictionaryUpdateEvent = serializedObject.FindProperty("m_EnableLoadDictionaryUpdateEvent");
             m_EnableLoadDictionaryDependencyAssetEvent = serializedObject.FindProperty("m_EnableLoadDictionaryDependencyAssetEvent");
 

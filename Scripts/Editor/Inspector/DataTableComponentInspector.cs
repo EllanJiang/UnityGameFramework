@@ -15,8 +15,6 @@ namespace UnityGameFramework.Editor
     [CustomEditor(typeof(DataTableComponent))]
     internal sealed class DataTableComponentInspector : GameFrameworkInspector
     {
-        private SerializedProperty m_EnableLoadDataTableSuccessEvent = null;
-        private SerializedProperty m_EnableLoadDataTableFailureEvent = null;
         private SerializedProperty m_EnableLoadDataTableUpdateEvent = null;
         private SerializedProperty m_EnableLoadDataTableDependencyAssetEvent = null;
 
@@ -32,8 +30,6 @@ namespace UnityGameFramework.Editor
 
             EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
             {
-                EditorGUILayout.PropertyField(m_EnableLoadDataTableSuccessEvent);
-                EditorGUILayout.PropertyField(m_EnableLoadDataTableFailureEvent);
                 EditorGUILayout.PropertyField(m_EnableLoadDataTableUpdateEvent);
                 EditorGUILayout.PropertyField(m_EnableLoadDataTableDependencyAssetEvent);
                 m_DataTableHelperInfo.Draw();
@@ -65,8 +61,6 @@ namespace UnityGameFramework.Editor
 
         private void OnEnable()
         {
-            m_EnableLoadDataTableSuccessEvent = serializedObject.FindProperty("m_EnableLoadDataTableSuccessEvent");
-            m_EnableLoadDataTableFailureEvent = serializedObject.FindProperty("m_EnableLoadDataTableFailureEvent");
             m_EnableLoadDataTableUpdateEvent = serializedObject.FindProperty("m_EnableLoadDataTableUpdateEvent");
             m_EnableLoadDataTableDependencyAssetEvent = serializedObject.FindProperty("m_EnableLoadDataTableDependencyAssetEvent");
 

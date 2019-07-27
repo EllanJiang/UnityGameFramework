@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 using System;
 
@@ -113,6 +114,7 @@ namespace UnityGameFramework.Runtime
             ErrorMessage = e.ErrorMessage;
             UserData = showEntityInfo.UserData;
 
+            ReferencePool.Release(showEntityInfo);
             return this;
         }
     }

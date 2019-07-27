@@ -102,6 +102,7 @@ namespace UnityGameFramework.Runtime
             Duration = e.Duration;
             UserData = loadConfigInfo.UserData;
 
+            ReferencePool.Release(loadConfigInfo);
             return this;
         }
     }

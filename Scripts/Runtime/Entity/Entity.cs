@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Entity;
 using System;
 using UnityEngine;
@@ -185,6 +186,7 @@ namespace UnityGameFramework.Runtime
         {
             AttachEntityInfo attachEntityInfo = (AttachEntityInfo)userData;
             m_EntityLogic.OnAttachTo(((Entity)parentEntity).Logic, attachEntityInfo.ParentTransform, attachEntityInfo.UserData);
+            ReferencePool.Release(attachEntityInfo);
         }
 
         /// <summary>

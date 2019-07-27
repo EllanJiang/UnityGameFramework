@@ -13,8 +13,6 @@ namespace UnityGameFramework.Editor
     [CustomEditor(typeof(SoundComponent))]
     internal sealed class SoundComponentInspector : GameFrameworkInspector
     {
-        private SerializedProperty m_EnablePlaySoundSuccessEvent = null;
-        private SerializedProperty m_EnablePlaySoundFailureEvent = null;
         private SerializedProperty m_EnablePlaySoundUpdateEvent = null;
         private SerializedProperty m_EnablePlaySoundDependencyAssetEvent = null;
         private SerializedProperty m_InstanceRoot = null;
@@ -35,8 +33,6 @@ namespace UnityGameFramework.Editor
 
             EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
             {
-                EditorGUILayout.PropertyField(m_EnablePlaySoundSuccessEvent);
-                EditorGUILayout.PropertyField(m_EnablePlaySoundFailureEvent);
                 EditorGUILayout.PropertyField(m_EnablePlaySoundUpdateEvent);
                 EditorGUILayout.PropertyField(m_EnablePlaySoundDependencyAssetEvent);
                 EditorGUILayout.PropertyField(m_InstanceRoot);
@@ -67,8 +63,6 @@ namespace UnityGameFramework.Editor
 
         private void OnEnable()
         {
-            m_EnablePlaySoundSuccessEvent = serializedObject.FindProperty("m_EnablePlaySoundSuccessEvent");
-            m_EnablePlaySoundFailureEvent = serializedObject.FindProperty("m_EnablePlaySoundFailureEvent");
             m_EnablePlaySoundUpdateEvent = serializedObject.FindProperty("m_EnablePlaySoundUpdateEvent");
             m_EnablePlaySoundDependencyAssetEvent = serializedObject.FindProperty("m_EnablePlaySoundDependencyAssetEvent");
             m_InstanceRoot = serializedObject.FindProperty("m_InstanceRoot");

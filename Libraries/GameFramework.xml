@@ -1008,7 +1008,7 @@
             获取链表中实际包含的结点数。
             </summary>
         </member>
-        <member name="P:GameFramework.GameFrameworkLinkedList`1.CacheCount">
+        <member name="P:GameFramework.GameFrameworkLinkedList`1.CachedNodeCount">
             <summary>
             获取链表结点缓存数量。
             </summary>
@@ -1105,7 +1105,7 @@
             从链表中移除所有结点。
             </summary>
         </member>
-        <member name="M:GameFramework.GameFrameworkLinkedList`1.ClearCache">
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.ClearCachedNodes">
             <summary>
             清除链表结点缓存。
             </summary>
@@ -1173,6 +1173,27 @@
             <summary>
             移除位于链表结尾处的结点。
             </summary>
+        </member>
+        <member name="T:GameFramework.GameFrameworkLinkedList`1.Enumerator">
+            <summary>
+            循环访问集合的枚举数。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkLinkedList`1.Enumerator.Current">
+            <summary>
+            获取当前结点。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.Enumerator.Dispose">
+            <summary>
+            清理枚举数。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.Enumerator.MoveNext">
+            <summary>
+            获取下一个结点。
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:GameFramework.GameFrameworkModule">
             <summary>
@@ -1572,13 +1593,14 @@
             从引用池获取引用。
             </summary>
             <typeparam name="T">引用类型。</typeparam>
+            <returns>引用。</returns>
         </member>
         <member name="M:GameFramework.ReferencePool.Acquire(System.Type)">
             <summary>
             从引用池获取引用。
             </summary>
             <param name="referenceType">引用类型。</param>
-            <returns></returns>
+            <returns>引用。</returns>
         </member>
         <member name="M:GameFramework.ReferencePool.Release``1(``0)">
             <summary>
@@ -2735,12 +2757,13 @@
             数据结点。
             </summary>
         </member>
-        <member name="M:GameFramework.DataNode.DataNodeManager.DataNode.#ctor(System.String,GameFramework.DataNode.DataNodeManager.DataNode)">
+        <member name="M:GameFramework.DataNode.DataNodeManager.DataNode.Create(System.String,GameFramework.DataNode.DataNodeManager.DataNode)">
             <summary>
-            初始化数据结点的新实例。
+            创建数据结点。
             </summary>
             <param name="name">数据结点名称。</param>
             <param name="parent">父数据结点。</param>
+            <returns>创建的数据结点。</returns>
         </member>
         <member name="P:GameFramework.DataNode.DataNodeManager.DataNode.Name">
             <summary>
@@ -2832,11 +2855,6 @@
             根据名称移除子数据结点。
             </summary>
             <param name="name">子数据结点名称。</param>
-        </member>
-        <member name="M:GameFramework.DataNode.DataNodeManager.DataNode.Clear">
-            <summary>
-            移除当前数据结点的数据和所有子数据结点。
-            </summary>
         </member>
         <member name="M:GameFramework.DataNode.DataNodeManager.DataNode.ToString">
             <summary>
@@ -4870,9 +4888,9 @@
             获取用户自定义数据。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadManager.DownloadTask.Initialize(System.String,System.String,System.Int32,System.Int32,System.Single,System.Object)">
+        <member name="M:GameFramework.Download.DownloadManager.DownloadTask.Create(System.String,System.String,System.Int32,System.Int32,System.Single,System.Object)">
             <summary>
-            初始化下载任务。
+            创建下载任务。
             </summary>
             <param name="downloadPath">下载后存放路径。</param>
             <param name="downloadUri">原始下载地址。</param>
@@ -4880,6 +4898,7 @@
             <param name="flushSize">将缓冲区写入磁盘的临界大小。</param>
             <param name="timeout">下载超时时长，以秒为单位。</param>
             <param name="userData">用户自定义数据。</param>
+            <returns>创建的下载任务。</returns>
         </member>
         <member name="M:GameFramework.Download.DownloadManager.DownloadTask.Clear">
             <summary>
@@ -6768,13 +6787,10 @@
             </summary>
             <typeparam name="T">有限状态机持有者类型。</typeparam>
         </member>
-        <member name="M:GameFramework.Fsm.Fsm`1.#ctor(System.String,`0,GameFramework.Fsm.FsmState{`0}[])">
+        <member name="M:GameFramework.Fsm.Fsm`1.#ctor">
             <summary>
             初始化有限状态机的新实例。
             </summary>
-            <param name="name">有限状态机名称。</param>
-            <param name="owner">有限状态机持有者。</param>
-            <param name="states">有限状态机状态集合。</param>
         </member>
         <member name="P:GameFramework.Fsm.Fsm`1.Owner">
             <summary>
@@ -6814,6 +6830,20 @@
         <member name="P:GameFramework.Fsm.Fsm`1.CurrentStateTime">
             <summary>
             获取当前有限状态机状态持续时间。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Fsm.Fsm`1.Create(System.String,`0,GameFramework.Fsm.FsmState{`0}[])">
+            <summary>
+            创建有限状态机。
+            </summary>
+            <param name="name">有限状态机名称。</param>
+            <param name="owner">有限状态机持有者。</param>
+            <param name="states">有限状态机状态集合。</param>
+            <returns>创建的有限状态机。</returns>
+        </member>
+        <member name="M:GameFramework.Fsm.Fsm`1.Clear">
+            <summary>
+            清理有限状态机。
             </summary>
         </member>
         <member name="M:GameFramework.Fsm.Fsm`1.Start``1">
@@ -6960,12 +6990,6 @@
             <summary>
             初始化有限状态机基类的新实例。
             </summary>
-        </member>
-        <member name="M:GameFramework.Fsm.FsmBase.#ctor(System.String)">
-            <summary>
-            初始化有限状态机基类的新实例。
-            </summary>
-            <param name="name">有限状态机名称。</param>
         </member>
         <member name="P:GameFramework.Fsm.FsmBase.Name">
             <summary>
@@ -11621,6 +11645,12 @@
             </summary>
             <returns>资源组包含的资源名称列表。</returns>
         </member>
+        <member name="M:GameFramework.Resource.IResourceGroup.GetResourceNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取资源组包含的资源名称列表。
+            </summary>
+            <param name="results">资源组包含的资源名称列表。</param>
+        </member>
         <member name="T:GameFramework.Resource.IResourceHelper">
             <summary>
             资源辅助器接口。
@@ -13193,6 +13223,12 @@
             获取资源组包含的资源名称列表。
             </summary>
             <returns>资源组包含的资源名称列表。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroup.GetResourceNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取资源组包含的资源名称列表。
+            </summary>
+            <param name="results">资源组包含的资源名称列表。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceGroup.HasResource(GameFramework.Resource.ResourceManager.ResourceName)">
             <summary>
@@ -15768,6 +15804,17 @@
         <member name="P:GameFramework.Sound.PlaySoundParams.DopplerLevel">
             <summary>
             获取或设置声音多普勒等级。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Sound.PlaySoundParams.Create">
+            <summary>
+            创建播放声音参数。
+            </summary>
+            <returns>创建的播放声音参数。</returns>
+        </member>
+        <member name="M:GameFramework.Sound.PlaySoundParams.Clear">
+            <summary>
+            清理播放声音参数。
             </summary>
         </member>
         <member name="T:GameFramework.Sound.PlaySoundSuccessEventArgs">
@@ -18500,7 +18547,6 @@
             </summary>
             <param name="bytes">原始及异或后的二进制流。</param>
             <param name="code">异或二进制流。</param>
-            <returns>异或后的二进制流。</returns>
         </member>
         <member name="M:GameFramework.Utility.Encryption.GetXorBytes(System.Byte[],System.Byte[])">
             <summary>
@@ -18516,7 +18562,6 @@
             </summary>
             <param name="bytes">原始及异或后的二进制流。</param>
             <param name="code">异或二进制流。</param>
-            <returns>异或后的二进制流。</returns>
         </member>
         <member name="M:GameFramework.Utility.Encryption.GetXorBytes(System.Byte[],System.Byte[],System.Int32)">
             <summary>
@@ -18534,7 +18579,6 @@
             <param name="bytes">原始及异或后的二进制流。</param>
             <param name="code">异或二进制流。</param>
             <param name="length">异或计算长度，若小于 0，则计算整个二进制流。</param>
-            <returns>异或后的二进制流。</returns>
         </member>
         <member name="T:GameFramework.Utility.Json">
             <summary>
@@ -19512,15 +19556,16 @@
             获取用户自定义数据。
             </summary>
         </member>
-        <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Initialize(System.String,System.Byte[],System.Int32,System.Single,System.Object)">
+        <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Create(System.String,System.Byte[],System.Int32,System.Single,System.Object)">
             <summary>
-            初始化 Web 请求任务。
+            创建 Web 请求任务。
             </summary>
             <param name="webRequestUri">要发送的远程地址。</param>
             <param name="postData">要发送的数据流。</param>
             <param name="priority">Web 请求任务的优先级。</param>
             <param name="timeout">下载超时时长，以秒为单位。</param>
             <param name="userData">用户自定义数据。</param>
+            <returns>创建的 Web 请求任务。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Clear">
             <summary>

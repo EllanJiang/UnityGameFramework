@@ -22,6 +22,19 @@ namespace UnityGameFramework.Runtime
         public static readonly int EventId = typeof(ShowEntityFailureEventArgs).GetHashCode();
 
         /// <summary>
+        /// 初始化显示实体失败事件的新实例。
+        /// </summary>
+        public ShowEntityFailureEventArgs()
+        {
+            EntityId = 0;
+            EntityLogicType = null;
+            EntityAssetName = null;
+            EntityGroupName = null;
+            ErrorMessage = null;
+            UserData = null;
+        }
+
+        /// <summary>
         /// 获取显示实体失败事件编号。
         /// </summary>
         public override int Id
@@ -87,35 +100,35 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建显示实体失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的显示实体失败事件。</returns>
+        public static ShowEntityFailureEventArgs Create(GameFramework.Entity.ShowEntityFailureEventArgs e)
+        {
+            ShowEntityInfo showEntityInfo = (ShowEntityInfo)e.UserData;
+            ShowEntityFailureEventArgs showEntityFailureEventArgs = ReferencePool.Acquire<ShowEntityFailureEventArgs>();
+            showEntityFailureEventArgs.EntityId = e.EntityId;
+            showEntityFailureEventArgs.EntityLogicType = showEntityInfo.EntityLogicType;
+            showEntityFailureEventArgs.EntityAssetName = e.EntityAssetName;
+            showEntityFailureEventArgs.EntityGroupName = e.EntityGroupName;
+            showEntityFailureEventArgs.ErrorMessage = e.ErrorMessage;
+            showEntityFailureEventArgs.UserData = showEntityInfo.UserData;
+            ReferencePool.Release(showEntityInfo);
+            return showEntityFailureEventArgs;
+        }
+
+        /// <summary>
         /// 清理显示实体失败事件。
         /// </summary>
         public override void Clear()
         {
-            EntityId = default(int);
-            EntityLogicType = default(Type);
-            EntityAssetName = default(string);
-            EntityGroupName = default(string);
-            ErrorMessage = default(string);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充显示实体失败事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>显示实体失败事件。</returns>
-        public ShowEntityFailureEventArgs Fill(GameFramework.Entity.ShowEntityFailureEventArgs e)
-        {
-            ShowEntityInfo showEntityInfo = (ShowEntityInfo)e.UserData;
-            EntityId = e.EntityId;
-            EntityLogicType = showEntityInfo.EntityLogicType;
-            EntityAssetName = e.EntityAssetName;
-            EntityGroupName = e.EntityGroupName;
-            ErrorMessage = e.ErrorMessage;
-            UserData = showEntityInfo.UserData;
-
-            ReferencePool.Release(showEntityInfo);
-            return this;
+            EntityId = 0;
+            EntityLogicType = null;
+            EntityAssetName = null;
+            EntityGroupName = null;
+            ErrorMessage = null;
+            UserData = null;
         }
     }
 }

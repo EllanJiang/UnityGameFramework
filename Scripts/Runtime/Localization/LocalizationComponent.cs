@@ -349,23 +349,23 @@ namespace UnityGameFramework.Runtime
 
         private void OnLoadDictionarySuccess(object sender, GameFramework.Localization.LoadDictionarySuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionarySuccessEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, LoadDictionarySuccessEventArgs.Create(e));
         }
 
         private void OnLoadDictionaryFailure(object sender, GameFramework.Localization.LoadDictionaryFailureEventArgs e)
         {
             Log.Warning("Load dictionary failure, asset name '{0}', error message '{1}'.", e.DictionaryAssetName, e.ErrorMessage);
-            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionaryFailureEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, LoadDictionaryFailureEventArgs.Create(e));
         }
 
         private void OnLoadDictionaryUpdate(object sender, GameFramework.Localization.LoadDictionaryUpdateEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionaryUpdateEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, LoadDictionaryUpdateEventArgs.Create(e));
         }
 
         private void OnLoadDictionaryDependencyAsset(object sender, GameFramework.Localization.LoadDictionaryDependencyAssetEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDictionaryDependencyAssetEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, LoadDictionaryDependencyAssetEventArgs.Create(e));
         }
     }
 }

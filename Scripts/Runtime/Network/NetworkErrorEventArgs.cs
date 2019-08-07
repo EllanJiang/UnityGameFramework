@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 using GameFramework.Network;
 using System.Net.Sockets;
@@ -20,6 +21,16 @@ namespace UnityGameFramework.Runtime
         /// 网络错误事件编号。
         /// </summary>
         public static readonly int EventId = typeof(NetworkErrorEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化网络错误事件的新实例。
+        /// </summary>
+        public NetworkErrorEventArgs()
+        {
+            NetworkChannel = null;
+            ErrorCode = NetworkErrorCode.Unknown;
+            ErrorMessage = null;
+        }
 
         /// <summary>
         /// 获取网络错误事件编号。
@@ -69,28 +80,28 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建网络错误事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的网络错误事件。</returns>
+        public static NetworkErrorEventArgs Create(GameFramework.Network.NetworkErrorEventArgs e)
+        {
+            NetworkErrorEventArgs networkErrorEventArgs = ReferencePool.Acquire<NetworkErrorEventArgs>();
+            networkErrorEventArgs.NetworkChannel = e.NetworkChannel;
+            networkErrorEventArgs.ErrorCode = e.ErrorCode;
+            networkErrorEventArgs.SocketErrorCode = e.SocketErrorCode;
+            networkErrorEventArgs.ErrorMessage = e.ErrorMessage;
+            return networkErrorEventArgs;
+        }
+
+        /// <summary>
         /// 清理网络错误事件。
         /// </summary>
         public override void Clear()
         {
-            NetworkChannel = default(INetworkChannel);
-            ErrorCode = default(NetworkErrorCode);
-            ErrorMessage = default(string);
-        }
-
-        /// <summary>
-        /// 填充网络错误事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>网络错误事件。</returns>
-        public NetworkErrorEventArgs Fill(GameFramework.Network.NetworkErrorEventArgs e)
-        {
-            NetworkChannel = e.NetworkChannel;
-            ErrorCode = e.ErrorCode;
-            SocketErrorCode = e.SocketErrorCode;
-            ErrorMessage = e.ErrorMessage;
-
-            return this;
+            NetworkChannel = null;
+            ErrorCode = NetworkErrorCode.Unknown;
+            ErrorMessage = null;
         }
     }
 }

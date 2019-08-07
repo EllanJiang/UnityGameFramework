@@ -906,22 +906,22 @@ namespace UnityGameFramework.Runtime
 
         private void OnResourceUpdateStart(object sender, GameFramework.Resource.ResourceUpdateStartEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceUpdateStartEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, ResourceUpdateStartEventArgs.Create(e));
         }
 
         private void OnResourceUpdateChanged(object sender, GameFramework.Resource.ResourceUpdateChangedEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceUpdateChangedEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, ResourceUpdateChangedEventArgs.Create(e));
         }
 
         private void OnResourceUpdateSuccess(object sender, GameFramework.Resource.ResourceUpdateSuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceUpdateSuccessEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, ResourceUpdateSuccessEventArgs.Create(e));
         }
 
         private void OnResourceUpdateFailure(object sender, GameFramework.Resource.ResourceUpdateFailureEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<ResourceUpdateFailureEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, ResourceUpdateFailureEventArgs.Create(e));
         }
     }
 }

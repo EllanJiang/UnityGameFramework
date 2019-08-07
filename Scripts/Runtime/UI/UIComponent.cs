@@ -700,7 +700,7 @@ namespace UnityGameFramework.Runtime
 
         private void OnOpenUIFormSuccess(object sender, GameFramework.UI.OpenUIFormSuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<OpenUIFormSuccessEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, OpenUIFormSuccessEventArgs.Create(e));
         }
 
         private void OnOpenUIFormFailure(object sender, GameFramework.UI.OpenUIFormFailureEventArgs e)
@@ -708,23 +708,23 @@ namespace UnityGameFramework.Runtime
             Log.Warning("Open UI form failure, asset name '{0}', UI group name '{1}', pause covered UI form '{2}', error message '{3}'.", e.UIFormAssetName, e.UIGroupName, e.PauseCoveredUIForm.ToString(), e.ErrorMessage);
             if (m_EnableOpenUIFormFailureEvent)
             {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<OpenUIFormFailureEventArgs>().Fill(e));
+                m_EventComponent.Fire(this, OpenUIFormFailureEventArgs.Create(e));
             }
         }
 
         private void OnOpenUIFormUpdate(object sender, GameFramework.UI.OpenUIFormUpdateEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<OpenUIFormUpdateEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, OpenUIFormUpdateEventArgs.Create(e));
         }
 
         private void OnOpenUIFormDependencyAsset(object sender, GameFramework.UI.OpenUIFormDependencyAssetEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<OpenUIFormDependencyAssetEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, OpenUIFormDependencyAssetEventArgs.Create(e));
         }
 
         private void OnCloseUIFormComplete(object sender, GameFramework.UI.CloseUIFormCompleteEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<CloseUIFormCompleteEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, CloseUIFormCompleteEventArgs.Create(e));
         }
     }
 }

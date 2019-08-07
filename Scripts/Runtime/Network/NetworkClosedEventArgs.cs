@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 using GameFramework.Network;
 
@@ -19,6 +20,14 @@ namespace UnityGameFramework.Runtime
         /// 网络连接关闭事件编号。
         /// </summary>
         public static readonly int EventId = typeof(NetworkClosedEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化网络连接关闭事件的新实例。
+        /// </summary>
+        public NetworkClosedEventArgs()
+        {
+            NetworkChannel = null;
+        }
 
         /// <summary>
         /// 获取网络连接关闭事件编号。
@@ -41,23 +50,23 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建网络连接关闭事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的网络连接关闭事件。</returns>
+        public static NetworkClosedEventArgs Create(GameFramework.Network.NetworkClosedEventArgs e)
+        {
+            NetworkClosedEventArgs networkClosedEventArgs = ReferencePool.Acquire<NetworkClosedEventArgs>();
+            networkClosedEventArgs.NetworkChannel = e.NetworkChannel;
+            return networkClosedEventArgs;
+        }
+
+        /// <summary>
         /// 清理网络连接关闭事件。
         /// </summary>
         public override void Clear()
         {
-            NetworkChannel = default(INetworkChannel);
-        }
-
-        /// <summary>
-        /// 填充网络连接关闭事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>网络连接关闭事件。</returns>
-        public NetworkClosedEventArgs Fill(GameFramework.Network.NetworkClosedEventArgs e)
-        {
-            NetworkChannel = e.NetworkChannel;
-
-            return this;
+            NetworkChannel = null;
         }
     }
 }

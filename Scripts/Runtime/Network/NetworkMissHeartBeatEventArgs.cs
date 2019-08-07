@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 using GameFramework.Network;
 
@@ -19,6 +20,15 @@ namespace UnityGameFramework.Runtime
         /// 网络心跳包丢失事件编号。
         /// </summary>
         public static readonly int EventId = typeof(NetworkMissHeartBeatEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化网络心跳包丢失事件的新实例。
+        /// </summary>
+        public NetworkMissHeartBeatEventArgs()
+        {
+            NetworkChannel = null;
+            MissCount = 0;
+        }
 
         /// <summary>
         /// 获取网络心跳包丢失事件编号。
@@ -50,25 +60,25 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建网络心跳包丢失事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的网络心跳包丢失事件。</returns>
+        public static NetworkMissHeartBeatEventArgs Create(GameFramework.Network.NetworkMissHeartBeatEventArgs e)
+        {
+            NetworkMissHeartBeatEventArgs networkMissHeartBeatEventArgs = ReferencePool.Acquire<NetworkMissHeartBeatEventArgs>();
+            networkMissHeartBeatEventArgs.NetworkChannel = e.NetworkChannel;
+            networkMissHeartBeatEventArgs.MissCount = e.MissCount;
+            return networkMissHeartBeatEventArgs;
+        }
+
+        /// <summary>
         /// 清理网络心跳包丢失事件。
         /// </summary>
         public override void Clear()
         {
-            NetworkChannel = default(INetworkChannel);
-            MissCount = default(int);
-        }
-
-        /// <summary>
-        /// 填充网络心跳包丢失事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>网络心跳包丢失事件。</returns>
-        public NetworkMissHeartBeatEventArgs Fill(GameFramework.Network.NetworkMissHeartBeatEventArgs e)
-        {
-            NetworkChannel = e.NetworkChannel;
-            MissCount = e.MissCount;
-
-            return this;
+            NetworkChannel = null;
+            MissCount = 0;
         }
     }
 }

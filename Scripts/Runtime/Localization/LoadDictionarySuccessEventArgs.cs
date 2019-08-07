@@ -21,6 +21,18 @@ namespace UnityGameFramework.Runtime
         public static readonly int EventId = typeof(LoadDictionarySuccessEventArgs).GetHashCode();
 
         /// <summary>
+        /// 初始化加载字典成功事件的新实例。
+        /// </summary>
+        public LoadDictionarySuccessEventArgs()
+        {
+            DictionaryName = null;
+            DictionaryAssetName = null;
+            LoadType = LoadType.Text;
+            Duration = 0f;
+            UserData = null;
+        }
+
+        /// <summary>
         /// 获取加载字典成功事件编号。
         /// </summary>
         public override int Id
@@ -77,33 +89,33 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建加载字典成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的加载字典成功事件。</returns>
+        public static LoadDictionarySuccessEventArgs Create(GameFramework.Localization.LoadDictionarySuccessEventArgs e)
+        {
+            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
+            LoadDictionarySuccessEventArgs loadDictionarySuccessEventArgs = ReferencePool.Acquire<LoadDictionarySuccessEventArgs>();
+            loadDictionarySuccessEventArgs.DictionaryName = loadDictionaryInfo.DictionaryName;
+            loadDictionarySuccessEventArgs.DictionaryAssetName = e.DictionaryAssetName;
+            loadDictionarySuccessEventArgs.LoadType = e.LoadType;
+            loadDictionarySuccessEventArgs.Duration = e.Duration;
+            loadDictionarySuccessEventArgs.UserData = loadDictionaryInfo.UserData;
+            ReferencePool.Release(loadDictionaryInfo);
+            return loadDictionarySuccessEventArgs;
+        }
+
+        /// <summary>
         /// 清理加载字典成功事件。
         /// </summary>
         public override void Clear()
         {
-            DictionaryName = default(string);
-            DictionaryAssetName = default(string);
-            LoadType = default(LoadType);
-            Duration = default(float);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充加载字典成功事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>加载字典成功事件。</returns>
-        public LoadDictionarySuccessEventArgs Fill(GameFramework.Localization.LoadDictionarySuccessEventArgs e)
-        {
-            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
-            DictionaryName = loadDictionaryInfo.DictionaryName;
-            DictionaryAssetName = e.DictionaryAssetName;
-            LoadType = e.LoadType;
-            Duration = e.Duration;
-            UserData = loadDictionaryInfo.UserData;
-
-            ReferencePool.Release(loadDictionaryInfo);
-            return this;
+            DictionaryName = null;
+            DictionaryAssetName = null;
+            LoadType = LoadType.Text;
+            Duration = 0f;
+            UserData = null;
         }
     }
 }

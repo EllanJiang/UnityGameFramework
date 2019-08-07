@@ -21,6 +21,18 @@ namespace UnityGameFramework.Runtime
         public static readonly int EventId = typeof(LoadDictionaryUpdateEventArgs).GetHashCode();
 
         /// <summary>
+        /// 初始化加载字典更新事件的新实例。
+        /// </summary>
+        public LoadDictionaryUpdateEventArgs()
+        {
+            DictionaryName = null;
+            DictionaryAssetName = null;
+            LoadType = LoadType.Text;
+            Progress = 0f;
+            UserData = null;
+        }
+
+        /// <summary>
         /// 获取加载字典更新事件编号。
         /// </summary>
         public override int Id
@@ -77,32 +89,32 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建加载字典更新事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的加载字典更新事件。</returns>
+        public static LoadDictionaryUpdateEventArgs Create(GameFramework.Localization.LoadDictionaryUpdateEventArgs e)
+        {
+            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
+            LoadDictionaryUpdateEventArgs loadDictionaryUpdateEventArgs = ReferencePool.Acquire<LoadDictionaryUpdateEventArgs>();
+            loadDictionaryUpdateEventArgs.DictionaryName = loadDictionaryInfo.DictionaryName;
+            loadDictionaryUpdateEventArgs.DictionaryAssetName = e.DictionaryAssetName;
+            loadDictionaryUpdateEventArgs.LoadType = e.LoadType;
+            loadDictionaryUpdateEventArgs.Progress = e.Progress;
+            loadDictionaryUpdateEventArgs.UserData = loadDictionaryInfo.UserData;
+            return loadDictionaryUpdateEventArgs;
+        }
+
+        /// <summary>
         /// 清理加载字典更新事件。
         /// </summary>
         public override void Clear()
         {
-            DictionaryName = default(string);
-            DictionaryAssetName = default(string);
-            LoadType = default(LoadType);
-            Progress = default(float);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充加载字典更新事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>加载字典更新事件。</returns>
-        public LoadDictionaryUpdateEventArgs Fill(GameFramework.Localization.LoadDictionaryUpdateEventArgs e)
-        {
-            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
-            DictionaryName = loadDictionaryInfo.DictionaryName;
-            DictionaryAssetName = e.DictionaryAssetName;
-            LoadType = e.LoadType;
-            Progress = e.Progress;
-            UserData = loadDictionaryInfo.UserData;
-
-            return this;
+            DictionaryName = null;
+            DictionaryAssetName = null;
+            LoadType = LoadType.Text;
+            Progress = 0f;
+            UserData = null;
         }
     }
 }

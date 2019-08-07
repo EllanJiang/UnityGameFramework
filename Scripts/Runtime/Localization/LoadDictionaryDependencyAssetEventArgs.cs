@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
@@ -18,6 +19,19 @@ namespace UnityGameFramework.Runtime
         /// 加载字典时加载依赖资源事件编号。
         /// </summary>
         public static readonly int EventId = typeof(LoadDictionaryDependencyAssetEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化加载字典时加载依赖资源事件的新实例。
+        /// </summary>
+        public LoadDictionaryDependencyAssetEventArgs()
+        {
+            DictionaryName = null;
+            DictionaryAssetName = null;
+            DependencyAssetName = null;
+            LoadedCount = 0;
+            TotalCount = 0;
+            UserData = null;
+        }
 
         /// <summary>
         /// 获取加载字典时加载依赖资源事件编号。
@@ -85,34 +99,34 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建加载字典时加载依赖资源事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的加载字典时加载依赖资源事件。</returns>
+        public static LoadDictionaryDependencyAssetEventArgs Create(GameFramework.Localization.LoadDictionaryDependencyAssetEventArgs e)
+        {
+            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
+            LoadDictionaryDependencyAssetEventArgs loadDictionaryDependencyAssetEventArgs = ReferencePool.Acquire<LoadDictionaryDependencyAssetEventArgs>();
+            loadDictionaryDependencyAssetEventArgs.DictionaryName = loadDictionaryInfo.DictionaryName;
+            loadDictionaryDependencyAssetEventArgs.DictionaryAssetName = e.DictionaryAssetName;
+            loadDictionaryDependencyAssetEventArgs.DependencyAssetName = e.DependencyAssetName;
+            loadDictionaryDependencyAssetEventArgs.LoadedCount = e.LoadedCount;
+            loadDictionaryDependencyAssetEventArgs.TotalCount = e.TotalCount;
+            loadDictionaryDependencyAssetEventArgs.UserData = loadDictionaryInfo.UserData;
+            return loadDictionaryDependencyAssetEventArgs;
+        }
+
+        /// <summary>
         /// 清理加载字典时加载依赖资源事件。
         /// </summary>
         public override void Clear()
         {
-            DictionaryName = default(string);
-            DictionaryAssetName = default(string);
-            DependencyAssetName = default(string);
-            LoadedCount = default(int);
-            TotalCount = default(int);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充加载字典时加载依赖资源事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>加载字典时加载依赖资源事件。</returns>
-        public LoadDictionaryDependencyAssetEventArgs Fill(GameFramework.Localization.LoadDictionaryDependencyAssetEventArgs e)
-        {
-            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
-            DictionaryName = loadDictionaryInfo.DictionaryName;
-            DictionaryAssetName = e.DictionaryAssetName;
-            DependencyAssetName = e.DependencyAssetName;
-            LoadedCount = e.LoadedCount;
-            TotalCount = e.TotalCount;
-            UserData = loadDictionaryInfo.UserData;
-
-            return this;
+            DictionaryName = null;
+            DictionaryAssetName = null;
+            DependencyAssetName = null;
+            LoadedCount = 0;
+            TotalCount = 0;
+            UserData = null;
         }
     }
 }

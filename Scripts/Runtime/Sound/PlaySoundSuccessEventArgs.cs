@@ -22,6 +22,19 @@ namespace UnityGameFramework.Runtime
         public static readonly int EventId = typeof(PlaySoundSuccessEventArgs).GetHashCode();
 
         /// <summary>
+        /// 初始化播放声音成功事件的新实例。
+        /// </summary>
+        public PlaySoundSuccessEventArgs()
+        {
+            SerialId = 0;
+            SoundAssetName = null;
+            SoundAgent = null;
+            Duration = 0f;
+            BindingEntity = null;
+            UserData = null;
+        }
+
+        /// <summary>
         /// 获取播放声音成功事件编号。
         /// </summary>
         public override int Id
@@ -87,35 +100,35 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建播放声音成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的播放声音成功事件。</returns>
+        public static PlaySoundSuccessEventArgs Create(GameFramework.Sound.PlaySoundSuccessEventArgs e)
+        {
+            PlaySoundInfo playSoundInfo = (PlaySoundInfo)e.UserData;
+            PlaySoundSuccessEventArgs playSoundSuccessEventArgs = ReferencePool.Acquire<PlaySoundSuccessEventArgs>();
+            playSoundSuccessEventArgs.SerialId = e.SerialId;
+            playSoundSuccessEventArgs.SoundAssetName = e.SoundAssetName;
+            playSoundSuccessEventArgs.SoundAgent = e.SoundAgent;
+            playSoundSuccessEventArgs.Duration = e.Duration;
+            playSoundSuccessEventArgs.BindingEntity = playSoundInfo.BindingEntity;
+            playSoundSuccessEventArgs.UserData = playSoundInfo.UserData;
+            ReferencePool.Release(playSoundInfo);
+            return playSoundSuccessEventArgs;
+        }
+
+        /// <summary>
         /// 清理播放声音成功事件。
         /// </summary>
         public override void Clear()
         {
-            SerialId = default(int);
-            SoundAssetName = default(string);
-            SoundAgent = default(ISoundAgent);
-            Duration = default(float);
-            BindingEntity = default(Entity);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充播放声音成功事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>播放声音成功事件。</returns>
-        public PlaySoundSuccessEventArgs Fill(GameFramework.Sound.PlaySoundSuccessEventArgs e)
-        {
-            PlaySoundInfo playSoundInfo = (PlaySoundInfo)e.UserData;
-            SerialId = e.SerialId;
-            SoundAssetName = e.SoundAssetName;
-            SoundAgent = e.SoundAgent;
-            Duration = e.Duration;
-            BindingEntity = playSoundInfo.BindingEntity;
-            UserData = playSoundInfo.UserData;
-
-            ReferencePool.Release(playSoundInfo);
-            return this;
+            SerialId = 0;
+            SoundAssetName = null;
+            SoundAgent = null;
+            Duration = 0f;
+            BindingEntity = null;
+            UserData = null;
         }
     }
 }

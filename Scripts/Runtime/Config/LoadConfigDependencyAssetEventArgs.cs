@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
@@ -18,6 +19,19 @@ namespace UnityGameFramework.Runtime
         /// 加载配置失败事件编号。
         /// </summary>
         public static readonly int EventId = typeof(LoadConfigDependencyAssetEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化加载配置时加载依赖资源事件的新实例。
+        /// </summary>
+        public LoadConfigDependencyAssetEventArgs()
+        {
+            ConfigName = null;
+            ConfigAssetName = null;
+            DependencyAssetName = null;
+            LoadedCount = 0;
+            TotalCount = 0;
+            UserData = null;
+        }
 
         /// <summary>
         /// 获取加载配置失败事件编号。
@@ -85,34 +99,34 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建加载配置时加载依赖资源事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的加载配置时加载依赖资源事件。</returns>
+        public static LoadConfigDependencyAssetEventArgs Create(GameFramework.Config.LoadConfigDependencyAssetEventArgs e)
+        {
+            LoadConfigInfo loadConfigInfo = (LoadConfigInfo)e.UserData;
+            LoadConfigDependencyAssetEventArgs loadConfigDependencyAssetEventArgs = ReferencePool.Acquire<LoadConfigDependencyAssetEventArgs>();
+            loadConfigDependencyAssetEventArgs.ConfigName = loadConfigInfo.ConfigName;
+            loadConfigDependencyAssetEventArgs.ConfigAssetName = e.ConfigAssetName;
+            loadConfigDependencyAssetEventArgs.DependencyAssetName = e.DependencyAssetName;
+            loadConfigDependencyAssetEventArgs.LoadedCount = e.LoadedCount;
+            loadConfigDependencyAssetEventArgs.TotalCount = e.TotalCount;
+            loadConfigDependencyAssetEventArgs.UserData = loadConfigInfo.UserData;
+            return loadConfigDependencyAssetEventArgs;
+        }
+
+        /// <summary>
         /// 清理加载配置时加载依赖资源事件。
         /// </summary>
         public override void Clear()
         {
-            ConfigName = default(string);
-            ConfigAssetName = default(string);
-            DependencyAssetName = default(string);
-            LoadedCount = default(int);
-            TotalCount = default(int);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充加载配置时加载依赖资源事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>加载配置时加载依赖资源事件。</returns>
-        public LoadConfigDependencyAssetEventArgs Fill(GameFramework.Config.LoadConfigDependencyAssetEventArgs e)
-        {
-            LoadConfigInfo loadConfigInfo = (LoadConfigInfo)e.UserData;
-            ConfigName = loadConfigInfo.ConfigName;
-            ConfigAssetName = e.ConfigAssetName;
-            DependencyAssetName = e.DependencyAssetName;
-            LoadedCount = e.LoadedCount;
-            TotalCount = e.TotalCount;
-            UserData = loadConfigInfo.UserData;
-
-            return this;
+            ConfigName = null;
+            ConfigAssetName = null;
+            DependencyAssetName = null;
+            LoadedCount = 0;
+            TotalCount = 0;
+            UserData = null;
         }
     }
 }

@@ -346,23 +346,23 @@ namespace UnityGameFramework.Runtime
 
         private void OnLoadConfigSuccess(object sender, GameFramework.Config.LoadConfigSuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadConfigSuccessEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, LoadConfigSuccessEventArgs.Create(e));
         }
 
         private void OnLoadConfigFailure(object sender, GameFramework.Config.LoadConfigFailureEventArgs e)
         {
             Log.Warning("Load config failure, asset name '{0}', error message '{1}'.", e.ConfigAssetName, e.ErrorMessage);
-            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadConfigFailureEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, LoadConfigFailureEventArgs.Create(e));
         }
 
         private void OnLoadConfigUpdate(object sender, GameFramework.Config.LoadConfigUpdateEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadConfigUpdateEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, LoadConfigUpdateEventArgs.Create(e));
         }
 
         private void OnLoadConfigDependencyAsset(object sender, GameFramework.Config.LoadConfigDependencyAssetEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadConfigDependencyAssetEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, LoadConfigDependencyAssetEventArgs.Create(e));
         }
     }
 }

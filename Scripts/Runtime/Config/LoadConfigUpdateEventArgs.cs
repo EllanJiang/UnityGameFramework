@@ -21,6 +21,18 @@ namespace UnityGameFramework.Runtime
         public static readonly int EventId = typeof(LoadConfigUpdateEventArgs).GetHashCode();
 
         /// <summary>
+        /// 初始化加载配置更新事件的新实例。
+        /// </summary>
+        public LoadConfigUpdateEventArgs()
+        {
+            ConfigName = null;
+            ConfigAssetName = null;
+            LoadType = LoadType.Text;
+            Progress = 0f;
+            UserData = null;
+        }
+
+        /// <summary>
         /// 获取加载配置失败事件编号。
         /// </summary>
         public override int Id
@@ -77,32 +89,32 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建加载配置更新事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的加载配置更新事件。</returns>
+        public static LoadConfigUpdateEventArgs Create(GameFramework.Config.LoadConfigUpdateEventArgs e)
+        {
+            LoadConfigInfo loadConfigInfo = (LoadConfigInfo)e.UserData;
+            LoadConfigUpdateEventArgs loadConfigUpdateEventArgs = ReferencePool.Acquire<LoadConfigUpdateEventArgs>();
+            loadConfigUpdateEventArgs.ConfigName = loadConfigInfo.ConfigName;
+            loadConfigUpdateEventArgs.ConfigAssetName = e.ConfigAssetName;
+            loadConfigUpdateEventArgs.LoadType = e.LoadType;
+            loadConfigUpdateEventArgs.Progress = e.Progress;
+            loadConfigUpdateEventArgs.UserData = loadConfigInfo.UserData;
+            return loadConfigUpdateEventArgs;
+        }
+
+        /// <summary>
         /// 清理加载配置更新事件。
         /// </summary>
         public override void Clear()
         {
-            ConfigName = default(string);
-            ConfigAssetName = default(string);
-            LoadType = default(LoadType);
-            Progress = default(float);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充加载配置更新事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>加载配置更新事件。</returns>
-        public LoadConfigUpdateEventArgs Fill(GameFramework.Config.LoadConfigUpdateEventArgs e)
-        {
-            LoadConfigInfo loadConfigInfo = (LoadConfigInfo)e.UserData;
-            ConfigName = loadConfigInfo.ConfigName;
-            ConfigAssetName = e.ConfigAssetName;
-            LoadType = e.LoadType;
-            Progress = e.Progress;
-            UserData = loadConfigInfo.UserData;
-
-            return this;
+            ConfigName = null;
+            ConfigAssetName = null;
+            LoadType = LoadType.Text;
+            Progress = 0f;
+            UserData = null;
         }
     }
 }

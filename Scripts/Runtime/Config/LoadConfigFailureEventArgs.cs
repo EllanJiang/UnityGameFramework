@@ -21,6 +21,18 @@ namespace UnityGameFramework.Runtime
         public static readonly int EventId = typeof(LoadConfigFailureEventArgs).GetHashCode();
 
         /// <summary>
+        /// 初始化加载配置失败事件的新实例。
+        /// </summary>
+        public LoadConfigFailureEventArgs()
+        {
+            ConfigName = null;
+            ConfigAssetName = null;
+            LoadType = LoadType.Text;
+            ErrorMessage = null;
+            UserData = null;
+        }
+
+        /// <summary>
         /// 获取加载配置失败事件编号。
         /// </summary>
         public override int Id
@@ -77,33 +89,33 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建加载配置失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的加载配置失败事件。</returns>
+        public static LoadConfigFailureEventArgs Create(GameFramework.Config.LoadConfigFailureEventArgs e)
+        {
+            LoadConfigInfo loadConfigInfo = (LoadConfigInfo)e.UserData;
+            LoadConfigFailureEventArgs loadConfigFailureEventArgs = ReferencePool.Acquire<LoadConfigFailureEventArgs>();
+            loadConfigFailureEventArgs.ConfigName = loadConfigInfo.ConfigName;
+            loadConfigFailureEventArgs.ConfigAssetName = e.ConfigAssetName;
+            loadConfigFailureEventArgs.LoadType = e.LoadType;
+            loadConfigFailureEventArgs.ErrorMessage = e.ErrorMessage;
+            loadConfigFailureEventArgs.UserData = loadConfigInfo.UserData;
+            ReferencePool.Release(loadConfigInfo);
+            return loadConfigFailureEventArgs;
+        }
+
+        /// <summary>
         /// 清理加载配置失败事件。
         /// </summary>
         public override void Clear()
         {
-            ConfigName = default(string);
-            ConfigAssetName = default(string);
-            LoadType = default(LoadType);
-            ErrorMessage = default(string);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充加载配置失败事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>加载配置失败事件。</returns>
-        public LoadConfigFailureEventArgs Fill(GameFramework.Config.LoadConfigFailureEventArgs e)
-        {
-            LoadConfigInfo loadConfigInfo = (LoadConfigInfo)e.UserData;
-            ConfigName = loadConfigInfo.ConfigName;
-            ConfigAssetName = e.ConfigAssetName;
-            LoadType = e.LoadType;
-            ErrorMessage = e.ErrorMessage;
-            UserData = loadConfigInfo.UserData;
-
-            ReferencePool.Release(loadConfigInfo);
-            return this;
+            ConfigName = null;
+            ConfigAssetName = null;
+            LoadType = LoadType.Text;
+            ErrorMessage = null;
+            UserData = null;
         }
     }
 }

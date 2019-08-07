@@ -22,6 +22,19 @@ namespace UnityGameFramework.Runtime
         public static readonly int EventId = typeof(LoadDataTableUpdateEventArgs).GetHashCode();
 
         /// <summary>
+        /// 初始化加载数据表更新事件的新实例。
+        /// </summary>
+        public LoadDataTableUpdateEventArgs()
+        {
+            DataRowType = null;
+            DataTableName = null;
+            DataTableAssetName = null;
+            LoadType = LoadType.Text;
+            Progress = 0f;
+            UserData = null;
+        }
+
+        /// <summary>
         /// 获取加载数据表更新事件编号。
         /// </summary>
         public override int Id
@@ -87,34 +100,34 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建加载数据表更新事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的加载数据表更新事件。</returns>
+        public static LoadDataTableUpdateEventArgs Create(GameFramework.DataTable.LoadDataTableUpdateEventArgs e)
+        {
+            LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
+            LoadDataTableUpdateEventArgs loadDataTableUpdateEventArgs = ReferencePool.Acquire<LoadDataTableUpdateEventArgs>();
+            loadDataTableUpdateEventArgs.DataRowType = loadDataTableInfo.DataRowType;
+            loadDataTableUpdateEventArgs.DataTableName = loadDataTableInfo.DataTableName;
+            loadDataTableUpdateEventArgs.DataTableAssetName = e.DataTableAssetName;
+            loadDataTableUpdateEventArgs.LoadType = e.LoadType;
+            loadDataTableUpdateEventArgs.Progress = e.Progress;
+            loadDataTableUpdateEventArgs.UserData = loadDataTableInfo.UserData;
+            return loadDataTableUpdateEventArgs;
+        }
+
+        /// <summary>
         /// 清理加载数据表更新事件。
         /// </summary>
         public override void Clear()
         {
-            DataRowType = default(Type);
-            DataTableName = default(string);
-            DataTableAssetName = default(string);
-            LoadType = default(LoadType);
-            Progress = default(float);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充加载数据表更新事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>加载数据表更新事件。</returns>
-        public LoadDataTableUpdateEventArgs Fill(GameFramework.DataTable.LoadDataTableUpdateEventArgs e)
-        {
-            LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
-            DataRowType = loadDataTableInfo.DataRowType;
-            DataTableName = loadDataTableInfo.DataTableName;
-            DataTableAssetName = e.DataTableAssetName;
-            LoadType = e.LoadType;
-            Progress = e.Progress;
-            UserData = loadDataTableInfo.UserData;
-
-            return this;
+            DataRowType = null;
+            DataTableName = null;
+            DataTableAssetName = null;
+            LoadType = LoadType.Text;
+            Progress = 0f;
+            UserData = null;
         }
     }
 }

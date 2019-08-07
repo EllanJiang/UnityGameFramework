@@ -629,23 +629,23 @@ namespace UnityGameFramework.Runtime
 
         private void OnLoadDataTableSuccess(object sender, GameFramework.DataTable.LoadDataTableSuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableSuccessEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, LoadDataTableSuccessEventArgs.Create(e));
         }
 
         private void OnLoadDataTableFailure(object sender, GameFramework.DataTable.LoadDataTableFailureEventArgs e)
         {
             Log.Warning("Load data table failure, asset name '{0}', error message '{1}'.", e.DataTableAssetName, e.ErrorMessage);
-            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableFailureEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, LoadDataTableFailureEventArgs.Create(e));
         }
 
         private void OnLoadDataTableUpdate(object sender, GameFramework.DataTable.LoadDataTableUpdateEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableUpdateEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, LoadDataTableUpdateEventArgs.Create(e));
         }
 
         private void OnLoadDataTableDependencyAsset(object sender, GameFramework.DataTable.LoadDataTableDependencyAssetEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadDataTableDependencyAssetEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, LoadDataTableDependencyAssetEventArgs.Create(e));
         }
     }
 }

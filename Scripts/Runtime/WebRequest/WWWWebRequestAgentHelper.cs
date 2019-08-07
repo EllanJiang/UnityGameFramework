@@ -7,6 +7,7 @@
 
 #if !UNITY_2018_3_OR_NEWER
 
+using GameFramework;
 using GameFramework.WebRequest;
 using System;
 using UnityEngine;
@@ -148,11 +149,15 @@ namespace UnityGameFramework.Runtime
 
             if (!string.IsNullOrEmpty(m_WWW.error))
             {
-                m_WebRequestAgentHelperErrorEventHandler(this, new WebRequestAgentHelperErrorEventArgs(m_WWW.error));
+                WebRequestAgentHelperErrorEventArgs webRequestAgentHelperErrorEventArgs = WebRequestAgentHelperErrorEventArgs.Create(m_WWW.error);
+                m_WebRequestAgentHelperErrorEventHandler(this, webRequestAgentHelperErrorEventArgs);
+                ReferencePool.Release(webRequestAgentHelperErrorEventArgs);
             }
             else
             {
-                m_WebRequestAgentHelperCompleteEventHandler(this, new WebRequestAgentHelperCompleteEventArgs(m_WWW.bytes));
+                WebRequestAgentHelperCompleteEventArgs webRequestAgentHelperCompleteEventArgs = WebRequestAgentHelperCompleteEventArgs.Create(m_WWW.bytes);
+                m_WebRequestAgentHelperCompleteEventHandler(this, webRequestAgentHelperCompleteEventArgs);
+                ReferencePool.Release(webRequestAgentHelperCompleteEventArgs);
             }
         }
     }

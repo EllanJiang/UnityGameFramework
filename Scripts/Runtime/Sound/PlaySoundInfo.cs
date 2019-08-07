@@ -47,11 +47,13 @@ namespace UnityGameFramework.Runtime
             }
         }
 
-        public void Initialize(Entity bindingEntity, Vector3 worldPosition, object userData)
+        public static PlaySoundInfo Create(Entity bindingEntity, Vector3 worldPosition, object userData)
         {
-            m_BindingEntity = bindingEntity;
-            m_WorldPosition = worldPosition;
-            m_UserData = userData;
+            PlaySoundInfo playSoundInfo = ReferencePool.Acquire<PlaySoundInfo>();
+            playSoundInfo.m_BindingEntity = bindingEntity;
+            playSoundInfo.m_WorldPosition = worldPosition;
+            playSoundInfo.m_UserData = userData;
+            return playSoundInfo;
         }
 
         public void Clear()

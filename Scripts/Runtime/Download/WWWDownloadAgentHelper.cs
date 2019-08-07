@@ -207,7 +207,9 @@ namespace UnityGameFramework.Runtime
             if (deltaLength > 0)
             {
                 m_LastDownloadedSize = m_WWW.bytesDownloaded;
-                m_DownloadAgentHelperUpdateLengthEventHandler(this, new DownloadAgentHelperUpdateLengthEventArgs(deltaLength));
+                DownloadAgentHelperUpdateLengthEventArgs downloadAgentHelperUpdateLengthEventArgs = DownloadAgentHelperUpdateLengthEventArgs.Create(deltaLength);
+                m_DownloadAgentHelperUpdateLengthEventHandler(this, downloadAgentHelperUpdateLengthEventArgs);
+                ReferencePool.Release(downloadAgentHelperUpdateLengthEventArgs);
             }
 
             if (!m_WWW.isDone)
@@ -217,13 +219,20 @@ namespace UnityGameFramework.Runtime
 
             if (!string.IsNullOrEmpty(m_WWW.error))
             {
-                m_DownloadAgentHelperErrorEventHandler(this, new DownloadAgentHelperErrorEventArgs(m_WWW.error));
+                DownloadAgentHelperErrorEventArgs dodwnloadAgentHelperErrorEventArgs = DownloadAgentHelperErrorEventArgs.Create(m_WWW.error);
+                m_DownloadAgentHelperErrorEventHandler(this, dodwnloadAgentHelperErrorEventArgs);
+                ReferencePool.Release(dodwnloadAgentHelperErrorEventArgs);
             }
             else
             {
                 byte[] bytes = m_WWW.bytes;
-                m_DownloadAgentHelperUpdateBytesEventHandler(this, new DownloadAgentHelperUpdateBytesEventArgs(bytes, 0, bytes.Length));
-                m_DownloadAgentHelperCompleteEventHandler(this, new DownloadAgentHelperCompleteEventArgs(bytes.Length));
+                DownloadAgentHelperUpdateBytesEventArgs downloadAgentHelperUpdateBytesEventArgs = DownloadAgentHelperUpdateBytesEventArgs.Create(bytes, 0, bytes.Length);
+                m_DownloadAgentHelperUpdateBytesEventHandler(this, downloadAgentHelperUpdateBytesEventArgs);
+                ReferencePool.Release(downloadAgentHelperUpdateBytesEventArgs);
+
+                DownloadAgentHelperCompleteEventArgs downloadAgentHelperCompleteEventArgs = DownloadAgentHelperCompleteEventArgs.Create(bytes.Length);
+                m_DownloadAgentHelperCompleteEventHandler(this, downloadAgentHelperCompleteEventArgs);
+                ReferencePool.Release(downloadAgentHelperCompleteEventArgs);
             }
         }
     }

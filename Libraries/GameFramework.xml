@@ -34,11 +34,6 @@
             获取类型编号。
             </summary>
         </member>
-        <member name="M:GameFramework.BaseEventArgs.Clear">
-            <summary>
-            清理引用。
-            </summary>
-        </member>
         <member name="T:GameFramework.EventPool`1">
             <summary>
             事件池。
@@ -569,6 +564,11 @@
         <member name="M:GameFramework.GameFrameworkEventArgs.#ctor">
             <summary>
             初始化游戏框架中包含事件数据的类的新实例。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkEventArgs.Clear">
+            <summary>
+            清理引用。
             </summary>
         </member>
         <member name="T:GameFramework.GameFrameworkException">
@@ -2469,15 +2469,10 @@
             加载配置时加载依赖资源事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Config.LoadConfigDependencyAssetEventArgs.#ctor(System.String,System.String,System.Int32,System.Int32,System.Object)">
+        <member name="M:GameFramework.Config.LoadConfigDependencyAssetEventArgs.#ctor">
             <summary>
             初始化加载配置时加载依赖资源事件的新实例。
             </summary>
-            <param name="configAssetName">配置资源名称。</param>
-            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
-            <param name="loadedCount">当前已加载依赖资源数量。</param>
-            <param name="totalCount">总共加载依赖资源数量。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Config.LoadConfigDependencyAssetEventArgs.ConfigAssetName">
             <summary>
@@ -2504,19 +2499,31 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Config.LoadConfigDependencyAssetEventArgs.Create(System.String,System.String,System.Int32,System.Int32,System.Object)">
+            <summary>
+            创建加载配置时加载依赖资源事件。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
+            <param name="loadedCount">当前已加载依赖资源数量。</param>
+            <param name="totalCount">总共加载依赖资源数量。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载配置时加载依赖资源事件。</returns>
+        </member>
+        <member name="M:GameFramework.Config.LoadConfigDependencyAssetEventArgs.Clear">
+            <summary>
+            清理加载配置时加载依赖资源事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Config.LoadConfigFailureEventArgs">
             <summary>
             加载配置失败事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Config.LoadConfigFailureEventArgs.#ctor(System.String,GameFramework.LoadType,System.String,System.Object)">
+        <member name="M:GameFramework.Config.LoadConfigFailureEventArgs.#ctor">
             <summary>
             初始化加载配置失败事件的新实例。
             </summary>
-            <param name="configAssetName">配置资源名称。</param>
-            <param name="loadType">配置加载方式。</param>
-            <param name="errorMessage">错误信息。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Config.LoadConfigFailureEventArgs.ConfigAssetName">
             <summary>
@@ -2538,19 +2545,30 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Config.LoadConfigFailureEventArgs.Create(System.String,GameFramework.LoadType,System.String,System.Object)">
+            <summary>
+            创建加载配置失败事件。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
+            <param name="errorMessage">错误信息。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载配置失败事件。</returns>
+        </member>
+        <member name="M:GameFramework.Config.LoadConfigFailureEventArgs.Clear">
+            <summary>
+            清理加载配置失败事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Config.LoadConfigSuccessEventArgs">
             <summary>
             加载配置成功事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Config.LoadConfigSuccessEventArgs.#ctor(System.String,GameFramework.LoadType,System.Single,System.Object)">
+        <member name="M:GameFramework.Config.LoadConfigSuccessEventArgs.#ctor">
             <summary>
             初始化加载配置成功事件的新实例。
             </summary>
-            <param name="configAssetName">配置资源名称。</param>
-            <param name="loadType">配置加载方式。</param>
-            <param name="duration">加载持续时间。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Config.LoadConfigSuccessEventArgs.ConfigAssetName">
             <summary>
@@ -2572,19 +2590,30 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Config.LoadConfigSuccessEventArgs.Create(System.String,GameFramework.LoadType,System.Single,System.Object)">
+            <summary>
+            创建加载配置成功事件。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
+            <param name="duration">加载持续时间。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载配置成功事件。</returns>
+        </member>
+        <member name="M:GameFramework.Config.LoadConfigSuccessEventArgs.Clear">
+            <summary>
+            清理加载配置成功事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Config.LoadConfigUpdateEventArgs">
             <summary>
             加载配置更新事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Config.LoadConfigUpdateEventArgs.#ctor(System.String,GameFramework.LoadType,System.Single,System.Object)">
+        <member name="M:GameFramework.Config.LoadConfigUpdateEventArgs.#ctor">
             <summary>
             初始化加载配置更新事件的新实例。
             </summary>
-            <param name="configAssetName">配置资源名称。</param>
-            <param name="loadType">配置加载方式。</param>
-            <param name="progress">加载配置进度。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Config.LoadConfigUpdateEventArgs.ConfigAssetName">
             <summary>
@@ -2604,6 +2633,21 @@
         <member name="P:GameFramework.Config.LoadConfigUpdateEventArgs.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Config.LoadConfigUpdateEventArgs.Create(System.String,GameFramework.LoadType,System.Single,System.Object)">
+            <summary>
+            创建加载配置更新事件。
+            </summary>
+            <param name="configAssetName">配置资源名称。</param>
+            <param name="loadType">配置加载方式。</param>
+            <param name="progress">加载配置进度。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载配置更新事件。</returns>
+        </member>
+        <member name="M:GameFramework.Config.LoadConfigUpdateEventArgs.Clear">
+            <summary>
+            清理加载配置更新事件。
             </summary>
         </member>
         <member name="T:GameFramework.DataNode.DataNodeManager">
@@ -4094,15 +4138,10 @@
             加载数据表时加载依赖资源事件。
             </summary>
         </member>
-        <member name="M:GameFramework.DataTable.LoadDataTableDependencyAssetEventArgs.#ctor(System.String,System.String,System.Int32,System.Int32,System.Object)">
+        <member name="M:GameFramework.DataTable.LoadDataTableDependencyAssetEventArgs.#ctor">
             <summary>
             初始化加载数据表时加载依赖资源事件的新实例。
             </summary>
-            <param name="dataTableAssetName">数据表资源名称。</param>
-            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
-            <param name="loadedCount">当前已加载依赖资源数量。</param>
-            <param name="totalCount">总共加载依赖资源数量。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.DataTable.LoadDataTableDependencyAssetEventArgs.DataTableAssetName">
             <summary>
@@ -4129,19 +4168,31 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.DataTable.LoadDataTableDependencyAssetEventArgs.Create(System.String,System.String,System.Int32,System.Int32,System.Object)">
+            <summary>
+            创建加载数据表时加载依赖资源事件。
+            </summary>
+            <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
+            <param name="loadedCount">当前已加载依赖资源数量。</param>
+            <param name="totalCount">总共加载依赖资源数量。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载数据表时加载依赖资源事件。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.LoadDataTableDependencyAssetEventArgs.Clear">
+            <summary>
+            清理加载数据表时加载依赖资源事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.DataTable.LoadDataTableFailureEventArgs">
             <summary>
             加载数据表失败事件。
             </summary>
         </member>
-        <member name="M:GameFramework.DataTable.LoadDataTableFailureEventArgs.#ctor(System.String,GameFramework.LoadType,System.String,System.Object)">
+        <member name="M:GameFramework.DataTable.LoadDataTableFailureEventArgs.#ctor">
             <summary>
             初始化加载数据表失败事件的新实例。
             </summary>
-            <param name="dataTableAssetName">数据表资源名称。</param>
-            <param name="loadType">数据表加载方式。</param>
-            <param name="errorMessage">错误信息。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.DataTable.LoadDataTableFailureEventArgs.DataTableAssetName">
             <summary>
@@ -4163,19 +4214,30 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.DataTable.LoadDataTableFailureEventArgs.Create(System.String,GameFramework.LoadType,System.String,System.Object)">
+            <summary>
+            创建加载数据表失败事件。
+            </summary>
+            <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
+            <param name="errorMessage">错误信息。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载数据表失败事件。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.LoadDataTableFailureEventArgs.Clear">
+            <summary>
+            清理加载数据表失败事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.DataTable.LoadDataTableSuccessEventArgs">
             <summary>
             加载数据表成功事件。
             </summary>
         </member>
-        <member name="M:GameFramework.DataTable.LoadDataTableSuccessEventArgs.#ctor(System.String,GameFramework.LoadType,System.Single,System.Object)">
+        <member name="M:GameFramework.DataTable.LoadDataTableSuccessEventArgs.#ctor">
             <summary>
             初始化加载数据表成功事件的新实例。
             </summary>
-            <param name="dataTableAssetName">数据表资源名称。</param>
-            <param name="loadType">数据表加载方式。</param>
-            <param name="duration">加载持续时间。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.DataTable.LoadDataTableSuccessEventArgs.DataTableAssetName">
             <summary>
@@ -4197,19 +4259,30 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.DataTable.LoadDataTableSuccessEventArgs.Create(System.String,GameFramework.LoadType,System.Single,System.Object)">
+            <summary>
+            创建加载数据表成功事件。
+            </summary>
+            <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
+            <param name="duration">加载持续时间。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载数据表成功事件。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.LoadDataTableSuccessEventArgs.Clear">
+            <summary>
+            清理加载数据表成功事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.DataTable.LoadDataTableUpdateEventArgs">
             <summary>
             加载数据表更新事件。
             </summary>
         </member>
-        <member name="M:GameFramework.DataTable.LoadDataTableUpdateEventArgs.#ctor(System.String,GameFramework.LoadType,System.Single,System.Object)">
+        <member name="M:GameFramework.DataTable.LoadDataTableUpdateEventArgs.#ctor">
             <summary>
             初始化加载数据表更新事件的新实例。
             </summary>
-            <param name="dataTableAssetName">数据表资源名称。</param>
-            <param name="loadType">数据表加载方式。</param>
-            <param name="progress">加载数据表进度。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.DataTable.LoadDataTableUpdateEventArgs.DataTableAssetName">
             <summary>
@@ -4229,6 +4302,21 @@
         <member name="P:GameFramework.DataTable.LoadDataTableUpdateEventArgs.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.DataTable.LoadDataTableUpdateEventArgs.Create(System.String,GameFramework.LoadType,System.Single,System.Object)">
+            <summary>
+            创建加载数据表更新事件。
+            </summary>
+            <param name="dataTableAssetName">数据表资源名称。</param>
+            <param name="loadType">数据表加载方式。</param>
+            <param name="progress">加载数据表进度。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载数据表更新事件。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.LoadDataTableUpdateEventArgs.Clear">
+            <summary>
+            清理加载数据表更新事件。
             </summary>
         </member>
         <member name="T:GameFramework.Debugger.DebuggerManager">
@@ -4496,48 +4584,67 @@
         </member>
         <member name="T:GameFramework.Download.DownloadAgentHelperCompleteEventArgs">
             <summary>
-             下载代理辅助器完成事件。
+            下载代理辅助器完成事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.#ctor(System.Int32)">
+        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.#ctor">
             <summary>
             初始化下载代理辅助器完成事件的新实例。
             </summary>
-            <param name="length">下载的数据大小。</param>
         </member>
         <member name="P:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.Length">
             <summary>
             获取下载的数据大小。
             </summary>
         </member>
-        <member name="T:GameFramework.Download.DownloadAgentHelperErrorEventArgs">
+        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.Create(System.Int32)">
             <summary>
-             下载代理辅助器错误事件。
+            创建下载代理辅助器完成事件。
+            </summary>
+            <param name="length">下载的数据大小。</param>
+            <returns>创建的下载代理辅助器完成事件。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.Clear">
+            <summary>
+            清理下载代理辅助器完成事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperErrorEventArgs.#ctor(System.String)">
+        <member name="T:GameFramework.Download.DownloadAgentHelperErrorEventArgs">
+            <summary>
+            下载代理辅助器错误事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Download.DownloadAgentHelperErrorEventArgs.#ctor">
             <summary>
             初始化下载代理辅助器错误事件的新实例。
             </summary>
-            <param name="errorMessage">错误信息。</param>
         </member>
         <member name="P:GameFramework.Download.DownloadAgentHelperErrorEventArgs.ErrorMessage">
             <summary>
             获取错误信息。
             </summary>
         </member>
-        <member name="T:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs">
+        <member name="M:GameFramework.Download.DownloadAgentHelperErrorEventArgs.Create(System.String)">
             <summary>
-             下载代理辅助器更新数据流事件。
+            创建下载代理辅助器错误事件。
+            </summary>
+            <param name="errorMessage">错误信息。</param>
+            <returns>创建的下载代理辅助器错误事件。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadAgentHelperErrorEventArgs.Clear">
+            <summary>
+            清理下载代理辅助器错误事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.#ctor(System.Byte[],System.Int32,System.Int32)">
+        <member name="T:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs">
+            <summary>
+            下载代理辅助器更新数据流事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.#ctor">
             <summary>
             初始化下载代理辅助器更新数据流事件的新实例。
             </summary>
-            <param name="bytes">下载的数据流。</param>
-            <param name="offset">数据流的偏移。</param>
-            <param name="length">数据流的长度。</param>
         </member>
         <member name="P:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.Offset">
             <summary>
@@ -4549,6 +4656,20 @@
             获取数据流的长度。
             </summary>
         </member>
+        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.Create(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            创建下载代理辅助器更新数据流事件。
+            </summary>
+            <param name="bytes">下载的数据流。</param>
+            <param name="offset">数据流的偏移。</param>
+            <param name="length">数据流的长度。</param>
+            <returns>创建的下载代理辅助器更新数据流事件。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.Clear">
+            <summary>
+            清理下载代理辅助器更新数据流事件。
+            </summary>
+        </member>
         <member name="M:GameFramework.Download.DownloadAgentHelperUpdateBytesEventArgs.GetBytes">
             <summary>
             获取下载的数据流。
@@ -4556,18 +4677,29 @@
         </member>
         <member name="T:GameFramework.Download.DownloadAgentHelperUpdateLengthEventArgs">
             <summary>
-             下载代理辅助器更新数据大小事件。
+            下载代理辅助器更新数据大小事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateLengthEventArgs.#ctor(System.Int32)">
+        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateLengthEventArgs.#ctor">
             <summary>
             初始化下载代理辅助器更新数据大小事件的新实例。
             </summary>
-            <param name="deltaLength">下载的增量数据大小。</param>
         </member>
         <member name="P:GameFramework.Download.DownloadAgentHelperUpdateLengthEventArgs.DeltaLength">
             <summary>
             获取下载的增量数据大小。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateLengthEventArgs.Create(System.Int32)">
+            <summary>
+            创建下载代理辅助器更新数据大小事件。
+            </summary>
+            <param name="deltaLength">下载的增量数据大小。</param>
+            <returns>创建的下载代理辅助器更新数据大小事件。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadAgentHelperUpdateLengthEventArgs.Clear">
+            <summary>
+            清理下载代理辅助器更新数据大小事件。
             </summary>
         </member>
         <member name="T:GameFramework.Download.DownloadFailureEventArgs">
@@ -4575,15 +4707,10 @@
             下载失败事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadFailureEventArgs.#ctor(System.Int32,System.String,System.String,System.String,System.Object)">
+        <member name="M:GameFramework.Download.DownloadFailureEventArgs.#ctor">
             <summary>
             初始化下载失败事件的新实例。
             </summary>
-            <param name="serialId">下载任务的序列编号。</param>
-            <param name="downloadPath">下载后存放路径。</param>
-            <param name="downloadUri">下载地址。</param>
-            <param name="errorMessage">错误信息。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Download.DownloadFailureEventArgs.SerialId">
             <summary>
@@ -4608,6 +4735,22 @@
         <member name="P:GameFramework.Download.DownloadFailureEventArgs.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Download.DownloadFailureEventArgs.Create(System.Int32,System.String,System.String,System.String,System.Object)">
+            <summary>
+            创建下载失败事件。
+            </summary>
+            <param name="serialId">下载任务的序列编号。</param>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">下载地址。</param>
+            <param name="errorMessage">错误信息。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的下载失败事件。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadFailureEventArgs.Clear">
+            <summary>
+            清理下载失败事件。
             </summary>
         </member>
         <member name="T:GameFramework.Download.DownloadManager">
@@ -4935,15 +5078,10 @@
             下载开始事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadStartEventArgs.#ctor(System.Int32,System.String,System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Download.DownloadStartEventArgs.#ctor">
             <summary>
             初始化下载开始事件的新实例。
             </summary>
-            <param name="serialId">下载任务的序列编号。</param>
-            <param name="downloadPath">下载后存放路径。</param>
-            <param name="downloadUri">下载地址。</param>
-            <param name="currentLength">当前大小。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Download.DownloadStartEventArgs.SerialId">
             <summary>
@@ -4970,20 +5108,31 @@
             获取用户自定义数据。
             </summary>
         </member>
-        <member name="T:GameFramework.Download.DownloadSuccessEventArgs">
+        <member name="M:GameFramework.Download.DownloadStartEventArgs.Create(System.Int32,System.String,System.String,System.Int32,System.Object)">
             <summary>
-            下载成功事件。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Download.DownloadSuccessEventArgs.#ctor(System.Int32,System.String,System.String,System.Int32,System.Object)">
-            <summary>
-            初始化下载成功事件的新实例。
+            创建下载开始事件。
             </summary>
             <param name="serialId">下载任务的序列编号。</param>
             <param name="downloadPath">下载后存放路径。</param>
             <param name="downloadUri">下载地址。</param>
             <param name="currentLength">当前大小。</param>
             <param name="userData">用户自定义数据。</param>
+            <returns>创建的下载开始事件。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadStartEventArgs.Clear">
+            <summary>
+            清理下载开始事件。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Download.DownloadSuccessEventArgs">
+            <summary>
+            下载成功事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Download.DownloadSuccessEventArgs.#ctor">
+            <summary>
+            初始化下载成功事件的新实例。
+            </summary>
         </member>
         <member name="P:GameFramework.Download.DownloadSuccessEventArgs.SerialId">
             <summary>
@@ -5010,20 +5159,31 @@
             获取用户自定义数据。
             </summary>
         </member>
-        <member name="T:GameFramework.Download.DownloadUpdateEventArgs">
+        <member name="M:GameFramework.Download.DownloadSuccessEventArgs.Create(System.Int32,System.String,System.String,System.Int32,System.Object)">
             <summary>
-            下载更新事件。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Download.DownloadUpdateEventArgs.#ctor(System.Int32,System.String,System.String,System.Int32,System.Object)">
-            <summary>
-            初始化下载更新事件的新实例。
+            创建下载成功事件。
             </summary>
             <param name="serialId">下载任务的序列编号。</param>
             <param name="downloadPath">下载后存放路径。</param>
             <param name="downloadUri">下载地址。</param>
             <param name="currentLength">当前大小。</param>
             <param name="userData">用户自定义数据。</param>
+            <returns>创建的下载成功事件。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadSuccessEventArgs.Clear">
+            <summary>
+            清理下载成功事件。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Download.DownloadUpdateEventArgs">
+            <summary>
+            下载更新事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Download.DownloadUpdateEventArgs.#ctor">
+            <summary>
+            初始化下载更新事件的新实例。
+            </summary>
         </member>
         <member name="P:GameFramework.Download.DownloadUpdateEventArgs.SerialId">
             <summary>
@@ -5048,6 +5208,22 @@
         <member name="P:GameFramework.Download.DownloadUpdateEventArgs.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Download.DownloadUpdateEventArgs.Create(System.Int32,System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            创建下载更新事件。
+            </summary>
+            <param name="serialId">下载任务的序列编号。</param>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">下载地址。</param>
+            <param name="currentLength">当前大小。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的下载更新事件。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadUpdateEventArgs.Clear">
+            <summary>
+            清理下载更新事件。
             </summary>
         </member>
         <member name="T:GameFramework.Download.IDownloadAgentHelper">
@@ -5800,14 +5976,10 @@
             隐藏实体完成事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Entity.HideEntityCompleteEventArgs.#ctor(System.Int32,System.String,GameFramework.Entity.IEntityGroup,System.Object)">
+        <member name="M:GameFramework.Entity.HideEntityCompleteEventArgs.#ctor">
             <summary>
             初始化隐藏实体完成事件的新实例。
             </summary>
-            <param name="entityId">实体编号。</param>
-            <param name="entityAssetName">实体资源名称。</param>
-            <param name="entityGroup">实体所属的实体组。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Entity.HideEntityCompleteEventArgs.EntityId">
             <summary>
@@ -5827,6 +5999,21 @@
         <member name="P:GameFramework.Entity.HideEntityCompleteEventArgs.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Entity.HideEntityCompleteEventArgs.Create(System.Int32,System.String,GameFramework.Entity.IEntityGroup,System.Object)">
+            <summary>
+            创建隐藏实体完成事件。
+            </summary>
+            <param name="entityId">实体编号。</param>
+            <param name="entityAssetName">实体资源名称。</param>
+            <param name="entityGroup">实体所属的实体组。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的隐藏实体完成事件。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.HideEntityCompleteEventArgs.Clear">
+            <summary>
+            清理隐藏实体完成事件。
             </summary>
         </member>
         <member name="T:GameFramework.Entity.IEntity">
@@ -6470,17 +6657,10 @@
             显示实体时加载依赖资源事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Entity.ShowEntityDependencyAssetEventArgs.#ctor(System.Int32,System.String,System.String,System.String,System.Int32,System.Int32,System.Object)">
+        <member name="M:GameFramework.Entity.ShowEntityDependencyAssetEventArgs.#ctor">
             <summary>
             初始化显示实体时加载依赖资源事件的新实例。
             </summary>
-            <param name="entityId">实体编号。</param>
-            <param name="entityAssetName">实体资源名称。</param>
-            <param name="entityGroupName">实体组名称。</param>
-            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
-            <param name="loadedCount">当前已加载依赖资源数量。</param>
-            <param name="totalCount">总共加载依赖资源数量。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Entity.ShowEntityDependencyAssetEventArgs.EntityId">
             <summary>
@@ -6517,20 +6697,33 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Entity.ShowEntityDependencyAssetEventArgs.Create(System.Int32,System.String,System.String,System.String,System.Int32,System.Int32,System.Object)">
+            <summary>
+            创建显示实体时加载依赖资源事件。
+            </summary>
+            <param name="entityId">实体编号。</param>
+            <param name="entityAssetName">实体资源名称。</param>
+            <param name="entityGroupName">实体组名称。</param>
+            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
+            <param name="loadedCount">当前已加载依赖资源数量。</param>
+            <param name="totalCount">总共加载依赖资源数量。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的显示实体时加载依赖资源事件。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.ShowEntityDependencyAssetEventArgs.Clear">
+            <summary>
+            清理显示实体时加载依赖资源事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Entity.ShowEntityFailureEventArgs">
             <summary>
             显示实体失败事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Entity.ShowEntityFailureEventArgs.#ctor(System.Int32,System.String,System.String,System.String,System.Object)">
+        <member name="M:GameFramework.Entity.ShowEntityFailureEventArgs.#ctor">
             <summary>
             初始化显示实体失败事件的新实例。
             </summary>
-            <param name="entityId">实体编号。</param>
-            <param name="entityAssetName">实体资源名称。</param>
-            <param name="entityGroupName">实体组名称。</param>
-            <param name="errorMessage">错误信息。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Entity.ShowEntityFailureEventArgs.EntityId">
             <summary>
@@ -6557,18 +6750,31 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Entity.ShowEntityFailureEventArgs.Create(System.Int32,System.String,System.String,System.String,System.Object)">
+            <summary>
+            创建显示实体失败事件。
+            </summary>
+            <param name="entityId">实体编号。</param>
+            <param name="entityAssetName">实体资源名称。</param>
+            <param name="entityGroupName">实体组名称。</param>
+            <param name="errorMessage">错误信息。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的显示实体失败事件。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.ShowEntityFailureEventArgs.Clear">
+            <summary>
+            清理显示实体失败事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Entity.ShowEntitySuccessEventArgs">
             <summary>
             显示实体成功事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Entity.ShowEntitySuccessEventArgs.#ctor(GameFramework.Entity.IEntity,System.Single,System.Object)">
+        <member name="M:GameFramework.Entity.ShowEntitySuccessEventArgs.#ctor">
             <summary>
             初始化显示实体成功事件的新实例。
             </summary>
-            <param name="entity">加载成功的实体。</param>
-            <param name="duration">加载持续时间。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Entity.ShowEntitySuccessEventArgs.Entity">
             <summary>
@@ -6585,20 +6791,29 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Entity.ShowEntitySuccessEventArgs.Create(GameFramework.Entity.IEntity,System.Single,System.Object)">
+            <summary>
+            创建显示实体成功事件。
+            </summary>
+            <param name="entity">加载成功的实体。</param>
+            <param name="duration">加载持续时间。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的显示实体成功事件。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.ShowEntitySuccessEventArgs.Clear">
+            <summary>
+            清理显示实体成功事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Entity.ShowEntityUpdateEventArgs">
             <summary>
             显示实体更新事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Entity.ShowEntityUpdateEventArgs.#ctor(System.Int32,System.String,System.String,System.Single,System.Object)">
+        <member name="M:GameFramework.Entity.ShowEntityUpdateEventArgs.#ctor">
             <summary>
             初始化显示实体更新事件的新实例。
             </summary>
-            <param name="entityId">实体编号。</param>
-            <param name="entityAssetName">实体资源名称。</param>
-            <param name="entityGroupName">实体组名称。</param>
-            <param name="progress">显示实体进度。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Entity.ShowEntityUpdateEventArgs.EntityId">
             <summary>
@@ -6623,6 +6838,22 @@
         <member name="P:GameFramework.Entity.ShowEntityUpdateEventArgs.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Entity.ShowEntityUpdateEventArgs.Create(System.Int32,System.String,System.String,System.Single,System.Object)">
+            <summary>
+            创建显示实体更新事件。
+            </summary>
+            <param name="entityId">实体编号。</param>
+            <param name="entityAssetName">实体资源名称。</param>
+            <param name="entityGroupName">实体组名称。</param>
+            <param name="progress">显示实体进度。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的显示实体更新事件。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.ShowEntityUpdateEventArgs.Clear">
+            <summary>
+            清理显示实体更新事件。
             </summary>
         </member>
         <member name="T:GameFramework.Event.EventManager">
@@ -8109,15 +8340,10 @@
             加载字典时加载依赖资源事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Localization.LoadDictionaryDependencyAssetEventArgs.#ctor(System.String,System.String,System.Int32,System.Int32,System.Object)">
+        <member name="M:GameFramework.Localization.LoadDictionaryDependencyAssetEventArgs.#ctor">
             <summary>
             初始化加载字典时加载依赖资源事件的新实例。
             </summary>
-            <param name="dictionaryAssetName">字典资源名称。</param>
-            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
-            <param name="loadedCount">当前已加载依赖资源数量。</param>
-            <param name="totalCount">总共加载依赖资源数量。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Localization.LoadDictionaryDependencyAssetEventArgs.DictionaryAssetName">
             <summary>
@@ -8144,19 +8370,31 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Localization.LoadDictionaryDependencyAssetEventArgs.Create(System.String,System.String,System.Int32,System.Int32,System.Object)">
+            <summary>
+            创建加载字典时加载依赖资源事件。
+            </summary>
+            <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
+            <param name="loadedCount">当前已加载依赖资源数量。</param>
+            <param name="totalCount">总共加载依赖资源数量。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载字典时加载依赖资源事件。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LoadDictionaryDependencyAssetEventArgs.Clear">
+            <summary>
+            清理加载字典时加载依赖资源事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Localization.LoadDictionaryFailureEventArgs">
             <summary>
             加载字典失败事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Localization.LoadDictionaryFailureEventArgs.#ctor(System.String,GameFramework.LoadType,System.String,System.Object)">
+        <member name="M:GameFramework.Localization.LoadDictionaryFailureEventArgs.#ctor">
             <summary>
             初始化加载字典失败事件的新实例。
             </summary>
-            <param name="dictionaryAssetName">字典资源名称。</param>
-            <param name="loadType">字典加载方式。</param>
-            <param name="errorMessage">错误信息。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Localization.LoadDictionaryFailureEventArgs.DictionaryAssetName">
             <summary>
@@ -8178,19 +8416,30 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Localization.LoadDictionaryFailureEventArgs.Create(System.String,GameFramework.LoadType,System.String,System.Object)">
+            <summary>
+            创建加载字典失败事件。
+            </summary>
+            <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
+            <param name="errorMessage">错误信息。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载字典失败事件。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LoadDictionaryFailureEventArgs.Clear">
+            <summary>
+            清理加载字典失败事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Localization.LoadDictionarySuccessEventArgs">
             <summary>
             加载字典成功事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Localization.LoadDictionarySuccessEventArgs.#ctor(System.String,GameFramework.LoadType,System.Single,System.Object)">
+        <member name="M:GameFramework.Localization.LoadDictionarySuccessEventArgs.#ctor">
             <summary>
             初始化加载字典成功事件的新实例。
             </summary>
-            <param name="dictionaryAssetName">字典资源名称。</param>
-            <param name="loadType">字典加载方式。</param>
-            <param name="duration">加载持续时间。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Localization.LoadDictionarySuccessEventArgs.DictionaryAssetName">
             <summary>
@@ -8212,19 +8461,30 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Localization.LoadDictionarySuccessEventArgs.Create(System.String,GameFramework.LoadType,System.Single,System.Object)">
+            <summary>
+            创建加载字典成功事件。
+            </summary>
+            <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
+            <param name="duration">加载持续时间。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载字典成功事件。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LoadDictionarySuccessEventArgs.Clear">
+            <summary>
+            清理加载字典成功事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Localization.LoadDictionaryUpdateEventArgs">
             <summary>
             加载字典更新事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Localization.LoadDictionaryUpdateEventArgs.#ctor(System.String,GameFramework.LoadType,System.Single,System.Object)">
+        <member name="M:GameFramework.Localization.LoadDictionaryUpdateEventArgs.#ctor">
             <summary>
             初始化加载字典更新事件的新实例。
             </summary>
-            <param name="dictionaryAssetName">字典资源名称。</param>
-            <param name="loadType">字典加载方式。</param>
-            <param name="progress">加载字典进度。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Localization.LoadDictionaryUpdateEventArgs.DictionaryAssetName">
             <summary>
@@ -8244,6 +8504,21 @@
         <member name="P:GameFramework.Localization.LoadDictionaryUpdateEventArgs.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Localization.LoadDictionaryUpdateEventArgs.Create(System.String,GameFramework.LoadType,System.Single,System.Object)">
+            <summary>
+            创建加载字典更新事件。
+            </summary>
+            <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="loadType">字典加载方式。</param>
+            <param name="progress">加载字典进度。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载字典更新事件。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LoadDictionaryUpdateEventArgs.Clear">
+            <summary>
+            清理加载字典更新事件。
             </summary>
         </member>
         <member name="T:GameFramework.Localization.LocalizationManager">
@@ -8728,15 +9003,26 @@
             网络连接关闭事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkClosedEventArgs.#ctor(GameFramework.Network.INetworkChannel)">
+        <member name="M:GameFramework.Network.NetworkClosedEventArgs.#ctor">
             <summary>
             初始化网络连接关闭事件的新实例。
             </summary>
-            <param name="networkChannel">网络频道。</param>
         </member>
         <member name="P:GameFramework.Network.NetworkClosedEventArgs.NetworkChannel">
             <summary>
             获取网络频道。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Network.NetworkClosedEventArgs.Create(GameFramework.Network.INetworkChannel)">
+            <summary>
+            创建网络连接关闭事件。
+            </summary>
+            <param name="networkChannel">网络频道。</param>
+            <returns>创建的网络连接关闭事件。</returns>
+        </member>
+        <member name="M:GameFramework.Network.NetworkClosedEventArgs.Clear">
+            <summary>
+            清理网络连接关闭事件。
             </summary>
         </member>
         <member name="T:GameFramework.Network.NetworkConnectedEventArgs">
@@ -8744,12 +9030,10 @@
             网络连接成功事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkConnectedEventArgs.#ctor(GameFramework.Network.INetworkChannel,System.Object)">
+        <member name="M:GameFramework.Network.NetworkConnectedEventArgs.#ctor">
             <summary>
             初始化网络连接成功事件的新实例。
             </summary>
-            <param name="networkChannel">网络频道。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Network.NetworkConnectedEventArgs.NetworkChannel">
             <summary>
@@ -8761,17 +9045,28 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Network.NetworkConnectedEventArgs.Create(GameFramework.Network.INetworkChannel,System.Object)">
+            <summary>
+            创建网络连接成功事件。
+            </summary>
+            <param name="networkChannel">网络频道。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的网络连接成功事件。</returns>
+        </member>
+        <member name="M:GameFramework.Network.NetworkConnectedEventArgs.Clear">
+            <summary>
+            清理网络连接成功事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Network.NetworkCustomErrorEventArgs">
             <summary>
             用户自定义网络错误事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkCustomErrorEventArgs.#ctor(GameFramework.Network.INetworkChannel,System.Object)">
+        <member name="M:GameFramework.Network.NetworkCustomErrorEventArgs.#ctor">
             <summary>
             初始化用户自定义网络错误事件的新实例。
             </summary>
-            <param name="networkChannel">网络频道。</param>
-            <param name="customErrorData">用户自定义错误数据。</param>
         </member>
         <member name="P:GameFramework.Network.NetworkCustomErrorEventArgs.NetworkChannel">
             <summary>
@@ -8783,9 +9078,27 @@
             获取用户自定义错误数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Network.NetworkCustomErrorEventArgs.Create(GameFramework.Network.INetworkChannel,System.Object)">
+            <summary>
+            创建用户自定义网络错误事件。
+            </summary>
+            <param name="networkChannel">网络频道。</param>
+            <param name="customErrorData">用户自定义错误数据。</param>
+            <returns>创建的用户自定义网络错误事件。</returns>
+        </member>
+        <member name="M:GameFramework.Network.NetworkCustomErrorEventArgs.Clear">
+            <summary>
+            清理用户自定义网络错误事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Network.NetworkErrorCode">
             <summary>
             网络错误码。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Network.NetworkErrorCode.Unknown">
+            <summary>
+            未知错误。
             </summary>
         </member>
         <member name="F:GameFramework.Network.NetworkErrorCode.AddressFamilyError">
@@ -8833,14 +9146,10 @@
             网络错误事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkErrorEventArgs.#ctor(GameFramework.Network.INetworkChannel,GameFramework.Network.NetworkErrorCode,System.Net.Sockets.SocketError,System.String)">
+        <member name="M:GameFramework.Network.NetworkErrorEventArgs.#ctor">
             <summary>
             初始化网络错误事件的新实例。
             </summary>
-            <param name="networkChannel">网络频道。</param>
-            <param name="errorCode">错误码。</param>
-            <param name="socketErrorCode">Socket 错误码。</param>
-            <param name="errorMessage">错误信息。</param>
         </member>
         <member name="P:GameFramework.Network.NetworkErrorEventArgs.NetworkChannel">
             <summary>
@@ -8860,6 +9169,21 @@
         <member name="P:GameFramework.Network.NetworkErrorEventArgs.ErrorMessage">
             <summary>
             获取错误信息。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Network.NetworkErrorEventArgs.Create(GameFramework.Network.INetworkChannel,GameFramework.Network.NetworkErrorCode,System.Net.Sockets.SocketError,System.String)">
+            <summary>
+            创建网络错误事件。
+            </summary>
+            <param name="networkChannel">网络频道。</param>
+            <param name="errorCode">错误码。</param>
+            <param name="socketErrorCode">Socket 错误码。</param>
+            <param name="errorMessage">错误信息。</param>
+            <returns>创建的网络错误事件。</returns>
+        </member>
+        <member name="M:GameFramework.Network.NetworkErrorEventArgs.Clear">
+            <summary>
+            清理网络错误事件。
             </summary>
         </member>
         <member name="T:GameFramework.Network.NetworkManager">
@@ -9094,12 +9418,10 @@
             网络心跳包丢失事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkMissHeartBeatEventArgs.#ctor(GameFramework.Network.INetworkChannel,System.Int32)">
+        <member name="M:GameFramework.Network.NetworkMissHeartBeatEventArgs.#ctor">
             <summary>
             初始化网络心跳包丢失事件的新实例。
             </summary>
-            <param name="networkChannel">网络频道。</param>
-            <param name="missCount">心跳包已丢失次数。</param>
         </member>
         <member name="P:GameFramework.Network.NetworkMissHeartBeatEventArgs.NetworkChannel">
             <summary>
@@ -9109,6 +9431,19 @@
         <member name="P:GameFramework.Network.NetworkMissHeartBeatEventArgs.MissCount">
             <summary>
             获取心跳包已丢失次数。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Network.NetworkMissHeartBeatEventArgs.Create(GameFramework.Network.INetworkChannel,System.Int32)">
+            <summary>
+            创建网络心跳包丢失事件。
+            </summary>
+            <param name="networkChannel">网络频道。</param>
+            <param name="missCount">心跳包已丢失次数。</param>
+            <returns>创建的网络心跳包丢失事件。</returns>
+        </member>
+        <member name="M:GameFramework.Network.NetworkMissHeartBeatEventArgs.Clear">
+            <summary>
+            清理网络心跳包丢失事件。
             </summary>
         </member>
         <member name="T:GameFramework.Network.NetworkType">
@@ -12218,12 +12553,10 @@
             加载资源代理辅助器错误事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.LoadResourceAgentHelperErrorEventArgs.#ctor(GameFramework.Resource.LoadResourceStatus,System.String)">
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperErrorEventArgs.#ctor">
             <summary>
             初始化加载资源代理辅助器错误事件的新实例。
             </summary>
-            <param name="status">加载资源状态。</param>
-            <param name="errorMessage">错误信息。</param>
         </member>
         <member name="P:GameFramework.Resource.LoadResourceAgentHelperErrorEventArgs.Status">
             <summary>
@@ -12235,20 +12568,44 @@
             获取错误信息。
             </summary>
         </member>
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperErrorEventArgs.Create(GameFramework.Resource.LoadResourceStatus,System.String)">
+            <summary>
+            创建加载资源代理辅助器错误事件。
+            </summary>
+            <param name="status">加载资源状态。</param>
+            <param name="errorMessage">错误信息。</param>
+            <returns>创建的加载资源代理辅助器错误事件。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperErrorEventArgs.Clear">
+            <summary>
+            清理加载资源代理辅助器错误事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Resource.LoadResourceAgentHelperLoadCompleteEventArgs">
             <summary>
             加载资源代理辅助器异步加载资源完成事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.LoadResourceAgentHelperLoadCompleteEventArgs.#ctor(System.Object)">
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperLoadCompleteEventArgs.#ctor">
             <summary>
             初始化加载资源代理辅助器异步加载资源完成事件的新实例。
             </summary>
-            <param name="asset">加载的资源。</param>
         </member>
         <member name="P:GameFramework.Resource.LoadResourceAgentHelperLoadCompleteEventArgs.Asset">
             <summary>
             获取加载的资源。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperLoadCompleteEventArgs.Create(System.Object)">
+            <summary>
+            创建加载资源代理辅助器异步加载资源完成事件。
+            </summary>
+            <param name="asset">加载的资源。</param>
+            <returns>创建的加载资源代理辅助器异步加载资源完成事件。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperLoadCompleteEventArgs.Clear">
+            <summary>
+            清理加载资源代理辅助器异步加载资源完成事件。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.LoadResourceAgentHelperParseBytesCompleteEventArgs">
@@ -12256,15 +12613,26 @@
             加载资源代理辅助器异步将资源二进制流转换为加载对象完成事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.LoadResourceAgentHelperParseBytesCompleteEventArgs.#ctor(System.Object)">
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperParseBytesCompleteEventArgs.#ctor">
             <summary>
             初始化加载资源代理辅助器异步将资源二进制流转换为加载对象完成事件的新实例。
             </summary>
-            <param name="resource">资源对象。</param>
         </member>
         <member name="P:GameFramework.Resource.LoadResourceAgentHelperParseBytesCompleteEventArgs.Resource">
             <summary>
             获取加载对象。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperParseBytesCompleteEventArgs.Create(System.Object)">
+            <summary>
+            创建加载资源代理辅助器异步将资源二进制流转换为加载对象完成事件。
+            </summary>
+            <param name="resource">资源对象。</param>
+            <returns>创建的加载资源代理辅助器异步将资源二进制流转换为加载对象完成事件。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperParseBytesCompleteEventArgs.Clear">
+            <summary>
+            清理加载资源代理辅助器异步将资源二进制流转换为加载对象完成事件。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.LoadResourceAgentHelperReadBytesCompleteEventArgs">
@@ -12272,16 +12640,27 @@
             加载资源代理辅助器异步读取资源二进制流完成事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.LoadResourceAgentHelperReadBytesCompleteEventArgs.#ctor(System.Byte[],System.Int32)">
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperReadBytesCompleteEventArgs.#ctor">
             <summary>
             初始化加载资源代理辅助器异步读取资源二进制流完成事件的新实例。
             </summary>
-            <param name="bytes">资源的二进制流。</param>
-            <param name="loadType">资源加载方式。</param>
         </member>
         <member name="P:GameFramework.Resource.LoadResourceAgentHelperReadBytesCompleteEventArgs.LoadType">
             <summary>
             获取资源加载方式。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperReadBytesCompleteEventArgs.Create(System.Byte[],System.Int32)">
+            <summary>
+            创建加载资源代理辅助器异步读取资源二进制流完成事件。
+            </summary>
+            <param name="bytes">资源的二进制流。</param>
+            <param name="loadType">资源加载方式。</param>
+            <returns></returns>
+        </member>
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperReadBytesCompleteEventArgs.Clear">
+            <summary>
+            清理加载资源代理辅助器异步读取资源二进制流完成事件。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.LoadResourceAgentHelperReadBytesCompleteEventArgs.GetBytes">
@@ -12295,15 +12674,26 @@
             加载资源代理辅助器异步将资源文件转换为加载对象完成事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.LoadResourceAgentHelperReadFileCompleteEventArgs.#ctor(System.Object)">
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperReadFileCompleteEventArgs.#ctor">
             <summary>
             初始化加载资源代理辅助器异步将资源文件转换为加载对象完成事件的新实例。
             </summary>
-            <param name="resource">资源对象。</param>
         </member>
         <member name="P:GameFramework.Resource.LoadResourceAgentHelperReadFileCompleteEventArgs.Resource">
             <summary>
             获取加载对象。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperReadFileCompleteEventArgs.Create(System.Object)">
+            <summary>
+            创建加载资源代理辅助器异步将资源文件转换为加载对象完成事件。
+            </summary>
+            <param name="resource">资源对象。</param>
+            <returns>创建的加载资源代理辅助器异步将资源文件转换为加载对象完成事件。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperReadFileCompleteEventArgs.Clear">
+            <summary>
+            清理加载资源代理辅助器异步将资源文件转换为加载对象完成事件。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.LoadResourceAgentHelperUpdateEventArgs">
@@ -12311,12 +12701,10 @@
             加载资源代理辅助器更新事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.LoadResourceAgentHelperUpdateEventArgs.#ctor(GameFramework.Resource.LoadResourceProgress,System.Single)">
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperUpdateEventArgs.#ctor">
             <summary>
             初始化加载资源代理辅助器更新事件的新实例。
             </summary>
-            <param name="type">进度类型。</param>
-            <param name="progress">进度。</param>
         </member>
         <member name="P:GameFramework.Resource.LoadResourceAgentHelperUpdateEventArgs.Type">
             <summary>
@@ -12328,9 +12716,27 @@
             获取进度。
             </summary>
         </member>
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperUpdateEventArgs.Create(GameFramework.Resource.LoadResourceProgress,System.Single)">
+            <summary>
+            创建加载资源代理辅助器更新事件。
+            </summary>
+            <param name="type">进度类型。</param>
+            <param name="progress">进度。</param>
+            <returns>创建的加载资源代理辅助器更新事件。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperUpdateEventArgs.Clear">
+            <summary>
+            清理加载资源代理辅助器更新事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Resource.LoadResourceProgress">
             <summary>
             加载资源进度类型。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Resource.LoadResourceProgress.Unknown">
+            <summary>
+            未知类型。
             </summary>
         </member>
         <member name="F:GameFramework.Resource.LoadResourceProgress.ReadResource">
@@ -12358,7 +12764,7 @@
             加载资源状态。
             </summary>
         </member>
-        <member name="F:GameFramework.Resource.LoadResourceStatus.Ok">
+        <member name="F:GameFramework.Resource.LoadResourceStatus.Success">
             <summary>
             加载资源完成。
             </summary>
@@ -13776,15 +14182,10 @@
             资源更新改变事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceUpdateChangedEventArgs.#ctor(System.String,System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:GameFramework.Resource.ResourceUpdateChangedEventArgs.#ctor">
             <summary>
             初始化资源更新改变事件的新实例。
             </summary>
-            <param name="name">资源名称。</param>
-            <param name="downloadPath">资源下载后存放路径。</param>
-            <param name="downloadUri">资源下载地址。</param>
-            <param name="currentLength">当前下载大小。</param>
-            <param name="zipLength">压缩包大小。</param>
         </member>
         <member name="P:GameFramework.Resource.ResourceUpdateChangedEventArgs.Name">
             <summary>
@@ -13811,21 +14212,31 @@
             获取压缩包大小。
             </summary>
         </member>
+        <member name="M:GameFramework.Resource.ResourceUpdateChangedEventArgs.Create(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            创建资源更新改变事件。
+            </summary>
+            <param name="name">资源名称。</param>
+            <param name="downloadPath">资源下载后存放路径。</param>
+            <param name="downloadUri">资源下载地址。</param>
+            <param name="currentLength">当前下载大小。</param>
+            <param name="zipLength">压缩包大小。</param>
+            <returns>创建的资源更新改变事件。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceUpdateChangedEventArgs.Clear">
+            <summary>
+            清理资源更新改变事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Resource.ResourceUpdateFailureEventArgs">
             <summary>
             资源更新失败事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceUpdateFailureEventArgs.#ctor(System.String,System.String,System.Int32,System.Int32,System.String)">
+        <member name="M:GameFramework.Resource.ResourceUpdateFailureEventArgs.#ctor">
             <summary>
             初始化资源更新失败事件的新实例。
             </summary>
-            <param name="name">资源名称。</param>
-            <param name="downloadUri">下载地址。</param>
-            <param name="retryCount">已重试次数。</param>
-            <param name="totalRetryCount">设定的重试次数。</param>
-            <param name="errorMessage">错误信息。</param>
-            <remarks>当已重试次数达到设定的重试次数时，将不再重试。</remarks>
         </member>
         <member name="P:GameFramework.Resource.ResourceUpdateFailureEventArgs.Name">
             <summary>
@@ -13852,21 +14263,32 @@
             获取错误信息。
             </summary>
         </member>
+        <member name="M:GameFramework.Resource.ResourceUpdateFailureEventArgs.Create(System.String,System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            创建资源更新失败事件。
+            </summary>
+            <param name="name">资源名称。</param>
+            <param name="downloadUri">下载地址。</param>
+            <param name="retryCount">已重试次数。</param>
+            <param name="totalRetryCount">设定的重试次数。</param>
+            <param name="errorMessage">错误信息。</param>
+            <returns>创建的资源更新失败事件。</returns>
+            <remarks>当已重试次数达到设定的重试次数时，将不再重试。</remarks>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceUpdateFailureEventArgs.Clear">
+            <summary>
+            清理资源更新失败事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Resource.ResourceUpdateStartEventArgs">
             <summary>
             资源更新开始事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceUpdateStartEventArgs.#ctor(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:GameFramework.Resource.ResourceUpdateStartEventArgs.#ctor">
             <summary>
             初始化资源更新开始事件的新实例。
             </summary>
-            <param name="name">资源名称。</param>
-            <param name="downloadPath">资源下载后存放路径。</param>
-            <param name="downloadUri">资源下载地址。</param>
-            <param name="currentLength">当前下载大小。</param>
-            <param name="zipLength">压缩包大小。</param>
-            <param name="retryCount">已重试下载次数。</param>
         </member>
         <member name="P:GameFramework.Resource.ResourceUpdateStartEventArgs.Name">
             <summary>
@@ -13898,20 +14320,32 @@
             获取已重试下载次数。
             </summary>
         </member>
+        <member name="M:GameFramework.Resource.ResourceUpdateStartEventArgs.Create(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            创建资源更新开始事件。
+            </summary>
+            <param name="name">资源名称。</param>
+            <param name="downloadPath">资源下载后存放路径。</param>
+            <param name="downloadUri">资源下载地址。</param>
+            <param name="currentLength">当前下载大小。</param>
+            <param name="zipLength">压缩包大小。</param>
+            <param name="retryCount">已重试下载次数。</param>
+            <returns>创建的资源更新开始事件。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceUpdateStartEventArgs.Clear">
+            <summary>
+            清理资源更新开始事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Resource.ResourceUpdateSuccessEventArgs">
             <summary>
             资源更新成功事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceUpdateSuccessEventArgs.#ctor(System.String,System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:GameFramework.Resource.ResourceUpdateSuccessEventArgs.#ctor">
             <summary>
             初始化资源更新成功事件的新实例。
             </summary>
-            <param name="name">资源名称。</param>
-            <param name="downloadPath">资源下载后存放路径。</param>
-            <param name="downloadUri">资源下载地址。</param>
-            <param name="length">资源大小。</param>
-            <param name="zipLength">压缩包大小。</param>
         </member>
         <member name="P:GameFramework.Resource.ResourceUpdateSuccessEventArgs.Name">
             <summary>
@@ -13936,6 +14370,22 @@
         <member name="P:GameFramework.Resource.ResourceUpdateSuccessEventArgs.ZipLength">
             <summary>
             获取压缩包大小。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceUpdateSuccessEventArgs.Create(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            创建资源更新成功事件。
+            </summary>
+            <param name="name">资源名称。</param>
+            <param name="downloadPath">资源下载后存放路径。</param>
+            <param name="downloadUri">资源下载地址。</param>
+            <param name="length">资源大小。</param>
+            <param name="zipLength">压缩包大小。</param>
+            <returns>创建的资源更新成功事件。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceUpdateSuccessEventArgs.Clear">
+            <summary>
+            清理资源更新成功事件。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.UnloadSceneCallbacks">
@@ -14173,15 +14623,10 @@
             加载场景时加载依赖资源事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Scene.LoadSceneDependencyAssetEventArgs.#ctor(System.String,System.String,System.Int32,System.Int32,System.Object)">
+        <member name="M:GameFramework.Scene.LoadSceneDependencyAssetEventArgs.#ctor">
             <summary>
             初始化加载场景时加载依赖资源事件的新实例。
             </summary>
-            <param name="sceneAssetName">场景资源名称。</param>
-            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
-            <param name="loadedCount">当前已加载依赖资源数量。</param>
-            <param name="totalCount">总共加载依赖资源数量。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Scene.LoadSceneDependencyAssetEventArgs.SceneAssetName">
             <summary>
@@ -14208,18 +14653,31 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Scene.LoadSceneDependencyAssetEventArgs.Create(System.String,System.String,System.Int32,System.Int32,System.Object)">
+            <summary>
+            创建场景时加载依赖资源事件。
+            </summary>
+            <param name="sceneAssetName">场景资源名称。</param>
+            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
+            <param name="loadedCount">当前已加载依赖资源数量。</param>
+            <param name="totalCount">总共加载依赖资源数量。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的场景时加载依赖资源事件。</returns>
+        </member>
+        <member name="M:GameFramework.Scene.LoadSceneDependencyAssetEventArgs.Clear">
+            <summary>
+            清理场景时加载依赖资源事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Scene.LoadSceneFailureEventArgs">
             <summary>
             加载场景失败事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Scene.LoadSceneFailureEventArgs.#ctor(System.String,System.String,System.Object)">
+        <member name="M:GameFramework.Scene.LoadSceneFailureEventArgs.#ctor">
             <summary>
             初始化加载场景失败事件的新实例。
             </summary>
-            <param name="sceneAssetName">场景资源名称。</param>
-            <param name="errorMessage">错误信息。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Scene.LoadSceneFailureEventArgs.SceneAssetName">
             <summary>
@@ -14236,18 +14694,29 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Scene.LoadSceneFailureEventArgs.Create(System.String,System.String,System.Object)">
+            <summary>
+            创建加载场景失败事件。
+            </summary>
+            <param name="sceneAssetName">场景资源名称。</param>
+            <param name="errorMessage">错误信息。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载场景失败事件。</returns>
+        </member>
+        <member name="M:GameFramework.Scene.LoadSceneFailureEventArgs.Clear">
+            <summary>
+            清理加载场景失败事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Scene.LoadSceneSuccessEventArgs">
             <summary>
             加载场景成功事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Scene.LoadSceneSuccessEventArgs.#ctor(System.String,System.Single,System.Object)">
+        <member name="M:GameFramework.Scene.LoadSceneSuccessEventArgs.#ctor">
             <summary>
             初始化加载场景成功事件的新实例。
             </summary>
-            <param name="sceneAssetName">场景资源名称。</param>
-            <param name="duration">加载持续时间。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Scene.LoadSceneSuccessEventArgs.SceneAssetName">
             <summary>
@@ -14264,18 +14733,29 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Scene.LoadSceneSuccessEventArgs.Create(System.String,System.Single,System.Object)">
+            <summary>
+            创建加载场景成功事件。
+            </summary>
+            <param name="sceneAssetName">场景资源名称。</param>
+            <param name="duration">加载持续时间。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载场景成功事件。</returns>
+        </member>
+        <member name="M:GameFramework.Scene.LoadSceneSuccessEventArgs.Clear">
+            <summary>
+            清理加载场景成功事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Scene.LoadSceneUpdateEventArgs">
             <summary>
             加载场景更新事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Scene.LoadSceneUpdateEventArgs.#ctor(System.String,System.Single,System.Object)">
+        <member name="M:GameFramework.Scene.LoadSceneUpdateEventArgs.#ctor">
             <summary>
             初始化加载场景更新事件的新实例。
             </summary>
-            <param name="sceneAssetName">场景资源名称。</param>
-            <param name="progress">加载场景进度。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Scene.LoadSceneUpdateEventArgs.SceneAssetName">
             <summary>
@@ -14290,6 +14770,20 @@
         <member name="P:GameFramework.Scene.LoadSceneUpdateEventArgs.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Scene.LoadSceneUpdateEventArgs.Create(System.String,System.Single,System.Object)">
+            <summary>
+            创建加载场景更新事件。
+            </summary>
+            <param name="sceneAssetName">场景资源名称。</param>
+            <param name="progress">加载场景进度。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的加载场景更新事件。</returns>
+        </member>
+        <member name="M:GameFramework.Scene.LoadSceneUpdateEventArgs.Clear">
+            <summary>
+            清理加载场景更新事件。
             </summary>
         </member>
         <member name="T:GameFramework.Scene.SceneManager">
@@ -14459,12 +14953,10 @@
             卸载场景失败事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Scene.UnloadSceneFailureEventArgs.#ctor(System.String,System.Object)">
+        <member name="M:GameFramework.Scene.UnloadSceneFailureEventArgs.#ctor">
             <summary>
             初始化卸载场景失败事件的新实例。
             </summary>
-            <param name="sceneAssetName">场景资源名称。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Scene.UnloadSceneFailureEventArgs.SceneAssetName">
             <summary>
@@ -14476,17 +14968,28 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Scene.UnloadSceneFailureEventArgs.Create(System.String,System.Object)">
+            <summary>
+            创建卸载场景失败事件。
+            </summary>
+            <param name="sceneAssetName">场景资源名称。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的卸载场景失败事件。</returns>
+        </member>
+        <member name="M:GameFramework.Scene.UnloadSceneFailureEventArgs.Clear">
+            <summary>
+            清理卸载场景失败事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Scene.UnloadSceneSuccessEventArgs">
             <summary>
             卸载场景成功事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Scene.UnloadSceneSuccessEventArgs.#ctor(System.String,System.Object)">
+        <member name="M:GameFramework.Scene.UnloadSceneSuccessEventArgs.#ctor">
             <summary>
             初始化卸载场景成功事件的新实例。
             </summary>
-            <param name="sceneAssetName">场景资源名称。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Scene.UnloadSceneSuccessEventArgs.SceneAssetName">
             <summary>
@@ -14496,6 +14999,19 @@
         <member name="P:GameFramework.Scene.UnloadSceneSuccessEventArgs.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Scene.UnloadSceneSuccessEventArgs.Create(System.String,System.Object)">
+            <summary>
+            创建卸载场景成功事件。
+            </summary>
+            <param name="sceneAssetName">场景资源名称。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的卸载场景成功事件。</returns>
+        </member>
+        <member name="M:GameFramework.Scene.UnloadSceneSuccessEventArgs.Clear">
+            <summary>
+            清理卸载场景成功事件。
             </summary>
         </member>
         <member name="T:GameFramework.Setting.ISettingHelper">
@@ -15606,18 +16122,10 @@
             播放声音时加载依赖资源事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Sound.PlaySoundDependencyAssetEventArgs.#ctor(System.Int32,System.String,System.String,GameFramework.Sound.PlaySoundParams,System.String,System.Int32,System.Int32,System.Object)">
+        <member name="M:GameFramework.Sound.PlaySoundDependencyAssetEventArgs.#ctor">
             <summary>
             初始化播放声音时加载依赖资源事件的新实例。
             </summary>
-            <param name="serialId">声音的序列编号。</param>
-            <param name="soundAssetName">声音资源名称。</param>
-            <param name="soundGroupName">声音组名称。</param>
-            <param name="playSoundParams">播放声音参数。</param>
-            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
-            <param name="loadedCount">当前已加载依赖资源数量。</param>
-            <param name="totalCount">总共加载依赖资源数量。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Sound.PlaySoundDependencyAssetEventArgs.SerialId">
             <summary>
@@ -15659,9 +16167,33 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Sound.PlaySoundDependencyAssetEventArgs.Create(System.Int32,System.String,System.String,GameFramework.Sound.PlaySoundParams,System.String,System.Int32,System.Int32,System.Object)">
+            <summary>
+            创建播放声音时加载依赖资源事件。
+            </summary>
+            <param name="serialId">声音的序列编号。</param>
+            <param name="soundAssetName">声音资源名称。</param>
+            <param name="soundGroupName">声音组名称。</param>
+            <param name="playSoundParams">播放声音参数。</param>
+            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
+            <param name="loadedCount">当前已加载依赖资源数量。</param>
+            <param name="totalCount">总共加载依赖资源数量。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的播放声音时加载依赖资源事件。</returns>
+        </member>
+        <member name="M:GameFramework.Sound.PlaySoundDependencyAssetEventArgs.Clear">
+            <summary>
+            清理播放声音时加载依赖资源事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Sound.PlaySoundErrorCode">
             <summary>
             播放声音错误码。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Sound.PlaySoundErrorCode.Unknown">
+            <summary>
+            未知错误。
             </summary>
         </member>
         <member name="F:GameFramework.Sound.PlaySoundErrorCode.SoundGroupNotExist">
@@ -15694,17 +16226,10 @@
             播放声音失败事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Sound.PlaySoundFailureEventArgs.#ctor(System.Int32,System.String,System.String,GameFramework.Sound.PlaySoundParams,GameFramework.Sound.PlaySoundErrorCode,System.String,System.Object)">
+        <member name="M:GameFramework.Sound.PlaySoundFailureEventArgs.#ctor">
             <summary>
             初始化播放声音失败事件的新实例。
             </summary>
-            <param name="serialId">声音的序列编号。</param>
-            <param name="soundAssetName">声音资源名称。</param>
-            <param name="soundGroupName">声音组名称。</param>
-            <param name="playSoundParams">播放声音参数。</param>
-            <param name="errorCode">错误码。</param>
-            <param name="errorMessage">错误信息。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Sound.PlaySoundFailureEventArgs.SerialId">
             <summary>
@@ -15739,6 +16264,24 @@
         <member name="P:GameFramework.Sound.PlaySoundFailureEventArgs.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Sound.PlaySoundFailureEventArgs.Create(System.Int32,System.String,System.String,GameFramework.Sound.PlaySoundParams,GameFramework.Sound.PlaySoundErrorCode,System.String,System.Object)">
+            <summary>
+            创建播放声音失败事件。
+            </summary>
+            <param name="serialId">声音的序列编号。</param>
+            <param name="soundAssetName">声音资源名称。</param>
+            <param name="soundGroupName">声音组名称。</param>
+            <param name="playSoundParams">播放声音参数。</param>
+            <param name="errorCode">错误码。</param>
+            <param name="errorMessage">错误信息。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的播放声音失败事件。</returns>
+        </member>
+        <member name="M:GameFramework.Sound.PlaySoundFailureEventArgs.Clear">
+            <summary>
+            清理播放声音失败事件。
             </summary>
         </member>
         <member name="T:GameFramework.Sound.PlaySoundParams">
@@ -15822,15 +16365,10 @@
             播放声音成功事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Sound.PlaySoundSuccessEventArgs.#ctor(System.Int32,System.String,GameFramework.Sound.ISoundAgent,System.Single,System.Object)">
+        <member name="M:GameFramework.Sound.PlaySoundSuccessEventArgs.#ctor">
             <summary>
             初始化播放声音成功事件的新实例。
             </summary>
-            <param name="serialId">声音的序列编号。</param>
-            <param name="soundAssetName">声音资源名称。</param>
-            <param name="soundAgent">用于播放的声音代理。</param>
-            <param name="duration">加载持续时间。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Sound.PlaySoundSuccessEventArgs.SerialId">
             <summary>
@@ -15857,21 +16395,31 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Sound.PlaySoundSuccessEventArgs.Create(System.Int32,System.String,GameFramework.Sound.ISoundAgent,System.Single,System.Object)">
+            <summary>
+            创建播放声音成功事件。
+            </summary>
+            <param name="serialId">声音的序列编号。</param>
+            <param name="soundAssetName">声音资源名称。</param>
+            <param name="soundAgent">用于播放的声音代理。</param>
+            <param name="duration">加载持续时间。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的播放声音成功事件。</returns>
+        </member>
+        <member name="M:GameFramework.Sound.PlaySoundSuccessEventArgs.Clear">
+            <summary>
+            清理播放声音成功事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Sound.PlaySoundUpdateEventArgs">
             <summary>
             播放声音更新事件。
             </summary>
         </member>
-        <member name="M:GameFramework.Sound.PlaySoundUpdateEventArgs.#ctor(System.Int32,System.String,System.String,GameFramework.Sound.PlaySoundParams,System.Single,System.Object)">
+        <member name="M:GameFramework.Sound.PlaySoundUpdateEventArgs.#ctor">
             <summary>
             初始化播放声音更新事件的新实例。
             </summary>
-            <param name="serialId">声音的序列编号。</param>
-            <param name="soundAssetName">声音资源名称。</param>
-            <param name="soundGroupName">声音组名称。</param>
-            <param name="playSoundParams">播放声音参数。</param>
-            <param name="progress">加载声音进度。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.Sound.PlaySoundUpdateEventArgs.SerialId">
             <summary>
@@ -15903,6 +16451,23 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.Sound.PlaySoundUpdateEventArgs.Create(System.Int32,System.String,System.String,GameFramework.Sound.PlaySoundParams,System.Single,System.Object)">
+            <summary>
+            创建播放声音更新事件。
+            </summary>
+            <param name="serialId">声音的序列编号。</param>
+            <param name="soundAssetName">声音资源名称。</param>
+            <param name="soundGroupName">声音组名称。</param>
+            <param name="playSoundParams">播放声音参数。</param>
+            <param name="progress">加载声音进度。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的播放声音更新事件。</returns>
+        </member>
+        <member name="M:GameFramework.Sound.PlaySoundUpdateEventArgs.Clear">
+            <summary>
+            清理播放声音更新事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Sound.ResetSoundAgentEventArgs">
             <summary>
             重置声音代理事件。
@@ -15911,6 +16476,17 @@
         <member name="M:GameFramework.Sound.ResetSoundAgentEventArgs.#ctor">
             <summary>
             初始化重置声音代理事件的新实例。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Sound.ResetSoundAgentEventArgs.Create">
+            <summary>
+            创建重置声音代理事件。
+            </summary>
+            <returns>创建的重置声音代理事件。</returns>
+        </member>
+        <member name="M:GameFramework.Sound.ResetSoundAgentEventArgs.Clear">
+            <summary>
+            清理重置声音代理事件。
             </summary>
         </member>
         <member name="T:GameFramework.Sound.SoundManager">
@@ -16747,14 +17323,10 @@
             关闭界面完成事件。
             </summary>
         </member>
-        <member name="M:GameFramework.UI.CloseUIFormCompleteEventArgs.#ctor(System.Int32,System.String,GameFramework.UI.IUIGroup,System.Object)">
+        <member name="M:GameFramework.UI.CloseUIFormCompleteEventArgs.#ctor">
             <summary>
             初始化关闭界面完成事件的新实例。
             </summary>
-            <param name="serialId">界面序列编号。</param>
-            <param name="uiFormAssetName">界面资源名称。</param>
-            <param name="uiGroup">界面所属的界面组。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.UI.CloseUIFormCompleteEventArgs.SerialId">
             <summary>
@@ -16774,6 +17346,21 @@
         <member name="P:GameFramework.UI.CloseUIFormCompleteEventArgs.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.UI.CloseUIFormCompleteEventArgs.Create(System.Int32,System.String,GameFramework.UI.IUIGroup,System.Object)">
+            <summary>
+            创建关闭界面完成事件。
+            </summary>
+            <param name="serialId">界面序列编号。</param>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="uiGroup">界面所属的界面组。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的关闭界面完成事件。</returns>
+        </member>
+        <member name="M:GameFramework.UI.CloseUIFormCompleteEventArgs.Clear">
+            <summary>
+            清理关闭界面完成事件。
             </summary>
         </member>
         <member name="T:GameFramework.UI.IUIForm">
@@ -17360,18 +17947,10 @@
             打开界面时加载依赖资源事件。
             </summary>
         </member>
-        <member name="M:GameFramework.UI.OpenUIFormDependencyAssetEventArgs.#ctor(System.Int32,System.String,System.String,System.Boolean,System.String,System.Int32,System.Int32,System.Object)">
+        <member name="M:GameFramework.UI.OpenUIFormDependencyAssetEventArgs.#ctor">
             <summary>
             初始化打开界面时加载依赖资源事件的新实例。
             </summary>
-            <param name="serialId">界面序列编号。</param>
-            <param name="uiFormAssetName">界面资源名称。</param>
-            <param name="uiGroupName">界面组名称。</param>
-            <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
-            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
-            <param name="loadedCount">当前已加载依赖资源数量。</param>
-            <param name="totalCount">总共加载依赖资源数量。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.UI.OpenUIFormDependencyAssetEventArgs.SerialId">
             <summary>
@@ -17413,21 +17992,34 @@
             获取用户自定义数据。
             </summary>
         </member>
-        <member name="T:GameFramework.UI.OpenUIFormFailureEventArgs">
+        <member name="M:GameFramework.UI.OpenUIFormDependencyAssetEventArgs.Create(System.Int32,System.String,System.String,System.Boolean,System.String,System.Int32,System.Int32,System.Object)">
             <summary>
-            打开界面失败事件。
-            </summary>
-        </member>
-        <member name="M:GameFramework.UI.OpenUIFormFailureEventArgs.#ctor(System.Int32,System.String,System.String,System.Boolean,System.String,System.Object)">
-            <summary>
-            初始化打开界面失败事件的新实例。
+            创建打开界面时加载依赖资源事件。
             </summary>
             <param name="serialId">界面序列编号。</param>
             <param name="uiFormAssetName">界面资源名称。</param>
             <param name="uiGroupName">界面组名称。</param>
             <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
-            <param name="errorMessage">错误信息。</param>
+            <param name="dependencyAssetName">被加载的依赖资源名称。</param>
+            <param name="loadedCount">当前已加载依赖资源数量。</param>
+            <param name="totalCount">总共加载依赖资源数量。</param>
             <param name="userData">用户自定义数据。</param>
+            <returns>创建的打开界面时加载依赖资源事件。</returns>
+        </member>
+        <member name="M:GameFramework.UI.OpenUIFormDependencyAssetEventArgs.Clear">
+            <summary>
+            清理打开界面时加载依赖资源事件。
+            </summary>
+        </member>
+        <member name="T:GameFramework.UI.OpenUIFormFailureEventArgs">
+            <summary>
+            打开界面失败事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.UI.OpenUIFormFailureEventArgs.#ctor">
+            <summary>
+            初始化打开界面失败事件的新实例。
+            </summary>
         </member>
         <member name="P:GameFramework.UI.OpenUIFormFailureEventArgs.SerialId">
             <summary>
@@ -17459,18 +18051,32 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.UI.OpenUIFormFailureEventArgs.Create(System.Int32,System.String,System.String,System.Boolean,System.String,System.Object)">
+            <summary>
+            创建打开界面失败事件。
+            </summary>
+            <param name="serialId">界面序列编号。</param>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="uiGroupName">界面组名称。</param>
+            <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
+            <param name="errorMessage">错误信息。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的打开界面失败事件。</returns>
+        </member>
+        <member name="M:GameFramework.UI.OpenUIFormFailureEventArgs.Clear">
+            <summary>
+            清理打开界面失败事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.UI.OpenUIFormSuccessEventArgs">
             <summary>
             打开界面成功事件。
             </summary>
         </member>
-        <member name="M:GameFramework.UI.OpenUIFormSuccessEventArgs.#ctor(GameFramework.UI.IUIForm,System.Single,System.Object)">
+        <member name="M:GameFramework.UI.OpenUIFormSuccessEventArgs.#ctor">
             <summary>
             初始化打开界面成功事件的新实例。
             </summary>
-            <param name="uiForm">加载成功的界面。</param>
-            <param name="duration">加载持续时间。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.UI.OpenUIFormSuccessEventArgs.UIForm">
             <summary>
@@ -17487,21 +18093,29 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.UI.OpenUIFormSuccessEventArgs.Create(GameFramework.UI.IUIForm,System.Single,System.Object)">
+            <summary>
+            创建打开界面成功事件。
+            </summary>
+            <param name="uiForm">加载成功的界面。</param>
+            <param name="duration">加载持续时间。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的打开界面成功事件。</returns>
+        </member>
+        <member name="M:GameFramework.UI.OpenUIFormSuccessEventArgs.Clear">
+            <summary>
+            清理打开界面成功事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.UI.OpenUIFormUpdateEventArgs">
             <summary>
             打开界面更新事件。
             </summary>
         </member>
-        <member name="M:GameFramework.UI.OpenUIFormUpdateEventArgs.#ctor(System.Int32,System.String,System.String,System.Boolean,System.Single,System.Object)">
+        <member name="M:GameFramework.UI.OpenUIFormUpdateEventArgs.#ctor">
             <summary>
             初始化打开界面更新事件的新实例。
             </summary>
-            <param name="serialId">界面序列编号。</param>
-            <param name="uiFormAssetName">界面资源名称。</param>
-            <param name="uiGroupName">界面组名称。</param>
-            <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
-            <param name="progress">打开界面进度。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.UI.OpenUIFormUpdateEventArgs.SerialId">
             <summary>
@@ -17531,6 +18145,23 @@
         <member name="P:GameFramework.UI.OpenUIFormUpdateEventArgs.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.UI.OpenUIFormUpdateEventArgs.Create(System.Int32,System.String,System.String,System.Boolean,System.Single,System.Object)">
+            <summary>
+            创建打开界面更新事件。
+            </summary>
+            <param name="serialId">界面序列编号。</param>
+            <param name="uiFormAssetName">界面资源名称。</param>
+            <param name="uiGroupName">界面组名称。</param>
+            <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
+            <param name="progress">打开界面进度。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的打开界面更新事件。</returns>
+        </member>
+        <member name="M:GameFramework.UI.OpenUIFormUpdateEventArgs.Clear">
+            <summary>
+            清理打开界面更新事件。
             </summary>
         </member>
         <member name="T:GameFramework.UI.UIManager">
@@ -19256,11 +19887,22 @@
             Web 请求代理辅助器完成事件。
             </summary>
         </member>
-        <member name="M:GameFramework.WebRequest.WebRequestAgentHelperCompleteEventArgs.#ctor(System.Byte[])">
+        <member name="M:GameFramework.WebRequest.WebRequestAgentHelperCompleteEventArgs.#ctor">
             <summary>
             初始化 Web 请求代理辅助器完成事件的新实例。
             </summary>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestAgentHelperCompleteEventArgs.Create(System.Byte[])">
+            <summary>
+            创建 Web 请求代理辅助器完成事件。
+            </summary>
             <param name="webResponseBytes">Web 响应的数据流。</param>
+            <returns>创建的 Web 请求代理辅助器完成事件。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestAgentHelperCompleteEventArgs.Clear">
+            <summary>
+            清理 Web 请求代理辅助器完成事件。
+            </summary>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestAgentHelperCompleteEventArgs.GetWebResponseBytes">
             <summary>
@@ -19273,15 +19915,26 @@
             Web 请求代理辅助器错误事件。
             </summary>
         </member>
-        <member name="M:GameFramework.WebRequest.WebRequestAgentHelperErrorEventArgs.#ctor(System.String)">
+        <member name="M:GameFramework.WebRequest.WebRequestAgentHelperErrorEventArgs.#ctor">
             <summary>
             初始化 Web 请求代理辅助器错误事件的新实例。
             </summary>
-            <param name="errorMessage">错误信息。</param>
         </member>
         <member name="P:GameFramework.WebRequest.WebRequestAgentHelperErrorEventArgs.ErrorMessage">
             <summary>
             获取错误信息。
+            </summary>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestAgentHelperErrorEventArgs.Create(System.String)">
+            <summary>
+            创建 Web 请求代理辅助器错误事件。
+            </summary>
+            <param name="errorMessage">错误信息。</param>
+            <returns>创建的 Web 请求代理辅助器错误事件。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestAgentHelperErrorEventArgs.Clear">
+            <summary>
+            清理 Web 请求代理辅助器错误事件。
             </summary>
         </member>
         <member name="T:GameFramework.WebRequest.WebRequestFailureEventArgs">
@@ -19289,14 +19942,10 @@
             Web 请求失败事件。
             </summary>
         </member>
-        <member name="M:GameFramework.WebRequest.WebRequestFailureEventArgs.#ctor(System.Int32,System.String,System.String,System.Object)">
+        <member name="M:GameFramework.WebRequest.WebRequestFailureEventArgs.#ctor">
             <summary>
             初始化 Web 请求失败事件的新实例。
             </summary>
-            <param name="serialId">Web 请求任务的序列编号。</param>
-            <param name="webRequestUri">Web 请求地址。</param>
-            <param name="errorMessage">错误信息。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.WebRequest.WebRequestFailureEventArgs.SerialId">
             <summary>
@@ -19316,6 +19965,21 @@
         <member name="P:GameFramework.WebRequest.WebRequestFailureEventArgs.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestFailureEventArgs.Create(System.Int32,System.String,System.String,System.Object)">
+            <summary>
+            创建 Web 请求失败事件。
+            </summary>
+            <param name="serialId">Web 请求任务的序列编号。</param>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="errorMessage">错误信息。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的 Web 请求失败事件。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestFailureEventArgs.Clear">
+            <summary>
+            清理 Web 请求失败事件。
             </summary>
         </member>
         <member name="T:GameFramework.WebRequest.WebRequestManager">
@@ -19607,13 +20271,10 @@
             Web 请求开始事件。
             </summary>
         </member>
-        <member name="M:GameFramework.WebRequest.WebRequestStartEventArgs.#ctor(System.Int32,System.String,System.Object)">
+        <member name="M:GameFramework.WebRequest.WebRequestStartEventArgs.#ctor">
             <summary>
             初始化 Web 请求开始事件的新实例。
             </summary>
-            <param name="serialId">Web 请求任务的序列编号。</param>
-            <param name="webRequestUri">Web 请求地址。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.WebRequest.WebRequestStartEventArgs.SerialId">
             <summary>
@@ -19630,19 +20291,29 @@
             获取用户自定义数据。
             </summary>
         </member>
+        <member name="M:GameFramework.WebRequest.WebRequestStartEventArgs.Create(System.Int32,System.String,System.Object)">
+            <summary>
+            创建 Web 请求开始事件。
+            </summary>
+            <param name="serialId">Web 请求任务的序列编号。</param>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的 Web 请求开始事件。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestStartEventArgs.Clear">
+            <summary>
+            清理 Web 请求开始事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.WebRequest.WebRequestSuccessEventArgs">
             <summary>
             Web 请求成功事件。
             </summary>
         </member>
-        <member name="M:GameFramework.WebRequest.WebRequestSuccessEventArgs.#ctor(System.Int32,System.String,System.Byte[],System.Object)">
+        <member name="M:GameFramework.WebRequest.WebRequestSuccessEventArgs.#ctor">
             <summary>
             初始化 Web 请求成功事件的新实例。
             </summary>
-            <param name="serialId">Web 请求任务的序列编号。</param>
-            <param name="webRequestUri">Web 请求地址。</param>
-            <param name="webResponseBytes">Web 响应的数据流。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="P:GameFramework.WebRequest.WebRequestSuccessEventArgs.SerialId">
             <summary>
@@ -19657,6 +20328,21 @@
         <member name="P:GameFramework.WebRequest.WebRequestSuccessEventArgs.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestSuccessEventArgs.Create(System.Int32,System.String,System.Byte[],System.Object)">
+            <summary>
+            创建 Web 请求成功事件。
+            </summary>
+            <param name="serialId">Web 请求任务的序列编号。</param>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="webResponseBytes">Web 响应的数据流。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>创建的 Web 请求成功事件。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestSuccessEventArgs.Clear">
+            <summary>
+            清理 Web 请求成功事件。
             </summary>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestSuccessEventArgs.GetWebResponseBytes">

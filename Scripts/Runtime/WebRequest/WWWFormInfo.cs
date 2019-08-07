@@ -37,10 +37,12 @@ namespace UnityGameFramework.Runtime
             }
         }
 
-        public void Initialize(WWWForm wwwForm, object userData)
+        public static WWWFormInfo Create(WWWForm wwwForm, object userData)
         {
-            m_WWWForm = wwwForm;
-            m_UserData = userData;
+            WWWFormInfo wwwFormInfo = ReferencePool.Acquire<WWWFormInfo>();
+            wwwFormInfo.m_WWWForm = wwwForm;
+            wwwFormInfo.m_UserData = userData;
+            return wwwFormInfo;
         }
 
         public void Clear()

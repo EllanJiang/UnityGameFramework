@@ -37,10 +37,12 @@ namespace UnityGameFramework.Runtime
             }
         }
 
-        public void Initialize(Transform parentTransform, object userData)
+        public static AttachEntityInfo Create(Transform parentTransform, object userData)
         {
-            m_ParentTransform = parentTransform;
-            m_UserData = userData;
+            AttachEntityInfo attachEntityInfo = ReferencePool.Acquire<AttachEntityInfo>();
+            attachEntityInfo.m_ParentTransform = parentTransform;
+            attachEntityInfo.m_UserData = userData;
+            return attachEntityInfo;
         }
 
         public void Clear()

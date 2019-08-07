@@ -36,10 +36,12 @@ namespace UnityGameFramework.Runtime
             }
         }
 
-        public void Initialize(string configName, object userData)
+        public static LoadConfigInfo Create(string configName, object userData)
         {
-            m_ConfigName = configName;
-            m_UserData = userData;
+            LoadConfigInfo loadConfigInfo = ReferencePool.Acquire<LoadConfigInfo>();
+            loadConfigInfo.m_ConfigName = configName;
+            loadConfigInfo.m_UserData = userData;
+            return loadConfigInfo;
         }
 
         public void Clear()

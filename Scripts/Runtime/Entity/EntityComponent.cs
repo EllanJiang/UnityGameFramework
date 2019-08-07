@@ -491,9 +491,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            ShowEntityInfo showEntityInfo = ReferencePool.Acquire<ShowEntityInfo>();
-            showEntityInfo.Initialize(entityLogicType, userData);
-            m_EntityManager.ShowEntity(entityId, entityAssetName, entityGroupName, priority, showEntityInfo);
+            m_EntityManager.ShowEntity(entityId, entityAssetName, entityGroupName, priority, ShowEntityInfo.Create(entityLogicType, userData));
         }
 
         /// <summary>
@@ -964,9 +962,7 @@ namespace UnityGameFramework.Runtime
                 parentTransform = parentEntity.Logic.CachedTransform;
             }
 
-            AttachEntityInfo attachEntityInfo = ReferencePool.Acquire<AttachEntityInfo>();
-            attachEntityInfo.Initialize(parentTransform, userData);
-            m_EntityManager.AttachEntity(childEntity, parentEntity, attachEntityInfo);
+            m_EntityManager.AttachEntity(childEntity, parentEntity, AttachEntityInfo.Create(parentTransform, userData));
         }
 
         /// <summary>

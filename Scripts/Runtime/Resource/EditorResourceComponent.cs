@@ -1172,7 +1172,7 @@ namespace UnityGameFramework.Runtime
             return null;
         }
 
-        private sealed class LoadAssetInfo
+        private struct LoadAssetInfo
         {
             private readonly string m_AssetName;
             private readonly Type m_AssetType;
@@ -1250,7 +1250,7 @@ namespace UnityGameFramework.Runtime
             }
         }
 
-        private sealed class LoadSceneInfo
+        private struct LoadSceneInfo
         {
             private readonly AsyncOperation m_AsyncOperation;
             private readonly string m_SceneAssetName;
@@ -1318,7 +1318,7 @@ namespace UnityGameFramework.Runtime
             }
         }
 
-        private sealed class UnloadSceneInfo
+        private struct UnloadSceneInfo
         {
             private readonly AsyncOperation m_AsyncOperation;
             private readonly string m_SceneAssetName;

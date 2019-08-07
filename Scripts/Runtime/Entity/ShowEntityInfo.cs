@@ -37,10 +37,12 @@ namespace UnityGameFramework.Runtime
             }
         }
 
-        public void Initialize(Type entityLogicType, object userData)
+        public static ShowEntityInfo Create(Type entityLogicType, object userData)
         {
-            m_EntityLogicType = entityLogicType;
-            m_UserData = userData;
+            ShowEntityInfo showEntityInfo = ReferencePool.Acquire<ShowEntityInfo>();
+            showEntityInfo.m_EntityLogicType = entityLogicType;
+            showEntityInfo.m_UserData = userData;
+            return showEntityInfo;
         }
 
         public void Clear()

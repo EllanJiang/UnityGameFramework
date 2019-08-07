@@ -36,10 +36,12 @@ namespace UnityGameFramework.Runtime
             }
         }
 
-        public void Initialize(string dictionaryName, object userData)
+        public static LoadDictionaryInfo Create(string dictionaryName, object userData)
         {
-            m_DictionaryName = dictionaryName;
-            m_UserData = userData;
+            LoadDictionaryInfo loadDictionaryInfo = ReferencePool.Acquire<LoadDictionaryInfo>();
+            loadDictionaryInfo.m_DictionaryName = dictionaryName;
+            loadDictionaryInfo.m_UserData = userData;
+            return loadDictionaryInfo;
         }
 
         public void Clear()

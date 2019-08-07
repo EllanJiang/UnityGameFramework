@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Sound;
 using System;
 using System.Collections;
@@ -343,7 +344,9 @@ namespace UnityGameFramework.Runtime
 
             if (m_ResetSoundAgentEventHandler != null)
             {
-                m_ResetSoundAgentEventHandler(this, new ResetSoundAgentEventArgs());
+                ResetSoundAgentEventArgs resetSoundAgentEventArgs = ResetSoundAgentEventArgs.Create();
+                m_ResetSoundAgentEventHandler(this, resetSoundAgentEventArgs);
+                ReferencePool.Release(resetSoundAgentEventArgs);
             }
         }
 
@@ -368,7 +371,9 @@ namespace UnityGameFramework.Runtime
         {
             if (!IsPlaying && m_AudioSource.clip != null && m_ResetSoundAgentEventHandler != null)
             {
-                m_ResetSoundAgentEventHandler(this, new ResetSoundAgentEventArgs());
+                ResetSoundAgentEventArgs resetSoundAgentEventArgs = ResetSoundAgentEventArgs.Create();
+                m_ResetSoundAgentEventHandler(this, resetSoundAgentEventArgs);
+                ReferencePool.Release(resetSoundAgentEventArgs);
                 return;
             }
 
@@ -388,7 +393,9 @@ namespace UnityGameFramework.Runtime
 
             if (m_ResetSoundAgentEventHandler != null)
             {
-                m_ResetSoundAgentEventHandler(this, new ResetSoundAgentEventArgs());
+                ResetSoundAgentEventArgs resetSoundAgentEventArgs = ResetSoundAgentEventArgs.Create();
+                m_ResetSoundAgentEventHandler(this, resetSoundAgentEventArgs);
+                ReferencePool.Release(resetSoundAgentEventArgs);
             }
         }
 

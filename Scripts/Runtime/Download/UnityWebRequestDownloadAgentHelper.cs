@@ -5,6 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Download;
 using System;
 #if UNITY_5_4_OR_NEWER
@@ -228,11 +229,15 @@ namespace UnityGameFramework.Runtime
 #endif
             if (isError)
             {
-                m_DownloadAgentHelperErrorEventHandler(this, new DownloadAgentHelperErrorEventArgs(m_UnityWebRequest.error));
+                DownloadAgentHelperErrorEventArgs downloadAgentHelperErrorEventArgs = DownloadAgentHelperErrorEventArgs.Create(m_UnityWebRequest.error);
+                m_DownloadAgentHelperErrorEventHandler(this, downloadAgentHelperErrorEventArgs);
+                ReferencePool.Release(downloadAgentHelperErrorEventArgs);
             }
             else
             {
-                m_DownloadAgentHelperCompleteEventHandler(this, new DownloadAgentHelperCompleteEventArgs((int)m_UnityWebRequest.downloadedBytes));
+                DownloadAgentHelperCompleteEventArgs downloadAgentHelperCompleteEventArgs = DownloadAgentHelperCompleteEventArgs.Create((int)m_UnityWebRequest.downloadedBytes);
+                m_DownloadAgentHelperCompleteEventHandler(this, downloadAgentHelperCompleteEventArgs);
+                ReferencePool.Release(downloadAgentHelperCompleteEventArgs);
             }
         }
     }

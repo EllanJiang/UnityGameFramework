@@ -194,9 +194,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            LoadDictionaryInfo loadDictionaryInfo = ReferencePool.Acquire<LoadDictionaryInfo>();
-            loadDictionaryInfo.Initialize(dictionaryName, userData);
-            m_LocalizationManager.LoadDictionary(dictionaryAssetName, loadType, priority, loadDictionaryInfo);
+            m_LocalizationManager.LoadDictionary(dictionaryAssetName, loadType, priority, LoadDictionaryInfo.Create(dictionaryName, userData));
         }
 
         /// <summary>

@@ -167,9 +167,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            LoadConfigInfo loadConfigInfo = ReferencePool.Acquire<LoadConfigInfo>();
-            loadConfigInfo.Initialize(configName, userData);
-            m_ConfigManager.LoadConfig(configAssetName, loadType, priority, loadConfigInfo);
+            m_ConfigManager.LoadConfig(configAssetName, loadType, priority, LoadConfigInfo.Create(configName, userData));
         }
 
         /// <summary>

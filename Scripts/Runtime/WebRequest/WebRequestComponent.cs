@@ -329,9 +329,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>新增 Web 请求任务的序列编号。</returns>
         private int AddWebRequest(string webRequestUri, byte[] postData, WWWForm wwwForm, int priority, object userData)
         {
-            WWWFormInfo wwwFormInfo = ReferencePool.Acquire<WWWFormInfo>();
-            wwwFormInfo.Initialize(wwwForm, userData);
-            return m_WebRequestManager.AddWebRequest(webRequestUri, postData, priority, wwwFormInfo);
+            return m_WebRequestManager.AddWebRequest(webRequestUri, postData, priority, WWWFormInfo.Create(wwwForm, userData));
         }
 
         private void OnWebRequestStart(object sender, GameFramework.WebRequest.WebRequestStartEventArgs e)

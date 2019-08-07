@@ -343,9 +343,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            LoadDataTableInfo loadDataTableInfo = ReferencePool.Acquire<LoadDataTableInfo>();
-            loadDataTableInfo.Initialize(dataRowType, dataTableName, dataTableNameInType, userData);
-            m_DataTableManager.LoadDataTable(dataTableAssetName, loadType, priority, loadDataTableInfo);
+            m_DataTableManager.LoadDataTable(dataTableAssetName, loadType, priority, LoadDataTableInfo.Create(dataRowType, dataTableName, dataTableNameInType, userData));
         }
 
         /// <summary>

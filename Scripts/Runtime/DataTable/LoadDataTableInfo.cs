@@ -57,12 +57,14 @@ namespace UnityGameFramework.Runtime
             }
         }
 
-        public void Initialize(Type dataRowType, string dataTableName, string dataTableNameInType, object userData)
+        public static LoadDataTableInfo Create(Type dataRowType, string dataTableName, string dataTableNameInType, object userData)
         {
-            m_DataRowType = dataRowType;
-            m_DataTableName = dataTableName;
-            m_DataTableNameInType = dataTableNameInType;
-            m_UserData = userData;
+            LoadDataTableInfo loadDataTableInfo = ReferencePool.Acquire<LoadDataTableInfo>();
+            loadDataTableInfo.m_DataRowType = dataRowType;
+            loadDataTableInfo.m_DataTableName = dataTableName;
+            loadDataTableInfo.m_DataTableNameInType = dataTableNameInType;
+            loadDataTableInfo.m_UserData = userData;
+            return loadDataTableInfo;
         }
 
         public void Clear()

@@ -455,9 +455,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>声音的序列编号。</returns>
         public int PlaySound(string soundAssetName, string soundGroupName, int priority, PlaySoundParams playSoundParams, Entity bindingEntity, object userData)
         {
-            PlaySoundInfo playSoundInfo = ReferencePool.Acquire<PlaySoundInfo>();
-            playSoundInfo.Initialize(bindingEntity, Vector3.zero, userData);
-            return m_SoundManager.PlaySound(soundAssetName, soundGroupName, priority, playSoundParams, playSoundInfo);
+            return m_SoundManager.PlaySound(soundAssetName, soundGroupName, priority, playSoundParams, PlaySoundInfo.Create(bindingEntity, Vector3.zero, userData));
         }
 
         /// <summary>
@@ -486,9 +484,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>声音的序列编号。</returns>
         public int PlaySound(string soundAssetName, string soundGroupName, int priority, PlaySoundParams playSoundParams, Vector3 worldPosition, object userData)
         {
-            PlaySoundInfo playSoundInfo = ReferencePool.Acquire<PlaySoundInfo>();
-            playSoundInfo.Initialize(null, worldPosition, userData);
-            return m_SoundManager.PlaySound(soundAssetName, soundGroupName, priority, playSoundParams, playSoundInfo);
+            return m_SoundManager.PlaySound(soundAssetName, soundGroupName, priority, playSoundParams, PlaySoundInfo.Create(null, worldPosition, userData));
         }
 
         /// <summary>

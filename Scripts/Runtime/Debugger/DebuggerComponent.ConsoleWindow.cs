@@ -490,7 +490,7 @@ namespace UnityGameFramework.Runtime
                     logType = LogType.Error;
                 }
 
-                m_LogNodes.Enqueue(ReferencePool.Acquire<LogNode>().Fill(logType, logMessage, stackTrace));
+                m_LogNodes.Enqueue(LogNode.Create(logType, logMessage, stackTrace));
                 while (m_LogNodes.Count > m_MaxLine)
                 {
                     ReferencePool.Release(m_LogNodes.Dequeue());

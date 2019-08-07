@@ -24,20 +24,14 @@ namespace UnityGameFramework.Runtime
             private string m_StackTrack;
 
             /// <summary>
-            /// 填充日志记录结点。
+            /// 初始化日志记录结点的新实例。
             /// </summary>
-            /// <param name="logType">日志类型。</param>
-            /// <param name="logMessage">日志内容。</param>
-            /// <param name="stackTrack">日志堆栈信息。</param>
-            /// <returns></returns>
-            public LogNode Fill(LogType logType, string logMessage, string stackTrack)
+            public LogNode()
             {
-                m_LogTime = DateTime.Now;
-                m_LogType = logType;
-                m_LogMessage = logMessage;
-                m_StackTrack = stackTrack;
-
-                return this;
+                m_LogTime = default(DateTime);
+                m_LogType = LogType.Error;
+                m_LogMessage = null;
+                m_StackTrack = null;
             }
 
             /// <summary>
@@ -85,14 +79,31 @@ namespace UnityGameFramework.Runtime
             }
 
             /// <summary>
+            /// 创建日志记录结点。
+            /// </summary>
+            /// <param name="logType">日志类型。</param>
+            /// <param name="logMessage">日志内容。</param>
+            /// <param name="stackTrack">日志堆栈信息。</param>
+            /// <returns>创建的日志记录结点。</returns>
+            public static LogNode Create(LogType logType, string logMessage, string stackTrack)
+            {
+                LogNode logNode = ReferencePool.Acquire<LogNode>();
+                logNode.m_LogTime = DateTime.Now;
+                logNode.m_LogType = logType;
+                logNode.m_LogMessage = logMessage;
+                logNode.m_StackTrack = stackTrack;
+                return logNode;
+            }
+
+            /// <summary>
             /// 清理日志记录结点。
             /// </summary>
             public void Clear()
             {
                 m_LogTime = default(DateTime);
-                m_LogType = default(LogType);
-                m_LogMessage = default(string);
-                m_StackTrack = default(string);
+                m_LogType = LogType.Error;
+                m_LogMessage = null;
+                m_StackTrack = null;
             }
         }
     }

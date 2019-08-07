@@ -181,13 +181,13 @@ namespace UnityGameFramework.Runtime
         /// <returns></returns>
         protected bool AddConfig(string configName, string configValue)
         {
-            bool boolValue = default(bool);
+            bool boolValue = false;
             bool.TryParse(configValue, out boolValue);
 
-            int intValue = default(int);
+            int intValue = 0;
             int.TryParse(configValue, out intValue);
 
-            float floatValue = default(float);
+            float floatValue = 0f;
             float.TryParse(configValue, out floatValue);
 
             return AddConfig(configName, boolValue, intValue, floatValue, configValue);

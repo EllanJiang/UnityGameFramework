@@ -20,7 +20,7 @@ namespace UnityGameFramework.Editor
     [CustomEditor(typeof(ObjectPoolComponent))]
     internal sealed class ObjectPoolComponentInspector : GameFrameworkInspector
     {
-        private HashSet<string> m_OpenedItems = new HashSet<string>();
+        private readonly HashSet<string> m_OpenedItems = new HashSet<string>();
 
         public override void OnInspectorGUI()
         {

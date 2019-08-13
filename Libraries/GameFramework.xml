@@ -1660,11 +1660,11 @@
             引用池信息。
             </summary>
         </member>
-        <member name="M:GameFramework.ReferencePoolInfo.#ctor(System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:GameFramework.ReferencePoolInfo.#ctor(System.Type,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
             初始化引用池信息的新实例。
             </summary>
-            <param name="typeName">引用池类型名称。</param>
+            <param name="type">引用池类型。</param>
             <param name="unusedReferenceCount">未使用引用数量。</param>
             <param name="usingReferenceCount">正在使用引用数量。</param>
             <param name="acquireReferenceCount">获取引用数量。</param>
@@ -1672,9 +1672,9 @@
             <param name="addReferenceCount">增加引用数量。</param>
             <param name="removeReferenceCount">移除引用数量。</param>
         </member>
-        <member name="P:GameFramework.ReferencePoolInfo.TypeName">
+        <member name="P:GameFramework.ReferencePoolInfo.Type">
             <summary>
-            获取引用池类型名称。
+            获取引用池类型。
             </summary>
         </member>
         <member name="P:GameFramework.ReferencePoolInfo.UnusedReferenceCount">
@@ -10383,43 +10383,10 @@
             对象基类。
             </summary>
         </member>
-        <member name="M:GameFramework.ObjectPool.ObjectBase.#ctor(System.Object)">
+        <member name="M:GameFramework.ObjectPool.ObjectBase.#ctor">
             <summary>
             初始化对象基类的新实例。
             </summary>
-            <param name="target">对象。</param>
-        </member>
-        <member name="M:GameFramework.ObjectPool.ObjectBase.#ctor(System.String,System.Object)">
-            <summary>
-            初始化对象的新实例。
-            </summary>
-            <param name="name">对象名称。</param>
-            <param name="target">对象。</param>
-        </member>
-        <member name="M:GameFramework.ObjectPool.ObjectBase.#ctor(System.String,System.Object,System.Boolean)">
-            <summary>
-            初始化对象的新实例。
-            </summary>
-            <param name="name">对象名称。</param>
-            <param name="target">对象。</param>
-            <param name="locked">对象是否被加锁。</param>
-        </member>
-        <member name="M:GameFramework.ObjectPool.ObjectBase.#ctor(System.String,System.Object,System.Int32)">
-            <summary>
-            初始化对象的新实例。
-            </summary>
-            <param name="name">对象名称。</param>
-            <param name="target">对象。</param>
-            <param name="priority">对象的优先级。</param>
-        </member>
-        <member name="M:GameFramework.ObjectPool.ObjectBase.#ctor(System.String,System.Object,System.Boolean,System.Int32)">
-            <summary>
-            初始化对象的新实例。
-            </summary>
-            <param name="name">对象名称。</param>
-            <param name="target">对象。</param>
-            <param name="locked">对象是否被加锁。</param>
-            <param name="priority">对象的优先级。</param>
         </member>
         <member name="P:GameFramework.ObjectPool.ObjectBase.Name">
             <summary>
@@ -10449,6 +10416,49 @@
         <member name="P:GameFramework.ObjectPool.ObjectBase.LastUseTime">
             <summary>
             获取对象上次使用时间。
+            </summary>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectBase.Initialize(System.Object)">
+            <summary>
+            初始化对象基类。
+            </summary>
+            <param name="target">对象。</param>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectBase.Initialize(System.String,System.Object)">
+            <summary>
+            初始化对象基类。
+            </summary>
+            <param name="name">对象名称。</param>
+            <param name="target">对象。</param>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectBase.Initialize(System.String,System.Object,System.Boolean)">
+            <summary>
+            初始化对象基类。
+            </summary>
+            <param name="name">对象名称。</param>
+            <param name="target">对象。</param>
+            <param name="locked">对象是否被加锁。</param>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectBase.Initialize(System.String,System.Object,System.Int32)">
+            <summary>
+            初始化对象基类。
+            </summary>
+            <param name="name">对象名称。</param>
+            <param name="target">对象。</param>
+            <param name="priority">对象的优先级。</param>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectBase.Initialize(System.String,System.Object,System.Boolean,System.Int32)">
+            <summary>
+            初始化对象基类。
+            </summary>
+            <param name="name">对象名称。</param>
+            <param name="target">对象。</param>
+            <param name="locked">对象是否被加锁。</param>
+            <param name="priority">对象的优先级。</param>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectBase.Clear">
+            <summary>
+            清理对象基类。
             </summary>
         </member>
         <member name="M:GameFramework.ObjectPool.ObjectBase.OnSpawn">
@@ -11384,12 +11394,10 @@
             </summary>
             <typeparam name="T">对象类型。</typeparam>
         </member>
-        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.Object`1.#ctor(`0,System.Boolean)">
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.Object`1.#ctor">
             <summary>
             初始化内部对象的新实例。
             </summary>
-            <param name="obj">对象。</param>
-            <param name="spawned">对象是否已被获取。</param>
         </member>
         <member name="P:GameFramework.ObjectPool.ObjectPoolManager.Object`1.Name">
             <summary>
@@ -11424,6 +11432,19 @@
         <member name="P:GameFramework.ObjectPool.ObjectPoolManager.Object`1.SpawnCount">
             <summary>
             获取对象的获取计数。
+            </summary>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.Object`1.Create(`0,System.Boolean)">
+            <summary>
+            创建内部对象。
+            </summary>
+            <param name="obj">对象。</param>
+            <param name="spawned">对象是否已被获取。</param>
+            <returns>创建的内部对象。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.Object`1.Clear">
+            <summary>
+            清理内部对象。
             </summary>
         </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.Object`1.Peek">
@@ -18665,27 +18686,6 @@
         <member name="T:GameFramework.UI.UIManager.UIGroup.UIFormInfo">
             <summary>
             界面组界面信息。
-            </summary>
-        </member>
-        <member name="M:GameFramework.UI.UIManager.UIGroup.UIFormInfo.#ctor(GameFramework.UI.IUIForm)">
-            <summary>
-            初始化界面组界面信息的新实例。
-            </summary>
-            <param name="uiForm">界面。</param>
-        </member>
-        <member name="P:GameFramework.UI.UIManager.UIGroup.UIFormInfo.UIForm">
-            <summary>
-            获取界面。
-            </summary>
-        </member>
-        <member name="P:GameFramework.UI.UIManager.UIGroup.UIFormInfo.Paused">
-            <summary>
-            获取或设置界面是否暂停。
-            </summary>
-        </member>
-        <member name="P:GameFramework.UI.UIManager.UIGroup.UIFormInfo.Covered">
-            <summary>
-            获取或设置界面是否遮挡。
             </summary>
         </member>
         <member name="T:GameFramework.Utility">

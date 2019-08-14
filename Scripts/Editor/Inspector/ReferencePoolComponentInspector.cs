@@ -6,8 +6,12 @@
 //------------------------------------------------------------
 
 using GameFramework;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using UnityEditor;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace UnityGameFramework.Editor
@@ -54,7 +58,7 @@ namespace UnityGameFramework.Editor
                 foreach (KeyValuePair<string, List<ReferencePoolInfo>> assemblyReferencePoolInfo in m_ReferencePoolInfos)
                 {
                     bool lastState = m_OpenedItems.Contains(assemblyReferencePoolInfo.Key);
-                    bool currentState = EditorGUILayout.Foldout(lastState, "Assembly " + assemblyReferencePoolInfo.Key);
+                    bool currentState = EditorGUILayout.Foldout(lastState, assemblyReferencePoolInfo.Key);
                     if (currentState != lastState)
                     {
                         if (currentState)
@@ -75,6 +79,31 @@ namespace UnityGameFramework.Editor
                             foreach (ReferencePoolInfo referencePoolInfo in assemblyReferencePoolInfo.Value)
                             {
                                 DrawReferencePoolInfo(referencePoolInfo);
+                            }
+
+                            if (GUILayout.Button("Export CSV Data"))
+                            {
+                                string exportFileName = EditorUtility.SaveFilePanel("Export CSV Data", string.Empty, Utility.Text.Format("Reference Pool Data - {0}.csv", assemblyReferencePoolInfo.Key), string.Empty);
+                                if (!string.IsNullOrEmpty(exportFileName))
+                                {
+                                    try
+                                    {
+                                        int index = 0;
+                                        string[] data = new string[assemblyReferencePoolInfo.Value.Count + 1];
+                                        data[index++] = "Name,FullName,Unused,Using,Acquire,Release,Add,Remove";
+                                        foreach (ReferencePoolInfo referencePoolInfo in assemblyReferencePoolInfo.Value)
+                                        {
+                                            data[index++] = Utility.Text.Format("{0},{1},{2},{3},{4},{5},{6},{7}", referencePoolInfo.Type.Name, referencePoolInfo.Type.FullName, referencePoolInfo.UnusedReferenceCount.ToString(), referencePoolInfo.UsingReferenceCount.ToString(), referencePoolInfo.AcquireReferenceCount.ToString(), referencePoolInfo.ReleaseReferenceCount.ToString(), referencePoolInfo.AddReferenceCount.ToString(), referencePoolInfo.RemoveReferenceCount.ToString());
+                                        }
+
+                                        File.WriteAllLines(exportFileName, data, Encoding.UTF8);
+                                        Debug.Log(Utility.Text.Format("Export reference pool CSV data to '{0}' success.", exportFileName));
+                                    }
+                                    catch (Exception exception)
+                                    {
+                                        Debug.LogError(Utility.Text.Format("Export reference pool CSV data to '{0}' failure, exception is '{1}'.", exportFileName, exception.Message));
+                                    }
+                                }
                             }
                         }
                         EditorGUILayout.EndVertical();

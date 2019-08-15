@@ -19,6 +19,7 @@ namespace UnityGameFramework.Runtime
         public sealed class LogNode : IReference
         {
             private DateTime m_LogTime;
+            private int m_LogFrameCount;
             private LogType m_LogType;
             private string m_LogMessage;
             private string m_StackTrack;
@@ -29,6 +30,7 @@ namespace UnityGameFramework.Runtime
             public LogNode()
             {
                 m_LogTime = default(DateTime);
+                m_LogFrameCount = 0;
                 m_LogType = LogType.Error;
                 m_LogMessage = null;
                 m_StackTrack = null;
@@ -42,6 +44,17 @@ namespace UnityGameFramework.Runtime
                 get
                 {
                     return m_LogTime;
+                }
+            }
+
+            /// <summary>
+            /// 获取日志帧计数。
+            /// </summary>
+            public int LogFrameCount
+            {
+                get
+                {
+                    return m_LogFrameCount;
                 }
             }
 
@@ -89,6 +102,7 @@ namespace UnityGameFramework.Runtime
             {
                 LogNode logNode = ReferencePool.Acquire<LogNode>();
                 logNode.m_LogTime = DateTime.Now;
+                logNode.m_LogFrameCount = Time.frameCount;
                 logNode.m_LogType = logType;
                 logNode.m_LogMessage = logMessage;
                 logNode.m_StackTrack = stackTrack;
@@ -101,6 +115,7 @@ namespace UnityGameFramework.Runtime
             public void Clear()
             {
                 m_LogTime = default(DateTime);
+                m_LogFrameCount = 0;
                 m_LogType = LogType.Error;
                 m_LogMessage = null;
                 m_StackTrack = null;

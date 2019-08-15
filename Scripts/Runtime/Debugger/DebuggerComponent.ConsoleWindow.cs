@@ -42,9 +42,6 @@ namespace UnityGameFramework.Runtime
             private int m_MaxLine = 100;
 
             [SerializeField]
-            private string m_DateTimeFormat = "[HH:mm:ss.fff] ";
-
-            [SerializeField]
             private bool m_InfoFilter = true;
 
             [SerializeField]
@@ -89,18 +86,6 @@ namespace UnityGameFramework.Runtime
                 set
                 {
                     m_MaxLine = value;
-                }
-            }
-
-            public string DateTimeFormat
-            {
-                get
-                {
-                    return m_DateTimeFormat;
-                }
-                set
-                {
-                    m_DateTimeFormat = value ?? string.Empty;
                 }
             }
 
@@ -500,9 +485,9 @@ namespace UnityGameFramework.Runtime
             private string GetLogString(LogNode logNode)
             {
                 Color32 color = GetLogStringColor(logNode.LogType);
-                return Utility.Text.Format("<color=#{0}{1}{2}{3}>{4}{5}</color>",
+                return Utility.Text.Format("<color=#{0}{1}{2}{3}>[{4}][{5}] {6}</color>",
                     color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"),
-                    logNode.LogTime.ToString(m_DateTimeFormat), logNode.LogMessage);
+                    logNode.LogTime.ToString("HH:mm:ss.fff"), logNode.LogFrameCount.ToString(), logNode.LogMessage);
             }
 
             internal Color32 GetLogStringColor(LogType logType)

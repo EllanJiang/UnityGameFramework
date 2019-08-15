@@ -607,8 +607,7 @@ MonoBehaviour:
   m_ShowFullWindow: 0
   m_ConsoleWindow:
     m_LockScroll: 1
-    m_MaxLine: 300
-    m_DateTimeFormat: '[HH:mm:ss.fff] '
+    m_MaxLine: 100
     m_InfoFilter: 1
     m_WarningFilter: 1
     m_ErrorFilter: 1

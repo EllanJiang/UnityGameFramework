@@ -151,9 +151,11 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 实体隐藏。
         /// </summary>
-        public void OnHide(object userData)
+        /// <param name="isShutdown">是否是关闭实体管理器时触发。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public void OnHide(bool isShutdown, object userData)
         {
-            m_EntityLogic.OnHide(userData);
+            m_EntityLogic.OnHide(isShutdown, userData);
         }
 
         /// <summary>

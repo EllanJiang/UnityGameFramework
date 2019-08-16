@@ -6062,10 +6062,11 @@
             </summary>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Entity.IEntity.OnHide(System.Object)">
+        <member name="M:GameFramework.Entity.IEntity.OnHide(System.Boolean,System.Object)">
             <summary>
             实体隐藏。
             </summary>
+            <param name="isShutdown">是否是关闭实体管理器时触发。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Entity.IEntity.OnAttached(GameFramework.Entity.IEntity,System.Object)">
@@ -17441,10 +17442,11 @@
             </summary>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.UI.IUIForm.OnClose(System.Object)">
+        <member name="M:GameFramework.UI.IUIForm.OnClose(System.Boolean,System.Object)">
             <summary>
             界面关闭。
             </summary>
+            <param name="isShutdown">是否是关闭界面管理器时触发。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.UI.IUIForm.OnPause">

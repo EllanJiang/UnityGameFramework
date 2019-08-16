@@ -162,10 +162,11 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 界面关闭。
         /// </summary>
+        /// <param name="isShutdown">是否是关闭界面管理器时触发。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void OnClose(object userData)
+        public void OnClose(bool isShutdown, object userData)
         {
-            m_UIFormLogic.OnClose(userData);
+            m_UIFormLogic.OnClose(isShutdown, userData);
         }
 
         /// <summary>

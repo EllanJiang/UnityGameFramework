@@ -7,6 +7,8 @@
 
 using GameFramework;
 using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
@@ -163,6 +165,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
         private void DrawAssetBundlesView()
         {
+            _collectGroup(m_AssetBundleRoot);
+
             m_CurrentAssetBundleRowOnDraw = 0;
             m_AssetBundlesViewScroll = EditorGUILayout.BeginScrollView(m_AssetBundlesViewScroll);
             {
@@ -196,7 +200,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 {
                     DrawAssetBundleFolder(subAssetBundleFolder);
                 }
-
+                
                 foreach (AssetBundleItem assetBundleItem in assetBundleFolder.GetItems())
                 {
                     DrawAssetBundleItem(assetBundleItem);
@@ -204,6 +208,33 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             }
         }
 
+        List<string> _groups = new List<string>();
+        /// <summary>
+        /// 收集资源组
+        /// </summary>
+        private void _collectGroup(AssetBundleFolder assetBundleFolder)
+        {
+            foreach (AssetBundleFolder subAssetBundleFolder in assetBundleFolder.GetFolders())
+            {
+                _collectGroup(subAssetBundleFolder);
+            }
+                
+            foreach (AssetBundleItem assetBundleItem in assetBundleFolder.GetItems())
+            {
+                var group = assetBundleItem.AssetBundle.GetResourceGroups();
+                
+                foreach (var resourceGroup in group)
+                {
+                    if (!_groups.Contains(resourceGroup))
+                    {
+                        _groups.Add(resourceGroup);
+                    }
+                }
+            }
+        }
+
+        StringBuilder _groupSb = new StringBuilder();
+        private int _selectGroupsIndex;
         private void DrawAssetBundleItem(AssetBundleItem assetBundleItem)
         {
             EditorGUILayout.BeginHorizontal();
@@ -215,7 +246,13 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 }
 
                 float emptySpace = position.width;
-                if (EditorGUILayout.Toggle(m_SelectedAssetBundle == assetBundleItem.AssetBundle, GUILayout.Width(emptySpace - 12f)))
+                
+                var titleCon = new GUIContent(title);
+                var size = EditorStyles.label.CalcSize(titleCon);
+
+                var tabX = 32f + 14f * assetBundleItem.Depth;
+                var toggleWidth = tabX + size.x;
+                if (EditorGUILayout.Toggle(m_SelectedAssetBundle == assetBundleItem.AssetBundle, GUILayout.Width(toggleWidth)))
                 {
                     ChangeSelectedAssetBundle(assetBundleItem.AssetBundle);
                 }
@@ -224,13 +261,89 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     ChangeSelectedAssetBundle(null);
                 }
 
-                GUILayout.Space(-emptySpace + 24f);
-                GUI.DrawTexture(new Rect(32f + 14f * assetBundleItem.Depth, 20f * m_CurrentAssetBundleRowOnDraw + 1f, 16f, 16f), assetBundleItem.Icon);
+                GUILayout.Space(-toggleWidth + 24f);
+                GUI.DrawTexture(new Rect(tabX, 20f * m_CurrentAssetBundleRowOnDraw + 1f, 16f, 16f), assetBundleItem.Icon);
                 EditorGUILayout.LabelField(string.Empty, GUILayout.Width(26f + 14f * assetBundleItem.Depth), GUILayout.Height(18f));
-                EditorGUILayout.LabelField(title);
+                
+                EditorGUILayout.LabelField(titleCon,GUILayout.Width(size.x));
+
+                //Group
+                {
+                    var groupLabelCon = new GUIContent("| Group:", "Resource Group,Multi Resource Group Please use ',' Split");
+
+                    size = EditorStyles.label.CalcSize(groupLabelCon);
+                    
+                    EditorGUILayout.LabelField(groupLabelCon,GUILayout.Width(size.x));
+
+                    _groupSb.Length = 0;
+                    
+                    foreach (var resourceGroup in assetBundleItem.AssetBundle.GetResourceGroups())
+                    {
+                        _groupSb.Append(resourceGroup);
+                        _groupSb.Append(',');
+                    }
+
+                    if (_groupSb.Length > 0)
+                    {
+                        _groupSb.Remove(_groupSb.Length - 1, 1);
+                    }
+
+                    var groupSbCon = new GUIContent(_groupSb.ToString());
+                    size = EditorStyles.label.CalcSize(groupSbCon);
+                    EditorGUI.BeginChangeCheck();
+                    var groupStr = EditorGUILayout.DelayedTextField(_groupSb.ToString(),GUILayout.Width(size.x + 30));
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        _updateGroup(assetBundleItem, groupStr);
+                    }
+                    
+                    var selectGroupCon = new GUIContent("G:","Current All Resource Group,Select Add");
+                    size = EditorStyles.label.CalcSize(selectGroupCon);
+                    EditorGUILayout.LabelField(selectGroupCon,GUILayout.Width(size.x));
+                    EditorGUI.BeginChangeCheck();
+                    var popUpCon = new GUIContent(_groups.Count > 0 ? _groups[0] : "None");
+                    size = EditorStyles.popup.CalcSize(popUpCon);
+                    _selectGroupsIndex = EditorGUILayout.Popup(_selectGroupsIndex,_groups.ToArray(),GUILayout.Width(size.x + 15));
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        var group = _groups[_selectGroupsIndex];
+                        if (!assetBundleItem.AssetBundle.HasResourceGroup(group))
+                        {
+                            assetBundleItem.AssetBundle.AddResourceGroup(group);
+                        } 
+                    }
+                }
             }
             EditorGUILayout.EndHorizontal();
             m_CurrentAssetBundleRowOnDraw++;
+        }
+
+        private static void _updateGroup(AssetBundleItem assetBundleItem, string groupStr)
+        {
+            assetBundleItem.AssetBundle.ClearResourceGroup();
+
+            if (string.IsNullOrWhiteSpace(groupStr))
+            {
+                return;
+            }
+            
+            var newGroup = groupStr.Split(',');
+            
+            foreach (string group in newGroup)
+            {
+                if (string.IsNullOrWhiteSpace(@group))
+                {
+                    Debug.LogError(
+                        $"Resource Group Name cannot be Null Or WhiteSpace. Asset Bundle Path:{assetBundleItem.FromRootPath}");
+                    continue;
+                }
+
+                if (!assetBundleItem.AssetBundle.HasResourceGroup(@group))
+                {
+                    assetBundleItem.AssetBundle.AddResourceGroup(@group);
+                }
+            }
+            
         }
 
         private void DrawAssetBundlesMenu()

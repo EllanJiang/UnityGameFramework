@@ -162,6 +162,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
             return m_ResourceGroups.Remove(resourceGroup);
         }
+        
+        public void ClearResourceGroup()
+        {
+            m_ResourceGroups.Clear();
+        }
 
         public void Clear()
         {

@@ -126,7 +126,14 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_EntityLogic.OnInit(showEntityInfo.UserData);
+            try
+            {
+                m_EntityLogic.OnInit(showEntityInfo.UserData);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnInit with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
         }
 
         /// <summary>
@@ -145,7 +152,14 @@ namespace UnityGameFramework.Runtime
         public void OnShow(object userData)
         {
             ShowEntityInfo showEntityInfo = (ShowEntityInfo)userData;
-            m_EntityLogic.OnShow(showEntityInfo.UserData);
+            try
+            {
+                m_EntityLogic.OnShow(showEntityInfo.UserData);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnShow with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
         }
 
         /// <summary>
@@ -155,7 +169,14 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public void OnHide(bool isShutdown, object userData)
         {
-            m_EntityLogic.OnHide(isShutdown, userData);
+            try
+            {
+                m_EntityLogic.OnHide(isShutdown, userData);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnHide with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
         }
 
         /// <summary>
@@ -166,7 +187,14 @@ namespace UnityGameFramework.Runtime
         public void OnAttached(IEntity childEntity, object userData)
         {
             AttachEntityInfo attachEntityInfo = (AttachEntityInfo)userData;
-            m_EntityLogic.OnAttached(((Entity)childEntity).Logic, attachEntityInfo.ParentTransform, attachEntityInfo.UserData);
+            try
+            {
+                m_EntityLogic.OnAttached(((Entity)childEntity).Logic, attachEntityInfo.ParentTransform, attachEntityInfo.UserData);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnAttached with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
         }
 
         /// <summary>
@@ -176,7 +204,14 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public void OnDetached(IEntity childEntity, object userData)
         {
-            m_EntityLogic.OnDetached(((Entity)childEntity).Logic, userData);
+            try
+            {
+                m_EntityLogic.OnDetached(((Entity)childEntity).Logic, userData);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnDetached with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
         }
 
         /// <summary>
@@ -187,7 +222,15 @@ namespace UnityGameFramework.Runtime
         public void OnAttachTo(IEntity parentEntity, object userData)
         {
             AttachEntityInfo attachEntityInfo = (AttachEntityInfo)userData;
-            m_EntityLogic.OnAttachTo(((Entity)parentEntity).Logic, attachEntityInfo.ParentTransform, attachEntityInfo.UserData);
+            try
+            {
+                m_EntityLogic.OnAttachTo(((Entity)parentEntity).Logic, attachEntityInfo.ParentTransform, attachEntityInfo.UserData);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnAttachTo with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
+
             ReferencePool.Release(attachEntityInfo);
         }
 
@@ -198,7 +241,14 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public void OnDetachFrom(IEntity parentEntity, object userData)
         {
-            m_EntityLogic.OnDetachFrom(((Entity)parentEntity).Logic, userData);
+            try
+            {
+                m_EntityLogic.OnDetachFrom(((Entity)parentEntity).Logic, userData);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnDetachFrom with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
         }
 
         /// <summary>
@@ -208,7 +258,14 @@ namespace UnityGameFramework.Runtime
         /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
         public void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
-            m_EntityLogic.OnUpdate(elapseSeconds, realElapseSeconds);
+            try
+            {
+                m_EntityLogic.OnUpdate(elapseSeconds, realElapseSeconds);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnUpdate with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
         }
     }
 }

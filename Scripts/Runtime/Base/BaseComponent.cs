@@ -9,7 +9,6 @@ using GameFramework;
 using GameFramework.Localization;
 using GameFramework.Resource;
 using System;
-using System.Threading;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -42,9 +41,6 @@ namespace UnityGameFramework.Runtime
 
         [SerializeField]
         private string m_JsonHelperTypeName = "UnityGameFramework.Runtime.DefaultJsonHelper";
-
-        [SerializeField]
-        private string m_ProfilerHelperTypeName = "UnityGameFramework.Runtime.DefaultProfilerHelper";
 
         [SerializeField]
         private int m_FrameRate = 30;
@@ -196,7 +192,6 @@ namespace UnityGameFramework.Runtime
 #if UNITY_5_3_OR_NEWER || UNITY_5_3
             InitZipHelper();
             InitJsonHelper();
-            InitProfilerHelper();
 
             Utility.Converter.ScreenDpi = Screen.dpi;
             if (Utility.Converter.ScreenDpi <= 0)
@@ -375,30 +370,6 @@ namespace UnityGameFramework.Runtime
             }
 
             Utility.Json.SetJsonHelper(jsonHelper);
-        }
-
-        private void InitProfilerHelper()
-        {
-            if (string.IsNullOrEmpty(m_ProfilerHelperTypeName))
-            {
-                return;
-            }
-
-            Type profilerHelperType = Utility.Assembly.GetType(m_ProfilerHelperTypeName);
-            if (profilerHelperType == null)
-            {
-                Log.Error("Can not find profiler helper type '{0}'.", m_ProfilerHelperTypeName);
-                return;
-            }
-
-            Utility.Profiler.IProfilerHelper profilerHelper = (Utility.Profiler.IProfilerHelper)Activator.CreateInstance(profilerHelperType, Thread.CurrentThread);
-            if (profilerHelper == null)
-            {
-                Log.Error("Can not create profiler helper instance '{0}'.", m_ProfilerHelperTypeName);
-                return;
-            }
-
-            Utility.Profiler.SetProfilerHelper(profilerHelper);
         }
 
         private void OnLowMemory()

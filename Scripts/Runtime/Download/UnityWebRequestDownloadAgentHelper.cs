@@ -22,8 +22,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public partial class UnityWebRequestDownloadAgentHelper : DownloadAgentHelperBase, IDisposable
     {
-        private const int OneMegaBytes = 1024 * 1024;
-        private readonly byte[] m_DownloadCache = new byte[OneMegaBytes];
+        private readonly byte[] m_DownloadCache = new byte[0x10000];
 
         private UnityWebRequest m_UnityWebRequest = null;
         private bool m_Disposed = false;

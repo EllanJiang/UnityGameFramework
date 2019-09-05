@@ -952,11 +952,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
             byte[] bytes = File.ReadAllBytes(workingName);
             int length = bytes.Length;
-            byte[] hashBytes = Utility.Verifier.GetCrc32(bytes);
-            int hashCode = Utility.Converter.GetInt32(hashBytes);
+            int hashCode = Utility.Verifier.GetCrc32(bytes);
             int zipLength = length;
             int zipHashCode = hashCode;
 
+            byte[] hashBytes = Utility.Verifier.GetCrc32Bytes(hashCode);
             if (assetBundleData.LoadType == AssetBundleLoadType.LoadFromMemoryAndQuickDecrypt)
             {
                 bytes = GetQuickXorBytes(bytes, hashBytes);
@@ -1006,7 +1006,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 {
                     byte[] zipBytes = Utility.Zip.Compress(bytes);
                     zipLength = zipBytes.Length;
-                    zipHashCode = Utility.Converter.GetInt32(Utility.Verifier.GetCrc32(zipBytes));
+                    zipHashCode = Utility.Verifier.GetCrc32(zipBytes);
                     File.WriteAllBytes(fullName, zipBytes);
                 }
                 else
@@ -1245,13 +1245,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
             byte[] bytes = File.ReadAllBytes(versionListPath);
             int length = bytes.Length;
-            byte[] hashBytes = Utility.Verifier.GetCrc32(bytes);
-            int hashCode = Utility.Converter.GetInt32(hashBytes);
+            int hashCode = Utility.Verifier.GetCrc32(bytes);
             bytes = Utility.Zip.Compress(bytes);
             int zipLength = bytes.Length;
             File.WriteAllBytes(versionListPath, bytes);
-            hashBytes = Utility.Verifier.GetCrc32(bytes);
-            int zipHashCode = Utility.Converter.GetInt32(hashBytes);
+            int zipHashCode = Utility.Verifier.GetCrc32(bytes);
             string versionListPathWithCrc32AndSuffix = Utility.Path.GetResourceNameWithCrc32AndSuffix(versionListPath, hashCode);
             File.Move(versionListPath, versionListPathWithCrc32AndSuffix);
 
@@ -1431,7 +1429,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 }
 
                 byte[] assetBytes = File.ReadAllBytes(assetFileFullName);
-                int assetHashCode = Utility.Converter.GetInt32(Utility.Verifier.GetCrc32(assetBytes));
+                int assetHashCode = Utility.Verifier.GetCrc32(assetBytes);
 
                 List<string> dependencyAssetNames = new List<string>();
                 DependencyData dependencyData = m_AssetBundleAnalyzerController.GetDependencyData(assetName);

@@ -19477,47 +19477,6 @@
             CRC32 算法。
             </summary>
         </member>
-        <member name="F:GameFramework.Utility.Verifier.Crc32.DefaultPolynomial">
-            <summary>
-            默认多项式。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Utility.Verifier.Crc32.DefaultSeed">
-            <summary>
-            默认种子数。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Utility.Verifier.Crc32.#ctor">
-            <summary>
-            初始化 CRC32 类的新实例。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Utility.Verifier.Crc32.#ctor(System.UInt32,System.UInt32)">
-            <summary>
-            初始化 CRC32 类的新实例。
-            </summary>
-            <param name="polynomial">指定的多项式。</param>
-            <param name="seed">指定的种子数。</param>
-        </member>
-        <member name="M:GameFramework.Utility.Verifier.Crc32.Initialize">
-            <summary>
-            初始化 Crc32 类的实现。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Utility.Verifier.Crc32.HashCore(System.Byte[],System.Int32,System.Int32)">
-            <summary>
-            将写入对象的数据路由到哈希算法以计算哈希值。
-            </summary>
-            <param name="array">要计算其哈希代码的输入。</param>
-            <param name="ibStart">字节数组中的偏移量，从该位置开始使用数据。</param>
-            <param name="cbSize">字节数组中用作数据的字节数。</param>
-        </member>
-        <member name="M:GameFramework.Utility.Verifier.Crc32.HashFinal">
-            <summary>
-            在加密流对象处理完最后的数据后完成哈希计算。
-            </summary>
-            <returns>计算所得的哈希代码。</returns>
-        </member>
         <member name="M:GameFramework.Utility.Verifier.GetCrc32(System.Byte[])">
             <summary>
             计算二进制流的 CRC32。
@@ -19541,28 +19500,27 @@
             <param name="stream">指定的二进制流。</param>
             <returns>计算后的 CRC32。</returns>
         </member>
-        <member name="M:GameFramework.Utility.Verifier.GetMD5(System.Byte[])">
+        <member name="M:GameFramework.Utility.Verifier.GetCrc32Bytes(System.Int32)">
             <summary>
-            计算二进制流的 MD5。
+            获取 CRC32 数值的二进制数组。
             </summary>
-            <param name="bytes">指定的二进制流。</param>
-            <returns>计算后的 MD5。</returns>
+            <param name="crc32">CRC32 数值。</param>
+            <returns>CRC32 数值的二进制数组。</returns>
         </member>
-        <member name="M:GameFramework.Utility.Verifier.GetMD5(System.Byte[],System.Int32,System.Int32)">
+        <member name="M:GameFramework.Utility.Verifier.GetCrc32Bytes(System.Int32,System.Byte[])">
             <summary>
-            计算二进制流的 MD5。
+            获取 CRC32 数值的二进制数组。
             </summary>
-            <param name="bytes">指定的二进制流。</param>
-            <param name="offset">二进制流的偏移。</param>
-            <param name="length">二进制流的长度。</param>
-            <returns>计算后的 MD5。</returns>
+            <param name="crc32">CRC32 数值。</param>
+            <param name="bytes">要存放结果的数组。</param>
         </member>
-        <member name="M:GameFramework.Utility.Verifier.GetMD5(System.IO.Stream)">
+        <member name="M:GameFramework.Utility.Verifier.GetCrc32Bytes(System.Int32,System.Byte[],System.Int32)">
             <summary>
-            计算二进制流的 MD5。
+            获取 CRC32 数值的二进制数组。
             </summary>
-            <param name="stream">指定的二进制流。</param>
-            <returns>计算后的 MD5。</returns>
+            <param name="crc32">CRC32 数值。</param>
+            <param name="bytes">要存放结果的数组。</param>
+            <param name="offset">CRC32 数值的二进制数组在结果数组内的起始位置。</param>
         </member>
         <member name="T:GameFramework.Utility.Zip">
             <summary>

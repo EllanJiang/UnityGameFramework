@@ -956,7 +956,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             int zipLength = length;
             int zipHashCode = hashCode;
 
-            byte[] hashBytes = Utility.Verifier.GetCrc32Bytes(hashCode);
+            byte[] hashBytes = Utility.Converter.GetBytes(hashCode);
             if (assetBundleData.LoadType == AssetBundleLoadType.LoadFromMemoryAndQuickDecrypt)
             {
                 bytes = GetQuickXorBytes(bytes, hashBytes);

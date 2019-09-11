@@ -47,21 +47,9 @@ namespace UnityGameFramework.Runtime
 
             try
             {
-                using (GZipOutputStream gZipOutputStream = new GZipOutputStream(compressedStream))
-                {
-                    gZipOutputStream.Write(bytes, offset, length);
-                    if (compressedStream.Length >= 8L)
-                    {
-                        long current = compressedStream.Position;
-                        compressedStream.Position = 4L;
-                        compressedStream.WriteByte(25);
-                        compressedStream.WriteByte(134);
-                        compressedStream.WriteByte(2);
-                        compressedStream.WriteByte(32);
-                        compressedStream.Position = current;
-                    }
-                }
-
+                GZipOutputStream gZipOutputStream = new GZipOutputStream(compressedStream);
+                gZipOutputStream.Write(bytes, offset, length);
+                ProcessHeader(compressedStream);
                 return true;
             }
             catch
@@ -90,26 +78,14 @@ namespace UnityGameFramework.Runtime
 
             try
             {
-                using (GZipOutputStream gZipOutputStream = new GZipOutputStream(compressedStream))
+                GZipOutputStream gZipOutputStream = new GZipOutputStream(compressedStream);
+                int bytesRead = 0;
+                while ((bytesRead = stream.Read(m_CachedBytes, 0, CachedBytesLength)) > 0)
                 {
-                    int bytesRead = 0;
-                    while ((bytesRead = stream.Read(m_CachedBytes, 0, CachedBytesLength)) > 0)
-                    {
-                        gZipOutputStream.Write(m_CachedBytes, 0, bytesRead);
-                    }
-
-                    if (compressedStream.Length >= 8L)
-                    {
-                        long current = compressedStream.Position;
-                        compressedStream.Position = 4L;
-                        compressedStream.WriteByte(25);
-                        compressedStream.WriteByte(134);
-                        compressedStream.WriteByte(2);
-                        compressedStream.WriteByte(32);
-                        compressedStream.Position = current;
-                    }
+                    gZipOutputStream.Write(m_CachedBytes, 0, bytesRead);
                 }
 
+                ProcessHeader(compressedStream);
                 return true;
             }
             catch
@@ -198,13 +174,11 @@ namespace UnityGameFramework.Runtime
 
             try
             {
-                using (GZipInputStream gZipInputStream = new GZipInputStream(stream))
+                GZipInputStream gZipInputStream = new GZipInputStream(stream);
+                int bytesRead = 0;
+                while ((bytesRead = gZipInputStream.Read(m_CachedBytes, 0, CachedBytesLength)) > 0)
                 {
-                    int bytesRead = 0;
-                    while ((bytesRead = gZipInputStream.Read(m_CachedBytes, 0, CachedBytesLength)) > 0)
-                    {
-                        decompressedStream.Write(m_CachedBytes, 0, bytesRead);
-                    }
+                    decompressedStream.Write(m_CachedBytes, 0, bytesRead);
                 }
 
                 return true;
@@ -216,6 +190,20 @@ namespace UnityGameFramework.Runtime
             finally
             {
                 Array.Clear(m_CachedBytes, 0, CachedBytesLength);
+            }
+        }
+
+        private static void ProcessHeader(Stream compressedStream)
+        {
+            if (compressedStream.Length >= 8L)
+            {
+                long current = compressedStream.Position;
+                compressedStream.Position = 4L;
+                compressedStream.WriteByte(25);
+                compressedStream.WriteByte(134);
+                compressedStream.WriteByte(2);
+                compressedStream.WriteByte(32);
+                compressedStream.Position = current;
             }
         }
     }

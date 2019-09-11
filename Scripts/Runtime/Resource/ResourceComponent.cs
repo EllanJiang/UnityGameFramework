@@ -71,7 +71,7 @@ namespace UnityGameFramework.Runtime
         private string m_UpdatePrefixUri = null;
 
         [SerializeField]
-        private int m_UpdateFileCacheLength = OneMegaBytes;
+        private int m_UpdateFileCachedBytesLength = OneMegaBytes;
 
         [SerializeField]
         private int m_GenerateReadWriteListLength = OneMegaBytes;
@@ -240,15 +240,15 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 获取或设置更新文件缓存大小。
         /// </summary>
-        public int UpdateFileCacheLength
+        public int UpdateFileCachedBytesLength
         {
             get
             {
-                return m_ResourceManager.UpdateFileCacheLength;
+                return m_ResourceManager.UpdateFileCachedBytesLength;
             }
             set
             {
-                m_ResourceManager.UpdateFileCacheLength = m_UpdateFileCacheLength = value;
+                m_ResourceManager.UpdateFileCachedBytesLength = m_UpdateFileCachedBytesLength = value;
             }
         }
 
@@ -561,7 +561,7 @@ namespace UnityGameFramework.Runtime
             if (m_ResourceMode == ResourceMode.Updatable)
             {
                 m_ResourceManager.UpdatePrefixUri = m_UpdatePrefixUri;
-                m_ResourceManager.UpdateFileCacheLength = m_UpdateFileCacheLength;
+                m_ResourceManager.UpdateFileCachedBytesLength = m_UpdateFileCachedBytesLength;
                 m_ResourceManager.GenerateReadWriteListLength = m_GenerateReadWriteListLength;
                 m_ResourceManager.UpdateRetryCount = m_UpdateRetryCount;
             }

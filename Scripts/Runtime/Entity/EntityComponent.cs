@@ -27,7 +27,7 @@ namespace UnityGameFramework.Runtime
         private IEntityManager m_EntityManager = null;
         private EventComponent m_EventComponent = null;
 
-        private readonly List<IEntity> m_InternalEntityResultsCache = new List<IEntity>();
+        private readonly List<IEntity> m_InternalEntityResults = new List<IEntity>();
 
         [SerializeField]
         private bool m_EnableShowEntityUpdateEvent = false;
@@ -303,8 +303,8 @@ namespace UnityGameFramework.Runtime
             }
 
             results.Clear();
-            m_EntityManager.GetEntities(entityAssetName, m_InternalEntityResultsCache);
-            foreach (IEntity entity in m_InternalEntityResultsCache)
+            m_EntityManager.GetEntities(entityAssetName, m_InternalEntityResults);
+            foreach (IEntity entity in m_InternalEntityResults)
             {
                 results.Add((Entity)entity);
             }
@@ -339,8 +339,8 @@ namespace UnityGameFramework.Runtime
             }
 
             results.Clear();
-            m_EntityManager.GetAllLoadedEntities(m_InternalEntityResultsCache);
-            foreach (IEntity entity in m_InternalEntityResultsCache)
+            m_EntityManager.GetAllLoadedEntities(m_InternalEntityResults);
+            foreach (IEntity entity in m_InternalEntityResults)
             {
                 results.Add((Entity)entity);
             }
@@ -608,8 +608,8 @@ namespace UnityGameFramework.Runtime
             }
 
             results.Clear();
-            m_EntityManager.GetChildEntities(parentEntityId, m_InternalEntityResultsCache);
-            foreach (IEntity entity in m_InternalEntityResultsCache)
+            m_EntityManager.GetChildEntities(parentEntityId, m_InternalEntityResults);
+            foreach (IEntity entity in m_InternalEntityResults)
             {
                 results.Add((Entity)entity);
             }
@@ -646,8 +646,8 @@ namespace UnityGameFramework.Runtime
             }
 
             results.Clear();
-            m_EntityManager.GetChildEntities(parentEntity, m_InternalEntityResultsCache);
-            foreach (IEntity entity in m_InternalEntityResultsCache)
+            m_EntityManager.GetChildEntities(parentEntity, m_InternalEntityResults);
+            foreach (IEntity entity in m_InternalEntityResults)
             {
                 results.Add((Entity)entity);
             }

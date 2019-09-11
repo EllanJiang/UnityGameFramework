@@ -28,7 +28,7 @@ namespace UnityGameFramework.Editor
         private SerializedProperty m_ResourceExpireTime = null;
         private SerializedProperty m_ResourcePriority = null;
         private SerializedProperty m_UpdatePrefixUri = null;
-        private SerializedProperty m_UpdateFileCacheLength = null;
+        private SerializedProperty m_UpdateFileCachedBytesLength = null;
         private SerializedProperty m_GenerateReadWriteListLength = null;
         private SerializedProperty m_UpdateRetryCount = null;
         private SerializedProperty m_InstanceRoot = null;
@@ -208,16 +208,16 @@ namespace UnityGameFramework.Editor
                         }
                     }
 
-                    int updateFileCacheLength = EditorGUILayout.DelayedIntField("Update File Cache Length", m_UpdateFileCacheLength.intValue);
-                    if (updateFileCacheLength != m_UpdateFileCacheLength.intValue)
+                    int updateFileCachedBytesLength = EditorGUILayout.DelayedIntField("Update File Cached Bytes Length", m_UpdateFileCachedBytesLength.intValue);
+                    if (updateFileCachedBytesLength != m_UpdateFileCachedBytesLength.intValue)
                     {
                         if (EditorApplication.isPlaying)
                         {
-                            t.UpdateFileCacheLength = updateFileCacheLength;
+                            t.UpdateFileCachedBytesLength = updateFileCachedBytesLength;
                         }
                         else
                         {
-                            m_UpdateFileCacheLength.intValue = updateFileCacheLength;
+                            m_UpdateFileCachedBytesLength.intValue = updateFileCachedBytesLength;
                         }
                     }
 
@@ -309,7 +309,7 @@ namespace UnityGameFramework.Editor
             m_ResourceExpireTime = serializedObject.FindProperty("m_ResourceExpireTime");
             m_ResourcePriority = serializedObject.FindProperty("m_ResourcePriority");
             m_UpdatePrefixUri = serializedObject.FindProperty("m_UpdatePrefixUri");
-            m_UpdateFileCacheLength = serializedObject.FindProperty("m_UpdateFileCacheLength");
+            m_UpdateFileCachedBytesLength = serializedObject.FindProperty("m_UpdateFileCachedBytesLength");
             m_GenerateReadWriteListLength = serializedObject.FindProperty("m_GenerateReadWriteListLength");
             m_UpdateRetryCount = serializedObject.FindProperty("m_UpdateRetryCount");
             m_InstanceRoot = serializedObject.FindProperty("m_InstanceRoot");

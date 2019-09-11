@@ -162,15 +162,15 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 获取或设置更新文件缓存大小。
         /// </summary>
-        public int UpdateFileCacheLength
+        public int UpdateFileCachedBytesLength
         {
             get
             {
-                throw new NotSupportedException("UpdateFileCacheLength");
+                throw new NotSupportedException("UpdateFileCachedBytesLength");
             }
             set
             {
-                throw new NotSupportedException("UpdateFileCacheLength");
+                throw new NotSupportedException("UpdateFileCachedBytesLength");
             }
         }
 

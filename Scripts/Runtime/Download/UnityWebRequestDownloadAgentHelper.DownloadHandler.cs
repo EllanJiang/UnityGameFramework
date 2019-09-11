@@ -23,7 +23,7 @@ namespace UnityGameFramework.Runtime
             private readonly UnityWebRequestDownloadAgentHelper m_Owner;
 
             public DownloadHandler(UnityWebRequestDownloadAgentHelper owner)
-                : base(owner.m_DownloadCache)
+                : base(owner.m_CachedBytes)
             {
                 m_Owner = owner;
             }

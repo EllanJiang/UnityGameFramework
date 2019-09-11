@@ -26,7 +26,7 @@ namespace UnityGameFramework.Runtime
         private IUIManager m_UIManager = null;
         private EventComponent m_EventComponent = null;
 
-        private readonly List<IUIForm> m_InternalUIFormResultsCache = new List<IUIForm>();
+        private readonly List<IUIForm> m_InternalUIFormResults = new List<IUIForm>();
 
         [SerializeField]
         private bool m_EnableOpenUIFormSuccessEvent = true;
@@ -393,8 +393,8 @@ namespace UnityGameFramework.Runtime
             }
 
             results.Clear();
-            m_UIManager.GetUIForms(uiFormAssetName, m_InternalUIFormResultsCache);
-            foreach (IUIForm uiForm in m_InternalUIFormResultsCache)
+            m_UIManager.GetUIForms(uiFormAssetName, m_InternalUIFormResults);
+            foreach (IUIForm uiForm in m_InternalUIFormResults)
             {
                 results.Add((UIForm)uiForm);
             }
@@ -429,8 +429,8 @@ namespace UnityGameFramework.Runtime
             }
 
             results.Clear();
-            m_UIManager.GetAllLoadedUIForms(m_InternalUIFormResultsCache);
-            foreach (IUIForm uiForm in m_InternalUIFormResultsCache)
+            m_UIManager.GetAllLoadedUIForms(m_InternalUIFormResults);
+            foreach (IUIForm uiForm in m_InternalUIFormResults)
             {
                 results.Add((UIForm)uiForm);
             }

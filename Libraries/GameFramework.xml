@@ -12089,7 +12089,7 @@
             获取或设置资源更新下载地址。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.IResourceManager.UpdateFileCacheLength">
+        <member name="P:GameFramework.Resource.IResourceManager.UpdateFileCachedBytesLength">
             <summary>
             获取或设置更新文件缓存大小。
             </summary>
@@ -13023,7 +13023,7 @@
             获取或设置资源更新下载地址前缀。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.UpdateFileCacheLength">
+        <member name="P:GameFramework.Resource.ResourceManager.UpdateFileCachedBytesLength">
             <summary>
             获取或设置更新文件缓存大小。
             </summary>
@@ -19567,6 +19567,21 @@
             <param name="compressedStream">压缩后的数据的二进制流。</param>
             <returns>是否压缩数据成功。</returns>
         </member>
+        <member name="M:GameFramework.Utility.Zip.Compress(System.IO.Stream)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="stream">要压缩的数据的二进制流。</param>
+            <returns>压缩后的数据的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.Compress(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="stream">要压缩的数据的二进制流。</param>
+            <param name="compressedStream">压缩后的数据的二进制流。</param>
+            <returns>是否压缩数据成功。</returns>
+        </member>
         <member name="M:GameFramework.Utility.Zip.Decompress(System.Byte[])">
             <summary>
             解压缩数据。
@@ -19601,6 +19616,21 @@
             <param name="decompressedStream">解压缩后的数据的二进制流。</param>
             <returns>是否解压缩数据成功。</returns>
         </member>
+        <member name="M:GameFramework.Utility.Zip.Decompress(System.IO.Stream)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="stream">要解压缩的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.Decompress(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="stream">要解压缩的数据的二进制流。</param>
+            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
+        </member>
         <member name="T:GameFramework.Utility.Zip.IZipHelper">
             <summary>
             压缩解压缩辅助器接口。
@@ -19616,6 +19646,14 @@
             <param name="compressedStream">压缩后的数据的二进制流。</param>
             <returns>是否压缩数据成功。</returns>
         </member>
+        <member name="M:GameFramework.Utility.Zip.IZipHelper.Compress(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="stream">要压缩的数据的二进制流。</param>
+            <param name="compressedStream">压缩后的数据的二进制流。</param>
+            <returns>是否压缩数据成功。</returns>
+        </member>
         <member name="M:GameFramework.Utility.Zip.IZipHelper.Decompress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
             <summary>
             解压缩数据。
@@ -19623,6 +19661,14 @@
             <param name="bytes">要解压缩的数据的二进制流。</param>
             <param name="offset">要解压缩的数据的二进制流的偏移。</param>
             <param name="length">要解压缩的数据的二进制流的长度。</param>
+            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Zip.IZipHelper.Decompress(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="stream">要解压缩的数据的二进制流。</param>
             <param name="decompressedStream">解压缩后的数据的二进制流。</param>
             <returns>是否解压缩数据成功。</returns>
         </member>

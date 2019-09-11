@@ -8,11 +8,15 @@
 using GameFramework;
 using GameFramework.Download;
 using System;
+
 #if UNITY_5_4_OR_NEWER
+
 using UnityEngine.Networking;
+
 #else
 using UnityEngine.Experimental.Networking;
 #endif
+
 using Utility = GameFramework.Utility;
 
 namespace UnityGameFramework.Runtime
@@ -22,7 +26,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public partial class UnityWebRequestDownloadAgentHelper : DownloadAgentHelperBase, IDisposable
     {
-        private readonly byte[] m_DownloadCache = new byte[0x10000];
+        private const int CachedBytesLength = 0x1000;
+        private readonly byte[] m_CachedBytes = new byte[CachedBytesLength];
 
         private UnityWebRequest m_UnityWebRequest = null;
         private bool m_Disposed = false;
@@ -174,6 +179,8 @@ namespace UnityGameFramework.Runtime
                 m_UnityWebRequest.Dispose();
                 m_UnityWebRequest = null;
             }
+
+            Array.Clear(m_CachedBytes, 0, CachedBytesLength);
         }
 
         /// <summary>

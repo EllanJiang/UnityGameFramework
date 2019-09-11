@@ -49,6 +49,7 @@ namespace UnityGameFramework.Runtime
             {
                 GZipOutputStream gZipOutputStream = new GZipOutputStream(compressedStream);
                 gZipOutputStream.Write(bytes, offset, length);
+                gZipOutputStream.Finish();
                 ProcessHeader(compressedStream);
                 return true;
             }
@@ -85,6 +86,7 @@ namespace UnityGameFramework.Runtime
                     gZipOutputStream.Write(m_CachedBytes, 0, bytesRead);
                 }
 
+                gZipOutputStream.Finish();
                 ProcessHeader(compressedStream);
                 return true;
             }

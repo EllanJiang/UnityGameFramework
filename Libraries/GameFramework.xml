@@ -12089,11 +12089,6 @@
             获取或设置资源更新下载地址。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.IResourceManager.UpdateFileCachedBytesLength">
-            <summary>
-            获取或设置更新文件缓存大小。
-            </summary>
-        </member>
         <member name="P:GameFramework.Resource.IResourceManager.GenerateReadWriteListLength">
             <summary>
             获取或设置每下载多少字节的资源，刷新一次资源列表。
@@ -13021,11 +13016,6 @@
         <member name="P:GameFramework.Resource.ResourceManager.UpdatePrefixUri">
             <summary>
             获取或设置资源更新下载地址前缀。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.UpdateFileCachedBytesLength">
-            <summary>
-            获取或设置更新文件缓存大小。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.GenerateReadWriteListLength">

@@ -28,7 +28,6 @@ namespace UnityGameFramework.Editor
         private SerializedProperty m_ResourceExpireTime = null;
         private SerializedProperty m_ResourcePriority = null;
         private SerializedProperty m_UpdatePrefixUri = null;
-        private SerializedProperty m_UpdateFileCachedBytesLength = null;
         private SerializedProperty m_GenerateReadWriteListLength = null;
         private SerializedProperty m_UpdateRetryCount = null;
         private SerializedProperty m_InstanceRoot = null;
@@ -208,19 +207,6 @@ namespace UnityGameFramework.Editor
                         }
                     }
 
-                    int updateFileCachedBytesLength = EditorGUILayout.DelayedIntField("Update File Cached Bytes Length", m_UpdateFileCachedBytesLength.intValue);
-                    if (updateFileCachedBytesLength != m_UpdateFileCachedBytesLength.intValue)
-                    {
-                        if (EditorApplication.isPlaying)
-                        {
-                            t.UpdateFileCachedBytesLength = updateFileCachedBytesLength;
-                        }
-                        else
-                        {
-                            m_UpdateFileCachedBytesLength.intValue = updateFileCachedBytesLength;
-                        }
-                    }
-
                     int generateReadWriteListLength = EditorGUILayout.DelayedIntField("Generate Read Write List Length", m_GenerateReadWriteListLength.intValue);
                     if (generateReadWriteListLength != m_GenerateReadWriteListLength.intValue)
                     {
@@ -309,7 +295,6 @@ namespace UnityGameFramework.Editor
             m_ResourceExpireTime = serializedObject.FindProperty("m_ResourceExpireTime");
             m_ResourcePriority = serializedObject.FindProperty("m_ResourcePriority");
             m_UpdatePrefixUri = serializedObject.FindProperty("m_UpdatePrefixUri");
-            m_UpdateFileCachedBytesLength = serializedObject.FindProperty("m_UpdateFileCachedBytesLength");
             m_GenerateReadWriteListLength = serializedObject.FindProperty("m_GenerateReadWriteListLength");
             m_UpdateRetryCount = serializedObject.FindProperty("m_UpdateRetryCount");
             m_InstanceRoot = serializedObject.FindProperty("m_InstanceRoot");

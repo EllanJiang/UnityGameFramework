@@ -242,7 +242,7 @@ namespace UnityGameFramework.Editor
 
                 m_ResourceHelperInfo.Draw();
                 m_LoadResourceAgentHelperInfo.Draw();
-                m_LoadResourceAgentHelperCount.intValue = EditorGUILayout.IntSlider("Load Resource Agent Helper Count", m_LoadResourceAgentHelperCount.intValue, 1, 64);
+                m_LoadResourceAgentHelperCount.intValue = EditorGUILayout.IntSlider("Load Resource Agent Helper Count", m_LoadResourceAgentHelperCount.intValue, 1, 128);
             }
             EditorGUI.EndDisabledGroup();
 

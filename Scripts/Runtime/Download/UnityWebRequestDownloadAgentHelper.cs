@@ -225,7 +225,7 @@ namespace UnityGameFramework.Runtime
 
             bool isError = false;
 #if UNITY_2017_1_OR_NEWER
-            isError = m_UnityWebRequest.isNetworkError;
+            isError = m_UnityWebRequest.isNetworkError || m_UnityWebRequest.isHttpError;
 #else
             isError = m_UnityWebRequest.isError;
 #endif

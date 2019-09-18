@@ -121,7 +121,7 @@ namespace UnityGameFramework.Runtime
 
             bool isError = false;
 #if UNITY_2017_1_OR_NEWER
-            isError = unityWebRequest.isNetworkError;
+            isError = unityWebRequest.isNetworkError || unityWebRequest.isHttpError;
 #else
             isError = unityWebRequest.isError;
 #endif

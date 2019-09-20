@@ -61,7 +61,6 @@ namespace UnityGameFramework.Editor
                 EditorGUILayout.LabelField("Free Agent Count", t.FreeAgentCount.ToString());
                 EditorGUILayout.LabelField("Working Agent Count", t.WorkingAgentCount.ToString());
                 EditorGUILayout.LabelField("Waiting Agent Count", t.WaitingTaskCount.ToString());
-
                 EditorGUILayout.BeginVertical("box");
                 {
                     TaskInfo[] webRequestInfos = t.GetAllWebRequestInfos();

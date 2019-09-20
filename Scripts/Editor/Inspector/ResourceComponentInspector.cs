@@ -272,48 +272,50 @@ namespace UnityGameFramework.Editor
                 EditorGUILayout.LabelField("Load Free Agent Count", isEditorResourceMode ? "N/A" : t.LoadFreeAgentCount.ToString());
                 EditorGUILayout.LabelField("Load Working Agent Count", isEditorResourceMode ? "N/A" : t.LoadWorkingAgentCount.ToString());
                 EditorGUILayout.LabelField("Load Waiting Task Count", isEditorResourceMode ? "N/A" : t.LoadWaitingTaskCount.ToString());
-
-                EditorGUILayout.BeginVertical("box");
+                if (!isEditorResourceMode)
                 {
-                    TaskInfo[] loadAssetInfos = t.GetAllLoadAssetInfos();
-                    if (loadAssetInfos.Length > 0)
+                    EditorGUILayout.BeginVertical("box");
                     {
-                        foreach (TaskInfo loadAssetInfo in loadAssetInfos)
+                        TaskInfo[] loadAssetInfos = t.GetAllLoadAssetInfos();
+                        if (loadAssetInfos.Length > 0)
                         {
-                            DrawLoadAssetInfo(loadAssetInfo);
-                        }
-
-                        if (GUILayout.Button("Export CSV Data"))
-                        {
-                            string exportFileName = EditorUtility.SaveFilePanel("Export CSV Data", string.Empty, "Load Asset Task Data.csv", string.Empty);
-                            if (!string.IsNullOrEmpty(exportFileName))
+                            foreach (TaskInfo loadAssetInfo in loadAssetInfos)
                             {
-                                try
-                                {
-                                    int index = 0;
-                                    string[] data = new string[loadAssetInfos.Length + 1];
-                                    data[index++] = "Load Asset Name,Serial Id,Priority,Status";
-                                    foreach (TaskInfo loadAssetInfo in loadAssetInfos)
-                                    {
-                                        data[index++] = Utility.Text.Format("{0},{1},{2},{3}", loadAssetInfo.Description, loadAssetInfo.SerialId.ToString(), loadAssetInfo.Priority.ToString(), loadAssetInfo.Status.ToString());
-                                    }
+                                DrawLoadAssetInfo(loadAssetInfo);
+                            }
 
-                                    File.WriteAllLines(exportFileName, data, Encoding.UTF8);
-                                    Debug.Log(Utility.Text.Format("Export load asset task CSV data to '{0}' success.", exportFileName));
-                                }
-                                catch (Exception exception)
+                            if (GUILayout.Button("Export CSV Data"))
+                            {
+                                string exportFileName = EditorUtility.SaveFilePanel("Export CSV Data", string.Empty, "Load Asset Task Data.csv", string.Empty);
+                                if (!string.IsNullOrEmpty(exportFileName))
                                 {
-                                    Debug.LogError(Utility.Text.Format("Export load asset task CSV data to '{0}' failure, exception is '{1}'.", exportFileName, exception.Message));
+                                    try
+                                    {
+                                        int index = 0;
+                                        string[] data = new string[loadAssetInfos.Length + 1];
+                                        data[index++] = "Load Asset Name,Serial Id,Priority,Status";
+                                        foreach (TaskInfo loadAssetInfo in loadAssetInfos)
+                                        {
+                                            data[index++] = Utility.Text.Format("{0},{1},{2},{3}", loadAssetInfo.Description, loadAssetInfo.SerialId.ToString(), loadAssetInfo.Priority.ToString(), loadAssetInfo.Status.ToString());
+                                        }
+
+                                        File.WriteAllLines(exportFileName, data, Encoding.UTF8);
+                                        Debug.Log(Utility.Text.Format("Export load asset task CSV data to '{0}' success.", exportFileName));
+                                    }
+                                    catch (Exception exception)
+                                    {
+                                        Debug.LogError(Utility.Text.Format("Export load asset task CSV data to '{0}' failure, exception is '{1}'.", exportFileName, exception.Message));
+                                    }
                                 }
                             }
                         }
+                        else
+                        {
+                            GUILayout.Label("Load Asset Task is Empty ...");
+                        }
                     }
-                    else
-                    {
-                        GUILayout.Label("Load Asset Task is Empty ...");
-                    }
+                    EditorGUILayout.EndVertical();
                 }
-                EditorGUILayout.EndVertical();
             }
 
             serializedObject.ApplyModifiedProperties();

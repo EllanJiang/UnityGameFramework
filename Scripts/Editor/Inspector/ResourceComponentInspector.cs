@@ -5,8 +5,13 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
+using System;
+using System.IO;
 using System.Reflection;
+using System.Text;
 using UnityEditor;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace UnityGameFramework.Editor
@@ -267,6 +272,48 @@ namespace UnityGameFramework.Editor
                 EditorGUILayout.LabelField("Load Free Agent Count", isEditorResourceMode ? "N/A" : t.LoadFreeAgentCount.ToString());
                 EditorGUILayout.LabelField("Load Working Agent Count", isEditorResourceMode ? "N/A" : t.LoadWorkingAgentCount.ToString());
                 EditorGUILayout.LabelField("Load Waiting Task Count", isEditorResourceMode ? "N/A" : t.LoadWaitingTaskCount.ToString());
+
+                EditorGUILayout.BeginVertical("box");
+                {
+                    TaskInfo[] loadAssetInfos = t.GetAllLoadAssetInfos();
+                    if (loadAssetInfos.Length > 0)
+                    {
+                        foreach (TaskInfo loadAssetInfo in loadAssetInfos)
+                        {
+                            DrawLoadAssetInfo(loadAssetInfo);
+                        }
+
+                        if (GUILayout.Button("Export CSV Data"))
+                        {
+                            string exportFileName = EditorUtility.SaveFilePanel("Export CSV Data", string.Empty, "Load Asset Task Data.csv", string.Empty);
+                            if (!string.IsNullOrEmpty(exportFileName))
+                            {
+                                try
+                                {
+                                    int index = 0;
+                                    string[] data = new string[loadAssetInfos.Length + 1];
+                                    data[index++] = "Load Asset Name,Serial Id,Priority,Status";
+                                    foreach (TaskInfo loadAssetInfo in loadAssetInfos)
+                                    {
+                                        data[index++] = Utility.Text.Format("{0},{1},{2},{3}", loadAssetInfo.Description, loadAssetInfo.SerialId.ToString(), loadAssetInfo.Priority.ToString(), loadAssetInfo.Status.ToString());
+                                    }
+
+                                    File.WriteAllLines(exportFileName, data, Encoding.UTF8);
+                                    Debug.Log(Utility.Text.Format("Export load asset task CSV data to '{0}' success.", exportFileName));
+                                }
+                                catch (Exception exception)
+                                {
+                                    Debug.LogError(Utility.Text.Format("Export load asset task CSV data to '{0}' failure, exception is '{1}'.", exportFileName, exception.Message));
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        GUILayout.Label("Load Asset Task is Empty ...");
+                    }
+                }
+                EditorGUILayout.EndVertical();
             }
 
             serializedObject.ApplyModifiedProperties();
@@ -307,6 +354,11 @@ namespace UnityGameFramework.Editor
 
             RefreshModes();
             RefreshTypeNames();
+        }
+
+        private void DrawLoadAssetInfo(TaskInfo loadAssetInfo)
+        {
+            EditorGUILayout.LabelField(loadAssetInfo.Description, Utility.Text.Format("[SerialId]{0} [Priority]{1} [Status]{2}", loadAssetInfo.SerialId.ToString(), loadAssetInfo.Priority.ToString(), loadAssetInfo.Status.ToString()));
         }
 
         private void RefreshModes()

@@ -1824,14 +1824,13 @@
             任务信息。
             </summary>
         </member>
-        <member name="M:GameFramework.TaskInfo.#ctor(System.Int32,System.Int32,System.Boolean,System.Boolean,System.String)">
+        <member name="M:GameFramework.TaskInfo.#ctor(System.Int32,System.Int32,GameFramework.TaskStatus,System.String)">
             <summary>
             初始化任务信息的新实例。
             </summary>
             <param name="serialId">任务的序列编号。</param>
             <param name="priority">任务的优先级。</param>
-            <param name="done">任务是否完成。</param>
-            <param name="working">任务是否正在进行。</param>
+            <param name="status">任务状态。</param>
             <param name="description">任务描述。</param>
         </member>
         <member name="P:GameFramework.TaskInfo.SerialId">
@@ -1844,14 +1843,9 @@
             获取任务的优先级。
             </summary>
         </member>
-        <member name="P:GameFramework.TaskInfo.Done">
+        <member name="P:GameFramework.TaskInfo.Status">
             <summary>
-            获取任务是否完成。
-            </summary>
-        </member>
-        <member name="P:GameFramework.TaskInfo.Working">
-            <summary>
-            获取任务是否正在进行。
+            获取任务状态。
             </summary>
         </member>
         <member name="P:GameFramework.TaskInfo.Description">
@@ -1929,6 +1923,26 @@
         <member name="M:GameFramework.TaskPool`1.RemoveAllTasks">
             <summary>
             移除所有任务。
+            </summary>
+        </member>
+        <member name="T:GameFramework.TaskStatus">
+            <summary>
+            任务状态。
+            </summary>
+        </member>
+        <member name="F:GameFramework.TaskStatus.Todo">
+            <summary>
+            未开始。
+            </summary>
+        </member>
+        <member name="F:GameFramework.TaskStatus.Doing">
+            <summary>
+            执行中。
+            </summary>
+        </member>
+        <member name="F:GameFramework.TaskStatus.Done">
+            <summary>
+            完成。
             </summary>
         </member>
         <member name="T:GameFramework.Variable`1">

@@ -5,7 +5,12 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
+using System;
+using System.IO;
+using System.Text;
 using UnityEditor;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace UnityGameFramework.Editor
@@ -56,6 +61,48 @@ namespace UnityGameFramework.Editor
                 EditorGUILayout.LabelField("Free Agent Count", t.FreeAgentCount.ToString());
                 EditorGUILayout.LabelField("Working Agent Count", t.WorkingAgentCount.ToString());
                 EditorGUILayout.LabelField("Waiting Agent Count", t.WaitingTaskCount.ToString());
+
+                EditorGUILayout.BeginVertical("box");
+                {
+                    TaskInfo[] webRequestInfos = t.GetAllWebRequestInfos();
+                    if (webRequestInfos.Length > 0)
+                    {
+                        foreach (TaskInfo webRequestInfo in webRequestInfos)
+                        {
+                            DrawWebRequestInfo(webRequestInfo);
+                        }
+
+                        if (GUILayout.Button("Export CSV Data"))
+                        {
+                            string exportFileName = EditorUtility.SaveFilePanel("Export CSV Data", string.Empty, "WebRequest Task Data.csv", string.Empty);
+                            if (!string.IsNullOrEmpty(exportFileName))
+                            {
+                                try
+                                {
+                                    int index = 0;
+                                    string[] data = new string[webRequestInfos.Length + 1];
+                                    data[index++] = "WebRequest Uri,Serial Id,Priority,Status";
+                                    foreach (TaskInfo webRequestInfo in webRequestInfos)
+                                    {
+                                        data[index++] = Utility.Text.Format("{0},{1},{2},{3}", webRequestInfo.Description, webRequestInfo.SerialId.ToString(), webRequestInfo.Priority.ToString(), webRequestInfo.Status.ToString());
+                                    }
+
+                                    File.WriteAllLines(exportFileName, data, Encoding.UTF8);
+                                    Debug.Log(Utility.Text.Format("Export web request task CSV data to '{0}' success.", exportFileName));
+                                }
+                                catch (Exception exception)
+                                {
+                                    Debug.LogError(Utility.Text.Format("Export web request task CSV data to '{0}' failure, exception is '{1}'.", exportFileName, exception.Message));
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        GUILayout.Label("WebRequset Task is Empty ...");
+                    }
+                }
+                EditorGUILayout.EndVertical();
             }
 
             serializedObject.ApplyModifiedProperties();
@@ -79,6 +126,11 @@ namespace UnityGameFramework.Editor
             m_WebRequestAgentHelperInfo.Init(serializedObject);
 
             RefreshTypeNames();
+        }
+
+        private void DrawWebRequestInfo(TaskInfo webRequestInfo)
+        {
+            EditorGUILayout.LabelField(webRequestInfo.Description, Utility.Text.Format("[SerialId]{0} [Priority]{1} [Status]{2}", webRequestInfo.SerialId.ToString(), webRequestInfo.Priority.ToString(), webRequestInfo.Status.ToString()));
         }
 
         private void RefreshTypeNames()

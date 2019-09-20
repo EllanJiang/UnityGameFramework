@@ -298,6 +298,15 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取所有 Web 请求任务的信息。
+        /// </summary>
+        /// <returns>所有 Web 请求任务的信息。</returns>
+        public TaskInfo[] GetAllWebRequestInfos()
+        {
+            return m_WebRequestManager.GetAllWebRequestInfos();
+        }
+
+        /// <summary>
         /// 增加 Web 请求代理辅助器。
         /// </summary>
         /// <param name="index">Web 请求代理辅助器索引。</param>

@@ -1065,6 +1065,15 @@ namespace UnityGameFramework.Runtime
             throw new NotSupportedException("GetResourceGroup");
         }
 
+        /// <summary>
+        /// 获取所有加载资源任务的信息。
+        /// </summary>
+        /// <returns>所有加载资源任务的信息。</returns>
+        public TaskInfo[] GetAllLoadAssetInfos()
+        {
+            throw new NotSupportedException("GetAllLoadAssetInfos");
+        }
+
         private bool HasFile(string assetName)
         {
             if (string.IsNullOrEmpty(assetName))

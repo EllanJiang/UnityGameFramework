@@ -1707,26 +1707,6 @@
             获取移除引用数量。
             </summary>
         </member>
-        <member name="T:GameFramework.ITask">
-            <summary>
-            任务接口。
-            </summary>
-        </member>
-        <member name="P:GameFramework.ITask.SerialId">
-            <summary>
-            获取任务的序列编号。
-            </summary>
-        </member>
-        <member name="P:GameFramework.ITask.Priority">
-            <summary>
-            获取任务的优先级。
-            </summary>
-        </member>
-        <member name="P:GameFramework.ITask.Done">
-            <summary>
-            获取任务是否完成。
-            </summary>
-        </member>
         <member name="T:GameFramework.ITaskAgent`1">
             <summary>
             任务代理接口。
@@ -1790,6 +1770,93 @@
         <member name="F:GameFramework.StartTaskStatus.UnknownError">
             <summary>
             不能继续处理此任务，出现未知错误。
+            </summary>
+        </member>
+        <member name="T:GameFramework.TaskBase">
+            <summary>
+            任务基类。
+            </summary>
+        </member>
+        <member name="F:GameFramework.TaskBase.DefaultPriority">
+            <summary>
+            任务默认优先级。
+            </summary>
+        </member>
+        <member name="M:GameFramework.TaskBase.#ctor">
+            <summary>
+            初始化任务基类的新实例。
+            </summary>
+        </member>
+        <member name="P:GameFramework.TaskBase.SerialId">
+            <summary>
+            获取任务的序列编号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.TaskBase.Priority">
+            <summary>
+            获取任务的优先级。
+            </summary>
+        </member>
+        <member name="P:GameFramework.TaskBase.Done">
+            <summary>
+            获取或设置任务是否完成。
+            </summary>
+        </member>
+        <member name="P:GameFramework.TaskBase.Description">
+            <summary>
+            获取任务描述。
+            </summary>
+        </member>
+        <member name="M:GameFramework.TaskBase.Initialize(System.Int32,System.Int32)">
+            <summary>
+            初始化任务基类。
+            </summary>
+            <param name="serialId">任务的序列编号。</param>
+            <param name="priority">任务的优先级。</param>
+        </member>
+        <member name="M:GameFramework.TaskBase.Clear">
+            <summary>
+            清理任务基类。
+            </summary>
+        </member>
+        <member name="T:GameFramework.TaskInfo">
+            <summary>
+            任务信息。
+            </summary>
+        </member>
+        <member name="M:GameFramework.TaskInfo.#ctor(System.Int32,System.Int32,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            初始化任务信息的新实例。
+            </summary>
+            <param name="serialId">任务的序列编号。</param>
+            <param name="priority">任务的优先级。</param>
+            <param name="done">任务是否完成。</param>
+            <param name="working">任务是否正在进行。</param>
+            <param name="description">任务描述。</param>
+        </member>
+        <member name="P:GameFramework.TaskInfo.SerialId">
+            <summary>
+            获取任务的序列编号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.TaskInfo.Priority">
+            <summary>
+            获取任务的优先级。
+            </summary>
+        </member>
+        <member name="P:GameFramework.TaskInfo.Done">
+            <summary>
+            获取任务是否完成。
+            </summary>
+        </member>
+        <member name="P:GameFramework.TaskInfo.Working">
+            <summary>
+            获取任务是否正在进行。
+            </summary>
+        </member>
+        <member name="P:GameFramework.TaskInfo.Description">
+            <summary>
+            获取任务描述。
             </summary>
         </member>
         <member name="T:GameFramework.TaskPool`1">
@@ -4890,10 +4957,16 @@
             <param name="serialId">要移除下载任务的序列编号。</param>
             <returns>是否移除下载任务成功。</returns>
         </member>
-        <member name="M:GameFramework.Download.DownloadManager.RemoveAllDownload">
+        <member name="M:GameFramework.Download.DownloadManager.RemoveAllDownloads">
             <summary>
             移除所有下载任务。
             </summary>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.GetAllDownloadInfos">
+            <summary>
+            获取所有下载任务的信息。
+            </summary>
+            <returns>所有下载任务的信息。</returns>
         </member>
         <member name="T:GameFramework.Download.DownloadManager.DownloadAgent">
             <summary>
@@ -4986,21 +5059,6 @@
             初始化下载任务的新实例。
             </summary>
         </member>
-        <member name="P:GameFramework.Download.DownloadManager.DownloadTask.SerialId">
-            <summary>
-            获取下载任务的序列编号。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Download.DownloadManager.DownloadTask.Priority">
-            <summary>
-            获取下载任务的优先级。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Download.DownloadManager.DownloadTask.Done">
-            <summary>
-            获取或设置下载任务是否完成。
-            </summary>
-        </member>
         <member name="P:GameFramework.Download.DownloadManager.DownloadTask.Status">
             <summary>
             获取或设置下载任务的状态。
@@ -5029,6 +5087,11 @@
         <member name="P:GameFramework.Download.DownloadManager.DownloadTask.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Download.DownloadManager.DownloadTask.Description">
+            <summary>
+            获取下载任务的描述。
             </summary>
         </member>
         <member name="M:GameFramework.Download.DownloadManager.DownloadTask.Create(System.String,System.String,System.Int32,System.Int32,System.Single,System.Object)">
@@ -5394,10 +5457,16 @@
             <param name="serialId">要移除下载任务的序列编号。</param>
             <returns>是否移除下载任务成功。</returns>
         </member>
-        <member name="M:GameFramework.Download.IDownloadManager.RemoveAllDownload">
+        <member name="M:GameFramework.Download.IDownloadManager.RemoveAllDownloads">
             <summary>
             移除所有下载任务。
             </summary>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.GetAllDownloadInfos">
+            <summary>
+            获取所有下载任务的信息。
+            </summary>
+            <returns>所有下载任务的信息。</returns>
         </member>
         <member name="T:GameFramework.Entity.EntityManager">
             <summary>
@@ -12444,6 +12513,12 @@
             <param name="resourceGroupName">要获取的资源组名称。</param>
             <returns>要获取的资源组。</returns>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetAllLoadAssetInfos">
+            <summary>
+            获取所有加载资源任务的信息。
+            </summary>
+            <returns>所有加载资源任务的信息。</returns>
+        </member>
         <member name="T:GameFramework.Resource.LoadAssetCallbacks">
             <summary>
             加载资源回调函数集。
@@ -13385,6 +13460,12 @@
             <param name="resourceGroupName">要获取的资源组名称。</param>
             <returns>要获取的资源组。</returns>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetAllLoadAssetInfos">
+            <summary>
+            获取所有加载资源任务的信息。
+            </summary>
+            <returns>所有加载资源任务的信息。</returns>
+        </member>
         <member name="T:GameFramework.Resource.ResourceManager.LoadType">
             <summary>
             资源加载方式类型。
@@ -13903,6 +13984,12 @@
             <param name="sceneAssetName">要卸载场景资源的名称。</param>
             <param name="unloadSceneCallbacks">卸载场景回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.GetAllLoadAssetInfos">
+            <summary>
+            获取所有加载资源任务的信息。
+            </summary>
+            <returns>所有加载资源任务的信息。</returns>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceLoader.LoadResourceAgent">
             <summary>
@@ -19838,6 +19925,12 @@
             移除所有 Web 请求任务。
             </summary>
         </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.GetAllWebRequestInfos">
+            <summary>
+            获取所有 Web 请求任务的信息。
+            </summary>
+            <returns>所有 Web 请求任务的信息。</returns>
+        </member>
         <member name="T:GameFramework.WebRequest.WebRequestAgentHelperCompleteEventArgs">
             <summary>
             Web 请求代理辅助器完成事件。
@@ -20086,6 +20179,12 @@
             移除所有 Web 请求任务。
             </summary>
         </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.GetAllWebRequestInfos">
+            <summary>
+            获取所有 Web 请求任务的信息。
+            </summary>
+            <returns>所有 Web 请求任务的信息。</returns>
+        </member>
         <member name="T:GameFramework.WebRequest.WebRequestManager.WebRequestAgent">
             <summary>
             Web 请求代理。
@@ -20141,21 +20240,6 @@
             Web 请求任务。
             </summary>
         </member>
-        <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.SerialId">
-            <summary>
-            获取 Web 请求任务的序列编号。
-            </summary>
-        </member>
-        <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Priority">
-            <summary>
-            获取 Web 请求任务的优先级。
-            </summary>
-        </member>
-        <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Done">
-            <summary>
-            获取或设置 Web 请求任务是否完成。
-            </summary>
-        </member>
         <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Status">
             <summary>
             获取或设置 Web 请求任务的状态。
@@ -20174,6 +20258,11 @@
         <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.UserData">
             <summary>
             获取用户自定义数据。
+            </summary>
+        </member>
+        <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Description">
+            <summary>
+            获取 Web 请求任务的描述。
             </summary>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Create(System.String,System.Byte[],System.Int32,System.Single,System.Object)">

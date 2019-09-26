@@ -19558,6 +19558,13 @@
             <param name="name">名称。</param>
             <returns>完整名称。</returns>
         </member>
+        <member name="M:GameFramework.Utility.Text.GetByteLengthString(System.Int64)">
+            <summary>
+            获取字节长度字符串。
+            </summary>
+            <param name="byteLength">要获取的字节长度值。</param>
+            <returns>字节长度字符串。</returns>
+        </member>
         <member name="T:GameFramework.Utility.Verifier">
             <summary>
             校验相关的实用函数。

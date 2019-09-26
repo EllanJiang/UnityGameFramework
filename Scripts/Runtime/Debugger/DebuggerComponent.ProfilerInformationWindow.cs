@@ -17,8 +17,6 @@ namespace UnityGameFramework.Runtime
     {
         private sealed class ProfilerInformationWindow : ScrollableDebuggerWindowBase
         {
-            private const int OneMegaBytes = 1024 * 1024;
-
             protected override void OnDrawScrollableWindow()
             {
                 GUILayout.Label("<b>Profiler Information</b>");
@@ -34,28 +32,28 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Max Samples Number Per Frame:", Profiler.maxNumberOfSamplesPerFrame.ToString());
 #endif
 #if UNITY_2018_3_OR_NEWER
-                    DrawItem("Max Used Memory:", Profiler.maxUsedMemory.ToString());
+                    DrawItem("Max Used Memory:", Utility.Text.GetByteLengthString(Profiler.maxUsedMemory));
 #endif
 #if UNITY_5_6_OR_NEWER
-                    DrawItem("Mono Used Size:", Utility.Text.Format("{0} MB", (Profiler.GetMonoUsedSizeLong() / (float)OneMegaBytes).ToString("F3")));
-                    DrawItem("Mono Heap Size:", Utility.Text.Format("{0} MB", (Profiler.GetMonoHeapSizeLong() / (float)OneMegaBytes).ToString("F3")));
-                    DrawItem("Used Heap Size:", Utility.Text.Format("{0} MB", (Profiler.usedHeapSizeLong / (float)OneMegaBytes).ToString("F3")));
-                    DrawItem("Total Allocated Memory:", Utility.Text.Format("{0} MB", (Profiler.GetTotalAllocatedMemoryLong() / (float)OneMegaBytes).ToString("F3")));
-                    DrawItem("Total Reserved Memory:", Utility.Text.Format("{0} MB", (Profiler.GetTotalReservedMemoryLong() / (float)OneMegaBytes).ToString("F3")));
-                    DrawItem("Total Unused Reserved Memory:", Utility.Text.Format("{0} MB", (Profiler.GetTotalUnusedReservedMemoryLong() / (float)OneMegaBytes).ToString("F3")));
+                    DrawItem("Mono Used Size:", Utility.Text.GetByteLengthString(Profiler.GetMonoUsedSizeLong()));
+                    DrawItem("Mono Heap Size:", Utility.Text.GetByteLengthString(Profiler.GetMonoHeapSizeLong()));
+                    DrawItem("Used Heap Size:", Utility.Text.GetByteLengthString(Profiler.usedHeapSizeLong));
+                    DrawItem("Total Allocated Memory:", Utility.Text.GetByteLengthString(Profiler.GetTotalAllocatedMemoryLong()));
+                    DrawItem("Total Reserved Memory:", Utility.Text.GetByteLengthString(Profiler.GetTotalReservedMemoryLong()));
+                    DrawItem("Total Unused Reserved Memory:", Utility.Text.GetByteLengthString(Profiler.GetTotalUnusedReservedMemoryLong()));
 #else
-                    DrawItem("Mono Used Size:", Utility.Text.Format("{0} MB", (Profiler.GetMonoUsedSize() / (float)OneMegaBytes).ToString("F3")));
-                    DrawItem("Mono Heap Size:", Utility.Text.Format("{0} MB", (Profiler.GetMonoHeapSize() / (float)OneMegaBytes).ToString("F3")));
-                    DrawItem("Used Heap Size:", Utility.Text.Format("{0} MB", (Profiler.usedHeapSize / (float)OneMegaBytes).ToString("F3")));
-                    DrawItem("Total Allocated Memory:", Utility.Text.Format("{0} MB", (Profiler.GetTotalAllocatedMemory() / (float)OneMegaBytes).ToString("F3")));
-                    DrawItem("Total Reserved Memory:", Utility.Text.Format("{0} MB", (Profiler.GetTotalReservedMemory() / (float)OneMegaBytes).ToString("F3")));
-                    DrawItem("Total Unused Reserved Memory:", Utility.Text.Format("{0} MB", (Profiler.GetTotalUnusedReservedMemory() / (float)OneMegaBytes).ToString("F3")));
+                    DrawItem("Mono Used Size:", Utility.Text.GetByteLengthString(Profiler.GetMonoUsedSize()));
+                    DrawItem("Mono Heap Size:", Utility.Text.GetByteLengthString(Profiler.GetMonoHeapSize()));
+                    DrawItem("Used Heap Size:", Utility.Text.GetByteLengthString(Profiler.usedHeapSize));
+                    DrawItem("Total Allocated Memory:", Utility.Text.GetByteLengthString(Profiler.GetTotalAllocatedMemory()));
+                    DrawItem("Total Reserved Memory:", Utility.Text.GetByteLengthString(Profiler.GetTotalReservedMemory()));
+                    DrawItem("Total Unused Reserved Memory:", Utility.Text.GetByteLengthString(Profiler.GetTotalUnusedReservedMemory()));
 #endif
 #if UNITY_2018_1_OR_NEWER
-                    DrawItem("Allocated Memory For Graphics Driver:", Utility.Text.Format("{0} MB", (Profiler.GetAllocatedMemoryForGraphicsDriver() / (float)OneMegaBytes).ToString("F3")));
+                    DrawItem("Allocated Memory For Graphics Driver:", Utility.Text.GetByteLengthString(Profiler.GetAllocatedMemoryForGraphicsDriver()));
 #endif
 #if UNITY_5_5_OR_NEWER
-                    DrawItem("Temp Allocator Size:", Utility.Text.Format("{0} MB", (Profiler.GetTempAllocatorSize() / (float)OneMegaBytes).ToString("F3")));
+                    DrawItem("Temp Allocator Size:", Utility.Text.GetByteLengthString(Profiler.GetTempAllocatorSize()));
 #endif
                 }
                 GUILayout.EndVertical();

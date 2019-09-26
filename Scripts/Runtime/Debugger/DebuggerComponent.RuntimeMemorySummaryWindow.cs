@@ -40,7 +40,7 @@ namespace UnityGameFramework.Runtime
                     }
                     else
                     {
-                        GUILayout.Label(Utility.Text.Format("<b>{0} Objects ({1}) obtained at {2}.</b>", m_SampleCount.ToString(), GetSizeString(m_SampleSize), m_SampleTime.ToString("yyyy-MM-dd HH:mm:ss")));
+                        GUILayout.Label(Utility.Text.Format("<b>{0} Objects ({1}) obtained at {2}.</b>", m_SampleCount.ToString(), Utility.Text.GetByteLengthString(m_SampleSize), m_SampleTime.ToString("yyyy-MM-dd HH:mm:ss")));
 
                         GUILayout.BeginHorizontal();
                         {
@@ -56,7 +56,7 @@ namespace UnityGameFramework.Runtime
                             {
                                 GUILayout.Label(m_Records[i].Name);
                                 GUILayout.Label(m_Records[i].Count.ToString(), GUILayout.Width(120f));
-                                GUILayout.Label(GetSizeString(m_Records[i].Size), GUILayout.Width(120f));
+                                GUILayout.Label(Utility.Text.GetByteLengthString(m_Records[i].Size), GUILayout.Width(120f));
                             }
                             GUILayout.EndHorizontal();
                         }
@@ -106,31 +106,6 @@ namespace UnityGameFramework.Runtime
                 }
 
                 m_Records.Sort(RecordComparer);
-            }
-
-            private string GetSizeString(long size)
-            {
-                if (size < 1024L)
-                {
-                    return Utility.Text.Format("{0} Bytes", size.ToString());
-                }
-
-                if (size < 1024L * 1024L)
-                {
-                    return Utility.Text.Format("{0} KB", (size / 1024f).ToString("F2"));
-                }
-
-                if (size < 1024L * 1024L * 1024L)
-                {
-                    return Utility.Text.Format("{0} MB", (size / 1024f / 1024f).ToString("F2"));
-                }
-
-                if (size < 1024L * 1024L * 1024L * 1024L)
-                {
-                    return Utility.Text.Format("{0} GB", (size / 1024f / 1024f / 1024f).ToString("F2"));
-                }
-
-                return Utility.Text.Format("{0} TB", (size / 1024f / 1024f / 1024f / 1024f).ToString("F2"));
             }
 
             private int RecordComparer(Record a, Record b)

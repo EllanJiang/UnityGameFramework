@@ -31,12 +31,12 @@ namespace UnityGameFramework.Runtime
                     }
                     GUILayout.EndHorizontal();
 
-                    DrawItem("Enabled:", Input.compass.enabled.ToString());
-                    DrawItem("Heading Accuracy:", Input.compass.headingAccuracy.ToString());
-                    DrawItem("Magnetic Heading:", Input.compass.magneticHeading.ToString());
-                    DrawItem("Raw Vector:", Input.compass.rawVector.ToString());
-                    DrawItem("Timestamp:", Input.compass.timestamp.ToString());
-                    DrawItem("True Heading:", Input.compass.trueHeading.ToString());
+                    DrawItem("Enabled", Input.compass.enabled.ToString());
+                    DrawItem("Heading Accuracy", Input.compass.headingAccuracy.ToString());
+                    DrawItem("Magnetic Heading", Input.compass.magneticHeading.ToString());
+                    DrawItem("Raw Vector", Input.compass.rawVector.ToString());
+                    DrawItem("Timestamp", Input.compass.timestamp.ToString());
+                    DrawItem("True Heading", Input.compass.trueHeading.ToString());
                 }
                 GUILayout.EndVertical();
             }

@@ -19,9 +19,9 @@ namespace UnityGameFramework.Runtime
                 GUILayout.Label("<b>Input Acceleration Information</b>");
                 GUILayout.BeginVertical("box");
                 {
-                    DrawItem("Acceleration:", Input.acceleration.ToString());
-                    DrawItem("Acceleration Event Count:", Input.accelerationEventCount.ToString());
-                    DrawItem("Acceleration Events:", GetAccelerationEventsString(Input.accelerationEvents));
+                    DrawItem("Acceleration", Input.acceleration.ToString());
+                    DrawItem("Acceleration Event Count", Input.accelerationEventCount.ToString());
+                    DrawItem("Acceleration Events", GetAccelerationEventsString(Input.accelerationEvents));
                 }
                 GUILayout.EndVertical();
             }

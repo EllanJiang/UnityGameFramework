@@ -31,14 +31,14 @@ namespace UnityGameFramework.Runtime
                     }
                     GUILayout.EndHorizontal();
 
-                    DrawItem("Is Enabled By User:", Input.location.isEnabledByUser.ToString());
-                    DrawItem("Status:", Input.location.status.ToString());
-                    DrawItem("Horizontal Accuracy:", Input.location.lastData.horizontalAccuracy.ToString());
-                    DrawItem("Vertical Accuracy:", Input.location.lastData.verticalAccuracy.ToString());
-                    DrawItem("Longitude:", Input.location.lastData.longitude.ToString());
-                    DrawItem("Latitude:", Input.location.lastData.latitude.ToString());
-                    DrawItem("Altitude:", Input.location.lastData.altitude.ToString());
-                    DrawItem("Timestamp:", Input.location.lastData.timestamp.ToString());
+                    DrawItem("Is Enabled By User", Input.location.isEnabledByUser.ToString());
+                    DrawItem("Status", Input.location.status.ToString());
+                    DrawItem("Horizontal Accuracy", Input.location.lastData.horizontalAccuracy.ToString());
+                    DrawItem("Vertical Accuracy", Input.location.lastData.verticalAccuracy.ToString());
+                    DrawItem("Longitude", Input.location.lastData.longitude.ToString());
+                    DrawItem("Latitude", Input.location.lastData.latitude.ToString());
+                    DrawItem("Altitude", Input.location.lastData.altitude.ToString());
+                    DrawItem("Timestamp", Input.location.lastData.timestamp.ToString());
                 }
                 GUILayout.EndVertical();
             }

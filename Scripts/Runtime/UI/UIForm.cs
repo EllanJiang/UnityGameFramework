@@ -153,6 +153,15 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public void OnRecycle()
         {
+            try
+            {
+                m_UIFormLogic.OnRecycle();
+            }
+            catch (Exception exception)
+            {
+                Log.Error("UI form '[{0}]{1}' OnRecycle with exception '{2}'.", m_SerialId.ToString(), m_UIFormAssetName, exception.ToString());
+            }
+
             m_SerialId = 0;
             m_DepthInUIGroup = 0;
             m_PauseCoveredUIForm = true;

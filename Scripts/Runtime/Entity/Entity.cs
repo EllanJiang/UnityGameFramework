@@ -141,8 +141,17 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public void OnRecycle()
         {
+            try
+            {
+                m_EntityLogic.OnRecycle();
+                m_EntityLogic.enabled = false;
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnRecycle with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
+
             m_Id = 0;
-            m_EntityLogic.enabled = false;
         }
 
         /// <summary>

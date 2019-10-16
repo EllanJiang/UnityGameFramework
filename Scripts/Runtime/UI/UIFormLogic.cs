@@ -106,6 +106,13 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 界面回收。
+        /// </summary>
+        protected internal virtual void OnRecycle()
+        {
+        }
+
+        /// <summary>
         /// 界面打开。
         /// </summary>
         /// <param name="userData">用户自定义数据。</param>

@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -18,19 +18,19 @@ namespace UnityGameFramework.Editor
     {
         public static void ShowComponentHelp(string componentName)
         {
-            ShowHelp(Utility.Text.Format("http://gameframework.cn/archives/category/module/buildin/{0}/", componentName));
+            ShowHelp(Utility.Text.Format("https://gameframework.cn/document/{0}/", componentName));
         }
 
         [MenuItem("Game Framework/Documentation", false, 90)]
         public static void ShowDocumentation()
         {
-            ShowHelp("http://gameframework.cn/");
+            ShowHelp("https://gameframework.cn/document/");
         }
 
         [MenuItem("Game Framework/API Reference", false, 91)]
-        public static void ShowAPI()
+        public static void ShowApiReference()
         {
-            ShowHelp("http://gameframework.cn/api/");
+            ShowHelp("https://gameframework.cn/api/");
         }
 
         private static void ShowHelp(string uri)

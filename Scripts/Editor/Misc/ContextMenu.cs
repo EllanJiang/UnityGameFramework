@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using UnityEditor;
@@ -17,7 +17,7 @@ namespace UnityGameFramework.Editor
         [MenuItem("CONTEXT/BaseComponent/Help")]
         private static void ShowBaseComponentHelp(MenuCommand command)
         {
-            Help.ShowComponentHelp("base");
+            Help.ShowDocumentation();
         }
 
         [MenuItem("CONTEXT/ConfigComponent/Help")]

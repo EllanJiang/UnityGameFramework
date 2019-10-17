@@ -1184,6 +1184,11 @@
             获取当前结点。
             </summary>
         </member>
+        <member name="P:GameFramework.GameFrameworkLinkedList`1.Enumerator.System#Collections#IEnumerator#Current">
+            <summary>
+            获取当前的枚举数。
+            </summary>
+        </member>
         <member name="M:GameFramework.GameFrameworkLinkedList`1.Enumerator.Dispose">
             <summary>
             清理枚举数。
@@ -1194,6 +1199,11 @@
             获取下一个结点。
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.Enumerator.System#Collections#IEnumerator#Reset">
+            <summary>
+            重置枚举数。
+            </summary>
         </member>
         <member name="T:GameFramework.GameFrameworkModule">
             <summary>

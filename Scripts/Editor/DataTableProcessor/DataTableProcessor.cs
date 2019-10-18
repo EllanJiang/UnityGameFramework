@@ -363,7 +363,7 @@ namespace UnityGameFramework.Editor.DataTableTools
             }
             catch (Exception exception)
             {
-                Debug.LogError(Utility.Text.Format("Parse data table '{0}' failure, exception is '{1}'.", outputFileName, exception.Message));
+                Debug.LogError(Utility.Text.Format("Parse data table '{0}' failure, exception is '{1}'.", outputFileName, exception.ToString()));
                 return false;
             }
         }
@@ -378,7 +378,7 @@ namespace UnityGameFramework.Editor.DataTableTools
             }
             catch (Exception exception)
             {
-                Debug.LogError(Utility.Text.Format("Set code template '{0}' failure, exception is '{1}'.", codeTemplateFileName, exception.Message));
+                Debug.LogError(Utility.Text.Format("Set code template '{0}' failure, exception is '{1}'.", codeTemplateFileName, exception.ToString()));
                 return false;
             }
         }
@@ -421,7 +421,7 @@ namespace UnityGameFramework.Editor.DataTableTools
             }
             catch (Exception exception)
             {
-                Debug.LogError(Utility.Text.Format("Generate code file '{0}' failure, exception is '{1}'.", outputFileName, exception.Message));
+                Debug.LogError(Utility.Text.Format("Generate code file '{0}' failure, exception is '{1}'.", outputFileName, exception.ToString()));
                 return false;
             }
         }

@@ -11,17 +11,17 @@ using GameFramework.Event;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// 加载配置失败事件。
+    /// 加载全局配置失败事件。
     /// </summary>
     public sealed class LoadConfigFailureEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 加载配置失败事件编号。
+        /// 加载全局配置失败事件编号。
         /// </summary>
         public static readonly int EventId = typeof(LoadConfigFailureEventArgs).GetHashCode();
 
         /// <summary>
-        /// 初始化加载配置失败事件的新实例。
+        /// 初始化加载全局配置失败事件的新实例。
         /// </summary>
         public LoadConfigFailureEventArgs()
         {
@@ -33,7 +33,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取加载配置失败事件编号。
+        /// 获取加载全局配置失败事件编号。
         /// </summary>
         public override int Id
         {
@@ -44,7 +44,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取配置名称。
+        /// 获取全局配置名称。
         /// </summary>
         public string ConfigName
         {
@@ -53,7 +53,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取配置资源名称。
+        /// 获取全局配置资源名称。
         /// </summary>
         public string ConfigAssetName
         {
@@ -62,7 +62,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取配置加载方式。
+        /// 获取全局配置加载方式。
         /// </summary>
         public LoadType LoadType
         {
@@ -89,10 +89,10 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 创建加载配置失败事件。
+        /// 创建加载全局配置失败事件。
         /// </summary>
         /// <param name="e">内部事件。</param>
-        /// <returns>创建的加载配置失败事件。</returns>
+        /// <returns>创建的加载全局配置失败事件。</returns>
         public static LoadConfigFailureEventArgs Create(GameFramework.Config.LoadConfigFailureEventArgs e)
         {
             LoadConfigInfo loadConfigInfo = (LoadConfigInfo)e.UserData;
@@ -107,7 +107,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 清理加载配置失败事件。
+        /// 清理加载全局配置失败事件。
         /// </summary>
         public override void Clear()
         {

@@ -11,17 +11,17 @@ using GameFramework.Event;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// 加载配置时加载依赖资源事件。
+    /// 加载全局配置时加载依赖资源事件。
     /// </summary>
     public sealed class LoadConfigDependencyAssetEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 加载配置失败事件编号。
+        /// 加载全局配置失败事件编号。
         /// </summary>
         public static readonly int EventId = typeof(LoadConfigDependencyAssetEventArgs).GetHashCode();
 
         /// <summary>
-        /// 初始化加载配置时加载依赖资源事件的新实例。
+        /// 初始化加载全局配置时加载依赖资源事件的新实例。
         /// </summary>
         public LoadConfigDependencyAssetEventArgs()
         {
@@ -34,7 +34,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取加载配置失败事件编号。
+        /// 获取加载全局配置失败事件编号。
         /// </summary>
         public override int Id
         {
@@ -45,7 +45,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取配置名称。
+        /// 获取全局配置名称。
         /// </summary>
         public string ConfigName
         {
@@ -54,7 +54,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取配置资源名称。
+        /// 获取全局配置资源名称。
         /// </summary>
         public string ConfigAssetName
         {
@@ -99,10 +99,10 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 创建加载配置时加载依赖资源事件。
+        /// 创建加载全局配置时加载依赖资源事件。
         /// </summary>
         /// <param name="e">内部事件。</param>
-        /// <returns>创建的加载配置时加载依赖资源事件。</returns>
+        /// <returns>创建的加载全局配置时加载依赖资源事件。</returns>
         public static LoadConfigDependencyAssetEventArgs Create(GameFramework.Config.LoadConfigDependencyAssetEventArgs e)
         {
             LoadConfigInfo loadConfigInfo = (LoadConfigInfo)e.UserData;
@@ -117,7 +117,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 清理加载配置时加载依赖资源事件。
+        /// 清理加载全局配置时加载依赖资源事件。
         /// </summary>
         public override void Clear()
         {

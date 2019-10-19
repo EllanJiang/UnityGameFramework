@@ -15,7 +15,7 @@ using UnityEngine;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// 默认配置辅助器。
+    /// 默认全局配置辅助器。
     /// </summary>
     public class DefaultConfigHelper : ConfigHelperBase
     {
@@ -27,11 +27,11 @@ namespace UnityGameFramework.Runtime
         private IConfigManager m_ConfigManager = null;
 
         /// <summary>
-        /// 解析配置。
+        /// 解析全局配置。
         /// </summary>
-        /// <param name="text">要解析的配置文本。</param>
+        /// <param name="text">要解析的全局配置文本。</param>
         /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否解析配置成功。</returns>
+        /// <returns>是否解析全局配置成功。</returns>
         public override bool ParseConfig(string text, object userData)
         {
             try
@@ -70,11 +70,11 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 解析配置。
+        /// 解析全局配置。
         /// </summary>
-        /// <param name="bytes">要解析的配置二进制流。</param>
+        /// <param name="bytes">要解析的全局配置二进制流。</param>
         /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否解析配置成功。</returns>
+        /// <returns>是否解析全局配置成功。</returns>
         public override bool ParseConfig(byte[] bytes, object userData)
         {
             using (MemoryStream memoryStream = new MemoryStream(bytes, false))
@@ -84,11 +84,11 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 解析配置。
+        /// 解析全局配置。
         /// </summary>
-        /// <param name="stream">要解析的配置二进制流。</param>
+        /// <param name="stream">要解析的全局配置二进制流。</param>
         /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否解析配置成功。</returns>
+        /// <returns>是否解析全局配置成功。</returns>
         public override bool ParseConfig(Stream stream, object userData)
         {
             try
@@ -117,20 +117,20 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 释放配置资源。
+        /// 释放全局配置资源。
         /// </summary>
-        /// <param name="configAsset">要释放的配置资源。</param>
+        /// <param name="configAsset">要释放的全局配置资源。</param>
         public override void ReleaseConfigAsset(object configAsset)
         {
             m_ResourceComponent.UnloadAsset(configAsset);
         }
 
         /// <summary>
-        /// 加载配置。
+        /// 加载全局配置。
         /// </summary>
-        /// <param name="configName">配置名称。</param>
-        /// <param name="configAsset">配置资源。</param>
-        /// <param name="loadType">配置加载方式。</param>
+        /// <param name="configName">全局配置名称。</param>
+        /// <param name="configAsset">全局配置资源。</param>
+        /// <param name="loadType">全局配置加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
         protected override bool LoadConfig(string configName, object configAsset, LoadType loadType, object userData)
@@ -174,10 +174,10 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 增加指定配置项。
+        /// 增加指定全局配置项。
         /// </summary>
-        /// <param name="configName">要增加配置项的名称。</param>
-        /// <param name="configValue">要增加配置项的值。</param>
+        /// <param name="configName">要增加全局配置项的名称。</param>
+        /// <param name="configValue">要增加全局配置项的值。</param>
         /// <returns></returns>
         protected bool AddConfig(string configName, string configValue)
         {
@@ -194,14 +194,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 增加指定配置项。
+        /// 增加指定全局配置项。
         /// </summary>
-        /// <param name="configName">要增加配置项的名称。</param>
-        /// <param name="boolValue">配置项布尔值。</param>
-        /// <param name="intValue">配置项整数值。</param>
-        /// <param name="floatValue">配置项浮点数值。</param>
-        /// <param name="stringValue">配置项字符串值。</param>
-        /// <returns>是否增加配置项成功。</returns>
+        /// <param name="configName">要增加全局配置项的名称。</param>
+        /// <param name="boolValue">全局配置项布尔值。</param>
+        /// <param name="intValue">全局配置项整数值。</param>
+        /// <param name="floatValue">全局配置项浮点数值。</param>
+        /// <param name="stringValue">全局配置项字符串值。</param>
+        /// <returns>是否增加全局配置项成功。</returns>
         protected bool AddConfig(string configName, bool boolValue, int intValue, float floatValue, string stringValue)
         {
             return m_ConfigManager.AddConfig(configName, boolValue, intValue, floatValue, stringValue);

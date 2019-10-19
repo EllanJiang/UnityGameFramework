@@ -14,7 +14,7 @@ using UnityEngine;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// 配置组件。
+    /// 全局配置组件。
     /// </summary>
     [DisallowMultipleComponent]
     [AddComponentMenu("Game Framework/Config")]
@@ -38,7 +38,7 @@ namespace UnityGameFramework.Runtime
         private ConfigHelperBase m_CustomConfigHelper = null;
 
         /// <summary>
-        /// 获取配置数量。
+        /// 获取全局配置数量。
         /// </summary>
         public int ConfigCount
         {
@@ -117,34 +117,34 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 加载配置。
+        /// 加载全局配置。
         /// </summary>
-        /// <param name="configName">配置名称。</param>
-        /// <param name="configAssetName">配置资源名称。</param>
-        /// <param name="loadType">配置加载方式。</param>
+        /// <param name="configName">全局配置名称。</param>
+        /// <param name="configAssetName">全局配置资源名称。</param>
+        /// <param name="loadType">全局配置加载方式。</param>
         public void LoadConfig(string configName, string configAssetName, LoadType loadType)
         {
             LoadConfig(configName, configAssetName, loadType, DefaultPriority, null);
         }
 
         /// <summary>
-        /// 加载配置。
+        /// 加载全局配置。
         /// </summary>
-        /// <param name="configName">配置名称。</param>
-        /// <param name="configAssetName">配置资源名称。</param>
-        /// <param name="loadType">配置加载方式。</param>
-        /// <param name="priority">加载配置资源的优先级。</param>
+        /// <param name="configName">全局配置名称。</param>
+        /// <param name="configAssetName">全局配置资源名称。</param>
+        /// <param name="loadType">全局配置加载方式。</param>
+        /// <param name="priority">加载全局配置资源的优先级。</param>
         public void LoadConfig(string configName, string configAssetName, LoadType loadType, int priority)
         {
             LoadConfig(configName, configAssetName, loadType, priority, null);
         }
 
         /// <summary>
-        /// 加载配置。
+        /// 加载全局配置。
         /// </summary>
-        /// <param name="configName">配置名称。</param>
-        /// <param name="configAssetName">配置资源名称。</param>
-        /// <param name="loadType">配置加载方式。</param>
+        /// <param name="configName">全局配置名称。</param>
+        /// <param name="configAssetName">全局配置资源名称。</param>
+        /// <param name="loadType">全局配置加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         public void LoadConfig(string configName, string configAssetName, LoadType loadType, object userData)
         {
@@ -152,12 +152,12 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 加载配置。
+        /// 加载全局配置。
         /// </summary>
-        /// <param name="configName">配置名称。</param>
-        /// <param name="configAssetName">配置资源名称。</param>
-        /// <param name="loadType">配置加载方式。</param>
-        /// <param name="priority">加载配置资源的优先级。</param>
+        /// <param name="configName">全局配置名称。</param>
+        /// <param name="configAssetName">全局配置资源名称。</param>
+        /// <param name="loadType">全局配置加载方式。</param>
+        /// <param name="priority">加载全局配置资源的优先级。</param>
         /// <param name="userData">用户自定义数据。</param>
         public void LoadConfig(string configName, string configAssetName, LoadType loadType, int priority, object userData)
         {
@@ -171,89 +171,89 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 解析配置。
+        /// 解析全局配置。
         /// </summary>
-        /// <param name="text">要解析的配置文本。</param>
-        /// <returns>是否解析配置成功。</returns>
+        /// <param name="text">要解析的全局配置文本。</param>
+        /// <returns>是否解析全局配置成功。</returns>
         public bool ParseConfig(string text)
         {
             return m_ConfigManager.ParseConfig(text);
         }
 
         /// <summary>
-        /// 解析配置。
+        /// 解析全局配置。
         /// </summary>
-        /// <param name="text">要解析的配置文本。</param>
+        /// <param name="text">要解析的全局配置文本。</param>
         /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否解析配置成功。</returns>
+        /// <returns>是否解析全局配置成功。</returns>
         public bool ParseConfig(string text, object userData)
         {
             return m_ConfigManager.ParseConfig(text, userData);
         }
 
         /// <summary>
-        /// 解析配置。
+        /// 解析全局配置。
         /// </summary>
-        /// <param name="bytes">要解析的配置二进制流。</param>
-        /// <returns>是否解析配置成功。</returns>
+        /// <param name="bytes">要解析的全局配置二进制流。</param>
+        /// <returns>是否解析全局配置成功。</returns>
         public bool ParseConfig(byte[] bytes)
         {
             return m_ConfigManager.ParseConfig(bytes);
         }
 
         /// <summary>
-        /// 解析配置。
+        /// 解析全局配置。
         /// </summary>
-        /// <param name="bytes">要解析的配置二进制流。</param>
+        /// <param name="bytes">要解析的全局配置二进制流。</param>
         /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否解析配置成功。</returns>
+        /// <returns>是否解析全局配置成功。</returns>
         public bool ParseConfig(byte[] bytes, object userData)
         {
             return m_ConfigManager.ParseConfig(bytes, userData);
         }
 
         /// <summary>
-        /// 解析配置。
+        /// 解析全局配置。
         /// </summary>
-        /// <param name="stream">要解析的配置二进制流。</param>
-        /// <returns>是否解析配置成功。</returns>
+        /// <param name="stream">要解析的全局配置二进制流。</param>
+        /// <returns>是否解析全局配置成功。</returns>
         public bool ParseConfig(Stream stream)
         {
             return m_ConfigManager.ParseConfig(stream);
         }
 
         /// <summary>
-        /// 解析配置。
+        /// 解析全局配置。
         /// </summary>
-        /// <param name="stream">要解析的配置二进制流。</param>
+        /// <param name="stream">要解析的全局配置二进制流。</param>
         /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否解析配置成功。</returns>
+        /// <returns>是否解析全局配置成功。</returns>
         public bool ParseConfig(Stream stream, object userData)
         {
             return m_ConfigManager.ParseConfig(stream, userData);
         }
 
         /// <summary>
-        /// 检查是否存在指定配置项。
+        /// 检查是否存在指定全局配置项。
         /// </summary>
-        /// <param name="configName">要检查配置项的名称。</param>
-        /// <returns>指定的配置项是否存在。</returns>
+        /// <param name="configName">要检查全局配置项的名称。</param>
+        /// <returns>指定的全局配置项是否存在。</returns>
         public bool HasConfig(string configName)
         {
             return m_ConfigManager.HasConfig(configName);
         }
 
         /// <summary>
-        /// 移除指定配置项。
+        /// 移除指定全局配置项。
         /// </summary>
-        /// <param name="configName">要移除配置项的名称。</param>
+        /// <param name="configName">要移除全局配置项的名称。</param>
         public void RemoveConfig(string configName)
         {
             m_ConfigManager.RemoveConfig(configName);
         }
 
         /// <summary>
-        /// 清空所有配置项。
+        /// 清空所有全局配置项。
         /// </summary>
         public void RemoveAllConfigs()
         {
@@ -261,9 +261,9 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 从指定配置项中读取布尔值。
+        /// 从指定全局配置项中读取布尔值。
         /// </summary>
-        /// <param name="configName">要获取配置项的名称。</param>
+        /// <param name="configName">要获取全局配置项的名称。</param>
         /// <returns>读取的布尔值。</returns>
         public bool GetBool(string configName)
         {
@@ -271,10 +271,10 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 从指定配置项中读取布尔值。
+        /// 从指定全局配置项中读取布尔值。
         /// </summary>
-        /// <param name="configName">要获取配置项的名称。</param>
-        /// <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
+        /// <param name="configName">要获取全局配置项的名称。</param>
+        /// <param name="defaultValue">当指定的全局配置项不存在时，返回此默认值。</param>
         /// <returns>读取的布尔值。</returns>
         public bool GetBool(string configName, bool defaultValue)
         {
@@ -282,9 +282,9 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 从指定配置项中读取整数值。
+        /// 从指定全局配置项中读取整数值。
         /// </summary>
-        /// <param name="configName">要获取配置项的名称。</param>
+        /// <param name="configName">要获取全局配置项的名称。</param>
         /// <returns>读取的整数值。</returns>
         public int GetInt(string configName)
         {
@@ -292,10 +292,10 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 从指定配置项中读取整数值。
+        /// 从指定全局配置项中读取整数值。
         /// </summary>
-        /// <param name="configName">要获取配置项的名称。</param>
-        /// <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
+        /// <param name="configName">要获取全局配置项的名称。</param>
+        /// <param name="defaultValue">当指定的全局配置项不存在时，返回此默认值。</param>
         /// <returns>读取的整数值。</returns>
         public int GetInt(string configName, int defaultValue)
         {
@@ -303,9 +303,9 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 从指定配置项中读取浮点数值。
+        /// 从指定全局配置项中读取浮点数值。
         /// </summary>
-        /// <param name="configName">要获取配置项的名称。</param>
+        /// <param name="configName">要获取全局配置项的名称。</param>
         /// <returns>读取的浮点数值。</returns>
         public float GetFloat(string configName)
         {
@@ -313,10 +313,10 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 从指定配置项中读取浮点数值。
+        /// 从指定全局配置项中读取浮点数值。
         /// </summary>
-        /// <param name="configName">要获取配置项的名称。</param>
-        /// <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
+        /// <param name="configName">要获取全局配置项的名称。</param>
+        /// <param name="defaultValue">当指定的全局配置项不存在时，返回此默认值。</param>
         /// <returns>读取的浮点数值。</returns>
         public float GetFloat(string configName, float defaultValue)
         {
@@ -324,9 +324,9 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 从指定配置项中读取字符串值。
+        /// 从指定全局配置项中读取字符串值。
         /// </summary>
-        /// <param name="configName">要获取配置项的名称。</param>
+        /// <param name="configName">要获取全局配置项的名称。</param>
         /// <returns>读取的字符串值。</returns>
         public string GetString(string configName)
         {
@@ -334,10 +334,10 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 从指定配置项中读取字符串值。
+        /// 从指定全局配置项中读取字符串值。
         /// </summary>
-        /// <param name="configName">要获取配置项的名称。</param>
-        /// <param name="defaultValue">当指定的配置项不存在时，返回此默认值。</param>
+        /// <param name="configName">要获取全局配置项的名称。</param>
+        /// <param name="defaultValue">当指定的全局配置项不存在时，返回此默认值。</param>
         /// <returns>读取的字符串值。</returns>
         public string GetString(string configName, string defaultValue)
         {

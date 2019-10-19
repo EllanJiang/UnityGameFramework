@@ -1306,21 +1306,21 @@
         </member>
         <member name="M:GameFramework.GameFrameworkLog.Debug(System.Object)">
             <summary>
-            记录调试级别日志，用于记录调试类日志信息。
+            打印调试级别日志，用于记录调试类日志信息。
             </summary>
             <param name="message">日志内容。</param>
             <remarks>仅在带有 DEBUG 预编译选项时生效。</remarks>
         </member>
         <member name="M:GameFramework.GameFrameworkLog.Debug(System.String)">
             <summary>
-            记录调试级别日志，用于记录调试类日志信息。
+            打印调试级别日志，用于记录调试类日志信息。
             </summary>
             <param name="message">日志内容。</param>
             <remarks>仅在带有 DEBUG 预编译选项时生效。</remarks>
         </member>
         <member name="M:GameFramework.GameFrameworkLog.Debug(System.String,System.Object)">
             <summary>
-            记录调试级别日志，用于记录调试类日志信息。
+            打印调试级别日志，用于记录调试类日志信息。
             </summary>
             <param name="format">日志格式。</param>
             <param name="arg0">日志参数 0。</param>
@@ -1328,7 +1328,7 @@
         </member>
         <member name="M:GameFramework.GameFrameworkLog.Debug(System.String,System.Object,System.Object)">
             <summary>
-            记录调试级别日志，用于记录调试类日志信息。
+            打印调试级别日志，用于记录调试类日志信息。
             </summary>
             <param name="format">日志格式。</param>
             <param name="arg0">日志参数 0。</param>
@@ -1337,7 +1337,7 @@
         </member>
         <member name="M:GameFramework.GameFrameworkLog.Debug(System.String,System.Object,System.Object,System.Object)">
             <summary>
-            记录调试级别日志，用于记录调试类日志信息。
+            打印调试级别日志，用于记录调试类日志信息。
             </summary>
             <param name="format">日志格式。</param>
             <param name="arg0">日志参数 0。</param>
@@ -1347,7 +1347,7 @@
         </member>
         <member name="M:GameFramework.GameFrameworkLog.Debug(System.String,System.Object[])">
             <summary>
-            记录调试级别日志，用于记录调试类日志信息。
+            打印调试级别日志，用于记录调试类日志信息。
             </summary>
             <param name="format">日志格式。</param>
             <param name="args">日志参数。</param>

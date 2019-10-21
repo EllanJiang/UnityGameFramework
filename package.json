@@ -2,7 +2,7 @@
 	"name": "com.jiangyin.gameframework",
 	"displayName": "Game Framework",
 	"description": "This is literally a game framework, based on Unity game engine.\n\nIt encapsulates commonly used game modules during development, and, to a large degree, standardises the process, enhances the development speed and ensures the product quality.",
-	"version": "1.0.0",
+	"version": "2019.10.22",
 	"unity": "2017.1",
 	"dependencies": {}
 }

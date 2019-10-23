@@ -117,19 +117,17 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                         {
                             EditorGUILayout.BeginVertical();
                             {
-                                DrawPlatform(Platform.Windows, "Microsoft Windows (x86)");
-                                DrawPlatform(Platform.Windows64, "Microsoft Windows (x64)");
-                                DrawPlatform(Platform.MacOS, "Apple macOS");
-                                DrawPlatform(Platform.Linux, "Linux (x86)");
-                                DrawPlatform(Platform.Linux64, "Linux (x64)");
-                                DrawPlatform(Platform.LinuxUniversal, "Linux (Universal)");
+                                DrawPlatform(Platform.Windows, "Windows (x86)");
+                                DrawPlatform(Platform.Windows64, "Windows (x64)");
+                                DrawPlatform(Platform.MacOS, "macOS");
+                                DrawPlatform(Platform.Linux, "Linux");
+                                DrawPlatform(Platform.IOS, "iOS");
+                                DrawPlatform(Platform.Android, "Android");
                             }
                             EditorGUILayout.EndVertical();
                             EditorGUILayout.BeginVertical();
                             {
-                                DrawPlatform(Platform.IOS, "Apple iOS");
-                                DrawPlatform(Platform.Android, "Google Android");
-                                DrawPlatform(Platform.WindowsStore, "Microsoft Windows Store");
+                                DrawPlatform(Platform.WindowsStore, "Windows Store");
                                 DrawPlatform(Platform.WebGL, "WebGL");
                             }
                             EditorGUILayout.EndVertical();

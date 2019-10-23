@@ -719,16 +719,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
                 if (!watchResult || isSuccess)
                 {
-                    isSuccess = BuildAssetBundles(Platform.Linux64, buildMap, buildAssetBundleOptions);
-                }
-
-                if (!watchResult || isSuccess)
-                {
-                    isSuccess = BuildAssetBundles(Platform.LinuxUniversal, buildMap, buildAssetBundleOptions);
-                }
-
-                if (!watchResult || isSuccess)
-                {
                     isSuccess = BuildAssetBundles(Platform.IOS, buildMap, buildAssetBundleOptions);
                 }
 
@@ -1488,13 +1478,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     return BuildTarget.StandaloneOSXUniversal;
 #endif
                 case Platform.Linux:
-                    return BuildTarget.StandaloneLinux;
-
-                case Platform.Linux64:
                     return BuildTarget.StandaloneLinux64;
-
-                case Platform.LinuxUniversal:
-                    return BuildTarget.StandaloneLinuxUniversal;
 
                 case Platform.IOS:
                     return BuildTarget.iOS;

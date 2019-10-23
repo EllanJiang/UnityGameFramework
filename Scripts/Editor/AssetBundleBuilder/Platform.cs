@@ -15,53 +15,43 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         Undefined = 0,
 
         /// <summary>
-        /// 微软 Windows 32 位。
+        /// Windows 32 位。
         /// </summary>
         Windows = 1 << 0,
 
         /// <summary>
-        /// 微软 Windows 64 位。
+        /// Windows 64 位。
         /// </summary>
         Windows64 = 1 << 1,
 
         /// <summary>
-        /// 苹果 macOS。
+        /// macOS。
         /// </summary>
         MacOS = 1 << 2,
 
         /// <summary>
-        /// Linux 32 位。
+        /// Linux。
         /// </summary>
         Linux = 1 << 3,
 
         /// <summary>
-        /// Linux 64 位。
+        /// iOS。
         /// </summary>
-        Linux64 = 1 << 4,
+        IOS = 1 << 4,
 
         /// <summary>
-        /// Linux 通用。
+        /// Android。
         /// </summary>
-        LinuxUniversal = 1 << 5,
+        Android = 1 << 5,
 
         /// <summary>
-        /// 苹果 iOS。
+        /// Windows Store。
         /// </summary>
-        IOS = 1 << 6,
-
-        /// <summary>
-        /// 谷歌 Android。
-        /// </summary>
-        Android = 1 << 7,
-
-        /// <summary>
-        /// 微软 Windows Store。
-        /// </summary>
-        WindowsStore = 1 << 8,
+        WindowsStore = 1 << 6,
 
         /// <summary>
         /// WebGL。
         /// </summary>
-        WebGL = 1 << 9,
+        WebGL = 1 << 7,
     }
 }

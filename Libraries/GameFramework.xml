@@ -7251,21 +7251,6 @@
             </summary>
             <param name="results">有限状态机的所有状态。</param>
         </member>
-        <member name="M:GameFramework.Fsm.Fsm`1.FireEvent(System.Object,System.Int32)">
-            <summary>
-            抛出有限状态机事件。
-            </summary>
-            <param name="sender">事件源。</param>
-            <param name="eventId">事件编号。</param>
-        </member>
-        <member name="M:GameFramework.Fsm.Fsm`1.FireEvent(System.Object,System.Int32,System.Object)">
-            <summary>
-            抛出有限状态机事件。
-            </summary>
-            <param name="sender">事件源。</param>
-            <param name="eventId">事件编号。</param>
-            <param name="userData">用户自定义数据。</param>
-        </member>
         <member name="M:GameFramework.Fsm.Fsm`1.HasData(System.String)">
             <summary>
             是否存在有限状态机数据。
@@ -7390,15 +7375,6 @@
             <summary>
             关闭并清理有限状态机。
             </summary>
-        </member>
-        <member name="T:GameFramework.Fsm.FsmEventHandler`1">
-            <summary>
-            有限状态机事件响应函数。
-            </summary>
-            <typeparam name="T">有限状态机持有者类型。</typeparam>
-            <param name="fsm">有限状态机引用。</param>
-            <param name="sender">事件源。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="T:GameFramework.Fsm.FsmManager">
             <summary>
@@ -7613,20 +7589,6 @@
             </summary>
             <param name="fsm">有限状态机引用。</param>
         </member>
-        <member name="M:GameFramework.Fsm.FsmState`1.SubscribeEvent(System.Int32,GameFramework.Fsm.FsmEventHandler{`0})">
-            <summary>
-            订阅有限状态机事件。
-            </summary>
-            <param name="eventId">事件编号。</param>
-            <param name="eventHandler">有限状态机事件响应函数。</param>
-        </member>
-        <member name="M:GameFramework.Fsm.FsmState`1.UnsubscribeEvent(System.Int32,GameFramework.Fsm.FsmEventHandler{`0})">
-            <summary>
-            取消订阅有限状态机事件。
-            </summary>
-            <param name="eventId">事件编号。</param>
-            <param name="eventHandler">有限状态机事件响应函数。</param>
-        </member>
         <member name="M:GameFramework.Fsm.FsmState`1.ChangeState``1(GameFramework.Fsm.IFsm{`0})">
             <summary>
             切换当前有限状态机状态。
@@ -7640,15 +7602,6 @@
             </summary>
             <param name="fsm">有限状态机引用。</param>
             <param name="stateType">要切换到的有限状态机状态类型。</param>
-        </member>
-        <member name="M:GameFramework.Fsm.FsmState`1.OnEvent(GameFramework.Fsm.IFsm{`0},System.Object,System.Int32,System.Object)">
-            <summary>
-            响应有限状态机事件时调用。
-            </summary>
-            <param name="fsm">有限状态机引用。</param>
-            <param name="sender">事件源。</param>
-            <param name="eventId">事件编号。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="T:GameFramework.Fsm.IFsm`1">
             <summary>
@@ -7742,21 +7695,6 @@
             获取有限状态机的所有状态。
             </summary>
             <param name="results">有限状态机的所有状态。</param>
-        </member>
-        <member name="M:GameFramework.Fsm.IFsm`1.FireEvent(System.Object,System.Int32)">
-            <summary>
-            抛出有限状态机事件。
-            </summary>
-            <param name="sender">事件源。</param>
-            <param name="eventId">事件编号。</param>
-        </member>
-        <member name="M:GameFramework.Fsm.IFsm`1.FireEvent(System.Object,System.Int32,System.Object)">
-            <summary>
-            抛出有限状态机事件。
-            </summary>
-            <param name="sender">事件源。</param>
-            <param name="eventId">事件编号。</param>
-            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Fsm.IFsm`1.HasData(System.String)">
             <summary>

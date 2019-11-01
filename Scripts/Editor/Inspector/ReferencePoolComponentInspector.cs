@@ -21,23 +21,27 @@ namespace UnityGameFramework.Editor
     {
         private readonly Dictionary<string, List<ReferencePoolInfo>> m_ReferencePoolInfos = new Dictionary<string, List<ReferencePoolInfo>>();
         private readonly HashSet<string> m_OpenedItems = new HashSet<string>();
+
+        private SerializedProperty m_StrictCheck = null;
+
         private bool m_ShowFullClassName = false;
 
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
-            if (!EditorApplication.isPlaying)
-            {
-                EditorGUILayout.HelpBox("Available during runtime only.", MessageType.Info);
-                return;
-            }
+            serializedObject.Update();
 
             ReferencePoolComponent t = (ReferencePoolComponent)target;
 
-            if (IsPrefabInHierarchy(t.gameObject))
+            if (EditorApplication.isPlaying && IsPrefabInHierarchy(t.gameObject))
             {
-                EditorGUILayout.LabelField("Enable Strict Check", ReferencePool.EnableStrictCheck.ToString());
+                bool enableStrictCheck = EditorGUILayout.Toggle("Enable Strict Check", t.EnableStrictCheck);
+                if (enableStrictCheck != t.EnableStrictCheck)
+                {
+                    t.EnableStrictCheck = enableStrictCheck;
+                }
+
                 EditorGUILayout.LabelField("Reference Pool Count", ReferencePool.Count.ToString());
                 m_ShowFullClassName = EditorGUILayout.Toggle("Show Full Class Name", m_ShowFullClassName);
 
@@ -113,12 +117,19 @@ namespace UnityGameFramework.Editor
                     }
                 }
             }
+            else
+            {
+                EditorGUILayout.PropertyField(m_StrictCheck);
+            }
+
+            serializedObject.ApplyModifiedProperties();
 
             Repaint();
         }
 
         private void OnEnable()
         {
+            m_StrictCheck = serializedObject.FindProperty("m_StrictCheck");
         }
 
         private void DrawReferencePoolInfo(ReferencePoolInfo referencePoolInfo)

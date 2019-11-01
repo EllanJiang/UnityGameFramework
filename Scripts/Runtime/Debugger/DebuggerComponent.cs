@@ -44,7 +44,7 @@ namespace UnityGameFramework.Runtime
         private GUISkin m_Skin = null;
 
         [SerializeField]
-        private DebuggerActiveWindowType m_ActiveWindow = DebuggerActiveWindowType.Auto;
+        private DebuggerActiveWindowType m_ActiveWindow = DebuggerActiveWindowType.AlwaysOpen;
 
         [SerializeField]
         private bool m_ShowFullWindow = false;
@@ -177,13 +177,20 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            if (m_ActiveWindow == DebuggerActiveWindowType.Auto)
+            switch (m_ActiveWindow)
             {
-                ActiveWindow = Debug.isDebugBuild;
-            }
-            else
-            {
-                ActiveWindow = (m_ActiveWindow == DebuggerActiveWindowType.Open);
+                case DebuggerActiveWindowType.AlwaysOpen:
+                    ActiveWindow = true;
+                    break;
+                case DebuggerActiveWindowType.OnlyWhenDevelopment:
+                    ActiveWindow = Debug.isDebugBuild;
+                    break;
+                case DebuggerActiveWindowType.OnlyInEditor:
+                    ActiveWindow = Application.isEditor;
+                    break;
+                default:
+                    ActiveWindow = false;
+                    break;
             }
 
             m_FpsCounter = new FpsCounter(0.5f);

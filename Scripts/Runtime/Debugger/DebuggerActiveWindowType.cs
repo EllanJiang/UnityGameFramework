@@ -13,18 +13,23 @@ namespace UnityGameFramework.Runtime
     public enum DebuggerActiveWindowType
     {
         /// <summary>
-        /// 自动（发布版本状态关闭，开发版本状态打开）。
+        /// 总是关闭。
         /// </summary>
-        Auto = 0,
+        AlwaysOpen = 0,
 
         /// <summary>
-        /// 关闭。
+        /// 仅在开发模式时打开。
         /// </summary>
-        Close,
+        OnlyWhenDevelopment,
 
         /// <summary>
-        /// 打开。
+        /// 仅在编辑器中打开。
         /// </summary>
-        Open,
+        OnlyInEditor,
+
+        /// <summary>
+        /// 总是打开。
+        /// </summary>
+        AlwaysClose,
     }
 }

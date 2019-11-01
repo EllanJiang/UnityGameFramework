@@ -182,10 +182,10 @@ namespace UnityGameFramework.Runtime
                 case DebuggerActiveWindowType.AlwaysOpen:
                     ActiveWindow = true;
                     break;
-                case DebuggerActiveWindowType.OnlyWhenDevelopment:
+                case DebuggerActiveWindowType.OnlyOpenWhenDevelopment:
                     ActiveWindow = Debug.isDebugBuild;
                     break;
-                case DebuggerActiveWindowType.OnlyInEditor:
+                case DebuggerActiveWindowType.OnlyOpenInEditor:
                     ActiveWindow = Application.isEditor;
                     break;
                 default:

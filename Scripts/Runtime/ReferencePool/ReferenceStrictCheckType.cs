@@ -13,23 +13,23 @@ namespace UnityGameFramework.Runtime
     public enum ReferenceStrictCheckType
     {
         /// <summary>
-        /// 总是关闭。
+        /// 总是启用。
         /// </summary>
-        AlwaysOpen = 0,
+        AlwaysEnable = 0,
 
         /// <summary>
-        /// 仅在开发模式时打开。
+        /// 仅在开发模式时启用。
         /// </summary>
-        OnlyWhenDevelopment,
+        OnlyEnableWhenDevelopment,
 
         /// <summary>
-        /// 仅在编辑器中打开。
+        /// 仅在编辑器中启用。
         /// </summary>
-        OnlyInEditor,
+        OnlyEnableInEditor,
 
         /// <summary>
-        /// 总是打开。
+        /// 总是禁用。
         /// </summary>
-        AlwaysClose,
+        AlwaysDisable,
     }
 }

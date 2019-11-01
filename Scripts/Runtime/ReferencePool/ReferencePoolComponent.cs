@@ -21,30 +21,6 @@ namespace UnityGameFramework.Runtime
         private ReferenceStrictCheckType m_EnableStrictCheck = ReferenceStrictCheckType.AlwaysEnable;
 
         /// <summary>
-        /// 游戏框架组件初始化。
-        /// </summary>
-        protected override void Awake()
-        {
-            base.Awake();
-
-            switch (m_EnableStrictCheck)
-            {
-                case ReferenceStrictCheckType.AlwaysEnable:
-                    EnableStrictCheck = true;
-                    break;
-                case ReferenceStrictCheckType.OnlyEnableWhenDevelopment:
-                    EnableStrictCheck = Debug.isDebugBuild;
-                    break;
-                case ReferenceStrictCheckType.OnlyEnableInEditor:
-                    EnableStrictCheck = Application.isEditor;
-                    break;
-                default:
-                    EnableStrictCheck = false;
-                    break;
-            }
-        }
-
-        /// <summary>
         /// 获取或设置是否开启强制检查。
         /// </summary>
         public bool EnableStrictCheck
@@ -60,6 +36,25 @@ namespace UnityGameFramework.Runtime
                 {
                     Log.Info("Strict checking is enabled for the Reference Pool. It will drastically affect the performance.");
                 }
+            }
+        }
+
+        private void Start()
+        {
+            switch (m_EnableStrictCheck)
+            {
+                case ReferenceStrictCheckType.AlwaysEnable:
+                    EnableStrictCheck = true;
+                    break;
+                case ReferenceStrictCheckType.OnlyEnableWhenDevelopment:
+                    EnableStrictCheck = Debug.isDebugBuild;
+                    break;
+                case ReferenceStrictCheckType.OnlyEnableInEditor:
+                    EnableStrictCheck = Application.isEditor;
+                    break;
+                default:
+                    EnableStrictCheck = false;
+                    break;
             }
         }
     }

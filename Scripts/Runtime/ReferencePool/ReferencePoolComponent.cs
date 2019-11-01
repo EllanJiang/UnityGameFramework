@@ -18,7 +18,7 @@ namespace UnityGameFramework.Runtime
     public sealed class ReferencePoolComponent : GameFrameworkComponent
     {
         [SerializeField]
-        private ReferenceStrictCheckType m_StrictCheck = ReferenceStrictCheckType.AlwaysEnable;
+        private ReferenceStrictCheckType m_EnableStrictCheck = ReferenceStrictCheckType.AlwaysEnable;
 
         /// <summary>
         /// 游戏框架组件初始化。
@@ -27,7 +27,7 @@ namespace UnityGameFramework.Runtime
         {
             base.Awake();
 
-            switch (m_StrictCheck)
+            switch (m_EnableStrictCheck)
             {
                 case ReferenceStrictCheckType.AlwaysEnable:
                     EnableStrictCheck = true;

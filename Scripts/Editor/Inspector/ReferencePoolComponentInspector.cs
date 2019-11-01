@@ -22,7 +22,7 @@ namespace UnityGameFramework.Editor
         private readonly Dictionary<string, List<ReferencePoolInfo>> m_ReferencePoolInfos = new Dictionary<string, List<ReferencePoolInfo>>();
         private readonly HashSet<string> m_OpenedItems = new HashSet<string>();
 
-        private SerializedProperty m_StrictCheck = null;
+        private SerializedProperty m_EnableStrictCheck = null;
 
         private bool m_ShowFullClassName = false;
 
@@ -119,7 +119,7 @@ namespace UnityGameFramework.Editor
             }
             else
             {
-                EditorGUILayout.PropertyField(m_StrictCheck);
+                EditorGUILayout.PropertyField(m_EnableStrictCheck);
             }
 
             serializedObject.ApplyModifiedProperties();
@@ -129,7 +129,7 @@ namespace UnityGameFramework.Editor
 
         private void OnEnable()
         {
-            m_StrictCheck = serializedObject.FindProperty("m_StrictCheck");
+            m_EnableStrictCheck = serializedObject.FindProperty("m_EnableStrictCheck");
         }
 
         private void DrawReferencePoolInfo(ReferencePoolInfo referencePoolInfo)

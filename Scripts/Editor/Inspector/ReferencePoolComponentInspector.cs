@@ -37,6 +37,7 @@ namespace UnityGameFramework.Editor
 
             if (IsPrefabInHierarchy(t.gameObject))
             {
+                EditorGUILayout.LabelField("Enable Strict Check", ReferencePool.EnableStrictCheck.ToString());
                 EditorGUILayout.LabelField("Reference Pool Count", ReferencePool.Count.ToString());
                 m_ShowFullClassName = EditorGUILayout.Toggle("Show Full Class Name", m_ShowFullClassName);
 

@@ -27,6 +27,7 @@ namespace UnityGameFramework.Runtime
                 GUILayout.Label("<b>Reference Pool Information</b>");
                 GUILayout.BeginVertical("box");
                 {
+                    DrawItem("Enable Strict Check", ReferencePool.EnableStrictCheck.ToString());
                     DrawItem("Reference Pool Count", ReferencePool.Count.ToString());
                 }
                 GUILayout.EndVertical();

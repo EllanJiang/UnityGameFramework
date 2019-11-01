@@ -199,6 +199,12 @@ namespace UnityGameFramework.Runtime
                 Utility.Converter.ScreenDpi = DefaultDpi;
             }
 
+            ReferencePool.EnableStrictCheck = Application.isEditor;
+            if (ReferencePool.EnableStrictCheck)
+            {
+                Log.Info("Strict checking is enabled for the Reference Pool. It will drastically affect the performance.");
+            }
+
             m_EditorResourceMode &= Application.isEditor;
             if (m_EditorResourceMode)
             {

@@ -648,8 +648,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed5533de69c4e5a4dabc7c23fce1fa98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnablePlaySoundSuccessEvent: 1
-  m_EnablePlaySoundFailureEvent: 1
   m_EnablePlaySoundUpdateEvent: 0
   m_EnablePlaySoundDependencyAssetEvent: 0
   m_InstanceRoot: {fileID: 0}
@@ -672,12 +670,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6242b052eb207b40b22e8fe77a315ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnableLoadSceneSuccessEvent: 1
-  m_EnableLoadSceneFailureEvent: 1
   m_EnableLoadSceneUpdateEvent: 1
   m_EnableLoadSceneDependencyAssetEvent: 1
-  m_EnableUnloadSceneSuccessEvent: 1
-  m_EnableUnloadSceneFailureEvent: 1
 --- !u!114 &11420954
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -744,8 +738,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54066418ab853614483ea44b531049f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnableLoadDataTableSuccessEvent: 1
-  m_EnableLoadDataTableFailureEvent: 1
   m_EnableLoadDataTableUpdateEvent: 0
   m_EnableLoadDataTableDependencyAssetEvent: 0
   m_DataTableHelperTypeName: UnityGameFramework.Runtime.DefaultDataTableHelper
@@ -811,6 +803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae4d40d7e878bc498492dc9c410d071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_StrictCheck: 0
 --- !u!114 &11461470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -822,8 +815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706e6317a59f61044b2805be79f6b284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnableLoadDictionarySuccessEvent: 1
-  m_EnableLoadDictionaryFailureEvent: 1
   m_EnableLoadDictionaryUpdateEvent: 0
   m_EnableLoadDictionaryDependencyAssetEvent: 0
   m_LocalizationHelperTypeName: UnityGameFramework.Runtime.DefaultLocalizationHelper
@@ -839,6 +830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26ec20b78ec32048bfb6c0ff875d8cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_EnableCachedAssets: 1
   m_LoadAssetCountPerFrame: 1
   m_MinLoadAssetRandomDelaySeconds: 0
   m_MaxLoadAssetRandomDelaySeconds: 0
@@ -864,8 +856,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e847b2b3e22e9b4792ca7ea6e1714c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnableLoadConfigSuccessEvent: 1
-  m_EnableLoadConfigFailureEvent: 1
   m_EnableLoadConfigUpdateEvent: 0
   m_EnableLoadConfigDependencyAssetEvent: 0
   m_ConfigHelperTypeName: UnityGameFramework.Runtime.DefaultConfigHelper
@@ -881,11 +871,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58aa63e99dabf9c4fb61a9ec4ac4d8ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnableShowEntitySuccessEvent: 1
-  m_EnableShowEntityFailureEvent: 1
   m_EnableShowEntityUpdateEvent: 0
   m_EnableShowEntityDependencyAssetEvent: 0
-  m_EnableHideEntityCompleteEvent: 1
   m_InstanceRoot: {fileID: 0}
   m_EntityHelperTypeName: UnityGameFramework.Runtime.DefaultEntityHelper
   m_CustomEntityHelper: {fileID: 0}
@@ -915,7 +902,6 @@ MonoBehaviour:
   m_ResourceExpireTime: 60
   m_ResourcePriority: 20000
   m_UpdatePrefixUri: 
-  m_UpdateFileCacheLength: 1048576
   m_GenerateReadWriteListLength: 1048576
   m_UpdateRetryCount: 3
   m_InstanceRoot: {fileID: 0}

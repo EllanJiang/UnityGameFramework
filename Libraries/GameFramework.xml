@@ -19403,14 +19403,7 @@
             <param name="path">要规范的路径。</param>
             <returns>规范的路径。</returns>
         </member>
-        <member name="M:GameFramework.Utility.Path.GetCombinePath(System.String[])">
-            <summary>
-            获取连接后的路径。
-            </summary>
-            <param name="path">路径片段。</param>
-            <returns>连接后的路径。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Path.GetRemotePath(System.String[])">
+        <member name="M:GameFramework.Utility.Path.GetRemotePath(System.String)">
             <summary>
             获取远程格式的路径（带有file:// 或 http:// 前缀）。
             </summary>

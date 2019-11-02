@@ -43,7 +43,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
         public AssetBundleBuilderController()
         {
-            m_ConfigurationPath = Type.GetConfigurationPath<AssetBundleBuilderConfigPathAttribute>() ?? Utility.Path.GetCombinePath(Application.dataPath, "GameFramework/Configs/AssetBundleBuilder.xml");
+            m_ConfigurationPath = Type.GetConfigurationPath<AssetBundleBuilderConfigPathAttribute>() ?? Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "GameFramework/Configs/AssetBundleBuilder.xml"));
 
             m_AssetBundleCollection = new AssetBundleCollection();
 
@@ -938,7 +938,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         {
             string assetBundleFullName = GetAssetBundleFullName(assetBundleName, assetBundleVariant);
             AssetBundleData assetBundleData = m_AssetBundleDatas[assetBundleFullName];
-            string workingName = Utility.Path.GetCombinePath(workingPath, assetBundleFullName);
+            string workingName = Utility.Path.GetRegularPath(Path.Combine(workingPath, assetBundleFullName));
 
             byte[] bytes = File.ReadAllBytes(workingName);
             int length = bytes.Length;
@@ -959,7 +959,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             // Package AssetBundle
             if (OutputPackageSelected)
             {
-                string packageName = Utility.Path.GetResourceNameWithSuffix(Utility.Path.GetCombinePath(outputPackagePath, assetBundleFullName));
+                string packageName = Utility.Path.GetResourceNameWithSuffix(Utility.Path.GetRegularPath(Path.Combine(outputPackagePath, assetBundleFullName)));
                 string packageDirectoryName = Path.GetDirectoryName(packageName);
                 if (!Directory.Exists(packageDirectoryName))
                 {
@@ -972,7 +972,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             // Packed AssetBundle
             if (OutputPackedSelected && assetBundleData.Packed)
             {
-                string packedName = Utility.Path.GetResourceNameWithSuffix(Utility.Path.GetCombinePath(outputPackedPath, assetBundleFullName));
+                string packedName = Utility.Path.GetResourceNameWithSuffix(Utility.Path.GetRegularPath(Path.Combine(outputPackedPath, assetBundleFullName)));
                 string packedDirectoryName = Path.GetDirectoryName(packedName);
                 if (!Directory.Exists(packedDirectoryName))
                 {
@@ -985,7 +985,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             // Full AssetBundle
             if (OutputFullSelected)
             {
-                string fullName = Utility.Path.GetResourceNameWithCrc32AndSuffix(Utility.Path.GetCombinePath(outputFullPath, assetBundleFullName), hashCode);
+                string fullName = Utility.Path.GetResourceNameWithCrc32AndSuffix(Utility.Path.GetRegularPath(Path.Combine(outputFullPath, assetBundleFullName)), hashCode);
                 string fullDirectoryName = Path.GetDirectoryName(fullName);
                 if (!Directory.Exists(fullDirectoryName))
                 {
@@ -1013,7 +1013,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             byte[] encryptBytes = new byte[4];
             Utility.Random.GetRandomBytes(encryptBytes);
 
-            string packageListPath = Utility.Path.GetCombinePath(outputPackagePath, VersionListFileName);
+            string packageListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackagePath, VersionListFileName));
             using (FileStream fileStream = new FileStream(packageListPath, FileMode.CreateNew, FileAccess.Write))
             {
                 using (BinaryWriter binaryWriter = new BinaryWriter(fileStream, Encoding.UTF8))
@@ -1126,7 +1126,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             byte[] encryptBytes = new byte[4];
             Utility.Random.GetRandomBytes(encryptBytes);
 
-            string versionListPath = Utility.Path.GetCombinePath(outputFullPath, VersionListFileName);
+            string versionListPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, VersionListFileName));
             using (FileStream fileStream = new FileStream(versionListPath, FileMode.CreateNew, FileAccess.Write))
             {
                 using (BinaryWriter binaryWriter = new BinaryWriter(fileStream, Encoding.UTF8))
@@ -1262,7 +1262,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 packedAssetBundleDatas.Add(assetBundleData);
             }
 
-            string readOnlyListPath = Utility.Path.GetCombinePath(outputPackedPath, ResourceListFileName);
+            string readOnlyListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackedPath, ResourceListFileName));
             using (FileStream fileStream = new FileStream(readOnlyListPath, FileMode.CreateNew, FileAccess.Write))
             {
                 using (BinaryWriter binaryWriter = new BinaryWriter(fileStream, Encoding.UTF8))

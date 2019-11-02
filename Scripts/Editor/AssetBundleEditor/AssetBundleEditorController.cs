@@ -34,7 +34,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
         public AssetBundleEditorController()
         {
-            m_ConfigurationPath = Type.GetConfigurationPath<AssetBundleEditorConfigPathAttribute>() ?? Utility.Path.GetCombinePath(Application.dataPath, "GameFramework/Configs/AssetBundleEditor.xml");
+            m_ConfigurationPath = Type.GetConfigurationPath<AssetBundleEditorConfigPathAttribute>() ?? Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "GameFramework/Configs/AssetBundleEditor.xml"));
 
             m_AssetBundleCollection = new AssetBundleCollection();
 
@@ -590,7 +590,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             {
                 foreach (string sourceAssetSearchRelativePath in m_SourceAssetSearchRelativePaths)
                 {
-                    m_SourceAssetSearchPaths.Add(Utility.Path.GetCombinePath(m_SourceAssetRootPath, sourceAssetSearchRelativePath));
+                    m_SourceAssetSearchPaths.Add(Utility.Path.GetRegularPath(Path.Combine(m_SourceAssetRootPath, sourceAssetSearchRelativePath)));
                 }
             }
             else

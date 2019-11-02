@@ -43,8 +43,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     throw new GameFrameworkException("Build report path is invalid.");
                 }
 
-                m_BuildReportName = Utility.Path.GetCombinePath(buildReportPath, BuildReportName);
-                m_BuildLogName = Utility.Path.GetCombinePath(buildReportPath, BuildLogName);
+                m_BuildReportName = Utility.Path.GetRegularPath(Path.Combine(buildReportPath, BuildReportName));
+                m_BuildLogName = Utility.Path.GetRegularPath(Path.Combine(buildReportPath, BuildLogName));
                 m_ProductName = productName;
                 m_CompanyName = companyName;
                 m_GameIdentifier = gameIdentifier;

@@ -99,7 +99,6 @@ namespace UnityGameFramework.Runtime
             set
             {
                 m_DebuggerManager.ActiveWindow = value;
-                enabled = value;
             }
         }
 
@@ -182,12 +181,15 @@ namespace UnityGameFramework.Runtime
                 case DebuggerActiveWindowType.AlwaysOpen:
                     ActiveWindow = true;
                     break;
+
                 case DebuggerActiveWindowType.OnlyOpenWhenDevelopment:
                     ActiveWindow = Debug.isDebugBuild;
                     break;
+
                 case DebuggerActiveWindowType.OnlyOpenInEditor:
                     ActiveWindow = Application.isEditor;
                     break;
+
                 default:
                     ActiveWindow = false;
                     break;

@@ -178,7 +178,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">要增加全局配置项的名称。</param>
         /// <param name="configValue">要增加全局配置项的值。</param>
-        /// <returns></returns>
+        /// <returns>是否增加全局配置项成功。</returns>
         protected bool AddConfig(string configName, string configValue)
         {
             bool boolValue = false;

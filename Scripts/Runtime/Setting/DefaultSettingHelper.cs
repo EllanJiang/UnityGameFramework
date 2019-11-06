@@ -202,7 +202,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="objectType">要读取对象的类型。</param>
         /// <param name="settingName">要获取游戏配置项的名称。</param>
-        /// <returns></returns>
+        /// <returns>读取的对象。</returns>
         public override object GetObject(Type objectType, string settingName)
         {
             return Utility.Json.ToObject(objectType, PlayerPrefs.GetString(settingName));
@@ -232,7 +232,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="objectType">要读取对象的类型。</param>
         /// <param name="settingName">要获取游戏配置项的名称。</param>
         /// <param name="defaultObj">当指定的游戏配置项不存在时，返回此默认对象。</param>
-        /// <returns></returns>
+        /// <returns>读取的对象。</returns>
         public override object GetObject(Type objectType, string settingName, object defaultObj)
         {
             string json = PlayerPrefs.GetString(settingName, null);

@@ -138,7 +138,7 @@ namespace UnityGameFramework.Editor
         /// 获取指定平台的脚本宏定义。
         /// </summary>
         /// <param name="buildTargetGroup">要获取脚本宏定义的平台。</param>
-        /// <returns></returns>
+        /// <returns>平台的脚本宏定义。</returns>
         public static string[] GetScriptingDefineSymbols(BuildTargetGroup buildTargetGroup)
         {
             return PlayerSettings.GetScriptingDefineSymbolsForGroup(buildTargetGroup).Split(';');

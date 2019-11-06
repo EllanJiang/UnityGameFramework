@@ -73,7 +73,7 @@ namespace UnityGameFramework.Runtime
                         {
                             GUILayout.BeginHorizontal();
                             {
-                                GUILayout.Label(objectInfos[i].Name);
+                                GUILayout.Label(string.IsNullOrEmpty(objectInfos[i].Name) ? "<None>" : objectInfos[i].Name);
                                 GUILayout.Label(objectInfos[i].Locked.ToString(), GUILayout.Width(60f));
                                 GUILayout.Label(objectPool.AllowMultiSpawn ? objectInfos[i].SpawnCount.ToString() : objectInfos[i].IsInUse.ToString(), GUILayout.Width(60f));
                                 GUILayout.Label(objectInfos[i].CustomCanReleaseFlag.ToString(), GUILayout.Width(60f));

@@ -85,7 +85,7 @@ namespace UnityGameFramework.Editor
                     {
                         foreach (ObjectInfo objectInfo in objectInfos)
                         {
-                            EditorGUILayout.LabelField(objectInfo.Name, Utility.Text.Format("{0}, {1}, {2}, {3}, {4}", objectInfo.Locked.ToString(), objectPool.AllowMultiSpawn ? objectInfo.SpawnCount.ToString() : objectInfo.IsInUse.ToString(), objectInfo.CustomCanReleaseFlag.ToString(), objectInfo.Priority.ToString(), objectInfo.LastUseTime.ToString("yyyy-MM-dd HH:mm:ss")));
+                            EditorGUILayout.LabelField(string.IsNullOrEmpty(objectInfo.Name) ? "<None>" : objectInfo.Name, Utility.Text.Format("{0}, {1}, {2}, {3}, {4}", objectInfo.Locked.ToString(), objectPool.AllowMultiSpawn ? objectInfo.SpawnCount.ToString() : objectInfo.IsInUse.ToString(), objectInfo.CustomCanReleaseFlag.ToString(), objectInfo.Priority.ToString(), objectInfo.LastUseTime.ToString("yyyy-MM-dd HH:mm:ss")));
                         }
 
                         if (GUILayout.Button("Release"))

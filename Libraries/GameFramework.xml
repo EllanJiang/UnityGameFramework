@@ -594,13 +594,6 @@
             <param name="message">解释异常原因的错误消息。</param>
             <param name="innerException">导致当前异常的异常。如果 innerException 参数不为空引用，则在处理内部异常的 catch 块中引发当前异常。</param>
         </member>
-        <member name="M:GameFramework.GameFrameworkException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            用序列化数据初始化游戏框架异常类的新实例。
-            </summary>
-            <param name="info">存有有关所引发异常的序列化的对象数据。</param>
-            <param name="context">包含有关源或目标的上下文信息。</param>
-        </member>
         <member name="T:GameFramework.GameFrameworkFunc`1">
             <summary>
             封装一个方法，该方法不具有参数，但却返回 TResult 参数指定的类型的值。
@@ -1005,7 +998,7 @@
         </member>
         <member name="P:GameFramework.GameFrameworkLinkedList`1.Count">
             <summary>
-            获取链表中实际包含的结点数。
+            获取链表中实际包含的结点数量。
             </summary>
         </member>
         <member name="P:GameFramework.GameFrameworkLinkedList`1.CachedNodeCount">
@@ -1145,12 +1138,6 @@
             <param name="value">要查找的指定值。</param>
             <returns>包含指定值的最后一个结点。</returns>
         </member>
-        <member name="M:GameFramework.GameFrameworkLinkedList`1.GetEnumerator">
-            <summary>
-            返回循环访问集合的枚举数。
-            </summary>
-            <returns>循环访问集合的枚举数。</returns>
-        </member>
         <member name="M:GameFramework.GameFrameworkLinkedList`1.Remove(`0)">
             <summary>
             从链表中移除指定值的第一个匹配项。
@@ -1173,6 +1160,12 @@
             <summary>
             移除位于链表结尾处的结点。
             </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.GetEnumerator">
+            <summary>
+            返回循环访问集合的枚举数。
+            </summary>
+            <returns>循环访问集合的枚举数。</returns>
         </member>
         <member name="T:GameFramework.GameFrameworkLinkedList`1.Enumerator">
             <summary>
@@ -1198,7 +1191,7 @@
             <summary>
             获取下一个结点。
             </summary>
-            <returns></returns>
+            <returns>返回下一个结点。</returns>
         </member>
         <member name="M:GameFramework.GameFrameworkLinkedList`1.Enumerator.System#Collections#IEnumerator#Reset">
             <summary>
@@ -1226,6 +1219,200 @@
         <member name="M:GameFramework.GameFrameworkModule.Shutdown">
             <summary>
             关闭并清理游戏框架模块。
+            </summary>
+        </member>
+        <member name="T:GameFramework.GameFrameworkMultiDictionary`2">
+            <summary>
+            游戏框架多值字典类。
+            </summary>
+            <typeparam name="TKey">指定多值字典的主键类型。</typeparam>
+            <typeparam name="TValue">指定多值字典的值类型。</typeparam>
+        </member>
+        <member name="M:GameFramework.GameFrameworkMultiDictionary`2.#ctor">
+            <summary>
+            初始化游戏框架多值字典类的新实例。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkMultiDictionary`2.Count">
+            <summary>
+            获取多值字典中实际包含的主键数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkMultiDictionary`2.Item(`0)">
+            <summary>
+            获取多值字典中指定主键的范围。
+            </summary>
+            <param name="key">指定的主键。</param>
+            <returns>指定主键的范围。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkMultiDictionary`2.Clear">
+            <summary>
+            清理多值字典。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkMultiDictionary`2.Contains(`0)">
+            <summary>
+            检查多值字典中是否包含指定主键。
+            </summary>
+            <param name="key">要检查的主键。</param>
+            <returns>多值字典中是否包含指定主键。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkMultiDictionary`2.Contains(`0,`1)">
+            <summary>
+            检查多值字典中是否包含指定值。
+            </summary>
+            <param name="key">要检查的主键。</param>
+            <param name="value">要检查的值。</param>
+            <returns>多值字典中是否包含指定值。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkMultiDictionary`2.TryGetValue(`0,GameFramework.GameFrameworkLinkedListRange{`1}@)">
+            <summary>
+            尝试获取多值字典中指定主键的范围。
+            </summary>
+            <param name="key">指定的主键。</param>
+            <param name="range">指定主键的范围。</param>
+            <returns>是否获取成功。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkMultiDictionary`2.Add(`0,`1)">
+            <summary>
+            向指定的主键增加指定的值。
+            </summary>
+            <param name="key">指定的主键。</param>
+            <param name="value">指定的值。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkMultiDictionary`2.Remove(`0,`1)">
+            <summary>
+            从指定的主键中移除指定的值。
+            </summary>
+            <param name="key">指定的主键。</param>
+            <param name="value">指定的值。</param>
+            <returns>是否移除成功。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkMultiDictionary`2.RemoveAll(`0)">
+            <summary>
+            从指定的主键中移除所有的值。
+            </summary>
+            <param name="key">指定的主键。</param>
+            <returns>是否移除成功。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkMultiDictionary`2.GetEnumerator">
+            <summary>
+            返回循环访问集合的枚举数。
+            </summary>
+            <returns>循环访问集合的枚举数。</returns>
+        </member>
+        <member name="T:GameFramework.GameFrameworkMultiDictionary`2.Enumerator">
+            <summary>
+            循环访问集合的枚举数。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkMultiDictionary`2.Enumerator.Current">
+            <summary>
+            获取当前结点。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkMultiDictionary`2.Enumerator.System#Collections#IEnumerator#Current">
+            <summary>
+            获取当前的枚举数。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkMultiDictionary`2.Enumerator.Dispose">
+            <summary>
+            清理枚举数。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkMultiDictionary`2.Enumerator.MoveNext">
+            <summary>
+            获取下一个结点。
+            </summary>
+            <returns>返回下一个结点。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkMultiDictionary`2.Enumerator.System#Collections#IEnumerator#Reset">
+            <summary>
+            重置枚举数。
+            </summary>
+        </member>
+        <member name="T:GameFramework.GameFrameworkLinkedListRange`1">
+            <summary>
+            游戏框架链表范围。
+            </summary>
+            <typeparam name="T">指定链表范围的元素类型。</typeparam>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedListRange`1.#ctor(System.Collections.Generic.LinkedListNode{`0})">
+            <summary>
+            初始化游戏框架链表范围的新实例。
+            </summary>
+            <param name="node">链表范围的唯一结点。</param>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedListRange`1.#ctor(System.Collections.Generic.LinkedListNode{`0},System.Collections.Generic.LinkedListNode{`0})">
+            <summary>
+            初始化游戏框架链表范围的新实例。
+            </summary>
+            <param name="first">链表范围的开始结点。</param>
+            <param name="last">链表范围的结束结点。</param>
+        </member>
+        <member name="P:GameFramework.GameFrameworkLinkedListRange`1.IsValid">
+            <summary>
+            获取链表范围是否有效。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkLinkedListRange`1.First">
+            <summary>
+            获取链表范围的开始结点。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkLinkedListRange`1.Last">
+            <summary>
+            获取链表范围的结束结点。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkLinkedListRange`1.Count">
+            <summary>
+            获取链表范围的结点数量。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedListRange`1.Contains(`0)">
+            <summary>
+            检查是否包含指定值。
+            </summary>
+            <param name="value">要检查的值。</param>
+            <returns>是否包含指定值。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedListRange`1.GetEnumerator">
+            <summary>
+            返回循环访问集合的枚举数。
+            </summary>
+            <returns>循环访问集合的枚举数。</returns>
+        </member>
+        <member name="T:GameFramework.GameFrameworkLinkedListRange`1.Enumerator">
+            <summary>
+            循环访问集合的枚举数。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkLinkedListRange`1.Enumerator.Current">
+            <summary>
+            获取当前结点。
+            </summary>
+        </member>
+        <member name="P:GameFramework.GameFrameworkLinkedListRange`1.Enumerator.System#Collections#IEnumerator#Current">
+            <summary>
+            获取当前的枚举数。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedListRange`1.Enumerator.Dispose">
+            <summary>
+            清理枚举数。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedListRange`1.Enumerator.MoveNext">
+            <summary>
+            获取下一个结点。
+            </summary>
+            <returns>返回下一个结点。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedListRange`1.Enumerator.System#Collections#IEnumerator#Reset">
+            <summary>
+            重置枚举数。
             </summary>
         </member>
         <member name="T:GameFramework.GameFrameworkSegment`1">
@@ -8949,7 +9136,7 @@
             </summary>
             <param name="source">要反序列化的来源流。</param>
             <param name="customErrorData">用户自定义错误数据。</param>
-            <returns></returns>
+            <returns>反序列化后的消息包头。</returns>
         </member>
         <member name="M:GameFramework.Network.INetworkChannelHelper.DeserializePacket(GameFramework.Network.IPacketHeader,System.IO.Stream,System.Object@)">
             <summary>
@@ -12743,7 +12930,7 @@
             </summary>
             <param name="bytes">资源的二进制流。</param>
             <param name="loadType">资源加载方式。</param>
-            <returns></returns>
+            <returns>创建的加载资源代理辅助器异步读取资源二进制流完成事件。</returns>
         </member>
         <member name="M:GameFramework.Resource.LoadResourceAgentHelperReadBytesCompleteEventArgs.Clear">
             <summary>
@@ -15245,7 +15432,7 @@
             </summary>
             <param name="objectType">要读取对象的类型。</param>
             <param name="settingName">要获取游戏配置项的名称。</param>
-            <returns></returns>
+            <returns>读取的对象。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.GetObject``1(System.String,``0)">
             <summary>
@@ -15263,7 +15450,7 @@
             <param name="objectType">要读取对象的类型。</param>
             <param name="settingName">要获取游戏配置项的名称。</param>
             <param name="defaultObj">当指定的游戏配置项不存在时，返回此默认对象。</param>
-            <returns></returns>
+            <returns>读取的对象。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.SetObject``1(System.String,``0)">
             <summary>
@@ -15423,7 +15610,7 @@
             </summary>
             <param name="objectType">要读取对象的类型。</param>
             <param name="settingName">要获取游戏配置项的名称。</param>
-            <returns></returns>
+            <returns>读取的对象。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.GetObject``1(System.String,``0)">
             <summary>
@@ -15441,7 +15628,7 @@
             <param name="objectType">要读取对象的类型。</param>
             <param name="settingName">要获取游戏配置项的名称。</param>
             <param name="defaultObj">当指定的游戏配置项不存在时，返回此默认对象。</param>
-            <returns></returns>
+            <returns>读取的对象。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.SetObject``1(System.String,``0)">
             <summary>
@@ -15618,7 +15805,7 @@
             </summary>
             <param name="objectType">要读取对象的类型。</param>
             <param name="settingName">要获取游戏配置项的名称。</param>
-            <returns></returns>
+            <returns>读取的对象。</returns>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.GetObject``1(System.String,``0)">
             <summary>
@@ -15636,7 +15823,7 @@
             <param name="objectType">要读取对象的类型。</param>
             <param name="settingName">要获取游戏配置项的名称。</param>
             <param name="defaultObj">当指定的游戏配置项不存在时，返回此默认对象。</param>
-            <returns></returns>
+            <returns>读取的对象。</returns>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.SetObject``1(System.String,``0)">
             <summary>

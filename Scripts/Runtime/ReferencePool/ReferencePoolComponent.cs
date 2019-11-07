@@ -46,12 +46,15 @@ namespace UnityGameFramework.Runtime
                 case ReferenceStrictCheckType.AlwaysEnable:
                     EnableStrictCheck = true;
                     break;
+
                 case ReferenceStrictCheckType.OnlyEnableWhenDevelopment:
                     EnableStrictCheck = Debug.isDebugBuild;
                     break;
+
                 case ReferenceStrictCheckType.OnlyEnableInEditor:
                     EnableStrictCheck = Application.isEditor;
                     break;
+
                 default:
                     EnableStrictCheck = false;
                     break;

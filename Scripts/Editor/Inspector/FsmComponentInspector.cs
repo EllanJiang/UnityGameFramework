@@ -47,7 +47,8 @@ namespace UnityGameFramework.Editor
 
         private void DrawFsm(FsmBase fsm)
         {
-            EditorGUILayout.LabelField(Utility.Text.GetFullName(fsm.OwnerType, fsm.Name), fsm.IsRunning ? Utility.Text.Format("{0}, {1} s", fsm.CurrentStateName, fsm.CurrentStateTime.ToString("F1")) : (fsm.IsDestroyed ? "Destroyed" : "Not Running"));
+            string typeName = fsm.OwnerType.FullName;
+            EditorGUILayout.LabelField(string.IsNullOrEmpty(fsm.Name) ? typeName : Utility.Text.Format("{0}.{1}", typeName, fsm.Name), fsm.IsRunning ? Utility.Text.Format("{0}, {1} s", fsm.CurrentStateName, fsm.CurrentStateTime.ToString("F1")) : (fsm.IsDestroyed ? "Destroyed" : "Not Running"));
         }
     }
 }

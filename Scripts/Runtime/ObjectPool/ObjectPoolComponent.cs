@@ -97,16 +97,6 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 检查是否存在对象池。
         /// </summary>
-        /// <param name="fullName">对象池完整名称。</param>
-        /// <returns>是否存在对象池。</returns>
-        public bool HasObjectPool(string fullName)
-        {
-            return m_ObjectPoolManager.HasObjectPool(fullName);
-        }
-
-        /// <summary>
-        /// 检查是否存在对象池。
-        /// </summary>
         /// <param name="condition">要检查的条件。</param>
         /// <returns>是否存在对象池。</returns>
         public bool HasObjectPool(Predicate<ObjectPoolBase> condition)
@@ -154,16 +144,6 @@ namespace UnityGameFramework.Runtime
         public ObjectPoolBase GetObjectPool(Type objectType, string name)
         {
             return m_ObjectPoolManager.GetObjectPool(objectType, name);
-        }
-
-        /// <summary>
-        /// 获取对象池。
-        /// </summary>
-        /// <param name="fullName">对象池完整名称。</param>
-        /// <returns>要获取的对象池。</returns>
-        public ObjectPoolBase GetObjectPool(string fullName)
-        {
-            return m_ObjectPoolManager.GetObjectPool(fullName);
         }
 
         /// <summary>

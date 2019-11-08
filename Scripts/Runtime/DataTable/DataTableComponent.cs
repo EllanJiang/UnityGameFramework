@@ -627,6 +627,27 @@ namespace UnityGameFramework.Runtime
             return m_DataTableManager.DestroyDataTable(dataRowType, name);
         }
 
+        /// <summary>
+        /// 销毁数据表。
+        /// </summary>
+        /// <typeparam name="T">数据表行的类型。</typeparam>
+        /// <param name="dataTable">要销毁的数据表。</param>
+        /// <returns>是否销毁数据表成功。</returns>
+        public bool DestroyDataTable<T>(IDataTable<T> dataTable) where T : IDataRow
+        {
+            return m_DataTableManager.DestroyDataTable(dataTable);
+        }
+
+        /// <summary>
+        /// 销毁数据表。
+        /// </summary>
+        /// <param name="dataTable">要销毁的数据表。</param>
+        /// <returns>是否销毁数据表成功。</returns>
+        public bool DestroyDataTable(DataTableBase dataTable)
+        {
+            return m_DataTableManager.DestroyDataTable(dataTable);
+        }
+
         private void OnLoadDataTableSuccess(object sender, GameFramework.DataTable.LoadDataTableSuccessEventArgs e)
         {
             m_EventComponent.Fire(this, LoadDataTableSuccessEventArgs.Create(e));

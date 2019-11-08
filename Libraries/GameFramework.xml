@@ -24,6 +24,76 @@
             按二进制流加载。
             </summary>
         </member>
+        <member name="T:GameFramework.TypeNamePair">
+            <summary>
+            类型和名称的组合值。
+            </summary>
+        </member>
+        <member name="M:GameFramework.TypeNamePair.#ctor(System.Type)">
+            <summary>
+            初始化类型和名称的组合值的新实例。
+            </summary>
+            <param name="type">类型。</param>
+        </member>
+        <member name="M:GameFramework.TypeNamePair.#ctor(System.Type,System.String)">
+            <summary>
+            初始化类型和名称的组合值的新实例。
+            </summary>
+            <param name="type">类型。</param>
+            <param name="name">名称。</param>
+        </member>
+        <member name="P:GameFramework.TypeNamePair.Type">
+            <summary>
+            获取类型。
+            </summary>
+        </member>
+        <member name="P:GameFramework.TypeNamePair.Name">
+            <summary>
+            获取名称。
+            </summary>
+        </member>
+        <member name="M:GameFramework.TypeNamePair.ToString">
+            <summary>
+            获取类型和名称的组合值字符串。
+            </summary>
+            <returns>类型和名称的组合值字符串。</returns>
+        </member>
+        <member name="M:GameFramework.TypeNamePair.GetHashCode">
+            <summary>
+            获取对象的哈希值。
+            </summary>
+            <returns>对象的哈希值。</returns>
+        </member>
+        <member name="M:GameFramework.TypeNamePair.Equals(System.Object)">
+            <summary>
+            比较对象是否与自身相等。
+            </summary>
+            <param name="obj">要比较的对象。</param>
+            <returns>被比较的对象是否与自身相等。</returns>
+        </member>
+        <member name="M:GameFramework.TypeNamePair.Equals(GameFramework.TypeNamePair)">
+            <summary>
+            比较对象是否与自身相等。
+            </summary>
+            <param name="value">要比较的对象。</param>
+            <returns>被比较的对象是否与自身相等。</returns>
+        </member>
+        <member name="M:GameFramework.TypeNamePair.op_Equality(GameFramework.TypeNamePair,GameFramework.TypeNamePair)">
+            <summary>
+            判断两个对象是否相等。
+            </summary>
+            <param name="a">值 a。</param>
+            <param name="b">值 b。</param>
+            <returns>两个对象是否相等。</returns>
+        </member>
+        <member name="M:GameFramework.TypeNamePair.op_Inequality(GameFramework.TypeNamePair,GameFramework.TypeNamePair)">
+            <summary>
+            判断两个对象是否不相等。
+            </summary>
+            <param name="a">值 a。</param>
+            <param name="b">值 b。</param>
+            <returns>两个对象是否不相等。</returns>
+        </member>
         <member name="T:GameFramework.BaseEventArgs">
             <summary>
             事件基类。
@@ -1468,7 +1538,7 @@
             <summary>
             比较对象是否与自身相等。
             </summary>
-            <param name="obj">要比较的对象。</param>
+            <param name="value">要比较的对象。</param>
             <returns>被比较的对象是否与自身相等。</returns>
         </member>
         <member name="M:GameFramework.GameFrameworkSegment`1.op_Equality(GameFramework.GameFrameworkSegment{`0},GameFramework.GameFrameworkSegment{`0})">
@@ -3815,6 +3885,21 @@
             <param name="name">数据表名称。</param>
             <returns>是否销毁数据表成功。</returns>
         </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DestroyDataTable``1(GameFramework.DataTable.IDataTable{``0})">
+            <summary>
+            销毁数据表。
+            </summary>
+            <typeparam name="T">数据表行的类型。</typeparam>
+            <param name="dataTable">要销毁的数据表。</param>
+            <returns>是否销毁数据表成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DestroyDataTable(GameFramework.DataTable.DataTableBase)">
+            <summary>
+            销毁数据表。
+            </summary>
+            <param name="dataTable">要销毁的数据表。</param>
+            <returns>是否销毁数据表成功。</returns>
+        </member>
         <member name="T:GameFramework.DataTable.DataTableManager.DataTable`1">
             <summary>
             数据表。
@@ -4442,6 +4527,21 @@
             </summary>
             <param name="dataRowType">数据表行的类型。</param>
             <param name="name">数据表名称。</param>
+            <returns>是否销毁数据表成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.DestroyDataTable``1(GameFramework.DataTable.IDataTable{``0})">
+            <summary>
+            销毁数据表。
+            </summary>
+            <typeparam name="T">数据表行的类型。</typeparam>
+            <param name="dataTable">要销毁的数据表。</param>
+            <returns>是否销毁数据表成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.DestroyDataTable(GameFramework.DataTable.DataTableBase)">
+            <summary>
+            销毁数据表。
+            </summary>
+            <param name="dataTable">要销毁的数据表。</param>
             <returns>是否销毁数据表成功。</returns>
         </member>
         <member name="T:GameFramework.DataTable.LoadDataTableDependencyAssetEventArgs">
@@ -9968,13 +10068,6 @@
             <param name="name">对象池名称。</param>
             <returns>是否存在对象池。</returns>
         </member>
-        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.HasObjectPool(System.String)">
-            <summary>
-            检查是否存在对象池。
-            </summary>
-            <param name="fullName">对象池完整名称。</param>
-            <returns>是否存在对象池。</returns>
-        </member>
         <member name="M:GameFramework.ObjectPool.IObjectPoolManager.HasObjectPool(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
             <summary>
             检查是否存在对象池。
@@ -10010,13 +10103,6 @@
             </summary>
             <param name="objectType">对象类型。</param>
             <param name="name">对象池名称。</param>
-            <returns>要获取的对象池。</returns>
-        </member>
-        <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetObjectPool(System.String)">
-            <summary>
-            获取对象池。
-            </summary>
-            <param name="fullName">对象池完整名称。</param>
             <returns>要获取的对象池。</returns>
         </member>
         <member name="M:GameFramework.ObjectPool.IObjectPoolManager.GetObjectPool(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
@@ -10978,13 +11064,6 @@
             <param name="name">对象池名称。</param>
             <returns>是否存在对象池。</returns>
         </member>
-        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.HasObjectPool(System.String)">
-            <summary>
-            检查是否存在对象池。
-            </summary>
-            <param name="fullName">对象池完整名称。</param>
-            <returns>是否存在对象池。</returns>
-        </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.HasObjectPool(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
             <summary>
             检查是否存在对象池。
@@ -11020,13 +11099,6 @@
             </summary>
             <param name="objectType">对象类型。</param>
             <param name="name">对象池名称。</param>
-            <returns>要获取的对象池。</returns>
-        </member>
-        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetObjectPool(System.String)">
-            <summary>
-            获取对象池。
-            </summary>
-            <param name="fullName">对象池完整名称。</param>
             <returns>要获取的对象池。</returns>
         </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.GetObjectPool(System.Predicate{GameFramework.ObjectPool.ObjectPoolBase})">
@@ -19749,29 +19821,6 @@
             <param name="format">字符串格式。</param>
             <param name="args">字符串参数。</param>
             <returns>格式化后的字符串。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Text.GetFullName``1(System.String)">
-            <summary>
-            根据类型和名称获取完整名称。
-            </summary>
-            <typeparam name="T">类型。</typeparam>
-            <param name="name">名称。</param>
-            <returns>完整名称。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Text.GetFullName(System.Type,System.String)">
-            <summary>
-            根据类型和名称获取完整名称。
-            </summary>
-            <param name="type">类型。</param>
-            <param name="name">名称。</param>
-            <returns>完整名称。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Text.GetByteLengthString(System.Int64)">
-            <summary>
-            获取字节长度字符串。
-            </summary>
-            <param name="byteLength">要获取的字节长度值。</param>
-            <returns>字节长度字符串。</returns>
         </member>
         <member name="T:GameFramework.Utility.Verifier">
             <summary>

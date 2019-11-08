@@ -46,11 +46,11 @@ namespace UnityGameFramework.Runtime
                     {
                         if (m_DuplicateSimpleCount > 0)
                         {
-                            GUILayout.Label(Utility.Text.Format("<b>{0} {1}s ({2}) obtained at {3}, while {4} {1}s ({5}) might be duplicated.</b>", m_Samples.Count.ToString(), typeName, Utility.Text.GetByteLengthString(m_SampleSize), m_SampleTime.ToString("yyyy-MM-dd HH:mm:ss"), m_DuplicateSimpleCount.ToString(), Utility.Text.GetByteLengthString(m_DuplicateSampleSize)));
+                            GUILayout.Label(Utility.Text.Format("<b>{0} {1}s ({2}) obtained at {3}, while {4} {1}s ({5}) might be duplicated.</b>", m_Samples.Count.ToString(), typeName, GetByteLengthString(m_SampleSize), m_SampleTime.ToString("yyyy-MM-dd HH:mm:ss"), m_DuplicateSimpleCount.ToString(), GetByteLengthString(m_DuplicateSampleSize)));
                         }
                         else
                         {
-                            GUILayout.Label(Utility.Text.Format("<b>{0} {1}s ({2}) obtained at {3}.</b>", m_Samples.Count.ToString(), typeName, Utility.Text.GetByteLengthString(m_SampleSize), m_SampleTime.ToString("yyyy-MM-dd HH:mm:ss")));
+                            GUILayout.Label(Utility.Text.Format("<b>{0} {1}s ({2}) obtained at {3}.</b>", m_Samples.Count.ToString(), typeName, GetByteLengthString(m_SampleSize), m_SampleTime.ToString("yyyy-MM-dd HH:mm:ss")));
                         }
 
                         if (m_Samples.Count > 0)
@@ -71,7 +71,7 @@ namespace UnityGameFramework.Runtime
                             {
                                 GUILayout.Label(m_Samples[i].Highlight ? Utility.Text.Format("<color=yellow>{0}</color>", m_Samples[i].Name) : m_Samples[i].Name);
                                 GUILayout.Label(m_Samples[i].Highlight ? Utility.Text.Format("<color=yellow>{0}</color>", m_Samples[i].Type) : m_Samples[i].Type, GUILayout.Width(240f));
-                                GUILayout.Label(m_Samples[i].Highlight ? Utility.Text.Format("<color=yellow>{0}</color>", Utility.Text.GetByteLengthString(m_Samples[i].Size)) : Utility.Text.GetByteLengthString(m_Samples[i].Size), GUILayout.Width(80f));
+                                GUILayout.Label(m_Samples[i].Highlight ? Utility.Text.Format("<color=yellow>{0}</color>", GetByteLengthString(m_Samples[i].Size)) : GetByteLengthString(m_Samples[i].Size), GUILayout.Width(80f));
                             }
                             GUILayout.EndHorizontal();
 

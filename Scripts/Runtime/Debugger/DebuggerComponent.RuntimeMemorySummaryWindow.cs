@@ -40,7 +40,7 @@ namespace UnityGameFramework.Runtime
                     }
                     else
                     {
-                        GUILayout.Label(Utility.Text.Format("<b>{0} Objects ({1}) obtained at {2}.</b>", m_SampleCount.ToString(), Utility.Text.GetByteLengthString(m_SampleSize), m_SampleTime.ToString("yyyy-MM-dd HH:mm:ss")));
+                        GUILayout.Label(Utility.Text.Format("<b>{0} Objects ({1}) obtained at {2}.</b>", m_SampleCount.ToString(), GetByteLengthString(m_SampleSize), m_SampleTime.ToString("yyyy-MM-dd HH:mm:ss")));
 
                         GUILayout.BeginHorizontal();
                         {
@@ -56,7 +56,7 @@ namespace UnityGameFramework.Runtime
                             {
                                 GUILayout.Label(m_Records[i].Name);
                                 GUILayout.Label(m_Records[i].Count.ToString(), GUILayout.Width(120f));
-                                GUILayout.Label(Utility.Text.GetByteLengthString(m_Records[i].Size), GUILayout.Width(120f));
+                                GUILayout.Label(GetByteLengthString(m_Records[i].Size), GUILayout.Width(120f));
                             }
                             GUILayout.EndHorizontal();
                         }

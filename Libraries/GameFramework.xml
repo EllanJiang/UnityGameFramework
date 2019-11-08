@@ -1811,13 +1811,6 @@
             <param name="referenceType">引用类型。</param>
             <returns>引用。</returns>
         </member>
-        <member name="M:GameFramework.ReferencePool.Release``1(``0)">
-            <summary>
-            将引用归还引用池。
-            </summary>
-            <typeparam name="T">引用类型。</typeparam>
-            <param name="reference">引用。</param>
-        </member>
         <member name="M:GameFramework.ReferencePool.Release(GameFramework.IReference)">
             <summary>
             将引用归还引用池。
@@ -7393,6 +7386,15 @@
             <param name="states">有限状态机状态集合。</param>
             <returns>创建的有限状态机。</returns>
         </member>
+        <member name="M:GameFramework.Fsm.Fsm`1.Create(System.String,`0,System.Collections.Generic.List{GameFramework.Fsm.FsmState{`0}})">
+            <summary>
+            创建有限状态机。
+            </summary>
+            <param name="name">有限状态机名称。</param>
+            <param name="owner">有限状态机持有者。</param>
+            <param name="states">有限状态机状态集合。</param>
+            <returns>创建的有限状态机。</returns>
+        </member>
         <member name="M:GameFramework.Fsm.Fsm`1.Clear">
             <summary>
             清理有限状态机。
@@ -7690,6 +7692,25 @@
             <returns>要创建的有限状态机。</returns>
         </member>
         <member name="M:GameFramework.Fsm.FsmManager.CreateFsm``1(System.String,``0,GameFramework.Fsm.FsmState{``0}[])">
+            <summary>
+            创建有限状态机。
+            </summary>
+            <typeparam name="T">有限状态机持有者类型。</typeparam>
+            <param name="name">有限状态机名称。</param>
+            <param name="owner">有限状态机持有者。</param>
+            <param name="states">有限状态机状态集合。</param>
+            <returns>要创建的有限状态机。</returns>
+        </member>
+        <member name="M:GameFramework.Fsm.FsmManager.CreateFsm``1(``0,System.Collections.Generic.List{GameFramework.Fsm.FsmState{``0}})">
+            <summary>
+            创建有限状态机。
+            </summary>
+            <typeparam name="T">有限状态机持有者类型。</typeparam>
+            <param name="owner">有限状态机持有者。</param>
+            <param name="states">有限状态机状态集合。</param>
+            <returns>要创建的有限状态机。</returns>
+        </member>
+        <member name="M:GameFramework.Fsm.FsmManager.CreateFsm``1(System.String,``0,System.Collections.Generic.List{GameFramework.Fsm.FsmState{``0}})">
             <summary>
             创建有限状态机。
             </summary>
@@ -8031,6 +8052,25 @@
             <returns>要创建的有限状态机。</returns>
         </member>
         <member name="M:GameFramework.Fsm.IFsmManager.CreateFsm``1(System.String,``0,GameFramework.Fsm.FsmState{``0}[])">
+            <summary>
+            创建有限状态机。
+            </summary>
+            <typeparam name="T">有限状态机持有者类型。</typeparam>
+            <param name="name">有限状态机名称。</param>
+            <param name="owner">有限状态机持有者。</param>
+            <param name="states">有限状态机状态集合。</param>
+            <returns>要创建的有限状态机。</returns>
+        </member>
+        <member name="M:GameFramework.Fsm.IFsmManager.CreateFsm``1(``0,System.Collections.Generic.List{GameFramework.Fsm.FsmState{``0}})">
+            <summary>
+            创建有限状态机。
+            </summary>
+            <typeparam name="T">有限状态机持有者类型。</typeparam>
+            <param name="owner">有限状态机持有者。</param>
+            <param name="states">有限状态机状态集合。</param>
+            <returns>要创建的有限状态机。</returns>
+        </member>
+        <member name="M:GameFramework.Fsm.IFsmManager.CreateFsm``1(System.String,``0,System.Collections.Generic.List{GameFramework.Fsm.FsmState{``0}})">
             <summary>
             创建有限状态机。
             </summary>

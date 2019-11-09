@@ -3556,6 +3556,11 @@
             获取数据表名称。
             </summary>
         </member>
+        <member name="P:GameFramework.DataTable.DataTableBase.FullName">
+            <summary>
+            获取数据表完整名称。
+            </summary>
+        </member>
         <member name="P:GameFramework.DataTable.DataTableBase.Type">
             <summary>
             获取数据表行的类型。
@@ -4096,6 +4101,11 @@
         <member name="P:GameFramework.DataTable.IDataTable`1.Name">
             <summary>
             获取数据表名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.DataTable.IDataTable`1.FullName">
+            <summary>
+            获取数据表完整名称。
             </summary>
         </member>
         <member name="P:GameFramework.DataTable.IDataTable`1.Type">
@@ -7635,6 +7645,11 @@
             获取有限状态机名称。
             </summary>
         </member>
+        <member name="P:GameFramework.Fsm.FsmBase.FullName">
+            <summary>
+            获取有限状态机完整名称。
+            </summary>
+        </member>
         <member name="P:GameFramework.Fsm.FsmBase.OwnerType">
             <summary>
             获取有限状态机持有者类型。
@@ -7932,6 +7947,11 @@
         <member name="P:GameFramework.Fsm.IFsm`1.Name">
             <summary>
             获取有限状态机名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Fsm.IFsm`1.FullName">
+            <summary>
+            获取有限状态机完整名称。
             </summary>
         </member>
         <member name="P:GameFramework.Fsm.IFsm`1.Owner">

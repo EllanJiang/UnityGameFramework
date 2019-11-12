@@ -1415,18 +1415,12 @@
             </summary>
             <typeparam name="T">指定链表范围的元素类型。</typeparam>
         </member>
-        <member name="M:GameFramework.GameFrameworkLinkedListRange`1.#ctor(System.Collections.Generic.LinkedListNode{`0})">
-            <summary>
-            初始化游戏框架链表范围的新实例。
-            </summary>
-            <param name="node">链表范围的唯一结点。</param>
-        </member>
         <member name="M:GameFramework.GameFrameworkLinkedListRange`1.#ctor(System.Collections.Generic.LinkedListNode{`0},System.Collections.Generic.LinkedListNode{`0})">
             <summary>
             初始化游戏框架链表范围的新实例。
             </summary>
             <param name="first">链表范围的开始结点。</param>
-            <param name="last">链表范围的结束结点。</param>
+            <param name="terminal">链表范围的终结标记结点。</param>
         </member>
         <member name="P:GameFramework.GameFrameworkLinkedListRange`1.IsValid">
             <summary>
@@ -1438,9 +1432,9 @@
             获取链表范围的开始结点。
             </summary>
         </member>
-        <member name="P:GameFramework.GameFrameworkLinkedListRange`1.Last">
+        <member name="P:GameFramework.GameFrameworkLinkedListRange`1.Terminal">
             <summary>
-            获取链表范围的结束结点。
+            获取链表范围的终结标记结点。
             </summary>
         </member>
         <member name="P:GameFramework.GameFrameworkLinkedListRange`1.Count">

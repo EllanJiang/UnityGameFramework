@@ -9282,6 +9282,11 @@
             关闭并清理网络频道辅助器。
             </summary>
         </member>
+        <member name="M:GameFramework.Network.INetworkChannelHelper.PrepareForConnecting">
+            <summary>
+            准备进行连接。
+            </summary>
+        </member>
         <member name="M:GameFramework.Network.INetworkChannelHelper.SendHeartBeat">
             <summary>
             发送心跳消息包。

@@ -9151,6 +9151,26 @@
             <param name="key">字典主键。</param>
             <returns>是否移除字典成功。</returns>
         </member>
+        <member name="T:GameFramework.Network.AddressFamily">
+            <summary>
+            网络地址类型。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Network.AddressFamily.Unknown">
+            <summary>
+            未知。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Network.AddressFamily.IPv4">
+            <summary>
+            IP 版本 4。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Network.AddressFamily.IPv6">
+            <summary>
+            IP 版本 6。
+            </summary>
+        </member>
         <member name="T:GameFramework.Network.INetworkChannel">
             <summary>
             网络频道接口。
@@ -9171,9 +9191,14 @@
             获取是否已连接。
             </summary>
         </member>
-        <member name="P:GameFramework.Network.INetworkChannel.NetworkType">
+        <member name="P:GameFramework.Network.INetworkChannel.ServiceType">
             <summary>
-            获取网络类型。
+            获取网络服务类型。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.INetworkChannel.AddressFamily">
+            <summary>
+            获取网络地址类型。
             </summary>
         </member>
         <member name="P:GameFramework.Network.INetworkChannel.SendPacketCount">
@@ -9374,11 +9399,12 @@
             </summary>
             <param name="results">所有网络频道。</param>
         </member>
-        <member name="M:GameFramework.Network.INetworkManager.CreateNetworkChannel(System.String,GameFramework.Network.INetworkChannelHelper)">
+        <member name="M:GameFramework.Network.INetworkManager.CreateNetworkChannel(System.String,GameFramework.Network.ServiceType,GameFramework.Network.INetworkChannelHelper)">
             <summary>
             创建网络频道。
             </summary>
             <param name="name">网络频道名称。</param>
+            <param name="serviceType">网络服务类型。</param>
             <param name="networkChannelHelper">网络频道辅助器。</param>
             <returns>要创建的网络频道。</returns>
         </member>
@@ -9529,21 +9555,6 @@
             Socket 错误。
             </summary>
         </member>
-        <member name="F:GameFramework.Network.NetworkErrorCode.SerializeError">
-            <summary>
-            序列化错误。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Network.NetworkErrorCode.DeserializePacketHeaderError">
-            <summary>
-            反序列化消息包头错误。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Network.NetworkErrorCode.DeserializePacketError">
-            <summary>
-            反序列化消息包错误。
-            </summary>
-        </member>
         <member name="F:GameFramework.Network.NetworkErrorCode.ConnectError">
             <summary>
             连接错误。
@@ -9557,6 +9568,21 @@
         <member name="F:GameFramework.Network.NetworkErrorCode.ReceiveError">
             <summary>
             接收错误。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Network.NetworkErrorCode.SerializeError">
+            <summary>
+            序列化错误。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Network.NetworkErrorCode.DeserializePacketHeaderError">
+            <summary>
+            反序列化消息包头错误。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Network.NetworkErrorCode.DeserializePacketError">
+            <summary>
+            反序列化消息包错误。
             </summary>
         </member>
         <member name="T:GameFramework.Network.NetworkErrorEventArgs">
@@ -9682,11 +9708,12 @@
             </summary>
             <param name="results">所有网络频道。</param>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.CreateNetworkChannel(System.String,GameFramework.Network.INetworkChannelHelper)">
+        <member name="M:GameFramework.Network.NetworkManager.CreateNetworkChannel(System.String,GameFramework.Network.ServiceType,GameFramework.Network.INetworkChannelHelper)">
             <summary>
             创建网络频道。
             </summary>
             <param name="name">网络频道名称。</param>
+            <param name="serviceType">网络服务类型。</param>
             <param name="networkChannelHelper">网络频道辅助器。</param>
             <returns>要创建的网络频道。</returns>
         </member>
@@ -9697,110 +9724,115 @@
             <param name="name">网络频道名称。</param>
             <returns>是否销毁网络频道成功。</returns>
         </member>
-        <member name="T:GameFramework.Network.NetworkManager.NetworkChannel">
+        <member name="T:GameFramework.Network.NetworkManager.NetworkChannelBase">
             <summary>
-            网络频道。
+            网络频道基类。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.#ctor(System.String,GameFramework.Network.INetworkChannelHelper)">
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannelBase.#ctor(System.String,GameFramework.Network.INetworkChannelHelper)">
             <summary>
-            初始化网络频道的新实例。
+            初始化网络频道基类的新实例。
             </summary>
             <param name="name">网络频道名称。</param>
             <param name="networkChannelHelper">网络频道辅助器。</param>
         </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.Name">
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannelBase.Name">
             <summary>
             获取网络频道名称。
             </summary>
         </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.Socket">
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannelBase.Socket">
             <summary>
             获取网络频道所使用的 Socket。
             </summary>
         </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.Connected">
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannelBase.Connected">
             <summary>
             获取是否已连接。
             </summary>
         </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.NetworkType">
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannelBase.ServiceType">
             <summary>
-            获取网络类型。
+            获取网络服务类型。
             </summary>
         </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.SendPacketCount">
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannelBase.AddressFamily">
+            <summary>
+            获取网络地址类型。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannelBase.SendPacketCount">
             <summary>
             获取要发送的消息包数量。
             </summary>
         </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.SentPacketCount">
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannelBase.SentPacketCount">
             <summary>
             获取累计发送的消息包数量。
             </summary>
         </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.ReceivePacketCount">
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannelBase.ReceivePacketCount">
             <summary>
             获取已接收未处理的消息包数量。
             </summary>
         </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.ReceivedPacketCount">
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannelBase.ReceivedPacketCount">
             <summary>
             获取累计已接收的消息包数量。
             </summary>
         </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.ResetHeartBeatElapseSecondsWhenReceivePacket">
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannelBase.ResetHeartBeatElapseSecondsWhenReceivePacket">
             <summary>
             获取或设置当收到消息包时是否重置心跳流逝时间。
             </summary>
         </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.MissHeartBeatCount">
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannelBase.MissHeartBeatCount">
             <summary>
             获取丢失心跳的次数。
             </summary>
         </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.HeartBeatInterval">
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannelBase.HeartBeatInterval">
             <summary>
             获取或设置心跳间隔时长，以秒为单位。
             </summary>
         </member>
-        <member name="P:GameFramework.Network.NetworkManager.NetworkChannel.HeartBeatElapseSeconds">
+        <member name="P:GameFramework.Network.NetworkManager.NetworkChannelBase.HeartBeatElapseSeconds">
             <summary>
             获取心跳等待时长，以秒为单位。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Update(System.Single,System.Single)">
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannelBase.Update(System.Single,System.Single)">
             <summary>
             网络频道轮询。
             </summary>
             <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
             <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Shutdown">
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannelBase.Shutdown">
             <summary>
             关闭网络频道。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.RegisterHandler(GameFramework.Network.IPacketHandler)">
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannelBase.RegisterHandler(GameFramework.Network.IPacketHandler)">
             <summary>
             注册网络消息包处理函数。
             </summary>
             <param name="handler">要注册的网络消息包处理函数。</param>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.SetDefaultHandler(System.EventHandler{GameFramework.Network.Packet})">
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannelBase.SetDefaultHandler(System.EventHandler{GameFramework.Network.Packet})">
             <summary>
             设置默认事件处理函数。
             </summary>
             <param name="handler">要设置的默认事件处理函数。</param>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Connect(System.Net.IPAddress,System.Int32)">
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannelBase.Connect(System.Net.IPAddress,System.Int32)">
             <summary>
             连接到远程主机。
             </summary>
             <param name="ipAddress">远程主机的 IP 地址。</param>
             <param name="port">远程主机的端口号。</param>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Connect(System.Net.IPAddress,System.Int32,System.Object)">
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannelBase.Connect(System.Net.IPAddress,System.Int32,System.Object)">
             <summary>
             连接到远程主机。
             </summary>
@@ -9808,28 +9840,78 @@
             <param name="port">远程主机的端口号。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Close">
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannelBase.Close">
             <summary>
             关闭连接并释放所有相关资源。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Send``1(``0)">
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannelBase.Send``1(``0)">
             <summary>
             向远程主机发送消息包。
             </summary>
             <typeparam name="T">消息包类型。</typeparam>
             <param name="packet">要发送的消息包。</param>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Dispose">
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannelBase.Dispose">
             <summary>
             释放资源。
             </summary>
         </member>
-        <member name="M:GameFramework.Network.NetworkManager.NetworkChannel.Dispose(System.Boolean)">
+        <member name="M:GameFramework.Network.NetworkManager.NetworkChannelBase.Dispose(System.Boolean)">
             <summary>
             释放资源。
             </summary>
             <param name="disposing">释放资源标记。</param>
+        </member>
+        <member name="T:GameFramework.Network.NetworkManager.TcpNetworkChannel">
+            <summary>
+            TCP 网络频道。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Network.NetworkManager.TcpNetworkChannel.#ctor(System.String,GameFramework.Network.INetworkChannelHelper)">
+            <summary>
+            初始化网络频道的新实例。
+            </summary>
+            <param name="name">网络频道名称。</param>
+            <param name="networkChannelHelper">网络频道辅助器。</param>
+        </member>
+        <member name="P:GameFramework.Network.NetworkManager.TcpNetworkChannel.ServiceType">
+            <summary>
+            获取网络服务类型。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Network.NetworkManager.TcpNetworkChannel.Connect(System.Net.IPAddress,System.Int32,System.Object)">
+            <summary>
+            连接到远程主机。
+            </summary>
+            <param name="ipAddress">远程主机的 IP 地址。</param>
+            <param name="port">远程主机的端口号。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="T:GameFramework.Network.NetworkManager.TcpWithSyncReceiveNetworkChannel">
+            <summary>
+            使用同步接收的 TCP 网络频道。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Network.NetworkManager.TcpWithSyncReceiveNetworkChannel.#ctor(System.String,GameFramework.Network.INetworkChannelHelper)">
+            <summary>
+            初始化网络频道的新实例。
+            </summary>
+            <param name="name">网络频道名称。</param>
+            <param name="networkChannelHelper">网络频道辅助器。</param>
+        </member>
+        <member name="P:GameFramework.Network.NetworkManager.TcpWithSyncReceiveNetworkChannel.ServiceType">
+            <summary>
+            获取网络服务类型。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Network.NetworkManager.TcpWithSyncReceiveNetworkChannel.Connect(System.Net.IPAddress,System.Int32,System.Object)">
+            <summary>
+            连接到远程主机。
+            </summary>
+            <param name="ipAddress">远程主机的 IP 地址。</param>
+            <param name="port">远程主机的端口号。</param>
+            <param name="userData">用户自定义数据。</param>
         </member>
         <member name="T:GameFramework.Network.NetworkMissHeartBeatEventArgs">
             <summary>
@@ -9864,29 +9946,24 @@
             清理网络心跳包丢失事件。
             </summary>
         </member>
-        <member name="T:GameFramework.Network.NetworkType">
-            <summary>
-            网络类型。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Network.NetworkType.Unknown">
-            <summary>
-            未知。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Network.NetworkType.IPv4">
-            <summary>
-            IP 版本 4。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Network.NetworkType.IPv6">
-            <summary>
-            IP 版本 6。
-            </summary>
-        </member>
         <member name="T:GameFramework.Network.Packet">
             <summary>
             网络消息包基类。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Network.ServiceType">
+            <summary>
+            网络服务类型。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Network.ServiceType.Tcp">
+            <summary>
+            TCP 网络服务。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Network.ServiceType.TcpWithSyncReceive">
+            <summary>
+            使用同步接收的 TCP 网络服务。
             </summary>
         </member>
         <member name="T:GameFramework.ObjectPool.IObjectPool`1">

@@ -295,6 +295,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             return m_AssetBundles.ContainsKey(GetAssetBundleFullName(assetBundleName, assetBundleVariant).ToLower());
         }
 
+        public bool AddAssetBundle(string assetBundleName, string assetBundleVariant, AssetBundleLoadType assetBundleLoadType, bool assetBundlePacked)
+        {
+            return AddAssetBundle(assetBundleName, assetBundleVariant, assetBundleLoadType, assetBundlePacked, new string[0]);
+        }
+
         public bool AddAssetBundle(string assetBundleName, string assetBundleVariant, AssetBundleLoadType assetBundleLoadType, bool assetBundlePacked, string[] assetBundleResourceGroups)
         {
             if (!IsValidAssetBundleName(assetBundleName, assetBundleVariant))

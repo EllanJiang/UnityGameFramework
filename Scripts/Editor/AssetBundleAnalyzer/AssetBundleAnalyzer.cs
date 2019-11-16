@@ -50,8 +50,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         [MenuItem("Game Framework/AssetBundle Tools/AssetBundle Analyzer", false, 43)]
         private static void Open()
         {
-            AssetBundleAnalyzer window = GetWindow<AssetBundleAnalyzer>(true, "AssetBundle Analyzer", true);
-            window.minSize = new Vector2(1024f, 768f);
+            AssetBundleAnalyzer window = GetWindow<AssetBundleAnalyzer>("AB Analyzer", true);
+            window.minSize = new Vector2(800f, 600f);
         }
 
         private void OnEnable()

@@ -24,8 +24,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         [MenuItem("Game Framework/AssetBundle Tools/AssetBundle Builder", false, 41)]
         private static void Open()
         {
-            AssetBundleBuilder window = GetWindow<AssetBundleBuilder>(true, "AssetBundle Builder", true);
-            window.minSize = window.maxSize = new Vector2(700f, 570f);
+            AssetBundleBuilder window = GetWindow<AssetBundleBuilder>("AB Builder", true);
+            window.minSize = new Vector2(700f, 570f);
         }
 
         private void OnEnable()

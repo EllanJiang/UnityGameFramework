@@ -44,7 +44,6 @@ namespace UnityGameFramework.Editor
 
                 EditorGUILayout.LabelField("Reference Pool Count", ReferencePool.Count.ToString());
                 m_ShowFullClassName = EditorGUILayout.Toggle("Show Full Class Name", m_ShowFullClassName);
-
                 m_ReferencePoolInfos.Clear();
                 ReferencePoolInfo[] referencePoolInfos = ReferencePool.GetAllReferencePoolInfos();
                 foreach (ReferencePoolInfo referencePoolInfo in referencePoolInfos)
@@ -80,6 +79,7 @@ namespace UnityGameFramework.Editor
                     {
                         EditorGUILayout.BeginVertical("box");
                         {
+                            EditorGUILayout.LabelField(m_ShowFullClassName ? "Full Class Name" : "Class Name", "Unused\tUsing\tAcquire\tRelease\tAdd\tRemove");
                             assemblyReferencePoolInfo.Value.Sort(Comparison);
                             foreach (ReferencePoolInfo referencePoolInfo in assemblyReferencePoolInfo.Value)
                             {
@@ -134,7 +134,7 @@ namespace UnityGameFramework.Editor
 
         private void DrawReferencePoolInfo(ReferencePoolInfo referencePoolInfo)
         {
-            EditorGUILayout.LabelField(m_ShowFullClassName ? referencePoolInfo.Type.FullName : referencePoolInfo.Type.Name, Utility.Text.Format("[Unused]{0} [Using]{1} [Acquire]{2} [Release]{3} [Add]{4} [Remove]{5}", referencePoolInfo.UnusedReferenceCount.ToString(), referencePoolInfo.UsingReferenceCount.ToString(), referencePoolInfo.AcquireReferenceCount.ToString(), referencePoolInfo.ReleaseReferenceCount.ToString(), referencePoolInfo.AddReferenceCount.ToString(), referencePoolInfo.RemoveReferenceCount.ToString()));
+            EditorGUILayout.LabelField(m_ShowFullClassName ? referencePoolInfo.Type.FullName : referencePoolInfo.Type.Name, Utility.Text.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", referencePoolInfo.UnusedReferenceCount.ToString(), referencePoolInfo.UsingReferenceCount.ToString(), referencePoolInfo.AcquireReferenceCount.ToString(), referencePoolInfo.ReleaseReferenceCount.ToString(), referencePoolInfo.AddReferenceCount.ToString(), referencePoolInfo.RemoveReferenceCount.ToString()));
         }
 
         private int Comparison(ReferencePoolInfo a, ReferencePoolInfo b)

@@ -49,7 +49,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 }
 
                 GUILayout.Space(ButtonSpace);
-                if (GUILayout.Button("Sync AssetBundleCollection.xml to Project\n", GUILayout.Height(ButtonHeight)))
+                if (GUILayout.Button("Sync AssetBundleCollection.xml to Project", GUILayout.Height(ButtonHeight)))
                 {
                     if (!m_Controller.SyncToProject())
                     {

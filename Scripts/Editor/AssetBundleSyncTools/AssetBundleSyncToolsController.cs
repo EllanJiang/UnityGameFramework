@@ -58,17 +58,57 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             return AssetDatabase.RemoveAssetBundleName(assetBundleName, forceRemove);
         }
 
-        public void RemoveAllAssetBundleNames()
-        {
-            foreach (string assetBundleName in GetAllAssetBundleNames())
-            {
-                RemoveAssetBundleName(assetBundleName, true);
-            }
-        }
-
         public void RemoveUnusedAssetBundleNames()
         {
             AssetDatabase.RemoveUnusedAssetBundleNames();
+        }
+
+        public bool RemoveAllAssetBundleNames()
+        {
+            HashSet<string> allAssetNames = new HashSet<string>();
+            string[] assetBundleNames = GetUsedAssetBundleNames();
+            foreach (string assetBundleName in assetBundleNames)
+            {
+                string[] assetNames = GetAssetPathsFromAssetBundle(assetBundleName);
+                foreach (string assetName in assetNames)
+                {
+                    allAssetNames.Add(assetName);
+                }
+            }
+
+            int assetIndex = 0;
+            int assetCount = allAssetNames.Count;
+            foreach (string assetName in allAssetNames)
+            {
+                AssetImporter assetImporter = AssetImporter.GetAtPath(assetName);
+                if (assetImporter == null)
+                {
+                    if (OnCompleted != null)
+                    {
+                        OnCompleted();
+                    }
+
+                    return false;
+                }
+
+                assetImporter.assetBundleVariant = null;
+                assetImporter.assetBundleName = null;
+                assetImporter.SaveAndReimport();
+
+                if (OnAssetBundleDataChanged != null)
+                {
+                    OnAssetBundleDataChanged(++assetIndex, assetCount, assetName);
+                }
+            }
+
+            RemoveUnusedAssetBundleNames();
+
+            if (OnCompleted != null)
+            {
+                OnCompleted();
+            }
+
+            return true;
         }
 
         public bool SyncToProject()

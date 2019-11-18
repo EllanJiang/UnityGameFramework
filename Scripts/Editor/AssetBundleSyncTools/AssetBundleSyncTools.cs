@@ -43,9 +43,16 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 GUILayout.Space(ButtonSpace);
                 if (GUILayout.Button("Remove All Asset Bundle Names in Project", GUILayout.Height(ButtonHeight)))
                 {
-                    m_Controller.RemoveAllAssetBundleNames();
+                    if (!m_Controller.RemoveAllAssetBundleNames())
+                    {
+                        Debug.LogWarning("Remove All Asset Bundle Names in Project failed.");
+                    }
+                    else
+                    {
+                        Debug.Log("Remove All Asset Bundle Names in Project completed.");
+                    }
+
                     AssetDatabase.Refresh();
-                    Debug.Log("Remove All Asset Bundle Names in Project completed.");
                 }
 
                 GUILayout.Space(ButtonSpace);

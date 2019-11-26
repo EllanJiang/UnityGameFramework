@@ -32,12 +32,15 @@ namespace UnityGameFramework.Runtime
                     GUILayout.EndHorizontal();
 
                     DrawItem("Enabled", Input.gyro.enabled.ToString());
-                    DrawItem("Update Interval", Input.gyro.updateInterval.ToString());
-                    DrawItem("Attitude", Input.gyro.attitude.eulerAngles.ToString());
-                    DrawItem("Gravity", Input.gyro.gravity.ToString());
-                    DrawItem("Rotation Rate", Input.gyro.rotationRate.ToString());
-                    DrawItem("Rotation Rate Unbiased", Input.gyro.rotationRateUnbiased.ToString());
-                    DrawItem("User Acceleration", Input.gyro.userAcceleration.ToString());
+                    if (Input.gyro.enabled)
+                    {
+                        DrawItem("Update Interval", Input.gyro.updateInterval.ToString());
+                        DrawItem("Attitude", Input.gyro.attitude.eulerAngles.ToString());
+                        DrawItem("Gravity", Input.gyro.gravity.ToString());
+                        DrawItem("Rotation Rate", Input.gyro.rotationRate.ToString());
+                        DrawItem("Rotation Rate Unbiased", Input.gyro.rotationRateUnbiased.ToString());
+                        DrawItem("User Acceleration", Input.gyro.userAcceleration.ToString());
+                    }
                 }
                 GUILayout.EndVertical();
             }

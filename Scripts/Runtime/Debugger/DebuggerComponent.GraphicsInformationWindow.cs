@@ -29,11 +29,15 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Multi Threaded", SystemInfo.graphicsMultiThreaded.ToString());
                     DrawItem("Shader Level", GetShaderLevelString(SystemInfo.graphicsShaderLevel));
                     DrawItem("Global Maximum LOD", Shader.globalMaximumLOD.ToString());
+                    DrawItem("Global Render Pipeline", Shader.globalRenderPipeline);
 #if UNITY_5_5_OR_NEWER
                     DrawItem("Active Tier", Graphics.activeTier.ToString());
 #endif
 #if UNITY_2017_2_OR_NEWER
                     DrawItem("Active Color Gamut", Graphics.activeColorGamut.ToString());
+#endif
+#if UNITY_2019_2_OR_NEWER
+                    DrawItem("Preserve Frame Buffer Alpha", Graphics.preserveFramebufferAlpha.ToString());
 #endif
                     DrawItem("NPOT Support", SystemInfo.npotSupport.ToString());
                     DrawItem("Max Texture Size", SystemInfo.maxTextureSize.ToString());
@@ -54,6 +58,9 @@ namespace UnityGameFramework.Runtime
 #if UNITY_2018_3_OR_NEWER
                     DrawItem("Has Hidden Surface Removal On GPU", SystemInfo.hasHiddenSurfaceRemovalOnGPU.ToString());
                     DrawItem("Has Dynamic Uniform Array Indexing In Fragment Shaders", SystemInfo.hasDynamicUniformArrayIndexingInFragmentShaders.ToString());
+#endif
+#if UNITY_2019_2_OR_NEWER
+                    DrawItem("Has Mip Max Level", SystemInfo.hasMipMaxLevel.ToString());
 #endif
 #if UNITY_5_3 || UNITY_5_4
                     DrawItem("Supports Stencil", SystemInfo.supportsStencil.ToString());

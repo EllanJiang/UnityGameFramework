@@ -1533,7 +1533,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             for (int i = 0; i < length; i++)
             {
                 result[i] ^= code[codeIndex++];
-                codeIndex = codeIndex % codeLength;
+                codeIndex %= codeLength;
             }
 
             return result;

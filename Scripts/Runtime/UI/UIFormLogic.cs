@@ -16,6 +16,8 @@ namespace UnityGameFramework.Runtime
     {
         private bool m_Available = false;
         private bool m_Visible = false;
+        private UIForm m_UIForm = null;
+        private Transform m_CachedTransform = null;
         private int m_OriginalLayer = 0;
 
         /// <summary>
@@ -25,7 +27,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return GetComponent<UIForm>();
+                return m_UIForm;
             }
         }
 
@@ -87,8 +89,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public Transform CachedTransform
         {
-            get;
-            private set;
+            get
+            {
+                return m_CachedTransform;
+            }
         }
 
         /// <summary>
@@ -97,11 +101,12 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         protected internal virtual void OnInit(object userData)
         {
-            if (CachedTransform == null)
+            if (m_CachedTransform == null)
             {
-                CachedTransform = transform;
+                m_CachedTransform = transform;
             }
 
+            m_UIForm = GetComponent<UIForm>();
             m_OriginalLayer = gameObject.layer;
         }
 

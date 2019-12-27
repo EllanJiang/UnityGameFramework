@@ -29,7 +29,9 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Multi Threaded", SystemInfo.graphicsMultiThreaded.ToString());
                     DrawItem("Shader Level", GetShaderLevelString(SystemInfo.graphicsShaderLevel));
                     DrawItem("Global Maximum LOD", Shader.globalMaximumLOD.ToString());
+#if UNITY_5_6_OR_NEWER
                     DrawItem("Global Render Pipeline", Shader.globalRenderPipeline);
+#endif
 #if UNITY_5_5_OR_NEWER
                     DrawItem("Active Tier", Graphics.activeTier.ToString());
 #endif

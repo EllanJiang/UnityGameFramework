@@ -231,7 +231,7 @@ namespace UnityGameFramework.Runtime
 #endif
             if (isError)
             {
-                DownloadAgentHelperErrorEventArgs downloadAgentHelperErrorEventArgs = DownloadAgentHelperErrorEventArgs.Create(m_UnityWebRequest.error);
+                DownloadAgentHelperErrorEventArgs downloadAgentHelperErrorEventArgs = DownloadAgentHelperErrorEventArgs.Create(m_UnityWebRequest.responseCode == RangeNotSatisfiableErrorCode, m_UnityWebRequest.error);
                 m_DownloadAgentHelperErrorEventHandler(this, downloadAgentHelperErrorEventArgs);
                 ReferencePool.Release(downloadAgentHelperErrorEventArgs);
             }

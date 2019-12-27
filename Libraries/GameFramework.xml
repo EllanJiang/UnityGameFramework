@@ -5034,15 +5034,21 @@
             初始化下载代理辅助器错误事件的新实例。
             </summary>
         </member>
+        <member name="P:GameFramework.Download.DownloadAgentHelperErrorEventArgs.DeleteDownloading">
+            <summary>
+            获取是否需要删除正在下载的文件。
+            </summary>
+        </member>
         <member name="P:GameFramework.Download.DownloadAgentHelperErrorEventArgs.ErrorMessage">
             <summary>
             获取错误信息。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperErrorEventArgs.Create(System.String)">
+        <member name="M:GameFramework.Download.DownloadAgentHelperErrorEventArgs.Create(System.Boolean,System.String)">
             <summary>
             创建下载代理辅助器错误事件。
             </summary>
+            <param name="deleteDownloading">是否需要删除正在下载的文件。</param>
             <param name="errorMessage">错误信息。</param>
             <returns>创建的下载代理辅助器错误事件。</returns>
         </member>

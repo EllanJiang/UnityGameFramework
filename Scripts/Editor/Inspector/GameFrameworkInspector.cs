@@ -55,7 +55,7 @@ namespace UnityGameFramework.Editor
             }
 
 #if UNITY_2018_3_OR_NEWER
-            return true;
+            return PrefabUtility.GetPrefabAssetType(obj) != PrefabAssetType.Regular;
 #else
             return PrefabUtility.GetPrefabType(obj) != PrefabType.Prefab;
 #endif

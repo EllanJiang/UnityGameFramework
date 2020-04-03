@@ -212,6 +212,11 @@ namespace UnityGameFramework.Runtime
                 ReferencePool.Release(downloadAgentHelperUpdateLengthEventArgs);
             }
 
+            if (m_WWW == null)
+            {
+                return;
+            }
+
             if (!m_WWW.isDone)
             {
                 return;

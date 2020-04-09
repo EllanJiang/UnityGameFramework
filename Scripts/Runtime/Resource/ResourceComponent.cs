@@ -71,7 +71,7 @@ namespace UnityGameFramework.Runtime
         private string m_UpdatePrefixUri = null;
 
         [SerializeField]
-        private int m_GenerateReadWriteListLength = OneMegaBytes;
+        private int m_GenerateReadWriteVersionListLength = OneMegaBytes;
 
         [SerializeField]
         private int m_UpdateRetryCount = 3;
@@ -146,6 +146,50 @@ namespace UnityGameFramework.Runtime
             get
             {
                 return m_ResourceManager.CurrentVariant;
+            }
+        }
+
+        /// <summary>
+        /// 获取单机模式版本资源列表序列化器。
+        /// </summary>
+        public PackageVersionListSerializer PackageVersionListSerializer
+        {
+            get
+            {
+                return m_ResourceManager.PackageVersionListSerializer;
+            }
+        }
+
+        /// <summary>
+        /// 获取可更新模式版本资源列表序列化器。
+        /// </summary>
+        public UpdatableVersionListSerializer UpdatableVersionListSerializer
+        {
+            get
+            {
+                return m_ResourceManager.UpdatableVersionListSerializer;
+            }
+        }
+
+        /// <summary>
+        /// 获取本地只读区版本资源列表序列化器。
+        /// </summary>
+        public ReadOnlyVersionListSerializer ReadOnlyVersionListSerializer
+        {
+            get
+            {
+                return m_ResourceManager.ReadOnlyVersionListSerializer;
+            }
+        }
+
+        /// <summary>
+        /// 获取本地读写区版本资源列表序列化器。
+        /// </summary>
+        public ReadWriteVersionListSerializer ReadWriteVersionListSerializer
+        {
+            get
+            {
+                return m_ResourceManager.ReadWriteVersionListSerializer;
             }
         }
 
@@ -235,17 +279,17 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取或设置每下载多少字节的资源，刷新一次资源列表。
+        /// 获取或设置每下载多少字节的资源，重新生成一次版本资源列表。
         /// </summary>
-        public int GenerateReadWriteListLength
+        public int GenerateReadWriteVersionListLength
         {
             get
             {
-                return m_ResourceManager.GenerateReadWriteListLength;
+                return m_ResourceManager.GenerateReadWriteVersionListLength;
             }
             set
             {
-                m_ResourceManager.GenerateReadWriteListLength = m_GenerateReadWriteListLength = value;
+                m_ResourceManager.GenerateReadWriteVersionListLength = m_GenerateReadWriteVersionListLength = value;
             }
         }
 
@@ -543,7 +587,7 @@ namespace UnityGameFramework.Runtime
             if (m_ResourceMode == ResourceMode.Updatable)
             {
                 m_ResourceManager.UpdatePrefixUri = m_UpdatePrefixUri;
-                m_ResourceManager.GenerateReadWriteListLength = m_GenerateReadWriteListLength;
+                m_ResourceManager.GenerateReadWriteVersionListLength = m_GenerateReadWriteVersionListLength;
                 m_ResourceManager.UpdateRetryCount = m_UpdateRetryCount;
             }
 
@@ -605,6 +649,20 @@ namespace UnityGameFramework.Runtime
         public void SetResourceMode(ResourceMode resourceMode)
         {
             m_ResourceManager.SetResourceMode(resourceMode);
+            switch (resourceMode)
+            {
+                case ResourceMode.Package:
+                    m_ResourceManager.PackageVersionListSerializer.RegisterDeserializeCallback(0, BuiltinVersionListSerializer.DeserializePackageVersionListCallback_V0);
+                    break;
+
+                case ResourceMode.Updatable:
+                    m_ResourceManager.UpdatableVersionListSerializer.RegisterDeserializeCallback(0, BuiltinVersionListSerializer.DeserializeUpdatableVersionListCallback_V0);
+                    m_ResourceManager.UpdatableVersionListSerializer.RegisterTryGetValueCallback(0, BuiltinVersionListSerializer.TryGetValueUpdatableVersionListCallback_V0);
+                    m_ResourceManager.ReadOnlyVersionListSerializer.RegisterDeserializeCallback(0, BuiltinVersionListSerializer.DeserializeLocalVersionListCallback_V0);
+                    m_ResourceManager.ReadWriteVersionListSerializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.SerializeLocalVersionListCallback_V0);
+                    m_ResourceManager.ReadWriteVersionListSerializer.RegisterDeserializeCallback(0, BuiltinVersionListSerializer.DeserializeLocalVersionListCallback_V0);
+                    break;
+            }
         }
 
         /// <summary>

@@ -6,11 +6,11 @@
 //------------------------------------------------------------
 
 using GameFramework;
+using GameFramework.Resource;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml;
 using UnityEditor;
 using UnityEngine;
@@ -22,16 +22,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
     {
         private const string VersionListFileName = "version";
         private const string ResourceListFileName = "list";
-        private const string RecordName = "GameResourceVersion";
         private const string NoneOptionName = "<None>";
-        private static readonly char[] PackageListHeader = new char[] { 'E', 'L', 'P' };
-        private static readonly char[] VersionListHeader = new char[] { 'E', 'L', 'V' };
-        private static readonly char[] ReadOnlyListHeader = new char[] { 'E', 'L', 'R' };
         private static readonly int AssetsStringLength = "Assets".Length;
-        private const byte PackageListVersion = 0;
-        private const byte VersionListVersion = 0;
-        private const byte ReadOnlyListVersion = 0;
-        private const int QuickEncryptLength = 220;
 
         private readonly string m_ConfigurationPath;
         private readonly AssetBundleCollection m_AssetBundleCollection;
@@ -903,20 +895,20 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
             if (OutputPackageSelected)
             {
-                ProcessPackageList(outputPackagePath, platform);
-                m_BuildReport.LogInfo("Process package list for '{0}' complete.", platformName);
+                ProcessPackageVersionList(outputPackagePath, platform);
+                m_BuildReport.LogInfo("Process package version list for '{0}' complete.", platformName);
             }
 
             if (OutputFullSelected)
             {
-                VersionListData versionListData = ProcessVersionList(outputFullPath, platform);
-                m_BuildReport.LogInfo("Process version list for '{0}' complete, version list path is '{1}', length is '{2}', hash code is '{3}[0x{3:X8}]', zip length is '{4}', zip hash code is '{5}[0x{5:X8}]'.", platformName, versionListData.Path, versionListData.Length.ToString(), versionListData.HashCode, versionListData.ZipLength.ToString(), versionListData.ZipHashCode);
+                VersionListData versionListData = ProcessUpdatableVersionList(outputFullPath, platform);
+                m_BuildReport.LogInfo("Process updatable version list for '{0}' complete, updatable version list path is '{1}', length is '{2}', hash code is '{3}[0x{3:X8}]', zip length is '{4}', zip hash code is '{5}[0x{5:X8}]'.", platformName, versionListData.Path, versionListData.Length.ToString(), versionListData.HashCode, versionListData.ZipLength.ToString(), versionListData.ZipHashCode);
             }
 
             if (OutputPackedSelected)
             {
-                ProcessReadOnlyList(outputPackedPath, platform);
-                m_BuildReport.LogInfo("Process readonly list for '{0}' complete.", platformName);
+                ProcessReadOnlyVersionList(outputPackedPath, platform);
+                m_BuildReport.LogInfo("Process read only version list for '{0}' complete.", platformName);
             }
 
             if (m_BuildEventHandler != null)
@@ -949,11 +941,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             byte[] hashBytes = Utility.Converter.GetBytes(hashCode);
             if (assetBundleData.LoadType == AssetBundleLoadType.LoadFromMemoryAndQuickDecrypt)
             {
-                bytes = GetQuickXorBytes(bytes, hashBytes);
+                bytes = Utility.Encryption.GetQuickXorBytes(bytes, hashBytes);
             }
             else if (assetBundleData.LoadType == AssetBundleLoadType.LoadFromMemoryAndDecrypt)
             {
-                bytes = GetXorBytes(bytes, hashBytes);
+                bytes = Utility.Encryption.GetXorBytes(bytes, hashBytes);
             }
 
             // Package AssetBundle
@@ -1008,249 +1000,98 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             assetBundleData.AddCode(platform, length, hashCode, zipLength, zipHashCode);
         }
 
-        private void ProcessPackageList(string outputPackagePath, Platform platform)
+        private void ProcessPackageVersionList(string outputPackagePath, Platform platform)
         {
-            byte[] encryptBytes = new byte[4];
-            Utility.Random.GetRandomBytes(encryptBytes);
-
-            string packageListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackagePath, VersionListFileName));
-            using (FileStream fileStream = new FileStream(packageListPath, FileMode.CreateNew, FileAccess.Write))
+            Asset[] originalAssets = m_AssetBundleCollection.GetAssets();
+            PackageVersionList.Asset[] assets = new PackageVersionList.Asset[originalAssets.Length];
+            for (int i = 0; i < originalAssets.Length; i++)
             {
-                using (BinaryWriter binaryWriter = new BinaryWriter(fileStream, Encoding.UTF8))
+                Asset originalAsset = originalAssets[i];
+                assets[i] = new PackageVersionList.Asset(originalAsset.Name, GetDependencyAssetIndexes(originalAsset.Name));
+            }
+
+            int index = 0;
+            PackageVersionList.Resource[] resources = new PackageVersionList.Resource[m_AssetBundleCollection.AssetBundleCount];
+            foreach (AssetBundleData assetBundleData in m_AssetBundleDatas.Values)
+            {
+                AssetBundleCode assetBundleCode = assetBundleData.GetCode(platform);
+                resources[index++] = new PackageVersionList.Resource(assetBundleData.Name, assetBundleData.Variant, (byte)assetBundleData.LoadType, assetBundleCode.Length, assetBundleCode.HashCode, GetAssetIndexes(assetBundleData));
+            }
+
+            string[] originalResourceGroup = GetResourceGroups();
+            PackageVersionList.ResourceGroup[] resourceGroups = new PackageVersionList.ResourceGroup[originalResourceGroup.Length];
+            for (int i = 0; i < originalResourceGroup.Length; i++)
+            {
+                resourceGroups[i] = new PackageVersionList.ResourceGroup(originalResourceGroup[i], GetResourceIndexes(originalResourceGroup[i]), null);
+            }
+
+            PackageVersionList versionList = new PackageVersionList(ApplicableGameVersion, InternalResourceVersion, assets, resources, null, resourceGroups);
+            PackageVersionListSerializer serializer = new PackageVersionListSerializer();
+            serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.SerializePackageVersionListCallback_V0);
+            string packageVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackagePath, VersionListFileName));
+            using (FileStream fileStream = new FileStream(packageVersionListPath, FileMode.CreateNew, FileAccess.Write))
+            {
+                if (!serializer.Serialize(fileStream, versionList))
                 {
-                    binaryWriter.Write(PackageListHeader);
-                    binaryWriter.Write(PackageListVersion);
-                    binaryWriter.Write(encryptBytes);
-
-                    byte[] applicableGameVersionBytes = GetXorBytes(Utility.Converter.GetBytes(ApplicableGameVersion), encryptBytes);
-                    binaryWriter.Write((byte)applicableGameVersionBytes.Length);
-                    binaryWriter.Write(applicableGameVersionBytes);
-                    binaryWriter.Write(InternalResourceVersion);
-                    binaryWriter.Write(m_AssetBundleCollection.AssetCount);
-                    binaryWriter.Write(m_AssetBundleCollection.AssetBundleCount);
-                    if (m_AssetBundleCollection.AssetBundleCount > ushort.MaxValue)
-                    {
-                        throw new GameFrameworkException("Package list can only contains 65535 resources in version 0.");
-                    }
-
-                    foreach (AssetBundleData assetBundleData in m_AssetBundleDatas.Values)
-                    {
-                        byte[] nameBytes = GetXorBytes(Utility.Converter.GetBytes(assetBundleData.Name), encryptBytes);
-                        if (nameBytes.Length > byte.MaxValue)
-                        {
-                            throw new GameFrameworkException(Utility.Text.Format("AssetBundle name '{0}' is too long.", assetBundleData.Name));
-                        }
-
-                        binaryWriter.Write((byte)nameBytes.Length);
-                        binaryWriter.Write(nameBytes);
-
-                        if (assetBundleData.Variant == null)
-                        {
-                            binaryWriter.Write((byte)0);
-                        }
-                        else
-                        {
-                            byte[] variantBytes = GetXorBytes(Utility.Converter.GetBytes(assetBundleData.Variant), encryptBytes);
-                            if (variantBytes.Length > byte.MaxValue)
-                            {
-                                throw new GameFrameworkException(Utility.Text.Format("AssetBundle variant '{0}' is too long.", assetBundleData.Variant));
-                            }
-
-                            binaryWriter.Write((byte)variantBytes.Length);
-                            binaryWriter.Write(variantBytes);
-                        }
-
-                        binaryWriter.Write((byte)assetBundleData.LoadType);
-                        AssetBundleCode assetBundleCode = assetBundleData.GetCode(platform);
-                        binaryWriter.Write(assetBundleCode.Length);
-                        binaryWriter.Write(assetBundleCode.HashCode);
-
-                        string[] assetNames = assetBundleData.GetAssetNames();
-                        binaryWriter.Write(assetNames.Length);
-                        foreach (string assetName in assetNames)
-                        {
-                            byte[] assetNameBytes = GetXorBytes(Utility.Converter.GetBytes(assetName), Utility.Converter.GetBytes(assetBundleCode.HashCode));
-                            if (assetNameBytes.Length > byte.MaxValue)
-                            {
-                                throw new GameFrameworkException(Utility.Text.Format("Asset name '{0}' is too long.", assetName));
-                            }
-
-                            binaryWriter.Write((byte)assetNameBytes.Length);
-                            binaryWriter.Write(assetNameBytes);
-
-                            AssetData assetData = assetBundleData.GetAssetData(assetName);
-                            string[] dependencyAssetNames = assetData.GetDependencyAssetNames();
-                            binaryWriter.Write(dependencyAssetNames.Length);
-                            foreach (string dependencyAssetName in dependencyAssetNames)
-                            {
-                                byte[] dependencyAssetNameBytes = GetXorBytes(Utility.Converter.GetBytes(dependencyAssetName), Utility.Converter.GetBytes(assetBundleCode.HashCode));
-                                if (dependencyAssetNameBytes.Length > byte.MaxValue)
-                                {
-                                    throw new GameFrameworkException(Utility.Text.Format("Dependency asset name '{0}' is too long.", dependencyAssetName));
-                                }
-
-                                binaryWriter.Write((byte)dependencyAssetNameBytes.Length);
-                                binaryWriter.Write(dependencyAssetNameBytes);
-                            }
-                        }
-                    }
-
-                    string[] resourceGroups = GetResourceGroups();
-                    binaryWriter.Write(resourceGroups.Length);
-                    foreach (string resourceGroup in resourceGroups)
-                    {
-                        byte[] resourceGroupNameBytes = GetXorBytes(Utility.Converter.GetBytes(resourceGroup), encryptBytes);
-                        if (resourceGroupNameBytes.Length > byte.MaxValue)
-                        {
-                            throw new GameFrameworkException(Utility.Text.Format("Resource group name '{0}' is too long.", resourceGroup));
-                        }
-
-                        binaryWriter.Write((byte)resourceGroupNameBytes.Length);
-                        binaryWriter.Write(resourceGroupNameBytes);
-
-                        ushort[] resourceIndices = GetResourceIndices(resourceGroup);
-                        binaryWriter.Write(resourceIndices.Length);
-                        foreach (ushort resourceIndex in resourceIndices)
-                        {
-                            binaryWriter.Write(resourceIndex);
-                        }
-                    }
+                    throw new GameFrameworkException("Serialize package version list failure.");
                 }
             }
 
-            File.Move(packageListPath, Utility.Path.GetResourceNameWithSuffix(packageListPath));
+            File.Move(packageVersionListPath, Utility.Path.GetResourceNameWithSuffix(packageVersionListPath));
         }
 
-        private VersionListData ProcessVersionList(string outputFullPath, Platform platform)
+        private VersionListData ProcessUpdatableVersionList(string outputFullPath, Platform platform)
         {
-            byte[] encryptBytes = new byte[4];
-            Utility.Random.GetRandomBytes(encryptBytes);
-
-            string versionListPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, VersionListFileName));
-            using (FileStream fileStream = new FileStream(versionListPath, FileMode.CreateNew, FileAccess.Write))
+            Asset[] originalAssets = m_AssetBundleCollection.GetAssets();
+            UpdatableVersionList.Asset[] assets = new UpdatableVersionList.Asset[originalAssets.Length];
+            for (int i = 0; i < originalAssets.Length; i++)
             {
-                using (BinaryWriter binaryWriter = new BinaryWriter(fileStream, Encoding.UTF8))
+                Asset originalAsset = originalAssets[i];
+                assets[i] = new UpdatableVersionList.Asset(originalAsset.Name, GetDependencyAssetIndexes(originalAsset.Name));
+            }
+
+            int index = 0;
+            UpdatableVersionList.Resource[] resources = new UpdatableVersionList.Resource[m_AssetBundleCollection.AssetBundleCount];
+            foreach (AssetBundleData assetBundleData in m_AssetBundleDatas.Values)
+            {
+                AssetBundleCode assetBundleCode = assetBundleData.GetCode(platform);
+                resources[index++] = new UpdatableVersionList.Resource(assetBundleData.Name, assetBundleData.Variant, (byte)assetBundleData.LoadType, assetBundleCode.Length, assetBundleCode.HashCode, assetBundleCode.ZipLength, assetBundleCode.ZipHashCode, GetAssetIndexes(assetBundleData));
+            }
+
+            string[] originalResourceGroup = GetResourceGroups();
+            UpdatableVersionList.ResourceGroup[] resourceGroups = new UpdatableVersionList.ResourceGroup[originalResourceGroup.Length];
+            for (int i = 0; i < originalResourceGroup.Length; i++)
+            {
+                resourceGroups[i] = new UpdatableVersionList.ResourceGroup(originalResourceGroup[i], GetResourceIndexes(originalResourceGroup[i]), null);
+            }
+
+            UpdatableVersionList versionList = new UpdatableVersionList(ApplicableGameVersion, InternalResourceVersion, assets, resources, null, resourceGroups);
+            UpdatableVersionListSerializer serializer = new UpdatableVersionListSerializer();
+            serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.SerializeUpdatableVersionListCallback_V0);
+            string updatableVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, VersionListFileName));
+            using (FileStream fileStream = new FileStream(updatableVersionListPath, FileMode.CreateNew, FileAccess.Write))
+            {
+                if (!serializer.Serialize(fileStream, versionList))
                 {
-                    binaryWriter.Write(VersionListHeader);
-                    binaryWriter.Write(VersionListVersion);
-                    binaryWriter.Write(encryptBytes);
-
-                    byte[] applicableGameVersionBytes = GetXorBytes(Utility.Converter.GetBytes(ApplicableGameVersion), encryptBytes);
-                    binaryWriter.Write((byte)applicableGameVersionBytes.Length);
-                    binaryWriter.Write(applicableGameVersionBytes);
-                    binaryWriter.Write(InternalResourceVersion);
-                    binaryWriter.Write(m_AssetBundleCollection.AssetCount);
-                    binaryWriter.Write(m_AssetBundleCollection.AssetBundleCount);
-                    if (m_AssetBundleCollection.AssetBundleCount > ushort.MaxValue)
-                    {
-                        throw new GameFrameworkException("Version list can only contains 65535 resources in version 0.");
-                    }
-
-                    foreach (AssetBundleData assetBundleData in m_AssetBundleDatas.Values)
-                    {
-                        byte[] nameBytes = GetXorBytes(Utility.Converter.GetBytes(assetBundleData.Name), encryptBytes);
-                        if (nameBytes.Length > byte.MaxValue)
-                        {
-                            throw new GameFrameworkException(Utility.Text.Format("AssetBundle name '{0}' is too long.", assetBundleData.Name));
-                        }
-
-                        binaryWriter.Write((byte)nameBytes.Length);
-                        binaryWriter.Write(nameBytes);
-
-                        if (assetBundleData.Variant == null)
-                        {
-                            binaryWriter.Write((byte)0);
-                        }
-                        else
-                        {
-                            byte[] variantBytes = GetXorBytes(Utility.Converter.GetBytes(assetBundleData.Variant), encryptBytes);
-                            if (variantBytes.Length > byte.MaxValue)
-                            {
-                                throw new GameFrameworkException(Utility.Text.Format("AssetBundle variant '{0}' is too long.", assetBundleData.Variant));
-                            }
-
-                            binaryWriter.Write((byte)variantBytes.Length);
-                            binaryWriter.Write(variantBytes);
-                        }
-
-                        binaryWriter.Write((byte)assetBundleData.LoadType);
-                        AssetBundleCode assetBundleCode = assetBundleData.GetCode(platform);
-                        binaryWriter.Write(assetBundleCode.Length);
-                        binaryWriter.Write(assetBundleCode.HashCode);
-                        binaryWriter.Write(assetBundleCode.ZipLength);
-                        binaryWriter.Write(assetBundleCode.ZipHashCode);
-
-                        string[] assetNames = assetBundleData.GetAssetNames();
-                        binaryWriter.Write(assetNames.Length);
-                        foreach (string assetName in assetNames)
-                        {
-                            byte[] assetNameBytes = GetXorBytes(Utility.Converter.GetBytes(assetName), Utility.Converter.GetBytes(assetBundleCode.HashCode));
-                            if (assetNameBytes.Length > byte.MaxValue)
-                            {
-                                throw new GameFrameworkException(Utility.Text.Format("Asset name '{0}' is too long.", assetName));
-                            }
-
-                            binaryWriter.Write((byte)assetNameBytes.Length);
-                            binaryWriter.Write(assetNameBytes);
-
-                            AssetData assetData = assetBundleData.GetAssetData(assetName);
-                            string[] dependencyAssetNames = assetData.GetDependencyAssetNames();
-                            binaryWriter.Write(dependencyAssetNames.Length);
-                            foreach (string dependencyAssetName in dependencyAssetNames)
-                            {
-                                byte[] dependencyAssetNameBytes = GetXorBytes(Utility.Converter.GetBytes(dependencyAssetName), Utility.Converter.GetBytes(assetBundleCode.HashCode));
-                                if (dependencyAssetNameBytes.Length > byte.MaxValue)
-                                {
-                                    throw new GameFrameworkException(Utility.Text.Format("Dependency asset name '{0}' is too long.", dependencyAssetName));
-                                }
-
-                                binaryWriter.Write((byte)dependencyAssetNameBytes.Length);
-                                binaryWriter.Write(dependencyAssetNameBytes);
-                            }
-                        }
-                    }
-
-                    string[] resourceGroups = GetResourceGroups();
-                    binaryWriter.Write(resourceGroups.Length);
-                    foreach (string resourceGroup in resourceGroups)
-                    {
-                        byte[] resourceGroupNameBytes = GetXorBytes(Utility.Converter.GetBytes(resourceGroup), encryptBytes);
-                        if (resourceGroupNameBytes.Length > byte.MaxValue)
-                        {
-                            throw new GameFrameworkException(Utility.Text.Format("Resource group name '{0}' is too long.", resourceGroup));
-                        }
-
-                        binaryWriter.Write((byte)resourceGroupNameBytes.Length);
-                        binaryWriter.Write(resourceGroupNameBytes);
-
-                        ushort[] resourceIndices = GetResourceIndices(resourceGroup);
-                        binaryWriter.Write(resourceIndices.Length);
-                        foreach (ushort resourceIndex in resourceIndices)
-                        {
-                            binaryWriter.Write(resourceIndex);
-                        }
-                    }
+                    throw new GameFrameworkException("Serialize updatable version list failure.");
                 }
             }
 
-            byte[] bytes = File.ReadAllBytes(versionListPath);
+            byte[] bytes = File.ReadAllBytes(updatableVersionListPath);
             int length = bytes.Length;
             int hashCode = Utility.Verifier.GetCrc32(bytes);
             bytes = Utility.Zip.Compress(bytes);
             int zipLength = bytes.Length;
-            File.WriteAllBytes(versionListPath, bytes);
+            File.WriteAllBytes(updatableVersionListPath, bytes);
             int zipHashCode = Utility.Verifier.GetCrc32(bytes);
-            string versionListPathWithCrc32AndSuffix = Utility.Path.GetResourceNameWithCrc32AndSuffix(versionListPath, hashCode);
-            File.Move(versionListPath, versionListPathWithCrc32AndSuffix);
+            string versionListPathWithCrc32AndSuffix = Utility.Path.GetResourceNameWithCrc32AndSuffix(updatableVersionListPath, hashCode);
+            File.Move(updatableVersionListPath, versionListPathWithCrc32AndSuffix);
 
             return new VersionListData(versionListPathWithCrc32AndSuffix, length, hashCode, zipLength, zipHashCode);
         }
 
-        private void ProcessReadOnlyList(string outputPackedPath, Platform platform)
+        private void ProcessReadOnlyVersionList(string outputPackedPath, Platform platform)
         {
-            byte[] encryptBytes = new byte[4];
-            Utility.Random.GetRandomBytes(encryptBytes);
-
             List<AssetBundleData> packedAssetBundleDatas = new List<AssetBundleData>();
             foreach (AssetBundleData assetBundleData in m_AssetBundleDatas.Values)
             {
@@ -1262,52 +1103,68 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 packedAssetBundleDatas.Add(assetBundleData);
             }
 
-            string readOnlyListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackedPath, ResourceListFileName));
-            using (FileStream fileStream = new FileStream(readOnlyListPath, FileMode.CreateNew, FileAccess.Write))
+            LocalVersionList.Resource[] resources = new LocalVersionList.Resource[packedAssetBundleDatas.Count];
+            for (int i = 0; i < packedAssetBundleDatas.Count; i++)
             {
-                using (BinaryWriter binaryWriter = new BinaryWriter(fileStream, Encoding.UTF8))
+                AssetBundleData assetBundleData = packedAssetBundleDatas[i];
+                AssetBundleCode assetBundleCode = assetBundleData.GetCode(platform);
+                resources[i] = new LocalVersionList.Resource(assetBundleData.Name, assetBundleData.Variant, (byte)assetBundleData.LoadType, assetBundleCode.Length, assetBundleCode.HashCode);
+            }
+
+            LocalVersionList versionList = new LocalVersionList(resources, null);
+            ReadOnlyVersionListSerializer serializer = new ReadOnlyVersionListSerializer();
+            serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.SerializeLocalVersionListCallback_V0);
+            string readOnlyVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackedPath, ResourceListFileName));
+            using (FileStream fileStream = new FileStream(readOnlyVersionListPath, FileMode.CreateNew, FileAccess.Write))
+            {
+                if (!serializer.Serialize(fileStream, versionList))
                 {
-                    binaryWriter.Write(ReadOnlyListHeader);
-                    binaryWriter.Write(ReadOnlyListVersion);
-                    binaryWriter.Write(encryptBytes);
+                    throw new GameFrameworkException("Serialize read only version list failure.");
+                }
+            }
 
-                    binaryWriter.Write(packedAssetBundleDatas.Count);
-                    foreach (AssetBundleData assetBundleData in packedAssetBundleDatas)
+            File.Move(readOnlyVersionListPath, Utility.Path.GetResourceNameWithSuffix(readOnlyVersionListPath));
+        }
+
+        private int[] GetDependencyAssetIndexes(string assetName)
+        {
+            List<int> dependencyAssetIndexes = new List<int>();
+            Asset[] assets = m_AssetBundleCollection.GetAssets();
+            DependencyData dependencyData = m_AssetBundleAnalyzerController.GetDependencyData(assetName);
+            foreach (Asset dependencyAsset in dependencyData.GetDependencyAssets())
+            {
+                for (int i = 0; i < assets.Length; i++)
+                {
+                    if (assets[i] == dependencyAsset)
                     {
-                        byte[] nameBytes = GetXorBytes(Utility.Converter.GetBytes(assetBundleData.Name), encryptBytes);
-                        if (nameBytes.Length > byte.MaxValue)
-                        {
-                            throw new GameFrameworkException(Utility.Text.Format("AssetBundle name '{0}' is too long.", assetBundleData.Name));
-                        }
-
-                        binaryWriter.Write((byte)nameBytes.Length);
-                        binaryWriter.Write(nameBytes);
-
-                        if (assetBundleData.Variant == null)
-                        {
-                            binaryWriter.Write((byte)0);
-                        }
-                        else
-                        {
-                            byte[] variantBytes = GetXorBytes(Utility.Converter.GetBytes(assetBundleData.Variant), encryptBytes);
-                            if (variantBytes.Length > byte.MaxValue)
-                            {
-                                throw new GameFrameworkException(Utility.Text.Format("AssetBundle variant '{0}' is too long.", assetBundleData.Variant));
-                            }
-
-                            binaryWriter.Write((byte)variantBytes.Length);
-                            binaryWriter.Write(variantBytes);
-                        }
-
-                        binaryWriter.Write((byte)assetBundleData.LoadType);
-                        AssetBundleCode assetBundleCode = assetBundleData.GetCode(platform);
-                        binaryWriter.Write(assetBundleCode.Length);
-                        binaryWriter.Write(assetBundleCode.HashCode);
+                        dependencyAssetIndexes.Add(i);
+                        break;
                     }
                 }
             }
 
-            File.Move(readOnlyListPath, Utility.Path.GetResourceNameWithSuffix(readOnlyListPath));
+            dependencyAssetIndexes.Sort();
+            return dependencyAssetIndexes.ToArray();
+        }
+
+        private int[] GetAssetIndexes(AssetBundleData assetBundleData)
+        {
+            Asset[] assets = m_AssetBundleCollection.GetAssets();
+            string[] assetNames = assetBundleData.GetAssetNames();
+            int[] assetIndexes = new int[assetNames.Length];
+            for (int i = 0; i < assetNames.Length; i++)
+            {
+                for (int j = 0; j < assets.Length; j++)
+                {
+                    if (assets[j].Name == assetNames[i])
+                    {
+                        assetIndexes[i] = j;
+                        break;
+                    }
+                }
+            }
+
+            return assetIndexes;
         }
 
         private string[] GetResourceGroups()
@@ -1330,23 +1187,23 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             return resourceGroups.ToArray();
         }
 
-        private ushort[] GetResourceIndices(string resourceGroup)
+        private int[] GetResourceIndexes(string resourceGroupName)
         {
+            List<int> resourceIndexes = new List<int>();
             AssetBundleData[] assetBundleDatas = m_AssetBundleDatas.Values.ToArray();
-            List<ushort> resourceIndices = new List<ushort>();
-            for (ushort i = 0; i < assetBundleDatas.Length; i++)
+            for (int i = 0; i < assetBundleDatas.Length; i++)
             {
-                foreach (string resourceGroupName in assetBundleDatas[i].GetResourceGroups())
+                foreach (string resourceGroup in assetBundleDatas[i].GetResourceGroups())
                 {
-                    if (resourceGroupName == resourceGroup)
+                    if (resourceGroup == resourceGroupName)
                     {
-                        resourceIndices.Add(i);
+                        resourceIndexes.Add(i);
                         break;
                     }
                 }
             }
 
-            return resourceIndices.ToArray();
+            return resourceIndexes.ToArray();
         }
 
         private BuildAssetBundleOptions GetBuildAssetBundleOptions()
@@ -1495,48 +1352,6 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 default:
                     throw new GameFrameworkException("Platform is invalid.");
             }
-        }
-
-        public byte[] GetQuickXorBytes(byte[] bytes, byte[] code)
-        {
-            return GetXorBytes(bytes, code, QuickEncryptLength);
-        }
-
-        private byte[] GetXorBytes(byte[] bytes, byte[] code)
-        {
-            return GetXorBytes(bytes, code, -1);
-        }
-
-        private byte[] GetXorBytes(byte[] bytes, byte[] code, int length)
-        {
-            if (bytes == null)
-            {
-                return null;
-            }
-
-            int codeLength = code.Length;
-            if (code == null || codeLength <= 0)
-            {
-                throw new GameFrameworkException("Code is invalid.");
-            }
-
-            int codeIndex = 0;
-            int bytesLength = bytes.Length;
-            if (length < 0 || length > bytesLength)
-            {
-                length = bytesLength;
-            }
-
-            byte[] result = new byte[bytesLength];
-            Buffer.BlockCopy(bytes, 0, result, 0, bytesLength);
-
-            for (int i = 0; i < length; i++)
-            {
-                result[i] ^= code[codeIndex++];
-                codeIndex %= codeLength;
-            }
-
-            return result;
         }
     }
 }

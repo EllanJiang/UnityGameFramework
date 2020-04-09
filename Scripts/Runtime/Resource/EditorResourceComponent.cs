@@ -90,6 +90,50 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取单机模式版本资源列表序列化器。
+        /// </summary>
+        public PackageVersionListSerializer PackageVersionListSerializer
+        {
+            get
+            {
+                throw new NotSupportedException("ReadWriteVersionListSerializer");
+            }
+        }
+
+        /// <summary>
+        /// 获取可更新模式版本资源列表序列化器。
+        /// </summary>
+        public UpdatableVersionListSerializer UpdatableVersionListSerializer
+        {
+            get
+            {
+                throw new NotSupportedException("ReadWriteVersionListSerializer");
+            }
+        }
+
+        /// <summary>
+        /// 获取本地只读区版本资源列表序列化器。
+        /// </summary>
+        public ReadOnlyVersionListSerializer ReadOnlyVersionListSerializer
+        {
+            get
+            {
+                throw new NotSupportedException("ReadWriteVersionListSerializer");
+            }
+        }
+
+        /// <summary>
+        /// 获取本地读写区版本资源列表序列化器。
+        /// </summary>
+        public ReadWriteVersionListSerializer ReadWriteVersionListSerializer
+        {
+            get
+            {
+                throw new NotSupportedException("ReadWriteVersionListSerializer");
+            }
+        }
+
+        /// <summary>
         /// 获取当前资源适用的游戏版本号。
         /// </summary>
         public string ApplicableGameVersion
@@ -160,17 +204,17 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取或设置每下载多少字节的资源，刷新一次资源列表。
+        /// 获取或设置每下载多少字节的资源，重新生成一次版本资源列表。
         /// </summary>
-        public int GenerateReadWriteListLength
+        public int GenerateReadWriteVersionListLength
         {
             get
             {
-                throw new NotSupportedException("GenerateReadWriteListLength");
+                throw new NotSupportedException("GenerateReadWriteVersionListLength");
             }
             set
             {
-                throw new NotSupportedException("GenerateReadWriteListLength");
+                throw new NotSupportedException("GenerateReadWriteVersionListLength");
             }
         }
 

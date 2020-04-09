@@ -12531,6 +12531,26 @@
             获取当前变体。
             </summary>
         </member>
+        <member name="P:GameFramework.Resource.IResourceManager.PackageVersionListSerializer">
+            <summary>
+            获取单机模式版本资源列表序列化器。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceManager.UpdatableVersionListSerializer">
+            <summary>
+            获取可更新模式版本资源列表序列化器。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceManager.ReadOnlyVersionListSerializer">
+            <summary>
+            获取本地只读区版本资源列表序列化器。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceManager.ReadWriteVersionListSerializer">
+            <summary>
+            获取本地读写区版本资源列表序列化器。
+            </summary>
+        </member>
         <member name="P:GameFramework.Resource.IResourceManager.ApplicableGameVersion">
             <summary>
             获取当前资源适用的游戏版本号。
@@ -12561,9 +12581,9 @@
             获取或设置资源更新下载地址。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.IResourceManager.GenerateReadWriteListLength">
+        <member name="P:GameFramework.Resource.IResourceManager.GenerateReadWriteVersionListLength">
             <summary>
-            获取或设置每下载多少字节的资源，刷新一次资源列表。
+            获取或设置每下载多少字节的资源，重新生成一次版本资源列表。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.IResourceManager.UpdateRetryCount">
@@ -13401,6 +13421,340 @@
             <param name="progress">加载场景进度。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
+        <member name="T:GameFramework.Resource.LocalVersionList">
+            <summary>
+            本地版本资源列表。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Resource.LocalVersionList.Binary">
+            <summary>
+            二进制资源。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.LocalVersionList.Binary.#ctor(System.String,System.Int32,System.Int32)">
+            <summary>
+            初始化二进制资源的新实例。
+            </summary>
+            <param name="name">二进制资源名称。</param>
+            <param name="length">二进制资源长度。</param>
+            <param name="hashCode">二进制资源哈希值。</param>
+        </member>
+        <member name="P:GameFramework.Resource.LocalVersionList.Binary.Name">
+            <summary>
+            获取二进制资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.LocalVersionList.Binary.Length">
+            <summary>
+            获取二进制资源长度。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.LocalVersionList.Binary.HashCode">
+            <summary>
+            获取二进制资源哈希值。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.LocalVersionList.#ctor(GameFramework.Resource.LocalVersionList.Resource[],GameFramework.Resource.LocalVersionList.Binary[])">
+            <summary>
+            初始化本地版本资源列表的新实例。
+            </summary>
+            <param name="resources">包含的普通资源集合。</param>
+            <param name="binaries">包含的二进制资源集合。</param>
+        </member>
+        <member name="P:GameFramework.Resource.LocalVersionList.IsValid">
+            <summary>
+            获取本地版本资源列表是否有效。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.LocalVersionList.GetResources">
+            <summary>
+            获取普通资源集合。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GameFramework.Resource.LocalVersionList.GetBinaries">
+            <summary>
+            获取二进制资源集合。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GameFramework.Resource.LocalVersionList.Resource">
+            <summary>
+            普通资源。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.LocalVersionList.Resource.#ctor(System.String,System.String,System.Byte,System.Int32,System.Int32)">
+            <summary>
+            初始化普通资源的新实例。
+            </summary>
+            <param name="name">普通资源名称。</param>
+            <param name="variant">普通资源变体名称。</param>
+            <param name="loadType">普通资源加载方式。</param>
+            <param name="length">普通资源长度。</param>
+            <param name="hashCode">普通资源哈希值。</param>
+        </member>
+        <member name="P:GameFramework.Resource.LocalVersionList.Resource.Name">
+            <summary>
+            获取普通资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.LocalVersionList.Resource.Variant">
+            <summary>
+            获取普通资源变体名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.LocalVersionList.Resource.LoadType">
+            <summary>
+            获取普通资源加载方式。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.LocalVersionList.Resource.Length">
+            <summary>
+            获取普通资源长度。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.LocalVersionList.Resource.HashCode">
+            <summary>
+            获取普通资源哈希值。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Resource.PackageVersionList">
+            <summary>
+            单机模式版本资源列表。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Resource.PackageVersionList.Asset">
+            <summary>
+            资产。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.Asset.#ctor(System.String,System.Int32[])">
+            <summary>
+            初始化资产的新实例。
+            </summary>
+            <param name="name">资产名称。</param>
+            <param name="dependencyAssetIndexes">资产包含的依赖资产索引集合。</param>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.Asset.Name">
+            <summary>
+            获取资产名称。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.Asset.GetDependencyAssetIndexes">
+            <summary>
+            获取资产包含的依赖资产索引集合。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GameFramework.Resource.PackageVersionList.Binary">
+            <summary>
+            二进制资源。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.Binary.#ctor(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            初始化二进制资源的新实例。
+            </summary>
+            <param name="name">二进制资源名称。</param>
+            <param name="variant">二进制资源变体名称。</param>
+            <param name="length">二进制资源长度。</param>
+            <param name="hashCode">二进制资源哈希值。</param>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.Binary.Name">
+            <summary>
+            获取二进制资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.Binary.Variant">
+            <summary>
+            获取二进制资源变体名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.Binary.Length">
+            <summary>
+            获取二进制资源长度。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.Binary.HashCode">
+            <summary>
+            获取二进制资源哈希值。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.#ctor(System.String,System.Int32,GameFramework.Resource.PackageVersionList.Asset[],GameFramework.Resource.PackageVersionList.Resource[],GameFramework.Resource.PackageVersionList.Binary[],GameFramework.Resource.PackageVersionList.ResourceGroup[])">
+            <summary>
+            初始化单机模式版本资源列表的新实例。
+            </summary>
+            <param name="applicableGameVersion">适配的游戏版本号。</param>
+            <param name="internalResourceVersion">内部资源版本号。</param>
+            <param name="assets">包含的资产集合。</param>
+            <param name="resources">包含的普通资源集合。</param>
+            <param name="binaries">包含的二进制资源集合。</param>
+            <param name="resourceGroups">包含的资源组集合。</param>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.IsValid">
+            <summary>
+            获取单机模式版本资源列表是否有效。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.ApplicableGameVersion">
+            <summary>
+            获取适配的游戏版本号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.InternalResourceVersion">
+            <summary>
+            获取内部资源版本号。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.GetAssets">
+            <summary>
+            获取包含的资产集合。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.GetResources">
+            <summary>
+            获取包含的普通资源集合。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.GetBinaries">
+            <summary>
+            获取包含的二进制资源集合。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.GetResourceGroups">
+            <summary>
+            获取包含的资源组集合。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GameFramework.Resource.PackageVersionList.Resource">
+            <summary>
+            普通资源。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.Resource.#ctor(System.String,System.String,System.Byte,System.Int32,System.Int32,System.Int32[])">
+            <summary>
+            初始化普通资源的新实例。
+            </summary>
+            <param name="name">普通资源名称。</param>
+            <param name="variant">普通资源变体名称。</param>
+            <param name="loadType">普通资源加载方式。</param>
+            <param name="length">普通资源长度。</param>
+            <param name="hashCode">普通资源哈希值。</param>
+            <param name="assetIndexes">普通资源包含的资产索引集合。</param>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.Resource.Name">
+            <summary>
+            获取普通资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.Resource.Variant">
+            <summary>
+            获取普通资源变体名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.Resource.LoadType">
+            <summary>
+            获取普通资源加载方式。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.Resource.Length">
+            <summary>
+            获取普通资源长度。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.Resource.HashCode">
+            <summary>
+            获取普通资源哈希值。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.Resource.GetAssetIndexes">
+            <summary>
+            获取普通资源包含的资产索引集合。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GameFramework.Resource.PackageVersionList.ResourceGroup">
+            <summary>
+            资源组。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.ResourceGroup.#ctor(System.String,System.Int32[],System.Int32[])">
+            <summary>
+            初始化资源组的新实例。
+            </summary>
+            <param name="name">资源组名称。</param>
+            <param name="resourceIndexes">资源组包含的普通资源索引集合。</param>
+            <param name="binaryIndexes">资源组包含的二进制资源索引集合。</param>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.ResourceGroup.Name">
+            <summary>
+            获取资源组名称。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.ResourceGroup.GetResourceIndexes">
+            <summary>
+            获取资源组包含的普通资源索引集合。
+            </summary>
+            <returns>资源组包含的普通资源索引集合。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.ResourceGroup.GetBinaryIndexes">
+            <summary>
+            获取资源组包含的二进制资源索引集合。
+            </summary>
+            <returns>资源组包含的二进制资源索引集合。</returns>
+        </member>
+        <member name="T:GameFramework.Resource.PackageVersionListSerializer">
+            <summary>
+            单机模式版本资源列表序列化器。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionListSerializer.#ctor">
+            <summary>
+            初始化单机模式版本资源列表序列化器的新实例。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionListSerializer.GetHeader">
+            <summary>
+            获取单机模式版本资源列表头标识。
+            </summary>
+            <returns>单机模式版本资源列表头标识。</returns>
+        </member>
+        <member name="T:GameFramework.Resource.ReadOnlyVersionListSerializer">
+            <summary>
+            本地只读区版本资源列表序列化器。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ReadOnlyVersionListSerializer.#ctor">
+            <summary>
+            初始化本地只读区版本资源列表序列化器的新实例。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ReadOnlyVersionListSerializer.GetHeader">
+            <summary>
+            获取本地只读区版本资源列表头标识。
+            </summary>
+            <returns>本地只读区版本资源列表头标识。</returns>
+        </member>
+        <member name="T:GameFramework.Resource.ReadWriteVersionListSerializer">
+            <summary>
+            本地读写区版本资源列表序列化器。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ReadWriteVersionListSerializer.#ctor">
+            <summary>
+            初始化本地读写区版本资源列表序列化器的新实例。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ReadWriteVersionListSerializer.GetHeader">
+            <summary>
+            获取本地读写区版本资源列表头标识。
+            </summary>
+            <returns>本地读写区版本资源列表头标识。</returns>
+        </member>
         <member name="T:GameFramework.Resource.ResourceManager">
             <summary>
             资源管理器。
@@ -13466,6 +13820,26 @@
             获取当前变体。
             </summary>
         </member>
+        <member name="P:GameFramework.Resource.ResourceManager.PackageVersionListSerializer">
+            <summary>
+            获取单机模式版本资源列表序列化器。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.UpdatableVersionListSerializer">
+            <summary>
+            获取可更新模式版本资源列表序列化器。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ReadOnlyVersionListSerializer">
+            <summary>
+            获取本地只读区版本资源列表序列化器。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ReadWriteVersionListSerializer">
+            <summary>
+            获取本地读写区版本资源列表序列化器。
+            </summary>
+        </member>
         <member name="P:GameFramework.Resource.ResourceManager.ApplicableGameVersion">
             <summary>
             获取当前资源适用的游戏版本号。
@@ -13496,9 +13870,9 @@
             获取或设置资源更新下载地址前缀。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.GenerateReadWriteListLength">
+        <member name="P:GameFramework.Resource.ResourceManager.GenerateReadWriteVersionListLength">
             <summary>
-            获取或设置每下载多少字节的资源，刷新一次资源列表。
+            获取或设置每下载多少字节的资源，重新生成一次版本资源列表。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.UpdateRetryCount">
@@ -14038,13 +14412,13 @@
             关闭并清理资源检查器。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.TryRecoverReadWriteList">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.TryRecoverReadWriteVersionList">
             <summary>
-            尝试恢复读写区资源列表。
+            尝试恢复读写区版本资源列表。
             </summary>
             <returns>是否恢复成功。</returns>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.ParseVersionList(System.String,System.Byte[],System.String)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.ParseUpdatableVersionList(System.String,System.Byte[],System.String)">
             <summary>
             解析版本资源列表。
             </summary>
@@ -14052,19 +14426,19 @@
             <param name="bytes">要解析的数据。</param>
             <param name="errorMessage">错误信息。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.ParseReadOnlyList(System.String,System.Byte[],System.String)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.ParseReadOnlyVersionList(System.String,System.Byte[],System.String)">
             <summary>
-            解析只读区资源列表。
+            解析只读区版本资源列表。
             </summary>
-            <param name="fileUri">只读区资源列表文件路径。</param>
+            <param name="fileUri">只读区版本资源列表文件路径。</param>
             <param name="bytes">要解析的数据。</param>
             <param name="errorMessage">错误信息。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.ParseReadWriteList(System.String,System.Byte[],System.String)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.ParseReadWriteVersionList(System.String,System.Byte[],System.String)">
             <summary>
-            解析读写区资源列表。
+            解析读写区版本资源列表。
             </summary>
-            <param name="fileUri">读写区资源列表文件路径。</param>
+            <param name="fileUri">读写区版本资源列表文件路径。</param>
             <param name="bytes">要解析的数据。</param>
             <param name="errorMessage">错误信息。</param>
         </member>
@@ -14208,41 +14582,13 @@
             初始化资源。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceIniter.ParsePackageList(System.String,System.Byte[],System.String)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceIniter.ParsePackageVersionList(System.String,System.Byte[],System.String)">
             <summary>
-            解析资源包资源列表。
+            解析资源包版本资源列表。
             </summary>
             <param name="fileUri">版本资源列表文件路径。</param>
             <param name="bytes">要解析的数据。</param>
             <param name="errorMessage">错误信息。</param>
-        </member>
-        <member name="T:GameFramework.Resource.ResourceManager.ResourceLength">
-            <summary>
-            资源大小数据。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceLength.#ctor(GameFramework.Resource.ResourceManager.ResourceName,System.Int32,System.Int32)">
-            <summary>
-            初始化资源大小数据的新实例。
-            </summary>
-            <param name="resourceName">资源名称。</param>
-            <param name="length">资源大小。</param>
-            <param name="zipLength">资源压缩后的大小。</param>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceLength.ResourceName">
-            <summary>
-            获取资源名称。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceLength.Length">
-            <summary>
-            获取资源大小。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceLength.ZipLength">
-            <summary>
-            获取资源压缩后的大小。
-            </summary>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceLoader">
             <summary>
@@ -14492,9 +14838,9 @@
             </summary>
             <param name="resourceManager">资源管理器。</param>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.GenerateReadWriteListLength">
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.GenerateReadWriteVersionListLength">
             <summary>
-            获取或设置每下载多少字节的资源，刷新一次资源列表。
+            获取或设置每下载多少字节的资源，重新生成一次版本资源列表。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateRetryCount">
@@ -14556,7 +14902,7 @@
             <summary>
             检查资源完成。
             </summary>
-            <param name="needGenerateReadWriteList">是否需要生成读写区资源列表。</param>
+            <param name="needGenerateReadWriteVersionList">是否需要生成读写区版本资源列表。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateResources(GameFramework.Resource.ResourceManager.ResourceGroup)">
             <summary>
@@ -14932,6 +15278,235 @@
             <param name="sceneAssetName">要卸载的场景资源名称。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
+        <member name="T:GameFramework.Resource.UpdatableVersionList">
+            <summary>
+            可更新模式版本资源列表。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Resource.UpdatableVersionList.Asset">
+            <summary>
+            资产。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.Asset.#ctor(System.String,System.Int32[])">
+            <summary>
+            初始化资产的新实例。
+            </summary>
+            <param name="name">资产名称。</param>
+            <param name="dependencyAssetIndexes">资产包含的依赖资产索引集合。</param>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Asset.Name">
+            <summary>
+            获取资产名称。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.Asset.GetDependencyAssetIndexes">
+            <summary>
+            获取资产包含的依赖资产索引集合。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GameFramework.Resource.UpdatableVersionList.Binary">
+            <summary>
+            二进制资源。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.Binary.#ctor(System.String,System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            初始化二进制资源的新实例。
+            </summary>
+            <param name="name">二进制资源名称。</param>
+            <param name="variant">二进制资源变体名称。</param>
+            <param name="length">二进制资源长度。</param>
+            <param name="hashCode">二进制资源哈希值。</param>
+            <param name="zipLength">二进制资源压缩后长度。</param>
+            <param name="zipHashCode">二进制资源压缩后哈希值。</param>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Binary.Name">
+            <summary>
+            获取二进制资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Binary.Variant">
+            <summary>
+            获取二进制资源变体名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Binary.Length">
+            <summary>
+            获取二进制资源长度。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Binary.HashCode">
+            <summary>
+            获取二进制资源哈希值。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Binary.ZipLength">
+            <summary>
+            获取二进制资源压缩后长度。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Binary.ZipHashCode">
+            <summary>
+            获取二进制资源压缩后哈希值。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.#ctor(System.String,System.Int32,GameFramework.Resource.UpdatableVersionList.Asset[],GameFramework.Resource.UpdatableVersionList.Resource[],GameFramework.Resource.UpdatableVersionList.Binary[],GameFramework.Resource.UpdatableVersionList.ResourceGroup[])">
+            <summary>
+            初始化可更新模式版本资源列表的新实例。
+            </summary>
+            <param name="applicableGameVersion">适配的游戏版本号。</param>
+            <param name="internalResourceVersion">内部资源版本号。</param>
+            <param name="assets">包含的资产集合。</param>
+            <param name="resources">包含的普通资源集合。</param>
+            <param name="binaries">包含的二进制资源集合。</param>
+            <param name="resourceGroups">包含的资源组集合。</param>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.IsValid">
+            <summary>
+            获取可更新模式版本资源列表是否有效。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.ApplicableGameVersion">
+            <summary>
+            获取适配的游戏版本号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.InternalResourceVersion">
+            <summary>
+            获取内部资源版本号。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.GetAssets">
+            <summary>
+            获取包含的资产集合。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.GetResources">
+            <summary>
+            获取包含的普通资源集合。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.GetBinaries">
+            <summary>
+            获取包含的二进制资源集合。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.GetResourceGroups">
+            <summary>
+            获取包含的资源组集合。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GameFramework.Resource.UpdatableVersionList.Resource">
+            <summary>
+            普通资源。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.Resource.#ctor(System.String,System.String,System.Byte,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32[])">
+            <summary>
+            初始化普通资源的新实例。
+            </summary>
+            <param name="name">普通资源名称。</param>
+            <param name="variant">普通资源变体名称。</param>
+            <param name="loadType">普通资源加载方式。</param>
+            <param name="length">普通资源长度。</param>
+            <param name="hashCode">普通资源哈希值。</param>
+            <param name="zipLength">普通资源压缩后长度。</param>
+            <param name="zipHashCode">普通资源压缩后哈希值。</param>
+            <param name="assetIndexes">普通资源包含的资产索引集合。</param>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.Name">
+            <summary>
+            获取普通资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.Variant">
+            <summary>
+            获取普通资源变体名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.LoadType">
+            <summary>
+            获取普通资源加载方式。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.Length">
+            <summary>
+            获取普通资源长度。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.HashCode">
+            <summary>
+            获取普通资源哈希值。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.ZipLength">
+            <summary>
+            获取普通资源压缩后长度。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.ZipHashCode">
+            <summary>
+            获取普通资源压缩后哈希值。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.Resource.GetAssetIndexes">
+            <summary>
+            获取普通资源包含的资产索引集合。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GameFramework.Resource.UpdatableVersionList.ResourceGroup">
+            <summary>
+            资源组。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.ResourceGroup.#ctor(System.String,System.Int32[],System.Int32[])">
+            <summary>
+            初始化资源组的新实例。
+            </summary>
+            <param name="name">资源组名称。</param>
+            <param name="resourceIndexes">资源组包含的普通资源索引集合。</param>
+            <param name="binaryIndexes">资源组包含的二进制资源索引集合。</param>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.ResourceGroup.Name">
+            <summary>
+            获取资源组名称。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.ResourceGroup.GetResourceIndexes">
+            <summary>
+            获取资源组包含的普通资源索引集合。
+            </summary>
+            <returns>资源组包含的普通资源索引集合。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.ResourceGroup.GetBinaryIndexes">
+            <summary>
+            获取资源组包含的二进制资源索引集合。
+            </summary>
+            <returns>资源组包含的二进制资源索引集合。</returns>
+        </member>
+        <member name="T:GameFramework.Resource.UpdatableVersionListSerializer">
+            <summary>
+            可更新模式版本资源列表序列化器。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionListSerializer.#ctor">
+            <summary>
+            初始化可更新模式版本资源列表序列化器的新实例。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionListSerializer.GetHeader">
+            <summary>
+            获取可更新模式版本资源列表头标识。
+            </summary>
+            <returns>可更新模式版本资源列表头标识。</returns>
+        </member>
         <member name="T:GameFramework.Resource.UpdateResourcesCompleteCallback">
             <summary>
             使用可更新模式并更新指定资源组完成时的回调函数。
@@ -14980,6 +15555,100 @@
             </summary>
             <param name="downloadPath">版本资源列表更新后存放路径。</param>
             <param name="downloadUri">版本资源列表更新地址。</param>
+        </member>
+        <member name="T:GameFramework.Resource.VersionListSerializer`1">
+            <summary>
+            版本资源列表序列化器基类。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.VersionListSerializer`1.#ctor">
+            <summary>
+            初始化版本资源列表序列化器基类的新实例。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Resource.VersionListSerializer`1.SerializeCallback">
+            <summary>
+            序列化回调函数。
+            </summary>
+            <param name="binaryWriter">目标流。</param>
+            <param name="versionList">要序列化的版本资源列表。</param>
+            <returns>序列化版本资源列表是否成功。</returns>
+        </member>
+        <member name="T:GameFramework.Resource.VersionListSerializer`1.DeserializeCallback">
+            <summary>
+            反序列化回调函数。
+            </summary>
+            <param name="binaryReader">指定流。</param>
+            <returns>反序列化的版本资源列表。</returns>
+        </member>
+        <member name="T:GameFramework.Resource.VersionListSerializer`1.TryGetValueCallback">
+            <summary>
+            尝试从指定流获取指定键的值回调函数。
+            </summary>
+            <param name="binaryReader">指定流。</param>
+            <param name="key">指定键。</param>
+            <param name="value">指定键的值。</param>
+            <returns>从指定流获取指定键的值是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.VersionListSerializer`1.RegisterSerializeCallback(System.Byte,GameFramework.Resource.VersionListSerializer{`0}.SerializeCallback)">
+            <summary>
+            注册序列化回调函数。
+            </summary>
+            <param name="version">序列化回调函数的版本。</param>
+            <param name="callback">序列化回调函数。</param>
+        </member>
+        <member name="M:GameFramework.Resource.VersionListSerializer`1.RegisterDeserializeCallback(System.Byte,GameFramework.Resource.VersionListSerializer{`0}.DeserializeCallback)">
+            <summary>
+            注册反序列化回调函数。
+            </summary>
+            <param name="version">反序列化回调函数的版本。</param>
+            <param name="callback">反序列化回调函数。</param>
+        </member>
+        <member name="M:GameFramework.Resource.VersionListSerializer`1.RegisterTryGetValueCallback(System.Byte,GameFramework.Resource.VersionListSerializer{`0}.TryGetValueCallback)">
+            <summary>
+            注册尝试从指定流获取指定键的值回调函数。
+            </summary>
+            <param name="version">尝试从指定流获取指定键的值回调函数的版本。</param>
+            <param name="callback">尝试从指定流获取指定键的值回调函数。</param>
+        </member>
+        <member name="M:GameFramework.Resource.VersionListSerializer`1.Serialize(System.IO.Stream,`0)">
+            <summary>
+            序列化版本资源列表到目标流中。
+            </summary>
+            <param name="stream">目标流。</param>
+            <param name="versionList">要序列化的版本资源列表。</param>
+            <returns>序列化版本资源列表是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.VersionListSerializer`1.Serialize(System.IO.Stream,`0,System.Byte)">
+            <summary>
+            序列化版本资源列表到目标流中。
+            </summary>
+            <param name="stream">目标流。</param>
+            <param name="versionList">要序列化的版本资源列表。</param>
+            <param name="version">序列化回调函数的版本。</param>
+            <returns>序列化版本资源列表是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.VersionListSerializer`1.Deserialize(System.IO.Stream)">
+            <summary>
+            从指定流反序列化版本资源列表。
+            </summary>
+            <param name="stream">指定流。</param>
+            <returns>反序列化的版本资源列表。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.VersionListSerializer`1.TryGetValue(System.IO.Stream,System.String,System.Object@)">
+            <summary>
+            尝试从指定流获取指定键的值。
+            </summary>
+            <param name="stream">指定流。</param>
+            <param name="key">指定键。</param>
+            <param name="value">指定键的值。</param>
+            <returns>从指定流获取指定键的值是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.VersionListSerializer`1.GetHeader">
+            <summary>
+            获取版本资源列表头标识。
+            </summary>
+            <returns>版本资源列表头标识。</returns>
         </member>
         <member name="T:GameFramework.Scene.ISceneManager">
             <summary>

@@ -33,7 +33,7 @@ namespace UnityGameFramework.Editor
         private SerializedProperty m_ResourceExpireTime = null;
         private SerializedProperty m_ResourcePriority = null;
         private SerializedProperty m_UpdatePrefixUri = null;
-        private SerializedProperty m_GenerateReadWriteListLength = null;
+        private SerializedProperty m_GenerateReadWriteVersionListLength = null;
         private SerializedProperty m_UpdateRetryCount = null;
         private SerializedProperty m_InstanceRoot = null;
         private SerializedProperty m_LoadResourceAgentHelperCount = null;
@@ -212,16 +212,16 @@ namespace UnityGameFramework.Editor
                         }
                     }
 
-                    int generateReadWriteListLength = EditorGUILayout.DelayedIntField("Generate Read Write List Length", m_GenerateReadWriteListLength.intValue);
-                    if (generateReadWriteListLength != m_GenerateReadWriteListLength.intValue)
+                    int generateReadWriteVersionListLength = EditorGUILayout.DelayedIntField("Generate Read Write Version List Length", m_GenerateReadWriteVersionListLength.intValue);
+                    if (generateReadWriteVersionListLength != m_GenerateReadWriteVersionListLength.intValue)
                     {
                         if (EditorApplication.isPlaying)
                         {
-                            t.GenerateReadWriteListLength = generateReadWriteListLength;
+                            t.GenerateReadWriteVersionListLength = generateReadWriteVersionListLength;
                         }
                         else
                         {
-                            m_GenerateReadWriteListLength.intValue = generateReadWriteListLength;
+                            m_GenerateReadWriteVersionListLength.intValue = generateReadWriteVersionListLength;
                         }
                     }
 
@@ -344,7 +344,7 @@ namespace UnityGameFramework.Editor
             m_ResourceExpireTime = serializedObject.FindProperty("m_ResourceExpireTime");
             m_ResourcePriority = serializedObject.FindProperty("m_ResourcePriority");
             m_UpdatePrefixUri = serializedObject.FindProperty("m_UpdatePrefixUri");
-            m_GenerateReadWriteListLength = serializedObject.FindProperty("m_GenerateReadWriteListLength");
+            m_GenerateReadWriteVersionListLength = serializedObject.FindProperty("m_GenerateReadWriteVersionListLength");
             m_UpdateRetryCount = serializedObject.FindProperty("m_UpdateRetryCount");
             m_InstanceRoot = serializedObject.FindProperty("m_InstanceRoot");
             m_LoadResourceAgentHelperCount = serializedObject.FindProperty("m_LoadResourceAgentHelperCount");

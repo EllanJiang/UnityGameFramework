@@ -13431,17 +13431,23 @@
             二进制资源。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.LocalVersionList.Binary.#ctor(System.String,System.Int32,System.Int32)">
+        <member name="M:GameFramework.Resource.LocalVersionList.Binary.#ctor(System.String,System.String,System.Int32,System.Int32)">
             <summary>
             初始化二进制资源的新实例。
             </summary>
             <param name="name">二进制资源名称。</param>
+            <param name="variant">二进制资源变体名称。</param>
             <param name="length">二进制资源长度。</param>
             <param name="hashCode">二进制资源哈希值。</param>
         </member>
         <member name="P:GameFramework.Resource.LocalVersionList.Binary.Name">
             <summary>
             获取二进制资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.LocalVersionList.Binary.Variant">
+            <summary>
+            获取二进制资源变体名称。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.LocalVersionList.Binary.Length">

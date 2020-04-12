@@ -22,6 +22,8 @@ namespace UnityGameFramework.Runtime
         private static readonly byte[] s_CachedHashBytes = new byte[CachedHashBytesLength];
         private static readonly byte[] s_CachedBytesForEncryptedString = new byte[byte.MaxValue];
 
+        #region Version 0
+
 #if UNITY_EDITOR
 
         /// <summary>
@@ -42,8 +44,8 @@ namespace UnityGameFramework.Runtime
             WriteEncryptedString(binaryWriter, versionList.ApplicableGameVersion, s_CachedHashBytes);
             binaryWriter.Write(versionList.InternalResourceVersion);
             PackageVersionList.Asset[] assets = versionList.GetAssets();
-            PackageVersionList.Resource[] resources = versionList.GetResources();
             binaryWriter.Write(assets.Length);
+            PackageVersionList.Resource[] resources = versionList.GetResources();
             binaryWriter.Write(resources.Length);
             foreach (PackageVersionList.Resource resource in resources)
             {
@@ -96,7 +98,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>反序列化的单机模式版本资源列表（版本 0）。</returns>
         public static PackageVersionList DeserializePackageVersionListCallback_V0(BinaryReader binaryReader)
         {
-            byte[] encryptBytes = binaryReader.ReadBytes(4);
+            byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
             string applicableGameVersion = ReadEncryptedString(binaryReader, encryptBytes);
             int internalResourceVersion = binaryReader.ReadInt32();
             int assetCount = binaryReader.ReadInt32();
@@ -189,15 +191,15 @@ namespace UnityGameFramework.Runtime
             PackageVersionList.ResourceGroup[] resourceGroups = resourceGroupCount > 0 ? new PackageVersionList.ResourceGroup[resourceGroupCount] : null;
             for (int i = 0; i < resourceGroupCount; i++)
             {
-                string resourceGroupName = ReadEncryptedString(binaryReader, encryptBytes);
-                int resourceGroupResourceCount = binaryReader.ReadInt32();
-                int[] resourceIndexes = resourceGroupResourceCount > 0 ? new int[resourceGroupResourceCount] : null;
-                for (int j = 0; j < resourceGroupResourceCount; j++)
+                string name = ReadEncryptedString(binaryReader, encryptBytes);
+                int resourceIndexCount = binaryReader.ReadInt32();
+                int[] resourceIndexes = resourceIndexCount > 0 ? new int[resourceIndexCount] : null;
+                for (int j = 0; j < resourceIndexCount; j++)
                 {
                     resourceIndexes[j] = binaryReader.ReadUInt16();
                 }
 
-                resourceGroups[i] = new PackageVersionList.ResourceGroup(resourceGroupName, resourceIndexes, null);
+                resourceGroups[i] = new PackageVersionList.ResourceGroup(name, resourceIndexes, null);
             }
 
             return new PackageVersionList(applicableGameVersion, internalResourceVersion, assets, resources, null, resourceGroups);
@@ -223,8 +225,8 @@ namespace UnityGameFramework.Runtime
             WriteEncryptedString(binaryWriter, versionList.ApplicableGameVersion, s_CachedHashBytes);
             binaryWriter.Write(versionList.InternalResourceVersion);
             UpdatableVersionList.Asset[] assets = versionList.GetAssets();
-            UpdatableVersionList.Resource[] resources = versionList.GetResources();
             binaryWriter.Write(assets.Length);
+            UpdatableVersionList.Resource[] resources = versionList.GetResources();
             binaryWriter.Write(resources.Length);
             foreach (UpdatableVersionList.Resource resource in resources)
             {
@@ -279,7 +281,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>反序列化的可更新模式版本资源列表（版本 0）。</returns>
         public static UpdatableVersionList DeserializeUpdatableVersionListCallback_V0(BinaryReader binaryReader)
         {
-            byte[] encryptBytes = binaryReader.ReadBytes(4);
+            byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
             string applicableGameVersion = ReadEncryptedString(binaryReader, encryptBytes);
             int internalResourceVersion = binaryReader.ReadInt32();
             int assetCount = binaryReader.ReadInt32();
@@ -374,15 +376,15 @@ namespace UnityGameFramework.Runtime
             UpdatableVersionList.ResourceGroup[] resourceGroups = resourceGroupCount > 0 ? new UpdatableVersionList.ResourceGroup[resourceGroupCount] : null;
             for (int i = 0; i < resourceGroupCount; i++)
             {
-                string resourceGroupName = ReadEncryptedString(binaryReader, encryptBytes);
-                int resourceGroupResourceCount = binaryReader.ReadInt32();
-                int[] resourceIndexes = resourceGroupResourceCount > 0 ? new int[resourceGroupResourceCount] : null;
-                for (int j = 0; j < resourceGroupResourceCount; j++)
+                string name = ReadEncryptedString(binaryReader, encryptBytes);
+                int resourceIndexCount = binaryReader.ReadInt32();
+                int[] resourceIndexes = resourceIndexCount > 0 ? new int[resourceIndexCount] : null;
+                for (int j = 0; j < resourceIndexCount; j++)
                 {
                     resourceIndexes[j] = binaryReader.ReadUInt16();
                 }
 
-                resourceGroups[i] = new UpdatableVersionList.ResourceGroup(resourceGroupName, resourceIndexes, null);
+                resourceGroups[i] = new UpdatableVersionList.ResourceGroup(name, resourceIndexes, null);
             }
 
             return new UpdatableVersionList(applicableGameVersion, internalResourceVersion, assets, resources, null, resourceGroups);
@@ -426,13 +428,14 @@ namespace UnityGameFramework.Runtime
         /// <returns>反序列化的本地版本资源列表（版本 0）。</returns>
         public static LocalVersionList DeserializeLocalVersionListCallback_V0(BinaryReader binaryReader)
         {
-            byte[] hashBytes = binaryReader.ReadBytes(4);
+            byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
+
             int resourceCount = binaryReader.ReadInt32();
             LocalVersionList.Resource[] resources = resourceCount > 0 ? new LocalVersionList.Resource[resourceCount] : null;
             for (int i = 0; i < resourceCount; i++)
             {
-                string name = ReadEncryptedString(binaryReader, hashBytes);
-                string variant = ReadEncryptedString(binaryReader, hashBytes);
+                string name = ReadEncryptedString(binaryReader, encryptBytes);
+                string variant = ReadEncryptedString(binaryReader, encryptBytes);
                 byte loadType = binaryReader.ReadByte();
                 int length = binaryReader.ReadInt32();
                 int hashCode = binaryReader.ReadInt32();
@@ -457,11 +460,459 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
-            byte[] encryptBytes = binaryReader.ReadBytes(4);
+            binaryReader.BaseStream.Position += CachedHashBytesLength;
             binaryReader.BaseStream.Position += binaryReader.ReadByte();
             value = binaryReader.ReadInt32();
             return true;
         }
+
+        #endregion Version 0
+
+        #region Version 1
+
+#if UNITY_EDITOR
+
+        /// <summary>
+        /// 序列化单机模式版本资源列表（版本 1）回调函数。
+        /// </summary>
+        /// <param name="binaryWriter">目标流。</param>
+        /// <param name="versionList">要序列化的单机模式版本资源列表（版本 1）。</param>
+        /// <returns>序列化单机模式版本资源列表（版本 1）是否成功。</returns>
+        public static bool SerializePackageVersionListCallback_V1(BinaryWriter binaryWriter, PackageVersionList versionList)
+        {
+            if (!versionList.IsValid)
+            {
+                return false;
+            }
+
+            Utility.Random.GetRandomBytes(s_CachedHashBytes);
+            binaryWriter.Write(s_CachedHashBytes);
+            WriteEncryptedString(binaryWriter, versionList.ApplicableGameVersion, s_CachedHashBytes);
+            binaryWriter.Write(versionList.InternalResourceVersion);
+
+            PackageVersionList.Asset[] assets = versionList.GetAssets();
+            binaryWriter.Write(assets.Length);
+            foreach (PackageVersionList.Asset asset in assets)
+            {
+                WriteEncryptedString(binaryWriter, asset.Name, s_CachedHashBytes);
+                int[] dependencyAssetIndexes = asset.GetDependencyAssetIndexes();
+                binaryWriter.Write(dependencyAssetIndexes.Length);
+                foreach (int dependencyAssetIndex in dependencyAssetIndexes)
+                {
+                    binaryWriter.Write(dependencyAssetIndex);
+                }
+            }
+
+            PackageVersionList.Resource[] resources = versionList.GetResources();
+            binaryWriter.Write(resources.Length);
+            foreach (PackageVersionList.Resource resource in resources)
+            {
+                WriteEncryptedString(binaryWriter, resource.Name, s_CachedHashBytes);
+                WriteEncryptedString(binaryWriter, resource.Variant, s_CachedHashBytes);
+                binaryWriter.Write(resource.LoadType);
+                binaryWriter.Write(resource.Length);
+                binaryWriter.Write(resource.HashCode);
+                int[] assetIndexes = resource.GetAssetIndexes();
+                binaryWriter.Write(assetIndexes.Length);
+                foreach (int assetIndex in assetIndexes)
+                {
+                    binaryWriter.Write(assetIndex);
+                }
+            }
+
+            PackageVersionList.Binary[] binaries = versionList.GetBinaries();
+            binaryWriter.Write(binaries.Length);
+            foreach (PackageVersionList.Binary binary in binaries)
+            {
+                WriteEncryptedString(binaryWriter, binary.Name, s_CachedHashBytes);
+                WriteEncryptedString(binaryWriter, binary.Variant, s_CachedHashBytes);
+                binaryWriter.Write(binary.Length);
+                binaryWriter.Write(binary.HashCode);
+            }
+
+            PackageVersionList.ResourceGroup[] resourceGroups = versionList.GetResourceGroups();
+            binaryWriter.Write(resourceGroups.Length);
+            foreach (PackageVersionList.ResourceGroup resourceGroup in resourceGroups)
+            {
+                WriteEncryptedString(binaryWriter, resourceGroup.Name, s_CachedHashBytes);
+                int[] resourceIndexes = resourceGroup.GetResourceIndexes();
+                binaryWriter.Write(resourceIndexes.Length);
+                foreach (ushort resourceIndex in resourceIndexes)
+                {
+                    binaryWriter.Write(resourceIndex);
+                }
+
+                int[] binaryIndexes = resourceGroup.GetBinaryIndexes();
+                binaryWriter.Write(binaryIndexes.Length);
+                foreach (ushort binaryIndex in binaryIndexes)
+                {
+                    binaryWriter.Write(binaryIndex);
+                }
+            }
+
+            Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
+
+            return true;
+        }
+
+#endif
+
+        /// <summary>
+        /// 反序列化单机模式版本资源列表（版本 1）回调函数。
+        /// </summary>
+        /// <param name="binaryReader">指定流。</param>
+        /// <returns>反序列化的单机模式版本资源列表（版本 1）。</returns>
+        public static PackageVersionList DeserializePackageVersionListCallback_V1(BinaryReader binaryReader)
+        {
+            byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
+            string applicableGameVersion = ReadEncryptedString(binaryReader, encryptBytes);
+            int internalResourceVersion = binaryReader.ReadInt32();
+
+            int assetCount = binaryReader.ReadInt32();
+            PackageVersionList.Asset[] assets = assetCount > 0 ? new PackageVersionList.Asset[assetCount] : null;
+            for (int i = 0; i < assetCount; i++)
+            {
+                string name = ReadEncryptedString(binaryReader, encryptBytes);
+                int dependencyAssetCount = binaryReader.ReadInt32();
+                int[] dependencyAssetIndexes = dependencyAssetCount > 0 ? new int[dependencyAssetCount] : null;
+                for (int j = 0; j < dependencyAssetCount; j++)
+                {
+                    dependencyAssetIndexes[j] = binaryReader.ReadInt32();
+                }
+
+                assets[i] = new PackageVersionList.Asset(name, dependencyAssetIndexes);
+            }
+
+            int resourceCount = binaryReader.ReadInt32();
+            PackageVersionList.Resource[] resources = resourceCount > 0 ? new PackageVersionList.Resource[resourceCount] : null;
+            for (int i = 0; i < resourceCount; i++)
+            {
+                string name = ReadEncryptedString(binaryReader, encryptBytes);
+                string variant = ReadEncryptedString(binaryReader, encryptBytes);
+                byte loadType = binaryReader.ReadByte();
+                int length = binaryReader.ReadInt32();
+                int hashCode = binaryReader.ReadInt32();
+                int assetIndexCount = binaryReader.ReadInt32();
+                int[] assetIndexes = assetIndexCount > 0 ? new int[assetIndexCount] : null;
+                for (int j = 0; j < assetIndexCount; j++)
+                {
+                    assetIndexes[j] = binaryReader.ReadInt32();
+                }
+
+                resources[i] = new PackageVersionList.Resource(name, variant, loadType, length, hashCode, assetIndexes);
+            }
+
+            int binaryCount = binaryReader.ReadInt32();
+            PackageVersionList.Binary[] binaries = binaryCount > 0 ? new PackageVersionList.Binary[binaryCount] : null;
+            for (int i = 0; i < binaryCount; i++)
+            {
+                string name = ReadEncryptedString(binaryReader, encryptBytes);
+                string variant = ReadEncryptedString(binaryReader, encryptBytes);
+                int length = binaryReader.ReadInt32();
+                int hashCode = binaryReader.ReadInt32();
+                binaries[i] = new PackageVersionList.Binary(name, variant, length, hashCode);
+            }
+
+            int resourceGroupCount = binaryReader.ReadInt32();
+            PackageVersionList.ResourceGroup[] resourceGroups = resourceGroupCount > 0 ? new PackageVersionList.ResourceGroup[resourceGroupCount] : null;
+            for (int i = 0; i < resourceGroupCount; i++)
+            {
+                string name = ReadEncryptedString(binaryReader, encryptBytes);
+                int resourceIndexCount = binaryReader.ReadInt32();
+                int[] resourceIndexes = resourceIndexCount > 0 ? new int[resourceIndexCount] : null;
+                for (int j = 0; j < resourceIndexCount; j++)
+                {
+                    resourceIndexes[j] = binaryReader.ReadInt32();
+                }
+
+                int binaryIndexCount = binaryReader.ReadInt32();
+                int[] binaryIndexes = binaryIndexCount > 0 ? new int[binaryIndexCount] : null;
+                for (int j = 0; j < binaryIndexCount; j++)
+                {
+                    binaryIndexes[j] = binaryReader.ReadInt32();
+                }
+
+                resourceGroups[i] = new PackageVersionList.ResourceGroup(name, resourceIndexes, binaryIndexes);
+            }
+
+            return new PackageVersionList(applicableGameVersion, internalResourceVersion, assets, resources, binaries, resourceGroups);
+        }
+
+#if UNITY_EDITOR
+
+        /// <summary>
+        /// 序列化可更新模式版本资源列表（版本 1）回调函数。
+        /// </summary>
+        /// <param name="binaryWriter">目标流。</param>
+        /// <param name="versionList">要序列化的可更新模式版本资源列表（版本 1）。</param>
+        /// <returns>序列化可更新模式版本资源列表（版本 1）是否成功。</returns>
+        public static bool SerializeUpdatableVersionListCallback_V1(BinaryWriter binaryWriter, UpdatableVersionList versionList)
+        {
+            if (!versionList.IsValid)
+            {
+                return false;
+            }
+
+            Utility.Random.GetRandomBytes(s_CachedHashBytes);
+            binaryWriter.Write(s_CachedHashBytes);
+            WriteEncryptedString(binaryWriter, versionList.ApplicableGameVersion, s_CachedHashBytes);
+            binaryWriter.Write(versionList.InternalResourceVersion);
+
+            UpdatableVersionList.Asset[] assets = versionList.GetAssets();
+            binaryWriter.Write(assets.Length);
+            foreach (UpdatableVersionList.Asset asset in assets)
+            {
+                WriteEncryptedString(binaryWriter, asset.Name, s_CachedHashBytes);
+                int[] dependencyAssetIndexes = asset.GetDependencyAssetIndexes();
+                binaryWriter.Write(dependencyAssetIndexes.Length);
+                foreach (int dependencyAssetIndex in dependencyAssetIndexes)
+                {
+                    binaryWriter.Write(dependencyAssetIndex);
+                }
+            }
+
+            UpdatableVersionList.Resource[] resources = versionList.GetResources();
+            binaryWriter.Write(resources.Length);
+            foreach (UpdatableVersionList.Resource resource in resources)
+            {
+                WriteEncryptedString(binaryWriter, resource.Name, s_CachedHashBytes);
+                WriteEncryptedString(binaryWriter, resource.Variant, s_CachedHashBytes);
+                binaryWriter.Write(resource.LoadType);
+                binaryWriter.Write(resource.Length);
+                binaryWriter.Write(resource.HashCode);
+                binaryWriter.Write(resource.ZipLength);
+                binaryWriter.Write(resource.ZipHashCode);
+                int[] assetIndexes = resource.GetAssetIndexes();
+                binaryWriter.Write(assetIndexes.Length);
+                foreach (int assetIndex in assetIndexes)
+                {
+                    binaryWriter.Write(assetIndex);
+                }
+            }
+
+            UpdatableVersionList.Binary[] binaries = versionList.GetBinaries();
+            binaryWriter.Write(binaries.Length);
+            foreach (UpdatableVersionList.Binary binary in binaries)
+            {
+                WriteEncryptedString(binaryWriter, binary.Name, s_CachedHashBytes);
+                WriteEncryptedString(binaryWriter, binary.Variant, s_CachedHashBytes);
+                binaryWriter.Write(binary.Length);
+                binaryWriter.Write(binary.HashCode);
+                binaryWriter.Write(binary.ZipLength);
+                binaryWriter.Write(binary.ZipHashCode);
+            }
+
+            UpdatableVersionList.ResourceGroup[] resourceGroups = versionList.GetResourceGroups();
+            binaryWriter.Write(resourceGroups.Length);
+            foreach (UpdatableVersionList.ResourceGroup resourceGroup in resourceGroups)
+            {
+                WriteEncryptedString(binaryWriter, resourceGroup.Name, s_CachedHashBytes);
+                int[] resourceIndexes = resourceGroup.GetResourceIndexes();
+                binaryWriter.Write(resourceIndexes.Length);
+                foreach (ushort resourceIndex in resourceIndexes)
+                {
+                    binaryWriter.Write(resourceIndex);
+                }
+
+                int[] binaryIndexes = resourceGroup.GetBinaryIndexes();
+                binaryWriter.Write(binaryIndexes.Length);
+                foreach (ushort binaryIndex in binaryIndexes)
+                {
+                    binaryWriter.Write(binaryIndex);
+                }
+            }
+
+            Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
+
+            return true;
+        }
+
+#endif
+
+        /// <summary>
+        /// 反序列化可更新模式版本资源列表（版本 1）回调函数。
+        /// </summary>
+        /// <param name="binaryReader">指定流。</param>
+        /// <returns>反序列化的可更新模式版本资源列表（版本 1）。</returns>
+        public static UpdatableVersionList DeserializeUpdatableVersionListCallback_V1(BinaryReader binaryReader)
+        {
+            byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
+            string applicableGameVersion = ReadEncryptedString(binaryReader, encryptBytes);
+            int internalResourceVersion = binaryReader.ReadInt32();
+
+            int assetCount = binaryReader.ReadInt32();
+            UpdatableVersionList.Asset[] assets = assetCount > 0 ? new UpdatableVersionList.Asset[assetCount] : null;
+            for (int i = 0; i < assetCount; i++)
+            {
+                string name = ReadEncryptedString(binaryReader, encryptBytes);
+                int dependencyAssetCount = binaryReader.ReadInt32();
+                int[] dependencyAssetIndexes = dependencyAssetCount > 0 ? new int[dependencyAssetCount] : null;
+                for (int j = 0; j < dependencyAssetCount; j++)
+                {
+                    dependencyAssetIndexes[j] = binaryReader.ReadInt32();
+                }
+
+                assets[i] = new UpdatableVersionList.Asset(name, dependencyAssetIndexes);
+            }
+
+            int resourceCount = binaryReader.ReadInt32();
+            UpdatableVersionList.Resource[] resources = resourceCount > 0 ? new UpdatableVersionList.Resource[resourceCount] : null;
+            for (int i = 0; i < resourceCount; i++)
+            {
+                string name = ReadEncryptedString(binaryReader, encryptBytes);
+                string variant = ReadEncryptedString(binaryReader, encryptBytes);
+                byte loadType = binaryReader.ReadByte();
+                int length = binaryReader.ReadInt32();
+                int hashCode = binaryReader.ReadInt32();
+                int zipLength = binaryReader.ReadInt32();
+                int zipHashCode = binaryReader.ReadInt32();
+                int assetIndexCount = binaryReader.ReadInt32();
+                int[] assetIndexes = assetIndexCount > 0 ? new int[assetIndexCount] : null;
+                for (int j = 0; j < assetIndexCount; j++)
+                {
+                    assetIndexes[j] = binaryReader.ReadInt32();
+                }
+
+                resources[i] = new UpdatableVersionList.Resource(name, variant, loadType, length, hashCode, zipLength, zipHashCode, assetIndexes);
+            }
+
+            int binaryCount = binaryReader.ReadInt32();
+            UpdatableVersionList.Binary[] binaries = binaryCount > 0 ? new UpdatableVersionList.Binary[binaryCount] : null;
+            for (int i = 0; i < binaryCount; i++)
+            {
+                string name = ReadEncryptedString(binaryReader, encryptBytes);
+                string variant = ReadEncryptedString(binaryReader, encryptBytes);
+                int length = binaryReader.ReadInt32();
+                int hashCode = binaryReader.ReadInt32();
+                int zipLength = binaryReader.ReadInt32();
+                int zipHashCode = binaryReader.ReadInt32();
+                binaries[i] = new UpdatableVersionList.Binary(name, variant, length, hashCode, zipLength, zipHashCode);
+            }
+
+            int resourceGroupCount = binaryReader.ReadInt32();
+            UpdatableVersionList.ResourceGroup[] resourceGroups = resourceGroupCount > 0 ? new UpdatableVersionList.ResourceGroup[resourceGroupCount] : null;
+            for (int i = 0; i < resourceGroupCount; i++)
+            {
+                string name = ReadEncryptedString(binaryReader, encryptBytes);
+                int resourceIndexCount = binaryReader.ReadInt32();
+                int[] resourceIndexes = resourceIndexCount > 0 ? new int[resourceIndexCount] : null;
+                for (int j = 0; j < resourceIndexCount; j++)
+                {
+                    resourceIndexes[j] = binaryReader.ReadInt32();
+                }
+
+                int binaryIndexCount = binaryReader.ReadInt32();
+                int[] binaryIndexes = binaryIndexCount > 0 ? new int[binaryIndexCount] : null;
+                for (int j = 0; j < binaryIndexCount; j++)
+                {
+                    binaryIndexes[j] = binaryReader.ReadInt32();
+                }
+
+                resourceGroups[i] = new UpdatableVersionList.ResourceGroup(name, resourceIndexes, binaryIndexes);
+            }
+
+            return new UpdatableVersionList(applicableGameVersion, internalResourceVersion, assets, resources, binaries, resourceGroups);
+        }
+
+        /// <summary>
+        /// 序列化本地版本资源列表（版本 1）回调函数。
+        /// </summary>
+        /// <param name="binaryWriter">目标流。</param>
+        /// <param name="versionList">要序列化的本地版本资源列表（版本 1）。</param>
+        /// <returns>序列化本地版本资源列表（版本 1）是否成功。</returns>
+        public static bool SerializeLocalVersionListCallback_V1(BinaryWriter binaryWriter, LocalVersionList versionList)
+        {
+            if (!versionList.IsValid)
+            {
+                return false;
+            }
+
+            Utility.Random.GetRandomBytes(s_CachedHashBytes);
+            binaryWriter.Write(s_CachedHashBytes);
+
+            LocalVersionList.Resource[] resources = versionList.GetResources();
+            binaryWriter.Write(resources.Length);
+            foreach (LocalVersionList.Resource resource in resources)
+            {
+                WriteEncryptedString(binaryWriter, resource.Name, s_CachedHashBytes);
+                WriteEncryptedString(binaryWriter, resource.Variant, s_CachedHashBytes);
+                binaryWriter.Write(resource.LoadType);
+                binaryWriter.Write(resource.Length);
+                binaryWriter.Write(resource.HashCode);
+            }
+
+            LocalVersionList.Binary[] binaries = versionList.GetBinaries();
+            binaryWriter.Write(binaries.Length);
+            foreach (LocalVersionList.Binary binary in binaries)
+            {
+                WriteEncryptedString(binaryWriter, binary.Name, s_CachedHashBytes);
+                WriteEncryptedString(binaryWriter, binary.Variant, s_CachedHashBytes);
+                binaryWriter.Write(binary.Length);
+                binaryWriter.Write(binary.HashCode);
+            }
+
+            Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
+
+            return true;
+        }
+
+        /// <summary>
+        /// 反序列化本地版本资源列表（版本 1）回调函数。
+        /// </summary>
+        /// <param name="binaryReader">指定流。</param>
+        /// <returns>反序列化的本地版本资源列表（版本 1）。</returns>
+        public static LocalVersionList DeserializeLocalVersionListCallback_V1(BinaryReader binaryReader)
+        {
+            byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
+
+            int resourceCount = binaryReader.ReadInt32();
+            LocalVersionList.Resource[] resources = resourceCount > 0 ? new LocalVersionList.Resource[resourceCount] : null;
+            for (int i = 0; i < resourceCount; i++)
+            {
+                string name = ReadEncryptedString(binaryReader, encryptBytes);
+                string variant = ReadEncryptedString(binaryReader, encryptBytes);
+                byte loadType = binaryReader.ReadByte();
+                int length = binaryReader.ReadInt32();
+                int hashCode = binaryReader.ReadInt32();
+                resources[i] = new LocalVersionList.Resource(name, variant, loadType, length, hashCode);
+            }
+
+            int binaryCount = binaryReader.ReadInt32();
+            LocalVersionList.Binary[] binaries = binaryCount > 0 ? new LocalVersionList.Binary[binaryCount] : null;
+            for (int i = 0; i < binaryCount; i++)
+            {
+                string name = ReadEncryptedString(binaryReader, encryptBytes);
+                string variant = ReadEncryptedString(binaryReader, encryptBytes);
+                int length = binaryReader.ReadInt32();
+                int hashCode = binaryReader.ReadInt32();
+                binaries[i] = new LocalVersionList.Binary(name, variant, length, hashCode);
+            }
+
+            return new LocalVersionList(resources, binaries);
+        }
+
+        /// <summary>
+        /// 尝试从可更新模式版本资源列表（版本 1）获取指定键的值回调函数。
+        /// </summary>
+        /// <param name="binaryReader">指定流。</param>
+        /// <param name="key">指定键。</param>
+        /// <param name="value">指定键的值。</param>
+        /// <returns></returns>
+        public static bool TryGetValueUpdatableVersionListCallback_V1(BinaryReader binaryReader, string key, out object value)
+        {
+            value = null;
+            if (key != "InternalResourceVersion")
+            {
+                return false;
+            }
+
+            binaryReader.BaseStream.Position += CachedHashBytesLength;
+            binaryReader.BaseStream.Position += binaryReader.ReadByte();
+            value = binaryReader.ReadInt32();
+            return true;
+        }
+
+        #endregion Version 1
 
         public static string ReadEncryptedString(BinaryReader binaryReader, byte[] encryptBytes)
         {

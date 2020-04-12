@@ -1028,6 +1028,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             PackageVersionList versionList = new PackageVersionList(ApplicableGameVersion, InternalResourceVersion, assets, resources, null, resourceGroups);
             PackageVersionListSerializer serializer = new PackageVersionListSerializer();
             serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.SerializePackageVersionListCallback_V0);
+            serializer.RegisterSerializeCallback(1, BuiltinVersionListSerializer.SerializePackageVersionListCallback_V1);
             string packageVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackagePath, VersionListFileName));
             using (FileStream fileStream = new FileStream(packageVersionListPath, FileMode.CreateNew, FileAccess.Write))
             {
@@ -1068,6 +1069,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             UpdatableVersionList versionList = new UpdatableVersionList(ApplicableGameVersion, InternalResourceVersion, assets, resources, null, resourceGroups);
             UpdatableVersionListSerializer serializer = new UpdatableVersionListSerializer();
             serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.SerializeUpdatableVersionListCallback_V0);
+            serializer.RegisterSerializeCallback(1, BuiltinVersionListSerializer.SerializeUpdatableVersionListCallback_V1);
             string updatableVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, VersionListFileName));
             using (FileStream fileStream = new FileStream(updatableVersionListPath, FileMode.CreateNew, FileAccess.Write))
             {
@@ -1114,6 +1116,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             LocalVersionList versionList = new LocalVersionList(resources, null);
             ReadOnlyVersionListSerializer serializer = new ReadOnlyVersionListSerializer();
             serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.SerializeLocalVersionListCallback_V0);
+            serializer.RegisterSerializeCallback(1, BuiltinVersionListSerializer.SerializeLocalVersionListCallback_V1);
             string readOnlyVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackedPath, ResourceListFileName));
             using (FileStream fileStream = new FileStream(readOnlyVersionListPath, FileMode.CreateNew, FileAccess.Write))
             {

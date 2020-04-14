@@ -85,7 +85,6 @@ namespace UnityGameFramework.Runtime
             }
 
             Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
-
             return true;
         }
 
@@ -136,7 +135,6 @@ namespace UnityGameFramework.Runtime
             }
 
             Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
-
             int index = 0;
             foreach (KeyValuePair<string, string[]> i in assetNameToDependencyAssetNames)
             {
@@ -268,7 +266,6 @@ namespace UnityGameFramework.Runtime
             }
 
             Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
-
             return true;
         }
 
@@ -321,7 +318,6 @@ namespace UnityGameFramework.Runtime
             }
 
             Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
-
             int index = 0;
             foreach (KeyValuePair<string, string[]> i in assetNameToDependencyAssetNames)
             {
@@ -417,7 +413,6 @@ namespace UnityGameFramework.Runtime
             }
 
             Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
-
             return true;
         }
 
@@ -429,7 +424,6 @@ namespace UnityGameFramework.Runtime
         public static LocalVersionList DeserializeLocalVersionListCallback_V0(BinaryReader binaryReader)
         {
             byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
-
             int resourceCount = binaryReader.ReadInt32();
             LocalVersionList.Resource[] resources = resourceCount > 0 ? new LocalVersionList.Resource[resourceCount] : null;
             for (int i = 0; i < resourceCount; i++)
@@ -489,7 +483,6 @@ namespace UnityGameFramework.Runtime
             binaryWriter.Write(s_CachedHashBytes);
             WriteEncryptedString(binaryWriter, versionList.ApplicableGameVersion, s_CachedHashBytes);
             binaryWriter.Write(versionList.InternalResourceVersion);
-
             PackageVersionList.Asset[] assets = versionList.GetAssets();
             binaryWriter.Write(assets.Length);
             foreach (PackageVersionList.Asset asset in assets)
@@ -534,7 +527,6 @@ namespace UnityGameFramework.Runtime
             }
 
             Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
-
             return true;
         }
 
@@ -550,7 +542,6 @@ namespace UnityGameFramework.Runtime
             byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
             string applicableGameVersion = ReadEncryptedString(binaryReader, encryptBytes);
             int internalResourceVersion = binaryReader.ReadInt32();
-
             int assetCount = binaryReader.ReadInt32();
             PackageVersionList.Asset[] assets = assetCount > 0 ? new PackageVersionList.Asset[assetCount] : null;
             for (int i = 0; i < assetCount; i++)
@@ -622,7 +613,6 @@ namespace UnityGameFramework.Runtime
             binaryWriter.Write(s_CachedHashBytes);
             WriteEncryptedString(binaryWriter, versionList.ApplicableGameVersion, s_CachedHashBytes);
             binaryWriter.Write(versionList.InternalResourceVersion);
-
             UpdatableVersionList.Asset[] assets = versionList.GetAssets();
             binaryWriter.Write(assets.Length);
             foreach (UpdatableVersionList.Asset asset in assets)
@@ -669,7 +659,6 @@ namespace UnityGameFramework.Runtime
             }
 
             Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
-
             return true;
         }
 
@@ -685,7 +674,6 @@ namespace UnityGameFramework.Runtime
             byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
             string applicableGameVersion = ReadEncryptedString(binaryReader, encryptBytes);
             int internalResourceVersion = binaryReader.ReadInt32();
-
             int assetCount = binaryReader.ReadInt32();
             UpdatableVersionList.Asset[] assets = assetCount > 0 ? new UpdatableVersionList.Asset[assetCount] : null;
             for (int i = 0; i < assetCount; i++)
@@ -755,7 +743,6 @@ namespace UnityGameFramework.Runtime
 
             Utility.Random.GetRandomBytes(s_CachedHashBytes);
             binaryWriter.Write(s_CachedHashBytes);
-
             LocalVersionList.Resource[] resources = versionList.GetResources();
             binaryWriter.Write(resources.Length);
             foreach (LocalVersionList.Resource resource in resources)
@@ -768,7 +755,6 @@ namespace UnityGameFramework.Runtime
             }
 
             Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
-
             return true;
         }
 
@@ -780,7 +766,6 @@ namespace UnityGameFramework.Runtime
         public static LocalVersionList DeserializeLocalVersionListCallback_V1(BinaryReader binaryReader)
         {
             byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
-
             int resourceCount = binaryReader.ReadInt32();
             LocalVersionList.Resource[] resources = resourceCount > 0 ? new LocalVersionList.Resource[resourceCount] : null;
             for (int i = 0; i < resourceCount; i++)
@@ -835,7 +820,6 @@ namespace UnityGameFramework.Runtime
             Utility.Encryption.GetSelfXorBytes(s_CachedBytesForEncryptedString, encryptBytes, length);
             string str = Utility.Converter.GetString(s_CachedBytesForEncryptedString, 0, length);
             Array.Clear(s_CachedBytesForEncryptedString, 0, length);
-
             return str;
         }
 

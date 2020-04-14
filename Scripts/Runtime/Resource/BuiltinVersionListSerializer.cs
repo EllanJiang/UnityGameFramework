@@ -199,10 +199,10 @@ namespace UnityGameFramework.Runtime
                     resourceIndexes[j] = binaryReader.ReadUInt16();
                 }
 
-                resourceGroups[i] = new PackageVersionList.ResourceGroup(name, resourceIndexes, null);
+                resourceGroups[i] = new PackageVersionList.ResourceGroup(name, resourceIndexes);
             }
 
-            return new PackageVersionList(applicableGameVersion, internalResourceVersion, assets, resources, null, resourceGroups);
+            return new PackageVersionList(applicableGameVersion, internalResourceVersion, assets, resources, resourceGroups);
         }
 
 #if UNITY_EDITOR
@@ -384,10 +384,10 @@ namespace UnityGameFramework.Runtime
                     resourceIndexes[j] = binaryReader.ReadUInt16();
                 }
 
-                resourceGroups[i] = new UpdatableVersionList.ResourceGroup(name, resourceIndexes, null);
+                resourceGroups[i] = new UpdatableVersionList.ResourceGroup(name, resourceIndexes);
             }
 
-            return new UpdatableVersionList(applicableGameVersion, internalResourceVersion, assets, resources, null, resourceGroups);
+            return new UpdatableVersionList(applicableGameVersion, internalResourceVersion, assets, resources, resourceGroups);
         }
 
         /// <summary>
@@ -442,7 +442,7 @@ namespace UnityGameFramework.Runtime
                 resources[i] = new LocalVersionList.Resource(name, variant, loadType, length, hashCode);
             }
 
-            return new LocalVersionList(resources, null);
+            return new LocalVersionList(resources);
         }
 
         /// <summary>
@@ -520,16 +520,6 @@ namespace UnityGameFramework.Runtime
                 }
             }
 
-            PackageVersionList.Binary[] binaries = versionList.GetBinaries();
-            binaryWriter.Write(binaries.Length);
-            foreach (PackageVersionList.Binary binary in binaries)
-            {
-                WriteEncryptedString(binaryWriter, binary.Name, s_CachedHashBytes);
-                WriteEncryptedString(binaryWriter, binary.Variant, s_CachedHashBytes);
-                binaryWriter.Write(binary.Length);
-                binaryWriter.Write(binary.HashCode);
-            }
-
             PackageVersionList.ResourceGroup[] resourceGroups = versionList.GetResourceGroups();
             binaryWriter.Write(resourceGroups.Length);
             foreach (PackageVersionList.ResourceGroup resourceGroup in resourceGroups)
@@ -540,13 +530,6 @@ namespace UnityGameFramework.Runtime
                 foreach (ushort resourceIndex in resourceIndexes)
                 {
                     binaryWriter.Write(resourceIndex);
-                }
-
-                int[] binaryIndexes = resourceGroup.GetBinaryIndexes();
-                binaryWriter.Write(binaryIndexes.Length);
-                foreach (ushort binaryIndex in binaryIndexes)
-                {
-                    binaryWriter.Write(binaryIndex);
                 }
             }
 
@@ -602,17 +585,6 @@ namespace UnityGameFramework.Runtime
                 resources[i] = new PackageVersionList.Resource(name, variant, loadType, length, hashCode, assetIndexes);
             }
 
-            int binaryCount = binaryReader.ReadInt32();
-            PackageVersionList.Binary[] binaries = binaryCount > 0 ? new PackageVersionList.Binary[binaryCount] : null;
-            for (int i = 0; i < binaryCount; i++)
-            {
-                string name = ReadEncryptedString(binaryReader, encryptBytes);
-                string variant = ReadEncryptedString(binaryReader, encryptBytes);
-                int length = binaryReader.ReadInt32();
-                int hashCode = binaryReader.ReadInt32();
-                binaries[i] = new PackageVersionList.Binary(name, variant, length, hashCode);
-            }
-
             int resourceGroupCount = binaryReader.ReadInt32();
             PackageVersionList.ResourceGroup[] resourceGroups = resourceGroupCount > 0 ? new PackageVersionList.ResourceGroup[resourceGroupCount] : null;
             for (int i = 0; i < resourceGroupCount; i++)
@@ -625,17 +597,10 @@ namespace UnityGameFramework.Runtime
                     resourceIndexes[j] = binaryReader.ReadInt32();
                 }
 
-                int binaryIndexCount = binaryReader.ReadInt32();
-                int[] binaryIndexes = binaryIndexCount > 0 ? new int[binaryIndexCount] : null;
-                for (int j = 0; j < binaryIndexCount; j++)
-                {
-                    binaryIndexes[j] = binaryReader.ReadInt32();
-                }
-
-                resourceGroups[i] = new PackageVersionList.ResourceGroup(name, resourceIndexes, binaryIndexes);
+                resourceGroups[i] = new PackageVersionList.ResourceGroup(name, resourceIndexes);
             }
 
-            return new PackageVersionList(applicableGameVersion, internalResourceVersion, assets, resources, binaries, resourceGroups);
+            return new PackageVersionList(applicableGameVersion, internalResourceVersion, assets, resources, resourceGroups);
         }
 
 #if UNITY_EDITOR
@@ -690,18 +655,6 @@ namespace UnityGameFramework.Runtime
                 }
             }
 
-            UpdatableVersionList.Binary[] binaries = versionList.GetBinaries();
-            binaryWriter.Write(binaries.Length);
-            foreach (UpdatableVersionList.Binary binary in binaries)
-            {
-                WriteEncryptedString(binaryWriter, binary.Name, s_CachedHashBytes);
-                WriteEncryptedString(binaryWriter, binary.Variant, s_CachedHashBytes);
-                binaryWriter.Write(binary.Length);
-                binaryWriter.Write(binary.HashCode);
-                binaryWriter.Write(binary.ZipLength);
-                binaryWriter.Write(binary.ZipHashCode);
-            }
-
             UpdatableVersionList.ResourceGroup[] resourceGroups = versionList.GetResourceGroups();
             binaryWriter.Write(resourceGroups.Length);
             foreach (UpdatableVersionList.ResourceGroup resourceGroup in resourceGroups)
@@ -712,13 +665,6 @@ namespace UnityGameFramework.Runtime
                 foreach (ushort resourceIndex in resourceIndexes)
                 {
                     binaryWriter.Write(resourceIndex);
-                }
-
-                int[] binaryIndexes = resourceGroup.GetBinaryIndexes();
-                binaryWriter.Write(binaryIndexes.Length);
-                foreach (ushort binaryIndex in binaryIndexes)
-                {
-                    binaryWriter.Write(binaryIndex);
                 }
             }
 
@@ -776,19 +722,6 @@ namespace UnityGameFramework.Runtime
                 resources[i] = new UpdatableVersionList.Resource(name, variant, loadType, length, hashCode, zipLength, zipHashCode, assetIndexes);
             }
 
-            int binaryCount = binaryReader.ReadInt32();
-            UpdatableVersionList.Binary[] binaries = binaryCount > 0 ? new UpdatableVersionList.Binary[binaryCount] : null;
-            for (int i = 0; i < binaryCount; i++)
-            {
-                string name = ReadEncryptedString(binaryReader, encryptBytes);
-                string variant = ReadEncryptedString(binaryReader, encryptBytes);
-                int length = binaryReader.ReadInt32();
-                int hashCode = binaryReader.ReadInt32();
-                int zipLength = binaryReader.ReadInt32();
-                int zipHashCode = binaryReader.ReadInt32();
-                binaries[i] = new UpdatableVersionList.Binary(name, variant, length, hashCode, zipLength, zipHashCode);
-            }
-
             int resourceGroupCount = binaryReader.ReadInt32();
             UpdatableVersionList.ResourceGroup[] resourceGroups = resourceGroupCount > 0 ? new UpdatableVersionList.ResourceGroup[resourceGroupCount] : null;
             for (int i = 0; i < resourceGroupCount; i++)
@@ -801,17 +734,10 @@ namespace UnityGameFramework.Runtime
                     resourceIndexes[j] = binaryReader.ReadInt32();
                 }
 
-                int binaryIndexCount = binaryReader.ReadInt32();
-                int[] binaryIndexes = binaryIndexCount > 0 ? new int[binaryIndexCount] : null;
-                for (int j = 0; j < binaryIndexCount; j++)
-                {
-                    binaryIndexes[j] = binaryReader.ReadInt32();
-                }
-
-                resourceGroups[i] = new UpdatableVersionList.ResourceGroup(name, resourceIndexes, binaryIndexes);
+                resourceGroups[i] = new UpdatableVersionList.ResourceGroup(name, resourceIndexes);
             }
 
-            return new UpdatableVersionList(applicableGameVersion, internalResourceVersion, assets, resources, binaries, resourceGroups);
+            return new UpdatableVersionList(applicableGameVersion, internalResourceVersion, assets, resources, resourceGroups);
         }
 
         /// <summary>
@@ -841,16 +767,6 @@ namespace UnityGameFramework.Runtime
                 binaryWriter.Write(resource.HashCode);
             }
 
-            LocalVersionList.Binary[] binaries = versionList.GetBinaries();
-            binaryWriter.Write(binaries.Length);
-            foreach (LocalVersionList.Binary binary in binaries)
-            {
-                WriteEncryptedString(binaryWriter, binary.Name, s_CachedHashBytes);
-                WriteEncryptedString(binaryWriter, binary.Variant, s_CachedHashBytes);
-                binaryWriter.Write(binary.Length);
-                binaryWriter.Write(binary.HashCode);
-            }
-
             Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
 
             return true;
@@ -877,18 +793,7 @@ namespace UnityGameFramework.Runtime
                 resources[i] = new LocalVersionList.Resource(name, variant, loadType, length, hashCode);
             }
 
-            int binaryCount = binaryReader.ReadInt32();
-            LocalVersionList.Binary[] binaries = binaryCount > 0 ? new LocalVersionList.Binary[binaryCount] : null;
-            for (int i = 0; i < binaryCount; i++)
-            {
-                string name = ReadEncryptedString(binaryReader, encryptBytes);
-                string variant = ReadEncryptedString(binaryReader, encryptBytes);
-                int length = binaryReader.ReadInt32();
-                int hashCode = binaryReader.ReadInt32();
-                binaries[i] = new LocalVersionList.Binary(name, variant, length, hashCode);
-            }
-
-            return new LocalVersionList(resources, binaries);
+            return new LocalVersionList(resources);
         }
 
         /// <summary>

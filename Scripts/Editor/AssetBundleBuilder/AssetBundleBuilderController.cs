@@ -1022,10 +1022,10 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             PackageVersionList.ResourceGroup[] resourceGroups = new PackageVersionList.ResourceGroup[originalResourceGroup.Length];
             for (int i = 0; i < originalResourceGroup.Length; i++)
             {
-                resourceGroups[i] = new PackageVersionList.ResourceGroup(originalResourceGroup[i], GetResourceIndexes(originalResourceGroup[i]), null);
+                resourceGroups[i] = new PackageVersionList.ResourceGroup(originalResourceGroup[i], GetResourceIndexes(originalResourceGroup[i]));
             }
 
-            PackageVersionList versionList = new PackageVersionList(ApplicableGameVersion, InternalResourceVersion, assets, resources, null, resourceGroups);
+            PackageVersionList versionList = new PackageVersionList(ApplicableGameVersion, InternalResourceVersion, assets, resources, resourceGroups);
             PackageVersionListSerializer serializer = new PackageVersionListSerializer();
             serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.SerializePackageVersionListCallback_V0);
             serializer.RegisterSerializeCallback(1, BuiltinVersionListSerializer.SerializePackageVersionListCallback_V1);
@@ -1063,10 +1063,10 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             UpdatableVersionList.ResourceGroup[] resourceGroups = new UpdatableVersionList.ResourceGroup[originalResourceGroup.Length];
             for (int i = 0; i < originalResourceGroup.Length; i++)
             {
-                resourceGroups[i] = new UpdatableVersionList.ResourceGroup(originalResourceGroup[i], GetResourceIndexes(originalResourceGroup[i]), null);
+                resourceGroups[i] = new UpdatableVersionList.ResourceGroup(originalResourceGroup[i], GetResourceIndexes(originalResourceGroup[i]));
             }
 
-            UpdatableVersionList versionList = new UpdatableVersionList(ApplicableGameVersion, InternalResourceVersion, assets, resources, null, resourceGroups);
+            UpdatableVersionList versionList = new UpdatableVersionList(ApplicableGameVersion, InternalResourceVersion, assets, resources, resourceGroups);
             UpdatableVersionListSerializer serializer = new UpdatableVersionListSerializer();
             serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.SerializeUpdatableVersionListCallback_V0);
             serializer.RegisterSerializeCallback(1, BuiltinVersionListSerializer.SerializeUpdatableVersionListCallback_V1);
@@ -1113,7 +1113,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 resources[i] = new LocalVersionList.Resource(assetBundleData.Name, assetBundleData.Variant, (byte)assetBundleData.LoadType, assetBundleCode.Length, assetBundleCode.HashCode);
             }
 
-            LocalVersionList versionList = new LocalVersionList(resources, null);
+            LocalVersionList versionList = new LocalVersionList(resources);
             ReadOnlyVersionListSerializer serializer = new ReadOnlyVersionListSerializer();
             serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.SerializeLocalVersionListCallback_V0);
             serializer.RegisterSerializeCallback(1, BuiltinVersionListSerializer.SerializeLocalVersionListCallback_V1);

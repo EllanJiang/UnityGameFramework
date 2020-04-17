@@ -900,6 +900,59 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取二进制资源的实际路径。
+        /// </summary>
+        /// <param name="binaryAssetName">要获取实际路径的二进制资源的名称。</param>
+        /// <returns>二进制资源的实际路径。</returns>
+        public string GetBinaryPath(string binaryAssetName)
+        {
+            return m_ResourceManager.GetBinaryPath(binaryAssetName);
+        }
+
+        /// <summary>
+        /// 检查二进制资源是否存在。
+        /// </summary>
+        /// <param name="binaryAssetName">要检查二进制资源的名称。</param>
+        /// <returns>二进制资源是否存在。</returns>
+        public bool HasBinary(string binaryAssetName)
+        {
+            return m_ResourceManager.HasBinary(binaryAssetName);
+        }
+
+        /// <summary>
+        /// 异步加载二进制资源。
+        /// </summary>
+        /// <param name="binaryAssetName">要加载二进制资源的名称。</param>
+        /// <param name="loadBinaryCallbacks">加载二进制资源回调函数集。</param>
+        public void LoadBinary(string binaryAssetName, LoadBinaryCallbacks loadBinaryCallbacks)
+        {
+            LoadBinary(binaryAssetName, loadBinaryCallbacks, null);
+        }
+
+        /// <summary>
+        /// 异步加载二进制资源。
+        /// </summary>
+        /// <param name="binaryAssetName">要加载二进制资源的名称。</param>
+        /// <param name="loadBinaryCallbacks">加载二进制资源回调函数集。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public void LoadBinary(string binaryAssetName, LoadBinaryCallbacks loadBinaryCallbacks, object userData)
+        {
+            if (string.IsNullOrEmpty(binaryAssetName))
+            {
+                Log.Error("Binary asset name is invalid.");
+                return;
+            }
+
+            if (!binaryAssetName.StartsWith("Assets/"))
+            {
+                Log.Error("Binary asset name '{0}' is invalid.", binaryAssetName);
+                return;
+            }
+
+            m_ResourceManager.LoadBinary(binaryAssetName, loadBinaryCallbacks, userData);
+        }
+
+        /// <summary>
         /// 检查资源组是否存在。
         /// </summary>
         /// <param name="resourceGroupName">要检查资源组的名称。</param>

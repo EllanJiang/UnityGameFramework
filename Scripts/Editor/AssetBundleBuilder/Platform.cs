@@ -10,7 +10,7 @@ using System;
 namespace UnityGameFramework.Editor.AssetBundleTools
 {
     [Flags]
-    public enum Platform
+    public enum Platform : byte
     {
         Undefined = 0,
 

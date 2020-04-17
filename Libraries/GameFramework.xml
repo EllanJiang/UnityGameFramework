@@ -12965,6 +12965,13 @@
             </summary>
             <param name="asset">要卸载的资源。</param>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.HasScene(System.String)">
+            <summary>
+            检查场景资源是否存在。
+            </summary>
+            <param name="sceneAssetName">要检查场景资源的名称。</param>
+            <returns>场景资源是否存在。</returns>
+        </member>
         <member name="M:GameFramework.Resource.IResourceManager.LoadScene(System.String,GameFramework.Resource.LoadSceneCallbacks)">
             <summary>
             异步加载场景。
@@ -13010,6 +13017,35 @@
             </summary>
             <param name="sceneAssetName">要卸载场景资源的名称。</param>
             <param name="unloadSceneCallbacks">卸载场景回调函数集。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetBinaryPath(System.String)">
+            <summary>
+            获取二进制资源的实际路径。
+            </summary>
+            <param name="binaryAssetName">要获取实际路径的二进制资源的名称。</param>
+            <returns>二进制资源的实际路径。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.HasBinary(System.String)">
+            <summary>
+            检查二进制资源是否存在。
+            </summary>
+            <param name="binaryAssetName">要检查二进制资源的名称。</param>
+            <returns>二进制资源是否存在。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinary(System.String,GameFramework.Resource.LoadBinaryCallbacks)">
+            <summary>
+            异步加载二进制资源。
+            </summary>
+            <param name="binaryAssetName">要加载二进制资源的名称。</param>
+            <param name="loadBinaryCallbacks">加载二进制资源回调函数集。</param>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinary(System.String,GameFramework.Resource.LoadBinaryCallbacks,System.Object)">
+            <summary>
+            异步加载二进制资源。
+            </summary>
+            <param name="binaryAssetName">要加载二进制资源的名称。</param>
+            <param name="loadBinaryCallbacks">加载二进制资源回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.HasResourceGroup(System.String)">
@@ -13149,6 +13185,52 @@
             </summary>
             <param name="assetName">要加载的资源名称。</param>
             <param name="progress">加载资源进度。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="T:GameFramework.Resource.LoadBinaryCallbacks">
+            <summary>
+            加载二进制资源回调函数集。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.LoadBinaryCallbacks.#ctor(GameFramework.Resource.LoadBinarySuccessCallback)">
+            <summary>
+            初始化加载二进制资源回调函数集的新实例。
+            </summary>
+            <param name="loadBinarySuccessCallback">加载二进制资源成功回调函数。</param>
+        </member>
+        <member name="M:GameFramework.Resource.LoadBinaryCallbacks.#ctor(GameFramework.Resource.LoadBinarySuccessCallback,GameFramework.Resource.LoadBinaryFailureCallback)">
+            <summary>
+            初始化加载二进制资源回调函数集的新实例。
+            </summary>
+            <param name="loadBinarySuccessCallback">加载二进制资源成功回调函数。</param>
+            <param name="loadBinaryFailureCallback">加载二进制资源失败回调函数。</param>
+        </member>
+        <member name="P:GameFramework.Resource.LoadBinaryCallbacks.LoadBinarySuccessCallback">
+            <summary>
+            获取加载二进制资源成功回调函数。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.LoadBinaryCallbacks.LoadBinaryFailureCallback">
+            <summary>
+            获取加载二进制资源失败回调函数。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Resource.LoadBinaryFailureCallback">
+            <summary>
+            加载二进制资源失败回调函数。
+            </summary>
+            <param name="binaryAssetName">要加载的二进制资源名称。</param>
+            <param name="status">加载二进制资源状态。</param>
+            <param name="errorMessage">错误信息。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="T:GameFramework.Resource.LoadBinarySuccessCallback">
+            <summary>
+            加载二进制资源成功回调函数。
+            </summary>
+            <param name="binaryAssetName">要加载的二进制资源名称。</param>
+            <param name="binary">已加载的二进制资源。</param>
+            <param name="duration">加载持续时间。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="T:GameFramework.Resource.LoadBytesCallbacks">
@@ -14220,6 +14302,13 @@
             </summary>
             <param name="asset">要卸载的资源。</param>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.HasScene(System.String)">
+            <summary>
+            检查场景资源是否存在。
+            </summary>
+            <param name="sceneAssetName">要检查场景资源的名称。</param>
+            <returns>场景资源是否存在。</returns>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.LoadScene(System.String,GameFramework.Resource.LoadSceneCallbacks)">
             <summary>
             异步加载场景。
@@ -14267,6 +14356,35 @@
             <param name="unloadSceneCallbacks">卸载场景回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.HasBinary(System.String)">
+            <summary>
+            检查二进制资源是否存在。
+            </summary>
+            <param name="binaryAssetName">要检查二进制资源的名称。</param>
+            <returns>二进制资源是否存在。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetBinaryPath(System.String)">
+            <summary>
+            获取二进制资源的实际路径。
+            </summary>
+            <param name="binaryAssetName">要获取实际路径的二进制资源的名称。</param>
+            <returns>二进制资源的实际路径。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinary(System.String,GameFramework.Resource.LoadBinaryCallbacks)">
+            <summary>
+            异步加载二进制资源。
+            </summary>
+            <param name="binaryAssetName">要加载二进制资源的名称。</param>
+            <param name="loadBinaryCallbacks">加载二进制资源回调函数集。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinary(System.String,GameFramework.Resource.LoadBinaryCallbacks,System.Object)">
+            <summary>
+            异步加载二进制资源。
+            </summary>
+            <param name="binaryAssetName">要加载二进制资源的名称。</param>
+            <param name="loadBinaryCallbacks">加载二进制资源回调函数集。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.HasResourceGroup(System.String)">
             <summary>
             检查资源组是否存在。
@@ -14300,22 +14418,37 @@
         </member>
         <member name="F:GameFramework.Resource.ResourceManager.LoadType.LoadFromFile">
             <summary>
-            从文件加载。
+            使用文件方式加载。
             </summary>
         </member>
         <member name="F:GameFramework.Resource.ResourceManager.LoadType.LoadFromMemory">
             <summary>
-            从内存加载。
+            使用内存方式加载。
             </summary>
         </member>
         <member name="F:GameFramework.Resource.ResourceManager.LoadType.LoadFromMemoryAndQuickDecrypt">
             <summary>
-            从内存快速解密加载。
+            使用内存快速解密方式加载。
             </summary>
         </member>
         <member name="F:GameFramework.Resource.ResourceManager.LoadType.LoadFromMemoryAndDecrypt">
             <summary>
-            从内存解密加载。
+            使用内存解密方式加载。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Resource.ResourceManager.LoadType.LoadFromBinary">
+            <summary>
+            使用二进制方式加载。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Resource.ResourceManager.LoadType.LoadFromBinaryAndQuickDecrypt">
+            <summary>
+            使用二进制快速解密方式加载。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Resource.ResourceManager.LoadType.LoadFromBinaryAndDecrypt">
+            <summary>
+            使用二进制解密方式加载。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceChecker">
@@ -14750,6 +14883,21 @@
             </summary>
             <param name="sceneAssetName">要卸载场景资源的名称。</param>
             <param name="unloadSceneCallbacks">卸载场景回调函数集。</param>
+            <param name="userData">用户自定义数据。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.GetBinaryPath(System.String)">
+            <summary>
+            获取二进制资源的实际路径。
+            </summary>
+            <param name="binaryAssetName">要获取实际路径的二进制资源的名称。</param>
+            <returns>二进制资源的实际路径。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadBinary(System.String,GameFramework.Resource.LoadBinaryCallbacks,System.Object)">
+            <summary>
+            异步加载二进制资源。
+            </summary>
+            <param name="binaryAssetName">要加载二进制资源的名称。</param>
+            <param name="loadBinaryCallbacks">加载二进制资源回调函数集。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.GetAllLoadAssetInfos">
@@ -15612,6 +15760,13 @@
             </summary>
             <param name="results">正在卸载场景的资源名称。</param>
         </member>
+        <member name="M:GameFramework.Scene.ISceneManager.HasScene(System.String)">
+            <summary>
+            检查场景资源是否存在。
+            </summary>
+            <param name="sceneAssetName">要检查场景资源的名称。</param>
+            <returns>场景资源是否存在。</returns>
+        </member>
         <member name="M:GameFramework.Scene.ISceneManager.LoadScene(System.String)">
             <summary>
             加载场景。
@@ -15941,6 +16096,13 @@
             获取正在卸载场景的资源名称。
             </summary>
             <param name="results">正在卸载场景的资源名称。</param>
+        </member>
+        <member name="M:GameFramework.Scene.SceneManager.HasScene(System.String)">
+            <summary>
+            检查场景资源是否存在。
+            </summary>
+            <param name="sceneAssetName">要检查场景资源的名称。</param>
+            <returns>场景资源是否存在。</returns>
         </member>
         <member name="M:GameFramework.Scene.SceneManager.LoadScene(System.String)">
             <summary>

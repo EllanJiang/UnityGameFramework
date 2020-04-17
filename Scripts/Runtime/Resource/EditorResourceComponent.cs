@@ -935,6 +935,32 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 检查场景资源是否存在。
+        /// </summary>
+        /// <param name="sceneAssetName">要检查场景资源的名称。</param>
+        /// <returns>场景资源是否存在。</returns>
+        public bool HasScene(string sceneAssetName)
+        {
+            if (string.IsNullOrEmpty(sceneAssetName))
+            {
+                Log.Error("Scene asset name is invalid.");
+                return false;
+            }
+
+            if (!sceneAssetName.StartsWith("Assets/") || !sceneAssetName.EndsWith(".unity"))
+            {
+                Log.Error("Scene asset name '{0}' is invalid.", sceneAssetName);
+                return false;
+            }
+
+#if UNITY_EDITOR
+            return UnityEditor.AssetDatabase.LoadMainAssetAtPath(sceneAssetName) != null;
+#else
+            return false;
+#endif
+        }
+
+        /// <summary>
         /// 异步加载场景。
         /// </summary>
         /// <param name="sceneAssetName">要加载场景资源的名称。</param>
@@ -1078,6 +1104,71 @@ namespace UnityGameFramework.Runtime
                 }
             }
 #endif
+        }
+
+        /// <summary>
+        /// 获取二进制资源的实际路径。
+        /// </summary>
+        /// <param name="binaryAssetName">要获取实际路径的二进制资源的名称。</param>
+        /// <returns>二进制资源的实际路径。</returns>
+        public string GetBinaryPath(string binaryAssetName)
+        {
+            return Application.dataPath.Substring(0, Application.dataPath.Length - AssetsStringLength) + binaryAssetName;
+        }
+
+        /// <summary>
+        /// 检查二进制资源是否存在。
+        /// </summary>
+        /// <param name="binaryAssetName">要检查二进制资源的名称。</param>
+        /// <returns>二进制资源是否存在。</returns>
+        public bool HasBinary(string binaryAssetName)
+        {
+            return HasFile(binaryAssetName);
+        }
+
+        /// <summary>
+        /// 异步加载二进制资源。
+        /// </summary>
+        /// <param name="binaryAssetName">要加载二进制资源的名称。</param>
+        /// <param name="loadBinaryCallbacks">加载二进制资源回调函数集。</param>
+        public void LoadBinary(string binaryAssetName, LoadBinaryCallbacks loadBinaryCallbacks)
+        {
+            LoadBinary(binaryAssetName, loadBinaryCallbacks, null);
+        }
+
+        /// <summary>
+        /// 异步加载二进制资源。
+        /// </summary>
+        /// <param name="binaryAssetName">要加载二进制资源的名称。</param>
+        /// <param name="loadBinaryCallbacks">加载二进制资源回调函数集。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public void LoadBinary(string binaryAssetName, LoadBinaryCallbacks loadBinaryCallbacks, object userData)
+        {
+            if (string.IsNullOrEmpty(binaryAssetName))
+            {
+                Log.Error("Binary asset name is invalid.");
+                return;
+            }
+
+            if (!binaryAssetName.StartsWith("Assets/"))
+            {
+                Log.Error("Binary asset name '{0}' is invalid.", binaryAssetName);
+                return;
+            }
+
+            if (loadBinaryCallbacks == null)
+            {
+                Log.Error("Load binary callbacks is invalid.");
+                return;
+            }
+
+            if (!HasFile(binaryAssetName))
+            {
+                Log.Error("Binary '{0}' is not exist.", binaryAssetName);
+                return;
+            }
+
+            // TODO: LoadBinary
         }
 
         /// <summary>

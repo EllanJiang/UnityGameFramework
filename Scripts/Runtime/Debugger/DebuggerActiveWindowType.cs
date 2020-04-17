@@ -10,7 +10,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 调试器激活窗口类型。
     /// </summary>
-    public enum DebuggerActiveWindowType
+    public enum DebuggerActiveWindowType : byte
     {
         /// <summary>
         /// 总是打开。

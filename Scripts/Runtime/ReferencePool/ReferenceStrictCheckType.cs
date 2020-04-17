@@ -10,7 +10,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 引用强制检查类型。
     /// </summary>
-    public enum ReferenceStrictCheckType
+    public enum ReferenceStrictCheckType : byte
     {
         /// <summary>
         /// 总是启用。

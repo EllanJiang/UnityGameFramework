@@ -10,7 +10,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 读写区路径类型。
     /// </summary>
-    public enum ReadWritePathType
+    public enum ReadWritePathType : byte
     {
         /// <summary>
         /// 未指定。

@@ -11,7 +11,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 {
     internal sealed partial class AssetBundleEditor : EditorWindow
     {
-        private enum MenuState
+        private enum MenuState : byte
         {
             Normal,
             Add,

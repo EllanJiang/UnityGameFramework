@@ -41,20 +41,20 @@ namespace UnityGameFramework.Runtime
             Utility.Random.GetRandomBytes(s_CachedHashBytes);
             binaryWriter.Write(s_CachedHashBytes);
             binaryWriter.WriteEncryptedString(versionList.ApplicableGameVersion, s_CachedHashBytes);
-            binaryWriter.Write7BitEncodedInt(versionList.InternalResourceVersion);
+            binaryWriter.Write(versionList.InternalResourceVersion);
             PackageVersionList.Asset[] assets = versionList.GetAssets();
-            binaryWriter.Write7BitEncodedInt(assets.Length);
+            binaryWriter.Write(assets.Length);
             PackageVersionList.Resource[] resources = versionList.GetResources();
-            binaryWriter.Write7BitEncodedInt(resources.Length);
+            binaryWriter.Write(resources.Length);
             foreach (PackageVersionList.Resource resource in resources)
             {
                 binaryWriter.WriteEncryptedString(resource.Name, s_CachedHashBytes);
                 binaryWriter.WriteEncryptedString(resource.Variant, s_CachedHashBytes);
                 binaryWriter.Write(resource.LoadType);
-                binaryWriter.Write7BitEncodedInt(resource.Length);
-                binaryWriter.Write7BitEncodedInt(resource.HashCode);
+                binaryWriter.Write(resource.Length);
+                binaryWriter.Write(resource.HashCode);
                 int[] assetIndexes = resource.GetAssetIndexes();
-                binaryWriter.Write7BitEncodedInt(assetIndexes.Length);
+                binaryWriter.Write(assetIndexes.Length);
                 byte[] hashBytes = new byte[CachedHashBytesLength];
                 foreach (int assetIndex in assetIndexes)
                 {
@@ -62,7 +62,7 @@ namespace UnityGameFramework.Runtime
                     PackageVersionList.Asset asset = assets[assetIndex];
                     binaryWriter.WriteEncryptedString(asset.Name, hashBytes);
                     int[] dependencyAssetIndexes = asset.GetDependencyAssetIndexes();
-                    binaryWriter.Write7BitEncodedInt(dependencyAssetIndexes.Length);
+                    binaryWriter.Write(dependencyAssetIndexes.Length);
                     foreach (int dependencyAssetIndex in dependencyAssetIndexes)
                     {
                         binaryWriter.WriteEncryptedString(assets[dependencyAssetIndex].Name, hashBytes);
@@ -71,15 +71,15 @@ namespace UnityGameFramework.Runtime
             }
 
             PackageVersionList.ResourceGroup[] resourceGroups = versionList.GetResourceGroups();
-            binaryWriter.Write7BitEncodedInt(resourceGroups.Length);
+            binaryWriter.Write(resourceGroups.Length);
             foreach (PackageVersionList.ResourceGroup resourceGroup in resourceGroups)
             {
                 binaryWriter.WriteEncryptedString(resourceGroup.Name, s_CachedHashBytes);
                 int[] resourceIndexes = resourceGroup.GetResourceIndexes();
-                binaryWriter.Write7BitEncodedInt(resourceIndexes.Length);
+                binaryWriter.Write(resourceIndexes.Length);
                 foreach (ushort resourceIndex in resourceIndexes)
                 {
-                    binaryWriter.Write7BitEncodedInt(resourceIndex);
+                    binaryWriter.Write(resourceIndex);
                 }
             }
 
@@ -98,10 +98,10 @@ namespace UnityGameFramework.Runtime
         {
             byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
             string applicableGameVersion = binaryReader.ReadEncryptedString(encryptBytes);
-            int internalResourceVersion = binaryReader.Read7BitEncodedInt();
-            int assetCount = binaryReader.Read7BitEncodedInt();
+            int internalResourceVersion = binaryReader.ReadInt32();
+            int assetCount = binaryReader.ReadInt32();
             PackageVersionList.Asset[] assets = assetCount > 0 ? new PackageVersionList.Asset[assetCount] : null;
-            int resourceCount = binaryReader.Read7BitEncodedInt();
+            int resourceCount = binaryReader.ReadInt32();
             PackageVersionList.Resource[] resources = resourceCount > 0 ? new PackageVersionList.Resource[resourceCount] : null;
             string[][] resourceToAssetNames = new string[resourceCount][];
             List<KeyValuePair<string, string[]>> assetNameToDependencyAssetNames = new List<KeyValuePair<string, string[]>>(assetCount);
@@ -110,16 +110,16 @@ namespace UnityGameFramework.Runtime
                 string name = binaryReader.ReadEncryptedString(encryptBytes);
                 string variant = binaryReader.ReadEncryptedString(encryptBytes);
                 byte loadType = binaryReader.ReadByte();
-                int length = binaryReader.Read7BitEncodedInt();
-                int hashCode = binaryReader.Read7BitEncodedInt();
+                int length = binaryReader.ReadInt32();
+                int hashCode = binaryReader.ReadInt32();
                 Utility.Converter.GetBytes(hashCode, s_CachedHashBytes);
 
-                int assetNameCount = binaryReader.Read7BitEncodedInt();
+                int assetNameCount = binaryReader.ReadInt32();
                 string[] assetNames = new string[assetNameCount];
                 for (int j = 0; j < assetNameCount; j++)
                 {
                     assetNames[j] = binaryReader.ReadEncryptedString(s_CachedHashBytes);
-                    int dependencyAssetNameCount = binaryReader.Read7BitEncodedInt();
+                    int dependencyAssetNameCount = binaryReader.ReadInt32();
                     string[] dependencyAssetNames = dependencyAssetNameCount > 0 ? new string[dependencyAssetNameCount] : null;
                     for (int k = 0; k < dependencyAssetNameCount; k++)
                     {
@@ -163,12 +163,12 @@ namespace UnityGameFramework.Runtime
                 }
             }
 
-            int resourceGroupCount = binaryReader.Read7BitEncodedInt();
+            int resourceGroupCount = binaryReader.ReadInt32();
             PackageVersionList.ResourceGroup[] resourceGroups = resourceGroupCount > 0 ? new PackageVersionList.ResourceGroup[resourceGroupCount] : null;
             for (int i = 0; i < resourceGroupCount; i++)
             {
                 string name = binaryReader.ReadEncryptedString(encryptBytes);
-                int resourceIndexCount = binaryReader.Read7BitEncodedInt();
+                int resourceIndexCount = binaryReader.ReadInt32();
                 int[] resourceIndexes = resourceIndexCount > 0 ? new int[resourceIndexCount] : null;
                 for (int j = 0; j < resourceIndexCount; j++)
                 {
@@ -199,22 +199,22 @@ namespace UnityGameFramework.Runtime
             Utility.Random.GetRandomBytes(s_CachedHashBytes);
             binaryWriter.Write(s_CachedHashBytes);
             binaryWriter.WriteEncryptedString(versionList.ApplicableGameVersion, s_CachedHashBytes);
-            binaryWriter.Write7BitEncodedInt(versionList.InternalResourceVersion);
+            binaryWriter.Write(versionList.InternalResourceVersion);
             UpdatableVersionList.Asset[] assets = versionList.GetAssets();
-            binaryWriter.Write7BitEncodedInt(assets.Length);
+            binaryWriter.Write(assets.Length);
             UpdatableVersionList.Resource[] resources = versionList.GetResources();
-            binaryWriter.Write7BitEncodedInt(resources.Length);
+            binaryWriter.Write(resources.Length);
             foreach (UpdatableVersionList.Resource resource in resources)
             {
                 binaryWriter.WriteEncryptedString(resource.Name, s_CachedHashBytes);
                 binaryWriter.WriteEncryptedString(resource.Variant, s_CachedHashBytes);
                 binaryWriter.Write(resource.LoadType);
-                binaryWriter.Write7BitEncodedInt(resource.Length);
-                binaryWriter.Write7BitEncodedInt(resource.HashCode);
-                binaryWriter.Write7BitEncodedInt(resource.ZipLength);
-                binaryWriter.Write7BitEncodedInt(resource.ZipHashCode);
+                binaryWriter.Write(resource.Length);
+                binaryWriter.Write(resource.HashCode);
+                binaryWriter.Write(resource.ZipLength);
+                binaryWriter.Write(resource.ZipHashCode);
                 int[] assetIndexes = resource.GetAssetIndexes();
-                binaryWriter.Write7BitEncodedInt(assetIndexes.Length);
+                binaryWriter.Write(assetIndexes.Length);
                 byte[] hashBytes = new byte[CachedHashBytesLength];
                 foreach (int assetIndex in assetIndexes)
                 {
@@ -222,7 +222,7 @@ namespace UnityGameFramework.Runtime
                     UpdatableVersionList.Asset asset = assets[assetIndex];
                     binaryWriter.WriteEncryptedString(asset.Name, hashBytes);
                     int[] dependencyAssetIndexes = asset.GetDependencyAssetIndexes();
-                    binaryWriter.Write7BitEncodedInt(dependencyAssetIndexes.Length);
+                    binaryWriter.Write(dependencyAssetIndexes.Length);
                     foreach (int dependencyAssetIndex in dependencyAssetIndexes)
                     {
                         binaryWriter.WriteEncryptedString(assets[dependencyAssetIndex].Name, hashBytes);
@@ -231,15 +231,15 @@ namespace UnityGameFramework.Runtime
             }
 
             UpdatableVersionList.ResourceGroup[] resourceGroups = versionList.GetResourceGroups();
-            binaryWriter.Write7BitEncodedInt(resourceGroups.Length);
+            binaryWriter.Write(resourceGroups.Length);
             foreach (UpdatableVersionList.ResourceGroup resourceGroup in resourceGroups)
             {
                 binaryWriter.WriteEncryptedString(resourceGroup.Name, s_CachedHashBytes);
                 int[] resourceIndexes = resourceGroup.GetResourceIndexes();
-                binaryWriter.Write7BitEncodedInt(resourceIndexes.Length);
+                binaryWriter.Write(resourceIndexes.Length);
                 foreach (ushort resourceIndex in resourceIndexes)
                 {
-                    binaryWriter.Write7BitEncodedInt(resourceIndex);
+                    binaryWriter.Write(resourceIndex);
                 }
             }
 
@@ -258,10 +258,10 @@ namespace UnityGameFramework.Runtime
         {
             byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
             string applicableGameVersion = binaryReader.ReadEncryptedString(encryptBytes);
-            int internalResourceVersion = binaryReader.Read7BitEncodedInt();
-            int assetCount = binaryReader.Read7BitEncodedInt();
+            int internalResourceVersion = binaryReader.ReadInt32();
+            int assetCount = binaryReader.ReadInt32();
             UpdatableVersionList.Asset[] assets = assetCount > 0 ? new UpdatableVersionList.Asset[assetCount] : null;
-            int resourceCount = binaryReader.Read7BitEncodedInt();
+            int resourceCount = binaryReader.ReadInt32();
             UpdatableVersionList.Resource[] resources = resourceCount > 0 ? new UpdatableVersionList.Resource[resourceCount] : null;
             string[][] resourceToAssetNames = new string[resourceCount][];
             List<KeyValuePair<string, string[]>> assetNameToDependencyAssetNames = new List<KeyValuePair<string, string[]>>(assetCount);
@@ -270,18 +270,18 @@ namespace UnityGameFramework.Runtime
                 string name = binaryReader.ReadEncryptedString(encryptBytes);
                 string variant = binaryReader.ReadEncryptedString(encryptBytes);
                 byte loadType = binaryReader.ReadByte();
-                int length = binaryReader.Read7BitEncodedInt();
-                int hashCode = binaryReader.Read7BitEncodedInt();
-                int zipLength = binaryReader.Read7BitEncodedInt();
-                int zipHashCode = binaryReader.Read7BitEncodedInt();
+                int length = binaryReader.ReadInt32();
+                int hashCode = binaryReader.ReadInt32();
+                int zipLength = binaryReader.ReadInt32();
+                int zipHashCode = binaryReader.ReadInt32();
                 Utility.Converter.GetBytes(hashCode, s_CachedHashBytes);
 
-                int assetNameCount = binaryReader.Read7BitEncodedInt();
+                int assetNameCount = binaryReader.ReadInt32();
                 string[] assetNames = assetNameCount > 0 ? new string[assetNameCount] : null;
                 for (int j = 0; j < assetNameCount; j++)
                 {
                     assetNames[j] = binaryReader.ReadEncryptedString(s_CachedHashBytes);
-                    int dependencyAssetNameCount = binaryReader.Read7BitEncodedInt();
+                    int dependencyAssetNameCount = binaryReader.ReadInt32();
                     string[] dependencyAssetNames = dependencyAssetNameCount > 0 ? new string[dependencyAssetNameCount] : null;
                     for (int k = 0; k < dependencyAssetNameCount; k++)
                     {
@@ -325,12 +325,12 @@ namespace UnityGameFramework.Runtime
                 }
             }
 
-            int resourceGroupCount = binaryReader.Read7BitEncodedInt();
+            int resourceGroupCount = binaryReader.ReadInt32();
             UpdatableVersionList.ResourceGroup[] resourceGroups = resourceGroupCount > 0 ? new UpdatableVersionList.ResourceGroup[resourceGroupCount] : null;
             for (int i = 0; i < resourceGroupCount; i++)
             {
                 string name = binaryReader.ReadEncryptedString(encryptBytes);
-                int resourceIndexCount = binaryReader.Read7BitEncodedInt();
+                int resourceIndexCount = binaryReader.ReadInt32();
                 int[] resourceIndexes = resourceIndexCount > 0 ? new int[resourceIndexCount] : null;
                 for (int j = 0; j < resourceIndexCount; j++)
                 {
@@ -359,14 +359,14 @@ namespace UnityGameFramework.Runtime
             Utility.Random.GetRandomBytes(s_CachedHashBytes);
             binaryWriter.Write(s_CachedHashBytes);
             LocalVersionList.Resource[] resources = versionList.GetResources();
-            binaryWriter.Write7BitEncodedInt(resources.Length);
+            binaryWriter.Write(resources.Length);
             foreach (LocalVersionList.Resource resource in resources)
             {
                 binaryWriter.WriteEncryptedString(resource.Name, s_CachedHashBytes);
                 binaryWriter.WriteEncryptedString(resource.Variant, s_CachedHashBytes);
                 binaryWriter.Write(resource.LoadType);
-                binaryWriter.Write7BitEncodedInt(resource.Length);
-                binaryWriter.Write7BitEncodedInt(resource.HashCode);
+                binaryWriter.Write(resource.Length);
+                binaryWriter.Write(resource.HashCode);
             }
 
             Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
@@ -381,15 +381,15 @@ namespace UnityGameFramework.Runtime
         public static LocalVersionList DeserializeLocalVersionListCallback_V0(BinaryReader binaryReader)
         {
             byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
-            int resourceCount = binaryReader.Read7BitEncodedInt();
+            int resourceCount = binaryReader.ReadInt32();
             LocalVersionList.Resource[] resources = resourceCount > 0 ? new LocalVersionList.Resource[resourceCount] : null;
             for (int i = 0; i < resourceCount; i++)
             {
                 string name = binaryReader.ReadEncryptedString(encryptBytes);
                 string variant = binaryReader.ReadEncryptedString(encryptBytes);
                 byte loadType = binaryReader.ReadByte();
-                int length = binaryReader.Read7BitEncodedInt();
-                int hashCode = binaryReader.Read7BitEncodedInt();
+                int length = binaryReader.ReadInt32();
+                int hashCode = binaryReader.ReadInt32();
                 resources[i] = new LocalVersionList.Resource(name, variant, loadType, length, hashCode);
             }
 
@@ -413,7 +413,7 @@ namespace UnityGameFramework.Runtime
 
             binaryReader.BaseStream.Position += CachedHashBytesLength;
             binaryReader.BaseStream.Position += binaryReader.ReadByte();
-            value = binaryReader.Read7BitEncodedInt();
+            value = binaryReader.ReadInt32();
             return true;
         }
 
@@ -510,7 +510,7 @@ namespace UnityGameFramework.Runtime
                 binaryWriter.WriteEncryptedString(resourceGroup.Name, s_CachedHashBytes);
                 int[] resourceIndexes = resourceGroup.GetResourceIndexes();
                 binaryWriter.Write7BitEncodedInt(resourceIndexes.Length);
-                foreach (ushort resourceIndex in resourceIndexes)
+                foreach (int resourceIndex in resourceIndexes)
                 {
                     binaryWriter.Write7BitEncodedInt(resourceIndex);
                 }
@@ -642,7 +642,7 @@ namespace UnityGameFramework.Runtime
                 binaryWriter.WriteEncryptedString(resourceGroup.Name, s_CachedHashBytes);
                 int[] resourceIndexes = resourceGroup.GetResourceIndexes();
                 binaryWriter.Write7BitEncodedInt(resourceIndexes.Length);
-                foreach (ushort resourceIndex in resourceIndexes)
+                foreach (int resourceIndex in resourceIndexes)
                 {
                     binaryWriter.Write7BitEncodedInt(resourceIndex);
                 }

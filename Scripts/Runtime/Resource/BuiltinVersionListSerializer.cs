@@ -104,8 +104,8 @@ namespace UnityGameFramework.Runtime
             PackageVersionList.Asset[] assets = assetCount > 0 ? new PackageVersionList.Asset[assetCount] : null;
             int resourceCount = binaryReader.ReadInt32();
             PackageVersionList.Resource[] resources = resourceCount > 0 ? new PackageVersionList.Resource[resourceCount] : null;
-            List<string[]> resourceToAssetNames = new List<string[]>();
-            SortedDictionary<string, string[]> assetNameToDependencyAssetNames = new SortedDictionary<string, string[]>();
+            string[][] resourceToAssetNames = new string[resourceCount][];
+            List<KeyValuePair<string, string[]>> assetNameToDependencyAssetNames = new List<KeyValuePair<string, string[]>>(assetCount);
             for (int i = 0; i < resourceCount; i++)
             {
                 string name = ReadEncryptedString(binaryReader, encryptBytes);
@@ -127,13 +127,14 @@ namespace UnityGameFramework.Runtime
                         dependencyAssetNames[k] = ReadEncryptedString(binaryReader, s_CachedHashBytes);
                     }
 
-                    assetNameToDependencyAssetNames.Add(assetNames[j], dependencyAssetNames);
+                    assetNameToDependencyAssetNames.Add(new KeyValuePair<string, string[]>(assetNames[j], dependencyAssetNames));
                 }
 
-                resourceToAssetNames.Add(assetNames);
+                resourceToAssetNames[i] = assetNames;
                 resources[i] = new PackageVersionList.Resource(name, variant, loadType, length, hashCode, assetNameCount > 0 ? new int[assetNameCount] : null);
             }
 
+            assetNameToDependencyAssetNames.Sort(AssetNameToDependencyAssetNamesComparer);
             Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
             int index = 0;
             foreach (KeyValuePair<string, string[]> i in assetNameToDependencyAssetNames)
@@ -143,18 +144,7 @@ namespace UnityGameFramework.Runtime
                     int[] dependencyAssetIndexes = new int[i.Value.Length];
                     for (int j = 0; j < i.Value.Length; j++)
                     {
-                        int position = 0;
-                        foreach (KeyValuePair<string, string[]> k in assetNameToDependencyAssetNames)
-                        {
-                            if (k.Key == i.Value[j])
-                            {
-                                break;
-                            }
-
-                            position++;
-                        }
-
-                        dependencyAssetIndexes[j] = position;
+                        dependencyAssetIndexes[j] = GetAssetNameIndex(assetNameToDependencyAssetNames, i.Value[j]);
                     }
 
                     assets[index++] = new PackageVersionList.Asset(i.Key, dependencyAssetIndexes);
@@ -170,18 +160,7 @@ namespace UnityGameFramework.Runtime
                 int[] assetIndexes = resources[i].GetAssetIndexes();
                 for (int j = 0; j < assetIndexes.Length; j++)
                 {
-                    int position = 0;
-                    foreach (KeyValuePair<string, string[]> k in assetNameToDependencyAssetNames)
-                    {
-                        if (k.Key == resourceToAssetNames[i][j])
-                        {
-                            break;
-                        }
-
-                        position++;
-                    }
-
-                    assetIndexes[j] = position;
+                    assetIndexes[j] = GetAssetNameIndex(assetNameToDependencyAssetNames, resourceToAssetNames[i][j]);
                 }
             }
 
@@ -285,8 +264,8 @@ namespace UnityGameFramework.Runtime
             UpdatableVersionList.Asset[] assets = assetCount > 0 ? new UpdatableVersionList.Asset[assetCount] : null;
             int resourceCount = binaryReader.ReadInt32();
             UpdatableVersionList.Resource[] resources = resourceCount > 0 ? new UpdatableVersionList.Resource[resourceCount] : null;
-            List<string[]> resourceToAssetNames = new List<string[]>();
-            SortedDictionary<string, string[]> assetNameToDependencyAssetNames = new SortedDictionary<string, string[]>();
+            string[][] resourceToAssetNames = new string[resourceCount][];
+            List<KeyValuePair<string, string[]>> assetNameToDependencyAssetNames = new List<KeyValuePair<string, string[]>>(assetCount);
             for (int i = 0; i < resourceCount; i++)
             {
                 string name = ReadEncryptedString(binaryReader, encryptBytes);
@@ -299,7 +278,7 @@ namespace UnityGameFramework.Runtime
                 Utility.Converter.GetBytes(hashCode, s_CachedHashBytes);
 
                 int assetNameCount = binaryReader.ReadInt32();
-                string[] assetNames = new string[assetNameCount];
+                string[] assetNames = assetNameCount > 0 ? new string[assetNameCount] : null;
                 for (int j = 0; j < assetNameCount; j++)
                 {
                     assetNames[j] = ReadEncryptedString(binaryReader, s_CachedHashBytes);
@@ -310,13 +289,14 @@ namespace UnityGameFramework.Runtime
                         dependencyAssetNames[k] = ReadEncryptedString(binaryReader, s_CachedHashBytes);
                     }
 
-                    assetNameToDependencyAssetNames.Add(assetNames[j], dependencyAssetNames);
+                    assetNameToDependencyAssetNames.Add(new KeyValuePair<string, string[]>(assetNames[j], dependencyAssetNames));
                 }
 
-                resourceToAssetNames.Add(assetNames);
+                resourceToAssetNames[i] = assetNames;
                 resources[i] = new UpdatableVersionList.Resource(name, variant, loadType, length, hashCode, zipLength, zipHashCode, assetNameCount > 0 ? new int[assetNameCount] : null);
             }
 
+            assetNameToDependencyAssetNames.Sort(AssetNameToDependencyAssetNamesComparer);
             Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
             int index = 0;
             foreach (KeyValuePair<string, string[]> i in assetNameToDependencyAssetNames)
@@ -326,18 +306,7 @@ namespace UnityGameFramework.Runtime
                     int[] dependencyAssetIndexes = new int[i.Value.Length];
                     for (int j = 0; j < i.Value.Length; j++)
                     {
-                        int position = 0;
-                        foreach (KeyValuePair<string, string[]> k in assetNameToDependencyAssetNames)
-                        {
-                            if (k.Key == i.Value[j])
-                            {
-                                break;
-                            }
-
-                            position++;
-                        }
-
-                        dependencyAssetIndexes[j] = position;
+                        dependencyAssetIndexes[j] = GetAssetNameIndex(assetNameToDependencyAssetNames, i.Value[j]);
                     }
 
                     assets[index++] = new UpdatableVersionList.Asset(i.Key, dependencyAssetIndexes);
@@ -353,18 +322,7 @@ namespace UnityGameFramework.Runtime
                 int[] assetIndexes = resources[i].GetAssetIndexes();
                 for (int j = 0; j < assetIndexes.Length; j++)
                 {
-                    int position = 0;
-                    foreach (KeyValuePair<string, string[]> k in assetNameToDependencyAssetNames)
-                    {
-                        if (k.Key == resourceToAssetNames[i][j])
-                        {
-                            break;
-                        }
-
-                        position++;
-                    }
-
-                    assetIndexes[j] = position;
+                    assetIndexes[j] = GetAssetNameIndex(assetNameToDependencyAssetNames, resourceToAssetNames[i][j]);
                 }
             }
 
@@ -458,6 +416,39 @@ namespace UnityGameFramework.Runtime
             binaryReader.BaseStream.Position += binaryReader.ReadByte();
             value = binaryReader.ReadInt32();
             return true;
+        }
+
+        private static int AssetNameToDependencyAssetNamesComparer(KeyValuePair<string, string[]> a, KeyValuePair<string, string[]> b)
+        {
+            return a.Key.CompareTo(b.Key);
+        }
+
+        private static int GetAssetNameIndex(List<KeyValuePair<string, string[]>> assetNameToDependencyAssetNames, string assetName)
+        {
+            return GetAssetNameIndexWithBinarySearch(assetNameToDependencyAssetNames, assetName, 0, assetNameToDependencyAssetNames.Count - 1);
+        }
+
+        private static int GetAssetNameIndexWithBinarySearch(List<KeyValuePair<string, string[]>> assetNameToDependencyAssetNames, string assetName, int leftIndex, int rightIndex)
+        {
+            if (leftIndex > rightIndex)
+            {
+                return -1;
+            }
+
+            int middleIndex = (leftIndex + rightIndex) / 2;
+            if (assetNameToDependencyAssetNames[middleIndex].Key == assetName)
+            {
+                return middleIndex;
+            }
+
+            if (assetNameToDependencyAssetNames[middleIndex].Key.CompareTo(assetName) > 0)
+            {
+                return GetAssetNameIndexWithBinarySearch(assetNameToDependencyAssetNames, assetName, leftIndex, middleIndex - 1);
+            }
+            else
+            {
+                return GetAssetNameIndexWithBinarySearch(assetNameToDependencyAssetNames, assetName, middleIndex + 1, rightIndex);
+            }
         }
 
         #endregion Version 0

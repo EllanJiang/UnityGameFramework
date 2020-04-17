@@ -17,11 +17,11 @@ public static class BinaryExtension
     private static readonly byte[] s_CachedBytes = new byte[byte.MaxValue];
 
     /// <summary>
-    /// 从二进制流读取编码后的整数。
+    /// 从二进制流读取编码后的 32 位有符号整数。
     /// </summary>
     /// <param name="binaryReader">要读取的二进制流。</param>
-    /// <returns>读取的整数。</returns>
-    public static int Read7BitEncodedInt(this BinaryReader binaryReader)
+    /// <returns>读取的 32 位有符号整数。</returns>
+    public static int Read7BitEncodedInt32(this BinaryReader binaryReader)
     {
         if (binaryReader == null)
         {
@@ -47,11 +47,11 @@ public static class BinaryExtension
     }
 
     /// <summary>
-    /// 向二进制流写入编码后的整数。
+    /// 向二进制流写入编码后的 32 位有符号整数。
     /// </summary>
     /// <param name="binaryWriter">要写入的二进制流。</param>
-    /// <param name="value">要写入的整数。</param>
-    public static void Write7BitEncodedInt(this BinaryWriter binaryWriter, int value)
+    /// <param name="value">要写入的 32 位有符号整数。</param>
+    public static void Write7BitEncodedInt32(this BinaryWriter binaryWriter, int value)
     {
         if (binaryWriter == null)
         {

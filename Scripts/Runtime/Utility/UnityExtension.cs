@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Unity 扩展。
+/// 对 Unity 的扩展方法。
 /// </summary>
 public static class UnityExtension
 {

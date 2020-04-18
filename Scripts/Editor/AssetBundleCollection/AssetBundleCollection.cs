@@ -380,7 +380,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 return false;
             }
 
-            if (assetBundleLoadType >= AssetBundleLoadType.LoadFromBinary && assetBundle.GetAssets().Length > 1)
+            if ((assetBundleLoadType == AssetBundleLoadType.LoadFromBinary || assetBundleLoadType == AssetBundleLoadType.LoadFromBinaryAndQuickDecrypt || assetBundleLoadType == AssetBundleLoadType.LoadFromBinaryAndDecrypt) && assetBundle.GetAssets().Length > 1)
             {
                 return false;
             }

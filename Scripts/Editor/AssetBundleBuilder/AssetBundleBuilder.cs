@@ -37,6 +37,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             m_Controller.OnAnalyzingAsset += OnAnalyzingAsset;
             m_Controller.OnAnalyzeCompleted += OnAnalyzeCompleted;
             m_Controller.ProcessingAssetBundle += OnProcessingAssetBundle;
+            m_Controller.ProcessingBinary += OnProcessingBinary;
             m_Controller.ProcessAssetBundleComplete += OnProcessAssetBundleComplete;
             m_Controller.BuildAssetBundlesError += OnBuildAssetBundlesError;
 
@@ -477,6 +478,20 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         private bool OnProcessingAssetBundle(string assetBundleName, float progress)
         {
             if (EditorUtility.DisplayCancelableProgressBar("Processing AssetBundle", Utility.Text.Format("Processing '{0}'...", assetBundleName), progress))
+            {
+                EditorUtility.ClearProgressBar();
+                return true;
+            }
+            else
+            {
+                Repaint();
+                return false;
+            }
+        }
+
+        private bool OnProcessingBinary(string binaryName, float progress)
+        {
+            if (EditorUtility.DisplayCancelableProgressBar("Processing Binary", Utility.Text.Format("Processing '{0}'...", binaryName), progress))
             {
                 EditorUtility.ClearProgressBar();
                 return true;

@@ -13645,7 +13645,7 @@
             <summary>
             初始化本地版本资源列表的新实例。
             </summary>
-            <param name="resources">包含的普通资源集合。</param>
+            <param name="resources">包含的资源集合。</param>
         </member>
         <member name="P:GameFramework.Resource.LocalVersionList.IsValid">
             <summary>
@@ -13654,48 +13654,54 @@
         </member>
         <member name="M:GameFramework.Resource.LocalVersionList.GetResources">
             <summary>
-            获取普通资源集合。
+            获取资源集合。
             </summary>
             <returns></returns>
         </member>
         <member name="T:GameFramework.Resource.LocalVersionList.Resource">
             <summary>
-            普通资源。
+            资源。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.LocalVersionList.Resource.#ctor(System.String,System.String,System.Byte,System.Int32,System.Int32)">
+        <member name="M:GameFramework.Resource.LocalVersionList.Resource.#ctor(System.String,System.String,System.String,System.Byte,System.Int32,System.Int32)">
             <summary>
-            初始化普通资源的新实例。
+            初始化资源的新实例。
             </summary>
-            <param name="name">普通资源名称。</param>
-            <param name="variant">普通资源变体名称。</param>
-            <param name="loadType">普通资源加载方式。</param>
-            <param name="length">普通资源长度。</param>
-            <param name="hashCode">普通资源哈希值。</param>
+            <param name="name">资源名称。</param>
+            <param name="variant">资源变体名称。</param>
+            <param name="extension">资源扩展名称。</param>
+            <param name="loadType">资源加载方式。</param>
+            <param name="length">资源长度。</param>
+            <param name="hashCode">资源哈希值。</param>
         </member>
         <member name="P:GameFramework.Resource.LocalVersionList.Resource.Name">
             <summary>
-            获取普通资源名称。
+            获取资源名称。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.LocalVersionList.Resource.Variant">
             <summary>
-            获取普通资源变体名称。
+            获取资源变体名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.LocalVersionList.Resource.Extension">
+            <summary>
+            获取资源扩展名称。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.LocalVersionList.Resource.LoadType">
             <summary>
-            获取普通资源加载方式。
+            获取资源加载方式。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.LocalVersionList.Resource.Length">
             <summary>
-            获取普通资源长度。
+            获取资源长度。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.LocalVersionList.Resource.HashCode">
             <summary>
-            获取普通资源哈希值。
+            获取资源哈希值。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.PackageVersionList">
@@ -13733,7 +13739,7 @@
             <param name="applicableGameVersion">适配的游戏版本号。</param>
             <param name="internalResourceVersion">内部资源版本号。</param>
             <param name="assets">包含的资产集合。</param>
-            <param name="resources">包含的普通资源集合。</param>
+            <param name="resources">包含的资源集合。</param>
             <param name="resourceGroups">包含的资源组集合。</param>
         </member>
         <member name="P:GameFramework.Resource.PackageVersionList.IsValid">
@@ -13759,7 +13765,7 @@
         </member>
         <member name="M:GameFramework.Resource.PackageVersionList.GetResources">
             <summary>
-            获取包含的普通资源集合。
+            获取包含的资源集合。
             </summary>
             <returns></returns>
         </member>
@@ -13771,48 +13777,54 @@
         </member>
         <member name="T:GameFramework.Resource.PackageVersionList.Resource">
             <summary>
-            普通资源。
+            资源。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.PackageVersionList.Resource.#ctor(System.String,System.String,System.Byte,System.Int32,System.Int32,System.Int32[])">
+        <member name="M:GameFramework.Resource.PackageVersionList.Resource.#ctor(System.String,System.String,System.String,System.Byte,System.Int32,System.Int32,System.Int32[])">
             <summary>
-            初始化普通资源的新实例。
+            初始化资源的新实例。
             </summary>
-            <param name="name">普通资源名称。</param>
-            <param name="variant">普通资源变体名称。</param>
-            <param name="loadType">普通资源加载方式。</param>
-            <param name="length">普通资源长度。</param>
-            <param name="hashCode">普通资源哈希值。</param>
-            <param name="assetIndexes">普通资源包含的资产索引集合。</param>
+            <param name="name">资源名称。</param>
+            <param name="variant">资源变体名称。</param>
+            <param name="extension">资源扩展名称。</param>
+            <param name="loadType">资源加载方式。</param>
+            <param name="length">资源长度。</param>
+            <param name="hashCode">资源哈希值。</param>
+            <param name="assetIndexes">资源包含的资产索引集合。</param>
         </member>
         <member name="P:GameFramework.Resource.PackageVersionList.Resource.Name">
             <summary>
-            获取普通资源名称。
+            获取资源名称。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.PackageVersionList.Resource.Variant">
             <summary>
-            获取普通资源变体名称。
+            获取资源变体名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.Resource.Extension">
+            <summary>
+            获取资源扩展名称。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.PackageVersionList.Resource.LoadType">
             <summary>
-            获取普通资源加载方式。
+            获取资源加载方式。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.PackageVersionList.Resource.Length">
             <summary>
-            获取普通资源长度。
+            获取资源长度。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.PackageVersionList.Resource.HashCode">
             <summary>
-            获取普通资源哈希值。
+            获取资源哈希值。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.PackageVersionList.Resource.GetAssetIndexes">
             <summary>
-            获取普通资源包含的资产索引集合。
+            获取资源包含的资产索引集合。
             </summary>
             <returns></returns>
         </member>
@@ -13826,7 +13838,7 @@
             初始化资源组的新实例。
             </summary>
             <param name="name">资源组名称。</param>
-            <param name="resourceIndexes">资源组包含的普通资源索引集合。</param>
+            <param name="resourceIndexes">资源组包含的资源索引集合。</param>
         </member>
         <member name="P:GameFramework.Resource.PackageVersionList.ResourceGroup.Name">
             <summary>
@@ -13835,9 +13847,9 @@
         </member>
         <member name="M:GameFramework.Resource.PackageVersionList.ResourceGroup.GetResourceIndexes">
             <summary>
-            获取资源组包含的普通资源索引集合。
+            获取资源组包含的资源索引集合。
             </summary>
-            <returns>资源组包含的普通资源索引集合。</returns>
+            <returns>资源组包含的资源索引集合。</returns>
         </member>
         <member name="T:GameFramework.Resource.PackageVersionListSerializer">
             <summary>
@@ -14966,12 +14978,13 @@
             资源名称。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceName.#ctor(System.String,System.String)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceName.#ctor(System.String,System.String,System.String)">
             <summary>
             初始化资源名称的新实例。
             </summary>
             <param name="name">资源名称。</param>
             <param name="variant">变体名称。</param>
+            <param name="extension">扩展名称。</param>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceName.Name">
             <summary>
@@ -14983,9 +14996,9 @@
             获取变体名称。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceName.IsVariant">
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceName.Extension">
             <summary>
-            获取是否变体。
+            获取扩展名称。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceNameComparer">
@@ -15479,7 +15492,7 @@
             <param name="applicableGameVersion">适配的游戏版本号。</param>
             <param name="internalResourceVersion">内部资源版本号。</param>
             <param name="assets">包含的资产集合。</param>
-            <param name="resources">包含的普通资源集合。</param>
+            <param name="resources">包含的资源集合。</param>
             <param name="resourceGroups">包含的资源组集合。</param>
         </member>
         <member name="P:GameFramework.Resource.UpdatableVersionList.IsValid">
@@ -15505,7 +15518,7 @@
         </member>
         <member name="M:GameFramework.Resource.UpdatableVersionList.GetResources">
             <summary>
-            获取包含的普通资源集合。
+            获取包含的资源集合。
             </summary>
             <returns></returns>
         </member>
@@ -15517,60 +15530,66 @@
         </member>
         <member name="T:GameFramework.Resource.UpdatableVersionList.Resource">
             <summary>
-            普通资源。
+            资源。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.UpdatableVersionList.Resource.#ctor(System.String,System.String,System.Byte,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32[])">
+        <member name="M:GameFramework.Resource.UpdatableVersionList.Resource.#ctor(System.String,System.String,System.String,System.Byte,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32[])">
             <summary>
-            初始化普通资源的新实例。
+            初始化资源的新实例。
             </summary>
-            <param name="name">普通资源名称。</param>
-            <param name="variant">普通资源变体名称。</param>
-            <param name="loadType">普通资源加载方式。</param>
-            <param name="length">普通资源长度。</param>
-            <param name="hashCode">普通资源哈希值。</param>
-            <param name="zipLength">普通资源压缩后长度。</param>
-            <param name="zipHashCode">普通资源压缩后哈希值。</param>
-            <param name="assetIndexes">普通资源包含的资产索引集合。</param>
+            <param name="name">资源名称。</param>
+            <param name="variant">资源变体名称。</param>
+            <param name="extension">资源扩展名称。</param>
+            <param name="loadType">资源加载方式。</param>
+            <param name="length">资源长度。</param>
+            <param name="hashCode">资源哈希值。</param>
+            <param name="zipLength">资源压缩后长度。</param>
+            <param name="zipHashCode">资源压缩后哈希值。</param>
+            <param name="assetIndexes">资源包含的资产索引集合。</param>
         </member>
         <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.Name">
             <summary>
-            获取普通资源名称。
+            获取资源名称。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.Variant">
             <summary>
-            获取普通资源变体名称。
+            获取资源变体名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.Extension">
+            <summary>
+            获取资源扩展名称。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.LoadType">
             <summary>
-            获取普通资源加载方式。
+            获取资源加载方式。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.Length">
             <summary>
-            获取普通资源长度。
+            获取资源长度。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.HashCode">
             <summary>
-            获取普通资源哈希值。
+            获取资源哈希值。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.ZipLength">
             <summary>
-            获取普通资源压缩后长度。
+            获取资源压缩后长度。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.ZipHashCode">
             <summary>
-            获取普通资源压缩后哈希值。
+            获取资源压缩后哈希值。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.UpdatableVersionList.Resource.GetAssetIndexes">
             <summary>
-            获取普通资源包含的资产索引集合。
+            获取资源包含的资产索引集合。
             </summary>
             <returns></returns>
         </member>
@@ -15584,7 +15603,7 @@
             初始化资源组的新实例。
             </summary>
             <param name="name">资源组名称。</param>
-            <param name="resourceIndexes">资源组包含的普通资源索引集合。</param>
+            <param name="resourceIndexes">资源组包含的资源索引集合。</param>
         </member>
         <member name="P:GameFramework.Resource.UpdatableVersionList.ResourceGroup.Name">
             <summary>
@@ -15593,9 +15612,9 @@
         </member>
         <member name="M:GameFramework.Resource.UpdatableVersionList.ResourceGroup.GetResourceIndexes">
             <summary>
-            获取资源组包含的普通资源索引集合。
+            获取资源组包含的资源索引集合。
             </summary>
-            <returns>资源组包含的普通资源索引集合。</returns>
+            <returns>资源组包含的资源索引集合。</returns>
         </member>
         <member name="T:GameFramework.Resource.UpdatableVersionListSerializer">
             <summary>
@@ -20512,21 +20531,6 @@
             </summary>
             <param name="path">原始路径。</param>
             <returns>远程格式路径。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Path.GetResourceNameWithSuffix(System.String)">
-            <summary>
-            获取带有后缀的资源名。
-            </summary>
-            <param name="resourceName">原始资源名。</param>
-            <returns>带有后缀的资源名。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Path.GetResourceNameWithCrc32AndSuffix(System.String,System.Int32)">
-            <summary>
-            获取带有 CRC32 和后缀的资源名。
-            </summary>
-            <param name="resourceName">原始资源名。</param>
-            <param name="hashCode">CRC32 哈希值。</param>
-            <returns>带有 CRC32 和后缀的资源名。</returns>
         </member>
         <member name="M:GameFramework.Utility.Path.RemoveEmptyDirectory(System.String)">
             <summary>

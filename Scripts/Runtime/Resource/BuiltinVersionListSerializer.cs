@@ -18,6 +18,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public static class BuiltinVersionListSerializer
     {
+        private const string DefaultExtension = "dat";
         private const int CachedHashBytesLength = 4;
         private static readonly byte[] s_CachedHashBytes = new byte[CachedHashBytesLength];
 
@@ -130,7 +131,7 @@ namespace UnityGameFramework.Runtime
                 }
 
                 resourceToAssetNames[i] = assetNames;
-                resources[i] = new PackageVersionList.Resource(name, variant, loadType, length, hashCode, assetNameCount > 0 ? new int[assetNameCount] : null);
+                resources[i] = new PackageVersionList.Resource(name, variant, null, loadType, length, hashCode, assetNameCount > 0 ? new int[assetNameCount] : null);
             }
 
             assetNameToDependencyAssetNames.Sort(AssetNameToDependencyAssetNamesComparer);
@@ -292,7 +293,7 @@ namespace UnityGameFramework.Runtime
                 }
 
                 resourceToAssetNames[i] = assetNames;
-                resources[i] = new UpdatableVersionList.Resource(name, variant, loadType, length, hashCode, zipLength, zipHashCode, assetNameCount > 0 ? new int[assetNameCount] : null);
+                resources[i] = new UpdatableVersionList.Resource(name, variant, null, loadType, length, hashCode, zipLength, zipHashCode, assetNameCount > 0 ? new int[assetNameCount] : null);
             }
 
             assetNameToDependencyAssetNames.Sort(AssetNameToDependencyAssetNamesComparer);
@@ -390,7 +391,7 @@ namespace UnityGameFramework.Runtime
                 byte loadType = binaryReader.ReadByte();
                 int length = binaryReader.ReadInt32();
                 int hashCode = binaryReader.ReadInt32();
-                resources[i] = new LocalVersionList.Resource(name, variant, loadType, length, hashCode);
+                resources[i] = new LocalVersionList.Resource(name, variant, null, loadType, length, hashCode);
             }
 
             return new LocalVersionList(resources);
@@ -492,6 +493,7 @@ namespace UnityGameFramework.Runtime
             {
                 binaryWriter.WriteEncryptedString(resource.Name, s_CachedHashBytes);
                 binaryWriter.WriteEncryptedString(resource.Variant, s_CachedHashBytes);
+                binaryWriter.WriteEncryptedString(resource.Extension != DefaultExtension ? resource.Extension : null, s_CachedHashBytes);
                 binaryWriter.Write(resource.LoadType);
                 binaryWriter.Write7BitEncodedInt32(resource.Length);
                 binaryWriter.Write(resource.HashCode);
@@ -553,6 +555,7 @@ namespace UnityGameFramework.Runtime
             {
                 string name = binaryReader.ReadEncryptedString(encryptBytes);
                 string variant = binaryReader.ReadEncryptedString(encryptBytes);
+                string extension = binaryReader.ReadEncryptedString(encryptBytes) ?? DefaultExtension;
                 byte loadType = binaryReader.ReadByte();
                 int length = binaryReader.Read7BitEncodedInt32();
                 int hashCode = binaryReader.ReadInt32();
@@ -563,7 +566,7 @@ namespace UnityGameFramework.Runtime
                     assetIndexes[j] = binaryReader.Read7BitEncodedInt32();
                 }
 
-                resources[i] = new PackageVersionList.Resource(name, variant, loadType, length, hashCode, assetIndexes);
+                resources[i] = new PackageVersionList.Resource(name, variant, extension, loadType, length, hashCode, assetIndexes);
             }
 
             int resourceGroupCount = binaryReader.Read7BitEncodedInt32();
@@ -622,6 +625,7 @@ namespace UnityGameFramework.Runtime
             {
                 binaryWriter.WriteEncryptedString(resource.Name, s_CachedHashBytes);
                 binaryWriter.WriteEncryptedString(resource.Variant, s_CachedHashBytes);
+                binaryWriter.WriteEncryptedString(resource.Extension != DefaultExtension ? resource.Extension : null, s_CachedHashBytes);
                 binaryWriter.Write(resource.LoadType);
                 binaryWriter.Write7BitEncodedInt32(resource.Length);
                 binaryWriter.Write(resource.HashCode);
@@ -685,6 +689,7 @@ namespace UnityGameFramework.Runtime
             {
                 string name = binaryReader.ReadEncryptedString(encryptBytes);
                 string variant = binaryReader.ReadEncryptedString(encryptBytes);
+                string extension = binaryReader.ReadEncryptedString(encryptBytes) ?? DefaultExtension;
                 byte loadType = binaryReader.ReadByte();
                 int length = binaryReader.Read7BitEncodedInt32();
                 int hashCode = binaryReader.ReadInt32();
@@ -697,7 +702,7 @@ namespace UnityGameFramework.Runtime
                     assetIndexes[j] = binaryReader.Read7BitEncodedInt32();
                 }
 
-                resources[i] = new UpdatableVersionList.Resource(name, variant, loadType, length, hashCode, zipLength, zipHashCode, assetIndexes);
+                resources[i] = new UpdatableVersionList.Resource(name, variant, extension, loadType, length, hashCode, zipLength, zipHashCode, assetIndexes);
             }
 
             int resourceGroupCount = binaryReader.Read7BitEncodedInt32();
@@ -739,6 +744,7 @@ namespace UnityGameFramework.Runtime
             {
                 binaryWriter.WriteEncryptedString(resource.Name, s_CachedHashBytes);
                 binaryWriter.WriteEncryptedString(resource.Variant, s_CachedHashBytes);
+                binaryWriter.WriteEncryptedString(resource.Extension != DefaultExtension ? resource.Extension : null, s_CachedHashBytes);
                 binaryWriter.Write(resource.LoadType);
                 binaryWriter.Write7BitEncodedInt32(resource.Length);
                 binaryWriter.Write(resource.HashCode);
@@ -762,10 +768,11 @@ namespace UnityGameFramework.Runtime
             {
                 string name = binaryReader.ReadEncryptedString(encryptBytes);
                 string variant = binaryReader.ReadEncryptedString(encryptBytes);
+                string extension = binaryReader.ReadEncryptedString(encryptBytes) ?? DefaultExtension;
                 byte loadType = binaryReader.ReadByte();
                 int length = binaryReader.Read7BitEncodedInt32();
                 int hashCode = binaryReader.ReadInt32();
-                resources[i] = new LocalVersionList.Resource(name, variant, loadType, length, hashCode);
+                resources[i] = new LocalVersionList.Resource(name, variant, extension, loadType, length, hashCode);
             }
 
             return new LocalVersionList(resources);

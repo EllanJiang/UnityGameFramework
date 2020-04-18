@@ -61,6 +61,14 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             private set;
         }
 
+        public bool IsLoadFromBinary
+        {
+            get
+            {
+                return LoadType == AssetBundleLoadType.LoadFromBinary || LoadType == AssetBundleLoadType.LoadFromBinaryAndQuickDecrypt || LoadType == AssetBundleLoadType.LoadFromBinaryAndDecrypt;
+            }
+        }
+
         public AssetBundleLoadType LoadType
         {
             get;
@@ -83,6 +91,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             return m_Assets.ToArray();
         }
 
+        public Asset GetFirstAsset()
+        {
+            return m_Assets.Count > 0 ? m_Assets[0] : null;
+        }
+
         public void Rename(string name, string variant)
         {
             Name = name;
@@ -103,7 +116,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
         {
             if (asset.AssetBundle != null)
             {
-                asset.AssetBundle.Unassign(asset);
+                asset.AssetBundle.UnassignAsset(asset);
             }
 
             Type = isScene ? AssetBundleType.Scene : AssetBundleType.Asset;
@@ -112,7 +125,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             m_Assets.Sort(AssetComparer);
         }
 
-        public void Unassign(Asset asset)
+        public void UnassignAsset(Asset asset)
         {
             asset.SetAssetBundle(null);
             m_Assets.Remove(asset);

@@ -22,7 +22,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
     /// </summary>
     public sealed class AssetBundleCollection
     {
-        private const string PostfixOfScene = ".unity";
+        private const string SceneExtension = ".unity";
         private static readonly Regex AssetBundleNameRegex = new Regex(@"^([A-Za-z0-9\._-]+/)*[A-Za-z0-9\._-]+$");
         private static readonly Regex AssetBundleVariantRegex = new Regex(@"^[a-z0-9_-]+$");
 
@@ -380,6 +380,11 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 return false;
             }
 
+            if (assetBundleLoadType >= AssetBundleLoadType.LoadFromBinary && assetBundle.GetAssets().Length > 1)
+            {
+                return false;
+            }
+
             assetBundle.SetLoadType(assetBundleLoadType);
 
             return true;
@@ -488,13 +493,18 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 }
             }
 
-            bool isScene = assetName.EndsWith(PostfixOfScene);
+            bool isScene = assetName.EndsWith(SceneExtension);
             if (isScene && assetBundle.Type == AssetBundleType.Asset || !isScene && assetBundle.Type == AssetBundleType.Scene)
             {
                 return false;
             }
 
             Asset asset = GetAsset(assetGuid);
+            if (assetBundle.IsLoadFromBinary && assetsInAssetBundle.Length > 0 && asset != assetsInAssetBundle[0])
+            {
+                return false;
+            }
+
             if (asset == null)
             {
                 asset = Asset.Create(assetGuid);
@@ -516,7 +526,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             Asset asset = GetAsset(assetGuid);
             if (asset != null)
             {
-                asset.AssetBundle.Unassign(asset);
+                asset.AssetBundle.UnassignAsset(asset);
                 m_Assets.Remove(asset.Guid);
             }
 

@@ -74,17 +74,27 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             {
                 get
                 {
-                    switch (AssetBundle.Type)
+                    if (AssetBundle.IsLoadFromBinary)
                     {
-                        case AssetBundleType.Asset:
-                            return CachedAssetIcon;
-
-                        case AssetBundleType.Scene:
-                            return CachedSceneIcon;
-
-                        default:
-                            return CachedUnknownIcon;
+                        Asset asset = AssetBundle.GetFirstAsset();
+                        if (asset != null)
+                        {
+                            return AssetDatabase.GetCachedIcon(AssetDatabase.GUIDToAssetPath(asset.Guid));
+                        }
                     }
+                    else
+                    {
+                        switch (AssetBundle.Type)
+                        {
+                            case AssetBundleType.Asset:
+                                return CachedAssetIcon;
+
+                            case AssetBundleType.Scene:
+                                return CachedSceneIcon;
+                        }
+                    }
+
+                    return CachedUnknownIcon;
                 }
             }
 

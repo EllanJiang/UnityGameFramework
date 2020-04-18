@@ -20,8 +20,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 {
     public sealed partial class AssetBundleBuilderController
     {
-        private const string VersionListFileName = "version.dat";
-        private const string LocalListFileName = "list.dat";
+        private const string RemoteVersionListFileName = "GameFrameworkVersion.dat";
+        private const string LocalVersionListFileName = "GameFrameworkList.dat";
         private const string DefaultExtension = "dat";
         private const string NoneOptionName = "<None>";
         private static readonly int AssetsStringLength = "Assets".Length;
@@ -962,7 +962,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             string assetBundleFullName = GetAssetBundleFullName(assetBundleName, assetBundleVariant);
             AssetBundleData assetBundleData = m_AssetBundleDatas[assetBundleFullName];
             string assetBundleFullNameWithExtension = Utility.Text.Format("{0}.{1}", assetBundleFullName, GetExtension(assetBundleData));
-            string workingName = Utility.Path.GetRegularPath(Path.Combine(workingPath, assetBundleFullName));
+            string workingName = Utility.Path.GetRegularPath(Path.Combine(workingPath, assetBundleFullName.ToLower()));
 
             byte[] bytes = File.ReadAllBytes(workingName);
             int length = bytes.Length;
@@ -1139,7 +1139,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             PackageVersionListSerializer serializer = new PackageVersionListSerializer();
             serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.SerializePackageVersionListCallback_V0);
             serializer.RegisterSerializeCallback(1, BuiltinVersionListSerializer.SerializePackageVersionListCallback_V1);
-            string packageVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackagePath, VersionListFileName));
+            string packageVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackagePath, RemoteVersionListFileName));
             using (FileStream fileStream = new FileStream(packageVersionListPath, FileMode.CreateNew, FileAccess.Write))
             {
                 if (!serializer.Serialize(fileStream, versionList))
@@ -1178,7 +1178,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             UpdatableVersionListSerializer serializer = new UpdatableVersionListSerializer();
             serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.SerializeUpdatableVersionListCallback_V0);
             serializer.RegisterSerializeCallback(1, BuiltinVersionListSerializer.SerializeUpdatableVersionListCallback_V1);
-            string updatableVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, VersionListFileName));
+            string updatableVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, RemoteVersionListFileName));
             using (FileStream fileStream = new FileStream(updatableVersionListPath, FileMode.CreateNew, FileAccess.Write))
             {
                 if (!serializer.Serialize(fileStream, versionList))
@@ -1194,8 +1194,8 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             int zipLength = bytes.Length;
             File.WriteAllBytes(updatableVersionListPath, bytes);
             int zipHashCode = Utility.Verifier.GetCrc32(bytes);
-            int dotPosition = VersionListFileName.LastIndexOf('.');
-            string versionListFullNameWithCrc32 = Utility.Text.Format("{0}.{2:x8}.{1}", VersionListFileName.Substring(0, dotPosition), VersionListFileName.Substring(dotPosition + 1), hashCode);
+            int dotPosition = RemoteVersionListFileName.LastIndexOf('.');
+            string versionListFullNameWithCrc32 = Utility.Text.Format("{0}.{2:x8}.{1}", RemoteVersionListFileName.Substring(0, dotPosition), RemoteVersionListFileName.Substring(dotPosition + 1), hashCode);
             string updatableVersionListPathWithCrc32 = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, versionListFullNameWithCrc32));
             File.Move(updatableVersionListPath, updatableVersionListPathWithCrc32);
 
@@ -1227,7 +1227,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             ReadOnlyVersionListSerializer serializer = new ReadOnlyVersionListSerializer();
             serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.SerializeLocalVersionListCallback_V0);
             serializer.RegisterSerializeCallback(1, BuiltinVersionListSerializer.SerializeLocalVersionListCallback_V1);
-            string readOnlyVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackedPath, LocalListFileName));
+            string readOnlyVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackedPath, LocalVersionListFileName));
             using (FileStream fileStream = new FileStream(readOnlyVersionListPath, FileMode.CreateNew, FileAccess.Write))
             {
                 if (!serializer.Serialize(fileStream, versionList))
@@ -1368,7 +1368,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             AssetBundle[] assetBundles = m_AssetBundleCollection.GetAssetBundles();
             foreach (AssetBundle assetBundle in assetBundles)
             {
-                m_AssetBundleDatas.Add(assetBundle.FullName.ToLower(), new AssetBundleData(assetBundle.Name, assetBundle.Variant, assetBundle.LoadType, assetBundle.Packed, assetBundle.GetResourceGroups()));
+                m_AssetBundleDatas.Add(assetBundle.FullName, new AssetBundleData(assetBundle.Name, assetBundle.Variant, assetBundle.LoadType, assetBundle.Packed, assetBundle.GetResourceGroups()));
             }
 
             Asset[] assets = m_AssetBundleCollection.GetAssets();
@@ -1401,7 +1401,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 
                 dependencyAssetNames.Sort();
 
-                m_AssetBundleDatas[asset.AssetBundle.FullName.ToLower()].AddAssetData(asset.Guid, assetName, assetBytes.Length, assetHashCode, dependencyAssetNames.ToArray());
+                m_AssetBundleDatas[asset.AssetBundle.FullName].AddAssetData(asset.Guid, assetName, assetBytes.Length, assetHashCode, dependencyAssetNames.ToArray());
             }
 
             foreach (AssetBundleData assetBundleData in m_AssetBundleDatas.Values)

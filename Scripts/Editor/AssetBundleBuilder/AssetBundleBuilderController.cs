@@ -20,9 +20,9 @@ namespace UnityGameFramework.Editor.AssetBundleTools
 {
     public sealed partial class AssetBundleBuilderController
     {
-        private const string DefaultExtension = "dat";
         private const string VersionListFileName = "version.dat";
-        private const string ResourceListFileName = "list.dat";
+        private const string LocalListFileName = "list.dat";
+        private const string DefaultExtension = "dat";
         private const string NoneOptionName = "<None>";
         private static readonly int AssetsStringLength = "Assets".Length;
 
@@ -1009,7 +1009,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             // Full AssetBundle
             if (OutputFullSelected)
             {
-                string assetBundleFullNameWithCrc32 = assetBundleVariant != null ? Utility.Text.Format("{0}.{1}.{3:x8}.{2}", assetBundleName, assetBundleVariant, DefaultExtension, hashCode) : Utility.Text.Format("{0}.{2:x8}.{1}", assetBundleName, DefaultExtension, hashCode);
+                string assetBundleFullNameWithCrc32 = assetBundleVariant != null ? Utility.Text.Format("{0}.{1}.{2:x8}.{3}", assetBundleName, assetBundleVariant, hashCode, DefaultExtension) : Utility.Text.Format("{0}.{1:x8}.{2}", assetBundleName, hashCode, DefaultExtension);
                 string fullName = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, assetBundleFullNameWithCrc32));
                 string fullDirectoryName = Path.GetDirectoryName(fullName);
                 if (!Directory.Exists(fullDirectoryName))
@@ -1086,7 +1086,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             // Full Binary
             if (OutputFullSelected)
             {
-                string binaryFullNameWithCrc32 = resourceVariant != null ? Utility.Text.Format("{0}.{1}.{3:x8}.{2}", resourceName, resourceVariant, DefaultExtension, hashCode) : Utility.Text.Format("{0}.{2:x8}.{1}", resourceName, DefaultExtension, hashCode);
+                string binaryFullNameWithCrc32 = resourceVariant != null ? Utility.Text.Format("{0}.{1}.{2:x8}.{3}", resourceName, resourceVariant, hashCode, DefaultExtension) : Utility.Text.Format("{0}.{1:x8}.{2}", resourceName, hashCode, DefaultExtension);
                 string fullName = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, binaryFullNameWithCrc32));
                 string fullDirectoryName = Path.GetDirectoryName(fullName);
                 if (!Directory.Exists(fullDirectoryName))
@@ -1227,7 +1227,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             ReadOnlyVersionListSerializer serializer = new ReadOnlyVersionListSerializer();
             serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.SerializeLocalVersionListCallback_V0);
             serializer.RegisterSerializeCallback(1, BuiltinVersionListSerializer.SerializeLocalVersionListCallback_V1);
-            string readOnlyVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackedPath, ResourceListFileName));
+            string readOnlyVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackedPath, LocalListFileName));
             using (FileStream fileStream = new FileStream(readOnlyVersionListPath, FileMode.CreateNew, FileAccess.Write))
             {
                 if (!serializer.Serialize(fileStream, versionList))

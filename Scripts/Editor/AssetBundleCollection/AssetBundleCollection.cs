@@ -307,7 +307,7 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 return false;
             }
 
-            if (!IsAvailableBundleName(assetBundleName, assetBundleVariant, null))
+            if (!IsAvailableAssetBundleName(assetBundleName, assetBundleVariant, null))
             {
                 return false;
             }
@@ -331,7 +331,12 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                 return false;
             }
 
-            if (!IsAvailableBundleName(newAssetBundleName, newAssetBundleVariant, assetBundle))
+            if (oldAssetBundleName == newAssetBundleName && oldAssetBundleVariant == newAssetBundleVariant)
+            {
+                return true;
+            }
+
+            if (!IsAvailableAssetBundleName(newAssetBundleName, newAssetBundleVariant, assetBundle))
             {
                 return false;
             }
@@ -553,14 +558,15 @@ namespace UnityGameFramework.Editor.AssetBundleTools
             return true;
         }
 
-        private bool IsAvailableBundleName(string assetBundleName, string assetBundleVariant, AssetBundle selfAssetBundle)
+        private bool IsAvailableAssetBundleName(string assetBundleName, string assetBundleVariant, AssetBundle selfAssetBundle)
         {
             AssetBundle findAssetBundle = GetAssetBundle(assetBundleName, assetBundleVariant);
-            if (findAssetBundle != null)
+            if (findAssetBundle != null && findAssetBundle != selfAssetBundle)
             {
-                return findAssetBundle == selfAssetBundle;
+                return false;
             }
 
+            string[] findAssetBundlePathNames = assetBundleName.Split('/');
             foreach (AssetBundle assetBundle in m_AssetBundles.Values)
             {
                 if (selfAssetBundle != null && assetBundle == selfAssetBundle)
@@ -593,6 +599,16 @@ namespace UnityGameFramework.Editor.AssetBundleTools
                     && assetBundleName[assetBundle.Name.Length] == '/')
                 {
                     return false;
+                }
+
+                string[] assetBundlePathNames = assetBundle.Name.Split('/');
+                for (int i = 0; i < findAssetBundlePathNames.Length - 1 && i < assetBundlePathNames.Length - 1; i++)
+                {
+                    if (findAssetBundlePathNames[i].ToLower() == assetBundlePathNames[i].ToLower()
+                        && findAssetBundlePathNames[i] != assetBundlePathNames[i])
+                    {
+                        return false;
+                    }
                 }
             }
 

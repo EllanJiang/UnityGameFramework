@@ -815,7 +815,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             List<string> validNames = new List<string>();
             foreach (AssetBundleBuild i in assetBundleBuildMap)
             {
-                validNames.Add(GetResourceFullName(i.assetBundleName, i.assetBundleVariant));
+                validNames.Add(GetResourceFullName(i.assetBundleName, i.assetBundleVariant).ToLower());
             }
 
             if (Directory.Exists(workingPath))

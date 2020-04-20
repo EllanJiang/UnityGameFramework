@@ -433,7 +433,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                             GUI.DrawTexture(new Rect(20f, 20f * index++ + 3f, 16f, 16f), sourceAsset != null ? sourceAsset.Icon : m_MissingSourceAssetIcon);
                             EditorGUILayout.LabelField(string.Empty, GUILayout.Width(16f), GUILayout.Height(18f));
 #else
-                            GUI.DrawTexture(new Rect(20f, 20f * (index++) + 1f, 16f, 16f), (sourceAsset != null ? sourceAsset.Icon : m_MissingSourceAssetIcon));
+                            GUI.DrawTexture(new Rect(20f, 20f * index++ + 1f, 16f, 16f), sourceAsset != null ? sourceAsset.Icon : m_MissingSourceAssetIcon);
                             EditorGUILayout.LabelField(string.Empty, GUILayout.Width(14f), GUILayout.Height(18f));
 #endif
                             EditorGUILayout.LabelField(assetName);

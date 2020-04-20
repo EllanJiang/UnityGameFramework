@@ -25,7 +25,11 @@ namespace UnityGameFramework.Editor.ResourceTools
         private static void Open()
         {
             ResourceBuilder window = GetWindow<ResourceBuilder>("Resource Builder", true);
-            window.minSize = new Vector2(700f, 600f);
+#if UNITY_2019_3_OR_NEWER
+            window.minSize = new Vector2(700f, 645f);
+#else
+            window.minSize = new Vector2(700f, 605f);
+#endif
         }
 
         private void OnEnable()

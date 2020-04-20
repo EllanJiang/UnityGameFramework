@@ -24,7 +24,11 @@ namespace UnityGameFramework.Editor.ResourceTools
         private static void Open()
         {
             ResourceSyncTools window = GetWindow<ResourceSyncTools>("Resource Sync Tools", true);
-            window.minSize = new Vector2(400, 200f);
+#if UNITY_2019_3_OR_NEWER
+            window.minSize = new Vector2(400, 195f);
+#else
+            window.minSize = new Vector2(400, 205f);
+#endif
         }
 
         private void OnEnable()

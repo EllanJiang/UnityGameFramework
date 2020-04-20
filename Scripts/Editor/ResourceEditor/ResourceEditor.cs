@@ -176,14 +176,24 @@ namespace UnityGameFramework.Editor.ResourceTools
             bool expand = IsExpandedResourceFolder(folder);
             EditorGUILayout.BeginHorizontal();
             {
-                if (expand != EditorGUI.Foldout(new Rect(18f + 14f * folder.Depth, 20f * m_CurrentResourceRowOnDraw + 2f, int.MaxValue, 14f), expand, string.Empty, true))
+#if UNITY_2019_3_OR_NEWER
+                bool foldout = EditorGUI.Foldout(new Rect(18f + 14f * folder.Depth, 20f * m_CurrentResourceRowOnDraw + 4f, int.MaxValue, 14f), expand, string.Empty, true);
+#else
+                bool foldout = EditorGUI.Foldout(new Rect(18f + 14f * folder.Depth, 20f * m_CurrentResourceRowOnDraw + 2f, int.MaxValue, 14f), expand, string.Empty, true);
+#endif
+                if (expand != foldout)
                 {
                     expand = !expand;
                     SetExpandedResourceFolder(folder, expand);
                 }
 
+#if UNITY_2019_3_OR_NEWER
+                GUI.DrawTexture(new Rect(32f + 14f * folder.Depth, 20f * m_CurrentResourceRowOnDraw + 3f, 16f, 16f), ResourceFolder.Icon);
+                EditorGUILayout.LabelField(string.Empty, GUILayout.Width(44f + 14f * folder.Depth), GUILayout.Height(18f));
+#else
                 GUI.DrawTexture(new Rect(32f + 14f * folder.Depth, 20f * m_CurrentResourceRowOnDraw + 1f, 16f, 16f), ResourceFolder.Icon);
                 EditorGUILayout.LabelField(string.Empty, GUILayout.Width(40f + 14f * folder.Depth), GUILayout.Height(18f));
+#endif
                 EditorGUILayout.LabelField(folder.Name);
             }
             EditorGUILayout.EndHorizontal();
@@ -225,8 +235,13 @@ namespace UnityGameFramework.Editor.ResourceTools
                 }
 
                 GUILayout.Space(-emptySpace + 24f);
+#if UNITY_2019_3_OR_NEWER
+                GUI.DrawTexture(new Rect(32f + 14f * resourceItem.Depth, 20f * m_CurrentResourceRowOnDraw + 3f, 16f, 16f), resourceItem.Icon);
+                EditorGUILayout.LabelField(string.Empty, GUILayout.Width(30f + 14f * resourceItem.Depth), GUILayout.Height(18f));
+#else
                 GUI.DrawTexture(new Rect(32f + 14f * resourceItem.Depth, 20f * m_CurrentResourceRowOnDraw + 1f, 16f, 16f), resourceItem.Icon);
                 EditorGUILayout.LabelField(string.Empty, GUILayout.Width(26f + 14f * resourceItem.Depth), GUILayout.Height(18f));
+#endif
                 EditorGUILayout.LabelField(title);
             }
             EditorGUILayout.EndHorizontal();
@@ -414,8 +429,13 @@ namespace UnityGameFramework.Editor.ResourceTools
                             }
 
                             GUILayout.Space(-emptySpace + 24f);
+#if UNITY_2019_3_OR_NEWER
+                            GUI.DrawTexture(new Rect(20f, 20f * (index++) + 3f, 16f, 16f), (sourceAsset != null ? sourceAsset.Icon : m_MissingSourceAssetIcon));
+                            EditorGUILayout.LabelField(string.Empty, GUILayout.Width(16f), GUILayout.Height(18f));
+#else
                             GUI.DrawTexture(new Rect(20f, 20f * (index++) + 1f, 16f, 16f), (sourceAsset != null ? sourceAsset.Icon : m_MissingSourceAssetIcon));
                             EditorGUILayout.LabelField(string.Empty, GUILayout.Width(14f), GUILayout.Height(18f));
+#endif
                             EditorGUILayout.LabelField(assetName);
                         }
                         EditorGUILayout.EndHorizontal();
@@ -559,14 +579,24 @@ namespace UnityGameFramework.Editor.ResourceTools
                 }
 
                 GUILayout.Space(-14f * sourceFolder.Depth);
-                if (expand != EditorGUI.Foldout(new Rect(18f + 14f * sourceFolder.Depth, 20f * m_CurrentSourceRowOnDraw + 2f, int.MaxValue, 14f), expand, string.Empty, true))
+#if UNITY_2019_3_OR_NEWER
+                bool foldout = EditorGUI.Foldout(new Rect(18f + 14f * sourceFolder.Depth, 20f * m_CurrentSourceRowOnDraw + 4f, int.MaxValue, 14f), expand, string.Empty, true);
+#else
+                bool foldout = EditorGUI.Foldout(new Rect(18f + 14f * sourceFolder.Depth, 20f * m_CurrentSourceRowOnDraw + 2f, int.MaxValue, 14f), expand, string.Empty, true);
+#endif
+                if (expand != foldout)
                 {
                     expand = !expand;
                     SetExpandedSourceFolder(sourceFolder, expand);
                 }
 
+#if UNITY_2019_3_OR_NEWER
+                GUI.DrawTexture(new Rect(32f + 14f * sourceFolder.Depth, 20f * m_CurrentSourceRowOnDraw + 3f, 16f, 16f), SourceFolder.Icon);
+                EditorGUILayout.LabelField(string.Empty, GUILayout.Width(30f + 14f * sourceFolder.Depth), GUILayout.Height(18f));
+#else
                 GUI.DrawTexture(new Rect(32f + 14f * sourceFolder.Depth, 20f * m_CurrentSourceRowOnDraw + 1f, 16f, 16f), SourceFolder.Icon);
                 EditorGUILayout.LabelField(string.Empty, GUILayout.Width(26f + 14f * sourceFolder.Depth), GUILayout.Height(18f));
+#endif
                 EditorGUILayout.LabelField(sourceFolder.Name);
             }
             EditorGUILayout.EndHorizontal();
@@ -605,8 +635,13 @@ namespace UnityGameFramework.Editor.ResourceTools
                 }
 
                 GUILayout.Space(-emptySpace + 24f);
+#if UNITY_2019_3_OR_NEWER
+                GUI.DrawTexture(new Rect(32f + 14f * sourceAsset.Depth, 20f * m_CurrentSourceRowOnDraw + 3f, 16f, 16f), sourceAsset.Icon);
+                EditorGUILayout.LabelField(string.Empty, GUILayout.Width(30f + 14f * sourceAsset.Depth), GUILayout.Height(18f));
+#else
                 GUI.DrawTexture(new Rect(32f + 14f * sourceAsset.Depth, 20f * m_CurrentSourceRowOnDraw + 1f, 16f, 16f), sourceAsset.Icon);
                 EditorGUILayout.LabelField(string.Empty, GUILayout.Width(26f + 14f * sourceAsset.Depth), GUILayout.Height(18f));
+#endif
                 EditorGUILayout.LabelField(sourceAsset.Name);
                 Asset asset = m_Controller.GetAsset(sourceAsset.Guid);
                 EditorGUILayout.LabelField(asset != null ? GetResourceFullName(asset.Resource.Name, asset.Resource.Variant) : string.Empty, GUILayout.Width(position.width * 0.15f));

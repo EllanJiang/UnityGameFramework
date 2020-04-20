@@ -53,7 +53,7 @@ namespace UnityGameFramework.Runtime
                     return null;
                 }
 
-                helper = (T)(new GameObject()).AddComponent(helperType);
+                helper = (T)new GameObject().AddComponent(helperType);
             }
             else if (customHelper == null)
             {
@@ -62,7 +62,7 @@ namespace UnityGameFramework.Runtime
             }
             else if (customHelper.gameObject.InScene())
             {
-                helper = (index > 0 ? Object.Instantiate(customHelper) : customHelper);
+                helper = index > 0 ? Object.Instantiate(customHelper) : customHelper;
             }
             else
             {

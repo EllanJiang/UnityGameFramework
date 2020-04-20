@@ -47,7 +47,7 @@ namespace UnityGameFramework.Editor
             if (selectedIndex != m_HelperTypeNameIndex)
             {
                 m_HelperTypeNameIndex = selectedIndex;
-                m_HelperTypeName.stringValue = (selectedIndex <= 0 ? null : m_HelperTypeNames[selectedIndex]);
+                m_HelperTypeName.stringValue = selectedIndex <= 0 ? null : m_HelperTypeNames[selectedIndex];
             }
 
             if (m_HelperTypeNameIndex <= 0)

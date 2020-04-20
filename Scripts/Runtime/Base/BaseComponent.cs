@@ -119,7 +119,7 @@ namespace UnityGameFramework.Runtime
             }
             set
             {
-                Time.timeScale = m_GameSpeed = (value >= 0f ? value : 0f);
+                Time.timeScale = m_GameSpeed = value >= 0f ? value : 0f;
             }
         }
 

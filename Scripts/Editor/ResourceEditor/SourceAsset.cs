@@ -57,7 +57,7 @@ namespace UnityGameFramework.Editor.ResourceTools
         {
             get
             {
-                return (Folder.Folder == null ? Name : Utility.Text.Format("{0}/{1}", Folder.FromRootPath, Name));
+                return Folder.Folder == null ? Name : Utility.Text.Format("{0}/{1}", Folder.FromRootPath, Name);
             }
         }
 

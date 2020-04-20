@@ -365,7 +365,7 @@ namespace UnityGameFramework.Editor
 
         private void RefreshModes()
         {
-            m_ResourceModeIndex = (m_ResourceMode.enumValueIndex > 0 ? m_ResourceMode.enumValueIndex - 1 : 0);
+            m_ResourceModeIndex = m_ResourceMode.enumValueIndex > 0 ? m_ResourceMode.enumValueIndex - 1 : 0;
         }
 
         private void RefreshTypeNames()

@@ -29,7 +29,7 @@ namespace UnityGameFramework.Editor.ResourceTools
 
         public ResourceAnalyzerController(ResourceCollection resourceCollection)
         {
-            m_ResourceCollection = (resourceCollection != null ? resourceCollection : new ResourceCollection());
+            m_ResourceCollection = resourceCollection != null ? resourceCollection : new ResourceCollection();
 
             m_ResourceCollection.OnLoadingResource += delegate (int index, int count)
             {
@@ -121,7 +121,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 scatteredAsset.Sort((a, b) => a.Name.CompareTo(b.Name));
             }
 
-            m_CircularDependencyDatas.AddRange((new CircularDependencyChecker(m_AnalyzedStamps.ToArray())).Check());
+            m_CircularDependencyDatas.AddRange(new CircularDependencyChecker(m_AnalyzedStamps.ToArray()).Check());
 
             if (OnAnalyzeCompleted != null)
             {

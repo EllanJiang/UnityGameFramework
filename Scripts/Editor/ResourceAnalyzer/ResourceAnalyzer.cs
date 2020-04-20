@@ -211,7 +211,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                     EditorGUILayout.BeginVertical("box");
                     {
                         EditorGUILayout.LabelField("Asset Name", m_SelectedAssetName ?? "<None>");
-                        EditorGUILayout.LabelField("Resource Name", (m_SelectedAssetName == null ? "<None>" : m_Controller.GetAsset(m_SelectedAssetName).Resource.FullName));
+                        EditorGUILayout.LabelField("Resource Name", m_SelectedAssetName == null ? "<None>" : m_Controller.GetAsset(m_SelectedAssetName).Resource.FullName);
                         EditorGUILayout.BeginHorizontal();
                         {
                             AssetsOrder assetsOrder = (AssetsOrder)EditorGUILayout.EnumPopup("Order by", m_AssetsOrder);
@@ -276,7 +276,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                                     if (GUILayout.Button("GO", GUILayout.Width(30f)))
                                     {
                                         m_SelectedAssetName = dependencyAsset.Name;
-                                        m_SelectedAssetIndex = (new List<string>(m_CachedAssetNames)).IndexOf(m_SelectedAssetName);
+                                        m_SelectedAssetIndex = new List<string>(m_CachedAssetNames).IndexOf(m_SelectedAssetName);
                                         m_SelectedDependencyData = m_Controller.GetDependencyData(m_SelectedAssetName);
                                     }
 
@@ -304,7 +304,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                                         if (GUILayout.Button("GO", GUILayout.Width(30f)))
                                         {
                                             m_SelectedScatteredAssetName = scatteredDependencyAssetName;
-                                            m_SelectedScatteredAssetIndex = (new List<string>(m_CachedScatteredAssetNames)).IndexOf(m_SelectedScatteredAssetName);
+                                            m_SelectedScatteredAssetIndex = new List<string>(m_CachedScatteredAssetNames).IndexOf(m_SelectedScatteredAssetName);
                                             m_SelectedHostAssets = m_Controller.GetHostAssets(m_SelectedScatteredAssetName);
                                             m_ToolbarIndex = 2;
                                             GUI.FocusControl(null);
@@ -416,7 +416,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                                     if (GUILayout.Button("GO", GUILayout.Width(30f)))
                                     {
                                         m_SelectedAssetName = hostAsset.Name;
-                                        m_SelectedAssetIndex = (new List<string>(m_CachedAssetNames)).IndexOf(m_SelectedAssetName);
+                                        m_SelectedAssetIndex = new List<string>(m_CachedAssetNames).IndexOf(m_SelectedAssetName);
                                         m_SelectedDependencyData = m_Controller.GetDependencyData(m_SelectedAssetName);
                                         m_ToolbarIndex = 1;
                                         GUI.FocusControl(null);
@@ -467,7 +467,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                                         if (GUILayout.Button("GO", GUILayout.Width(30f)))
                                         {
                                             m_SelectedAssetName = circularDependency;
-                                            m_SelectedAssetIndex = (new List<string>(m_CachedAssetNames)).IndexOf(m_SelectedAssetName);
+                                            m_SelectedAssetIndex = new List<string>(m_CachedAssetNames).IndexOf(m_SelectedAssetName);
                                             m_SelectedDependencyData = m_Controller.GetDependencyData(m_SelectedAssetName);
                                             m_ToolbarIndex = 1;
                                             GUI.FocusControl(null);
@@ -492,7 +492,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             m_CachedAssetNames = m_Controller.GetAssetNames(m_AssetsOrder, m_AssetsFilter);
             if (!string.IsNullOrEmpty(m_SelectedAssetName))
             {
-                m_SelectedAssetIndex = (new List<string>(m_CachedAssetNames)).IndexOf(m_SelectedAssetName);
+                m_SelectedAssetIndex = new List<string>(m_CachedAssetNames).IndexOf(m_SelectedAssetName);
             }
         }
 
@@ -501,7 +501,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             m_CachedScatteredAssetNames = m_Controller.GetScatteredAssetNames(m_ScatteredAssetsOrder, m_ScatteredAssetsFilter);
             if (!string.IsNullOrEmpty(m_SelectedScatteredAssetName))
             {
-                m_SelectedScatteredAssetIndex = (new List<string>(m_CachedScatteredAssetNames)).IndexOf(m_SelectedScatteredAssetName);
+                m_SelectedScatteredAssetIndex = new List<string>(m_CachedScatteredAssetNames).IndexOf(m_SelectedScatteredAssetName);
             }
         }
 

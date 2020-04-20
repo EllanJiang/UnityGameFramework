@@ -66,28 +66,28 @@ namespace UnityGameFramework.Editor
                     if (versionHelperSelectedIndex != m_VersionHelperTypeNameIndex)
                     {
                         m_VersionHelperTypeNameIndex = versionHelperSelectedIndex;
-                        m_VersionHelperTypeName.stringValue = (versionHelperSelectedIndex <= 0 ? null : m_VersionHelperTypeNames[versionHelperSelectedIndex]);
+                        m_VersionHelperTypeName.stringValue = versionHelperSelectedIndex <= 0 ? null : m_VersionHelperTypeNames[versionHelperSelectedIndex];
                     }
 
                     int logHelperSelectedIndex = EditorGUILayout.Popup("Log Helper", m_LogHelperTypeNameIndex, m_LogHelperTypeNames);
                     if (logHelperSelectedIndex != m_LogHelperTypeNameIndex)
                     {
                         m_LogHelperTypeNameIndex = logHelperSelectedIndex;
-                        m_LogHelperTypeName.stringValue = (logHelperSelectedIndex <= 0 ? null : m_LogHelperTypeNames[logHelperSelectedIndex]);
+                        m_LogHelperTypeName.stringValue = logHelperSelectedIndex <= 0 ? null : m_LogHelperTypeNames[logHelperSelectedIndex];
                     }
 
                     int zipHelperSelectedIndex = EditorGUILayout.Popup("Zip Helper", m_ZipHelperTypeNameIndex, m_ZipHelperTypeNames);
                     if (zipHelperSelectedIndex != m_ZipHelperTypeNameIndex)
                     {
                         m_ZipHelperTypeNameIndex = zipHelperSelectedIndex;
-                        m_ZipHelperTypeName.stringValue = (zipHelperSelectedIndex <= 0 ? null : m_ZipHelperTypeNames[zipHelperSelectedIndex]);
+                        m_ZipHelperTypeName.stringValue = zipHelperSelectedIndex <= 0 ? null : m_ZipHelperTypeNames[zipHelperSelectedIndex];
                     }
 
                     int jsonHelperSelectedIndex = EditorGUILayout.Popup("JSON Helper", m_JsonHelperTypeNameIndex, m_JsonHelperTypeNames);
                     if (jsonHelperSelectedIndex != m_JsonHelperTypeNameIndex)
                     {
                         m_JsonHelperTypeNameIndex = jsonHelperSelectedIndex;
-                        m_JsonHelperTypeName.stringValue = (jsonHelperSelectedIndex <= 0 ? null : m_JsonHelperTypeNames[jsonHelperSelectedIndex]);
+                        m_JsonHelperTypeName.stringValue = jsonHelperSelectedIndex <= 0 ? null : m_JsonHelperTypeNames[jsonHelperSelectedIndex];
                     }
                 }
                 EditorGUILayout.EndVertical();

@@ -64,7 +64,7 @@ public static class UnityExtension
     /// <summary>
     /// 递归设置游戏对象的层次。
     /// </summary>
-    /// <param name="gameObject"><see cref="UnityEngine.GameObject" /> 对象。</param>
+    /// <param name="gameObject"><see cref="GameObject" /> 对象。</param>
     /// <param name="layer">目标层次的编号。</param>
     public static void SetLayerRecursively(this GameObject gameObject, int layer)
     {
@@ -78,7 +78,7 @@ public static class UnityExtension
     }
 
     /// <summary>
-    /// 取 <see cref="UnityEngine.Vector3" /> 的 (x, y, z) 转换为 <see cref="UnityEngine.Vector2" /> 的 (x, z)。
+    /// 取 <see cref="Vector3" /> 的 (x, y, z) 转换为 <see cref="Vector2" /> 的 (x, z)。
     /// </summary>
     /// <param name="vector3">要转换的 Vector3。</param>
     /// <returns>转换后的 Vector2。</returns>
@@ -88,7 +88,7 @@ public static class UnityExtension
     }
 
     /// <summary>
-    /// 取 <see cref="UnityEngine.Vector2" /> 的 (x, y) 转换为 <see cref="UnityEngine.Vector3" /> 的 (x, 0, y)。
+    /// 取 <see cref="Vector2" /> 的 (x, y) 转换为 <see cref="Vector3" /> 的 (x, 0, y)。
     /// </summary>
     /// <param name="vector2">要转换的 Vector2。</param>
     /// <returns>转换后的 Vector3。</returns>
@@ -98,7 +98,7 @@ public static class UnityExtension
     }
 
     /// <summary>
-    /// 取 <see cref="UnityEngine.Vector2" /> 的 (x, y) 和给定参数 y 转换为 <see cref="UnityEngine.Vector3" /> 的 (x, 参数 y, y)。
+    /// 取 <see cref="Vector2" /> 的 (x, y) 和给定参数 y 转换为 <see cref="Vector3" /> 的 (x, 参数 y, y)。
     /// </summary>
     /// <param name="vector2">要转换的 Vector2。</param>
     /// <param name="y">Vector3 的 y 值。</param>
@@ -113,7 +113,7 @@ public static class UnityExtension
     /// <summary>
     /// 设置绝对位置的 x 坐标。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="newValue">x 坐标值。</param>
     public static void SetPositionX(this Transform transform, float newValue)
     {
@@ -125,7 +125,7 @@ public static class UnityExtension
     /// <summary>
     /// 设置绝对位置的 y 坐标。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="newValue">y 坐标值。</param>
     public static void SetPositionY(this Transform transform, float newValue)
     {
@@ -137,7 +137,7 @@ public static class UnityExtension
     /// <summary>
     /// 设置绝对位置的 z 坐标。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="newValue">z 坐标值。</param>
     public static void SetPositionZ(this Transform transform, float newValue)
     {
@@ -149,7 +149,7 @@ public static class UnityExtension
     /// <summary>
     /// 增加绝对位置的 x 坐标。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="deltaValue">x 坐标值增量。</param>
     public static void AddPositionX(this Transform transform, float deltaValue)
     {
@@ -161,7 +161,7 @@ public static class UnityExtension
     /// <summary>
     /// 增加绝对位置的 y 坐标。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="deltaValue">y 坐标值增量。</param>
     public static void AddPositionY(this Transform transform, float deltaValue)
     {
@@ -173,7 +173,7 @@ public static class UnityExtension
     /// <summary>
     /// 增加绝对位置的 z 坐标。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="deltaValue">z 坐标值增量。</param>
     public static void AddPositionZ(this Transform transform, float deltaValue)
     {
@@ -185,7 +185,7 @@ public static class UnityExtension
     /// <summary>
     /// 设置相对位置的 x 坐标。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="newValue">x 坐标值。</param>
     public static void SetLocalPositionX(this Transform transform, float newValue)
     {
@@ -197,7 +197,7 @@ public static class UnityExtension
     /// <summary>
     /// 设置相对位置的 y 坐标。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="newValue">y 坐标值。</param>
     public static void SetLocalPositionY(this Transform transform, float newValue)
     {
@@ -209,7 +209,7 @@ public static class UnityExtension
     /// <summary>
     /// 设置相对位置的 z 坐标。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="newValue">z 坐标值。</param>
     public static void SetLocalPositionZ(this Transform transform, float newValue)
     {
@@ -221,7 +221,7 @@ public static class UnityExtension
     /// <summary>
     /// 增加相对位置的 x 坐标。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="deltaValue">x 坐标值。</param>
     public static void AddLocalPositionX(this Transform transform, float deltaValue)
     {
@@ -233,7 +233,7 @@ public static class UnityExtension
     /// <summary>
     /// 增加相对位置的 y 坐标。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="deltaValue">y 坐标值。</param>
     public static void AddLocalPositionY(this Transform transform, float deltaValue)
     {
@@ -245,7 +245,7 @@ public static class UnityExtension
     /// <summary>
     /// 增加相对位置的 z 坐标。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="deltaValue">z 坐标值。</param>
     public static void AddLocalPositionZ(this Transform transform, float deltaValue)
     {
@@ -257,7 +257,7 @@ public static class UnityExtension
     /// <summary>
     /// 设置相对尺寸的 x 分量。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="newValue">x 分量值。</param>
     public static void SetLocalScaleX(this Transform transform, float newValue)
     {
@@ -269,7 +269,7 @@ public static class UnityExtension
     /// <summary>
     /// 设置相对尺寸的 y 分量。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="newValue">y 分量值。</param>
     public static void SetLocalScaleY(this Transform transform, float newValue)
     {
@@ -281,7 +281,7 @@ public static class UnityExtension
     /// <summary>
     /// 设置相对尺寸的 z 分量。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="newValue">z 分量值。</param>
     public static void SetLocalScaleZ(this Transform transform, float newValue)
     {
@@ -293,7 +293,7 @@ public static class UnityExtension
     /// <summary>
     /// 增加相对尺寸的 x 分量。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="deltaValue">x 分量增量。</param>
     public static void AddLocalScaleX(this Transform transform, float deltaValue)
     {
@@ -305,7 +305,7 @@ public static class UnityExtension
     /// <summary>
     /// 增加相对尺寸的 y 分量。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="deltaValue">y 分量增量。</param>
     public static void AddLocalScaleY(this Transform transform, float deltaValue)
     {
@@ -317,7 +317,7 @@ public static class UnityExtension
     /// <summary>
     /// 增加相对尺寸的 z 分量。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="deltaValue">z 分量增量。</param>
     public static void AddLocalScaleZ(this Transform transform, float deltaValue)
     {
@@ -327,11 +327,11 @@ public static class UnityExtension
     }
 
     /// <summary>
-    /// 二维空间下使 <see cref="UnityEngine.Transform" /> 指向指向目标点的算法，使用世界坐标。
+    /// 二维空间下使 <see cref="Transform" /> 指向指向目标点的算法，使用世界坐标。
     /// </summary>
-    /// <param name="transform"><see cref="UnityEngine.Transform" /> 对象。</param>
+    /// <param name="transform"><see cref="Transform" /> 对象。</param>
     /// <param name="lookAtPoint2D">要朝向的二维坐标点。</param>
-    /// <remarks>假定其 forward 向量为 <see cref="UnityEngine.Vector3.up" />。</remarks>
+    /// <remarks>假定其 forward 向量为 <see cref="Vector3.up" />。</remarks>
     public static void LookAt2D(this Transform transform, Vector2 lookAtPoint2D)
     {
         Vector3 vector = lookAtPoint2D.ToVector3() - transform.position;

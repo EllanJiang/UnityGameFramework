@@ -162,7 +162,7 @@ namespace UnityGameFramework.Runtime
                         {
                             GameFrameworkSegment<string> segment = new GameFrameworkSegment<string>(text, position, offset - position);
                             position = offset + 1;
-                            if (((ch == '\r') && (position < length)) && (text[position] == '\n'))
+                            if ((ch == '\r') && (position < length) && (text[position] == '\n'))
                             {
                                 position++;
                             }

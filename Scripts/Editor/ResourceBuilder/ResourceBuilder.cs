@@ -232,7 +232,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                         if (selectedIndex != m_BuildEventHandlerTypeNameIndex)
                         {
                             m_BuildEventHandlerTypeNameIndex = selectedIndex;
-                            m_Controller.BuildEventHandlerTypeName = (selectedIndex <= 0 ? string.Empty : names[selectedIndex]);
+                            m_Controller.BuildEventHandlerTypeName = selectedIndex <= 0 ? string.Empty : names[selectedIndex];
                             if (m_Controller.RefreshBuildEventHandler())
                             {
                                 Debug.Log("Set build event success.");

@@ -535,7 +535,7 @@ namespace UnityGameFramework.Editor.ResourceTools
 
         private string GetResourceFullName(string name, string variant)
         {
-            return (!string.IsNullOrEmpty(variant) ? Utility.Text.Format("{0}.{1}", name, variant) : name);
+            return !string.IsNullOrEmpty(variant) ? Utility.Text.Format("{0}.{1}", name, variant) : name;
         }
 
         private bool IsValidResourceName(string name, string variant)

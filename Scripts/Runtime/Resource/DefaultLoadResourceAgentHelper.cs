@@ -9,11 +9,9 @@ using GameFramework;
 using GameFramework.Resource;
 using System;
 using UnityEngine;
-
 #if UNITY_5_4_OR_NEWER
 using UnityEngine.Networking;
 #endif
-
 using UnityEngine.SceneManagement;
 using Utility = GameFramework.Utility;
 
@@ -376,7 +374,6 @@ namespace UnityGameFramework.Runtime
             }
         }
 #else
-
         private void UpdateWWW()
         {
             if (m_WWW != null)
@@ -409,7 +406,6 @@ namespace UnityGameFramework.Runtime
                 }
             }
         }
-
 #endif
 
         private void UpdateFileAssetBundleCreateRequest()

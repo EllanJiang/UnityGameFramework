@@ -12486,12 +12486,11 @@
             </summary>
             <param name="fullPath">要加载资源的完整路径名。</param>
         </member>
-        <member name="M:GameFramework.Resource.ILoadResourceAgentHelper.ReadBytes(System.String,System.Int32)">
+        <member name="M:GameFramework.Resource.ILoadResourceAgentHelper.ReadBytes(System.String)">
             <summary>
             通过加载资源代理辅助器开始异步读取资源二进制流。
             </summary>
             <param name="fullPath">要加载资源的完整路径名。</param>
-            <param name="loadType">资源加载方式。</param>
         </member>
         <member name="M:GameFramework.Resource.ILoadResourceAgentHelper.ParseBytes(System.Byte[])">
             <summary>
@@ -13384,17 +13383,11 @@
             初始化加载资源代理辅助器异步读取资源二进制流完成事件的新实例。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.LoadResourceAgentHelperReadBytesCompleteEventArgs.LoadType">
-            <summary>
-            获取资源加载方式。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Resource.LoadResourceAgentHelperReadBytesCompleteEventArgs.Create(System.Byte[],System.Int32)">
+        <member name="M:GameFramework.Resource.LoadResourceAgentHelperReadBytesCompleteEventArgs.Create(System.Byte[])">
             <summary>
             创建加载资源代理辅助器异步读取资源二进制流完成事件。
             </summary>
             <param name="bytes">资源的二进制流。</param>
-            <param name="loadType">资源加载方式。</param>
             <returns>创建的加载资源代理辅助器异步读取资源二进制流完成事件。</returns>
         </member>
         <member name="M:GameFramework.Resource.LoadResourceAgentHelperReadBytesCompleteEventArgs.Clear">

@@ -8,11 +8,15 @@
 using GameFramework;
 using GameFramework.Download;
 using System;
+
 #if UNITY_5_4_OR_NEWER
 using UnityEngine.Networking;
 #else
+
 using UnityEngine.Experimental.Networking;
+
 #endif
+
 using Utility = GameFramework.Utility;
 
 namespace UnityGameFramework.Runtime
@@ -192,7 +196,7 @@ namespace UnityGameFramework.Runtime
         /// 释放资源。
         /// </summary>
         /// <param name="disposing">释放资源标记。</param>
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (m_Disposed)
             {

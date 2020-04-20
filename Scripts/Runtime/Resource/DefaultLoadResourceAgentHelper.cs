@@ -9,9 +9,11 @@ using GameFramework;
 using GameFramework.Resource;
 using System;
 using UnityEngine;
+
 #if UNITY_5_4_OR_NEWER
 using UnityEngine.Networking;
 #endif
+
 using UnityEngine.SceneManagement;
 using Utility = GameFramework.Utility;
 
@@ -24,7 +26,6 @@ namespace UnityGameFramework.Runtime
     {
         private string m_FileFullPath = null;
         private string m_BytesFullPath = null;
-        private int m_LoadType = 0;
         private string m_AssetName = null;
         private float m_LastProgress = 0f;
         private bool m_Disposed = false;
@@ -155,8 +156,7 @@ namespace UnityGameFramework.Runtime
         /// 通过加载资源代理辅助器开始异步读取资源二进制流。
         /// </summary>
         /// <param name="fullPath">要加载资源的完整路径名。</param>
-        /// <param name="loadType">资源加载方式。</param>
-        public override void ReadBytes(string fullPath, int loadType)
+        public override void ReadBytes(string fullPath)
         {
             if (m_LoadResourceAgentHelperReadBytesCompleteEventHandler == null || m_LoadResourceAgentHelperUpdateEventHandler == null || m_LoadResourceAgentHelperErrorEventHandler == null)
             {
@@ -165,7 +165,6 @@ namespace UnityGameFramework.Runtime
             }
 
             m_BytesFullPath = fullPath;
-            m_LoadType = loadType;
 #if UNITY_5_4_OR_NEWER
             m_UnityWebRequest = UnityWebRequest.Get(Utility.Path.GetRemotePath(fullPath));
 #if UNITY_2017_2_OR_NEWER
@@ -261,7 +260,6 @@ namespace UnityGameFramework.Runtime
         {
             m_FileFullPath = null;
             m_BytesFullPath = null;
-            m_LoadType = 0;
             m_AssetName = null;
             m_LastProgress = 0f;
 
@@ -298,7 +296,7 @@ namespace UnityGameFramework.Runtime
         /// 释放资源。
         /// </summary>
         /// <param name="disposing">释放资源标记。</param>
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (m_Disposed)
             {
@@ -347,13 +345,12 @@ namespace UnityGameFramework.Runtime
                 {
                     if (string.IsNullOrEmpty(m_UnityWebRequest.error))
                     {
-                        LoadResourceAgentHelperReadBytesCompleteEventArgs loadResourceAgentHelperReadBytesCompleteEventArgs = LoadResourceAgentHelperReadBytesCompleteEventArgs.Create(m_UnityWebRequest.downloadHandler.data, m_LoadType);
+                        LoadResourceAgentHelperReadBytesCompleteEventArgs loadResourceAgentHelperReadBytesCompleteEventArgs = LoadResourceAgentHelperReadBytesCompleteEventArgs.Create(m_UnityWebRequest.downloadHandler.data);
                         m_LoadResourceAgentHelperReadBytesCompleteEventHandler(this, loadResourceAgentHelperReadBytesCompleteEventArgs);
                         ReferencePool.Release(loadResourceAgentHelperReadBytesCompleteEventArgs);
                         m_UnityWebRequest.Dispose();
                         m_UnityWebRequest = null;
                         m_BytesFullPath = null;
-                        m_LoadType = 0;
                         m_LastProgress = 0f;
                     }
                     else
@@ -379,6 +376,7 @@ namespace UnityGameFramework.Runtime
             }
         }
 #else
+
         private void UpdateWWW()
         {
             if (m_WWW != null)
@@ -387,13 +385,12 @@ namespace UnityGameFramework.Runtime
                 {
                     if (string.IsNullOrEmpty(m_WWW.error))
                     {
-                        LoadResourceAgentHelperReadBytesCompleteEventArgs loadResourceAgentHelperReadBytesCompleteEventArgs = LoadResourceAgentHelperReadBytesCompleteEventArgs.Create(m_WWW.bytes, m_LoadType);
+                        LoadResourceAgentHelperReadBytesCompleteEventArgs loadResourceAgentHelperReadBytesCompleteEventArgs = LoadResourceAgentHelperReadBytesCompleteEventArgs.Create(m_WWW.bytes);
                         m_LoadResourceAgentHelperReadBytesCompleteEventHandler(this, loadResourceAgentHelperReadBytesCompleteEventArgs);
                         ReferencePool.Release(loadResourceAgentHelperReadBytesCompleteEventArgs);
                         m_WWW.Dispose();
                         m_WWW = null;
                         m_BytesFullPath = null;
-                        m_LoadType = 0;
                         m_LastProgress = 0f;
                     }
                     else
@@ -412,6 +409,7 @@ namespace UnityGameFramework.Runtime
                 }
             }
         }
+
 #endif
 
         private void UpdateFileAssetBundleCreateRequest()

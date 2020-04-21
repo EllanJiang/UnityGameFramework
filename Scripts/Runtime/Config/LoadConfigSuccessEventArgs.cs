@@ -27,7 +27,7 @@ namespace UnityGameFramework.Runtime
         {
             ConfigName = null;
             ConfigAssetName = null;
-            LoadType = LoadType.Text;
+            LoadType = LoadType.TextFromAsset;
             Duration = 0f;
             UserData = null;
         }
@@ -113,7 +113,7 @@ namespace UnityGameFramework.Runtime
         {
             ConfigName = null;
             ConfigAssetName = null;
-            LoadType = LoadType.Text;
+            LoadType = LoadType.TextFromAsset;
             Duration = 0f;
             UserData = null;
         }

@@ -29,7 +29,7 @@ namespace UnityGameFramework.Runtime
             DataRowType = null;
             DataTableName = null;
             DataTableAssetName = null;
-            LoadType = LoadType.Text;
+            LoadType = LoadType.TextFromAsset;
             Progress = 0f;
             UserData = null;
         }
@@ -125,7 +125,7 @@ namespace UnityGameFramework.Runtime
             DataRowType = null;
             DataTableName = null;
             DataTableAssetName = null;
-            LoadType = LoadType.Text;
+            LoadType = LoadType.TextFromAsset;
             Progress = 0f;
             UserData = null;
         }

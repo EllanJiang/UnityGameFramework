@@ -27,7 +27,7 @@ namespace UnityGameFramework.Runtime
         {
             DictionaryName = null;
             DictionaryAssetName = null;
-            LoadType = LoadType.Text;
+            LoadType = LoadType.TextFromAsset;
             Progress = 0f;
             UserData = null;
         }
@@ -112,7 +112,7 @@ namespace UnityGameFramework.Runtime
         {
             DictionaryName = null;
             DictionaryAssetName = null;
-            LoadType = LoadType.Text;
+            LoadType = LoadType.TextFromAsset;
             Progress = 0f;
             UserData = null;
         }

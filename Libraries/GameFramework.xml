@@ -2678,7 +2678,7 @@
             <summary>
             加载全局配置。
             </summary>
-            <param name="configAsset">全局配置资源。</param>
+            <param name="configObject">全局配置对象。</param>
             <param name="loadType">全局配置加载方式。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否加载成功。</returns>
@@ -4333,7 +4333,7 @@
             <summary>
             加载数据表。
             </summary>
-            <param name="dataTableAsset">数据表资源。</param>
+            <param name="dataTableObject">数据表对象。</param>
             <param name="loadType">数据表加载方式。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否加载成功。</returns>
@@ -8369,7 +8369,7 @@
             <summary>
             加载字典。
             </summary>
-            <param name="dictionaryAsset">字典资源。</param>
+            <param name="dictionaryObject">字典对象。</param>
             <param name="loadType">字典加载方式。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否加载成功。</returns>

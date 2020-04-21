@@ -129,48 +129,60 @@ namespace UnityGameFramework.Runtime
         /// 加载全局配置。
         /// </summary>
         /// <param name="configName">全局配置名称。</param>
-        /// <param name="configAsset">全局配置资源。</param>
+        /// <param name="configObject">全局配置对象。</param>
         /// <param name="loadType">全局配置加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        protected override bool LoadConfig(string configName, object configAsset, LoadType loadType, object userData)
+        protected override bool LoadConfig(string configName, object configObject, LoadType loadType, object userData)
         {
-            TextAsset textAsset = configAsset as TextAsset;
-            if (textAsset == null)
+            TextAsset configTextAsset = configObject as TextAsset;
+            if (configTextAsset != null)
             {
-                Log.Warning("Config asset '{0}' is invalid.", configName);
-                return false;
+                switch (loadType)
+                {
+                    case LoadType.TextFromAsset:
+                        return m_ConfigManager.ParseConfig(configTextAsset.text, userData);
+
+                    case LoadType.BytesFromAsset:
+                        return m_ConfigManager.ParseConfig(configTextAsset.bytes, userData);
+
+                    case LoadType.StreamFromAsset:
+                        using (MemoryStream stream = new MemoryStream(configTextAsset.bytes, false))
+                        {
+                            return m_ConfigManager.ParseConfig(stream, userData);
+                        }
+
+                    default:
+                        Log.Warning("Not supported load type '{0}' for config asset.");
+                        return false;
+                }
             }
 
-            bool retVal = false;
-            switch (loadType)
+            byte[] configBytes = configObject as byte[];
+            if (configBytes != null)
             {
-                case LoadType.Text:
-                    retVal = m_ConfigManager.ParseConfig(textAsset.text, userData);
-                    break;
+                switch (loadType)
+                {
+                    case LoadType.TextFromBinary:
+                        return m_ConfigManager.ParseConfig(Utility.Converter.GetString(configBytes), userData);
 
-                case LoadType.Bytes:
-                    retVal = m_ConfigManager.ParseConfig(textAsset.bytes, userData);
-                    break;
+                    case LoadType.BytesFromBinary:
+                        return m_ConfigManager.ParseConfig(configBytes, userData);
 
-                case LoadType.Stream:
-                    using (MemoryStream stream = new MemoryStream(textAsset.bytes, false))
-                    {
-                        retVal = m_ConfigManager.ParseConfig(stream, userData);
-                    }
-                    break;
+                    case LoadType.StreamFromBinary:
+                        using (MemoryStream stream = new MemoryStream(configBytes, false))
+                        {
+                            return m_ConfigManager.ParseConfig(stream, userData);
+                        }
 
-                default:
-                    Log.Warning("Unknown load type.");
-                    return false;
+                    default:
+                        Log.Warning("Not supported load type '{0}' for config binary.");
+                        return false;
+                }
             }
 
-            if (!retVal)
-            {
-                Log.Warning("Config asset '{0}' parse failure.", configName);
-            }
-
-            return retVal;
+            Log.Warning("Config object '{0}' is invalid.", configName);
+            return false;
         }
 
         /// <summary>

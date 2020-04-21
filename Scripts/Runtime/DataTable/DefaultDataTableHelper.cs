@@ -98,48 +98,72 @@ namespace UnityGameFramework.Runtime
         /// <param name="dataRowType">数据表行的类型。</param>
         /// <param name="dataTableName">数据表名称。</param>
         /// <param name="dataTableNameInType">数据表类型下的名称。</param>
-        /// <param name="dataTableAsset">数据表资源。</param>
+        /// <param name="dataTableObject">数据表对象。</param>
         /// <param name="loadType">数据表加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        protected override bool LoadDataTable(Type dataRowType, string dataTableName, string dataTableNameInType, object dataTableAsset, LoadType loadType, object userData)
+        protected override bool LoadDataTable(Type dataRowType, string dataTableName, string dataTableNameInType, object dataTableObject, LoadType loadType, object userData)
         {
-            TextAsset textAsset = dataTableAsset as TextAsset;
-            if (textAsset == null)
-            {
-                Log.Warning("Data table asset '{0}' is invalid.", dataTableName);
-                return false;
-            }
-
             if (dataRowType == null)
             {
                 Log.Warning("Data row type is invalid.");
                 return false;
             }
 
-            switch (loadType)
+            TextAsset dataTableTextAsset = dataTableObject as TextAsset;
+            if (dataTableTextAsset != null)
             {
-                case LoadType.Text:
-                    m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, textAsset.text);
-                    break;
+                switch (loadType)
+                {
+                    case LoadType.TextFromAsset:
+                        m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, dataTableTextAsset.text);
+                        return true;
 
-                case LoadType.Bytes:
-                    m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, textAsset.bytes);
-                    break;
+                    case LoadType.BytesFromAsset:
+                        m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, dataTableTextAsset.bytes);
+                        return true;
 
-                case LoadType.Stream:
-                    using (MemoryStream stream = new MemoryStream(textAsset.bytes, false))
-                    {
-                        m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, stream);
-                    }
-                    break;
+                    case LoadType.StreamFromAsset:
+                        using (MemoryStream stream = new MemoryStream(dataTableTextAsset.bytes, false))
+                        {
+                            m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, stream);
+                            return true;
+                        }
 
-                default:
-                    Log.Warning("Unknown load type.");
-                    return false;
+                    default:
+                        Log.Warning("Not supported load type '{0}' for data table asset.");
+                        return false;
+                }
             }
 
-            return true;
+            byte[] dataTableBytes = dataTableObject as byte[];
+            if (dataTableBytes != null)
+            {
+                switch (loadType)
+                {
+                    case LoadType.TextFromBinary:
+                        m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, Utility.Converter.GetString(dataTableBytes));
+                        return true;
+
+                    case LoadType.BytesFromBinary:
+                        m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, dataTableBytes);
+                        return true;
+
+                    case LoadType.StreamFromBinary:
+                        using (MemoryStream stream = new MemoryStream(dataTableBytes, false))
+                        {
+                            m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, stream);
+                            return true;
+                        }
+
+                    default:
+                        Log.Warning("Not supported load type '{0}' for data table binary.");
+                        return false;
+                }
+            }
+
+            Log.Warning("Data table object '{0}' is invalid.", dataTableName);
+            return false;
         }
 
         private int ReadInt32(Stream stream)

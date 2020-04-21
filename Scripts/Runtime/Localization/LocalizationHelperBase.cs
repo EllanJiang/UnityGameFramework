@@ -28,14 +28,14 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 加载字典。
         /// </summary>
-        /// <param name="dictionaryAsset">字典资源。</param>
+        /// <param name="dictionaryObject">字典对象。</param>
         /// <param name="loadType">字典加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        public bool LoadDictionary(object dictionaryAsset, LoadType loadType, object userData)
+        public bool LoadDictionary(object dictionaryObject, LoadType loadType, object userData)
         {
             LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)userData;
-            return LoadDictionary(loadDictionaryInfo.DictionaryName, dictionaryAsset, loadType, loadDictionaryInfo.UserData);
+            return LoadDictionary(loadDictionaryInfo.DictionaryName, dictionaryObject, loadType, loadDictionaryInfo.UserData);
         }
 
         /// <summary>
@@ -72,10 +72,10 @@ namespace UnityGameFramework.Runtime
         /// 加载字典。
         /// </summary>
         /// <param name="dictionaryName">字典名称。</param>
-        /// <param name="dictionaryAsset">字典资源。</param>
+        /// <param name="dictionaryObject">字典对象。</param>
         /// <param name="loadType">字典加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        protected abstract bool LoadDictionary(string dictionaryName, object dictionaryAsset, LoadType loadType, object userData);
+        protected abstract bool LoadDictionary(string dictionaryName, object dictionaryObject, LoadType loadType, object userData);
     }
 }

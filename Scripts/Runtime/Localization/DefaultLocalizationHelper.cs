@@ -186,48 +186,60 @@ namespace UnityGameFramework.Runtime
         /// 加载字典。
         /// </summary>
         /// <param name="dictionaryName">字典名称。</param>
-        /// <param name="dictionaryAsset">字典资源。</param>
+        /// <param name="dictionaryObject">字典对象。</param>
         /// <param name="loadType">字典加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        protected override bool LoadDictionary(string dictionaryName, object dictionaryAsset, LoadType loadType, object userData)
+        protected override bool LoadDictionary(string dictionaryName, object dictionaryObject, LoadType loadType, object userData)
         {
-            TextAsset textAsset = dictionaryAsset as TextAsset;
-            if (textAsset == null)
+            TextAsset dictionaryTextAsset = dictionaryObject as TextAsset;
+            if (dictionaryTextAsset != null)
             {
-                Log.Warning("Dictionary asset '{0}' is invalid.", dictionaryName);
-                return false;
+                switch (loadType)
+                {
+                    case LoadType.TextFromAsset:
+                        return m_LocalizationManager.ParseDictionary(dictionaryTextAsset.text, userData);
+
+                    case LoadType.BytesFromAsset:
+                        return m_LocalizationManager.ParseDictionary(dictionaryTextAsset.bytes, userData);
+
+                    case LoadType.StreamFromAsset:
+                        using (MemoryStream stream = new MemoryStream(dictionaryTextAsset.bytes, false))
+                        {
+                            return m_LocalizationManager.ParseDictionary(stream, userData);
+                        }
+
+                    default:
+                        Log.Warning("Not supported load type '{0}' for dictionary asset.");
+                        return false;
+                }
             }
 
-            bool retVal = false;
-            switch (loadType)
+            byte[] dictionaryBytes = dictionaryObject as byte[];
+            if (dictionaryBytes != null)
             {
-                case LoadType.Text:
-                    retVal = m_LocalizationManager.ParseDictionary(textAsset.text, userData);
-                    break;
+                switch (loadType)
+                {
+                    case LoadType.TextFromBinary:
+                        return m_LocalizationManager.ParseDictionary(Utility.Converter.GetString(dictionaryBytes), userData);
 
-                case LoadType.Bytes:
-                    retVal = m_LocalizationManager.ParseDictionary(textAsset.bytes, userData);
-                    break;
+                    case LoadType.BytesFromBinary:
+                        return m_LocalizationManager.ParseDictionary(dictionaryBytes, userData);
 
-                case LoadType.Stream:
-                    using (MemoryStream stream = new MemoryStream(textAsset.bytes, false))
-                    {
-                        retVal = m_LocalizationManager.ParseDictionary(stream, userData);
-                    }
-                    break;
+                    case LoadType.StreamFromBinary:
+                        using (MemoryStream stream = new MemoryStream(dictionaryBytes, false))
+                        {
+                            return m_LocalizationManager.ParseDictionary(stream, userData);
+                        }
 
-                default:
-                    Log.Warning("Unknown load type.");
-                    return false;
+                    default:
+                        Log.Warning("Not supported load type '{0}' for dictionary binary.");
+                        return false;
+                }
             }
 
-            if (!retVal)
-            {
-                Log.Warning("Dictionary asset '{0}' parse failure.", dictionaryName);
-            }
-
-            return retVal;
+            Log.Warning("Dictionary object '{0}' is invalid.", dictionaryName);
+            return false;
         }
 
         /// <summary>

@@ -297,6 +297,7 @@ namespace UnityGameFramework.Runtime
             }
 
             m_SceneManager.UnloadScene(sceneAssetName, userData);
+            m_SceneOrder.Remove(sceneAssetName);
         }
 
         public void SetSceneOrder(string sceneAssetName, int sceneOrder)
@@ -436,7 +437,6 @@ namespace UnityGameFramework.Runtime
 
         private void OnUnloadSceneSuccess(object sender, GameFramework.Scene.UnloadSceneSuccessEventArgs e)
         {
-            m_SceneOrder.Remove(e.SceneAssetName);
             m_EventComponent.Fire(this, UnloadSceneSuccessEventArgs.Create(e));
             RefreshSceneOrder();
         }

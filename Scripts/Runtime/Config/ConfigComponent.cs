@@ -247,9 +247,10 @@ namespace UnityGameFramework.Runtime
         /// 移除指定全局配置项。
         /// </summary>
         /// <param name="configName">要移除全局配置项的名称。</param>
-        public void RemoveConfig(string configName)
+        /// <returns>是否移除全局配置项成功。</returns>
+        public bool RemoveConfig(string configName)
         {
-            m_ConfigManager.RemoveConfig(configName);
+            return m_ConfigManager.RemoveConfig(configName);
         }
 
         /// <summary>

@@ -347,6 +347,14 @@ namespace UnityGameFramework.Runtime
             return m_LocalizationManager.RemoveRawString(key);
         }
 
+        /// <summary>
+        /// 清空所有字典。
+        /// </summary>
+        public void RemoveAllRawStrings()
+        {
+            m_LocalizationManager.RemoveAllRawStrings();
+        }
+
         private void OnLoadDictionarySuccess(object sender, GameFramework.Localization.LoadDictionarySuccessEventArgs e)
         {
             m_EventComponent.Fire(this, LoadDictionarySuccessEventArgs.Create(e));

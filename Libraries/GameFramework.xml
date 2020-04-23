@@ -2855,6 +2855,7 @@
             移除指定全局配置项。
             </summary>
             <param name="configName">要移除全局配置项的名称。</param>
+            <returns>是否移除全局配置项成功。</returns>
         </member>
         <member name="M:GameFramework.Config.IConfigManager.RemoveAllConfigs">
             <summary>
@@ -4133,17 +4134,6 @@
             </summary>
             <param name="results">所有数据表行。</param>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetEnumerator">
-            <summary>
-            返回一个循环访问数据表的枚举器。
-            </summary>
-            <returns>可用于循环访问数据表的对象。</returns>
-        </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.Shutdown">
-            <summary>
-            关闭并清理数据表。
-            </summary>
-        </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.String})">
             <summary>
             增加数据表行。
@@ -4164,6 +4154,29 @@
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
             <returns>是否增加数据表行成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.RemoveDataRow(System.Int32)">
+            <summary>
+            移除指定数据表行。
+            </summary>
+            <param name="id">要移除数据表行的编号。</param>
+            <returns>是否移除数据表行成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.RemoveAllDataRows">
+            <summary>
+            清空所有数据表行。
+            </summary>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetEnumerator">
+            <summary>
+            返回一个循环访问数据表的枚举器。
+            </summary>
+            <returns>可用于循环访问数据表的对象。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.Shutdown">
+            <summary>
+            关闭并清理数据表。
+            </summary>
         </member>
         <member name="T:GameFramework.DataTable.IDataRow">
             <summary>
@@ -4323,6 +4336,39 @@
             获取所有数据表行。
             </summary>
             <param name="results">所有数据表行。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.String})">
+            <summary>
+            增加数据表行。
+            </summary>
+            <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.Byte[]})">
+            <summary>
+            增加数据表行。
+            </summary>
+            <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.IO.Stream})">
+            <summary>
+            增加数据表行。
+            </summary>
+            <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <returns>是否增加数据表行成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.RemoveDataRow(System.Int32)">
+            <summary>
+            移除指定数据表行。
+            </summary>
+            <param name="id">要移除数据表行的编号。</param>
+            <returns>是否移除数据表行成功。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTable`1.RemoveAllDataRows">
+            <summary>
+            清空所有数据表行。
+            </summary>
         </member>
         <member name="T:GameFramework.DataTable.IDataTableHelper">
             <summary>
@@ -8604,6 +8650,11 @@
             <param name="key">字典主键。</param>
             <returns>是否移除字典成功。</returns>
         </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.RemoveAllRawStrings">
+            <summary>
+            清空所有字典。
+            </summary>
+        </member>
         <member name="T:GameFramework.Localization.Language">
             <summary>
             本地化语言。
@@ -9266,6 +9317,11 @@
             </summary>
             <param name="key">字典主键。</param>
             <returns>是否移除字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.RemoveAllRawStrings">
+            <summary>
+            清空所有字典。
+            </summary>
         </member>
         <member name="T:GameFramework.Network.AddressFamily">
             <summary>

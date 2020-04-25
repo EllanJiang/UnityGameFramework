@@ -40,7 +40,7 @@ namespace UnityGameFramework.Editor.DataTableTools
 
             public abstract string[] GetTypeStrings();
 
-            public abstract void WriteToStream(BinaryWriter stream, string value);
+            public abstract void WriteToStream(DataTableProcessor dataTableProcessor, BinaryWriter binaryWriter, string value);
         }
     }
 }

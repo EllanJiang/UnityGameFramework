@@ -51,18 +51,28 @@ namespace UnityGameFramework.Runtime
         /// <returns>数据表行片段。</returns>
         public override IEnumerable<GameFrameworkSegment<byte[]>> GetDataRowSegments(byte[] bytes)
         {
-            List<GameFrameworkSegment<byte[]>> dataRowSegments = new List<GameFrameworkSegment<byte[]>>();
             using (MemoryStream stream = new MemoryStream(bytes, false))
             {
-                while (stream.Position < stream.Length)
+                using (BinaryReader binaryReader = new BinaryReader(stream))
                 {
-                    int length = ReadInt32(stream);
-                    dataRowSegments.Add(new GameFrameworkSegment<byte[]>(bytes, (int)stream.Position, length));
-                    stream.Position += length;
+                    int stringOffset = binaryReader.ReadInt32();
+                    int dataRowSegmentCount = binaryReader.Read7BitEncodedInt32();
+                    GameFrameworkSegment<byte[]>[] dataRowSegments = new GameFrameworkSegment<byte[]>[dataRowSegmentCount];
+                    for (int i = 0; i < dataRowSegmentCount; i++)
+                    {
+                        int length = binaryReader.Read7BitEncodedInt32();
+                        dataRowSegments[i] = new GameFrameworkSegment<byte[]>(bytes, (int)binaryReader.BaseStream.Position, length);
+                        binaryReader.BaseStream.Position += length;
+                    }
+
+                    if (binaryReader.BaseStream.Position != stringOffset)
+                    {
+                        throw new GameFrameworkException("Verification failed.");
+                    }
+
+                    return dataRowSegments;
                 }
             }
-
-            return dataRowSegments;
         }
 
         /// <summary>
@@ -72,12 +82,20 @@ namespace UnityGameFramework.Runtime
         /// <returns>数据表行片段。</returns>
         public override IEnumerable<GameFrameworkSegment<Stream>> GetDataRowSegments(Stream stream)
         {
-            List<GameFrameworkSegment<Stream>> dataRowSegments = new List<GameFrameworkSegment<Stream>>();
-            while (stream.Position < stream.Length)
+            BinaryReader binaryReader = new BinaryReader(stream);
+            int stringOffset = binaryReader.ReadInt32();
+            int dataRowSegmentCount = binaryReader.Read7BitEncodedInt32();
+            GameFrameworkSegment<Stream>[] dataRowSegments = new GameFrameworkSegment<Stream>[dataRowSegmentCount];
+            for (int i = 0; i < dataRowSegmentCount; i++)
             {
-                int length = ReadInt32(stream);
-                dataRowSegments.Add(new GameFrameworkSegment<Stream>(stream, (int)stream.Position, length));
-                stream.Position += length;
+                int length = binaryReader.Read7BitEncodedInt32();
+                dataRowSegments[i] = new GameFrameworkSegment<Stream>(stream, (int)binaryReader.BaseStream.Position, length);
+                binaryReader.BaseStream.Position += length;
+            }
+
+            if (binaryReader.BaseStream.Position != stringOffset)
+            {
+                throw new GameFrameworkException("Verification failed.");
             }
 
             return dataRowSegments;
@@ -100,7 +118,10 @@ namespace UnityGameFramework.Runtime
         /// <returns>数据表用户自定义数据。</returns>
         public override object GetDataTableUserData(byte[] bytes)
         {
-            return null;
+            using (MemoryStream stream = new MemoryStream(bytes, false))
+            {
+                return GetDataTableUserData(stream);
+            }
         }
 
         /// <summary>
@@ -110,7 +131,16 @@ namespace UnityGameFramework.Runtime
         /// <returns>数据表用户自定义数据。</returns>
         public override object GetDataTableUserData(Stream stream)
         {
-            return null;
+            BinaryReader binaryReader = new BinaryReader(stream);
+            binaryReader.BaseStream.Position = binaryReader.ReadInt32();
+            int stringCount = binaryReader.Read7BitEncodedInt32();
+            string[] strings = new string[stringCount];
+            for (int i = 0; i < stringCount; i++)
+            {
+                strings[i] = binaryReader.ReadString();
+            }
+
+            return strings;
         }
 
         /// <summary>
@@ -194,11 +224,6 @@ namespace UnityGameFramework.Runtime
 
             Log.Warning("Data table object '{0}' is invalid.", dataTableName);
             return false;
-        }
-
-        private int ReadInt32(Stream stream)
-        {
-            return stream.ReadByte() | (stream.ReadByte() << 8) | (stream.ReadByte() << 16) | (stream.ReadByte() << 24);
         }
 
         private GameFrameworkSegment<string> ReadLine(string text, ref int position)

@@ -23,11 +23,6 @@ public static class BinaryExtension
     /// <returns>读取的 32 位有符号整数。</returns>
     public static int Read7BitEncodedInt32(this BinaryReader binaryReader)
     {
-        if (binaryReader == null)
-        {
-            throw new GameFrameworkException("Binary reader is invalid.");
-        }
-
         int value = 0;
         int shift = 0;
         byte b;
@@ -53,11 +48,6 @@ public static class BinaryExtension
     /// <param name="value">要写入的 32 位有符号整数。</param>
     public static void Write7BitEncodedInt32(this BinaryWriter binaryWriter, int value)
     {
-        if (binaryWriter == null)
-        {
-            throw new GameFrameworkException("Binary writer is invalid.");
-        }
-
         uint num = (uint)value;
         while (num >= 0x80)
         {
@@ -95,11 +85,6 @@ public static class BinaryExtension
     /// <returns>读取的 64 位有符号整数。</returns>
     public static long Read7BitEncodedInt64(this BinaryReader binaryReader)
     {
-        if (binaryReader == null)
-        {
-            throw new GameFrameworkException("Binary reader is invalid.");
-        }
-
         long value = 0L;
         int shift = 0;
         byte b;
@@ -125,11 +110,6 @@ public static class BinaryExtension
     /// <param name="value">要写入的 64 位有符号整数。</param>
     public static void Write7BitEncodedInt64(this BinaryWriter binaryWriter, long value)
     {
-        if (binaryWriter == null)
-        {
-            throw new GameFrameworkException("Binary writer is invalid.");
-        }
-
         ulong num = (ulong)value;
         while (num >= 0x80)
         {
@@ -168,11 +148,6 @@ public static class BinaryExtension
     /// <returns>读取的字符串。</returns>
     public static string ReadEncryptedString(this BinaryReader binaryReader, byte[] encryptBytes)
     {
-        if (binaryReader == null)
-        {
-            throw new GameFrameworkException("Binary reader is invalid.");
-        }
-
         byte length = binaryReader.ReadByte();
         if (length <= 0)
         {
@@ -198,11 +173,6 @@ public static class BinaryExtension
     /// <param name="encryptBytes">密钥数组。</param>
     public static void WriteEncryptedString(this BinaryWriter binaryWriter, string value, byte[] encryptBytes)
     {
-        if (binaryWriter == null)
-        {
-            throw new GameFrameworkException("Binary writer is invalid.");
-        }
-
         if (string.IsNullOrEmpty(value))
         {
             binaryWriter.Write((byte)0);

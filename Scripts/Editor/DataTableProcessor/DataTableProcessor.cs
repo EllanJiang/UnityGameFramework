@@ -9,6 +9,7 @@ using GameFramework;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -29,6 +30,7 @@ namespace UnityGameFramework.Editor.DataTableTools
 
         private readonly DataProcessor[] m_DataProcessor;
         private readonly string[][] m_RawValues;
+        private readonly string[] m_Strings;
 
         private string m_CodeTemplate;
         private DataTableCodeGenerator m_CodeGenerator;
@@ -147,6 +149,27 @@ namespace UnityGameFramework.Editor.DataTableTools
                 }
             }
 
+            HashSet<string> strings = new HashSet<string>();
+            for (int i = contentStartRow; i < rawRowCount; i++)
+            {
+                if (IsCommentRow(i))
+                {
+                    continue;
+                }
+
+                for (int j = 0; j < rawColumnCount; j++)
+                {
+                    if (m_DataProcessor[j].LanguageKeyword != "string")
+                    {
+                        continue;
+                    }
+
+                    strings.Add(m_RawValues[i][j]);
+                }
+            }
+
+            m_Strings = strings.OrderBy(x => x).ToArray();
+
             m_CodeTemplate = null;
             m_CodeGenerator = null;
         }
@@ -164,6 +187,14 @@ namespace UnityGameFramework.Editor.DataTableTools
             get
             {
                 return m_RawValues.Length > 0 ? m_RawValues[0].Length : 0;
+            }
+        }
+
+        public int StringCount
+        {
+            get
+            {
+                return m_Strings.Length;
             }
         }
 
@@ -293,6 +324,29 @@ namespace UnityGameFramework.Editor.DataTableTools
             return m_RawValues[rawRow][rawColumn];
         }
 
+        public string GetString(int index)
+        {
+            if (index < 0 || index >= StringCount)
+            {
+                throw new GameFrameworkException(Utility.Text.Format("String index '{0}' is out of range.", index.ToString()));
+            }
+
+            return m_Strings[index];
+        }
+
+        public int GetStringIndex(string str)
+        {
+            for (int i = 0; i < StringCount; i++)
+            {
+                if (m_Strings[i] == str)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
         public bool GenerateDataFile(string outputFileName, Encoding encoding)
         {
             if (string.IsNullOrEmpty(outputFileName))
@@ -304,57 +358,44 @@ namespace UnityGameFramework.Editor.DataTableTools
             {
                 using (FileStream fileStream = new FileStream(outputFileName, FileMode.Create))
                 {
-                    using (BinaryWriter stream = new BinaryWriter(fileStream, encoding))
+                    using (BinaryWriter binaryWriter = new BinaryWriter(fileStream, encoding))
                     {
-                        for (int i = ContentStartRow; i < RawRowCount; i++)
+                        binaryWriter.BaseStream.Position = sizeof(int);
+
+                        int rowCount = 0;
+                        for (int rawRow = ContentStartRow; rawRow < RawRowCount; rawRow++)
                         {
-                            if (IsCommentRow(i))
+                            if (IsCommentRow(rawRow))
                             {
                                 continue;
                             }
 
-                            int startPosition = (int)stream.BaseStream.Position;
-                            stream.BaseStream.Position += sizeof(int);
-                            for (int j = 0; j < RawColumnCount; j++)
-                            {
-                                if (IsCommentColumn(j))
-                                {
-                                    continue;
-                                }
+                            rowCount++;
+                        }
 
-                                try
-                                {
-                                    m_DataProcessor[j].WriteToStream(stream, GetValue(i, j));
-                                }
-                                catch
-                                {
-                                    if (m_DataProcessor[j].IsId || string.IsNullOrEmpty(GetDefaultValue(j)))
-                                    {
-                                        Debug.LogError(Utility.Text.Format("Parse raw value failure. OutputFileName='{0}' RawRow='{1}' RowColumn='{2}' Name='{3}' Type='{4}' RawValue='{5}'", outputFileName, i.ToString(), j.ToString(), GetName(j), GetLanguageKeyword(j), GetValue(i, j)));
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogWarning(Utility.Text.Format("Parse raw value failure, will try default value. OutputFileName='{0}' RawRow='{1}' RowColumn='{2}' Name='{3}' Type='{4}' RawValue='{5}'", outputFileName, i.ToString(), j.ToString(), GetName(j), GetLanguageKeyword(j), GetValue(i, j)));
-                                        try
-                                        {
-                                            m_DataProcessor[j].WriteToStream(stream, GetDefaultValue(j));
-                                        }
-                                        catch
-                                        {
-                                            Debug.LogError(Utility.Text.Format("Parse default value failure. OutputFileName='{0}' RawRow='{1}' RowColumn='{2}' Name='{3}' Type='{4}' RawValue='{5}'", outputFileName, i.ToString(), j.ToString(), GetName(j), GetLanguageKeyword(j), GetComment(j)));
-                                            return false;
-                                        }
-                                    }
-                                }
+                        binaryWriter.Write7BitEncodedInt32(rowCount);
+                        for (int rawRow = ContentStartRow; rawRow < RawRowCount; rawRow++)
+                        {
+                            if (IsCommentRow(rawRow))
+                            {
+                                continue;
                             }
 
-                            int endPosition = (int)stream.BaseStream.Position;
-                            int length = endPosition - startPosition - sizeof(int);
-                            stream.BaseStream.Position = startPosition;
-                            stream.Write(length);
-                            stream.BaseStream.Position = endPosition;
+                            byte[] bytes = GetRowBytes(outputFileName, rawRow);
+                            binaryWriter.Write7BitEncodedInt32(bytes.Length);
+                            binaryWriter.Write(bytes);
                         }
+
+                        int offset = (int)binaryWriter.BaseStream.Position;
+
+                        binaryWriter.Write7BitEncodedInt32(StringCount);
+                        for (int i = 0; i < StringCount; i++)
+                        {
+                            binaryWriter.Write(GetString(i));
+                        }
+
+                        binaryWriter.BaseStream.Position = 0L;
+                        binaryWriter.Write(offset);
                     }
                 }
 
@@ -423,6 +464,51 @@ namespace UnityGameFramework.Editor.DataTableTools
             {
                 Debug.LogError(Utility.Text.Format("Generate code file '{0}' failure, exception is '{1}'.", outputFileName, exception.ToString()));
                 return false;
+            }
+        }
+
+        private byte[] GetRowBytes(string outputFileName, int rawRow)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                using (BinaryWriter binaryWriter = new BinaryWriter(memoryStream))
+                {
+                    for (int rawColumn = 0; rawColumn < RawColumnCount; rawColumn++)
+                    {
+                        if (IsCommentColumn(rawColumn))
+                        {
+                            continue;
+                        }
+
+                        try
+                        {
+                            m_DataProcessor[rawColumn].WriteToStream(this, binaryWriter, GetValue(rawRow, rawColumn));
+                        }
+                        catch
+                        {
+                            if (m_DataProcessor[rawColumn].IsId || string.IsNullOrEmpty(GetDefaultValue(rawColumn)))
+                            {
+                                Debug.LogError(Utility.Text.Format("Parse raw value failure. OutputFileName='{0}' RawRow='{1}' RowColumn='{2}' Name='{3}' Type='{4}' RawValue='{5}'", outputFileName, rawRow.ToString(), rawColumn.ToString(), GetName(rawColumn), GetLanguageKeyword(rawColumn), GetValue(rawRow, rawColumn)));
+                                return null;
+                            }
+                            else
+                            {
+                                Debug.LogWarning(Utility.Text.Format("Parse raw value failure, will try default value. OutputFileName='{0}' RawRow='{1}' RowColumn='{2}' Name='{3}' Type='{4}' RawValue='{5}'", outputFileName, rawRow.ToString(), rawColumn.ToString(), GetName(rawColumn), GetLanguageKeyword(rawColumn), GetValue(rawRow, rawColumn)));
+                                try
+                                {
+                                    m_DataProcessor[rawColumn].WriteToStream(this, binaryWriter, GetDefaultValue(rawColumn));
+                                }
+                                catch
+                                {
+                                    Debug.LogError(Utility.Text.Format("Parse default value failure. OutputFileName='{0}' RawRow='{1}' RowColumn='{2}' Name='{3}' Type='{4}' RawValue='{5}'", outputFileName, rawRow.ToString(), rawColumn.ToString(), GetName(rawColumn), GetLanguageKeyword(rawColumn), GetComment(rawColumn)));
+                                    return null;
+                                }
+                            }
+                        }
+                    }
+
+                    return memoryStream.ToArray();
+                }
             }
         }
     }

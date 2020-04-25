@@ -44,9 +44,9 @@ namespace UnityGameFramework.Editor.DataTableTools
                 return int.Parse(value);
             }
 
-            public override void WriteToStream(BinaryWriter stream, string value)
+            public override void WriteToStream(DataTableProcessor dataTableProcessor, BinaryWriter binaryWriter, string value)
             {
-                stream.Write7BitEncodedInt32(Parse(value));
+                binaryWriter.Write7BitEncodedInt32(Parse(value));
             }
         }
     }

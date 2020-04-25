@@ -45,13 +45,13 @@ namespace UnityGameFramework.Editor.DataTableTools
                 return new Rect(float.Parse(splitValue[0]), float.Parse(splitValue[1]), float.Parse(splitValue[2]), float.Parse(splitValue[3]));
             }
 
-            public override void WriteToStream(BinaryWriter stream, string value)
+            public override void WriteToStream(DataTableProcessor dataTableProcessor, BinaryWriter binaryWriter, string value)
             {
                 Rect rect = Parse(value);
-                stream.Write(rect.x);
-                stream.Write(rect.y);
-                stream.Write(rect.width);
-                stream.Write(rect.height);
+                binaryWriter.Write(rect.x);
+                binaryWriter.Write(rect.y);
+                binaryWriter.Write(rect.width);
+                binaryWriter.Write(rect.height);
             }
         }
     }

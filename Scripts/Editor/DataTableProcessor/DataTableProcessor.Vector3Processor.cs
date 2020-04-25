@@ -45,12 +45,12 @@ namespace UnityGameFramework.Editor.DataTableTools
                 return new Vector3(float.Parse(splitValue[0]), float.Parse(splitValue[1]), float.Parse(splitValue[2]));
             }
 
-            public override void WriteToStream(BinaryWriter stream, string value)
+            public override void WriteToStream(DataTableProcessor dataTableProcessor, BinaryWriter binaryWriter, string value)
             {
                 Vector3 vector3 = Parse(value);
-                stream.Write(vector3.x);
-                stream.Write(vector3.y);
-                stream.Write(vector3.z);
+                binaryWriter.Write(vector3.x);
+                binaryWriter.Write(vector3.y);
+                binaryWriter.Write(vector3.z);
             }
         }
     }

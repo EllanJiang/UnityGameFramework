@@ -44,9 +44,9 @@ namespace UnityGameFramework.Editor.DataTableTools
                 return DateTime.Parse(value);
             }
 
-            public override void WriteToStream(BinaryWriter stream, string value)
+            public override void WriteToStream(DataTableProcessor dataTableProcessor, BinaryWriter binaryWriter, string value)
             {
-                stream.Write(Parse(value).Ticks);
+                binaryWriter.Write(Parse(value).Ticks);
             }
         }
     }

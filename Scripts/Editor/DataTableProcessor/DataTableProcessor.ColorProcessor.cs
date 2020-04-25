@@ -45,13 +45,13 @@ namespace UnityGameFramework.Editor.DataTableTools
                 return new Color(float.Parse(splitValue[0]), float.Parse(splitValue[1]), float.Parse(splitValue[2]), float.Parse(splitValue[3]));
             }
 
-            public override void WriteToStream(BinaryWriter stream, string value)
+            public override void WriteToStream(DataTableProcessor dataTableProcessor, BinaryWriter binaryWriter, string value)
             {
                 Color color = Parse(value);
-                stream.Write(color.r);
-                stream.Write(color.g);
-                stream.Write(color.b);
-                stream.Write(color.a);
+                binaryWriter.Write(color.r);
+                binaryWriter.Write(color.g);
+                binaryWriter.Write(color.b);
+                binaryWriter.Write(color.a);
             }
         }
     }

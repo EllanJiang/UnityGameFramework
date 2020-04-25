@@ -54,6 +54,27 @@ namespace UnityGameFramework.Runtime
         public abstract IEnumerable<GameFrameworkSegment<Stream>> GetDataRowSegments(Stream stream);
 
         /// <summary>
+        /// 获取数据表用户自定义数据。
+        /// </summary>
+        /// <param name="text">要解析的数据表文本。</param>
+        /// <returns>数据表用户自定义数据。</returns>
+        public abstract object GetDataTableUserData(string text);
+
+        /// <summary>
+        /// 获取数据表用户自定义数据。
+        /// </summary>
+        /// <param name="bytes">要解析的数据表二进制流。</param>
+        /// <returns>数据表用户自定义数据。</returns>
+        public abstract object GetDataTableUserData(byte[] bytes);
+
+        /// <summary>
+        /// 获取数据表用户自定义数据。
+        /// </summary>
+        /// <param name="stream">要解析的数据表二进制流。</param>
+        /// <returns>数据表用户自定义数据。</returns>
+        public abstract object GetDataTableUserData(Stream stream);
+
+        /// <summary>
         /// 释放数据表资源。
         /// </summary>
         /// <param name="dataTableAsset">要释放的数据表资源。</param>

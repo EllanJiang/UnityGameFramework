@@ -3676,25 +3676,28 @@
             获取数据表行数。
             </summary>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableBase.AddDataRow(GameFramework.GameFrameworkSegment{System.String})">
+        <member name="M:GameFramework.DataTable.DataTableBase.AddDataRow(GameFramework.GameFrameworkSegment{System.String},System.Object)">
             <summary>
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <param name="dataTableUserData">数据表用户自定义数据。</param>
             <returns>是否增加数据表行成功。</returns>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableBase.AddDataRow(GameFramework.GameFrameworkSegment{System.Byte[]})">
+        <member name="M:GameFramework.DataTable.DataTableBase.AddDataRow(GameFramework.GameFrameworkSegment{System.Byte[]},System.Object)">
             <summary>
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <param name="dataTableUserData">数据表用户自定义数据。</param>
             <returns>是否增加数据表行成功。</returns>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableBase.AddDataRow(GameFramework.GameFrameworkSegment{System.IO.Stream})">
+        <member name="M:GameFramework.DataTable.DataTableBase.AddDataRow(GameFramework.GameFrameworkSegment{System.IO.Stream},System.Object)">
             <summary>
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <param name="dataTableUserData">数据表用户自定义数据。</param>
             <returns>是否增加数据表行成功。</returns>
         </member>
         <member name="M:GameFramework.DataTable.DataTableBase.Shutdown">
@@ -4134,25 +4137,28 @@
             </summary>
             <param name="results">所有数据表行。</param>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.String})">
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.String},System.Object)">
             <summary>
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <param name="dataTableUserData">数据表用户自定义数据。</param>
             <returns>是否增加数据表行成功。</returns>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.Byte[]})">
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.Byte[]},System.Object)">
             <summary>
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <param name="dataTableUserData">数据表用户自定义数据。</param>
             <returns>是否增加数据表行成功。</returns>
         </member>
-        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.IO.Stream})">
+        <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.IO.Stream},System.Object)">
             <summary>
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <param name="dataTableUserData">数据表用户自定义数据。</param>
             <returns>是否增加数据表行成功。</returns>
         </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.RemoveDataRow(System.Int32)">
@@ -4188,25 +4194,28 @@
             获取数据表行的编号。
             </summary>
         </member>
-        <member name="M:GameFramework.DataTable.IDataRow.ParseDataRow(GameFramework.GameFrameworkSegment{System.String})">
+        <member name="M:GameFramework.DataTable.IDataRow.ParseDataRow(GameFramework.GameFrameworkSegment{System.String},System.Object)">
             <summary>
             数据表行文本解析器。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <param name="dataTableUserData">数据表用户自定义数据。</param>
             <returns>是否解析数据表行成功。</returns>
         </member>
-        <member name="M:GameFramework.DataTable.IDataRow.ParseDataRow(GameFramework.GameFrameworkSegment{System.Byte[]})">
+        <member name="M:GameFramework.DataTable.IDataRow.ParseDataRow(GameFramework.GameFrameworkSegment{System.Byte[]},System.Object)">
             <summary>
             数据表行二进制流解析器。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <param name="dataTableUserData">数据表用户自定义数据。</param>
             <returns>是否解析数据表行成功。</returns>
         </member>
-        <member name="M:GameFramework.DataTable.IDataRow.ParseDataRow(GameFramework.GameFrameworkSegment{System.IO.Stream})">
+        <member name="M:GameFramework.DataTable.IDataRow.ParseDataRow(GameFramework.GameFrameworkSegment{System.IO.Stream},System.Object)">
             <summary>
             数据表行二进制流解析器。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <param name="dataTableUserData">数据表用户自定义数据。</param>
             <returns>是否解析数据表行成功。</returns>
         </member>
         <member name="T:GameFramework.DataTable.IDataTable`1">
@@ -4337,26 +4346,27 @@
             </summary>
             <param name="results">所有数据表行。</param>
         </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.String})">
+        <member name="M:GameFramework.DataTable.IDataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.String},System.Object)">
             <summary>
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
+            <param name="dataTableUserData">数据表用户自定义数据。</param>
             <returns>是否增加数据表行成功。</returns>
         </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.Byte[]})">
+        <member name="M:GameFramework.DataTable.IDataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.Byte[]},System.Object)">
             <summary>
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
-            <returns>是否增加数据表行成功。</returns>
+            <param name="dataTableUserData">数据表用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.DataTable.IDataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.IO.Stream})">
+        <member name="M:GameFramework.DataTable.IDataTable`1.AddDataRow(GameFramework.GameFrameworkSegment{System.IO.Stream},System.Object)">
             <summary>
             增加数据表行。
             </summary>
             <param name="dataRowSegment">要解析的数据表行片段。</param>
-            <returns>是否增加数据表行成功。</returns>
+            <param name="dataTableUserData">数据表用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.DataTable.IDataTable`1.RemoveDataRow(System.Int32)">
             <summary>
@@ -4404,6 +4414,27 @@
             </summary>
             <param name="stream">要解析的数据表二进制流。</param>
             <returns>数据表行片段。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableHelper.GetDataTableUserData(System.String)">
+            <summary>
+            获取数据表用户自定义数据。
+            </summary>
+            <param name="text">要解析的数据表文本。</param>
+            <returns>数据表用户自定义数据。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableHelper.GetDataTableUserData(System.Byte[])">
+            <summary>
+            获取数据表用户自定义数据。
+            </summary>
+            <param name="bytes">要解析的数据表二进制流。</param>
+            <returns>数据表用户自定义数据。</returns>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableHelper.GetDataTableUserData(System.IO.Stream)">
+            <summary>
+            获取数据表用户自定义数据。
+            </summary>
+            <param name="stream">要解析的数据表二进制流。</param>
+            <returns>数据表用户自定义数据。</returns>
         </member>
         <member name="M:GameFramework.DataTable.IDataTableHelper.ReleaseDataTableAsset(System.Object)">
             <summary>

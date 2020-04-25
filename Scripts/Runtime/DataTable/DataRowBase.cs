@@ -28,8 +28,9 @@ namespace UnityGameFramework.Runtime
         /// 数据表行文本解析器。
         /// </summary>
         /// <param name="dataRowSegment">要解析的数据表行片段。</param>
+        /// <param name="dataTableUserData">数据表用户自定义数据。</param>
         /// <returns>是否解析数据表行成功。</returns>
-        public virtual bool ParseDataRow(GameFrameworkSegment<string> dataRowSegment)
+        public virtual bool ParseDataRow(GameFrameworkSegment<string> dataRowSegment, object dataTableUserData)
         {
             Log.Warning("Not implemented ParseDataRow(GameFrameworkSegment<string>)");
             return false;
@@ -39,8 +40,9 @@ namespace UnityGameFramework.Runtime
         /// 数据表行二进制流解析器。
         /// </summary>
         /// <param name="dataRowSegment">要解析的数据表行片段。</param>
+        /// <param name="dataTableUserData">数据表用户自定义数据。</param>
         /// <returns>是否解析数据表行成功。</returns>
-        public virtual bool ParseDataRow(GameFrameworkSegment<byte[]> dataRowSegment)
+        public virtual bool ParseDataRow(GameFrameworkSegment<byte[]> dataRowSegment, object dataTableUserData)
         {
             Log.Warning("Not implemented ParseDataRow(GameFrameworkSegment<byte[]>)");
             return false;
@@ -50,8 +52,9 @@ namespace UnityGameFramework.Runtime
         /// 数据表行二进制流解析器。
         /// </summary>
         /// <param name="dataRowSegment">要解析的数据表行片段。</param>
+        /// <param name="dataTableUserData">数据表用户自定义数据。</param>
         /// <returns>是否解析数据表行成功。</returns>
-        public virtual bool ParseDataRow(GameFrameworkSegment<Stream> dataRowSegment)
+        public virtual bool ParseDataRow(GameFrameworkSegment<Stream> dataRowSegment, object dataTableUserData)
         {
             Log.Warning("Not implemented ParseDataRow(GameFrameworkSegment<Stream>)");
             return false;

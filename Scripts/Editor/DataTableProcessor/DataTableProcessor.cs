@@ -149,7 +149,7 @@ namespace UnityGameFramework.Editor.DataTableTools
                 }
             }
 
-            HashSet<string> strings = new HashSet<string>();
+            Dictionary<string, int> strings = new Dictionary<string, int>();
             for (int i = contentStartRow; i < rawRowCount; i++)
             {
                 if (IsCommentRow(i))
@@ -164,11 +164,19 @@ namespace UnityGameFramework.Editor.DataTableTools
                         continue;
                     }
 
-                    strings.Add(m_RawValues[i][j]);
+                    string str = m_RawValues[i][j];
+                    if (strings.ContainsKey(str))
+                    {
+                        strings[str]++;
+                    }
+                    else
+                    {
+                        strings[str] = 1;
+                    }
                 }
             }
 
-            m_Strings = strings.OrderBy(x => x).ToArray();
+            m_Strings = strings.OrderBy(value => value.Key).OrderByDescending(value => value.Value).Select(value => value.Key).ToArray();
 
             m_CodeTemplate = null;
             m_CodeGenerator = null;

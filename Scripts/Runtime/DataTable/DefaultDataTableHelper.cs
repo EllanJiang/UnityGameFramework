@@ -83,6 +83,7 @@ namespace UnityGameFramework.Runtime
         public override IEnumerable<GameFrameworkSegment<Stream>> GetDataRowSegments(Stream stream)
         {
             BinaryReader binaryReader = new BinaryReader(stream);
+            binaryReader.BaseStream.Position = 0L;
             int stringOffset = binaryReader.ReadInt32();
             int dataRowSegmentCount = binaryReader.Read7BitEncodedInt32();
             GameFrameworkSegment<Stream>[] dataRowSegments = new GameFrameworkSegment<Stream>[dataRowSegmentCount];
@@ -132,6 +133,7 @@ namespace UnityGameFramework.Runtime
         public override object GetDataTableUserData(Stream stream)
         {
             BinaryReader binaryReader = new BinaryReader(stream);
+            binaryReader.BaseStream.Position = 0L;
             binaryReader.BaseStream.Position = binaryReader.ReadInt32();
             int stringCount = binaryReader.Read7BitEncodedInt32();
             string[] strings = new string[stringCount];

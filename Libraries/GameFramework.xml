@@ -584,6 +584,11 @@
             获取完整数据。
             </summary>
         </member>
+        <member name="P:GameFramework.GameFrameworkDataSegment.DataType">
+            <summary>
+            获取数据类型。
+            </summary>
+        </member>
         <member name="P:GameFramework.GameFrameworkDataSegment.Offset">
             <summary>
             获取偏移。

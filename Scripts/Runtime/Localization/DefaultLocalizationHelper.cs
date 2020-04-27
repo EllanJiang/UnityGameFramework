@@ -21,7 +21,7 @@ namespace UnityGameFramework.Runtime
     {
         private static readonly string[] RowSplitSeparator = new string[] { "\r\n", "\r", "\n" };
         private static readonly string[] ColumnSplitSeparator = new string[] { "\t" };
-        private static readonly string TextAssetExtension = ".txt";
+        private static readonly string BinaryAssetExtension = ".bytes";
         private const int ColumnCount = 4;
 
         private ResourceComponent m_ResourceComponent = null;
@@ -179,26 +179,26 @@ namespace UnityGameFramework.Runtime
             TextAsset dictionaryTextAsset = dictionaryObject as TextAsset;
             if (dictionaryTextAsset != null)
             {
-                if (dictionaryAssetName.EndsWith(TextAssetExtension))
+                if (dictionaryAssetName.EndsWith(BinaryAssetExtension))
                 {
-                    return m_LocalizationManager.ParseDictionary(dictionaryTextAsset.text, userData);
+                    return m_LocalizationManager.ParseDictionary(dictionaryTextAsset.bytes, userData);
                 }
                 else
                 {
-                    return m_LocalizationManager.ParseDictionary(dictionaryTextAsset.bytes, userData);
+                    return m_LocalizationManager.ParseDictionary(dictionaryTextAsset.text, userData);
                 }
             }
 
             byte[] dictionaryBytes = dictionaryObject as byte[];
             if (dictionaryBytes != null)
             {
-                if (dictionaryAssetName.EndsWith(TextAssetExtension))
+                if (dictionaryAssetName.EndsWith(BinaryAssetExtension))
                 {
-                    return m_LocalizationManager.ParseDictionary(Utility.Converter.GetString(dictionaryBytes), userData);
+                    return m_LocalizationManager.ParseDictionary(dictionaryBytes, userData);
                 }
                 else
                 {
-                    return m_LocalizationManager.ParseDictionary(dictionaryBytes, userData);
+                    return m_LocalizationManager.ParseDictionary(Utility.Converter.GetString(dictionaryBytes), userData);
                 }
             }
 

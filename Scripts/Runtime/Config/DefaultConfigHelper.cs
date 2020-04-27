@@ -21,7 +21,7 @@ namespace UnityGameFramework.Runtime
     {
         private static readonly string[] RowSplitSeparator = new string[] { "\r\n", "\r", "\n" };
         private static readonly string[] ColumnSplitSeparator = new string[] { "\t" };
-        private static readonly string TextAssetExtension = ".txt";
+        private static readonly string BinaryAssetExtension = ".bytes";
         private const int ColumnCount = 4;
 
         private ResourceComponent m_ResourceComponent = null;
@@ -122,26 +122,26 @@ namespace UnityGameFramework.Runtime
             TextAsset configTextAsset = configObject as TextAsset;
             if (configTextAsset != null)
             {
-                if (configAssetName.EndsWith(TextAssetExtension))
+                if (configAssetName.EndsWith(BinaryAssetExtension))
                 {
-                    return m_ConfigManager.ParseConfig(configTextAsset.text, userData);
+                    return m_ConfigManager.ParseConfig(configTextAsset.bytes, userData);
                 }
                 else
                 {
-                    return m_ConfigManager.ParseConfig(configTextAsset.bytes, userData);
+                    return m_ConfigManager.ParseConfig(configTextAsset.text, userData);
                 }
             }
 
             byte[] configBytes = configObject as byte[];
             if (configBytes != null)
             {
-                if (configAssetName.EndsWith(TextAssetExtension))
+                if (configAssetName.EndsWith(BinaryAssetExtension))
                 {
-                    return m_ConfigManager.ParseConfig(Utility.Converter.GetString(configBytes), userData);
+                    return m_ConfigManager.ParseConfig(configBytes, userData);
                 }
                 else
                 {
-                    return m_ConfigManager.ParseConfig(configBytes, userData);
+                    return m_ConfigManager.ParseConfig(Utility.Converter.GetString(configBytes), userData);
                 }
             }
 

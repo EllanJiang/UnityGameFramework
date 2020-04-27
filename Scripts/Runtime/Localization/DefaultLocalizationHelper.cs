@@ -152,7 +152,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Warning("Can not parse dictionary with exception '{0}'.", exception.ToString());
+                Log.Warning("Can not parse dictionary data with exception '{0}'.", exception.ToString());
                 return false;
             }
         }

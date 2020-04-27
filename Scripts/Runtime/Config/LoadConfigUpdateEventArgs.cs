@@ -27,7 +27,6 @@ namespace UnityGameFramework.Runtime
         {
             ConfigName = null;
             ConfigAssetName = null;
-            LoadType = LoadType.TextFromAsset;
             Progress = 0f;
             UserData = null;
         }
@@ -62,15 +61,6 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取全局配置加载方式。
-        /// </summary>
-        public LoadType LoadType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 获取加载全局配置进度。
         /// </summary>
         public float Progress
@@ -99,7 +89,6 @@ namespace UnityGameFramework.Runtime
             LoadConfigUpdateEventArgs loadConfigUpdateEventArgs = ReferencePool.Acquire<LoadConfigUpdateEventArgs>();
             loadConfigUpdateEventArgs.ConfigName = loadConfigInfo.ConfigName;
             loadConfigUpdateEventArgs.ConfigAssetName = e.ConfigAssetName;
-            loadConfigUpdateEventArgs.LoadType = e.LoadType;
             loadConfigUpdateEventArgs.Progress = e.Progress;
             loadConfigUpdateEventArgs.UserData = loadConfigInfo.UserData;
             return loadConfigUpdateEventArgs;
@@ -112,7 +101,6 @@ namespace UnityGameFramework.Runtime
         {
             ConfigName = null;
             ConfigAssetName = null;
-            LoadType = LoadType.TextFromAsset;
             Progress = 0f;
             UserData = null;
         }

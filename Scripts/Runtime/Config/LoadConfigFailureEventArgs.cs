@@ -27,7 +27,6 @@ namespace UnityGameFramework.Runtime
         {
             ConfigName = null;
             ConfigAssetName = null;
-            LoadType = LoadType.TextFromAsset;
             ErrorMessage = null;
             UserData = null;
         }
@@ -62,15 +61,6 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取全局配置加载方式。
-        /// </summary>
-        public LoadType LoadType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 获取错误信息。
         /// </summary>
         public string ErrorMessage
@@ -99,7 +89,6 @@ namespace UnityGameFramework.Runtime
             LoadConfigFailureEventArgs loadConfigFailureEventArgs = ReferencePool.Acquire<LoadConfigFailureEventArgs>();
             loadConfigFailureEventArgs.ConfigName = loadConfigInfo.ConfigName;
             loadConfigFailureEventArgs.ConfigAssetName = e.ConfigAssetName;
-            loadConfigFailureEventArgs.LoadType = e.LoadType;
             loadConfigFailureEventArgs.ErrorMessage = e.ErrorMessage;
             loadConfigFailureEventArgs.UserData = loadConfigInfo.UserData;
             ReferencePool.Release(loadConfigInfo);
@@ -113,7 +102,6 @@ namespace UnityGameFramework.Runtime
         {
             ConfigName = null;
             ConfigAssetName = null;
-            LoadType = LoadType.TextFromAsset;
             ErrorMessage = null;
             UserData = null;
         }

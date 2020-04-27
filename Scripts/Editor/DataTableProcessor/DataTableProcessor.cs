@@ -355,7 +355,7 @@ namespace UnityGameFramework.Editor.DataTableTools
             return -1;
         }
 
-        public bool GenerateDataFile(string outputFileName, Encoding encoding)
+        public bool GenerateDataFile(string outputFileName)
         {
             if (string.IsNullOrEmpty(outputFileName))
             {
@@ -366,7 +366,7 @@ namespace UnityGameFramework.Editor.DataTableTools
             {
                 using (FileStream fileStream = new FileStream(outputFileName, FileMode.Create))
                 {
-                    using (BinaryWriter binaryWriter = new BinaryWriter(fileStream, encoding))
+                    using (BinaryWriter binaryWriter = new BinaryWriter(fileStream, Encoding.UTF8))
                     {
                         binaryWriter.BaseStream.Position = sizeof(int);
 
@@ -479,7 +479,7 @@ namespace UnityGameFramework.Editor.DataTableTools
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
-                using (BinaryWriter binaryWriter = new BinaryWriter(memoryStream))
+                using (BinaryWriter binaryWriter = new BinaryWriter(memoryStream, Encoding.UTF8))
                 {
                     for (int rawColumn = 0; rawColumn < RawColumnCount; rawColumn++)
                     {

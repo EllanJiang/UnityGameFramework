@@ -8,7 +8,6 @@
 using GameFramework;
 using GameFramework.Config;
 using GameFramework.Resource;
-using System.IO;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -121,10 +120,9 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">全局配置名称。</param>
         /// <param name="configAssetName">全局配置资源名称。</param>
-        /// <param name="loadType">全局配置加载方式。</param>
-        public void LoadConfig(string configName, string configAssetName, LoadType loadType)
+        public void LoadConfig(string configName, string configAssetName)
         {
-            LoadConfig(configName, configAssetName, loadType, DefaultPriority, null);
+            LoadConfig(configName, configAssetName, DefaultPriority, null);
         }
 
         /// <summary>
@@ -132,11 +130,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">全局配置名称。</param>
         /// <param name="configAssetName">全局配置资源名称。</param>
-        /// <param name="loadType">全局配置加载方式。</param>
         /// <param name="priority">加载全局配置资源的优先级。</param>
-        public void LoadConfig(string configName, string configAssetName, LoadType loadType, int priority)
+        public void LoadConfig(string configName, string configAssetName, int priority)
         {
-            LoadConfig(configName, configAssetName, loadType, priority, null);
+            LoadConfig(configName, configAssetName, priority, null);
         }
 
         /// <summary>
@@ -144,11 +141,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">全局配置名称。</param>
         /// <param name="configAssetName">全局配置资源名称。</param>
-        /// <param name="loadType">全局配置加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadConfig(string configName, string configAssetName, LoadType loadType, object userData)
+        public void LoadConfig(string configName, string configAssetName, object userData)
         {
-            LoadConfig(configName, configAssetName, loadType, DefaultPriority, userData);
+            LoadConfig(configName, configAssetName, DefaultPriority, userData);
         }
 
         /// <summary>
@@ -156,10 +152,9 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="configName">全局配置名称。</param>
         /// <param name="configAssetName">全局配置资源名称。</param>
-        /// <param name="loadType">全局配置加载方式。</param>
         /// <param name="priority">加载全局配置资源的优先级。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadConfig(string configName, string configAssetName, LoadType loadType, int priority, object userData)
+        public void LoadConfig(string configName, string configAssetName, int priority, object userData)
         {
             if (string.IsNullOrEmpty(configName))
             {
@@ -167,70 +162,28 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_ConfigManager.LoadConfig(configAssetName, loadType, priority, LoadConfigInfo.Create(configName, userData));
+            m_ConfigManager.LoadConfig(configAssetName, priority, LoadConfigInfo.Create(configName, userData));
         }
 
         /// <summary>
         /// 解析全局配置。
         /// </summary>
-        /// <param name="text">要解析的全局配置文本。</param>
+        /// <param name="configData">要解析的全局配置数据。</param>
         /// <returns>是否解析全局配置成功。</returns>
-        public bool ParseConfig(string text)
+        public bool ParseConfig(object configData)
         {
-            return m_ConfigManager.ParseConfig(text);
+            return m_ConfigManager.ParseConfig(configData);
         }
 
         /// <summary>
         /// 解析全局配置。
         /// </summary>
-        /// <param name="text">要解析的全局配置文本。</param>
+        /// <param name="configData">要解析的全局配置数据。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否解析全局配置成功。</returns>
-        public bool ParseConfig(string text, object userData)
+        public bool ParseConfig(object configData, object userData)
         {
-            return m_ConfigManager.ParseConfig(text, userData);
-        }
-
-        /// <summary>
-        /// 解析全局配置。
-        /// </summary>
-        /// <param name="bytes">要解析的全局配置二进制流。</param>
-        /// <returns>是否解析全局配置成功。</returns>
-        public bool ParseConfig(byte[] bytes)
-        {
-            return m_ConfigManager.ParseConfig(bytes);
-        }
-
-        /// <summary>
-        /// 解析全局配置。
-        /// </summary>
-        /// <param name="bytes">要解析的全局配置二进制流。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否解析全局配置成功。</returns>
-        public bool ParseConfig(byte[] bytes, object userData)
-        {
-            return m_ConfigManager.ParseConfig(bytes, userData);
-        }
-
-        /// <summary>
-        /// 解析全局配置。
-        /// </summary>
-        /// <param name="stream">要解析的全局配置二进制流。</param>
-        /// <returns>是否解析全局配置成功。</returns>
-        public bool ParseConfig(Stream stream)
-        {
-            return m_ConfigManager.ParseConfig(stream);
-        }
-
-        /// <summary>
-        /// 解析全局配置。
-        /// </summary>
-        /// <param name="stream">要解析的全局配置二进制流。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否解析全局配置成功。</returns>
-        public bool ParseConfig(Stream stream, object userData)
-        {
-            return m_ConfigManager.ParseConfig(stream, userData);
+            return m_ConfigManager.ParseConfig(configData, userData);
         }
 
         /// <summary>

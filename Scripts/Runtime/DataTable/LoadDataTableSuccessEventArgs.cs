@@ -29,7 +29,6 @@ namespace UnityGameFramework.Runtime
             DataRowType = null;
             DataTableName = null;
             DataTableAssetName = null;
-            LoadType = LoadType.TextFromAsset;
             Duration = 0f;
             UserData = null;
         }
@@ -73,15 +72,6 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取数据表加载方式。
-        /// </summary>
-        public LoadType LoadType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 获取加载持续时间。
         /// </summary>
         public float Duration
@@ -111,7 +101,6 @@ namespace UnityGameFramework.Runtime
             loadDataTableSuccessEventArgs.DataRowType = loadDataTableInfo.DataRowType;
             loadDataTableSuccessEventArgs.DataTableName = loadDataTableInfo.DataTableName;
             loadDataTableSuccessEventArgs.DataTableAssetName = e.DataTableAssetName;
-            loadDataTableSuccessEventArgs.LoadType = e.LoadType;
             loadDataTableSuccessEventArgs.Duration = e.Duration;
             loadDataTableSuccessEventArgs.UserData = loadDataTableInfo.UserData;
             ReferencePool.Release(loadDataTableInfo);
@@ -126,7 +115,6 @@ namespace UnityGameFramework.Runtime
             DataRowType = null;
             DataTableName = null;
             DataTableAssetName = null;
-            LoadType = LoadType.TextFromAsset;
             Duration = 0f;
             UserData = null;
         }

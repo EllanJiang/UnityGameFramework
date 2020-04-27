@@ -29,7 +29,6 @@ namespace UnityGameFramework.Runtime
             DataRowType = null;
             DataTableName = null;
             DataTableAssetName = null;
-            LoadType = LoadType.TextFromAsset;
             ErrorMessage = null;
             UserData = null;
         }
@@ -73,15 +72,6 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取数据表加载方式。
-        /// </summary>
-        public LoadType LoadType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 获取错误信息。
         /// </summary>
         public string ErrorMessage
@@ -111,7 +101,6 @@ namespace UnityGameFramework.Runtime
             loadDataTableFailureEventArgs.DataRowType = loadDataTableInfo.DataRowType;
             loadDataTableFailureEventArgs.DataTableName = loadDataTableInfo.DataTableName;
             loadDataTableFailureEventArgs.DataTableAssetName = e.DataTableAssetName;
-            loadDataTableFailureEventArgs.LoadType = e.LoadType;
             loadDataTableFailureEventArgs.ErrorMessage = e.ErrorMessage;
             loadDataTableFailureEventArgs.UserData = loadDataTableInfo.UserData;
             ReferencePool.Release(loadDataTableInfo);
@@ -126,7 +115,6 @@ namespace UnityGameFramework.Runtime
             DataRowType = null;
             DataTableName = null;
             DataTableAssetName = null;
-            LoadType = LoadType.TextFromAsset;
             ErrorMessage = null;
             UserData = null;
         }

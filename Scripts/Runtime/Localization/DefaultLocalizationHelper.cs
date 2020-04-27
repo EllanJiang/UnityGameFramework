@@ -21,6 +21,7 @@ namespace UnityGameFramework.Runtime
     {
         private static readonly string[] RowSplitSeparator = new string[] { "\r\n", "\r", "\n" };
         private static readonly string[] ColumnSplitSeparator = new string[] { "\t" };
+        private static readonly string TextAssetExtension = ".txt";
         private const int ColumnCount = 4;
 
         private ResourceComponent m_ResourceComponent = null;
@@ -86,89 +87,72 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 解析字典。
         /// </summary>
-        /// <param name="text">要解析的字典文本。</param>
+        /// <param name="dictionaryData">要解析的字典数据。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否解析字典成功。</returns>
-        public override bool ParseDictionary(string text, object userData)
+        public override bool ParseDictionary(object dictionaryData, object userData)
         {
             try
             {
-                string[] rowTexts = text.Split(RowSplitSeparator, StringSplitOptions.None);
-                for (int i = 0; i < rowTexts.Length; i++)
+                string dictionaryText = dictionaryData as string;
+                if (dictionaryText != null)
                 {
-                    if (rowTexts[i].Length <= 0 || rowTexts[i][0] == '#')
+                    string[] dictionaryRowTexts = dictionaryText.Split(RowSplitSeparator, StringSplitOptions.None);
+                    for (int i = 0; i < dictionaryRowTexts.Length; i++)
                     {
-                        continue;
-                    }
-
-                    string[] splitLine = rowTexts[i].Split(ColumnSplitSeparator, StringSplitOptions.None);
-                    if (splitLine.Length != ColumnCount)
-                    {
-                        Log.Warning("Can not parse dictionary '{0}'.", text);
-                        return false;
-                    }
-
-                    string dictionaryName = splitLine[1];
-                    string dictionaryValue = splitLine[3];
-                    if (!AddRawString(dictionaryName, dictionaryValue))
-                    {
-                        Log.Warning("Can not add raw string with key '{0}' which may be invalid or duplicate.", dictionaryName);
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-            catch (Exception exception)
-            {
-                Log.Warning("Can not parse dictionary '{0}' with exception '{1}'.", text, exception.ToString());
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 解析字典。
-        /// </summary>
-        /// <param name="bytes">要解析的字典二进制流。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否解析字典成功。</returns>
-        public override bool ParseDictionary(byte[] bytes, object userData)
-        {
-            using (MemoryStream memoryStream = new MemoryStream(bytes, false))
-            {
-                return ParseDictionary(memoryStream, userData);
-            }
-        }
-
-        /// <summary>
-        /// 解析字典。
-        /// </summary>
-        /// <param name="stream">要解析的字典二进制流。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否解析字典成功。</returns>
-        public override bool ParseDictionary(Stream stream, object userData)
-        {
-            try
-            {
-                using (BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8))
-                {
-                    while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
-                    {
-                        string dictionaryName = binaryReader.ReadString();
-                        string dictionaryValue = binaryReader.ReadString();
-                        if (!AddRawString(dictionaryName, dictionaryValue))
+                        if (dictionaryRowTexts[i].Length <= 0 || dictionaryRowTexts[i][0] == '#')
                         {
-                            Log.Warning("Can not add raw string with config name '{0}' which may be invalid or duplicate.", dictionaryName);
+                            continue;
+                        }
+
+                        string[] splitLine = dictionaryRowTexts[i].Split(ColumnSplitSeparator, StringSplitOptions.None);
+                        if (splitLine.Length != ColumnCount)
+                        {
+                            Log.Warning("Can not parse dictionary '{0}'.", dictionaryText);
+                            return false;
+                        }
+
+                        string dictionaryKey = splitLine[1];
+                        string dictionaryValue = splitLine[3];
+                        if (!AddRawString(dictionaryKey, dictionaryValue))
+                        {
+                            Log.Warning("Can not add raw string with dictionary key '{0}' which may be invalid or duplicate.", dictionaryKey);
                             return false;
                         }
                     }
+
+                    return true;
                 }
 
-                return true;
+                byte[] dictionaryBytes = dictionaryData as byte[];
+                if (dictionaryBytes != null)
+                {
+                    using (MemoryStream memoryStream = new MemoryStream(dictionaryBytes, false))
+                    {
+                        using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
+                        {
+                            while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
+                            {
+                                string dictionaryKey = binaryReader.ReadString();
+                                string dictionaryValue = binaryReader.ReadString();
+                                if (!AddRawString(dictionaryKey, dictionaryValue))
+                                {
+                                    Log.Warning("Can not add raw string with dictionary key '{0}' which may be invalid or duplicate.", dictionaryKey);
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+
+                    return true;
+                }
+
+                Log.Warning("Can not parse dictionary data which type '{0}' is invalid.", dictionaryData.GetType().FullName);
+                return false;
             }
             catch (Exception exception)
             {
-                Log.Warning("Can not parse config with exception '{0}'.", exception.ToString());
+                Log.Warning("Can not parse dictionary with exception '{0}'.", exception.ToString());
                 return false;
             }
         }
@@ -186,55 +170,35 @@ namespace UnityGameFramework.Runtime
         /// 加载字典。
         /// </summary>
         /// <param name="dictionaryName">字典名称。</param>
+        /// <param name="dictionaryAssetName">字典资源名称。</param>
         /// <param name="dictionaryObject">字典对象。</param>
-        /// <param name="loadType">字典加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        protected override bool LoadDictionary(string dictionaryName, object dictionaryObject, LoadType loadType, object userData)
+        protected override bool LoadDictionary(string dictionaryName, string dictionaryAssetName, object dictionaryObject, object userData)
         {
             TextAsset dictionaryTextAsset = dictionaryObject as TextAsset;
             if (dictionaryTextAsset != null)
             {
-                switch (loadType)
+                if (dictionaryAssetName.EndsWith(TextAssetExtension))
                 {
-                    case LoadType.TextFromAsset:
-                        return m_LocalizationManager.ParseDictionary(dictionaryTextAsset.text, userData);
-
-                    case LoadType.BytesFromAsset:
-                        return m_LocalizationManager.ParseDictionary(dictionaryTextAsset.bytes, userData);
-
-                    case LoadType.StreamFromAsset:
-                        using (MemoryStream stream = new MemoryStream(dictionaryTextAsset.bytes, false))
-                        {
-                            return m_LocalizationManager.ParseDictionary(stream, userData);
-                        }
-
-                    default:
-                        Log.Warning("Not supported load type '{0}' for dictionary asset.");
-                        return false;
+                    return m_LocalizationManager.ParseDictionary(dictionaryTextAsset.text, userData);
+                }
+                else
+                {
+                    return m_LocalizationManager.ParseDictionary(dictionaryTextAsset.bytes, userData);
                 }
             }
 
             byte[] dictionaryBytes = dictionaryObject as byte[];
             if (dictionaryBytes != null)
             {
-                switch (loadType)
+                if (dictionaryAssetName.EndsWith(TextAssetExtension))
                 {
-                    case LoadType.TextFromBinary:
-                        return m_LocalizationManager.ParseDictionary(Utility.Converter.GetString(dictionaryBytes), userData);
-
-                    case LoadType.BytesFromBinary:
-                        return m_LocalizationManager.ParseDictionary(dictionaryBytes, userData);
-
-                    case LoadType.StreamFromBinary:
-                        using (MemoryStream stream = new MemoryStream(dictionaryBytes, false))
-                        {
-                            return m_LocalizationManager.ParseDictionary(stream, userData);
-                        }
-
-                    default:
-                        Log.Warning("Not supported load type '{0}' for dictionary binary.");
-                        return false;
+                    return m_LocalizationManager.ParseDictionary(Utility.Converter.GetString(dictionaryBytes), userData);
+                }
+                else
+                {
+                    return m_LocalizationManager.ParseDictionary(dictionaryBytes, userData);
                 }
             }
 

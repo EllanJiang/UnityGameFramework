@@ -27,7 +27,6 @@ namespace UnityGameFramework.Runtime
         {
             DictionaryName = null;
             DictionaryAssetName = null;
-            LoadType = LoadType.TextFromAsset;
             ErrorMessage = null;
             UserData = null;
         }
@@ -62,15 +61,6 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取字典加载方式。
-        /// </summary>
-        public LoadType LoadType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 获取错误信息。
         /// </summary>
         public string ErrorMessage
@@ -99,7 +89,6 @@ namespace UnityGameFramework.Runtime
             LoadDictionaryFailureEventArgs loadDictionaryFailureEventArgs = ReferencePool.Acquire<LoadDictionaryFailureEventArgs>();
             loadDictionaryFailureEventArgs.DictionaryName = loadDictionaryInfo.DictionaryName;
             loadDictionaryFailureEventArgs.DictionaryAssetName = e.DictionaryAssetName;
-            loadDictionaryFailureEventArgs.LoadType = e.LoadType;
             loadDictionaryFailureEventArgs.ErrorMessage = e.ErrorMessage;
             loadDictionaryFailureEventArgs.UserData = loadDictionaryInfo.UserData;
             ReferencePool.Release(loadDictionaryInfo);
@@ -113,7 +102,6 @@ namespace UnityGameFramework.Runtime
         {
             DictionaryName = null;
             DictionaryAssetName = null;
-            LoadType = LoadType.TextFromAsset;
             ErrorMessage = null;
             UserData = null;
         }

@@ -780,8 +780,8 @@ namespace UnityGameFramework.Runtime
         /// 检查资源是否存在。
         /// </summary>
         /// <param name="assetName">要检查资源的名称。</param>
-        /// <returns>资源是否存在。</returns>
-        public bool HasAsset(string assetName)
+        /// <returns>检查资源是否存在的结果。</returns>
+        public HasAssetResult HasAsset(string assetName)
         {
             return m_ResourceManager.HasAsset(assetName);
         }
@@ -919,16 +919,6 @@ namespace UnityGameFramework.Runtime
         public bool GetBinaryPath(string binaryAssetName, out bool storageInReadOnly, out string relativePath)
         {
             return m_ResourceManager.GetBinaryPath(binaryAssetName, out storageInReadOnly, out relativePath);
-        }
-
-        /// <summary>
-        /// 检查二进制资源是否存在。
-        /// </summary>
-        /// <param name="binaryAssetName">要检查二进制资源的名称。</param>
-        /// <returns>二进制资源是否存在。</returns>
-        public bool HasBinary(string binaryAssetName)
-        {
-            return m_ResourceManager.HasBinary(binaryAssetName);
         }
 
         /// <summary>

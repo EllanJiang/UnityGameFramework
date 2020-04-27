@@ -8,8 +8,6 @@
 using GameFramework;
 using GameFramework.DataTable;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -22,57 +20,29 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 加载数据表。
         /// </summary>
+        /// <param name="dataTableAssetName">数据表资源名称。</param>
         /// <param name="dataTableObject">数据表对象。</param>
-        /// <param name="loadType">数据表加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        public bool LoadDataTable(object dataTableObject, LoadType loadType, object userData)
+        public bool LoadDataTable(string dataTableAssetName, object dataTableObject, object userData)
         {
             LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)userData;
-            return LoadDataTable(loadDataTableInfo.DataRowType, loadDataTableInfo.DataTableName, loadDataTableInfo.DataTableNameInType, dataTableObject, loadType, loadDataTableInfo.UserData);
+            return LoadDataTable(loadDataTableInfo.DataRowType, loadDataTableInfo.DataTableName, loadDataTableInfo.DataTableNameInType, dataTableAssetName, dataTableObject, loadDataTableInfo.UserData);
         }
 
         /// <summary>
         /// 获取数据表行片段。
         /// </summary>
-        /// <param name="text">要解析的数据表文本。</param>
+        /// <param name="dataTableData">要解析的数据表数据。</param>
         /// <returns>数据表行片段。</returns>
-        public abstract IEnumerable<GameFrameworkSegment<string>> GetDataRowSegments(string text);
-
-        /// <summary>
-        /// 获取数据表行片段。
-        /// </summary>
-        /// <param name="bytes">要解析的数据表二进制流。</param>
-        /// <returns>数据表行片段。</returns>
-        public abstract IEnumerable<GameFrameworkSegment<byte[]>> GetDataRowSegments(byte[] bytes);
-
-        /// <summary>
-        /// 获取数据表行片段。
-        /// </summary>
-        /// <param name="stream">要解析的数据表二进制流。</param>
-        /// <returns>数据表行片段。</returns>
-        public abstract IEnumerable<GameFrameworkSegment<Stream>> GetDataRowSegments(Stream stream);
+        public abstract GameFrameworkDataSegment[] GetDataRowSegments(object dataTableData);
 
         /// <summary>
         /// 获取数据表用户自定义数据。
         /// </summary>
-        /// <param name="text">要解析的数据表文本。</param>
+        /// <param name="dataTableData">要解析的数据表数据。</param>
         /// <returns>数据表用户自定义数据。</returns>
-        public abstract object GetDataTableUserData(string text);
-
-        /// <summary>
-        /// 获取数据表用户自定义数据。
-        /// </summary>
-        /// <param name="bytes">要解析的数据表二进制流。</param>
-        /// <returns>数据表用户自定义数据。</returns>
-        public abstract object GetDataTableUserData(byte[] bytes);
-
-        /// <summary>
-        /// 获取数据表用户自定义数据。
-        /// </summary>
-        /// <param name="stream">要解析的数据表二进制流。</param>
-        /// <returns>数据表用户自定义数据。</returns>
-        public abstract object GetDataTableUserData(Stream stream);
+        public abstract object GetDataTableUserData(object dataTableData);
 
         /// <summary>
         /// 释放数据表资源。
@@ -86,10 +56,10 @@ namespace UnityGameFramework.Runtime
         /// <param name="dataRowType">数据表行的类型。</param>
         /// <param name="dataTableName">数据表名称。</param>
         /// <param name="dataTableNameInType">数据表类型下的名称。</param>
+        /// <param name="dataTableAssetName">数据表资源名称。</param>
         /// <param name="dataTableObject">数据表对象。</param>
-        /// <param name="loadType">数据表加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        protected abstract bool LoadDataTable(Type dataRowType, string dataTableName, string dataTableNameInType, object dataTableObject, LoadType loadType, object userData);
+        protected abstract bool LoadDataTable(Type dataRowType, string dataTableName, string dataTableNameInType, string dataTableAssetName, object dataTableObject, object userData);
     }
 }

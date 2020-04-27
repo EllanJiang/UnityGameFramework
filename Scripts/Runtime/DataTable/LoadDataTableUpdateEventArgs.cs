@@ -29,7 +29,6 @@ namespace UnityGameFramework.Runtime
             DataRowType = null;
             DataTableName = null;
             DataTableAssetName = null;
-            LoadType = LoadType.TextFromAsset;
             Progress = 0f;
             UserData = null;
         }
@@ -73,15 +72,6 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取数据表加载方式。
-        /// </summary>
-        public LoadType LoadType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 获取加载数据表进度。
         /// </summary>
         public float Progress
@@ -111,7 +101,6 @@ namespace UnityGameFramework.Runtime
             loadDataTableUpdateEventArgs.DataRowType = loadDataTableInfo.DataRowType;
             loadDataTableUpdateEventArgs.DataTableName = loadDataTableInfo.DataTableName;
             loadDataTableUpdateEventArgs.DataTableAssetName = e.DataTableAssetName;
-            loadDataTableUpdateEventArgs.LoadType = e.LoadType;
             loadDataTableUpdateEventArgs.Progress = e.Progress;
             loadDataTableUpdateEventArgs.UserData = loadDataTableInfo.UserData;
             return loadDataTableUpdateEventArgs;
@@ -125,7 +114,6 @@ namespace UnityGameFramework.Runtime
             DataRowType = null;
             DataTableName = null;
             DataTableAssetName = null;
-            LoadType = LoadType.TextFromAsset;
             Progress = 0f;
             UserData = null;
         }

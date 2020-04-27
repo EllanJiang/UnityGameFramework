@@ -5,9 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
-using GameFramework;
 using GameFramework.Config;
-using System.IO;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -20,39 +18,23 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 加载全局配置。
         /// </summary>
+        /// <param name="configAssetName">全局配置资源名称。</param>
         /// <param name="configObject">全局配置对象。</param>
-        /// <param name="loadType">全局配置加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        public bool LoadConfig(object configObject, LoadType loadType, object userData)
+        public bool LoadConfig(string configAssetName, object configObject, object userData)
         {
             LoadConfigInfo loadConfigInfo = (LoadConfigInfo)userData;
-            return LoadConfig(loadConfigInfo.ConfigName, configObject, loadType, loadConfigInfo.UserData);
+            return LoadConfig(loadConfigInfo.ConfigName, configAssetName, configObject, loadConfigInfo.UserData);
         }
 
         /// <summary>
         /// 解析全局配置。
         /// </summary>
-        /// <param name="text">要解析的全局配置文本。</param>
+        /// <param name="configData">要解析的全局配置数据。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否解析全局配置成功。</returns>
-        public abstract bool ParseConfig(string text, object userData);
-
-        /// <summary>
-        /// 解析全局配置。
-        /// </summary>
-        /// <param name="bytes">要解析的全局配置二进制流。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否解析全局配置成功。</returns>
-        public abstract bool ParseConfig(byte[] bytes, object userData);
-
-        /// <summary>
-        /// 解析全局配置。
-        /// </summary>
-        /// <param name="stream">要解析的全局配置二进制流。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否解析全局配置成功。</returns>
-        public abstract bool ParseConfig(Stream stream, object userData);
+        public abstract bool ParseConfig(object configData, object userData);
 
         /// <summary>
         /// 释放全局配置资源。
@@ -64,10 +46,10 @@ namespace UnityGameFramework.Runtime
         /// 加载全局配置。
         /// </summary>
         /// <param name="configName">全局配置名称。</param>
+        /// <param name="configAssetName">全局配置资源名称。</param>
         /// <param name="configObject">全局配置对象。</param>
-        /// <param name="loadType">全局配置加载方式。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        protected abstract bool LoadConfig(string configName, object configObject, LoadType loadType, object userData);
+        protected abstract bool LoadConfig(string configName, string configAssetName, object configObject, object userData);
     }
 }

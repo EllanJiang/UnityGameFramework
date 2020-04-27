@@ -27,7 +27,6 @@ namespace UnityGameFramework.Runtime
         {
             ConfigName = null;
             ConfigAssetName = null;
-            LoadType = LoadType.TextFromAsset;
             Duration = 0f;
             UserData = null;
         }
@@ -62,15 +61,6 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取全局配置加载方式。
-        /// </summary>
-        public LoadType LoadType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 获取加载持续时间。
         /// </summary>
         public float Duration
@@ -99,7 +89,6 @@ namespace UnityGameFramework.Runtime
             LoadConfigSuccessEventArgs loadConfigSuccessEventArgs = ReferencePool.Acquire<LoadConfigSuccessEventArgs>();
             loadConfigSuccessEventArgs.ConfigName = loadConfigInfo.ConfigName;
             loadConfigSuccessEventArgs.ConfigAssetName = e.ConfigAssetName;
-            loadConfigSuccessEventArgs.LoadType = e.LoadType;
             loadConfigSuccessEventArgs.Duration = e.Duration;
             loadConfigSuccessEventArgs.UserData = loadConfigInfo.UserData;
             ReferencePool.Release(loadConfigInfo);
@@ -113,7 +102,6 @@ namespace UnityGameFramework.Runtime
         {
             ConfigName = null;
             ConfigAssetName = null;
-            LoadType = LoadType.TextFromAsset;
             Duration = 0f;
             UserData = null;
         }

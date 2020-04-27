@@ -19,7 +19,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class DefaultDataTableHelper : DataTableHelperBase
     {
-        private static readonly string BinaryAssetExtension = ".bytes";
+        private static readonly string BytesAssetExtension = ".bytes";
 
         private DataTableComponent m_DataTableComponent = null;
         private ResourceComponent m_ResourceComponent = null;
@@ -164,7 +164,7 @@ namespace UnityGameFramework.Runtime
             TextAsset dataTableTextAsset = dataTableObject as TextAsset;
             if (dataTableTextAsset != null)
             {
-                if (dataTableAssetName.EndsWith(BinaryAssetExtension))
+                if (dataTableAssetName.EndsWith(BytesAssetExtension))
                 {
                     m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, dataTableTextAsset.bytes);
                 }
@@ -179,7 +179,7 @@ namespace UnityGameFramework.Runtime
             byte[] dataTableBytes = dataTableObject as byte[];
             if (dataTableBytes != null)
             {
-                if (dataTableAssetName.EndsWith(BinaryAssetExtension))
+                if (dataTableAssetName.EndsWith(BytesAssetExtension))
                 {
                     m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, dataTableBytes);
                 }

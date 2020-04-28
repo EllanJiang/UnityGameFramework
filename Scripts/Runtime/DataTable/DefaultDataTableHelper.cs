@@ -19,6 +19,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class DefaultDataTableHelper : DataTableHelperBase
     {
+        private static readonly string[] EmptyStringArray = new string[] { };
         private static readonly string BytesAssetExtension = ".bytes";
 
         private DataTableComponent m_DataTableComponent = null;
@@ -113,7 +114,7 @@ namespace UnityGameFramework.Runtime
                         {
                             binaryReader.BaseStream.Position = binaryReader.ReadInt32();
                             int stringCount = binaryReader.Read7BitEncodedInt32();
-                            string[] strings = new string[stringCount];
+                            string[] strings = stringCount > 0 ? new string[stringCount] : EmptyStringArray;
                             for (int i = 0; i < stringCount; i++)
                             {
                                 strings[i] = binaryReader.ReadString();

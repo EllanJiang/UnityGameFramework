@@ -36,7 +36,7 @@ namespace UnityGameFramework.Editor
 
             if (EditorApplication.isPlaying && IsPrefabInHierarchy(t.gameObject))
             {
-                EditorGUILayout.LabelField("Config Count", t.ConfigCount.ToString());
+                EditorGUILayout.LabelField("Config Count", t.Count.ToString());
             }
 
             serializedObject.ApplyModifiedProperties();

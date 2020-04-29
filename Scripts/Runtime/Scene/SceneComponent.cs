@@ -438,6 +438,7 @@ namespace UnityGameFramework.Runtime
         private void OnUnloadSceneSuccess(object sender, GameFramework.Scene.UnloadSceneSuccessEventArgs e)
         {
             m_EventComponent.Fire(this, UnloadSceneSuccessEventArgs.Create(e));
+            m_SceneOrder.Remove(e.SceneAssetName);
             RefreshSceneOrder();
         }
 

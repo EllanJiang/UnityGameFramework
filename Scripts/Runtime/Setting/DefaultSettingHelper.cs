@@ -7,6 +7,7 @@
 
 using GameFramework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -16,6 +17,17 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class DefaultSettingHelper : SettingHelperBase
     {
+        /// <summary>
+        /// 获取游戏配置项数量。
+        /// </summary>
+        public override int Count
+        {
+            get
+            {
+                return -1;
+            }
+        }
+
         /// <summary>
         /// 加载游戏配置。
         /// </summary>
@@ -33,6 +45,31 @@ namespace UnityGameFramework.Runtime
         {
             PlayerPrefs.Save();
             return true;
+        }
+
+        /// <summary>
+        /// 获取所有游戏配置项的名称。
+        /// </summary>
+        /// <returns>所有游戏配置项的名称。</returns>
+        public override string[] GetAllSettingNames()
+        {
+            Log.Warning("GetAllSettingNames is not supported.");
+            return null;
+        }
+
+        /// <summary>
+        /// 获取所有游戏配置项的名称。
+        /// </summary>
+        /// <param name="results">所有游戏配置项的名称。</param>
+        public override void GetAllSettingNames(List<string> results)
+        {
+            if (results == null)
+            {
+                throw new GameFrameworkException("Results is invalid.");
+            }
+
+            results.Clear();
+            Log.Warning("GetAllSettingNames is not supported.");
         }
 
         /// <summary>

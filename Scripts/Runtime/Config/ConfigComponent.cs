@@ -37,13 +37,13 @@ namespace UnityGameFramework.Runtime
         private ConfigHelperBase m_CustomConfigHelper = null;
 
         /// <summary>
-        /// 获取全局配置数量。
+        /// 获取全局配置项数量。
         /// </summary>
-        public int ConfigCount
+        public int Count
         {
             get
             {
-                return m_ConfigManager.ConfigCount;
+                return m_ConfigManager.Count;
             }
         }
 

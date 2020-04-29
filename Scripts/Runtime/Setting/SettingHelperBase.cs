@@ -7,6 +7,7 @@
 
 using GameFramework.Setting;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -16,6 +17,14 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public abstract class SettingHelperBase : MonoBehaviour, ISettingHelper
     {
+        /// <summary>
+        /// 获取游戏配置项数量。
+        /// </summary>
+        public abstract int Count
+        {
+            get;
+        }
+
         /// <summary>
         /// 加载游戏配置。
         /// </summary>
@@ -27,6 +36,18 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <returns>是否保存游戏配置成功。</returns>
         public abstract bool Save();
+
+        /// <summary>
+        /// 获取所有游戏配置项的名称。
+        /// </summary>
+        /// <returns>所有游戏配置项的名称。</returns>
+        public abstract string[] GetAllSettingNames();
+
+        /// <summary>
+        /// 获取所有游戏配置项的名称。
+        /// </summary>
+        /// <param name="results">所有游戏配置项的名称。</param>
+        public abstract void GetAllSettingNames(List<string> results);
 
         /// <summary>
         /// 检查是否存在指定游戏配置项。

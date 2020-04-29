@@ -2423,9 +2423,9 @@
             初始化全局配置管理器的新实例。
             </summary>
         </member>
-        <member name="P:GameFramework.Config.ConfigManager.ConfigCount">
+        <member name="P:GameFramework.Config.ConfigManager.Count">
             <summary>
-            获取全局配置数量。
+            获取全局配置项数量。
             </summary>
         </member>
         <member name="E:GameFramework.Config.ConfigManager.LoadConfigSuccess">
@@ -2637,9 +2637,9 @@
             全局配置管理器接口。
             </summary>
         </member>
-        <member name="P:GameFramework.Config.IConfigManager.ConfigCount">
+        <member name="P:GameFramework.Config.IConfigManager.Count">
             <summary>
-            获取全局配置数量。
+            获取全局配置项数量。
             </summary>
         </member>
         <member name="E:GameFramework.Config.IConfigManager.LoadConfigSuccess">
@@ -15862,6 +15862,11 @@
             游戏配置辅助器接口。
             </summary>
         </member>
+        <member name="P:GameFramework.Setting.ISettingHelper.Count">
+            <summary>
+            获取游戏配置项数量。
+            </summary>
+        </member>
         <member name="M:GameFramework.Setting.ISettingHelper.Load">
             <summary>
             加载游戏配置。
@@ -15873,6 +15878,18 @@
             保存游戏配置。
             </summary>
             <returns>是否保存游戏配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Setting.ISettingHelper.GetAllSettingNames">
+            <summary>
+            获取所有游戏配置项的名称。
+            </summary>
+            <returns>所有游戏配置项的名称。</returns>
+        </member>
+        <member name="M:GameFramework.Setting.ISettingHelper.GetAllSettingNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取所有游戏配置项的名称。
+            </summary>
+            <param name="results">所有游戏配置项的名称。</param>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.HasSetting(System.String)">
             <summary>
@@ -16034,6 +16051,11 @@
             游戏配置管理器接口。
             </summary>
         </member>
+        <member name="P:GameFramework.Setting.ISettingManager.Count">
+            <summary>
+            获取游戏配置项数量。
+            </summary>
+        </member>
         <member name="M:GameFramework.Setting.ISettingManager.SetSettingHelper(GameFramework.Setting.ISettingHelper)">
             <summary>
             设置游戏配置辅助器。
@@ -16051,6 +16073,18 @@
             保存游戏配置。
             </summary>
             <returns>是否保存游戏配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Setting.ISettingManager.GetAllSettingNames">
+            <summary>
+            获取所有游戏配置项的名称。
+            </summary>
+            <returns>所有游戏配置项的名称。</returns>
+        </member>
+        <member name="M:GameFramework.Setting.ISettingManager.GetAllSettingNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取所有游戏配置项的名称。
+            </summary>
+            <param name="results">所有游戏配置项的名称。</param>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.HasSetting(System.String)">
             <summary>
@@ -16217,6 +16251,11 @@
             初始化游戏配置管理器的新实例。
             </summary>
         </member>
+        <member name="P:GameFramework.Setting.SettingManager.Count">
+            <summary>
+            获取游戏配置项数量。
+            </summary>
+        </member>
         <member name="M:GameFramework.Setting.SettingManager.Update(System.Single,System.Single)">
             <summary>
             游戏配置管理器轮询。
@@ -16246,6 +16285,18 @@
             保存游戏配置。
             </summary>
             <returns>是否保存游戏配置成功。</returns>
+        </member>
+        <member name="M:GameFramework.Setting.SettingManager.GetAllSettingNames">
+            <summary>
+            获取所有游戏配置项的名称。
+            </summary>
+            <returns>所有游戏配置项的名称。</returns>
+        </member>
+        <member name="M:GameFramework.Setting.SettingManager.GetAllSettingNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取所有游戏配置项的名称。
+            </summary>
+            <param name="results">所有游戏配置项的名称。</param>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.HasSetting(System.String)">
             <summary>

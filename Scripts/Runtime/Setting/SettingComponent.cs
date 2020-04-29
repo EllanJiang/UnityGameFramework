@@ -8,6 +8,7 @@
 using GameFramework;
 using GameFramework.Setting;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -26,6 +27,17 @@ namespace UnityGameFramework.Runtime
 
         [SerializeField]
         private SettingHelperBase m_CustomSettingHelper = null;
+
+        /// <summary>
+        /// 获取游戏配置项数量。
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                return m_SettingManager.Count;
+            }
+        }
 
         /// <summary>
         /// 游戏框架组件初始化。
@@ -66,6 +78,24 @@ namespace UnityGameFramework.Runtime
         public void Save()
         {
             m_SettingManager.Save();
+        }
+
+        /// <summary>
+        /// 获取所有游戏配置项的名称。
+        /// </summary>
+        /// <returns>所有游戏配置项的名称。</returns>
+        public string[] GetAllSettingNames()
+        {
+            return m_SettingManager.GetAllSettingNames();
+        }
+
+        /// <summary>
+        /// 获取所有游戏配置项的名称。
+        /// </summary>
+        /// <param name="results">所有游戏配置项的名称。</param>
+        public void GetAllSettingNames(List<string> results)
+        {
+            m_SettingManager.GetAllSettingNames(results);
         }
 
         /// <summary>

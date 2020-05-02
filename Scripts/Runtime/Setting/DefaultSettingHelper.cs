@@ -8,7 +8,6 @@
 using GameFramework;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace UnityGameFramework.Runtime
 {
@@ -17,6 +16,8 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class DefaultSettingHelper : SettingHelperBase
     {
+        private readonly Dictionary<string, string> m_Settings = new Dictionary<string, string>();
+
         /// <summary>
         /// 获取游戏配置项数量。
         /// </summary>
@@ -24,7 +25,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return -1;
+                return m_Settings.Count;
             }
         }
 
@@ -34,7 +35,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>是否加载游戏配置成功。</returns>
         public override bool Load()
         {
-            return true;
+            return false;
         }
 
         /// <summary>
@@ -43,8 +44,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>是否保存游戏配置成功。</returns>
         public override bool Save()
         {
-            PlayerPrefs.Save();
-            return true;
+            return false;
         }
 
         /// <summary>
@@ -53,7 +53,13 @@ namespace UnityGameFramework.Runtime
         /// <returns>所有游戏配置项的名称。</returns>
         public override string[] GetAllSettingNames()
         {
-            Log.Warning("GetAllSettingNames is not supported.");
+            string[] allSettingNames = new string[m_Settings.Count];
+            int index = 0;
+            foreach (KeyValuePair<string, string> setting in m_Settings)
+            {
+                allSettingNames[index++] = setting.Key;
+            }
+
             return null;
         }
 
@@ -69,7 +75,10 @@ namespace UnityGameFramework.Runtime
             }
 
             results.Clear();
-            Log.Warning("GetAllSettingNames is not supported.");
+            foreach (KeyValuePair<string, string> setting in m_Settings)
+            {
+                results.Add(setting.Key);
+            }
         }
 
         /// <summary>
@@ -79,16 +88,17 @@ namespace UnityGameFramework.Runtime
         /// <returns>指定的游戏配置项是否存在。</returns>
         public override bool HasSetting(string settingName)
         {
-            return PlayerPrefs.HasKey(settingName);
+            return m_Settings.ContainsKey(settingName);
         }
 
         /// <summary>
         /// 移除指定游戏配置项。
         /// </summary>
         /// <param name="settingName">要移除游戏配置项的名称。</param>
-        public override void RemoveSetting(string settingName)
+        /// <returns>是否移除指定游戏配置项成功。</returns>
+        public override bool RemoveSetting(string settingName)
         {
-            PlayerPrefs.DeleteKey(settingName);
+            return m_Settings.Remove(settingName);
         }
 
         /// <summary>
@@ -96,7 +106,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public override void RemoveAllSettings()
         {
-            PlayerPrefs.DeleteAll();
+            m_Settings.Clear();
         }
 
         /// <summary>
@@ -106,7 +116,14 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的布尔值。</returns>
         public override bool GetBool(string settingName)
         {
-            return PlayerPrefs.GetInt(settingName) != 0;
+            string value = null;
+            if (!m_Settings.TryGetValue(settingName, out value))
+            {
+                Log.Warning("Setting '{0}' is not exist.", settingName);
+                return false;
+            }
+
+            return int.Parse(value) != 0;
         }
 
         /// <summary>
@@ -117,7 +134,13 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的布尔值。</returns>
         public override bool GetBool(string settingName, bool defaultValue)
         {
-            return PlayerPrefs.GetInt(settingName, defaultValue ? 1 : 0) != 0;
+            string value = null;
+            if (!m_Settings.TryGetValue(settingName, out value))
+            {
+                return defaultValue;
+            }
+
+            return int.Parse(value) != 0;
         }
 
         /// <summary>
@@ -127,7 +150,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="value">要写入的布尔值。</param>
         public override void SetBool(string settingName, bool value)
         {
-            PlayerPrefs.SetInt(settingName, value ? 1 : 0);
+            m_Settings[settingName] = value ? "1" : "0";
         }
 
         /// <summary>
@@ -137,7 +160,14 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的整数值。</returns>
         public override int GetInt(string settingName)
         {
-            return PlayerPrefs.GetInt(settingName);
+            string value = null;
+            if (!m_Settings.TryGetValue(settingName, out value))
+            {
+                Log.Warning("Setting '{0}' is not exist.", settingName);
+                return 0;
+            }
+
+            return int.Parse(value);
         }
 
         /// <summary>
@@ -148,7 +178,13 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的整数值。</returns>
         public override int GetInt(string settingName, int defaultValue)
         {
-            return PlayerPrefs.GetInt(settingName, defaultValue);
+            string value = null;
+            if (!m_Settings.TryGetValue(settingName, out value))
+            {
+                return defaultValue;
+            }
+
+            return int.Parse(value);
         }
 
         /// <summary>
@@ -158,7 +194,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="value">要写入的整数值。</param>
         public override void SetInt(string settingName, int value)
         {
-            PlayerPrefs.SetInt(settingName, value);
+            m_Settings[settingName] = value.ToString();
         }
 
         /// <summary>
@@ -168,7 +204,14 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的浮点数值。</returns>
         public override float GetFloat(string settingName)
         {
-            return PlayerPrefs.GetFloat(settingName);
+            string value = null;
+            if (!m_Settings.TryGetValue(settingName, out value))
+            {
+                Log.Warning("Setting '{0}' is not exist.", settingName);
+                return 0f;
+            }
+
+            return float.Parse(value);
         }
 
         /// <summary>
@@ -179,7 +222,13 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的浮点数值。</returns>
         public override float GetFloat(string settingName, float defaultValue)
         {
-            return PlayerPrefs.GetFloat(settingName, defaultValue);
+            string value = null;
+            if (!m_Settings.TryGetValue(settingName, out value))
+            {
+                return defaultValue;
+            }
+
+            return float.Parse(value);
         }
 
         /// <summary>
@@ -189,7 +238,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="value">要写入的浮点数值。</param>
         public override void SetFloat(string settingName, float value)
         {
-            PlayerPrefs.SetFloat(settingName, value);
+            m_Settings[settingName] = value.ToString();
         }
 
         /// <summary>
@@ -199,7 +248,14 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的字符串值。</returns>
         public override string GetString(string settingName)
         {
-            return PlayerPrefs.GetString(settingName);
+            string value = null;
+            if (!m_Settings.TryGetValue(settingName, out value))
+            {
+                Log.Warning("Setting '{0}' is not exist.", settingName);
+                return null;
+            }
+
+            return value;
         }
 
         /// <summary>
@@ -210,7 +266,13 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的字符串值。</returns>
         public override string GetString(string settingName, string defaultValue)
         {
-            return PlayerPrefs.GetString(settingName, defaultValue);
+            string value = null;
+            if (!m_Settings.TryGetValue(settingName, out value))
+            {
+                return defaultValue;
+            }
+
+            return value;
         }
 
         /// <summary>
@@ -220,7 +282,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="value">要写入的字符串值。</param>
         public override void SetString(string settingName, string value)
         {
-            PlayerPrefs.SetString(settingName, value);
+            m_Settings[settingName] = value;
         }
 
         /// <summary>
@@ -231,7 +293,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的对象。</returns>
         public override T GetObject<T>(string settingName)
         {
-            return Utility.Json.ToObject<T>(PlayerPrefs.GetString(settingName));
+            return Utility.Json.ToObject<T>(GetString(settingName));
         }
 
         /// <summary>
@@ -242,7 +304,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的对象。</returns>
         public override object GetObject(Type objectType, string settingName)
         {
-            return Utility.Json.ToObject(objectType, PlayerPrefs.GetString(settingName));
+            return Utility.Json.ToObject(objectType, GetString(settingName));
         }
 
         /// <summary>
@@ -254,7 +316,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的对象。</returns>
         public override T GetObject<T>(string settingName, T defaultObj)
         {
-            string json = PlayerPrefs.GetString(settingName, null);
+            string json = GetString(settingName, null);
             if (json == null)
             {
                 return defaultObj;
@@ -272,7 +334,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的对象。</returns>
         public override object GetObject(Type objectType, string settingName, object defaultObj)
         {
-            string json = PlayerPrefs.GetString(settingName, null);
+            string json = GetString(settingName, null);
             if (json == null)
             {
                 return defaultObj;
@@ -289,7 +351,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="obj">要写入的对象。</param>
         public override void SetObject<T>(string settingName, T obj)
         {
-            PlayerPrefs.SetString(settingName, Utility.Json.ToJson(obj));
+            SetString(settingName, Utility.Json.ToJson(obj));
         }
 
         /// <summary>
@@ -299,7 +361,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="obj">要写入的对象。</param>
         public override void SetObject(string settingName, object obj)
         {
-            PlayerPrefs.SetString(settingName, Utility.Json.ToJson(obj));
+            SetString(settingName, Utility.Json.ToJson(obj));
         }
     }
 }

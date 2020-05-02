@@ -15903,6 +15903,7 @@
             移除指定游戏配置项。
             </summary>
             <param name="settingName">要移除游戏配置项的名称。</param>
+            <returns>是否移除指定游戏配置项成功。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingHelper.RemoveAllSettings">
             <summary>
@@ -16098,6 +16099,7 @@
             移除指定游戏配置项。
             </summary>
             <param name="settingName">要移除游戏配置项的名称。</param>
+            <returns>是否移除指定游戏配置项成功。</returns>
         </member>
         <member name="M:GameFramework.Setting.ISettingManager.RemoveAllSettings">
             <summary>
@@ -16310,6 +16312,7 @@
             移除指定游戏配置项。
             </summary>
             <param name="settingName">要移除游戏配置项的名称。</param>
+            <returns>是否移除指定游戏配置项成功。</returns>
         </member>
         <member name="M:GameFramework.Setting.SettingManager.RemoveAllSettings">
             <summary>

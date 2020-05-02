@@ -70,6 +70,10 @@ namespace UnityGameFramework.Runtime
 
         private void Start()
         {
+            if (!m_SettingManager.Load())
+            {
+                Log.Error("Load settings failure.");
+            }
         }
 
         /// <summary>

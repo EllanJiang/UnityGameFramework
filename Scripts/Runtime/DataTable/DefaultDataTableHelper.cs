@@ -72,7 +72,7 @@ namespace UnityGameFramework.Runtime
 
                             if (binaryReader.BaseStream.Position != stringsOffset)
                             {
-                                throw new GameFrameworkException("Verification failed.");
+                                throw new GameFrameworkException("Verification failure.");
                             }
 
                             return dataRowSegments;

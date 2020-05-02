@@ -49,7 +49,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 {
                     if (!m_Controller.RemoveAllAssetBundleNames())
                     {
-                        Debug.LogWarning("Remove All Asset Bundle Names in Project failed.");
+                        Debug.LogWarning("Remove All Asset Bundle Names in Project failure.");
                     }
                     else
                     {
@@ -64,7 +64,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 {
                     if (!m_Controller.SyncToProject())
                     {
-                        Debug.LogWarning("Sync ResourceCollection.xml to Project failed.");
+                        Debug.LogWarning("Sync ResourceCollection.xml to Project failure.");
                     }
                     else
                     {
@@ -79,7 +79,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 {
                     if (!m_Controller.SyncFromProject())
                     {
-                        Debug.LogWarning("Sync Project to ResourceCollection.xml failed.");
+                        Debug.LogWarning("Sync Project to ResourceCollection.xml failure.");
                     }
                     else
                     {

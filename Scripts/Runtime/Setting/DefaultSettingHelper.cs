@@ -8,6 +8,8 @@
 using GameFramework;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
 
 namespace UnityGameFramework.Runtime
 {
@@ -16,7 +18,18 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class DefaultSettingHelper : SettingHelperBase
     {
-        private readonly Dictionary<string, string> m_Settings = new Dictionary<string, string>();
+        private const string SettingFileName = "GameFrameworkSetting.dat";
+
+        private DefaultSetting m_Settings = null;
+        private DefaultSettingSerializer m_Serializer = null;
+
+        public virtual string FilePath
+        {
+            get
+            {
+                return Utility.Path.GetRegularPath(Path.Combine(Application.persistentDataPath, SettingFileName));
+            }
+        }
 
         /// <summary>
         /// 获取游戏配置项数量。
@@ -25,7 +38,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return m_Settings.Count;
+                return m_Settings != null ? m_Settings.Count : -1;
             }
         }
 
@@ -35,7 +48,24 @@ namespace UnityGameFramework.Runtime
         /// <returns>是否加载游戏配置成功。</returns>
         public override bool Load()
         {
-            return false;
+            try
+            {
+                if (!File.Exists(FilePath))
+                {
+                    return true;
+                }
+
+                using (FileStream fileStream = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
+                {
+                    m_Serializer.Deserialize(fileStream);
+                    return true;
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Warning("Load settings failure with exception '{0}'.", exception.ToString());
+                return false;
+            }
         }
 
         /// <summary>
@@ -44,7 +74,10 @@ namespace UnityGameFramework.Runtime
         /// <returns>是否保存游戏配置成功。</returns>
         public override bool Save()
         {
-            return false;
+            using (FileStream fileStream = new FileStream(FilePath, FileMode.Create, FileAccess.Write))
+            {
+                return m_Serializer.Serialize(fileStream, m_Settings);
+            }
         }
 
         /// <summary>
@@ -53,14 +86,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>所有游戏配置项的名称。</returns>
         public override string[] GetAllSettingNames()
         {
-            string[] allSettingNames = new string[m_Settings.Count];
-            int index = 0;
-            foreach (KeyValuePair<string, string> setting in m_Settings)
-            {
-                allSettingNames[index++] = setting.Key;
-            }
-
-            return null;
+            return m_Settings.GetAllSettingNames();
         }
 
         /// <summary>
@@ -69,16 +95,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="results">所有游戏配置项的名称。</param>
         public override void GetAllSettingNames(List<string> results)
         {
-            if (results == null)
-            {
-                throw new GameFrameworkException("Results is invalid.");
-            }
-
-            results.Clear();
-            foreach (KeyValuePair<string, string> setting in m_Settings)
-            {
-                results.Add(setting.Key);
-            }
+            m_Settings.GetAllSettingNames(results);
         }
 
         /// <summary>
@@ -88,7 +105,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>指定的游戏配置项是否存在。</returns>
         public override bool HasSetting(string settingName)
         {
-            return m_Settings.ContainsKey(settingName);
+            return m_Settings.HasSetting(settingName);
         }
 
         /// <summary>
@@ -98,7 +115,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>是否移除指定游戏配置项成功。</returns>
         public override bool RemoveSetting(string settingName)
         {
-            return m_Settings.Remove(settingName);
+            return m_Settings.RemoveSetting(settingName);
         }
 
         /// <summary>
@@ -106,7 +123,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public override void RemoveAllSettings()
         {
-            m_Settings.Clear();
+            m_Settings.RemoveAllSettings();
         }
 
         /// <summary>
@@ -116,14 +133,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的布尔值。</returns>
         public override bool GetBool(string settingName)
         {
-            string value = null;
-            if (!m_Settings.TryGetValue(settingName, out value))
-            {
-                Log.Warning("Setting '{0}' is not exist.", settingName);
-                return false;
-            }
-
-            return int.Parse(value) != 0;
+            return m_Settings.GetBool(settingName);
         }
 
         /// <summary>
@@ -134,13 +144,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的布尔值。</returns>
         public override bool GetBool(string settingName, bool defaultValue)
         {
-            string value = null;
-            if (!m_Settings.TryGetValue(settingName, out value))
-            {
-                return defaultValue;
-            }
-
-            return int.Parse(value) != 0;
+            return m_Settings.GetBool(settingName, defaultValue);
         }
 
         /// <summary>
@@ -150,7 +154,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="value">要写入的布尔值。</param>
         public override void SetBool(string settingName, bool value)
         {
-            m_Settings[settingName] = value ? "1" : "0";
+            m_Settings.SetBool(settingName, value);
         }
 
         /// <summary>
@@ -160,14 +164,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的整数值。</returns>
         public override int GetInt(string settingName)
         {
-            string value = null;
-            if (!m_Settings.TryGetValue(settingName, out value))
-            {
-                Log.Warning("Setting '{0}' is not exist.", settingName);
-                return 0;
-            }
-
-            return int.Parse(value);
+            return m_Settings.GetInt(settingName);
         }
 
         /// <summary>
@@ -178,13 +175,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的整数值。</returns>
         public override int GetInt(string settingName, int defaultValue)
         {
-            string value = null;
-            if (!m_Settings.TryGetValue(settingName, out value))
-            {
-                return defaultValue;
-            }
-
-            return int.Parse(value);
+            return m_Settings.GetInt(settingName, defaultValue);
         }
 
         /// <summary>
@@ -194,7 +185,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="value">要写入的整数值。</param>
         public override void SetInt(string settingName, int value)
         {
-            m_Settings[settingName] = value.ToString();
+            m_Settings.SetInt(settingName, value);
         }
 
         /// <summary>
@@ -204,14 +195,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的浮点数值。</returns>
         public override float GetFloat(string settingName)
         {
-            string value = null;
-            if (!m_Settings.TryGetValue(settingName, out value))
-            {
-                Log.Warning("Setting '{0}' is not exist.", settingName);
-                return 0f;
-            }
-
-            return float.Parse(value);
+            return m_Settings.GetFloat(settingName);
         }
 
         /// <summary>
@@ -222,13 +206,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的浮点数值。</returns>
         public override float GetFloat(string settingName, float defaultValue)
         {
-            string value = null;
-            if (!m_Settings.TryGetValue(settingName, out value))
-            {
-                return defaultValue;
-            }
-
-            return float.Parse(value);
+            return m_Settings.GetFloat(settingName, defaultValue);
         }
 
         /// <summary>
@@ -238,7 +216,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="value">要写入的浮点数值。</param>
         public override void SetFloat(string settingName, float value)
         {
-            m_Settings[settingName] = value.ToString();
+            m_Settings.SetFloat(settingName, value);
         }
 
         /// <summary>
@@ -248,14 +226,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的字符串值。</returns>
         public override string GetString(string settingName)
         {
-            string value = null;
-            if (!m_Settings.TryGetValue(settingName, out value))
-            {
-                Log.Warning("Setting '{0}' is not exist.", settingName);
-                return null;
-            }
-
-            return value;
+            return m_Settings.GetString(settingName);
         }
 
         /// <summary>
@@ -266,13 +237,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>读取的字符串值。</returns>
         public override string GetString(string settingName, string defaultValue)
         {
-            string value = null;
-            if (!m_Settings.TryGetValue(settingName, out value))
-            {
-                return defaultValue;
-            }
-
-            return value;
+            return m_Settings.GetString(settingName, defaultValue);
         }
 
         /// <summary>
@@ -282,7 +247,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="value">要写入的字符串值。</param>
         public override void SetString(string settingName, string value)
         {
-            m_Settings[settingName] = value;
+            m_Settings.SetString(settingName, value);
         }
 
         /// <summary>
@@ -362,6 +327,26 @@ namespace UnityGameFramework.Runtime
         public override void SetObject(string settingName, object obj)
         {
             SetString(settingName, Utility.Json.ToJson(obj));
+        }
+
+        private void Awake()
+        {
+            m_Settings = new DefaultSetting();
+            m_Serializer = new DefaultSettingSerializer();
+            m_Serializer.RegisterSerializeCallback(0, SerializeDefaultSettingCallback);
+            m_Serializer.RegisterDeserializeCallback(0, DeserializeDefaultSettingCallback);
+        }
+
+        private bool SerializeDefaultSettingCallback(BinaryWriter binaryWriter, DefaultSetting defaultSetting)
+        {
+            m_Settings.Serialize(binaryWriter);
+            return true;
+        }
+
+        private DefaultSetting DeserializeDefaultSettingCallback(BinaryReader binaryReader)
+        {
+            m_Settings.Deserialize(binaryReader);
+            return m_Settings;
         }
     }
 }

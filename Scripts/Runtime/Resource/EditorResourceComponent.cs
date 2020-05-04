@@ -803,7 +803,13 @@ namespace UnityGameFramework.Runtime
         public HasAssetResult HasAsset(string assetName)
         {
 #if UNITY_EDITOR
-            return UnityEditor.AssetDatabase.LoadMainAssetAtPath(assetName) != null ? HasAssetResult.Asset : HasAssetResult.NotExist;
+            UnityEngine.Object obj = UnityEditor.AssetDatabase.LoadMainAssetAtPath(assetName);
+            if (obj == null)
+            {
+                return HasAssetResult.NotExist;
+            }
+
+            return obj.GetType() == typeof(UnityEditor.DefaultAsset) ? HasAssetResult.Binary : HasAssetResult.Asset;
 #else
             return HasAssetResult.NotExist;
 #endif

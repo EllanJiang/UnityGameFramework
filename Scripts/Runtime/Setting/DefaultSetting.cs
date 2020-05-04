@@ -16,7 +16,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class DefaultSetting
     {
-        private readonly Dictionary<string, string> m_Settings = new Dictionary<string, string>();
+        private readonly SortedDictionary<string, string> m_Settings = new SortedDictionary<string, string>();
 
         /// <summary>
         /// 初始化本地版本资源列表的新实例。

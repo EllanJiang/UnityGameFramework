@@ -113,16 +113,7 @@ namespace UnityGameFramework.Runtime
         {
             m_SerialId = serialId;
             m_UIFormAssetName = uiFormAssetName;
-            if (isNewInstance)
-            {
-                m_UIGroup = uiGroup;
-            }
-            else if (m_UIGroup != uiGroup)
-            {
-                Log.Error("UI group is inconsistent for non-new-instance UI form.");
-                return;
-            }
-
+            m_UIGroup = uiGroup;
             m_DepthInUIGroup = 0;
             m_PauseCoveredUIForm = pauseCoveredUIForm;
 

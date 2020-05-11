@@ -604,8 +604,12 @@ namespace UnityGameFramework.Editor.ResourceTools
                 string[] pathNames = resource.Name.Split('/');
                 for (int i = 0; i < foundPathNames.Length - 1 && i < pathNames.Length - 1; i++)
                 {
-                    if (foundPathNames[i].ToLower() == pathNames[i].ToLower()
-                        && foundPathNames[i] != pathNames[i])
+                    if (foundPathNames[i].ToLower() != pathNames[i].ToLower())
+                    {
+                        break;
+                    }
+
+                    if (foundPathNames[i] != pathNames[i])
                     {
                         return false;
                     }

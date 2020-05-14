@@ -144,8 +144,9 @@ namespace UnityGameFramework.Editor.ResourceTools
                     continue;
                 }
 
-                if (assetName.EndsWith("LightingData.asset") && dependencyAssetName.EndsWith(".unity"))
+                if (dependencyAssetName.EndsWith(".unity"))
                 {
+                    // 忽略对场景的依赖
                     continue;
                 }
 

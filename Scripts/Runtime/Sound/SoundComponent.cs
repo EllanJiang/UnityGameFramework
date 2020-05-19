@@ -189,7 +189,7 @@ namespace UnityGameFramework.Runtime
             }
         }
 
-        private void OnDestroy()
+        private void OnApplicationQuit()
         {
 #if UNITY_5_4_OR_NEWER
             SceneManager.sceneLoaded -= OnSceneLoaded;

@@ -227,11 +227,12 @@ namespace UnityGameFramework.Runtime
             GameFrameworkEntry.Update(Time.deltaTime, Time.unscaledDeltaTime);
         }
 
-        private void OnDestroy()
+        private void OnApplicationQuit()
         {
 #if UNITY_5_6_OR_NEWER
             Application.lowMemory -= OnLowMemory;
 #endif
+            StopAllCoroutines();
             GameFrameworkEntry.Shutdown();
         }
 

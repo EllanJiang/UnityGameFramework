@@ -233,6 +233,10 @@ namespace UnityGameFramework.Runtime
             Application.lowMemory -= OnLowMemory;
 #endif
             StopAllCoroutines();
+        }
+
+        private void OnDestroy()
+        {
             GameFrameworkEntry.Shutdown();
         }
 

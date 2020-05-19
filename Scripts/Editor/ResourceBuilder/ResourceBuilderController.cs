@@ -1267,19 +1267,12 @@ namespace UnityGameFramework.Editor.ResourceTools
 
         private int[] GetAssetIndexes(ResourceData resourceData)
         {
-            Asset[] assets = m_ResourceCollection.GetAssets();
-            string[] assetNames = resourceData.GetAssetNames();
-            int[] assetIndexes = new int[assetNames.Length];
-            for (int i = 0; i < assetNames.Length; i++)
+            List<Asset> assets = new List<Asset>(m_ResourceCollection.GetAssets());
+            string[] assetGuids = resourceData.GetAssetGuids();
+            int[] assetIndexes = new int[assetGuids.Length];
+            for (int i = 0; i < assetGuids.Length; i++)
             {
-                for (int j = 0; j < assets.Length; j++)
-                {
-                    if (assets[j].Name == assetNames[i])
-                    {
-                        assetIndexes[i] = j;
-                        break;
-                    }
-                }
+                assetIndexes[i] = assets.BinarySearch(m_ResourceCollection.GetAsset(assetGuids[i]));
             }
 
             return assetIndexes;

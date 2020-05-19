@@ -77,6 +77,17 @@ namespace UnityGameFramework.Editor.ResourceTools
                 return m_ResourceGroups;
             }
 
+            public string[] GetAssetGuids()
+            {
+                string[] assetGuids = new string[m_AssetDatas.Count];
+                for (int i = 0; i < m_AssetDatas.Count; i++)
+                {
+                    assetGuids[i] = m_AssetDatas[i].Guid;
+                }
+
+                return assetGuids;
+            }
+
             public string[] GetAssetNames()
             {
                 string[] assetNames = new string[m_AssetDatas.Count];

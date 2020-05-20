@@ -41,6 +41,11 @@ namespace UnityGameFramework.Editor.ResourceTools
             set;
         }
 
+        public int CompareTo(Asset asset)
+        {
+            return string.Compare(Name, asset.Name);
+        }
+
         public static Asset Create(string guid)
         {
             return new Asset(guid, null);
@@ -49,11 +54,6 @@ namespace UnityGameFramework.Editor.ResourceTools
         public static Asset Create(string guid, Resource resource)
         {
             return new Asset(guid, resource);
-        }
-
-        public int CompareTo(Asset asset)
-        {
-            return string.Compare(Name, asset.Name);
         }
     }
 }

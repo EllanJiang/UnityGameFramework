@@ -5,6 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using System;
 using UnityEditor;
 
 namespace UnityGameFramework.Editor.ResourceTools
@@ -12,7 +13,7 @@ namespace UnityGameFramework.Editor.ResourceTools
     /// <summary>
     /// 资源。
     /// </summary>
-    public sealed class Asset
+    public sealed class Asset : IComparable<Asset>
     {
         private Asset(string guid, Resource resource)
         {
@@ -48,6 +49,11 @@ namespace UnityGameFramework.Editor.ResourceTools
         public static Asset Create(string guid, Resource resource)
         {
             return new Asset(guid, resource);
+        }
+
+        public int CompareTo(Asset asset)
+        {
+            return string.Compare(Name, asset.Name);
         }
     }
 }

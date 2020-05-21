@@ -43,7 +43,7 @@ namespace UnityGameFramework.Editor.ResourceTools
 
         public int CompareTo(Asset asset)
         {
-            return string.Compare(Name, asset.Name);
+            return string.Compare(Guid, asset.Guid);
         }
 
         public static Asset Create(string guid)

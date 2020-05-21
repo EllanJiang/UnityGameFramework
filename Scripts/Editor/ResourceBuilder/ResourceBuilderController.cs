@@ -1273,6 +1273,10 @@ namespace UnityGameFramework.Editor.ResourceTools
             for (int i = 0; i < assetGuids.Length; i++)
             {
                 assetIndexes[i] = Array.BinarySearch(assets, m_ResourceCollection.GetAsset(assetGuids[i]));
+                if (assetIndexes[i] < 0)
+                {
+                    throw new GameFrameworkException("Asset is invalid.");
+                }
             }
 
             return assetIndexes;

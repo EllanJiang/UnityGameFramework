@@ -55,10 +55,13 @@ namespace UnityGameFramework.Runtime
                     return true;
                 }
 
-                using (FileStream fileStream = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
+                lock (this)
                 {
-                    m_Serializer.Deserialize(fileStream);
-                    return true;
+                    using (FileStream fileStream = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
+                    {
+                        m_Serializer.Deserialize(fileStream);
+                        return true;
+                    }
                 }
             }
             catch (Exception exception)
@@ -74,9 +77,12 @@ namespace UnityGameFramework.Runtime
         /// <returns>是否保存游戏配置成功。</returns>
         public override bool Save()
         {
-            using (FileStream fileStream = new FileStream(FilePath, FileMode.Create, FileAccess.Write))
+            lock (this)
             {
-                return m_Serializer.Serialize(fileStream, m_Settings);
+                using (FileStream fileStream = new FileStream(FilePath, FileMode.Create, FileAccess.Write))
+                {
+                    return m_Serializer.Serialize(fileStream, m_Settings);
+                }
             }
         }
 

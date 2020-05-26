@@ -12067,7 +12067,12 @@
         </member>
         <member name="F:GameFramework.Resource.HasAssetResult.NotExist">
             <summary>
-            不存在资源。
+            资源不存在。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Resource.HasAssetResult.NotReady">
+            <summary>
+            资源尚未准备完毕。
             </summary>
         </member>
         <member name="F:GameFramework.Resource.HasAssetResult.Asset">
@@ -13122,14 +13127,14 @@
             加载资源完成。
             </summary>
         </member>
+        <member name="F:GameFramework.Resource.LoadResourceStatus.NotExist">
+            <summary>
+            资源不存在。
+            </summary>
+        </member>
         <member name="F:GameFramework.Resource.LoadResourceStatus.NotReady">
             <summary>
             资源尚未准备完毕。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Resource.LoadResourceStatus.NotExist">
-            <summary>
-            资源不存在于磁盘上。
             </summary>
         </member>
         <member name="F:GameFramework.Resource.LoadResourceStatus.DependencyError">
@@ -14315,7 +14320,7 @@
             资源信息。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Boolean)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Boolean,System.Boolean)">
             <summary>
             初始化资源信息的新实例。
             </summary>
@@ -14324,6 +14329,7 @@
             <param name="length">资源大小。</param>
             <param name="hashCode">资源哈希值。</param>
             <param name="storageInReadOnly">资源是否在只读区。</param>
+            <param name="ready">资源是否准备完毕。</param>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceInfo.ResourceName">
             <summary>
@@ -14348,6 +14354,16 @@
         <member name="P:GameFramework.Resource.ResourceManager.ResourceInfo.StorageInReadOnly">
             <summary>
             获取资源是否在只读区。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceInfo.Ready">
+            <summary>
+            获取资源是否准备完毕。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceInfo.MarkReady">
+            <summary>
+            标记资源准备完毕。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceIniter">
@@ -14828,7 +14844,12 @@
         </member>
         <member name="F:GameFramework.Resource.ResourceMode.Updatable">
             <summary>
-            可更新模式。
+            预下载的可更新模式。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Resource.ResourceMode.UpdatableWhilePlaying">
+            <summary>
+            使用时下载的可更新模式。
             </summary>
         </member>
         <member name="T:GameFramework.Resource.ResourceUpdateChangedEventArgs">

@@ -584,7 +584,7 @@ namespace UnityGameFramework.Runtime
             m_ResourceManager.ResourceCapacity = m_ResourceCapacity;
             m_ResourceManager.ResourceExpireTime = m_ResourceExpireTime;
             m_ResourceManager.ResourcePriority = m_ResourcePriority;
-            if (m_ResourceMode == ResourceMode.Updatable)
+            if (m_ResourceMode == ResourceMode.Updatable || m_ResourceMode == ResourceMode.UpdatableWhilePlaying)
             {
                 m_ResourceManager.UpdatePrefixUri = m_UpdatePrefixUri;
                 m_ResourceManager.GenerateReadWriteVersionListLength = m_GenerateReadWriteVersionListLength;
@@ -657,6 +657,7 @@ namespace UnityGameFramework.Runtime
                     break;
 
                 case ResourceMode.Updatable:
+                case ResourceMode.UpdatableWhilePlaying:
                     m_ResourceManager.UpdatableVersionListSerializer.RegisterDeserializeCallback(0, BuiltinVersionListSerializer.DeserializeUpdatableVersionListCallback_V0);
                     m_ResourceManager.UpdatableVersionListSerializer.RegisterDeserializeCallback(1, BuiltinVersionListSerializer.DeserializeUpdatableVersionListCallback_V1);
                     m_ResourceManager.UpdatableVersionListSerializer.RegisterTryGetValueCallback(0, BuiltinVersionListSerializer.TryGetValueUpdatableVersionListCallback_V0);

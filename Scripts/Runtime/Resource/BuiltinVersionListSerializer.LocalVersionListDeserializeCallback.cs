@@ -20,7 +20,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="binaryReader">指定流。</param>
         /// <returns>反序列化的本地版本资源列表（版本 0）。</returns>
-        public static LocalVersionList DeserializeLocalVersionListCallback_V0(BinaryReader binaryReader)
+        public static LocalVersionList LocalVersionListDeserializeCallback_V0(BinaryReader binaryReader)
         {
             byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
             int resourceCount = binaryReader.ReadInt32();
@@ -43,7 +43,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="binaryReader">指定流。</param>
         /// <returns>反序列化的本地版本资源列表（版本 1）。</returns>
-        public static LocalVersionList DeserializeLocalVersionListCallback_V1(BinaryReader binaryReader)
+        public static LocalVersionList LocalVersionListDeserializeCallback_V1(BinaryReader binaryReader)
         {
             byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
             int resourceCount = binaryReader.Read7BitEncodedInt32();

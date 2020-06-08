@@ -21,7 +21,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="key">指定键。</param>
         /// <param name="value">指定键的值。</param>
         /// <returns></returns>
-        public static bool TryGetValueUpdatableVersionListCallback_V0(BinaryReader binaryReader, string key, out object value)
+        public static bool UpdatableVersionListTryGetValueCallback_V0(BinaryReader binaryReader, string key, out object value)
         {
             value = null;
             if (key != "InternalResourceVersion")
@@ -42,7 +42,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="key">指定键。</param>
         /// <param name="value">指定键的值。</param>
         /// <returns></returns>
-        public static bool TryGetValueUpdatableVersionListCallback_V1(BinaryReader binaryReader, string key, out object value)
+        public static bool UpdatableVersionListTryGetValueCallback_V1(BinaryReader binaryReader, string key, out object value)
         {
             value = null;
             if (key != "InternalResourceVersion")

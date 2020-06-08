@@ -39,6 +39,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             m_ConfigurationPath = Type.GetConfigurationPath<ResourceBuilderConfigPathAttribute>() ?? Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "GameFramework/Configs/ResourceBuilder.xml"));
 
             m_ResourceCollection = new ResourceCollection();
+            Utility.Zip.SetZipHelper(new DefaultZipHelper());
 
             m_ResourceCollection.OnLoadingResource += delegate (int index, int count)
             {
@@ -601,8 +602,6 @@ namespace UnityGameFramework.Editor.ResourceTools
             {
                 return false;
             }
-
-            Utility.Zip.SetZipHelper(new DefaultZipHelper());
 
             if (Directory.Exists(OutputPackagePath))
             {

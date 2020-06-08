@@ -20,7 +20,7 @@ namespace UnityGameFramework.Editor.ResourceTools
         private const float ButtonSpace = 5f;
         private ResourceSyncToolsController m_Controller = null;
 
-        [MenuItem("Game Framework/Resource Tools/Resource Sync Tools", false, 44)]
+        [MenuItem("Game Framework/Resource Tools/Resource Sync Tools", false, 45)]
         private static void Open()
         {
             ResourceSyncTools window = GetWindow<ResourceSyncTools>("Resource Sync Tools", true);

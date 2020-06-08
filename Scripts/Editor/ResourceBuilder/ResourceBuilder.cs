@@ -26,9 +26,9 @@ namespace UnityGameFramework.Editor.ResourceTools
         {
             ResourceBuilder window = GetWindow<ResourceBuilder>("Resource Builder", true);
 #if UNITY_2019_3_OR_NEWER
-            window.minSize = new Vector2(700f, 645f);
+            window.minSize = new Vector2(800f, 645f);
 #else
-            window.minSize = new Vector2(700f, 605f);
+            window.minSize = new Vector2(800f, 605f);
 #endif
         }
 
@@ -134,8 +134,8 @@ namespace UnityGameFramework.Editor.ResourceTools
                         {
                             EditorGUILayout.BeginVertical();
                             {
-                                DrawPlatform(Platform.Windows, "Windows (x86)");
-                                DrawPlatform(Platform.Windows64, "Windows (x64)");
+                                DrawPlatform(Platform.Windows, "Windows");
+                                DrawPlatform(Platform.Windows64, "Windows x64");
                                 DrawPlatform(Platform.MacOS, "macOS");
                                 DrawPlatform(Platform.Linux, "Linux");
                                 DrawPlatform(Platform.IOS, "iOS");

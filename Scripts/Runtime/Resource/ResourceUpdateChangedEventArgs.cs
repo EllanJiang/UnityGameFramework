@@ -80,7 +80,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取压缩包大小。
+        /// 获取压缩后大小。
         /// </summary>
         public int ZipLength
         {

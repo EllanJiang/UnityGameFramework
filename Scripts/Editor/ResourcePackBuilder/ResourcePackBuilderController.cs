@@ -342,7 +342,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 fileStream.Position = position;
                 foreach (ResourcePackVersionList.Resource resource in resourceArray)
                 {
-                    string resourcePath = Path.Combine(targetDirectoryPath, GetResourceFullName(resource.Name, resource.Variant, resource.Extension, resource.HashCode));
+                    string resourcePath = Path.Combine(targetDirectoryPath, GetResourceFullName(resource.Name, resource.Variant, resource.HashCode));
                     if (!File.Exists(resourcePath))
                     {
                         return false;
@@ -377,9 +377,9 @@ namespace UnityGameFramework.Editor.ResourceTools
             return true;
         }
 
-        private string GetResourceFullName(string name, string variant, string extension, int hashCode)
+        private string GetResourceFullName(string name, string variant, int hashCode)
         {
-            return !string.IsNullOrEmpty(variant) ? Utility.Text.Format("{0}.{1}.{3:x8}.{2}", name, variant, extension, hashCode) : Utility.Text.Format("{0}.{2:x8}.{1}", name, extension, hashCode);
+            return !string.IsNullOrEmpty(variant) ? Utility.Text.Format("{0}.{1}.{3:x8}.{2}", name, variant, DefaultExtension, hashCode) : Utility.Text.Format("{0}.{2:x8}.{1}", name, DefaultExtension, hashCode);
         }
     }
 }

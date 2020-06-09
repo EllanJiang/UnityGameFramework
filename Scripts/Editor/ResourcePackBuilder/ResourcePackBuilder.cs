@@ -300,10 +300,9 @@ namespace UnityGameFramework.Editor.ResourceTools
             m_VersionNamesForTargetDisplay = new string[m_VersionNames.Length];
             for (int i = 0; i < m_VersionNames.Length; i++)
             {
-                string[] versionSplits = m_VersionNames[i].Split('_');
-                string versionForDisplay = Utility.Text.Format("{0}.{1}.{2} ({3})", versionSplits[0], versionSplits[1], versionSplits[2], versionSplits[3]);
-                m_VersionNamesForSourceDisplay[i + 1] = versionForDisplay;
-                m_VersionNamesForTargetDisplay[i] = versionForDisplay;
+                string versionNameForDisplay = GetVersionNameForDisplay(m_VersionNames[i]);
+                m_VersionNamesForSourceDisplay[i + 1] = versionNameForDisplay;
+                m_VersionNamesForTargetDisplay[i] = versionNameForDisplay;
             }
 
             m_SourceVersionIndex = 0;
@@ -328,23 +327,48 @@ namespace UnityGameFramework.Editor.ResourceTools
             }
         }
 
+        private string GetVersionNameForDisplay(string versionName)
+        {
+            if (string.IsNullOrEmpty(versionName))
+            {
+                return "<None>";
+            }
+
+            string[] splitedVersionNames = versionName.Split('_');
+            return Utility.Text.Format("{0}.{1}.{2} ({3})", splitedVersionNames[0], splitedVersionNames[1], splitedVersionNames[2], splitedVersionNames[3]);
+        }
+
         private void OnBuildResourcePacksStarted(int count)
         {
+            Debug.Log(Utility.Text.Format("Build resource packs started, '{0}' items to be built.", count.ToString()));
             EditorUtility.DisplayProgressBar("Build Resource Packs", Utility.Text.Format("Build resource packs, {0} items to be built.", count.ToString()), 0f);
         }
 
         private void OnBuildResourcePacksCompleted(int successCount, int count)
         {
+            int failureCount = count - successCount;
+            string str = Utility.Text.Format("Build resource packs completed, '{0}' items, '{1}' success, '{2}' failure.", count.ToString(), successCount.ToString(), failureCount.ToString());
+            if (failureCount > 0)
+            {
+                Debug.LogWarning(str);
+            }
+            else
+            {
+                Debug.Log(str);
+            }
+
             EditorUtility.ClearProgressBar();
         }
 
         private void OnBuildResourcePackSuccess(int index, int count, string sourceVersion, string targetVersion)
         {
+            Debug.Log(Utility.Text.Format("Build resource packs success, source version '{0}', target version '{1}'.", GetVersionNameForDisplay(sourceVersion), GetVersionNameForDisplay(targetVersion)));
             EditorUtility.DisplayProgressBar("Build Resource Packs", Utility.Text.Format("Build resource packs, {0}/{1} completed.", (index + 1).ToString(), count.ToString()), (float)index / count);
         }
 
         private void OnBuildResourcePackFailure(int index, int count, string sourceVersion, string targetVersion)
         {
+            Debug.LogWarning(Utility.Text.Format("Build resource packs failure, source version '{0}', target version '{1}'.", GetVersionNameForDisplay(sourceVersion), GetVersionNameForDisplay(targetVersion)));
             EditorUtility.DisplayProgressBar("Build Resource Packs", Utility.Text.Format("Build resource packs, {0}/{1} completed.", (index + 1).ToString(), count.ToString()), (float)index / count);
         }
     }

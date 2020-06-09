@@ -335,6 +335,11 @@ namespace UnityGameFramework.Editor.ResourceTools
             }
 
             string[] splitedVersionNames = versionName.Split('_');
+            if (splitedVersionNames.Length != 4)
+            {
+                return null;
+            }
+
             return Utility.Text.Format("{0}.{1}.{2} ({3})", splitedVersionNames[0], splitedVersionNames[1], splitedVersionNames[2], splitedVersionNames[3]);
         }
 

@@ -120,7 +120,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             set;
         }
 
-        public int FileLengthLimit
+        public int LengthLimit
         {
             get;
             set;

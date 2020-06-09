@@ -17,15 +17,15 @@ namespace UnityGameFramework.Editor.ResourceTools
     internal sealed class ResourcePackBuilder : EditorWindow
     {
         private static readonly string[] PlatformForDisplay = new string[] { "Windows", "Windows x64", "macOS", "Linux", "iOS", "Android", "Windows Store", "WebGL" };
-        private static readonly int[] FileLengthLimit = new int[] { 0, 128, 256, 512, 1024, 2048, 4096 };
-        private static readonly string[] FileLengthLimitForDisplay = new string[] { "<Unlimited>", "128 MB", "256 MB", "512 MB", "1 GB", "2 GB", "4 GB", "<Custom>" };
+        private static readonly int[] LengthLimit = new int[] { 0, 128, 256, 512, 1024, 2048, 4096 };
+        private static readonly string[] LengthLimitForDisplay = new string[] { "<Unlimited>", "128 MB", "256 MB", "512 MB", "1 GB", "2 GB", "4 GB", "<Custom>" };
 
         private ResourcePackBuilderController m_Controller = null;
         private string[] m_VersionNames = null;
         private string[] m_VersionNamesForSourceDisplay = null;
         private string[] m_VersionNamesForTargetDisplay = null;
         private int m_PlatformIndex = 0;
-        private int m_FileLengthLimitIndex = 0;
+        private int m_LengthLimitIndex = 0;
         private int m_SourceVersionIndex = 0;
         private bool[] m_TargetVersionIndexes = null;
         private int m_TargetVersionCount = 0;
@@ -152,24 +152,27 @@ namespace UnityGameFramework.Editor.ResourceTools
                         EditorGUILayout.EndHorizontal();
                         EditorGUILayout.BeginHorizontal();
                         {
-                            EditorGUILayout.LabelField("File Length Limit", GUILayout.Width(160f));
+                            EditorGUILayout.LabelField("Length Limit", GUILayout.Width(160f));
                             EditorGUILayout.BeginVertical();
                             {
-                                int fileLengthLimitIndex = EditorGUILayout.Popup(m_FileLengthLimitIndex, FileLengthLimitForDisplay);
-                                if (m_FileLengthLimitIndex != fileLengthLimitIndex)
+                                int lengthLimitIndex = EditorGUILayout.Popup(m_LengthLimitIndex, LengthLimitForDisplay);
+                                if (m_LengthLimitIndex != lengthLimitIndex)
                                 {
-                                    m_FileLengthLimitIndex = fileLengthLimitIndex;
-                                    m_Controller.FileLengthLimit = FileLengthLimit[m_FileLengthLimitIndex];
+                                    m_LengthLimitIndex = lengthLimitIndex;
+                                    if (m_LengthLimitIndex < LengthLimit.Length)
+                                    {
+                                        m_Controller.LengthLimit = LengthLimit[m_LengthLimitIndex];
+                                    }
                                 }
 
-                                if (m_FileLengthLimitIndex >= FileLengthLimit.Length)
+                                if (m_LengthLimitIndex >= LengthLimit.Length)
                                 {
                                     EditorGUILayout.BeginHorizontal();
                                     {
-                                        m_Controller.FileLengthLimit = EditorGUILayout.IntField(m_Controller.FileLengthLimit);
-                                        if (m_Controller.FileLengthLimit < 0)
+                                        m_Controller.LengthLimit = EditorGUILayout.IntField(m_Controller.LengthLimit);
+                                        if (m_Controller.LengthLimit < 0)
                                         {
-                                            m_Controller.FileLengthLimit = 0;
+                                            m_Controller.LengthLimit = 0;
                                         }
 
                                         GUILayout.Label(" MB", GUILayout.Width(30f));

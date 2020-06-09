@@ -35,7 +35,7 @@ namespace UnityGameFramework.Editor.ResourceTools
         {
             ResourcePackBuilder window = GetWindow<ResourcePackBuilder>("Resource Pack Builder", true);
 #if UNITY_2019_3_OR_NEWER
-            window.minSize = new Vector2(800f, 385f);
+            window.minSize = new Vector2(800f, 370f);
 #else
             window.minSize = new Vector2(800f, 345f);
 #endif

@@ -252,7 +252,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                     EditorGUILayout.LabelField(Utility.Text.Format("Dependency Resources ({0})", m_SelectedDependencyData.DependencyResourceCount.ToString()), EditorStyles.boldLabel);
                     EditorGUILayout.BeginVertical("box", GUILayout.Height(position.height * 0.2f));
                     {
-                        m_DependencyAssetsScroll = EditorGUILayout.BeginScrollView(m_DependencyAssetsScroll);
+                        m_DependencyResourcesScroll = EditorGUILayout.BeginScrollView(m_DependencyResourcesScroll);
                         {
                             Resource[] dependencyResources = m_SelectedDependencyData.GetDependencyResources();
                             foreach (Resource dependencyResource in dependencyResources)
@@ -266,7 +266,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                     EditorGUILayout.LabelField(Utility.Text.Format("Dependency Assets ({0})", m_SelectedDependencyData.DependencyAssetCount.ToString()), EditorStyles.boldLabel);
                     EditorGUILayout.BeginVertical("box", GUILayout.Height(position.height * 0.3f));
                     {
-                        m_DependencyResourcesScroll = EditorGUILayout.BeginScrollView(m_DependencyResourcesScroll);
+                        m_DependencyAssetsScroll = EditorGUILayout.BeginScrollView(m_DependencyAssetsScroll);
                         {
                             Asset[] dependencyAssets = m_SelectedDependencyData.GetDependencyAssets();
                             foreach (Asset dependencyAsset in dependencyAssets)

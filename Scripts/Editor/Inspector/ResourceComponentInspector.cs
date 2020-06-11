@@ -34,6 +34,8 @@ namespace UnityGameFramework.Editor
         private SerializedProperty m_ResourcePriority = null;
         private SerializedProperty m_UpdatePrefixUri = null;
         private SerializedProperty m_GenerateReadWriteVersionListLength = null;
+        private SerializedProperty m_ApplyingResourcePackPath = null;
+        private SerializedProperty m_ApplyWaitingCount = null;
         private SerializedProperty m_UpdateRetryCount = null;
         private SerializedProperty m_InstanceRoot = null;
         private SerializedProperty m_LoadResourceAgentHelperCount = null;
@@ -263,6 +265,8 @@ namespace UnityGameFramework.Editor
                 EditorGUILayout.LabelField("Resource Group Count", isEditorResourceMode ? "N/A" : t.ResourceGroupCount.ToString());
                 if (m_ResourceModeIndex > 0)
                 {
+                    EditorGUILayout.LabelField("Applying Resource Pack Path", isEditorResourceMode ? "N/A" : t.ApplyingResourcePackPath ?? "<Unknwon>");
+                    EditorGUILayout.LabelField("Apply Waiting Count", isEditorResourceMode ? "N/A" : t.ApplyWaitingCount.ToString());
                     EditorGUILayout.LabelField("Updating Resource Group", isEditorResourceMode ? "N/A" : t.UpdatingResourceGroup != null ? t.UpdatingResourceGroup.Name : "<Unknwon>");
                     EditorGUILayout.LabelField("Update Waiting Count", isEditorResourceMode ? "N/A" : t.UpdateWaitingCount.ToString());
                     EditorGUILayout.LabelField("Update Candidate Count", isEditorResourceMode ? "N/A" : t.UpdateCandidateCount.ToString());
@@ -345,6 +349,8 @@ namespace UnityGameFramework.Editor
             m_ResourcePriority = serializedObject.FindProperty("m_ResourcePriority");
             m_UpdatePrefixUri = serializedObject.FindProperty("m_UpdatePrefixUri");
             m_GenerateReadWriteVersionListLength = serializedObject.FindProperty("m_GenerateReadWriteVersionListLength");
+            m_ApplyingResourcePackPath = serializedObject.FindProperty("m_ApplyingResourcePackPath");
+            m_ApplyWaitingCount = serializedObject.FindProperty("m_ApplyWaitingCount");
             m_UpdateRetryCount = serializedObject.FindProperty("m_UpdateRetryCount");
             m_InstanceRoot = serializedObject.FindProperty("m_InstanceRoot");
             m_LoadResourceAgentHelperCount = serializedObject.FindProperty("m_LoadResourceAgentHelperCount");

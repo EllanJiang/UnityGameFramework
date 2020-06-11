@@ -364,7 +364,7 @@ namespace UnityGameFramework.Editor.DataTableTools
 
             try
             {
-                using (FileStream fileStream = new FileStream(outputFileName, FileMode.Create))
+                using (FileStream fileStream = new FileStream(outputFileName, FileMode.Create, FileAccess.Write))
                 {
                     using (BinaryWriter binaryWriter = new BinaryWriter(fileStream, Encoding.UTF8))
                     {
@@ -457,7 +457,7 @@ namespace UnityGameFramework.Editor.DataTableTools
                     m_CodeGenerator(this, stringBuilder, userData);
                 }
 
-                using (FileStream fileStream = new FileStream(outputFileName, FileMode.Create))
+                using (FileStream fileStream = new FileStream(outputFileName, FileMode.Create, FileAccess.Write))
                 {
                     using (StreamWriter stream = new StreamWriter(fileStream, encoding))
                     {

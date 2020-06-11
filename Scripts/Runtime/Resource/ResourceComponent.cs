@@ -194,6 +194,17 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取资源包版本资源列表序列化器。
+        /// </summary>
+        public ResourcePackVersionListSerializer ResourcePackVersionListSerializer
+        {
+            get
+            {
+                return m_ResourceManager.ResourcePackVersionListSerializer;
+            }
+        }
+
+        /// <summary>
         /// 获取或设置无用资源释放间隔时间。
         /// </summary>
         public float UnloadUnusedAssetsInterval
@@ -290,6 +301,28 @@ namespace UnityGameFramework.Runtime
             set
             {
                 m_ResourceManager.GenerateReadWriteVersionListLength = m_GenerateReadWriteVersionListLength = value;
+            }
+        }
+
+        /// <summary>
+        /// 获取正在应用的资源包路径。
+        /// </summary>
+        public string ApplyingResourcePackPath
+        {
+            get
+            {
+                return m_ResourceManager.ApplyingResourcePackPath;
+            }
+        }
+
+        /// <summary>
+        /// 获取等待应用资源数量。
+        /// </summary>
+        public int ApplyWaitingCount
+        {
+            get
+            {
+                return m_ResourceManager.ApplyWaitingCount;
             }
         }
 
@@ -548,6 +581,8 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
+            m_ResourceManager.ResourceApplySuccess += OnResourceApplySuccess;
+            m_ResourceManager.ResourceApplyFailure += OnResourceApplyFailure;
             m_ResourceManager.ResourceUpdateStart += OnResourceUpdateStart;
             m_ResourceManager.ResourceUpdateChanged += OnResourceUpdateChanged;
             m_ResourceManager.ResourceUpdateSuccess += OnResourceUpdateSuccess;
@@ -668,6 +703,7 @@ namespace UnityGameFramework.Runtime
                     m_ResourceManager.ReadWriteVersionListSerializer.RegisterSerializeCallback(1, BuiltinVersionListSerializer.LocalVersionListSerializeCallback_V1);
                     m_ResourceManager.ReadWriteVersionListSerializer.RegisterDeserializeCallback(0, BuiltinVersionListSerializer.LocalVersionListDeserializeCallback_V0);
                     m_ResourceManager.ReadWriteVersionListSerializer.RegisterDeserializeCallback(1, BuiltinVersionListSerializer.LocalVersionListDeserializeCallback_V1);
+                    m_ResourceManager.ResourcePackVersionListSerializer.RegisterDeserializeCallback(0, BuiltinVersionListSerializer.ResourcePackVersionListDeserializeCallback_V0);
                     break;
             }
         }
@@ -759,6 +795,16 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 使用可更新模式并应用资源包资源。
+        /// </summary>
+        /// <param name="resourcePackPath">要应用的资源包路径。</param>
+        /// <param name="applyResourcesCompleteCallback">使用可更新模式并应用资源包资源完成时的回调函数。</param>
+        public void ApplyResources(string resourcePackPath, ApplyResourcesCompleteCallback applyResourcesCompleteCallback)
+        {
+            m_ResourceManager.ApplyResources(resourcePackPath, applyResourcesCompleteCallback);
+        }
+
+        /// <summary>
         /// 使用可更新模式并更新全部资源。
         /// </summary>
         /// <param name="updateResourcesCompleteCallback">使用可更新模式并更新默认资源组完成时的回调函数。</param>
@@ -775,6 +821,16 @@ namespace UnityGameFramework.Runtime
         public void UpdateResources(string resourceGroupName, UpdateResourcesCompleteCallback updateResourcesCompleteCallback)
         {
             m_ResourceManager.UpdateResources(resourceGroupName, updateResourcesCompleteCallback);
+        }
+
+        /// <summary>
+        /// 校验资源包。
+        /// </summary>
+        /// <param name="resourcePackPath">要校验的资源包路径。</param>
+        /// <returns>是否校验资源包成功。</returns>
+        public bool VerifyResourcePack(string resourcePackPath)
+        {
+            return m_ResourceManager.VerifyResourcePack(resourcePackPath);
         }
 
         /// <summary>
@@ -1012,6 +1068,16 @@ namespace UnityGameFramework.Runtime
             transform.localScale = Vector3.one;
 
             m_ResourceManager.AddLoadResourceAgentHelper(loadResourceAgentHelper);
+        }
+
+        private void OnResourceApplySuccess(object sender, GameFramework.Resource.ResourceApplySuccessEventArgs e)
+        {
+            m_EventComponent.Fire(this, ResourceApplySuccessEventArgs.Create(e));
+        }
+
+        private void OnResourceApplyFailure(object sender, GameFramework.Resource.ResourceApplyFailureEventArgs e)
+        {
+            m_EventComponent.Fire(this, ResourceApplyFailureEventArgs.Create(e));
         }
 
         private void OnResourceUpdateStart(object sender, GameFramework.Resource.ResourceUpdateStartEventArgs e)

@@ -134,6 +134,17 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取资源包版本资源列表序列化器。
+        /// </summary>
+        public ResourcePackVersionListSerializer ResourcePackVersionListSerializer
+        {
+            get
+            {
+                throw new NotSupportedException("ResourcePackVersionListSerializer");
+            }
+        }
+
+        /// <summary>
         /// 获取当前资源适用的游戏版本号。
         /// </summary>
         public string ApplicableGameVersion
@@ -204,7 +215,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取或设置每下载多少字节的资源，重新生成一次版本资源列表。
+        /// 获取或设置每更新多少字节的资源，重新生成一次版本资源列表。
         /// </summary>
         public int GenerateReadWriteVersionListLength
         {
@@ -215,6 +226,28 @@ namespace UnityGameFramework.Runtime
             set
             {
                 throw new NotSupportedException("GenerateReadWriteVersionListLength");
+            }
+        }
+
+        /// <summary>
+        /// 获取正在应用的资源包路径。
+        /// </summary>
+        public string ApplyingResourcePackPath
+        {
+            get
+            {
+                throw new NotSupportedException("ApplyingResourcePackPath");
+            }
+        }
+
+        /// <summary>
+        /// 获取等待应用资源数量。
+        /// </summary>
+        public int ApplyWaitingCount
+        {
+            get
+            {
+                throw new NotSupportedException("ApplyWaitingCount");
             }
         }
 
@@ -453,6 +486,16 @@ namespace UnityGameFramework.Runtime
         }
 
 #pragma warning disable 0067, 0414
+
+        /// <summary>
+        /// 资源应用成功事件。
+        /// </summary>
+        public event EventHandler<GameFramework.Resource.ResourceApplySuccessEventArgs> ResourceApplySuccess = null;
+
+        /// <summary>
+        /// 资源应用失败事件。
+        /// </summary>
+        public event EventHandler<GameFramework.Resource.ResourceApplyFailureEventArgs> ResourceApplyFailure = null;
 
         /// <summary>
         /// 资源更新开始事件。
@@ -777,6 +820,16 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 使用可更新模式并应用资源包资源。
+        /// </summary>
+        /// <param name="resourcePackPath">要应用的资源包路径。</param>
+        /// <param name="applyResourcesCompleteCallback">使用可更新模式并应用资源包资源完成时的回调函数。</param>
+        public void ApplyResources(string resourcePackPath, ApplyResourcesCompleteCallback applyResourcesCompleteCallback)
+        {
+            throw new NotSupportedException("ApplyResources");
+        }
+
+        /// <summary>
         /// 使用可更新模式并更新全部资源。
         /// </summary>
         /// <param name="updateResourcesCompleteCallback">使用可更新模式并更新默认资源组完成时的回调函数。</param>
@@ -793,6 +846,16 @@ namespace UnityGameFramework.Runtime
         public void UpdateResources(string resourceGroupName, UpdateResourcesCompleteCallback updateResourcesCompleteCallback)
         {
             throw new NotSupportedException("UpdateResources");
+        }
+
+        /// <summary>
+        /// 校验资源包。
+        /// </summary>
+        /// <param name="resourcePackPath">要校验的资源包路径。</param>
+        /// <returns>是否校验资源包成功。</returns>
+        public bool VerifyResourcePack(string resourcePackPath)
+        {
+            throw new NotSupportedException("VerifyResourcePack");
         }
 
         /// <summary>

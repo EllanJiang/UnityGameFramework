@@ -14475,6 +14475,18 @@
             </summary>
             <param name="results">资源组包含的资源名称列表。</param>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroup.InternalGetResourceNames">
+            <summary>
+            获取资源组包含的资源名称列表。
+            </summary>
+            <returns>资源组包含的资源名称列表。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroup.InternalGetResourceNames(System.Collections.Generic.List{GameFramework.Resource.ResourceManager.ResourceName})">
+            <summary>
+            获取资源组包含的资源名称列表。
+            </summary>
+            <param name="results">资源组包含的资源名称列表。</param>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceGroup.HasResource(GameFramework.Resource.ResourceManager.ResourceName)">
             <summary>
             检查指定资源是否属于资源组。

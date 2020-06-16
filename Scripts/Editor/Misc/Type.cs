@@ -20,6 +20,7 @@ namespace UnityGameFramework.Editor
         {
 #if UNITY_2017_3_OR_NEWER
             "UnityGameFramework.Runtime",
+			"Sudoku.GameMain",
 #endif
             "Assembly-CSharp"
         };
@@ -28,6 +29,7 @@ namespace UnityGameFramework.Editor
         {
 #if UNITY_2017_3_OR_NEWER
             "UnityGameFramework.Editor",
+			"Sudoku.Editor",
 #endif
             "Assembly-CSharp-Editor"
         };

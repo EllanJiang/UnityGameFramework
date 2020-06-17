@@ -7,9 +7,11 @@
 
 using GameFramework;
 using GameFramework.Resource;
+
 #if UNITY_5_3
 using GameFramework.Scene;
 #endif
+
 using GameFramework.Sound;
 using System.Collections.Generic;
 using UnityEngine;
@@ -189,7 +191,7 @@ namespace UnityGameFramework.Runtime
             }
         }
 
-        private void OnApplicationQuit()
+        private void OnDestroy()
         {
 #if UNITY_5_4_OR_NEWER
             SceneManager.sceneLoaded -= OnSceneLoaded;

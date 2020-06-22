@@ -338,12 +338,18 @@ namespace UnityGameFramework.Editor.ResourceTools
             }
 
             string[] splitedVersionNames = versionName.Split('_');
-            if (splitedVersionNames.Length != 4)
+            if (splitedVersionNames.Length < 2)
             {
                 return null;
             }
 
-            return Utility.Text.Format("{0}.{1}.{2} ({3})", splitedVersionNames[0], splitedVersionNames[1], splitedVersionNames[2], splitedVersionNames[3]);
+            string text = splitedVersionNames[0];
+            for (int i = 1; i < splitedVersionNames.Length - 1; i++)
+            {
+                text += "." + splitedVersionNames[i];
+            }
+
+            return Utility.Text.Format("{0} ({1})", text, splitedVersionNames[splitedVersionNames.Length - 1]);
         }
 
         private void OnBuildResourcePacksStarted(int count)

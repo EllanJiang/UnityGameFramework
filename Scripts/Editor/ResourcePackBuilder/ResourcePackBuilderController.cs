@@ -191,13 +191,23 @@ namespace UnityGameFramework.Editor.ResourceTools
             foreach (DirectoryInfo directoryInfo in sourceDirectoryInfo.GetDirectories())
             {
                 string[] splitedVersion = directoryInfo.Name.Split('_');
-                if (splitedVersion.Length != 4)
+                if (splitedVersion.Length < 2)
                 {
                     continue;
                 }
 
+                bool invalid = false;
                 int value = 0;
-                if (!int.TryParse(splitedVersion[0], out value) || !int.TryParse(splitedVersion[1], out value) || !int.TryParse(splitedVersion[2], out value) || !int.TryParse(splitedVersion[3], out value))
+                for (int i = 0; i < splitedVersion.Length; i++)
+                {
+                    if (!int.TryParse(splitedVersion[i], out value))
+                    {
+                        invalid = true;
+                        break;
+                    }
+                }
+
+                if (invalid)
                 {
                     continue;
                 }
@@ -367,7 +377,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 }
             }
 
-            string targetResourcePackName = Path.Combine(OutputPath, Utility.Text.Format("{0}-{1}-{2}.{3:x8}.{4}", DefaultResourcePackName, sourceVersion ?? "0_0_0_0", targetVersion, hashCode, DefaultExtension));
+            string targetResourcePackName = Path.Combine(OutputPath, Utility.Text.Format("{0}-{1}-{2}.{3:x8}.{4}", DefaultResourcePackName, sourceVersion ?? "0", targetVersion, hashCode, DefaultExtension));
             if (File.Exists(targetResourcePackName))
             {
                 File.Delete(targetResourcePackName);

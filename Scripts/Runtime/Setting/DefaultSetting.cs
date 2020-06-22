@@ -42,8 +42,8 @@ namespace UnityGameFramework.Runtime
         /// <returns>所有游戏配置项的名称。</returns>
         public string[] GetAllSettingNames()
         {
-            string[] allSettingNames = new string[m_Settings.Count];
             int index = 0;
+            string[] allSettingNames = new string[m_Settings.Count];
             foreach (KeyValuePair<string, string> setting in m_Settings)
             {
                 allSettingNames[index++] = setting.Key;

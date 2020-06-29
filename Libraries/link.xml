@@ -20,6 +20,7 @@ For versions before Unity 2017.3 (excluded), please delete the above contents an
     <namespace fullname="GameFramework.Download" preserve="all" />
     <namespace fullname="GameFramework.Entity" preserve="all" />
     <namespace fullname="GameFramework.Event" preserve="all" />
+    <namespace fullname="GameFramework.FileSystem" preserve="all" />
     <namespace fullname="GameFramework.Fsm" preserve="all" />
     <namespace fullname="GameFramework.Localization" preserve="all" />
     <namespace fullname="GameFramework.Network" preserve="all" />

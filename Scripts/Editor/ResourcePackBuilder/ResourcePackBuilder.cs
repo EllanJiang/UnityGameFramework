@@ -22,13 +22,13 @@ namespace UnityGameFramework.Editor.ResourceTools
 
         private ResourcePackBuilderController m_Controller = null;
         private string[] m_VersionNames = null;
-        private string[] m_VersionNamesForSourceDisplay = null;
         private string[] m_VersionNamesForTargetDisplay = null;
+        private string[] m_VersionNamesForSourceDisplay = null;
         private int m_PlatformIndex = 0;
         private int m_LengthLimitIndex = 0;
-        private int m_SourceVersionIndex = 0;
-        private bool[] m_TargetVersionIndexes = null;
-        private int m_TargetVersionCount = 0;
+        private int m_TargetVersionIndex = 0;
+        private bool[] m_SourceVersionIndexes = null;
+        private int m_SourceVersionCount = 0;
 
         [MenuItem("Game Framework/Resource Tools/Resource Pack Builder", false, 44)]
         private static void Open()
@@ -185,38 +185,53 @@ namespace UnityGameFramework.Editor.ResourceTools
                         EditorGUILayout.EndHorizontal();
                         EditorGUILayout.BeginHorizontal();
                         {
-                            EditorGUILayout.LabelField("Source Version", GUILayout.Width(160f));
-                            m_SourceVersionIndex = EditorGUILayout.Popup(m_SourceVersionIndex, m_VersionNamesForSourceDisplay);
+                            EditorGUILayout.LabelField("Target Version", GUILayout.Width(160f));
+                            int value = EditorGUILayout.Popup(m_TargetVersionIndex, m_VersionNamesForTargetDisplay);
+                            if (m_TargetVersionIndex != value)
+                            {
+                                m_TargetVersionIndex = value;
+                                RefreshSourceVersionCount();
+                            }
                         }
                         EditorGUILayout.EndHorizontal();
                         EditorGUILayout.BeginHorizontal();
                         {
-                            EditorGUILayout.LabelField("Target Version", GUILayout.Width(160f));
+                            EditorGUILayout.LabelField("Source Version", GUILayout.Width(160f));
                             EditorGUILayout.BeginVertical();
                             {
-                                int count = m_VersionNamesForTargetDisplay.Length;
+                                int count = m_VersionNamesForSourceDisplay.Length;
                                 if (count > 0)
                                 {
                                     EditorGUILayout.BeginHorizontal();
                                     {
-                                        EditorGUILayout.LabelField(m_TargetVersionCount.ToString() + (m_TargetVersionCount > 1 ? " items" : " item") + " selected.");
-                                        if (GUILayout.Button("Select All"))
+                                        EditorGUILayout.LabelField(m_SourceVersionCount.ToString() + (m_SourceVersionCount > 1 ? " items" : " item") + " selected.");
+                                        if (GUILayout.Button("Select All Except <None>", GUILayout.Width(180f)))
                                         {
-                                            for (int i = 0; i < m_TargetVersionIndexes.Length; i++)
+                                            m_SourceVersionIndexes[0] = false;
+                                            for (int i = 1; i < m_SourceVersionIndexes.Length; i++)
                                             {
-                                                m_TargetVersionIndexes[i] = true;
+                                                m_SourceVersionIndexes[i] = true;
                                             }
 
-                                            RefreshTargetVersionCount();
+                                            RefreshSourceVersionCount();
                                         }
-                                        if (GUILayout.Button("Select None"))
+                                        if (GUILayout.Button("Select All", GUILayout.Width(100f)))
                                         {
-                                            for (int i = 0; i < m_TargetVersionIndexes.Length; i++)
+                                            for (int i = 0; i < m_SourceVersionIndexes.Length; i++)
                                             {
-                                                m_TargetVersionIndexes[i] = false;
+                                                m_SourceVersionIndexes[i] = true;
                                             }
 
-                                            RefreshTargetVersionCount();
+                                            RefreshSourceVersionCount();
+                                        }
+                                        if (GUILayout.Button("Select None", GUILayout.Width(100f)))
+                                        {
+                                            for (int i = 0; i < m_SourceVersionIndexes.Length; i++)
+                                            {
+                                                m_SourceVersionIndexes[i] = false;
+                                            }
+
+                                            RefreshSourceVersionCount();
                                         }
                                     }
                                     EditorGUILayout.EndHorizontal();
@@ -233,12 +248,17 @@ namespace UnityGameFramework.Editor.ResourceTools
                                                     int index = j * column + i;
                                                     if (index < count)
                                                     {
-                                                        bool selected = GUILayout.Toggle(m_TargetVersionIndexes[index], m_VersionNamesForTargetDisplay[index], "button");
-                                                        if (m_TargetVersionIndexes[index] != selected)
+                                                        bool isTarget = index - 1 == m_TargetVersionIndex;
+                                                        EditorGUI.BeginDisabledGroup(isTarget);
                                                         {
-                                                            m_TargetVersionIndexes[index] = selected;
-                                                            RefreshTargetVersionCount();
+                                                            bool selected = GUILayout.Toggle(m_SourceVersionIndexes[index], isTarget ? m_VersionNamesForSourceDisplay[index] + " [Target]" : m_VersionNamesForSourceDisplay[index], "button");
+                                                            if (m_SourceVersionIndexes[index] != selected)
+                                                            {
+                                                                m_SourceVersionIndexes[index] = selected;
+                                                                RefreshSourceVersionCount();
+                                                            }
                                                         }
+                                                        EditorGUI.EndDisabledGroup();
                                                     }
                                                 }
                                             }
@@ -262,21 +282,21 @@ namespace UnityGameFramework.Editor.ResourceTools
                 GUILayout.Space(2f);
                 EditorGUILayout.BeginHorizontal();
                 {
-                    EditorGUI.BeginDisabledGroup(m_Controller.Platform == Platform.Undefined || !m_Controller.IsValidWorkingDirectory || m_TargetVersionCount <= 0);
+                    EditorGUI.BeginDisabledGroup(m_Controller.Platform == Platform.Undefined || !m_Controller.IsValidWorkingDirectory || m_SourceVersionCount <= 0);
                     {
                         if (GUILayout.Button("Start Build Resource Packs"))
                         {
-                            string[] targetVersions = new string[m_TargetVersionCount];
+                            string[] sourceVersions = new string[m_SourceVersionCount];
                             int count = 0;
-                            for (int i = 0; i < m_TargetVersionIndexes.Length; i++)
+                            for (int i = 0; i < m_SourceVersionIndexes.Length; i++)
                             {
-                                if (m_TargetVersionIndexes[i])
+                                if (m_SourceVersionIndexes[i])
                                 {
-                                    targetVersions[count++] = m_VersionNames[i];
+                                    sourceVersions[count++] = i > 0 ? m_VersionNames[i - 1] : null;
                                 }
                             }
 
-                            m_Controller.BuildResourcePacks(m_SourceVersionIndex > 0 ? m_VersionNames[m_SourceVersionIndex - 1] : null, targetVersions);
+                            m_Controller.BuildResourcePacks(sourceVersions, m_VersionNames[m_TargetVersionIndex]);
                         }
                     }
                     EditorGUI.EndDisabledGroup();
@@ -298,34 +318,35 @@ namespace UnityGameFramework.Editor.ResourceTools
         private void RefreshVersionNames()
         {
             m_VersionNames = m_Controller.GetVersionNames();
+            m_VersionNamesForTargetDisplay = new string[m_VersionNames.Length];
             m_VersionNamesForSourceDisplay = new string[m_VersionNames.Length + 1];
             m_VersionNamesForSourceDisplay[0] = "<None>";
-            m_VersionNamesForTargetDisplay = new string[m_VersionNames.Length];
             for (int i = 0; i < m_VersionNames.Length; i++)
             {
                 string versionNameForDisplay = GetVersionNameForDisplay(m_VersionNames[i]);
-                m_VersionNamesForSourceDisplay[i + 1] = versionNameForDisplay;
                 m_VersionNamesForTargetDisplay[i] = versionNameForDisplay;
+                m_VersionNamesForSourceDisplay[i + 1] = versionNameForDisplay;
             }
 
-            m_SourceVersionIndex = 0;
-            m_TargetVersionIndexes = new bool[m_VersionNames.Length];
-            m_TargetVersionCount = 0;
+            m_TargetVersionIndex = m_VersionNames.Length - 1;
+            m_SourceVersionIndexes = new bool[m_VersionNames.Length + 1];
+            m_SourceVersionCount = 0;
         }
 
-        private void RefreshTargetVersionCount()
+        private void RefreshSourceVersionCount()
         {
-            m_TargetVersionCount = 0;
-            if (m_TargetVersionIndexes == null)
+            m_SourceVersionIndexes[m_TargetVersionIndex + 1] = false;
+            m_SourceVersionCount = 0;
+            if (m_SourceVersionIndexes == null)
             {
                 return;
             }
 
-            for (int i = 0; i < m_TargetVersionIndexes.Length; i++)
+            for (int i = 0; i < m_SourceVersionIndexes.Length; i++)
             {
-                if (m_TargetVersionIndexes[i])
+                if (m_SourceVersionIndexes[i])
                 {
-                    m_TargetVersionCount++;
+                    m_SourceVersionCount++;
                 }
             }
         }

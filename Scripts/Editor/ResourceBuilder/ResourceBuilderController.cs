@@ -940,6 +940,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             {
                 VersionListData versionListData = ProcessUpdatableVersionList(outputFullPath, platform);
                 m_BuildReport.LogInfo("Process updatable version list for '{0}' complete, updatable version list path is '{1}', length is '{2}', hash code is '{3}[0x{3:X8}]', zip length is '{4}', zip hash code is '{5}[0x{5:X8}]'.", platformName, versionListData.Path, versionListData.Length.ToString(), versionListData.HashCode, versionListData.ZipLength.ToString(), versionListData.ZipHashCode);
+                m_BuildEventHandler.OutputUpdatableVersionListData(platform, versionListData.Path, versionListData.Length, versionListData.HashCode, versionListData.ZipLength, versionListData.ZipHashCode);
             }
 
             if (OutputPackedSelected)

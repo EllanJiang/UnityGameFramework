@@ -98,5 +98,16 @@ namespace UnityGameFramework.Editor.ResourceTools
         /// <param name="outputPackedPath">为可更新模式生成的本地文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
         /// <param name="isSuccess">是否生成成功。</param>
         void PostprocessPlatform(Platform platform, string workingPath, bool outputPackageSelected, string outputPackagePath, bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, bool isSuccess);
+
+        /// <summary>
+        /// 输出某个平台可更新模式版本列表文件的处理事件。
+        /// </summary>
+        /// <param name="platform">生成平台。</param>
+        /// <param name="versionListPath">可更新模式版本列表文件的路径。</param>
+        /// <param name="versionListLength">可更新模式版本列表文件的长度。</param>
+        /// <param name="versionListHashCode">可更新模式版本列表文件的校验值。</param>
+        /// <param name="versionListZipLength">可更新模式版本列表文件压缩后的长度。</param>
+        /// <param name="versionListZipHashCode">可更新模式版本列表文件压缩后的校验值。</param>
+        void OutputUpdatableVersionListData(Platform platform, string versionListPath, int versionListLength, int versionListHashCode, int versionListZipLength, int versionListZipHashCode);
     }
 }

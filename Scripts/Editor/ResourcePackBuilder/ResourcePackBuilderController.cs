@@ -190,14 +190,24 @@ namespace UnityGameFramework.Editor.ResourceTools
             List<string> versionNames = new List<string>();
             foreach (DirectoryInfo directoryInfo in sourceDirectoryInfo.GetDirectories())
             {
-                string[] splitedVersion = directoryInfo.Name.Split('_');
-                if (splitedVersion.Length != 4)
+                string[] splitedVersionNames = directoryInfo.Name.Split('_');
+                if (splitedVersionNames.Length < 2)
                 {
                     continue;
                 }
 
+                bool invalid = false;
                 int value = 0;
-                if (!int.TryParse(splitedVersion[0], out value) || !int.TryParse(splitedVersion[1], out value) || !int.TryParse(splitedVersion[2], out value) || !int.TryParse(splitedVersion[3], out value))
+                for (int i = 0; i < splitedVersionNames.Length; i++)
+                {
+                    if (!int.TryParse(splitedVersionNames[i], out value))
+                    {
+                        invalid = true;
+                        break;
+                    }
+                }
+
+                if (invalid)
                 {
                     continue;
                 }
@@ -225,9 +235,9 @@ namespace UnityGameFramework.Editor.ResourceTools
             return versionNames.ToArray();
         }
 
-        public void BuildResourcePacks(string sourceVersion, string[] targetVersions)
+        public void BuildResourcePacks(string[] sourceVersions, string targetVersion)
         {
-            int count = targetVersions.Length;
+            int count = sourceVersions.Length;
             if (OnBuildResourcePacksStarted != null)
             {
                 OnBuildResourcePacksStarted(count);
@@ -236,19 +246,19 @@ namespace UnityGameFramework.Editor.ResourceTools
             int successCount = 0;
             for (int i = 0; i < count; i++)
             {
-                if (BuildResourcePack(sourceVersion, targetVersions[i]))
+                if (BuildResourcePack(sourceVersions[i], targetVersion))
                 {
                     successCount++;
                     if (OnBuildResourcePackSuccess != null)
                     {
-                        OnBuildResourcePackSuccess(i, count, sourceVersion, targetVersions[i]);
+                        OnBuildResourcePackSuccess(i, count, sourceVersions[i], targetVersion);
                     }
                 }
                 else
                 {
                     if (OnBuildResourcePackFailure != null)
                     {
-                        OnBuildResourcePackFailure(i, count, sourceVersion, targetVersions[i]);
+                        OnBuildResourcePackFailure(i, count, sourceVersions[i], targetVersion);
                     }
                 }
             }
@@ -367,7 +377,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 }
             }
 
-            string targetResourcePackName = Path.Combine(OutputPath, Utility.Text.Format("{0}-{1}-{2}.{3:x8}.{4}", DefaultResourcePackName, sourceVersion ?? "0_0_0_0", targetVersion, hashCode, DefaultExtension));
+            string targetResourcePackName = Path.Combine(OutputPath, Utility.Text.Format("{0}-{1}-{2}.{3:x8}.{4}", DefaultResourcePackName, sourceVersion ?? GetNoneVersion(targetVersion), targetVersion, hashCode, DefaultExtension));
             if (File.Exists(targetResourcePackName))
             {
                 File.Delete(targetResourcePackName);
@@ -375,6 +385,17 @@ namespace UnityGameFramework.Editor.ResourceTools
 
             File.Move(defaultResourcePackName, targetResourcePackName);
             return true;
+        }
+
+        private string GetNoneVersion(string targetVersion)
+        {
+            string[] splitedVersionNames = targetVersion.Split('_');
+            for (int i = 0; i < splitedVersionNames.Length; i++)
+            {
+                splitedVersionNames[i] = "0";
+            }
+
+            return string.Join("_", splitedVersionNames);
         }
 
         private string GetResourceFullName(string name, string variant, int hashCode)

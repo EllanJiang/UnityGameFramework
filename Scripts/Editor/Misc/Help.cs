@@ -5,7 +5,6 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
-using GameFramework;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,11 +15,6 @@ namespace UnityGameFramework.Editor
     /// </summary>
     public static class Help
     {
-        public static void ShowComponentHelp(string componentName)
-        {
-            ShowHelp(Utility.Text.Format("https://gameframework.cn/document/{0}/", componentName));
-        }
-
         [MenuItem("Game Framework/Documentation", false, 90)]
         public static void ShowDocumentation()
         {

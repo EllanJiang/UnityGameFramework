@@ -35,7 +35,7 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
-            if (offset < 0 || length <= 0 || offset + length > bytes.Length)
+            if (offset < 0 || length < 0 || offset + length > bytes.Length)
             {
                 return false;
             }
@@ -115,7 +115,7 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
-            if (offset < 0 || length <= 0 || offset + length > bytes.Length)
+            if (offset < 0 || length < 0 || offset + length > bytes.Length)
             {
                 return false;
             }

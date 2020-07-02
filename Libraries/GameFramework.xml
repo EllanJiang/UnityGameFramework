@@ -1552,7 +1552,7 @@
             </summary>
             <param name="binaryWriter">目标流。</param>
             <param name="data">要序列化的数据。</param>
-            <returns>序列化数据是否成功。</returns>
+            <returns>是否序列化数据成功。</returns>
         </member>
         <member name="T:GameFramework.GameFrameworkSerializer`1.DeserializeCallback">
             <summary>
@@ -1568,7 +1568,7 @@
             <param name="binaryReader">指定流。</param>
             <param name="key">指定键。</param>
             <param name="value">指定键的值。</param>
-            <returns>从指定流获取指定键的值是否成功。</returns>
+            <returns>是否从指定流获取指定键的值成功。</returns>
         </member>
         <member name="M:GameFramework.GameFrameworkSerializer`1.RegisterSerializeCallback(System.Byte,GameFramework.GameFrameworkSerializer{`0}.SerializeCallback)">
             <summary>
@@ -1597,7 +1597,7 @@
             </summary>
             <param name="stream">目标流。</param>
             <param name="data">要序列化的数据。</param>
-            <returns>序列化数据是否成功。</returns>
+            <returns>是否序列化数据成功。</returns>
         </member>
         <member name="M:GameFramework.GameFrameworkSerializer`1.Serialize(System.IO.Stream,`0,System.Byte)">
             <summary>
@@ -1606,7 +1606,7 @@
             <param name="stream">目标流。</param>
             <param name="data">要序列化的数据。</param>
             <param name="version">序列化回调函数的版本。</param>
-            <returns>序列化数据是否成功。</returns>
+            <returns>是否序列化数据成功。</returns>
         </member>
         <member name="M:GameFramework.GameFrameworkSerializer`1.Deserialize(System.IO.Stream)">
             <summary>
@@ -1622,7 +1622,7 @@
             <param name="stream">指定流。</param>
             <param name="key">指定键。</param>
             <param name="value">指定键的值。</param>
-            <returns>从指定流获取指定键的值是否成功。</returns>
+            <returns>是否从指定流获取指定键的值成功。</returns>
         </member>
         <member name="M:GameFramework.GameFrameworkSerializer`1.GetHeader">
             <summary>
@@ -2263,7 +2263,7 @@
             移除任务。
             </summary>
             <param name="serialId">要移除任务的序列编号。</param>
-            <returns>移除任务是否成功。</returns>
+            <returns>是否移除任务成功。</returns>
         </member>
         <member name="M:GameFramework.TaskPool`1.RemoveAllTasks">
             <summary>
@@ -7435,14 +7435,14 @@
             增加文件系统名称。
             </summary>
             <param name="name">要增加的文件系统名称。</param>
-            <returns>增加文件系统名称是否成功。</returns>
+            <returns>是否增加文件系统名称成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystem.RemoveName(System.String)">
             <summary>
             移除文件系统名称。
             </summary>
             <param name="name">要移除的文件系统名称。</param>
-            <returns>移除文件系统名称是否成功。</returns>
+            <returns>是否移除文件系统名称成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystem.GetFileInfo(System.String)">
             <summary>
@@ -7512,13 +7512,89 @@
             <param name="stream">存储读取文件内容的二进制流。</param>
             <returns>实际读取了多少字节。</returns>
         </member>
+        <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>存储读取文件片段内容的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Int64,System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="offset">要读取片段的偏移。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>存储读取文件片段内容的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Byte[],System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
+            <param name="startIndex">存储读取文件片段内容的二进制流的起始位置。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Int64,System.Byte[],System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="offset">要读取片段的偏移。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Int64,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="offset">要读取片段的偏移。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
+            <param name="startIndex">存储读取文件片段内容的二进制流的起始位置。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.IO.Stream,System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="stream">存储读取文件片段内容的二进制流。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Int64,System.IO.Stream,System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="offset">要读取片段的偏移。</param>
+            <param name="stream">存储读取文件片段内容的二进制流。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
         <member name="M:GameFramework.FileSystem.FileSystem.WriteFile(System.String,System.Byte[])">
             <summary>
             写入指定文件。
             </summary>
             <param name="name">要写入的文件名称。</param>
             <param name="buffer">存储写入文件内容的二进制流。</param>
-            <returns>写入指定文件是否成功。</returns>
+            <returns>是否写入指定文件成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystem.WriteFile(System.String,System.Byte[],System.Int32)">
             <summary>
@@ -7527,7 +7603,7 @@
             <param name="name">要写入的文件名称。</param>
             <param name="buffer">存储写入文件内容的二进制流。</param>
             <param name="startIndex">存储写入文件内容的二进制流的起始位置。</param>
-            <returns>写入指定文件是否成功。</returns>
+            <returns>是否写入指定文件成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystem.WriteFile(System.String,System.Byte[],System.Int32,System.Int32)">
             <summary>
@@ -7537,7 +7613,7 @@
             <param name="buffer">存储写入文件内容的二进制流。</param>
             <param name="startIndex">存储写入文件内容的二进制流的起始位置。</param>
             <param name="length">存储写入文件内容的二进制流的长度。</param>
-            <returns>写入指定文件是否成功。</returns>
+            <returns>是否写入指定文件成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystem.WriteFile(System.String,System.IO.Stream)">
             <summary>
@@ -7545,7 +7621,7 @@
             </summary>
             <param name="name">要写入的文件名称。</param>
             <param name="stream">存储写入文件内容的二进制流。</param>
-            <returns>写入指定文件是否成功。</returns>
+            <returns>是否写入指定文件成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystem.WriteFile(System.String,System.String)">
             <summary>
@@ -7553,7 +7629,7 @@
             </summary>
             <param name="name">要写入的文件名称。</param>
             <param name="filePath">存储写入文件内容的文件路径。</param>
-            <returns>写入指定文件是否成功。</returns>
+            <returns>是否写入指定文件成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystem.SaveAsFile(System.String,System.String)">
             <summary>
@@ -7561,7 +7637,7 @@
             </summary>
             <param name="name">要另存为的文件名称。</param>
             <param name="filePath">存储写入文件内容的文件路径。</param>
-            <returns>将指定文件另存为物理文件是否成功。</returns>
+            <returns>是否将指定文件另存为物理文件成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystem.RenameFile(System.String,System.String)">
             <summary>
@@ -7569,7 +7645,7 @@
             </summary>
             <param name="oldName">要重命名的文件名称。</param>
             <param name="newName">重命名后的文件名称。</param>
-            <returns>重命名指定文件是否成功。</returns>
+            <returns>是否重命名指定文件成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystem.DeleteFile(System.String)">
             <summary>
@@ -7670,7 +7746,7 @@
             </summary>
             <param name="name">要注册的文件系统的名称。</param>
             <param name="fileSystem">要注册的文件系统。</param>
-            <returns>注册的文件系统是否成功。</returns>
+            <returns>是否注册文件系统成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystemManager.UnregisterFileSystem(System.String,GameFramework.FileSystem.IFileSystem)">
             <summary>
@@ -7678,7 +7754,7 @@
             </summary>
             <param name="name">要解除注册的文件系统的名称。</param>
             <param name="fileSystem">要解除注册的文件系统。</param>
-            <returns>解除注册的文件系统是否成功。</returns>
+            <returns>是否解除注册文件系统成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystemManager.GetFileSystem(System.String)">
             <summary>
@@ -7913,13 +7989,89 @@
             <param name="stream">存储读取文件内容的二进制流。</param>
             <returns>实际读取了多少字节。</returns>
         </member>
+        <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>存储读取文件片段内容的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Int64,System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="offset">要读取片段的偏移。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>存储读取文件片段内容的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Byte[],System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
+            <param name="startIndex">存储读取文件片段内容的二进制流的起始位置。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Int64,System.Byte[],System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="offset">要读取片段的偏移。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Int64,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="offset">要读取片段的偏移。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
+            <param name="startIndex">存储读取文件片段内容的二进制流的起始位置。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.IO.Stream,System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="stream">存储读取文件片段内容的二进制流。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Int64,System.IO.Stream,System.Int32)">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="offset">要读取片段的偏移。</param>
+            <param name="stream">存储读取文件片段内容的二进制流。</param>
+            <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
         <member name="M:GameFramework.FileSystem.IFileSystem.WriteFile(System.String,System.Byte[])">
             <summary>
             写入指定文件。
             </summary>
             <param name="name">要写入的文件名称。</param>
             <param name="buffer">存储写入文件内容的二进制流。</param>
-            <returns>写入指定文件是否成功。</returns>
+            <returns>是否写入指定文件成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystem.WriteFile(System.String,System.Byte[],System.Int32)">
             <summary>
@@ -7928,7 +8080,7 @@
             <param name="name">要写入的文件名称。</param>
             <param name="buffer">存储写入文件内容的二进制流。</param>
             <param name="startIndex">存储写入文件内容的二进制流的起始位置。</param>
-            <returns>写入指定文件是否成功。</returns>
+            <returns>是否写入指定文件成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystem.WriteFile(System.String,System.Byte[],System.Int32,System.Int32)">
             <summary>
@@ -7938,7 +8090,7 @@
             <param name="buffer">存储写入文件内容的二进制流。</param>
             <param name="startIndex">存储写入文件内容的二进制流的起始位置。</param>
             <param name="length">存储写入文件内容的二进制流的长度。</param>
-            <returns>写入指定文件是否成功。</returns>
+            <returns>是否写入指定文件成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystem.WriteFile(System.String,System.IO.Stream)">
             <summary>
@@ -7946,7 +8098,7 @@
             </summary>
             <param name="name">要写入的文件名称。</param>
             <param name="stream">存储写入文件内容的二进制流。</param>
-            <returns>写入指定文件是否成功。</returns>
+            <returns>是否写入指定文件成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystem.WriteFile(System.String,System.String)">
             <summary>
@@ -7954,7 +8106,7 @@
             </summary>
             <param name="name">要写入的文件名称。</param>
             <param name="filePath">存储写入文件内容的文件路径。</param>
-            <returns>写入指定文件是否成功。</returns>
+            <returns>是否写入指定文件成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystem.SaveAsFile(System.String,System.String)">
             <summary>
@@ -7962,7 +8114,7 @@
             </summary>
             <param name="name">要另存为的文件名称。</param>
             <param name="filePath">存储写入文件内容的文件路径。</param>
-            <returns>将指定文件另存为物理文件是否成功。</returns>
+            <returns>是否将指定文件另存为物理文件成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystem.RenameFile(System.String,System.String)">
             <summary>
@@ -7970,7 +8122,7 @@
             </summary>
             <param name="oldName">要重命名的文件名称。</param>
             <param name="newName">重命名后的文件名称。</param>
-            <returns>重命名指定文件是否成功。</returns>
+            <returns>是否重命名指定文件成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystem.DeleteFile(System.String)">
             <summary>
@@ -8019,7 +8171,7 @@
             </summary>
             <param name="name">要注册的文件系统的名称。</param>
             <param name="fileSystem">要注册的文件系统。</param>
-            <returns>注册的文件系统是否成功。</returns>
+            <returns>是否注册文件系统成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystemManager.UnregisterFileSystem(System.String,GameFramework.FileSystem.IFileSystem)">
             <summary>
@@ -8027,7 +8179,7 @@
             </summary>
             <param name="name">要解除注册的文件系统的名称。</param>
             <param name="fileSystem">要解除注册的文件系统。</param>
-            <returns>解除注册的文件系统是否成功。</returns>
+            <returns>是否解除注册文件系统成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystemManager.GetFileSystem(System.String)">
             <summary>
@@ -13559,7 +13711,7 @@
             <param name="binaryAssetName">要获取实际路径的二进制资源的名称。</param>
             <param name="storageInReadOnly">资源是否在只读区。</param>
             <param name="relativePath">二进制资源相对于只读区或者读写区的相对路径。</param>
-            <returns>获取二进制资源的实际路径是否成功。</returns>
+            <returns>是否获取二进制资源的实际路径成功。</returns>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.LoadBinary(System.String,GameFramework.Resource.LoadBinaryCallbacks)">
             <summary>
@@ -14180,6 +14332,29 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:GameFramework.Resource.LocalVersionList.FileSystem">
+            <summary>
+            文件系统。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.LocalVersionList.FileSystem.#ctor(System.String,System.Int32[])">
+            <summary>
+            初始化文件系统的新实例。
+            </summary>
+            <param name="name">文件系统名称。</param>
+            <param name="resourceIndexes">文件系统包含的资源索引集合。</param>
+        </member>
+        <member name="P:GameFramework.Resource.LocalVersionList.FileSystem.Name">
+            <summary>
+            获取文件系统名称。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.LocalVersionList.FileSystem.GetResourceIndexes">
+            <summary>
+            获取文件系统包含的资源索引集合。
+            </summary>
+            <returns>文件系统包含的资源索引集合。</returns>
+        </member>
         <member name="T:GameFramework.Resource.LocalVersionList.Resource">
             <summary>
             资源。
@@ -14252,7 +14427,7 @@
             <summary>
             获取资源包含的依赖资源索引集合。
             </summary>
-            <returns></returns>
+            <returns>资源包含的依赖资源索引集合。</returns>
         </member>
         <member name="M:GameFramework.Resource.PackageVersionList.#ctor(System.String,System.Int32,GameFramework.Resource.PackageVersionList.Asset[],GameFramework.Resource.PackageVersionList.Resource[],GameFramework.Resource.PackageVersionList.ResourceGroup[])">
             <summary>
@@ -14296,6 +14471,29 @@
             获取包含的资源组集合。
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:GameFramework.Resource.PackageVersionList.FileSystem">
+            <summary>
+            文件系统。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.FileSystem.#ctor(System.String,System.Int32[])">
+            <summary>
+            初始化文件系统的新实例。
+            </summary>
+            <param name="name">文件系统名称。</param>
+            <param name="resourceIndexes">文件系统包含的资源索引集合。</param>
+        </member>
+        <member name="P:GameFramework.Resource.PackageVersionList.FileSystem.Name">
+            <summary>
+            获取文件系统名称。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.FileSystem.GetResourceIndexes">
+            <summary>
+            获取文件系统包含的资源索引集合。
+            </summary>
+            <returns>文件系统包含的资源索引集合。</returns>
         </member>
         <member name="T:GameFramework.Resource.PackageVersionList.Resource">
             <summary>
@@ -14348,7 +14546,7 @@
             <summary>
             获取资源包含的资源索引集合。
             </summary>
-            <returns></returns>
+            <returns>资源包含的资源索引集合。</returns>
         </member>
         <member name="T:GameFramework.Resource.PackageVersionList.ResourceGroup">
             <summary>
@@ -14882,7 +15080,7 @@
             校验资源包。
             </summary>
             <param name="resourcePackPath">要校验的资源包路径。</param>
-            <returns></returns>
+            <returns>是否校验资源包成功。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.HasAsset(System.String)">
             <summary>
@@ -15026,7 +15224,7 @@
             <param name="binaryAssetName">要获取实际路径的二进制资源的名称。</param>
             <param name="storageInReadOnly">资源是否在只读区。</param>
             <param name="relativePath">二进制资源相对于只读区或者读写区的相对路径。</param>
-            <returns>获取二进制资源的实际路径是否成功。</returns>
+            <returns>是否获取二进制资源的实际路径成功。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.LoadBinary(System.String,GameFramework.Resource.LoadBinaryCallbacks)">
             <summary>
@@ -15580,7 +15778,7 @@
             <param name="binaryAssetName">要获取实际路径的二进制资源的名称。</param>
             <param name="storageInReadOnly">资源是否在只读区。</param>
             <param name="relativePath">二进制资源相对于只读区或者读写区的相对路径。</param>
-            <returns>获取二进制资源的实际路径是否成功。</returns>
+            <returns>是否获取二进制资源的实际路径成功。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadBinary(System.String,GameFramework.Resource.LoadBinaryCallbacks,System.Object)">
             <summary>
@@ -15997,9 +16195,9 @@
         </member>
         <member name="M:GameFramework.Resource.ResourcePackVersionList.GetResources">
             <summary>
-            获取资源集合。
+            获取包含的资源集合。
             </summary>
-            <returns></returns>
+            <returns>包含的资源集合。</returns>
         </member>
         <member name="T:GameFramework.Resource.ResourcePackVersionList.Resource">
             <summary>
@@ -16360,7 +16558,7 @@
             <summary>
             获取资源包含的依赖资源索引集合。
             </summary>
-            <returns></returns>
+            <returns>资源包含的依赖资源索引集合。</returns>
         </member>
         <member name="M:GameFramework.Resource.UpdatableVersionList.#ctor(System.String,System.Int32,GameFramework.Resource.UpdatableVersionList.Asset[],GameFramework.Resource.UpdatableVersionList.Resource[],GameFramework.Resource.UpdatableVersionList.ResourceGroup[])">
             <summary>
@@ -16404,6 +16602,29 @@
             获取包含的资源组集合。
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:GameFramework.Resource.UpdatableVersionList.FileSystem">
+            <summary>
+            文件系统。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.FileSystem.#ctor(System.String,System.Int32[])">
+            <summary>
+            初始化文件系统的新实例。
+            </summary>
+            <param name="name">文件系统名称。</param>
+            <param name="resourceIndexes">文件系统包含的资源索引集合。</param>
+        </member>
+        <member name="P:GameFramework.Resource.UpdatableVersionList.FileSystem.Name">
+            <summary>
+            获取文件系统名称。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.FileSystem.GetResourceIndexes">
+            <summary>
+            获取文件系统包含的资源索引集合。
+            </summary>
+            <returns>文件系统包含的资源索引集合。</returns>
         </member>
         <member name="T:GameFramework.Resource.UpdatableVersionList.Resource">
             <summary>
@@ -16468,7 +16689,7 @@
             <summary>
             获取资源包含的资源索引集合。
             </summary>
-            <returns></returns>
+            <returns>资源包含的资源索引集合。</returns>
         </member>
         <member name="T:GameFramework.Resource.UpdatableVersionList.ResourceGroup">
             <summary>

@@ -24,7 +24,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="binaryWriter">目标流。</param>
         /// <param name="versionList">要序列化的单机模式版本资源列表（版本 0）。</param>
-        /// <returns>序列化单机模式版本资源列表（版本 0）是否成功。</returns>
+        /// <returns>是否序列化单机模式版本资源列表（版本 0）成功。</returns>
         public static bool PackageVersionListSerializeCallback_V0(BinaryWriter binaryWriter, PackageVersionList versionList)
         {
             if (!versionList.IsValid)
@@ -86,7 +86,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="binaryWriter">目标流。</param>
         /// <param name="versionList">要序列化的单机模式版本资源列表（版本 1）。</param>
-        /// <returns>序列化单机模式版本资源列表（版本 1）是否成功。</returns>
+        /// <returns>是否序列化单机模式版本资源列表（版本 1）成功。</returns>
         public static bool PackageVersionListSerializeCallback_V1(BinaryWriter binaryWriter, PackageVersionList versionList)
         {
             if (!versionList.IsValid)

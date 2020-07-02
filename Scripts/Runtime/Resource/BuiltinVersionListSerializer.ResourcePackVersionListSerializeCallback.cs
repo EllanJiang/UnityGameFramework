@@ -24,7 +24,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="binaryWriter">目标流。</param>
         /// <param name="versionList">要序列化的资源包版本资源列表（版本 0）。</param>
-        /// <returns>序列化资源包版本资源列表（版本 0）是否成功。</returns>
+        /// <returns>是否序列化资源包版本资源列表（版本 0）成功。</returns>
         public static bool ResourcePackVersionListSerializeCallback_V0(BinaryWriter binaryWriter, ResourcePackVersionList versionList)
         {
             if (!versionList.IsValid)

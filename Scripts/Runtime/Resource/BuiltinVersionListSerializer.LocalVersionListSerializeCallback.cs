@@ -22,7 +22,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="binaryWriter">目标流。</param>
         /// <param name="versionList">要序列化的本地版本资源列表（版本 0）。</param>
-        /// <returns>序列化本地版本资源列表（版本 0）是否成功。</returns>
+        /// <returns>是否序列化本地版本资源列表（版本 0）成功。</returns>
         public static bool LocalVersionListSerializeCallback_V0(BinaryWriter binaryWriter, LocalVersionList versionList)
         {
             if (!versionList.IsValid)
@@ -52,7 +52,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="binaryWriter">目标流。</param>
         /// <param name="versionList">要序列化的本地版本资源列表（版本 1）。</param>
-        /// <returns>序列化本地版本资源列表（版本 1）是否成功。</returns>
+        /// <returns>是否序列化本地版本资源列表（版本 1）成功。</returns>
         public static bool LocalVersionListSerializeCallback_V1(BinaryWriter binaryWriter, LocalVersionList versionList)
         {
             if (!versionList.IsValid)

@@ -972,7 +972,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="binaryAssetName">要获取实际路径的二进制资源的名称。</param>
         /// <param name="storageInReadOnly">资源是否在只读区。</param>
         /// <param name="relativePath">二进制资源相对于只读区或者读写区的相对路径。</param>
-        /// <returns>获取二进制资源的实际路径是否成功。</returns>
+        /// <returns>是否获取二进制资源的实际路径成功。</returns>
         public bool GetBinaryPath(string binaryAssetName, out bool storageInReadOnly, out string relativePath)
         {
             return m_ResourceManager.GetBinaryPath(binaryAssetName, out storageInReadOnly, out relativePath);

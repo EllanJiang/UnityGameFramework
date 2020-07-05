@@ -159,6 +159,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="name">要加载资源的名称。</param>
         public override void ReadFile(IFileSystem fileSystem, string name)
         {
+#if UNITY_5_3_5 || UNITY_5_3_6 || UNITY_5_3_7 || UNITY_5_3_8 || UNITY_5_4_OR_NEWER
             if (m_LoadResourceAgentHelperReadFileCompleteEventHandler == null || m_LoadResourceAgentHelperUpdateEventHandler == null || m_LoadResourceAgentHelperErrorEventHandler == null)
             {
                 Log.Fatal("Load resource agent helper handler is invalid.");
@@ -169,6 +170,9 @@ namespace UnityGameFramework.Runtime
             m_FileFullPath = fileSystem.FullPath;
             m_FileName = name;
             m_FileAssetBundleCreateRequest = AssetBundle.LoadFromFileAsync(fileSystem.FullPath, 0u, (ulong)fileInfo.Offset);
+#else
+            Log.Fatal("Load from file async with offset is not supported, use Unity 5.3.5f1 or above.");
+#endif
         }
 
         /// <summary>

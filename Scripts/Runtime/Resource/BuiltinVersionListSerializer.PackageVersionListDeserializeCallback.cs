@@ -107,7 +107,7 @@ namespace UnityGameFramework.Runtime
                 resourceGroups[i] = new PackageVersionList.ResourceGroup(name, resourceIndexes);
             }
 
-            return new PackageVersionList(applicableGameVersion, internalResourceVersion, assets, resources, resourceGroups);
+            return new PackageVersionList(applicableGameVersion, internalResourceVersion, assets, resources, null, resourceGroups);
         }
 
         /// <summary>
@@ -170,7 +170,85 @@ namespace UnityGameFramework.Runtime
                 resourceGroups[i] = new PackageVersionList.ResourceGroup(name, resourceIndexes);
             }
 
-            return new PackageVersionList(applicableGameVersion, internalResourceVersion, assets, resources, resourceGroups);
+            return new PackageVersionList(applicableGameVersion, internalResourceVersion, assets, resources, null, resourceGroups);
+        }
+
+        /// <summary>
+        /// 反序列化单机模式版本资源列表（版本 2）回调函数。
+        /// </summary>
+        /// <param name="binaryReader">指定流。</param>
+        /// <returns>反序列化的单机模式版本资源列表（版本 2）。</returns>
+        public static PackageVersionList PackageVersionListDeserializeCallback_V2(BinaryReader binaryReader)
+        {
+            byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
+            string applicableGameVersion = binaryReader.ReadEncryptedString(encryptBytes);
+            int internalResourceVersion = binaryReader.Read7BitEncodedInt32();
+            int assetCount = binaryReader.Read7BitEncodedInt32();
+            PackageVersionList.Asset[] assets = assetCount > 0 ? new PackageVersionList.Asset[assetCount] : null;
+            for (int i = 0; i < assetCount; i++)
+            {
+                string name = binaryReader.ReadEncryptedString(encryptBytes);
+                int dependencyAssetCount = binaryReader.Read7BitEncodedInt32();
+                int[] dependencyAssetIndexes = dependencyAssetCount > 0 ? new int[dependencyAssetCount] : null;
+                for (int j = 0; j < dependencyAssetCount; j++)
+                {
+                    dependencyAssetIndexes[j] = binaryReader.Read7BitEncodedInt32();
+                }
+
+                assets[i] = new PackageVersionList.Asset(name, dependencyAssetIndexes);
+            }
+
+            int resourceCount = binaryReader.Read7BitEncodedInt32();
+            PackageVersionList.Resource[] resources = resourceCount > 0 ? new PackageVersionList.Resource[resourceCount] : null;
+            for (int i = 0; i < resourceCount; i++)
+            {
+                string name = binaryReader.ReadEncryptedString(encryptBytes);
+                string variant = binaryReader.ReadEncryptedString(encryptBytes);
+                string extension = binaryReader.ReadEncryptedString(encryptBytes) ?? DefaultExtension;
+                byte loadType = binaryReader.ReadByte();
+                int length = binaryReader.Read7BitEncodedInt32();
+                int hashCode = binaryReader.ReadInt32();
+                int assetIndexCount = binaryReader.Read7BitEncodedInt32();
+                int[] assetIndexes = assetIndexCount > 0 ? new int[assetIndexCount] : null;
+                for (int j = 0; j < assetIndexCount; j++)
+                {
+                    assetIndexes[j] = binaryReader.Read7BitEncodedInt32();
+                }
+
+                resources[i] = new PackageVersionList.Resource(name, variant, extension, loadType, length, hashCode, assetIndexes);
+            }
+
+            int fileSystemCount = binaryReader.Read7BitEncodedInt32();
+            PackageVersionList.FileSystem[] fileSystems = fileSystemCount > 0 ? new PackageVersionList.FileSystem[fileSystemCount] : null;
+            for (int i = 0; i < fileSystemCount; i++)
+            {
+                string name = binaryReader.ReadEncryptedString(encryptBytes);
+                int resourceIndexCount = binaryReader.Read7BitEncodedInt32();
+                int[] resourceIndexes = resourceIndexCount > 0 ? new int[resourceIndexCount] : null;
+                for (int j = 0; j < resourceIndexCount; j++)
+                {
+                    resourceIndexes[j] = binaryReader.Read7BitEncodedInt32();
+                }
+
+                fileSystems[i] = new PackageVersionList.FileSystem(name, resourceIndexes);
+            }
+
+            int resourceGroupCount = binaryReader.Read7BitEncodedInt32();
+            PackageVersionList.ResourceGroup[] resourceGroups = resourceGroupCount > 0 ? new PackageVersionList.ResourceGroup[resourceGroupCount] : null;
+            for (int i = 0; i < resourceGroupCount; i++)
+            {
+                string name = binaryReader.ReadEncryptedString(encryptBytes);
+                int resourceIndexCount = binaryReader.Read7BitEncodedInt32();
+                int[] resourceIndexes = resourceIndexCount > 0 ? new int[resourceIndexCount] : null;
+                for (int j = 0; j < resourceIndexCount; j++)
+                {
+                    resourceIndexes[j] = binaryReader.Read7BitEncodedInt32();
+                }
+
+                resourceGroups[i] = new PackageVersionList.ResourceGroup(name, resourceIndexes);
+            }
+
+            return new PackageVersionList(applicableGameVersion, internalResourceVersion, assets, resources, fileSystems, resourceGroups);
         }
     }
 }

@@ -4582,6 +4582,13 @@
             <param name="debuggerWindow">要注册的调试器窗口。</param>
             <param name="args">初始化调试器窗口参数。</param>
         </member>
+        <member name="M:GameFramework.Debugger.DebuggerManager.UnregisterDebuggerWindow(System.String)">
+            <summary>
+            解除注册调试器窗口。
+            </summary>
+            <param name="path">调试器窗口路径。</param>
+            <returns>是否解除注册调试器窗口成功。</returns>
+        </member>
         <member name="M:GameFramework.Debugger.DebuggerManager.GetDebuggerWindow(System.String)">
             <summary>
             获取调试器窗口。
@@ -4675,6 +4682,13 @@
             <param name="path">调试器窗口路径。</param>
             <param name="debuggerWindow">要注册的调试器窗口。</param>
         </member>
+        <member name="M:GameFramework.Debugger.DebuggerManager.DebuggerWindowGroup.UnregisterDebuggerWindow(System.String)">
+            <summary>
+            解除注册调试器窗口。
+            </summary>
+            <param name="path">调试器窗口路径。</param>
+            <returns>是否解除注册调试器窗口成功。</returns>
+        </member>
         <member name="T:GameFramework.Debugger.IDebuggerManager">
             <summary>
             调试器管理器接口。
@@ -4697,6 +4711,13 @@
             <param name="path">调试器窗口路径。</param>
             <param name="debuggerWindow">要注册的调试器窗口。</param>
             <param name="args">初始化调试器窗口参数。</param>
+        </member>
+        <member name="M:GameFramework.Debugger.IDebuggerManager.UnregisterDebuggerWindow(System.String)">
+            <summary>
+            解除注册调试器窗口。
+            </summary>
+            <param name="path">调试器窗口路径。</param>
+            <returns>是否解除注册调试器窗口成功。</returns>
         </member>
         <member name="M:GameFramework.Debugger.IDebuggerManager.GetDebuggerWindow(System.String)">
             <summary>
@@ -7394,9 +7415,14 @@
             获取文件系统访问方式。
             </summary>
         </member>
-        <member name="P:GameFramework.FileSystem.FileSystem.Count">
+        <member name="P:GameFramework.FileSystem.FileSystem.FileCount">
             <summary>
             获取文件数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.FileSystem.FileSystem.MaxFileCount">
+            <summary>
+            获取最大文件数量。
             </summary>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystem.Create(System.String,GameFramework.FileSystem.FileSystemAccess,GameFramework.FileSystem.FileSystemStream,System.Int32,System.Int32)">
@@ -7423,26 +7449,6 @@
             <summary>
             关闭并清理文件系统。
             </summary>
-        </member>
-        <member name="M:GameFramework.FileSystem.FileSystem.GetNames">
-            <summary>
-            获取文件系统名称集合。
-            </summary>
-            <returns>文件系统名称集合。</returns>
-        </member>
-        <member name="M:GameFramework.FileSystem.FileSystem.AddName(System.String)">
-            <summary>
-            增加文件系统名称。
-            </summary>
-            <param name="name">要增加的文件系统名称。</param>
-            <returns>是否增加文件系统名称成功。</returns>
-        </member>
-        <member name="M:GameFramework.FileSystem.FileSystem.RemoveName(System.String)">
-            <summary>
-            移除文件系统名称。
-            </summary>
-            <param name="name">要移除的文件系统名称。</param>
-            <returns>是否移除文件系统名称成功。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystem.GetFileInfo(System.String)">
             <summary>
@@ -7652,6 +7658,7 @@
             删除指定文件。
             </summary>
             <param name="name">要删除的文件名称。</param>
+            <returns>是否删除指定文件成功。</returns>
         </member>
         <member name="T:GameFramework.FileSystem.FileSystem.HeaderData">
             <summary>
@@ -7715,6 +7722,20 @@
             关闭并清理文件系统管理器。
             </summary>
         </member>
+        <member name="M:GameFramework.FileSystem.FileSystemManager.HasFileSystem(System.String)">
+            <summary>
+            检查是否存在文件系统。
+            </summary>
+            <param name="fullPath">要检查的文件系统的完整路径。</param>
+            <returns>是否存在文件系统。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.FileSystemManager.GetFileSystem(System.String)">
+            <summary>
+            获取文件系统。
+            </summary>
+            <param name="fullPath">要获取的文件系统的完整路径。</param>
+            <returns>获取的文件系统。</returns>
+        </member>
         <member name="M:GameFramework.FileSystem.FileSystemManager.CreateFileSystem(System.String,GameFramework.FileSystem.FileSystemAccess,System.Int32,System.Int32)">
             <summary>
             创建文件系统。
@@ -7739,67 +7760,6 @@
             </summary>
             <param name="fileSystem">要销毁的文件系统。</param>
             <param name="deletePhysicalFile">是否删除文件系统对应的物理文件。</param>
-        </member>
-        <member name="M:GameFramework.FileSystem.FileSystemManager.RegisterFileSystem(System.String,GameFramework.FileSystem.IFileSystem)">
-            <summary>
-            注册文件系统。
-            </summary>
-            <param name="name">要注册的文件系统的名称。</param>
-            <param name="fileSystem">要注册的文件系统。</param>
-            <returns>是否注册文件系统成功。</returns>
-        </member>
-        <member name="M:GameFramework.FileSystem.FileSystemManager.UnregisterFileSystem(System.String,GameFramework.FileSystem.IFileSystem)">
-            <summary>
-            解除注册文件系统。
-            </summary>
-            <param name="name">要解除注册的文件系统的名称。</param>
-            <param name="fileSystem">要解除注册的文件系统。</param>
-            <returns>是否解除注册文件系统成功。</returns>
-        </member>
-        <member name="M:GameFramework.FileSystem.FileSystemManager.GetFileSystem(System.String)">
-            <summary>
-            获取文件系统。
-            </summary>
-            <param name="name">要获取的文件系统的名称。</param>
-            <returns>获取的文件系统。</returns>
-        </member>
-        <member name="M:GameFramework.FileSystem.FileSystemManager.GetFileSystem(System.String,GameFramework.FileSystem.FileSystemAccess)">
-            <summary>
-            获取文件系统。
-            </summary>
-            <param name="name">要获取的文件系统的名称。</param>
-            <param name="access">要获取的文件系统的访问方式。</param>
-            <returns>获取的文件系统。</returns>
-        </member>
-        <member name="M:GameFramework.FileSystem.FileSystemManager.GetFileSystems(System.String)">
-            <summary>
-            获取文件系统集合。
-            </summary>
-            <param name="name">要获取的文件系统的名称。</param>
-            <returns>获取的文件系统集合。</returns>
-        </member>
-        <member name="M:GameFramework.FileSystem.FileSystemManager.GetFileSystems(System.String,GameFramework.FileSystem.FileSystemAccess)">
-            <summary>
-            获取文件系统集合。
-            </summary>
-            <param name="name">要获取的文件系统的名称。</param>
-            <param name="access">要获取的文件系统的访问方式。</param>
-            <returns>获取的文件系统集合。</returns>
-        </member>
-        <member name="M:GameFramework.FileSystem.FileSystemManager.GetFileSystems(System.String,System.Collections.Generic.List{GameFramework.FileSystem.IFileSystem})">
-            <summary>
-            获取文件系统集合。
-            </summary>
-            <param name="name">要获取的文件系统的名称。</param>
-            <param name="results">获取的文件系统集合。</param>
-        </member>
-        <member name="M:GameFramework.FileSystem.FileSystemManager.GetFileSystems(System.String,GameFramework.FileSystem.FileSystemAccess,System.Collections.Generic.List{GameFramework.FileSystem.IFileSystem})">
-            <summary>
-            获取文件系统集合。
-            </summary>
-            <param name="name">要获取的文件系统的名称。</param>
-            <param name="access">要获取的文件系统的访问方式。</param>
-            <param name="results">获取的文件系统集合。</param>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystemManager.GetAllFileSystems">
             <summary>
@@ -7910,16 +7870,15 @@
             获取文件系统访问方式。
             </summary>
         </member>
-        <member name="P:GameFramework.FileSystem.IFileSystem.Count">
+        <member name="P:GameFramework.FileSystem.IFileSystem.FileCount">
             <summary>
             获取文件数量。
             </summary>
         </member>
-        <member name="M:GameFramework.FileSystem.IFileSystem.GetNames">
+        <member name="P:GameFramework.FileSystem.IFileSystem.MaxFileCount">
             <summary>
-            获取文件系统名称集合。
+            获取最大文件数量。
             </summary>
-            <returns>文件系统名称集合。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystem.GetFileInfo(System.String)">
             <summary>
@@ -8129,6 +8088,7 @@
             删除指定文件。
             </summary>
             <param name="name">要删除的文件名称。</param>
+            <returns>是否删除指定文件成功。</returns>
         </member>
         <member name="T:GameFramework.FileSystem.IFileSystemManager">
             <summary>
@@ -8139,6 +8099,20 @@
             <summary>
             获取文件系统数量。
             </summary>
+        </member>
+        <member name="M:GameFramework.FileSystem.IFileSystemManager.HasFileSystem(System.String)">
+            <summary>
+            检查是否存在文件系统。
+            </summary>
+            <param name="fullPath">要检查的文件系统的完整路径。</param>
+            <returns>是否存在文件系统。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.IFileSystemManager.GetFileSystem(System.String)">
+            <summary>
+            获取文件系统。
+            </summary>
+            <param name="fullPath">要获取的文件系统的完整路径。</param>
+            <returns>获取的文件系统。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystemManager.CreateFileSystem(System.String,GameFramework.FileSystem.FileSystemAccess,System.Int32,System.Int32)">
             <summary>
@@ -8164,67 +8138,6 @@
             </summary>
             <param name="fileSystem">要销毁的文件系统。</param>
             <param name="deletePhysicalFile">是否删除文件系统对应的物理文件。</param>
-        </member>
-        <member name="M:GameFramework.FileSystem.IFileSystemManager.RegisterFileSystem(System.String,GameFramework.FileSystem.IFileSystem)">
-            <summary>
-            注册文件系统。
-            </summary>
-            <param name="name">要注册的文件系统的名称。</param>
-            <param name="fileSystem">要注册的文件系统。</param>
-            <returns>是否注册文件系统成功。</returns>
-        </member>
-        <member name="M:GameFramework.FileSystem.IFileSystemManager.UnregisterFileSystem(System.String,GameFramework.FileSystem.IFileSystem)">
-            <summary>
-            解除注册文件系统。
-            </summary>
-            <param name="name">要解除注册的文件系统的名称。</param>
-            <param name="fileSystem">要解除注册的文件系统。</param>
-            <returns>是否解除注册文件系统成功。</returns>
-        </member>
-        <member name="M:GameFramework.FileSystem.IFileSystemManager.GetFileSystem(System.String)">
-            <summary>
-            获取文件系统。
-            </summary>
-            <param name="name">要获取的文件系统的名称。</param>
-            <returns>获取的文件系统。</returns>
-        </member>
-        <member name="M:GameFramework.FileSystem.IFileSystemManager.GetFileSystem(System.String,GameFramework.FileSystem.FileSystemAccess)">
-            <summary>
-            获取文件系统。
-            </summary>
-            <param name="name">要获取的文件系统的名称。</param>
-            <param name="access">要获取的文件系统的访问方式。</param>
-            <returns>获取的文件系统。</returns>
-        </member>
-        <member name="M:GameFramework.FileSystem.IFileSystemManager.GetFileSystems(System.String)">
-            <summary>
-            获取文件系统集合。
-            </summary>
-            <param name="name">要获取的文件系统的名称。</param>
-            <returns>获取的文件系统集合。</returns>
-        </member>
-        <member name="M:GameFramework.FileSystem.IFileSystemManager.GetFileSystems(System.String,GameFramework.FileSystem.FileSystemAccess)">
-            <summary>
-            获取文件系统集合。
-            </summary>
-            <param name="name">要获取的文件系统的名称。</param>
-            <param name="access">要获取的文件系统的访问方式。</param>
-            <returns>获取的文件系统集合。</returns>
-        </member>
-        <member name="M:GameFramework.FileSystem.IFileSystemManager.GetFileSystems(System.String,System.Collections.Generic.List{GameFramework.FileSystem.IFileSystem})">
-            <summary>
-            获取文件系统集合。
-            </summary>
-            <param name="name">要获取的文件系统的名称。</param>
-            <param name="results">获取的文件系统集合。</param>
-        </member>
-        <member name="M:GameFramework.FileSystem.IFileSystemManager.GetFileSystems(System.String,GameFramework.FileSystem.FileSystemAccess,System.Collections.Generic.List{GameFramework.FileSystem.IFileSystem})">
-            <summary>
-            获取文件系统集合。
-            </summary>
-            <param name="name">要获取的文件系统的名称。</param>
-            <param name="access">要获取的文件系统的访问方式。</param>
-            <param name="results">获取的文件系统集合。</param>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystemManager.GetAllFileSystems">
             <summary>
@@ -13024,6 +12937,7 @@
             <summary>
             使用可更新模式并检查资源完成时的回调函数。
             </summary>
+            <param name="movedCount">已移动的资源数量。</param>
             <param name="removedCount">已移除的资源数量。</param>
             <param name="updateCount">可更新的资源数量。</param>
             <param name="updateTotalLength">可更新的资源总大小。</param>
@@ -13133,11 +13047,25 @@
             </summary>
             <param name="fullPath">要加载资源的完整路径名。</param>
         </member>
+        <member name="M:GameFramework.Resource.ILoadResourceAgentHelper.ReadFile(GameFramework.FileSystem.IFileSystem,System.String)">
+            <summary>
+            通过加载资源代理辅助器开始异步读取资源文件。
+            </summary>
+            <param name="fileSystem">要加载资源的文件系统。</param>
+            <param name="name">要加载资源的名称。</param>
+        </member>
         <member name="M:GameFramework.Resource.ILoadResourceAgentHelper.ReadBytes(System.String)">
             <summary>
             通过加载资源代理辅助器开始异步读取资源二进制流。
             </summary>
             <param name="fullPath">要加载资源的完整路径名。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ILoadResourceAgentHelper.ReadBytes(GameFramework.FileSystem.IFileSystem,System.String)">
+            <summary>
+            通过加载资源代理辅助器开始异步读取资源二进制流。
+            </summary>
+            <param name="fileSystem">要加载资源的文件系统。</param>
+            <param name="name">要加载资源的名称。</param>
         </member>
         <member name="M:GameFramework.Resource.ILoadResourceAgentHelper.ParseBytes(System.Byte[])">
             <summary>
@@ -13488,6 +13416,12 @@
             </summary>
             <param name="objectPoolManager">对象池管理器。</param>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.SetFileSystemManager(GameFramework.FileSystem.IFileSystemManager)">
+            <summary>
+            设置文件系统管理器。
+            </summary>
+            <param name="fileSystemManager">文件系统管理器。</param>
+        </member>
         <member name="M:GameFramework.Resource.IResourceManager.SetDownloadManager(GameFramework.Download.IDownloadManager)">
             <summary>
             设置下载管理器。
@@ -13536,10 +13470,11 @@
             <param name="versionListZipHashCode">版本资源列表压缩后哈希值。</param>
             <param name="updateVersionListCallbacks">版本资源列表更新回调函数集。</param>
         </member>
-        <member name="M:GameFramework.Resource.IResourceManager.CheckResources(GameFramework.Resource.CheckResourcesCompleteCallback)">
+        <member name="M:GameFramework.Resource.IResourceManager.CheckResources(System.Boolean,GameFramework.Resource.CheckResourcesCompleteCallback)">
             <summary>
             使用可更新模式并检查资源。
             </summary>
+            <param name="ignoreOtherVariant">是否忽略处理其它变体的资源，若不忽略，将会移除其它变体的资源。</param>
             <param name="checkResourcesCompleteCallback">使用可更新模式并检查资源完成时的回调函数。</param>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.ApplyResources(System.String,GameFramework.Resource.ApplyResourcesCompleteCallback)">
@@ -14315,11 +14250,12 @@
             本地版本资源列表。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.LocalVersionList.#ctor(GameFramework.Resource.LocalVersionList.Resource[])">
+        <member name="M:GameFramework.Resource.LocalVersionList.#ctor(GameFramework.Resource.LocalVersionList.Resource[],GameFramework.Resource.LocalVersionList.FileSystem[])">
             <summary>
             初始化本地版本资源列表的新实例。
             </summary>
             <param name="resources">包含的资源集合。</param>
+            <param name="fileSystems">包含的文件系统集合。</param>
         </member>
         <member name="P:GameFramework.Resource.LocalVersionList.IsValid">
             <summary>
@@ -14328,9 +14264,15 @@
         </member>
         <member name="M:GameFramework.Resource.LocalVersionList.GetResources">
             <summary>
-            获取资源集合。
+            获取包含的资源集合。
             </summary>
-            <returns></returns>
+            <returns>包含的资源集合。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.LocalVersionList.GetFileSystems">
+            <summary>
+            获取包含的文件系统集合。
+            </summary>
+            <returns>包含的文件系统集合。</returns>
         </member>
         <member name="T:GameFramework.Resource.LocalVersionList.FileSystem">
             <summary>
@@ -14429,7 +14371,7 @@
             </summary>
             <returns>资源包含的依赖资源索引集合。</returns>
         </member>
-        <member name="M:GameFramework.Resource.PackageVersionList.#ctor(System.String,System.Int32,GameFramework.Resource.PackageVersionList.Asset[],GameFramework.Resource.PackageVersionList.Resource[],GameFramework.Resource.PackageVersionList.ResourceGroup[])">
+        <member name="M:GameFramework.Resource.PackageVersionList.#ctor(System.String,System.Int32,GameFramework.Resource.PackageVersionList.Asset[],GameFramework.Resource.PackageVersionList.Resource[],GameFramework.Resource.PackageVersionList.FileSystem[],GameFramework.Resource.PackageVersionList.ResourceGroup[])">
             <summary>
             初始化单机模式版本资源列表的新实例。
             </summary>
@@ -14437,6 +14379,7 @@
             <param name="internalResourceVersion">内部资源版本号。</param>
             <param name="assets">包含的资源集合。</param>
             <param name="resources">包含的资源集合。</param>
+            <param name="fileSystems">包含的文件系统集合。</param>
             <param name="resourceGroups">包含的资源组集合。</param>
         </member>
         <member name="P:GameFramework.Resource.PackageVersionList.IsValid">
@@ -14458,19 +14401,25 @@
             <summary>
             获取包含的资源集合。
             </summary>
-            <returns></returns>
+            <returns>包含的资源集合。</returns>
         </member>
         <member name="M:GameFramework.Resource.PackageVersionList.GetResources">
             <summary>
             获取包含的资源集合。
             </summary>
-            <returns></returns>
+            <returns>包含的资源集合。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.PackageVersionList.GetFileSystems">
+            <summary>
+            获取包含的文件系统集合。
+            </summary>
+            <returns>包含的文件系统集合。</returns>
         </member>
         <member name="M:GameFramework.Resource.PackageVersionList.GetResourceGroups">
             <summary>
             获取包含的资源组集合。
             </summary>
-            <returns></returns>
+            <returns>包含的资源组集合。</returns>
         </member>
         <member name="T:GameFramework.Resource.PackageVersionList.FileSystem">
             <summary>
@@ -15001,6 +14950,12 @@
             </summary>
             <param name="objectPoolManager">对象池管理器。</param>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.SetFileSystemManager(GameFramework.FileSystem.IFileSystemManager)">
+            <summary>
+            设置文件系统管理器。
+            </summary>
+            <param name="fileSystemManager">文件系统管理器。</param>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.SetDownloadManager(GameFramework.Download.IDownloadManager)">
             <summary>
             设置下载管理器。
@@ -15049,10 +15004,11 @@
             <param name="versionListZipHashCode">版本资源列表压缩后哈希值。</param>
             <param name="updateVersionListCallbacks">版本资源列表更新回调函数集。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.CheckResources(GameFramework.Resource.CheckResourcesCompleteCallback)">
+        <member name="M:GameFramework.Resource.ResourceManager.CheckResources(System.Boolean,GameFramework.Resource.CheckResourcesCompleteCallback)">
             <summary>
             使用可更新模式并检查资源。
             </summary>
+            <param name="ignoreOtherVariant">是否忽略处理其它变体的资源，若不忽略，将会移除其它变体的资源。</param>
             <param name="checkResourcesCompleteCallback">使用可更新模式并检查资源完成时的回调函数。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ApplyResources(System.String,GameFramework.Resource.ApplyResourcesCompleteCallback)">
@@ -15324,32 +15280,32 @@
         </member>
         <member name="F:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.CheckStatus.Unknown">
             <summary>
-            状态未知。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.CheckStatus.NeedUpdate">
-            <summary>
-            需要更新。
+            资源状态未知。
             </summary>
         </member>
         <member name="F:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.CheckStatus.StorageInReadOnly">
             <summary>
-            存在最新且已存放于只读区中。
+            资源存在且已存放于只读区中。
             </summary>
         </member>
         <member name="F:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.CheckStatus.StorageInReadWrite">
             <summary>
-            存在最新且已存放于读写区中。
+            资源存在且已存放于读写区中。
             </summary>
         </member>
         <member name="F:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.CheckStatus.Unavailable">
             <summary>
-            不适用于当前变体。
+            资源不适用于当前变体。
+            </summary>
+        </member>
+        <member name="F:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.CheckStatus.Update">
+            <summary>
+            资源需要更新。
             </summary>
         </member>
         <member name="F:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.CheckStatus.Disuse">
             <summary>
-            已废弃。
+            资源已废弃。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName)">
@@ -15361,6 +15317,41 @@
         <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.ResourceName">
             <summary>
             获取资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.Status">
+            <summary>
+            获取资源检查状态。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.NeedRemove">
+            <summary>
+            获取是否需要移除读写区的资源。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.NeedMoveToDisk">
+            <summary>
+            获取是否需要将读写区的资源移动到磁盘。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.NeedMoveToFileSystem">
+            <summary>
+            获取是否需要将读写区的资源移动到文件系统。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.FileSystemName">
+            <summary>
+            获取资源所在的文件系统名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.ReadWriteUseFileSystem">
+            <summary>
+            获取资源是否使用文件系统。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.ReadWriteFileSystemName">
+            <summary>
+            获取读写资源所在的文件系统名称。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.LoadType">
@@ -15388,15 +15379,11 @@
             获取压缩后哈希值。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.Status">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.SetCachedFileSystemName(System.String)">
             <summary>
-            获取资源检查状态。
+            临时缓存资源所在的文件系统名称。
             </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.NeedRemove">
-            <summary>
-            获取资源是否可以从读写区移除。
-            </summary>
+            <param name="fileSystemName">资源所在的文件系统名称。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.SetVersionInfo(GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
@@ -15424,11 +15411,12 @@
             <param name="length">资源大小。</param>
             <param name="hashCode">资源哈希值。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.RefreshStatus(System.String)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.RefreshStatus(System.String,System.Boolean)">
             <summary>
             刷新资源信息状态。
             </summary>
             <param name="currentVariant">当前变体。</param>
+            <param name="ignoreOtherVariant">是否忽略处理其它变体的资源，若不忽略则移除。</param>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.LocalVersionInfo">
             <summary>
@@ -15553,11 +15541,12 @@
             资源信息。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,System.String,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Boolean,System.Boolean)">
             <summary>
             初始化资源信息的新实例。
             </summary>
             <param name="resourceName">资源名称。</param>
+            <param name="fileSystemName">文件系统名称。</param>
             <param name="loadType">资源加载方式。</param>
             <param name="length">资源大小。</param>
             <param name="hashCode">资源哈希值。</param>
@@ -15567,6 +15556,16 @@
         <member name="P:GameFramework.Resource.ResourceManager.ResourceInfo.ResourceName">
             <summary>
             获取资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceInfo.UseFileSystem">
+            <summary>
+            获取资源是否使用文件系统。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceInfo.FileSystemName">
+            <summary>
+            获取文件系统名称。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceInfo.LoadType">
@@ -15892,11 +15891,12 @@
             应用信息。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.ApplyInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.LoadType,System.Int64,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.ApplyInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,System.String,GameFramework.Resource.ResourceManager.LoadType,System.Int64,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
             <summary>
             初始化应用信息的新实例。
             </summary>
             <param name="resourceName">资源名称。</param>
+            <param name="fileSystemName">资源所在的文件系统名称。</param>
             <param name="loadType">资源加载方式。</param>
             <param name="offset">资源偏移。</param>
             <param name="length">资源大小。</param>
@@ -15908,6 +15908,16 @@
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.ApplyInfo.ResourceName">
             <summary>
             获取资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.ApplyInfo.UseFileSystem">
+            <summary>
+            获取资源是否使用文件系统。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.ApplyInfo.FileSystemName">
+            <summary>
+            获取资源所在的文件系统名称。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.ApplyInfo.LoadType">
@@ -16009,11 +16019,12 @@
             </summary>
             <param name="downloadManager">下载管理器。</param>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.AddResourceUpdate(GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.AddResourceUpdate(GameFramework.Resource.ResourceManager.ResourceName,System.String,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
             <summary>
             增加资源更新。
             </summary>
             <param name="resourceName">资源名称。</param>
+            <param name="fileSystemName">资源所在的文件系统名称。</param>
             <param name="loadType">资源加载方式。</param>
             <param name="length">资源大小。</param>
             <param name="hashCode">资源哈希值。</param>
@@ -16044,11 +16055,12 @@
             更新信息。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,System.String,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
             <summary>
             初始化更新信息的新实例。
             </summary>
             <param name="resourceName">资源名称。</param>
+            <param name="fileSystemName">资源所在的文件系统名称。</param>
             <param name="loadType">资源加载方式。</param>
             <param name="length">资源大小。</param>
             <param name="hashCode">资源哈希值。</param>
@@ -16059,6 +16071,16 @@
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.ResourceName">
             <summary>
             获取资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.UseFileSystem">
+            <summary>
+            获取资源是否使用文件系统。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.FileSystemName">
+            <summary>
+            获取资源所在的文件系统名称。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.LoadType">
@@ -16560,7 +16582,7 @@
             </summary>
             <returns>资源包含的依赖资源索引集合。</returns>
         </member>
-        <member name="M:GameFramework.Resource.UpdatableVersionList.#ctor(System.String,System.Int32,GameFramework.Resource.UpdatableVersionList.Asset[],GameFramework.Resource.UpdatableVersionList.Resource[],GameFramework.Resource.UpdatableVersionList.ResourceGroup[])">
+        <member name="M:GameFramework.Resource.UpdatableVersionList.#ctor(System.String,System.Int32,GameFramework.Resource.UpdatableVersionList.Asset[],GameFramework.Resource.UpdatableVersionList.Resource[],GameFramework.Resource.UpdatableVersionList.FileSystem[],GameFramework.Resource.UpdatableVersionList.ResourceGroup[])">
             <summary>
             初始化可更新模式版本资源列表的新实例。
             </summary>
@@ -16568,6 +16590,7 @@
             <param name="internalResourceVersion">内部资源版本号。</param>
             <param name="assets">包含的资源集合。</param>
             <param name="resources">包含的资源集合。</param>
+            <param name="fileSystems">包含的文件系统集合。</param>
             <param name="resourceGroups">包含的资源组集合。</param>
         </member>
         <member name="P:GameFramework.Resource.UpdatableVersionList.IsValid">
@@ -16589,19 +16612,25 @@
             <summary>
             获取包含的资源集合。
             </summary>
-            <returns></returns>
+            <returns>包含的资源集合。</returns>
         </member>
         <member name="M:GameFramework.Resource.UpdatableVersionList.GetResources">
             <summary>
             获取包含的资源集合。
             </summary>
-            <returns></returns>
+            <returns>包含的资源集合。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.UpdatableVersionList.GetFileSystems">
+            <summary>
+            获取包含的文件系统集合。
+            </summary>
+            <returns>包含的文件系统集合。</returns>
         </member>
         <member name="M:GameFramework.Resource.UpdatableVersionList.GetResourceGroups">
             <summary>
             获取包含的资源组集合。
             </summary>
-            <returns></returns>
+            <returns>包含的资源组集合。</returns>
         </member>
         <member name="T:GameFramework.Resource.UpdatableVersionList.FileSystem">
             <summary>

@@ -77,5 +77,49 @@ namespace UnityGameFramework.Runtime
             Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
             return true;
         }
+
+        /// <summary>
+        /// 序列化本地版本资源列表（版本 2）回调函数。
+        /// </summary>
+        /// <param name="binaryWriter">目标流。</param>
+        /// <param name="versionList">要序列化的本地版本资源列表（版本 2）。</param>
+        /// <returns>是否序列化本地版本资源列表（版本 2）成功。</returns>
+        public static bool LocalVersionListSerializeCallback_V2(BinaryWriter binaryWriter, LocalVersionList versionList)
+        {
+            if (!versionList.IsValid)
+            {
+                return false;
+            }
+
+            Utility.Random.GetRandomBytes(s_CachedHashBytes);
+            binaryWriter.Write(s_CachedHashBytes);
+            LocalVersionList.Resource[] resources = versionList.GetResources();
+            binaryWriter.Write7BitEncodedInt32(resources.Length);
+            foreach (LocalVersionList.Resource resource in resources)
+            {
+                binaryWriter.WriteEncryptedString(resource.Name, s_CachedHashBytes);
+                binaryWriter.WriteEncryptedString(resource.Variant, s_CachedHashBytes);
+                binaryWriter.WriteEncryptedString(resource.Extension != DefaultExtension ? resource.Extension : null, s_CachedHashBytes);
+                binaryWriter.Write(resource.LoadType);
+                binaryWriter.Write7BitEncodedInt32(resource.Length);
+                binaryWriter.Write(resource.HashCode);
+            }
+
+            LocalVersionList.FileSystem[] fileSystems = versionList.GetFileSystems();
+            binaryWriter.Write7BitEncodedInt32(fileSystems.Length);
+            foreach (LocalVersionList.FileSystem fileSystem in fileSystems)
+            {
+                binaryWriter.WriteEncryptedString(fileSystem.Name, s_CachedHashBytes);
+                int[] resourceIndexes = fileSystem.GetResourceIndexes();
+                binaryWriter.Write7BitEncodedInt32(resourceIndexes.Length);
+                foreach (int resourceIndex in resourceIndexes)
+                {
+                    binaryWriter.Write7BitEncodedInt32(resourceIndex);
+                }
+            }
+
+            Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
+            return true;
+        }
     }
 }

@@ -681,7 +681,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             }
 
             string fullName = GetResourceFullName(name, variant);
-            if (m_Controller.AddResource(name, variant, LoadType.LoadFromFile, false))
+            if (m_Controller.AddResource(name, variant, null, LoadType.LoadFromFile, false))
             {
                 if (refresh)
                 {

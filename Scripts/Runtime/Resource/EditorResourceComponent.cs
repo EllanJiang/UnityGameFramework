@@ -7,6 +7,7 @@
 
 using GameFramework;
 using GameFramework.Download;
+using GameFramework.FileSystem;
 using GameFramework.ObjectPool;
 using GameFramework.Resource;
 using System;
@@ -742,6 +743,15 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 设置文件系统管理器。
+        /// </summary>
+        /// <param name="fileSystemManager">文件系统管理器。</param>
+        public void SetFileSystemManager(IFileSystemManager fileSystemManager)
+        {
+            throw new NotSupportedException("SetFileSystemManager");
+        }
+
+        /// <summary>
         /// 设置下载管理器。
         /// </summary>
         /// <param name="downloadManager">下载管理器。</param>
@@ -813,8 +823,9 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 使用可更新模式并检查资源。
         /// </summary>
+        /// <param name="ignoreOtherVariant">是否忽略处理其它变体的资源，若不忽略，将会移除其它变体的资源。</param>
         /// <param name="checkResourcesCompleteCallback">使用可更新模式并检查资源完成时的回调函数。</param>
-        public void CheckResources(CheckResourcesCompleteCallback checkResourcesCompleteCallback)
+        public void CheckResources(bool ignoreOtherVariant, CheckResourcesCompleteCallback checkResourcesCompleteCallback)
         {
             throw new NotSupportedException("CheckResources");
         }

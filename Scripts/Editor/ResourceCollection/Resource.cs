@@ -18,7 +18,7 @@ namespace UnityGameFramework.Editor.ResourceTools
         private readonly List<Asset> m_Assets;
         private readonly List<string> m_ResourceGroups;
 
-        private Resource(string name, string variant, LoadType loadType, bool packed, string[] resourceGroups)
+        private Resource(string name, string variant, string fileSystem, LoadType loadType, bool packed, string[] resourceGroups)
         {
             m_Assets = new List<Asset>();
             m_ResourceGroups = new List<string>();
@@ -26,6 +26,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             Name = name;
             Variant = variant;
             AssetType = AssetType.Unknown;
+            FileSystem = fileSystem;
             LoadType = loadType;
             Packed = packed;
 
@@ -69,6 +70,12 @@ namespace UnityGameFramework.Editor.ResourceTools
             }
         }
 
+        public string FileSystem
+        {
+            get;
+            set;
+        }
+
         public LoadType LoadType
         {
             get;
@@ -81,9 +88,9 @@ namespace UnityGameFramework.Editor.ResourceTools
             set;
         }
 
-        public static Resource Create(string name, string variant, LoadType loadType, bool packed, string[] resourceGroups)
+        public static Resource Create(string name, string variant, string fileSystem, LoadType loadType, bool packed, string[] resourceGroups)
         {
-            return new Resource(name, variant, loadType, packed, resourceGroups);
+            return new Resource(name, variant, fileSystem, loadType, packed, resourceGroups ?? new string[0]);
         }
 
         public Asset[] GetAssets()

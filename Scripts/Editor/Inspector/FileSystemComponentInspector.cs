@@ -47,7 +47,7 @@ namespace UnityGameFramework.Editor
 
         private void DrawFileSystem(IFileSystem fileSystem)
         {
-            EditorGUILayout.LabelField(fileSystem.FullPath, Utility.Text.Format("{0}, {1} Files, {2} Names", fileSystem.Access.ToString(), fileSystem.Count.ToString(), fileSystem.GetNames().Length.ToString()));
+            EditorGUILayout.LabelField(fileSystem.FullPath, Utility.Text.Format("{0}, {1} / {2} Files", fileSystem.Access.ToString(), fileSystem.FileCount.ToString(), fileSystem.MaxFileCount.ToString()));
         }
     }
 }

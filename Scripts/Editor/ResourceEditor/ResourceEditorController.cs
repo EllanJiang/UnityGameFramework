@@ -381,9 +381,9 @@ namespace UnityGameFramework.Editor.ResourceTools
             return m_ResourceCollection.HasResource(name, variant);
         }
 
-        public bool AddResource(string name, string variant, LoadType loadType, bool packed)
+        public bool AddResource(string name, string variant, string fileSystem, LoadType loadType, bool packed)
         {
-            return m_ResourceCollection.AddResource(name, variant, loadType, packed);
+            return m_ResourceCollection.AddResource(name, variant, fileSystem, loadType, packed);
         }
 
         public bool RenameResource(string oldName, string oldVariant, string newName, string newVariant)

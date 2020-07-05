@@ -104,6 +104,7 @@ namespace UnityGameFramework.Editor.ResourceTools
 
                     string name = xmlNode.Attributes.GetNamedItem("Name").Value;
                     string variant = xmlNode.Attributes.GetNamedItem("Variant") != null ? xmlNode.Attributes.GetNamedItem("Variant").Value : null;
+                    string fileSystem = xmlNode.Attributes.GetNamedItem("FileSystem") != null ? xmlNode.Attributes.GetNamedItem("FileSystem").Value : null;
                     byte loadType = 0;
                     if (xmlNode.Attributes.GetNamedItem("LoadType") != null)
                     {
@@ -116,8 +117,8 @@ namespace UnityGameFramework.Editor.ResourceTools
                         bool.TryParse(xmlNode.Attributes.GetNamedItem("Packed").Value, out packed);
                     }
 
-                    string[] resourceGroups = xmlNode.Attributes.GetNamedItem("ResourceGroups") != null ? xmlNode.Attributes.GetNamedItem("ResourceGroups").Value.Split(',') : new string[0];
-                    if (!AddResource(name, variant, (LoadType)loadType, packed, resourceGroups))
+                    string[] resourceGroups = xmlNode.Attributes.GetNamedItem("ResourceGroups") != null ? xmlNode.Attributes.GetNamedItem("ResourceGroups").Value.Split(',') : null;
+                    if (!AddResource(name, variant, fileSystem, (LoadType)loadType, packed, resourceGroups))
                     {
                         Debug.LogWarning(Utility.Text.Format("Can not add resource '{0}'.", GetResourceFullName(name, variant)));
                         continue;
@@ -201,6 +202,13 @@ namespace UnityGameFramework.Editor.ResourceTools
                     {
                         xmlAttribute = xmlDocument.CreateAttribute("Variant");
                         xmlAttribute.Value = resource.Variant;
+                        xmlElement.Attributes.SetNamedItem(xmlAttribute);
+                    }
+
+                    if (resource.FileSystem != null)
+                    {
+                        xmlAttribute = xmlDocument.CreateAttribute("FileSystem");
+                        xmlAttribute.Value = resource.FileSystem;
                         xmlElement.Attributes.SetNamedItem(xmlAttribute);
                     }
 
@@ -292,12 +300,12 @@ namespace UnityGameFramework.Editor.ResourceTools
             return m_Resources.ContainsKey(GetResourceFullName(name, variant).ToLower());
         }
 
-        public bool AddResource(string name, string variant, LoadType loadType, bool packed)
+        public bool AddResource(string name, string variant, string fileSystem, LoadType loadType, bool packed)
         {
-            return AddResource(name, variant, loadType, packed, new string[0]);
+            return AddResource(name, variant, fileSystem, loadType, packed, null);
         }
 
-        public bool AddResource(string name, string variant, LoadType loadType, bool packed, string[] resourceGroups)
+        public bool AddResource(string name, string variant, string fileSystem, LoadType loadType, bool packed, string[] resourceGroups)
         {
             if (!IsValidResourceName(name, variant))
             {
@@ -309,7 +317,12 @@ namespace UnityGameFramework.Editor.ResourceTools
                 return false;
             }
 
-            Resource resource = Resource.Create(name, variant, loadType, packed, resourceGroups);
+            if (fileSystem != null && !ResourceNameRegex.IsMatch(fileSystem))
+            {
+                return false;
+            }
+
+            Resource resource = Resource.Create(name, variant, fileSystem, loadType, packed, resourceGroups);
             m_Resources.Add(resource.FullName.ToLower(), resource);
 
             return true;

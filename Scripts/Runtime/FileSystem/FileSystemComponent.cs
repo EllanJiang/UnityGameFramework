@@ -52,6 +52,26 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 检查是否存在文件系统。
+        /// </summary>
+        /// <param name="fullPath">要检查的文件系统的完整路径。</param>
+        /// <returns>是否存在文件系统。</returns>
+        public bool HasFileSystem(string fullPath)
+        {
+            return m_FileSystemManager.HasFileSystem(fullPath);
+        }
+
+        /// <summary>
+        /// 获取文件系统。
+        /// </summary>
+        /// <param name="fullPath">要获取的文件系统的完整路径。</param>
+        /// <returns>获取的文件系统。</returns>
+        public IFileSystem GetFileSystem(string fullPath)
+        {
+            return m_FileSystemManager.GetFileSystem(fullPath);
+        }
+
+        /// <summary>
         /// 创建文件系统。
         /// </summary>
         /// <param name="fullPath">要创建的文件系统的完整路径。</param>
@@ -83,91 +103,6 @@ namespace UnityGameFramework.Runtime
         public void DestroyFileSystem(IFileSystem fileSystem, bool deletePhysicalFile)
         {
             m_FileSystemManager.DestroyFileSystem(fileSystem, deletePhysicalFile);
-        }
-
-        /// <summary>
-        /// 注册文件系统。
-        /// </summary>
-        /// <param name="name">要注册的文件系统的名称。</param>
-        /// <param name="fileSystem">要注册的文件系统。</param>
-        /// <returns>是否注册文件系统成功。</returns>
-        public bool RegisterFileSystem(string name, IFileSystem fileSystem)
-        {
-            return m_FileSystemManager.RegisterFileSystem(name, fileSystem);
-        }
-
-        /// <summary>
-        /// 解除注册文件系统。
-        /// </summary>
-        /// <param name="name">要解除注册的文件系统的名称。</param>
-        /// <param name="fileSystem">要解除注册的文件系统。</param>
-        /// <returns>是否解除注册文件系统成功。</returns>
-        public bool UnregisterFileSystem(string name, IFileSystem fileSystem)
-        {
-            return m_FileSystemManager.UnregisterFileSystem(name, fileSystem);
-        }
-
-        /// <summary>
-        /// 获取文件系统。
-        /// </summary>
-        /// <param name="name">要获取的文件系统的名称。</param>
-        /// <returns>获取的文件系统。</returns>
-        public IFileSystem GetFileSystem(string name)
-        {
-            return m_FileSystemManager.GetFileSystem(name);
-        }
-
-        /// <summary>
-        /// 获取文件系统。
-        /// </summary>
-        /// <param name="name">要获取的文件系统的名称。</param>
-        /// <param name="access">要获取的文件系统的访问方式。</param>
-        /// <returns>获取的文件系统。</returns>
-        public IFileSystem GetFileSystem(string name, FileSystemAccess access)
-        {
-            return m_FileSystemManager.GetFileSystem(name, access);
-        }
-
-        /// <summary>
-        /// 获取文件系统集合。
-        /// </summary>
-        /// <param name="name">要获取的文件系统的名称。</param>
-        /// <returns>获取的文件系统集合。</returns>
-        public IFileSystem[] GetFileSystems(string name)
-        {
-            return m_FileSystemManager.GetFileSystems(name);
-        }
-
-        /// <summary>
-        /// 获取文件系统集合。
-        /// </summary>
-        /// <param name="name">要获取的文件系统的名称。</param>
-        /// <param name="access">要获取的文件系统的访问方式。</param>
-        /// <returns>获取的文件系统集合。</returns>
-        public IFileSystem[] GetFileSystems(string name, FileSystemAccess access)
-        {
-            return m_FileSystemManager.GetFileSystems(name, access);
-        }
-
-        /// <summary>
-        /// 获取文件系统集合。
-        /// </summary>
-        /// <param name="name">要获取的文件系统的名称。</param>
-        /// <param name="results">获取的文件系统集合。</param>
-        public void GetFileSystems(string name, List<IFileSystem> results)
-        {
-            m_FileSystemManager.GetFileSystems(name, results);
-        }
-
-        /// <summary>
-        /// 获取文件系统集合。
-        /// </summary>
-        /// <param name="name">要获取的文件系统的名称。</param>
-        /// <param name="access">要获取的文件系统的访问方式。</param>
-        /// <param name="results">获取的文件系统集合。</param>
-        private void GetFileSystems(string name, FileSystemAccess access, List<IFileSystem> results)
-        {
-            m_FileSystemManager.GetFileSystems(name, access, results);
         }
 
         /// <summary>

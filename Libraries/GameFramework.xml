@@ -13676,6 +13676,90 @@
             <param name="binaryAssetName">要加载二进制资源的名称。</param>
             <returns>存储加载二进制资源的二进制流。</returns>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinaryFromFileSystem(System.String,System.Byte[])">
+            <summary>
+            从文件系统中加载二进制资源。
+            </summary>
+            <param name="binaryAssetName">要加载二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源的二进制流。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinaryFromFileSystem(System.String,System.Byte[],System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源。
+            </summary>
+            <param name="binaryAssetName">要加载二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源的二进制流。</param>
+            <param name="startIndex">存储加载二进制资源的二进制流的起始位置。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinaryFromFileSystem(System.String,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源。
+            </summary>
+            <param name="binaryAssetName">要加载二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源的二进制流。</param>
+            <param name="startIndex">存储加载二进制资源的二进制流的起始位置。</param>
+            <param name="length">存储加载二进制资源的二进制流的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="length">要加载片段的长度。</param>
+            <returns>存储加载二进制资源片段内容的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int64,System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="offset">要加载片段的偏移。</param>
+            <param name="length">要加载片段的长度。</param>
+            <returns>存储加载二进制资源片段内容的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Byte[],System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+            <param name="length">要加载片段的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+            <param name="startIndex">存储加载二进制资源片段内容的二进制流的起始位置。</param>
+            <param name="length">要加载片段的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int64,System.Byte[],System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="offset">要加载片段的偏移。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+            <param name="length">要加载片段的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int64,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="offset">要加载片段的偏移。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+            <param name="startIndex">存储加载二进制资源片段内容的二进制流的起始位置。</param>
+            <param name="length">要加载片段的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
         <member name="M:GameFramework.Resource.IResourceManager.HasResourceGroup(System.String)">
             <summary>
             检查资源组是否存在。
@@ -15220,6 +15304,90 @@
             <param name="binaryAssetName">要加载二进制资源的名称。</param>
             <returns>存储加载二进制资源的二进制流。</returns>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinaryFromFileSystem(System.String,System.Byte[])">
+            <summary>
+            从文件系统中加载二进制资源。
+            </summary>
+            <param name="binaryAssetName">要加载二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源的二进制流。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinaryFromFileSystem(System.String,System.Byte[],System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源。
+            </summary>
+            <param name="binaryAssetName">要加载二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源的二进制流。</param>
+            <param name="startIndex">存储加载二进制资源的二进制流的起始位置。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinaryFromFileSystem(System.String,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源。
+            </summary>
+            <param name="binaryAssetName">要加载二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源的二进制流。</param>
+            <param name="startIndex">存储加载二进制资源的二进制流的起始位置。</param>
+            <param name="length">存储加载二进制资源的二进制流的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="length">要加载片段的长度。</param>
+            <returns>存储加载二进制资源片段内容的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int64,System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="offset">要加载片段的偏移。</param>
+            <param name="length">要加载片段的长度。</param>
+            <returns>存储加载二进制资源片段内容的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Byte[],System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+            <param name="length">要加载片段的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+            <param name="startIndex">存储加载二进制资源片段内容的二进制流的起始位置。</param>
+            <param name="length">要加载片段的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int64,System.Byte[],System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="offset">要加载片段的偏移。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+            <param name="length">要加载片段的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int64,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="offset">要加载片段的偏移。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+            <param name="startIndex">存储加载二进制资源片段内容的二进制流的起始位置。</param>
+            <param name="length">要加载片段的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.HasResourceGroup(System.String)">
             <summary>
             检查资源组是否存在。
@@ -15824,6 +15992,36 @@
             </summary>
             <param name="binaryAssetName">要加载二进制资源的名称。</param>
             <returns>存储加载二进制资源的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadBinaryFromFileSystem(System.String,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源。
+            </summary>
+            <param name="binaryAssetName">要加载二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源的二进制流。</param>
+            <param name="startIndex">存储加载二进制资源的二进制流的起始位置。</param>
+            <param name="length">存储加载二进制资源的二进制流的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadBinarySegmentFromFileSystem(System.String,System.Int64,System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="offset">要加载片段的偏移。</param>
+            <param name="length">要加载片段的长度。</param>
+            <returns>存储加载二进制资源片段内容的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadBinarySegmentFromFileSystem(System.String,System.Int64,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="offset">要加载片段的偏移。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+            <param name="startIndex">存储加载二进制资源片段内容的二进制流的起始位置。</param>
+            <param name="length">要加载片段的长度。</param>
+            <returns>实际加载了多少字节。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.GetAllLoadAssetInfos">
             <summary>
@@ -21609,22 +21807,24 @@
             <param name="bytes">原始及异或后的二进制流。</param>
             <param name="code">异或二进制流。</param>
         </member>
-        <member name="M:GameFramework.Utility.Encryption.GetXorBytes(System.Byte[],System.Byte[],System.Int32)">
+        <member name="M:GameFramework.Utility.Encryption.GetXorBytes(System.Byte[],System.Int32,System.Int32,System.Byte[])">
             <summary>
             将 bytes 使用 code 做异或运算。
             </summary>
             <param name="bytes">原始二进制流。</param>
-            <param name="code">异或二进制流。</param>
+            <param name="startIndex">异或计算的开始位置。</param>
             <param name="length">异或计算长度，若小于 0，则计算整个二进制流。</param>
+            <param name="code">异或二进制流。</param>
             <returns>异或后的二进制流。</returns>
         </member>
-        <member name="M:GameFramework.Utility.Encryption.GetSelfXorBytes(System.Byte[],System.Byte[],System.Int32)">
+        <member name="M:GameFramework.Utility.Encryption.GetSelfXorBytes(System.Byte[],System.Int32,System.Int32,System.Byte[])">
             <summary>
             将 bytes 使用 code 做异或运算。此方法将复用并改写传入的 bytes 作为返回值，而不额外分配内存空间。
             </summary>
             <param name="bytes">原始及异或后的二进制流。</param>
+            <param name="startIndex">异或计算的开始位置。</param>
+            <param name="length">异或计算长度。</param>
             <param name="code">异或二进制流。</param>
-            <param name="length">异或计算长度，若小于 0，则计算整个二进制流。</param>
         </member>
         <member name="T:GameFramework.Utility.Json">
             <summary>

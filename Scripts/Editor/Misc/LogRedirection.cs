@@ -5,6 +5,8 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+#if !UNITY_2019_1_OR_NEWER
+
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -116,3 +118,5 @@ namespace UnityGameFramework.Editor
         }
     }
 }
+
+#endif

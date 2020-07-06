@@ -1127,7 +1127,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>存储加载二进制资源片段内容的二进制流。</returns>
         public byte[] LoadBinarySegmentFromFileSystem(string binaryAssetName, int length)
         {
-            return LoadBinarySegmentFromFileSystem(binaryAssetName, 0L, length);
+            return LoadBinarySegmentFromFileSystem(binaryAssetName, 0, length);
         }
 
         /// <summary>
@@ -1137,7 +1137,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="offset">要加载片段的偏移。</param>
         /// <param name="length">要加载片段的长度。</param>
         /// <returns>存储加载二进制资源片段内容的二进制流。</returns>
-        public byte[] LoadBinarySegmentFromFileSystem(string binaryAssetName, long offset, int length)
+        public byte[] LoadBinarySegmentFromFileSystem(string binaryAssetName, int offset, int length)
         {
             if (string.IsNullOrEmpty(binaryAssetName))
             {
@@ -1163,7 +1163,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>实际加载了多少字节。</returns>
         public int LoadBinarySegmentFromFileSystem(string binaryAssetName, byte[] buffer, int length)
         {
-            return LoadBinarySegmentFromFileSystem(binaryAssetName, 0L, buffer, 0, length);
+            return LoadBinarySegmentFromFileSystem(binaryAssetName, 0, buffer, 0, length);
         }
 
         /// <summary>
@@ -1176,7 +1176,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>实际加载了多少字节。</returns>
         public int LoadBinarySegmentFromFileSystem(string binaryAssetName, byte[] buffer, int startIndex, int length)
         {
-            return LoadBinarySegmentFromFileSystem(binaryAssetName, 0L, buffer, startIndex, length);
+            return LoadBinarySegmentFromFileSystem(binaryAssetName, 0, buffer, startIndex, length);
         }
 
         /// <summary>
@@ -1187,7 +1187,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
         /// <param name="length">要加载片段的长度。</param>
         /// <returns>实际加载了多少字节。</returns>
-        public int LoadBinarySegmentFromFileSystem(string binaryAssetName, long offset, byte[] buffer, int length)
+        public int LoadBinarySegmentFromFileSystem(string binaryAssetName, int offset, byte[] buffer, int length)
         {
             return LoadBinarySegmentFromFileSystem(binaryAssetName, offset, buffer, 0, length);
         }
@@ -1201,7 +1201,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="startIndex">存储加载二进制资源片段内容的二进制流的起始位置。</param>
         /// <param name="length">要加载片段的长度。</param>
         /// <returns>实际加载了多少字节。</returns>
-        public int LoadBinarySegmentFromFileSystem(string binaryAssetName, long offset, byte[] buffer, int startIndex, int length)
+        public int LoadBinarySegmentFromFileSystem(string binaryAssetName, int offset, byte[] buffer, int startIndex, int length)
         {
             if (string.IsNullOrEmpty(binaryAssetName))
             {

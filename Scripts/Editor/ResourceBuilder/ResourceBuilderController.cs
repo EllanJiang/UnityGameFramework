@@ -1532,7 +1532,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                     return false;
                 }
 
-                if (IsLoadFromBinary(resourceData.LoadType))
+                if (resourceData.IsLoadFromBinary)
                 {
                     binaryResourceDataList.Add(resourceData);
                 }
@@ -1595,14 +1595,9 @@ namespace UnityGameFramework.Editor.ResourceTools
             }
         }
 
-        private bool IsLoadFromBinary(LoadType loadType)
-        {
-            return loadType == LoadType.LoadFromBinary || loadType == LoadType.LoadFromBinaryAndQuickDecrypt || loadType == LoadType.LoadFromBinaryAndDecrypt;
-        }
-
         private string GetExtension(ResourceData data)
         {
-            if (IsLoadFromBinary(data.LoadType))
+            if (data.IsLoadFromBinary)
             {
                 string assetName = data.GetAssetNames()[0];
                 int position = assetName.LastIndexOf('.');

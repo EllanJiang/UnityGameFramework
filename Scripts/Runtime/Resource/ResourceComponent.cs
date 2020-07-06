@@ -1032,6 +1032,28 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 从文件系统中加载二进制资源。
+        /// </summary>
+        /// <param name="binaryAssetName">要加载二进制资源的名称。</param>
+        /// <returns>存储加载二进制资源的二进制流。</returns>
+        public byte[] LoadBinaryFromFileSystem(string binaryAssetName)
+        {
+            if (string.IsNullOrEmpty(binaryAssetName))
+            {
+                Log.Error("Binary asset name is invalid.");
+                return null;
+            }
+
+            if (!binaryAssetName.StartsWith("Assets/"))
+            {
+                Log.Error("Binary asset name '{0}' is invalid.", binaryAssetName);
+                return null;
+            }
+
+            return m_ResourceManager.LoadBinaryFromFileSystem(binaryAssetName);
+        }
+
+        /// <summary>
         /// 检查资源组是否存在。
         /// </summary>
         /// <param name="resourceGroupName">要检查资源组的名称。</param>

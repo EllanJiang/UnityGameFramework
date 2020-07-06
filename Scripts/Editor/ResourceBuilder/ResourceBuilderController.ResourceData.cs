@@ -58,6 +58,14 @@ namespace UnityGameFramework.Editor.ResourceTools
                 }
             }
 
+            public bool IsLoadFromBinary
+            {
+                get
+                {
+                    return m_LoadType == LoadType.LoadFromBinary || m_LoadType == LoadType.LoadFromBinaryAndQuickDecrypt || m_LoadType == LoadType.LoadFromBinaryAndDecrypt;
+                }
+            }
+
             public LoadType LoadType
             {
                 get

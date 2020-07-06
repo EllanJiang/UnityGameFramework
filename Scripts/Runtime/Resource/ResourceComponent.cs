@@ -978,7 +978,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="binaryAssetName">要获取实际路径的二进制资源的名称。</param>
         /// <returns>二进制资源的实际路径。</returns>
-        /// <remarks>二进制资源不能存储在文件系统中，否则将返回空。</remarks>
+        /// <remarks>此方法仅适用于二进制资源存储在磁盘（而非文件系统）中的情况。若二进制资源存储在文件系统中时，返回值将始终为空。</remarks>
         public string GetBinaryPath(string binaryAssetName)
         {
             return m_ResourceManager.GetBinaryPath(binaryAssetName);

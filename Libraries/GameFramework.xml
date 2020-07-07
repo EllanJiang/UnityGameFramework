@@ -7310,14 +7310,6 @@
             <param name="length">存储读取文件内容的二进制流的长度。</param>
             <returns>实际读取了多少字节。</returns>
         </member>
-        <member name="M:GameFramework.FileSystem.CommonFileSystemStream.Read(System.IO.Stream,System.Int32)">
-            <summary>
-            从文件系统流中读取二进制流。
-            </summary>
-            <param name="stream">存储读取文件内容的二进制流。</param>
-            <param name="length">存储读取文件内容的二进制流的长度。</param>
-            <returns>实际读取了多少字节。</returns>
-        </member>
         <member name="M:GameFramework.FileSystem.CommonFileSystemStream.WriteByte(System.Byte)">
             <summary>
             向文件系统流中写入一个字节。
@@ -7330,13 +7322,6 @@
             </summary>
             <param name="buffer">存储写入文件内容的二进制流。</param>
             <param name="startIndex">存储写入文件内容的二进制流的起始位置。</param>
-            <param name="length">存储写入文件内容的二进制流的长度。</param>
-        </member>
-        <member name="M:GameFramework.FileSystem.CommonFileSystemStream.Write(System.IO.Stream,System.Int32)">
-            <summary>
-            向文件系统流中写入二进制流。
-            </summary>
-            <param name="stream">存储写入文件内容的二进制流。</param>
             <param name="length">存储写入文件内容的二进制流的长度。</param>
         </member>
         <member name="M:GameFramework.FileSystem.CommonFileSystemStream.Flush">
@@ -7782,6 +7767,16 @@
         <member name="T:GameFramework.FileSystem.FileSystemStream">
             <summary>
             文件系统流。
+            </summary>
+        </member>
+        <member name="F:GameFramework.FileSystem.FileSystemStream.CachedBytesLength">
+            <summary>
+            缓存二进制流的长度。
+            </summary>
+        </member>
+        <member name="F:GameFramework.FileSystem.FileSystemStream.s_CachedBytes">
+            <summary>
+            缓存二进制流。
             </summary>
         </member>
         <member name="P:GameFramework.FileSystem.FileSystemStream.Position">

@@ -7259,49 +7259,49 @@
             <param name="sender">事件源。</param>
             <param name="e">事件参数。</param>
         </member>
-        <member name="T:GameFramework.FileSystem.DotNetFileSystemStream">
+        <member name="T:GameFramework.FileSystem.CommonFileSystemStream">
             <summary>
-            使用 .net 库实现的文件系统流。
+            通用文件系统流。
             </summary>
         </member>
-        <member name="M:GameFramework.FileSystem.DotNetFileSystemStream.#ctor(System.String,GameFramework.FileSystem.FileSystemAccess,System.Boolean)">
+        <member name="M:GameFramework.FileSystem.CommonFileSystemStream.#ctor(System.String,GameFramework.FileSystem.FileSystemAccess,System.Boolean)">
             <summary>
-            初始化使用 .net 库实现的文件系统流的新实例。
+            初始化通用文件系统流的新实例。
             </summary>
             <param name="fullPath">要加载的文件系统的完整路径。</param>
             <param name="access">要加载的文件系统的访问方式。</param>
             <param name="createNew">是否创建新的文件系统流。</param>
         </member>
-        <member name="P:GameFramework.FileSystem.DotNetFileSystemStream.Position">
+        <member name="P:GameFramework.FileSystem.CommonFileSystemStream.Position">
             <summary>
             获取或设置文件系统流位置。
             </summary>
         </member>
-        <member name="P:GameFramework.FileSystem.DotNetFileSystemStream.Length">
+        <member name="P:GameFramework.FileSystem.CommonFileSystemStream.Length">
             <summary>
             获取文件系统流长度。
             </summary>
         </member>
-        <member name="M:GameFramework.FileSystem.DotNetFileSystemStream.SetLength(System.Int64)">
+        <member name="M:GameFramework.FileSystem.CommonFileSystemStream.SetLength(System.Int64)">
             <summary>
             设置文件系统流长度。
             </summary>
             <param name="length">要设置的文件系统流的长度。</param>
         </member>
-        <member name="M:GameFramework.FileSystem.DotNetFileSystemStream.Seek(System.Int64,System.IO.SeekOrigin)">
+        <member name="M:GameFramework.FileSystem.CommonFileSystemStream.Seek(System.Int64,System.IO.SeekOrigin)">
             <summary>
             定位文件系统流位置。
             </summary>
             <param name="offset">要定位的文件系统流位置的偏移。</param>
             <param name="origin">要定位的文件系统流位置的方式。</param>
         </member>
-        <member name="M:GameFramework.FileSystem.DotNetFileSystemStream.ReadByte">
+        <member name="M:GameFramework.FileSystem.CommonFileSystemStream.ReadByte">
             <summary>
             从文件系统流中读取一个字节。
             </summary>
             <returns>读取的字节。</returns>
         </member>
-        <member name="M:GameFramework.FileSystem.DotNetFileSystemStream.Read(System.Byte[],System.Int32,System.Int32)">
+        <member name="M:GameFramework.FileSystem.CommonFileSystemStream.Read(System.Byte[],System.Int32,System.Int32)">
             <summary>
             从文件系统流中读取二进制流。
             </summary>
@@ -7310,7 +7310,7 @@
             <param name="length">存储读取文件内容的二进制流的长度。</param>
             <returns>实际读取了多少字节。</returns>
         </member>
-        <member name="M:GameFramework.FileSystem.DotNetFileSystemStream.Read(System.IO.Stream,System.Int32)">
+        <member name="M:GameFramework.FileSystem.CommonFileSystemStream.Read(System.IO.Stream,System.Int32)">
             <summary>
             从文件系统流中读取二进制流。
             </summary>
@@ -7318,13 +7318,13 @@
             <param name="length">存储读取文件内容的二进制流的长度。</param>
             <returns>实际读取了多少字节。</returns>
         </member>
-        <member name="M:GameFramework.FileSystem.DotNetFileSystemStream.WriteByte(System.Byte)">
+        <member name="M:GameFramework.FileSystem.CommonFileSystemStream.WriteByte(System.Byte)">
             <summary>
             向文件系统流中写入一个字节。
             </summary>
             <param name="value">要写入的字节。</param>
         </member>
-        <member name="M:GameFramework.FileSystem.DotNetFileSystemStream.Write(System.Byte[],System.Int32,System.Int32)">
+        <member name="M:GameFramework.FileSystem.CommonFileSystemStream.Write(System.Byte[],System.Int32,System.Int32)">
             <summary>
             向文件系统流中写入二进制流。
             </summary>
@@ -7332,24 +7332,24 @@
             <param name="startIndex">存储写入文件内容的二进制流的起始位置。</param>
             <param name="length">存储写入文件内容的二进制流的长度。</param>
         </member>
-        <member name="M:GameFramework.FileSystem.DotNetFileSystemStream.Write(System.IO.Stream,System.Int32)">
+        <member name="M:GameFramework.FileSystem.CommonFileSystemStream.Write(System.IO.Stream,System.Int32)">
             <summary>
             向文件系统流中写入二进制流。
             </summary>
             <param name="stream">存储写入文件内容的二进制流。</param>
             <param name="length">存储写入文件内容的二进制流的长度。</param>
         </member>
-        <member name="M:GameFramework.FileSystem.DotNetFileSystemStream.Flush">
+        <member name="M:GameFramework.FileSystem.CommonFileSystemStream.Flush">
             <summary>
             将文件系统流立刻更新到存储介质中。
             </summary>
         </member>
-        <member name="M:GameFramework.FileSystem.DotNetFileSystemStream.Close">
+        <member name="M:GameFramework.FileSystem.CommonFileSystemStream.Close">
             <summary>
             关闭文件系统流。
             </summary>
         </member>
-        <member name="M:GameFramework.FileSystem.DotNetFileSystemStream.Dispose">
+        <member name="M:GameFramework.FileSystem.CommonFileSystemStream.Dispose">
             <summary>
             销毁文件系统流。
             </summary>
@@ -7722,6 +7722,12 @@
             关闭并清理文件系统管理器。
             </summary>
         </member>
+        <member name="M:GameFramework.FileSystem.FileSystemManager.SetFileSystemHelper(GameFramework.FileSystem.IFileSystemHelper)">
+            <summary>
+            设置文件系统辅助器。
+            </summary>
+            <param name="fileSystemHelper">文件系统辅助器。</param>
+        </member>
         <member name="M:GameFramework.FileSystem.FileSystemManager.HasFileSystem(System.String)">
             <summary>
             检查是否存在文件系统。
@@ -8090,6 +8096,20 @@
             <param name="name">要删除的文件名称。</param>
             <returns>是否删除指定文件成功。</returns>
         </member>
+        <member name="T:GameFramework.FileSystem.IFileSystemHelper">
+            <summary>
+            文件系统辅助器接口。
+            </summary>
+        </member>
+        <member name="M:GameFramework.FileSystem.IFileSystemHelper.CreateFileSystemStream(System.String,GameFramework.FileSystem.FileSystemAccess,System.Boolean)">
+            <summary>
+            创建文件系统流。
+            </summary>
+            <param name="fullPath">要加载的文件系统的完整路径。</param>
+            <param name="access">要加载的文件系统的访问方式。</param>
+            <param name="createNew">是否创建新的文件系统流。</param>
+            <returns>创建的文件系统流。</returns>
+        </member>
         <member name="T:GameFramework.FileSystem.IFileSystemManager">
             <summary>
             文件系统管理器。
@@ -8099,6 +8119,12 @@
             <summary>
             获取文件系统数量。
             </summary>
+        </member>
+        <member name="M:GameFramework.FileSystem.IFileSystemManager.SetFileSystemHelper(GameFramework.FileSystem.IFileSystemHelper)">
+            <summary>
+            设置文件系统辅助器。
+            </summary>
+            <param name="fileSystemHelper">文件系统辅助器。</param>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystemManager.HasFileSystem(System.String)">
             <summary>

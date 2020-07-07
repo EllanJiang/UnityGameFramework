@@ -21,6 +21,12 @@ namespace UnityGameFramework.Runtime
     {
         private IFileSystemManager m_FileSystemManager = null;
 
+        [SerializeField]
+        private string m_FileSystemHelperTypeName = "UnityGameFramework.Runtime.DefaultFileSystemHelper";
+
+        [SerializeField]
+        private FileSystemHelperBase m_CustomFileSystemHelper = null;
+
         /// <summary>
         /// 游戏框架组件初始化。
         /// </summary>
@@ -34,6 +40,20 @@ namespace UnityGameFramework.Runtime
                 Log.Fatal("File system manager is invalid.");
                 return;
             }
+
+            FileSystemHelperBase fileSystemHelper = Helper.CreateHelper(m_FileSystemHelperTypeName, m_CustomFileSystemHelper);
+            if (fileSystemHelper == null)
+            {
+                Log.Error("Can not create fileSystem helper.");
+                return;
+            }
+
+            fileSystemHelper.name = "FileSystem Helper";
+            Transform transform = fileSystemHelper.transform;
+            transform.SetParent(this.transform);
+            transform.localScale = Vector3.one;
+
+            m_FileSystemManager.SetFileSystemHelper(fileSystemHelper);
         }
 
         private void Start()

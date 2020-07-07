@@ -1341,6 +1341,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             if (fileSystemNames.Length > 0 && m_FileSystemManager == null)
             {
                 m_FileSystemManager = GameFrameworkEntry.GetModule<IFileSystemManager>();
+                m_FileSystemManager.SetFileSystemHelper(new FileSystemHelper());
             }
 
             foreach (string fileSystemName in fileSystemNames)

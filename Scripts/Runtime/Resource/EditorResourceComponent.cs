@@ -524,7 +524,7 @@ namespace UnityGameFramework.Runtime
         {
             m_ReadOnlyPath = null;
             m_ReadWritePath = null;
-            m_CachedAssets = new Dictionary<string, UnityEngine.Object>();
+            m_CachedAssets = new Dictionary<string, UnityEngine.Object>(StringComparer.Ordinal);
             m_LoadAssetInfos = new GameFrameworkLinkedList<LoadAssetInfo>();
             m_LoadSceneInfos = new GameFrameworkLinkedList<LoadSceneInfo>();
             m_UnloadSceneInfos = new GameFrameworkLinkedList<UnloadSceneInfo>();

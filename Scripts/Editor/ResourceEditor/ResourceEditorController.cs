@@ -62,7 +62,7 @@ namespace UnityGameFramework.Editor.ResourceTools
 
             m_SourceAssetSearchPaths = new List<string>();
             m_SourceAssetSearchRelativePaths = new List<string>();
-            m_SourceAssets = new Dictionary<string, SourceAsset>();
+            m_SourceAssets = new Dictionary<string, SourceAsset>(StringComparer.Ordinal);
             m_SourceAssetRoot = null;
             m_SourceAssetRootPath = null;
             m_SourceAssetUnionTypeFilter = null;

@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 
 using GameFramework;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -16,7 +17,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class DefaultSetting
     {
-        private readonly SortedDictionary<string, string> m_Settings = new SortedDictionary<string, string>();
+        private readonly SortedDictionary<string, string> m_Settings = new SortedDictionary<string, string>(StringComparer.Ordinal);
 
         /// <summary>
         /// 初始化本地版本资源列表的新实例。

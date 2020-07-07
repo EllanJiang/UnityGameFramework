@@ -87,9 +87,9 @@ namespace UnityGameFramework.Editor.ResourceTools
                 }
             };
 
-            m_ResourceDatas = new SortedDictionary<string, ResourceData>();
-            m_OutputPackageFileSystems = new Dictionary<string, IFileSystem>();
-            m_OutputPackedFileSystems = new Dictionary<string, IFileSystem>();
+            m_ResourceDatas = new SortedDictionary<string, ResourceData>(StringComparer.Ordinal);
+            m_OutputPackageFileSystems = new Dictionary<string, IFileSystem>(StringComparer.Ordinal);
+            m_OutputPackedFileSystems = new Dictionary<string, IFileSystem>(StringComparer.Ordinal);
             m_BuildReport = new BuildReport();
 
             m_BuildEventHandlerTypeNames = new List<string>

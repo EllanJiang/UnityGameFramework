@@ -149,7 +149,7 @@ namespace UnityGameFramework.Editor.DataTableTools
                 }
             }
 
-            Dictionary<string, int> strings = new Dictionary<string, int>();
+            Dictionary<string, int> strings = new Dictionary<string, int>(StringComparer.Ordinal);
             for (int i = contentStartRow; i < rawRowCount; i++)
             {
                 if (IsCommentRow(i))

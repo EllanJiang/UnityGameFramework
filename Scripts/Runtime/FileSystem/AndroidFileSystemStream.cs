@@ -5,15 +5,50 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
+using GameFramework.FileSystem;
+using System;
 using System.IO;
+using UnityEngine;
 
-namespace GameFramework.FileSystem
+namespace UnityGameFramework.Runtime
 {
     /// <summary>
     /// 安卓文件系统流。
     /// </summary>
     public sealed class AndroidFileSystemStream : FileSystemStream
     {
+        private static readonly string SplitFlag = "!/assets/";
+        private static readonly int SplitFlagLength = SplitFlag.Length;
+        private static readonly AndroidJavaObject s_AssetManager = null;
+        private readonly AndroidJavaObject m_FileStream = null;
+
+        static AndroidFileSystemStream()
+        {
+            AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            if (unityPlayer == null)
+            {
+                throw new GameFrameworkException("Unity player is invalid.");
+            }
+
+            AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+            if (currentActivity == null)
+            {
+                throw new GameFrameworkException("Current activity is invalid.");
+            }
+
+            AndroidJavaObject assetManager = currentActivity.Call<AndroidJavaObject>("getAssets");
+            if (assetManager == null)
+            {
+                throw new GameFrameworkException("Asset manager is invalid.");
+            }
+
+            s_AssetManager = assetManager;
+
+            currentActivity.Dispose();
+            unityPlayer.Dispose();
+        }
+
         /// <summary>
         /// 初始化安卓文件系统流的新实例。
         /// </summary>
@@ -37,8 +72,18 @@ namespace GameFramework.FileSystem
                 throw new GameFrameworkException("Create new is not supported in AndroidFileSystemStream.");
             }
 
-            // TODO: AndroidFileSystemStream.ctor
-            throw new System.NotImplementedException("AndroidFileSystemStream.ctor");
+            int position = fullPath.LastIndexOf(SplitFlag, StringComparison.Ordinal);
+            if (position < 0)
+            {
+                throw new GameFrameworkException("Can not find split flag in full path.");
+            }
+
+            string fileName = fullPath.Substring(position + SplitFlagLength);
+            m_FileStream = InternalOpen(fileName);
+            if (m_FileStream == null)
+            {
+                throw new GameFrameworkException(Utility.Text.Format("Open file '{0}' from Android asset manager failure.", fullPath));
+            }
         }
 
         /// <summary>
@@ -48,8 +93,7 @@ namespace GameFramework.FileSystem
         {
             get
             {
-                // TODO: long GetPosition()
-                throw new System.NotImplementedException("Position.get");
+                throw new GameFrameworkException("Get position is not supported in AndroidFileSystemStream.");
             }
             set
             {
@@ -64,8 +108,7 @@ namespace GameFramework.FileSystem
         {
             get
             {
-                // TODO: long GetLength()
-                throw new System.NotImplementedException("Length.get");
+                return InternalAvailable();
             }
         }
 
@@ -85,31 +128,36 @@ namespace GameFramework.FileSystem
         /// <param name="origin">要定位的文件系统流位置的方式。</param>
         protected override void Seek(long offset, SeekOrigin origin)
         {
-            switch (origin)
+            if (origin == SeekOrigin.End)
             {
-                case SeekOrigin.Begin:
-                    // TODO: Seek(long offset)
-                    throw new System.NotImplementedException("Seek(long offset)");
-                    break;
+                Seek(Length + offset, SeekOrigin.Begin);
+                return;
+            }
 
-                case SeekOrigin.Current:
-                    Seek(Position + offset, SeekOrigin.Begin);
-                    break;
+            if (origin == SeekOrigin.Begin)
+            {
+                InternalReset();
+            }
 
-                case SeekOrigin.End:
-                    Seek(Length + offset, SeekOrigin.Begin);
-                    break;
+            while (offset > 0)
+            {
+                long skip = InternalSkip(offset);
+                if (skip < 0)
+                {
+                    return;
+                }
+
+                offset -= skip;
             }
         }
 
         /// <summary>
         /// 从文件系统流中读取一个字节。
         /// </summary>
-        /// <returns>读取的字节。</returns>
-        protected override byte ReadByte()
+        /// <returns>读取的字节，若已经到达文件结尾，则返回 -1。</returns>
+        protected override int ReadByte()
         {
-            // TODO: byte ReadByte()
-            throw new System.NotImplementedException("ReadByte()");
+            return InternalRead();
         }
 
         /// <summary>
@@ -121,8 +169,14 @@ namespace GameFramework.FileSystem
         /// <returns>实际读取了多少字节。</returns>
         protected override int Read(byte[] buffer, int startIndex, int length)
         {
-            // TODO: int Read(byte[] buffer, int startIndex, int length)
-            throw new System.NotImplementedException("Read(byte[] buffer, int startIndex, int length)");
+            int bytesRead = 0;
+            int bytesLeft = length;
+            while ((bytesRead = InternalRead(buffer, startIndex + bytesRead, bytesLeft)) > 0)
+            {
+                bytesLeft -= bytesRead;
+            }
+
+            return length - bytesLeft;
         }
 
         /// <summary>
@@ -158,8 +212,43 @@ namespace GameFramework.FileSystem
         /// </summary>
         protected override void Close()
         {
-            // TODO: void Close()
-            throw new System.NotImplementedException("Close()");
+            InternalClose();
+            m_FileStream.Dispose();
+        }
+
+        private AndroidJavaObject InternalOpen(string fileName)
+        {
+            return s_AssetManager.Call<AndroidJavaObject>("open", fileName);
+        }
+
+        private int InternalAvailable()
+        {
+            return m_FileStream.Call<int>("available");
+        }
+
+        private void InternalClose()
+        {
+            m_FileStream.Call("close");
+        }
+
+        private int InternalRead()
+        {
+            return m_FileStream.Call<int>("read");
+        }
+
+        private int InternalRead(byte[] buffer, int startIndex, int length)
+        {
+            return m_FileStream.Call<int>("read", buffer, startIndex, length);
+        }
+
+        private void InternalReset()
+        {
+            m_FileStream.Call("reset");
+        }
+
+        private long InternalSkip(long offset)
+        {
+            return m_FileStream.Call<long>("skip", offset);
         }
     }
 }

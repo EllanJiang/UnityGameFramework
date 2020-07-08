@@ -7299,7 +7299,7 @@
             <summary>
             从文件系统流中读取一个字节。
             </summary>
-            <returns>读取的字节。</returns>
+            <returns>读取的字节，若已经到达文件结尾，则返回 -1。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.CommonFileSystemStream.Read(System.Byte[],System.Int32,System.Int32)">
             <summary>
@@ -7806,7 +7806,7 @@
             <summary>
             从文件系统流中读取一个字节。
             </summary>
-            <returns>读取的字节。</returns>
+            <returns>读取的字节，若已经到达文件结尾，则返回 -1。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystemStream.Read(System.Byte[],System.Int32,System.Int32)">
             <summary>

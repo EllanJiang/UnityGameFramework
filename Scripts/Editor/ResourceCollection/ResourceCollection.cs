@@ -506,7 +506,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 }
             }
 
-            bool isScene = assetName.EndsWith(SceneExtension);
+            bool isScene = assetName.EndsWith(SceneExtension, StringComparison.Ordinal);
             if (isScene && resource.AssetType == AssetType.Asset || !isScene && resource.AssetType == AssetType.Scene)
             {
                 return false;

@@ -42,7 +42,7 @@ namespace UnityGameFramework.Editor.DataTableTools
                 throw new GameFrameworkException("Data table file name is invalid.");
             }
 
-            if (!dataTableFileName.EndsWith(".txt"))
+            if (!dataTableFileName.EndsWith(".txt", StringComparison.Ordinal))
             {
                 throw new GameFrameworkException(Utility.Text.Format("Data table file '{0}' is not a txt.", dataTableFileName));
             }
@@ -239,7 +239,7 @@ namespace UnityGameFramework.Editor.DataTableTools
                 throw new GameFrameworkException(Utility.Text.Format("Raw row '{0}' is out of range.", rawRow.ToString()));
             }
 
-            return GetValue(rawRow, 0).StartsWith(CommentLineSeparator);
+            return GetValue(rawRow, 0).StartsWith(CommentLineSeparator, StringComparison.Ordinal);
         }
 
         public bool IsCommentColumn(int rawColumn)

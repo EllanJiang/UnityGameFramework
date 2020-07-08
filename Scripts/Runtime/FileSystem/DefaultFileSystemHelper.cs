@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 
 using GameFramework.FileSystem;
+using System;
 
 namespace UnityGameFramework.Runtime
 {
@@ -25,7 +26,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>创建的文件系统流。</returns>
         public override FileSystemStream CreateFileSystemStream(string fullPath, FileSystemAccess access, bool createNew)
         {
-            if (fullPath.StartsWith(AndroidFileSystemPrefixString))
+            if (fullPath.StartsWith(AndroidFileSystemPrefixString, StringComparison.Ordinal))
             {
                 return new AndroidFileSystemStream(fullPath, access, createNew);
             }

@@ -122,7 +122,7 @@ namespace UnityGameFramework.Runtime
             TextAsset configTextAsset = configObject as TextAsset;
             if (configTextAsset != null)
             {
-                if (configAssetName.EndsWith(BytesAssetExtension))
+                if (configAssetName.EndsWith(BytesAssetExtension, StringComparison.Ordinal))
                 {
                     return m_ConfigManager.ParseConfig(configTextAsset.bytes, userData);
                 }
@@ -135,7 +135,7 @@ namespace UnityGameFramework.Runtime
             byte[] configBytes = configObject as byte[];
             if (configBytes != null)
             {
-                if (configAssetName.EndsWith(BytesAssetExtension))
+                if (configAssetName.EndsWith(BytesAssetExtension, StringComparison.Ordinal))
                 {
                     return m_ConfigManager.ParseConfig(configBytes, userData);
                 }

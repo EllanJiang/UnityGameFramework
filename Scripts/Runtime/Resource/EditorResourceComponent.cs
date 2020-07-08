@@ -994,7 +994,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            if (!assetName.StartsWith("Assets/"))
+            if (!assetName.StartsWith("Assets/", StringComparison.Ordinal))
             {
                 if (loadAssetCallbacks.LoadAssetFailureCallback != null)
                 {
@@ -1083,7 +1083,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            if (!sceneAssetName.StartsWith("Assets/") || !sceneAssetName.EndsWith(".unity"))
+            if (!sceneAssetName.StartsWith("Assets/", StringComparison.Ordinal) || !sceneAssetName.EndsWith(".unity", StringComparison.Ordinal))
             {
                 if (loadSceneCallbacks.LoadSceneFailureCallback != null)
                 {
@@ -1140,7 +1140,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            if (!sceneAssetName.StartsWith("Assets/") || !sceneAssetName.EndsWith(".unity"))
+            if (!sceneAssetName.StartsWith("Assets/", StringComparison.Ordinal) || !sceneAssetName.EndsWith(".unity", StringComparison.Ordinal))
             {
                 Log.Error("Scene asset name '{0}' is invalid.", sceneAssetName);
                 return;
@@ -1248,7 +1248,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            if (!binaryAssetName.StartsWith("Assets/"))
+            if (!binaryAssetName.StartsWith("Assets/", StringComparison.Ordinal))
             {
                 if (loadBinaryCallbacks.LoadBinaryFailureCallback != null)
                 {

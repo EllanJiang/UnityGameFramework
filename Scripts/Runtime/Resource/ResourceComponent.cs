@@ -955,7 +955,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            if (!assetName.StartsWith("Assets/"))
+            if (!assetName.StartsWith("Assets/", StringComparison.Ordinal))
             {
                 Log.Error("Asset name '{0}' is invalid.", assetName);
                 return;
@@ -1022,7 +1022,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            if (!binaryAssetName.StartsWith("Assets/"))
+            if (!binaryAssetName.StartsWith("Assets/", StringComparison.Ordinal))
             {
                 Log.Error("Binary asset name '{0}' is invalid.", binaryAssetName);
                 return;
@@ -1044,7 +1044,7 @@ namespace UnityGameFramework.Runtime
                 return null;
             }
 
-            if (!binaryAssetName.StartsWith("Assets/"))
+            if (!binaryAssetName.StartsWith("Assets/", StringComparison.Ordinal))
             {
                 Log.Error("Binary asset name '{0}' is invalid.", binaryAssetName);
                 return null;
@@ -1104,7 +1104,7 @@ namespace UnityGameFramework.Runtime
                 return 0;
             }
 
-            if (!binaryAssetName.StartsWith("Assets/"))
+            if (!binaryAssetName.StartsWith("Assets/", StringComparison.Ordinal))
             {
                 Log.Error("Binary asset name '{0}' is invalid.", binaryAssetName);
                 return 0;
@@ -1145,7 +1145,7 @@ namespace UnityGameFramework.Runtime
                 return null;
             }
 
-            if (!binaryAssetName.StartsWith("Assets/"))
+            if (!binaryAssetName.StartsWith("Assets/", StringComparison.Ordinal))
             {
                 Log.Error("Binary asset name '{0}' is invalid.", binaryAssetName);
                 return null;
@@ -1209,7 +1209,7 @@ namespace UnityGameFramework.Runtime
                 return 0;
             }
 
-            if (!binaryAssetName.StartsWith("Assets/"))
+            if (!binaryAssetName.StartsWith("Assets/", StringComparison.Ordinal))
             {
                 Log.Error("Binary asset name '{0}' is invalid.", binaryAssetName);
                 return 0;

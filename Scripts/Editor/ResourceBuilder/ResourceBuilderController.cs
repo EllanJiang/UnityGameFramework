@@ -842,7 +842,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 string[] fileNames = Directory.GetFiles(workingPath, "*", SearchOption.AllDirectories);
                 foreach (string fileName in fileNames)
                 {
-                    if (fileName.EndsWith(".manifest"))
+                    if (fileName.EndsWith(".manifest", StringComparison.Ordinal))
                     {
                         continue;
                     }

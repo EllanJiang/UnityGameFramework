@@ -146,6 +146,10 @@ namespace UnityGameFramework.Editor.ResourceTools
                         xmlResource.Attributes.SetNamedItem(xmlAttribute);
                     }
 
+                    xmlAttribute = xmlDocument.CreateAttribute("Extension");
+                    xmlAttribute.Value = GetExtension(resourceData);
+                    xmlResource.Attributes.SetNamedItem(xmlAttribute);
+
                     if (resourceData.FileSystem != null)
                     {
                         xmlAttribute = xmlDocument.CreateAttribute("FileSystem");

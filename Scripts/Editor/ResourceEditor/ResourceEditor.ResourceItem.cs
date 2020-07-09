@@ -79,7 +79,8 @@ namespace UnityGameFramework.Editor.ResourceTools
                         Asset asset = Resource.GetFirstAsset();
                         if (asset != null)
                         {
-                            return AssetDatabase.GetCachedIcon(AssetDatabase.GUIDToAssetPath(asset.Guid));
+                            Texture texture = AssetDatabase.GetCachedIcon(AssetDatabase.GUIDToAssetPath(asset.Guid));
+                            return texture != null ? texture : CachedUnknownIcon;
                         }
                     }
                     else

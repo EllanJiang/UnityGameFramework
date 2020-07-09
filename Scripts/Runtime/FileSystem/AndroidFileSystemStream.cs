@@ -21,7 +21,11 @@ namespace UnityGameFramework.Runtime
         private static readonly string SplitFlag = "!/assets/";
         private static readonly int SplitFlagLength = SplitFlag.Length;
         private static readonly AndroidJavaObject s_AssetManager = null;
-        private readonly AndroidJavaObject m_FileStream = null;
+        private static readonly IntPtr s_InternalReadMethodId = IntPtr.Zero;
+        private static readonly jvalue[] s_InternalReadArgs = null;
+
+        private readonly AndroidJavaObject m_FileStream;
+        private readonly IntPtr m_FileStreamRawObject;
 
         static AndroidFileSystemStream()
         {
@@ -45,6 +49,11 @@ namespace UnityGameFramework.Runtime
 
             s_AssetManager = assetManager;
 
+            IntPtr inputStreamClassPtr = AndroidJNI.FindClass("java/io/InputStream");
+            s_InternalReadMethodId = AndroidJNIHelper.GetMethodID(inputStreamClassPtr, "read", "([BII)I");
+            s_InternalReadArgs = new jvalue[3];
+
+            AndroidJNI.DeleteLocalRef(inputStreamClassPtr);
             currentActivity.Dispose();
             unityPlayer.Dispose();
         }
@@ -84,6 +93,8 @@ namespace UnityGameFramework.Runtime
             {
                 throw new GameFrameworkException(Utility.Text.Format("Open file '{0}' from Android asset manager failure.", fullPath));
             }
+
+            m_FileStreamRawObject = m_FileStream.GetRawObject();
         }
 
         /// <summary>
@@ -169,14 +180,10 @@ namespace UnityGameFramework.Runtime
         /// <returns>实际读取了多少字节。</returns>
         protected override int Read(byte[] buffer, int startIndex, int length)
         {
-            int bytesRead = 0;
-            int bytesLeft = length;
-            while ((bytesRead = InternalRead(buffer, startIndex + bytesRead, bytesLeft)) > 0)
-            {
-                bytesLeft -= bytesRead;
-            }
-
-            return length - bytesLeft;
+            byte[] results = null;
+            int bytesRead = InternalRead(length, out results);
+            Array.Copy(results, 0, buffer, startIndex, bytesRead);
+            return bytesRead;
         }
 
         /// <summary>
@@ -236,9 +243,29 @@ namespace UnityGameFramework.Runtime
             return m_FileStream.Call<int>("read");
         }
 
-        private int InternalRead(byte[] buffer, int startIndex, int length)
+        private int InternalRead(int length, out byte[] buffer)
         {
-            return m_FileStream.Call<int>("read", buffer, startIndex, length);
+            IntPtr bufferPtr = AndroidJNI.NewByteArray(length);
+            int offset = 0;
+            int bytesLeft = length;
+            while (bytesLeft > 0)
+            {
+                s_InternalReadArgs[0] = new jvalue() { l = bufferPtr };
+                s_InternalReadArgs[1] = new jvalue() { i = offset };
+                s_InternalReadArgs[2] = new jvalue() { i = bytesLeft };
+                int bytesRead = AndroidJNI.CallIntMethod(m_FileStreamRawObject, s_InternalReadMethodId, s_InternalReadArgs);
+                if (bytesRead <= 0)
+                {
+                    break;
+                }
+
+                offset += bytesRead;
+                bytesLeft -= bytesRead;
+            }
+
+            buffer = AndroidJNI.FromByteArray(bufferPtr);
+            AndroidJNI.DeleteLocalRef(bufferPtr);
+            return offset;
         }
 
         private void InternalReset()

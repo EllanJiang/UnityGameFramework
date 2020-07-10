@@ -195,22 +195,68 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 解析字典。
         /// </summary>
-        /// <param name="dictionaryData">要解析的字典数据。</param>
+        /// <param name="dictionaryString">要解析的字典字符串。</param>
         /// <returns>是否解析字典成功。</returns>
-        public bool ParseDictionary(object dictionaryData)
+        public bool ParseDictionary(string dictionaryString)
         {
-            return m_LocalizationManager.ParseDictionary(dictionaryData);
+            return m_LocalizationManager.ParseDictionary(dictionaryString);
         }
 
         /// <summary>
         /// 解析字典。
         /// </summary>
-        /// <param name="dictionaryData">要解析的字典数据。</param>
+        /// <param name="dictionaryString">要解析的字典字符串。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否解析字典成功。</returns>
-        public bool ParseDictionary(object dictionaryData, object userData)
+        public bool ParseDictionary(string dictionaryString, object userData)
         {
-            return m_LocalizationManager.ParseDictionary(dictionaryData, userData);
+            return m_LocalizationManager.ParseDictionary(dictionaryString, userData);
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="dictionaryBytes">要解析的字典二进制数据。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public bool ParseDictionary(byte[] dictionaryBytes)
+        {
+            return m_LocalizationManager.ParseDictionary(dictionaryBytes);
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="dictionaryBytes">要解析的字典二进制数据。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public bool ParseDictionary(byte[] dictionaryBytes, object userData)
+        {
+            return m_LocalizationManager.ParseDictionary(dictionaryBytes, userData);
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="dictionaryBytes">要解析的字典二进制数据。</param>
+        /// <param name="startIndex">字典二进制数据的起始位置。</param>
+        /// <param name="length">字典二进制数据的长度。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public bool ParseDictionary(byte[] dictionaryBytes, int startIndex, int length)
+        {
+            return m_LocalizationManager.ParseDictionary(dictionaryBytes, startIndex, length);
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="dictionaryBytes">要解析的字典二进制数据。</param>
+        /// <param name="startIndex">字典二进制数据的起始位置。</param>
+        /// <param name="length">字典二进制数据的长度。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public bool ParseDictionary(byte[] dictionaryBytes, int startIndex, int length, object userData)
+        {
+            return m_LocalizationManager.ParseDictionary(dictionaryBytes, startIndex, length, userData);
         }
 
         /// <summary>

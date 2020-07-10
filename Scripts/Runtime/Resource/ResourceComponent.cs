@@ -999,6 +999,16 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取二进制资源的长度。
+        /// </summary>
+        /// <param name="binaryAssetName">要获取长度的二进制资源的名称。</param>
+        /// <returns>二进制资源的长度。</returns>
+        public int GetBinaryLength(string binaryAssetName)
+        {
+            return m_ResourceManager.GetBinaryLength(binaryAssetName);
+        }
+
+        /// <summary>
         /// 异步加载二进制资源。
         /// </summary>
         /// <param name="binaryAssetName">要加载二进制资源的名称。</param>

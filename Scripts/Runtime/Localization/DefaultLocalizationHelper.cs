@@ -87,74 +87,66 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 解析字典。
         /// </summary>
-        /// <param name="dictionaryData">要解析的字典数据。</param>
+        /// <param name="dictionaryString">要解析的字典字符串。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否解析字典成功。</returns>
-        public override bool ParseDictionary(object dictionaryData, object userData)
+        public override bool ParseDictionary(string dictionaryString, object userData)
         {
-            try
+            string[] dictionaryRowTexts = dictionaryString.Split(RowSplitSeparator, StringSplitOptions.None);
+            for (int i = 0; i < dictionaryRowTexts.Length; i++)
             {
-                string dictionaryText = dictionaryData as string;
-                if (dictionaryText != null)
+                if (dictionaryRowTexts[i].Length <= 0 || dictionaryRowTexts[i][0] == '#')
                 {
-                    string[] dictionaryRowTexts = dictionaryText.Split(RowSplitSeparator, StringSplitOptions.None);
-                    for (int i = 0; i < dictionaryRowTexts.Length; i++)
+                    continue;
+                }
+
+                string[] splitLine = dictionaryRowTexts[i].Split(ColumnSplitSeparator, StringSplitOptions.None);
+                if (splitLine.Length != ColumnCount)
+                {
+                    Log.Warning("Can not parse dictionary '{0}'.", dictionaryString);
+                    return false;
+                }
+
+                string dictionaryKey = splitLine[1];
+                string dictionaryValue = splitLine[3];
+                if (!AddRawString(dictionaryKey, dictionaryValue))
+                {
+                    Log.Warning("Can not add raw string with dictionary key '{0}' which may be invalid or duplicate.", dictionaryKey);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="dictionaryBytes">要解析的字典二进制数据。</param>
+        /// <param name="startIndex">字典二进制数据的起始位置。</param>
+        /// <param name="length">字典二进制数据的长度。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public override bool ParseDictionary(byte[] dictionaryBytes, int startIndex, int length, object userData)
+        {
+            using (MemoryStream memoryStream = new MemoryStream(dictionaryBytes, startIndex, length, false))
+            {
+                using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
+                {
+                    while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
                     {
-                        if (dictionaryRowTexts[i].Length <= 0 || dictionaryRowTexts[i][0] == '#')
-                        {
-                            continue;
-                        }
-
-                        string[] splitLine = dictionaryRowTexts[i].Split(ColumnSplitSeparator, StringSplitOptions.None);
-                        if (splitLine.Length != ColumnCount)
-                        {
-                            Log.Warning("Can not parse dictionary '{0}'.", dictionaryText);
-                            return false;
-                        }
-
-                        string dictionaryKey = splitLine[1];
-                        string dictionaryValue = splitLine[3];
+                        string dictionaryKey = binaryReader.ReadString();
+                        string dictionaryValue = binaryReader.ReadString();
                         if (!AddRawString(dictionaryKey, dictionaryValue))
                         {
                             Log.Warning("Can not add raw string with dictionary key '{0}' which may be invalid or duplicate.", dictionaryKey);
                             return false;
                         }
                     }
-
-                    return true;
                 }
-
-                byte[] dictionaryBytes = dictionaryData as byte[];
-                if (dictionaryBytes != null)
-                {
-                    using (MemoryStream memoryStream = new MemoryStream(dictionaryBytes, false))
-                    {
-                        using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
-                        {
-                            while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
-                            {
-                                string dictionaryKey = binaryReader.ReadString();
-                                string dictionaryValue = binaryReader.ReadString();
-                                if (!AddRawString(dictionaryKey, dictionaryValue))
-                                {
-                                    Log.Warning("Can not add raw string with dictionary key '{0}' which may be invalid or duplicate.", dictionaryKey);
-                                    return false;
-                                }
-                            }
-                        }
-                    }
-
-                    return true;
-                }
-
-                Log.Warning("Can not parse dictionary data which type '{0}' is invalid.", dictionaryData.GetType().FullName);
-                return false;
             }
-            catch (Exception exception)
-            {
-                Log.Warning("Can not parse dictionary data with exception '{0}'.", exception.ToString());
-                return false;
-            }
+
+            return true;
         }
 
         /// <summary>
@@ -171,12 +163,12 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="dictionaryName">字典名称。</param>
         /// <param name="dictionaryAssetName">字典资源名称。</param>
-        /// <param name="dictionaryObject">字典对象。</param>
+        /// <param name="dictionaryAsset">字典资源。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否加载成功。</returns>
-        protected override bool LoadDictionary(string dictionaryName, string dictionaryAssetName, object dictionaryObject, object userData)
+        protected override bool LoadDictionary(string dictionaryName, string dictionaryAssetName, object dictionaryAsset, object userData)
         {
-            TextAsset dictionaryTextAsset = dictionaryObject as TextAsset;
+            TextAsset dictionaryTextAsset = dictionaryAsset as TextAsset;
             if (dictionaryTextAsset != null)
             {
                 if (dictionaryAssetName.EndsWith(BytesAssetExtension, StringComparison.Ordinal))
@@ -189,21 +181,30 @@ namespace UnityGameFramework.Runtime
                 }
             }
 
-            byte[] dictionaryBytes = dictionaryObject as byte[];
-            if (dictionaryBytes != null)
-            {
-                if (dictionaryAssetName.EndsWith(BytesAssetExtension, StringComparison.Ordinal))
-                {
-                    return m_LocalizationManager.ParseDictionary(dictionaryBytes, userData);
-                }
-                else
-                {
-                    return m_LocalizationManager.ParseDictionary(Utility.Converter.GetString(dictionaryBytes), userData);
-                }
-            }
-
-            Log.Warning("Dictionary object '{0}' is invalid.", dictionaryName);
+            Log.Warning("Dictionary asset '{0}' is invalid.", dictionaryAssetName);
             return false;
+        }
+
+        /// <summary>
+        /// 加载字典。
+        /// </summary>
+        /// <param name="dictionaryName">字典名称。</param>
+        /// <param name="dictionaryAssetName">字典资源名称。</param>
+        /// <param name="dictionaryBytes">字典二进制数据。</param>
+        /// <param name="startIndex">字典二进制数据的起始位置。</param>
+        /// <param name="length">字典二进制数据的长度。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否加载成功。</returns>
+        protected override bool LoadDictionary(string dictionaryName, string dictionaryAssetName, byte[] dictionaryBytes, int startIndex, int length, object userData)
+        {
+            if (dictionaryAssetName.EndsWith(BytesAssetExtension, StringComparison.Ordinal))
+            {
+                return m_LocalizationManager.ParseDictionary(dictionaryBytes, startIndex, length, userData);
+            }
+            else
+            {
+                return m_LocalizationManager.ParseDictionary(Utility.Converter.GetString(dictionaryBytes, startIndex, length), userData);
+            }
         }
 
         /// <summary>

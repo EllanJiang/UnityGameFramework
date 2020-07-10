@@ -1666,6 +1666,18 @@
             </summary>
             <returns>数据头标识。</returns>
         </member>
+        <member name="T:GameFramework.GlobalBytes">
+            <summary>
+            全局二进制流缓存。
+            </summary>
+        </member>
+        <member name="M:GameFramework.GlobalBytes.Get(System.Int32)">
+            <summary>
+            获取全局二进制流缓存。
+            </summary>
+            <param name="ensureSize">要确保全局二进制流缓存分配内存的大小。</param>
+            <returns>全局二进制流缓存。</returns>
+        </member>
         <member name="T:GameFramework.GameFrameworkLog">
             <summary>
             游戏框架日志类。
@@ -9038,15 +9050,36 @@
             加载字典。
             </summary>
             <param name="dictionaryAssetName">字典资源名称。</param>
-            <param name="dictionaryObject">字典对象。</param>
+            <param name="dictionaryAsset">字典资源。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否加载成功。</returns>
         </member>
-        <member name="M:GameFramework.Localization.ILocalizationHelper.ParseDictionary(System.Object,System.Object)">
+        <member name="M:GameFramework.Localization.ILocalizationHelper.LoadDictionary(System.String,System.Byte[],System.Int32,System.Int32,System.Object)">
+            <summary>
+            加载字典。
+            </summary>
+            <param name="dictionaryAssetName">字典资源名称。</param>
+            <param name="dictionaryBytes">字典二进制数据。</param>
+            <param name="startIndex">字典二进制数据的起始位置。</param>
+            <param name="length">字典二进制数据的长度。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否加载成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationHelper.ParseDictionary(System.String,System.Object)">
             <summary>
             解析字典。
             </summary>
-            <param name="dictionaryData">要解析的字典数据。</param>
+            <param name="dictionaryString">要解析的字典字符串。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationHelper.ParseDictionary(System.Byte[],System.Int32,System.Int32,System.Object)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="dictionaryBytes">要解析的字典二进制数据。</param>
+            <param name="startIndex">字典二进制数据的起始位置。</param>
+            <param name="length">字典二进制数据的长度。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否解析字典成功。</returns>
         </member>
@@ -9136,18 +9169,52 @@
             <param name="priority">加载字典资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Localization.ILocalizationManager.ParseDictionary(System.Object)">
+        <member name="M:GameFramework.Localization.ILocalizationManager.ParseDictionary(System.String)">
             <summary>
             解析字典。
             </summary>
-            <param name="dictionaryData">要解析的字典数据。</param>
+            <param name="dictionaryString">要解析的字典字符串。</param>
             <returns>是否解析字典成功。</returns>
         </member>
-        <member name="M:GameFramework.Localization.ILocalizationManager.ParseDictionary(System.Object,System.Object)">
+        <member name="M:GameFramework.Localization.ILocalizationManager.ParseDictionary(System.String,System.Object)">
             <summary>
             解析字典。
             </summary>
-            <param name="dictionaryData">要解析的字典数据。</param>
+            <param name="dictionaryString">要解析的字典字符串。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.ParseDictionary(System.Byte[])">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="dictionaryBytes">要解析的字典二进制数据。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.ParseDictionary(System.Byte[],System.Object)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="dictionaryBytes">要解析的字典二进制数据。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.ParseDictionary(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="dictionaryBytes">要解析的字典二进制数据。</param>
+            <param name="startIndex">字典二进制数据的起始位置。</param>
+            <param name="length">字典二进制数据的长度。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.ParseDictionary(System.Byte[],System.Int32,System.Int32,System.Object)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="dictionaryBytes">要解析的字典二进制数据。</param>
+            <param name="startIndex">字典二进制数据的起始位置。</param>
+            <param name="length">字典二进制数据的长度。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否解析字典成功。</returns>
         </member>
@@ -9752,18 +9819,52 @@
             <param name="priority">加载字典资源的优先级。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Localization.LocalizationManager.ParseDictionary(System.Object)">
+        <member name="M:GameFramework.Localization.LocalizationManager.ParseDictionary(System.String)">
             <summary>
             解析字典。
             </summary>
-            <param name="dictionaryData">要解析的字典数据。</param>
+            <param name="dictionaryString">要解析的字典字符串。</param>
             <returns>是否解析字典成功。</returns>
         </member>
-        <member name="M:GameFramework.Localization.LocalizationManager.ParseDictionary(System.Object,System.Object)">
+        <member name="M:GameFramework.Localization.LocalizationManager.ParseDictionary(System.String,System.Object)">
             <summary>
             解析字典。
             </summary>
-            <param name="dictionaryData">要解析的字典数据。</param>
+            <param name="dictionaryString">要解析的字典字符串。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.ParseDictionary(System.Byte[])">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="dictionaryBytes">要解析的字典二进制数据。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.ParseDictionary(System.Byte[],System.Object)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="dictionaryBytes">要解析的字典二进制数据。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.ParseDictionary(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="dictionaryBytes">要解析的字典二进制数据。</param>
+            <param name="startIndex">字典二进制数据的起始位置。</param>
+            <param name="length">字典二进制数据的长度。</param>
+            <returns>是否解析字典成功。</returns>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.ParseDictionary(System.Byte[],System.Int32,System.Int32,System.Object)">
+            <summary>
+            解析字典。
+            </summary>
+            <param name="dictionaryBytes">要解析的字典二进制数据。</param>
+            <param name="startIndex">字典二进制数据的起始位置。</param>
+            <param name="length">字典二进制数据的长度。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>是否解析字典成功。</returns>
         </member>
@@ -13727,6 +13828,13 @@
             <param name="fileName">若二进制资源存储在文件系统中，则指示二进制资源在文件系统中的名称，否则此参数返回空。</param>
             <returns>是否获取二进制资源的实际路径成功。</returns>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetBinaryLength(System.String)">
+            <summary>
+            获取二进制资源的长度。
+            </summary>
+            <param name="binaryAssetName">要获取长度的二进制资源的名称。</param>
+            <returns>二进制资源的长度。</returns>
+        </member>
         <member name="M:GameFramework.Resource.IResourceManager.LoadBinary(System.String,GameFramework.Resource.LoadBinaryCallbacks)">
             <summary>
             异步加载二进制资源。
@@ -15355,6 +15463,13 @@
             <param name="fileName">若二进制资源存储在文件系统中，则指示二进制资源在文件系统中的名称，否则此参数返回空。</param>
             <returns>是否获取二进制资源的实际路径成功。</returns>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetBinaryLength(System.String)">
+            <summary>
+            获取二进制资源的长度。
+            </summary>
+            <param name="binaryAssetName">要获取长度的二进制资源的名称。</param>
+            <returns>二进制资源的长度。</returns>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.LoadBinary(System.String,GameFramework.Resource.LoadBinaryCallbacks)">
             <summary>
             异步加载二进制资源。
@@ -16050,6 +16165,13 @@
             <param name="relativePath">二进制资源或存储二进制资源的文件系统，相对于只读区或者读写区的相对路径。</param>
             <param name="fileName">若二进制资源存储在文件系统中，则指示二进制资源在文件系统中的名称，否则此参数返回空。</param>
             <returns>是否获取二进制资源的实际路径成功。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.GetBinaryLength(System.String)">
+            <summary>
+            获取二进制资源的长度。
+            </summary>
+            <param name="binaryAssetName">要获取长度的二进制资源的名称。</param>
+            <returns>二进制资源的长度。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.LoadBinary(System.String,GameFramework.Resource.LoadBinaryCallbacks,System.Object)">
             <summary>

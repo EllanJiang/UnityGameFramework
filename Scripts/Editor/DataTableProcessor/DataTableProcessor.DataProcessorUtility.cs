@@ -16,7 +16,7 @@ namespace UnityGameFramework.Editor.DataTableTools
     {
         private static class DataProcessorUtility
         {
-            private static readonly IDictionary<string, DataProcessor> s_DataProcessors = new SortedDictionary<string, DataProcessor>();
+            private static readonly IDictionary<string, DataProcessor> s_DataProcessors = new SortedDictionary<string, DataProcessor>(StringComparer.Ordinal);
 
             static DataProcessorUtility()
             {

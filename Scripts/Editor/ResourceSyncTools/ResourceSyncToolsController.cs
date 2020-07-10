@@ -202,7 +202,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                     variant = assetBundleName.Substring(dotPosition + 1);
                 }
 
-                if (!resourceCollection.AddResource(name, variant, LoadType.LoadFromFile, false))
+                if (!resourceCollection.AddResource(name, variant, null, LoadType.LoadFromFile, false))
                 {
                     return false;
                 }

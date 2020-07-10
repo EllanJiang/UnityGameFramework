@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 
 using GameFramework;
+using GameFramework.FileSystem;
 using GameFramework.Resource;
 using System;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace UnityGameFramework.Runtime
     public class DefaultLoadResourceAgentHelper : LoadResourceAgentHelperBase, IDisposable
     {
         private string m_FileFullPath = null;
+        private string m_FileName = null;
         private string m_BytesFullPath = null;
         private string m_AssetName = null;
         private float m_LastProgress = 0f;
@@ -147,7 +149,30 @@ namespace UnityGameFramework.Runtime
             }
 
             m_FileFullPath = fullPath;
-            m_FileAssetBundleCreateRequest = AssetBundle.LoadFromFileAsync(m_FileFullPath);
+            m_FileAssetBundleCreateRequest = AssetBundle.LoadFromFileAsync(fullPath);
+        }
+
+        /// <summary>
+        /// 通过加载资源代理辅助器开始异步读取资源文件。
+        /// </summary>
+        /// <param name="fileSystem">要加载资源的文件系统。</param>
+        /// <param name="name">要加载资源的名称。</param>
+        public override void ReadFile(IFileSystem fileSystem, string name)
+        {
+#if UNITY_5_3_5 || UNITY_5_3_6 || UNITY_5_3_7 || UNITY_5_3_8 || UNITY_5_4_OR_NEWER
+            if (m_LoadResourceAgentHelperReadFileCompleteEventHandler == null || m_LoadResourceAgentHelperUpdateEventHandler == null || m_LoadResourceAgentHelperErrorEventHandler == null)
+            {
+                Log.Fatal("Load resource agent helper handler is invalid.");
+                return;
+            }
+
+            FileInfo fileInfo = fileSystem.GetFileInfo(name);
+            m_FileFullPath = fileSystem.FullPath;
+            m_FileName = name;
+            m_FileAssetBundleCreateRequest = AssetBundle.LoadFromFileAsync(fileSystem.FullPath, 0u, (ulong)fileInfo.Offset);
+#else
+            Log.Fatal("Load from file async with offset is not supported, use Unity 5.3.5f1 or above.");
+#endif
         }
 
         /// <summary>
@@ -173,6 +198,25 @@ namespace UnityGameFramework.Runtime
 #else
             m_WWW = new WWW(Utility.Path.GetRemotePath(fullPath));
 #endif
+        }
+
+        /// <summary>
+        /// 通过加载资源代理辅助器开始异步读取资源二进制流。
+        /// </summary>
+        /// <param name="fileSystem">要加载资源的文件系统。</param>
+        /// <param name="name">要加载资源的名称。</param>
+        public override void ReadBytes(IFileSystem fileSystem, string name)
+        {
+            if (m_LoadResourceAgentHelperReadBytesCompleteEventHandler == null || m_LoadResourceAgentHelperUpdateEventHandler == null || m_LoadResourceAgentHelperErrorEventHandler == null)
+            {
+                Log.Fatal("Load resource agent helper handler is invalid.");
+                return;
+            }
+
+            byte[] bytes = fileSystem.ReadFile(name);
+            LoadResourceAgentHelperReadBytesCompleteEventArgs loadResourceAgentHelperReadBytesCompleteEventArgs = LoadResourceAgentHelperReadBytesCompleteEventArgs.Create(bytes);
+            m_LoadResourceAgentHelperReadBytesCompleteEventHandler(this, loadResourceAgentHelperReadBytesCompleteEventArgs);
+            ReferencePool.Release(loadResourceAgentHelperReadBytesCompleteEventArgs);
         }
 
         /// <summary>
@@ -257,6 +301,7 @@ namespace UnityGameFramework.Runtime
         public override void Reset()
         {
             m_FileFullPath = null;
+            m_FileName = null;
             m_BytesFullPath = null;
             m_AssetName = null;
             m_LastProgress = 0f;
@@ -429,7 +474,7 @@ namespace UnityGameFramework.Runtime
                     }
                     else
                     {
-                        LoadResourceAgentHelperErrorEventArgs loadResourceAgentHelperErrorEventArgs = LoadResourceAgentHelperErrorEventArgs.Create(LoadResourceStatus.NotExist, Utility.Text.Format("Can not load asset bundle from file '{0}' which is not a valid asset bundle.", m_FileFullPath));
+                        LoadResourceAgentHelperErrorEventArgs loadResourceAgentHelperErrorEventArgs = LoadResourceAgentHelperErrorEventArgs.Create(LoadResourceStatus.NotExist, Utility.Text.Format("Can not load asset bundle from file '{0}' which is not a valid asset bundle.", m_FileName == null ? m_FileFullPath : Utility.Text.Format("{0} | {1}", m_FileFullPath, m_FileName)));
                         m_LoadResourceAgentHelperErrorEventHandler(this, loadResourceAgentHelperErrorEventArgs);
                         ReferencePool.Release(loadResourceAgentHelperErrorEventArgs);
                     }

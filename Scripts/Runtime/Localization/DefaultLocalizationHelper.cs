@@ -179,7 +179,7 @@ namespace UnityGameFramework.Runtime
             TextAsset dictionaryTextAsset = dictionaryObject as TextAsset;
             if (dictionaryTextAsset != null)
             {
-                if (dictionaryAssetName.EndsWith(BytesAssetExtension))
+                if (dictionaryAssetName.EndsWith(BytesAssetExtension, StringComparison.Ordinal))
                 {
                     return m_LocalizationManager.ParseDictionary(dictionaryTextAsset.bytes, userData);
                 }
@@ -192,7 +192,7 @@ namespace UnityGameFramework.Runtime
             byte[] dictionaryBytes = dictionaryObject as byte[];
             if (dictionaryBytes != null)
             {
-                if (dictionaryAssetName.EndsWith(BytesAssetExtension))
+                if (dictionaryAssetName.EndsWith(BytesAssetExtension, StringComparison.Ordinal))
                 {
                     return m_LocalizationManager.ParseDictionary(dictionaryBytes, userData);
                 }

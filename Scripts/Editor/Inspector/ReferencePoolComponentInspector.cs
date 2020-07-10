@@ -19,7 +19,7 @@ namespace UnityGameFramework.Editor
     [CustomEditor(typeof(ReferencePoolComponent))]
     internal sealed class ReferencePoolComponentInspector : GameFrameworkInspector
     {
-        private readonly Dictionary<string, List<ReferencePoolInfo>> m_ReferencePoolInfos = new Dictionary<string, List<ReferencePoolInfo>>();
+        private readonly Dictionary<string, List<ReferencePoolInfo>> m_ReferencePoolInfos = new Dictionary<string, List<ReferencePoolInfo>>(StringComparer.Ordinal);
         private readonly HashSet<string> m_OpenedItems = new HashSet<string>();
 
         private SerializedProperty m_EnableStrictCheck = null;

@@ -159,7 +159,7 @@ public static class BinaryExtension
             s_CachedBytes[i] = binaryReader.ReadByte();
         }
 
-        Utility.Encryption.GetSelfXorBytes(s_CachedBytes, encryptBytes, length);
+        Utility.Encryption.GetSelfXorBytes(s_CachedBytes, 0, length, encryptBytes);
         string value = Utility.Converter.GetString(s_CachedBytes, 0, length);
         Array.Clear(s_CachedBytes, 0, length);
         return value;

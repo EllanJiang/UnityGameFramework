@@ -224,7 +224,7 @@ namespace UnityGameFramework.Runtime
 
             if (!string.IsNullOrEmpty(m_WWW.error))
             {
-                DownloadAgentHelperErrorEventArgs dodwnloadAgentHelperErrorEventArgs = DownloadAgentHelperErrorEventArgs.Create(m_WWW.error.StartsWith(RangeNotSatisfiableErrorCode.ToString()), m_WWW.error);
+                DownloadAgentHelperErrorEventArgs dodwnloadAgentHelperErrorEventArgs = DownloadAgentHelperErrorEventArgs.Create(m_WWW.error.StartsWith(RangeNotSatisfiableErrorCode.ToString(), StringComparison.Ordinal), m_WWW.error);
                 m_DownloadAgentHelperErrorEventHandler(this, dodwnloadAgentHelperErrorEventArgs);
                 ReferencePool.Release(dodwnloadAgentHelperErrorEventArgs);
             }

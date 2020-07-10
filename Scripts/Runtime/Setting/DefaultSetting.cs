@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 
 using GameFramework;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -16,7 +17,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class DefaultSetting
     {
-        private readonly SortedDictionary<string, string> m_Settings = new SortedDictionary<string, string>();
+        private readonly SortedDictionary<string, string> m_Settings = new SortedDictionary<string, string>(StringComparer.Ordinal);
 
         /// <summary>
         /// 初始化本地版本资源列表的新实例。
@@ -274,6 +275,10 @@ namespace UnityGameFramework.Runtime
             m_Settings[settingName] = value;
         }
 
+        /// <summary>
+        /// 序列化数据。
+        /// </summary>
+        /// <param name="binaryWriter">目标流。</param>
         public void Serialize(BinaryWriter binaryWriter)
         {
             binaryWriter.Write7BitEncodedInt32(m_Settings.Count);
@@ -284,6 +289,10 @@ namespace UnityGameFramework.Runtime
             }
         }
 
+        /// <summary>
+        /// 反序列化数据。
+        /// </summary>
+        /// <param name="binaryReader">指定流。</param>
         public void Deserialize(BinaryReader binaryReader)
         {
             m_Settings.Clear();

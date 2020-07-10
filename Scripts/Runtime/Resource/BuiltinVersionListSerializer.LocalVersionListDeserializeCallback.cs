@@ -35,7 +35,7 @@ namespace UnityGameFramework.Runtime
                 resources[i] = new LocalVersionList.Resource(name, variant, null, loadType, length, hashCode);
             }
 
-            return new LocalVersionList(resources);
+            return new LocalVersionList(resources, null);
         }
 
         /// <summary>
@@ -59,7 +59,46 @@ namespace UnityGameFramework.Runtime
                 resources[i] = new LocalVersionList.Resource(name, variant, extension, loadType, length, hashCode);
             }
 
-            return new LocalVersionList(resources);
+            return new LocalVersionList(resources, null);
+        }
+
+        /// <summary>
+        /// 反序列化本地版本资源列表（版本 2）回调函数。
+        /// </summary>
+        /// <param name="binaryReader">指定流。</param>
+        /// <returns>反序列化的本地版本资源列表（版本 2）。</returns>
+        public static LocalVersionList LocalVersionListDeserializeCallback_V2(BinaryReader binaryReader)
+        {
+            byte[] encryptBytes = binaryReader.ReadBytes(CachedHashBytesLength);
+            int resourceCount = binaryReader.Read7BitEncodedInt32();
+            LocalVersionList.Resource[] resources = resourceCount > 0 ? new LocalVersionList.Resource[resourceCount] : null;
+            for (int i = 0; i < resourceCount; i++)
+            {
+                string name = binaryReader.ReadEncryptedString(encryptBytes);
+                string variant = binaryReader.ReadEncryptedString(encryptBytes);
+                string extension = binaryReader.ReadEncryptedString(encryptBytes) ?? DefaultExtension;
+                byte loadType = binaryReader.ReadByte();
+                int length = binaryReader.Read7BitEncodedInt32();
+                int hashCode = binaryReader.ReadInt32();
+                resources[i] = new LocalVersionList.Resource(name, variant, extension, loadType, length, hashCode);
+            }
+
+            int fileSystemCount = binaryReader.Read7BitEncodedInt32();
+            LocalVersionList.FileSystem[] fileSystems = fileSystemCount > 0 ? new LocalVersionList.FileSystem[fileSystemCount] : null;
+            for (int i = 0; i < fileSystemCount; i++)
+            {
+                string name = binaryReader.ReadEncryptedString(encryptBytes);
+                int resourceIndexCount = binaryReader.Read7BitEncodedInt32();
+                int[] resourceIndexes = resourceIndexCount > 0 ? new int[resourceIndexCount] : null;
+                for (int j = 0; j < resourceIndexCount; j++)
+                {
+                    resourceIndexes[j] = binaryReader.Read7BitEncodedInt32();
+                }
+
+                fileSystems[i] = new LocalVersionList.FileSystem(name, resourceIndexes);
+            }
+
+            return new LocalVersionList(resources, fileSystems);
         }
     }
 }

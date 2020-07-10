@@ -62,7 +62,7 @@ namespace UnityGameFramework.Editor.ResourceTools
 
             m_SourceAssetSearchPaths = new List<string>();
             m_SourceAssetSearchRelativePaths = new List<string>();
-            m_SourceAssets = new Dictionary<string, SourceAsset>();
+            m_SourceAssets = new Dictionary<string, SourceAsset>(StringComparer.Ordinal);
             m_SourceAssetRoot = null;
             m_SourceAssetRootPath = null;
             m_SourceAssetUnionTypeFilter = null;
@@ -381,9 +381,9 @@ namespace UnityGameFramework.Editor.ResourceTools
             return m_ResourceCollection.HasResource(name, variant);
         }
 
-        public bool AddResource(string name, string variant, LoadType loadType, bool packed)
+        public bool AddResource(string name, string variant, string fileSystem, LoadType loadType, bool packed)
         {
-            return m_ResourceCollection.AddResource(name, variant, loadType, packed);
+            return m_ResourceCollection.AddResource(name, variant, fileSystem, loadType, packed);
         }
 
         public bool RenameResource(string oldName, string oldVariant, string newName, string newVariant)

@@ -5,14 +5,18 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework.FileSystem;
+
 namespace UnityGameFramework.Editor.ResourceTools
 {
     public sealed partial class ResourceBuilderController
     {
-        private struct BinaryBuild
+        private sealed class FileSystemHelper : IFileSystemHelper
         {
-            public string resourceName;
-            public string resourceVariant;
+            public FileSystemStream CreateFileSystemStream(string fullPath, FileSystemAccess access, bool createNew)
+            {
+                return new CommonFileSystemStream(fullPath, access, createNew);
+            }
         }
     }
 }

@@ -30,6 +30,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             m_UpdatableVersionListSerializer = new UpdatableVersionListSerializer();
             m_UpdatableVersionListSerializer.RegisterDeserializeCallback(0, BuiltinVersionListSerializer.UpdatableVersionListDeserializeCallback_V0);
             m_UpdatableVersionListSerializer.RegisterDeserializeCallback(1, BuiltinVersionListSerializer.UpdatableVersionListDeserializeCallback_V1);
+            m_UpdatableVersionListSerializer.RegisterDeserializeCallback(2, BuiltinVersionListSerializer.UpdatableVersionListDeserializeCallback_V2);
 
             m_ResourcePackVersionListSerializer = new ResourcePackVersionListSerializer();
             m_ResourcePackVersionListSerializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.ResourcePackVersionListSerializeCallback_V0);

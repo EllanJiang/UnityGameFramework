@@ -24,7 +24,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="binaryWriter">目标流。</param>
         /// <param name="versionList">要序列化的单机模式版本资源列表（版本 0）。</param>
-        /// <returns>序列化单机模式版本资源列表（版本 0）是否成功。</returns>
+        /// <returns>是否序列化单机模式版本资源列表（版本 0）成功。</returns>
         public static bool PackageVersionListSerializeCallback_V0(BinaryWriter binaryWriter, PackageVersionList versionList)
         {
             if (!versionList.IsValid)
@@ -86,7 +86,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="binaryWriter">目标流。</param>
         /// <param name="versionList">要序列化的单机模式版本资源列表（版本 1）。</param>
-        /// <returns>序列化单机模式版本资源列表（版本 1）是否成功。</returns>
+        /// <returns>是否序列化单机模式版本资源列表（版本 1）成功。</returns>
         public static bool PackageVersionListSerializeCallback_V1(BinaryWriter binaryWriter, PackageVersionList versionList)
         {
             if (!versionList.IsValid)
@@ -126,6 +126,84 @@ namespace UnityGameFramework.Runtime
                 foreach (int assetIndex in assetIndexes)
                 {
                     binaryWriter.Write7BitEncodedInt32(assetIndex);
+                }
+            }
+
+            PackageVersionList.ResourceGroup[] resourceGroups = versionList.GetResourceGroups();
+            binaryWriter.Write7BitEncodedInt32(resourceGroups.Length);
+            foreach (PackageVersionList.ResourceGroup resourceGroup in resourceGroups)
+            {
+                binaryWriter.WriteEncryptedString(resourceGroup.Name, s_CachedHashBytes);
+                int[] resourceIndexes = resourceGroup.GetResourceIndexes();
+                binaryWriter.Write7BitEncodedInt32(resourceIndexes.Length);
+                foreach (int resourceIndex in resourceIndexes)
+                {
+                    binaryWriter.Write7BitEncodedInt32(resourceIndex);
+                }
+            }
+
+            Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
+            return true;
+        }
+
+        /// <summary>
+        /// 序列化单机模式版本资源列表（版本 2）回调函数。
+        /// </summary>
+        /// <param name="binaryWriter">目标流。</param>
+        /// <param name="versionList">要序列化的单机模式版本资源列表（版本 2）。</param>
+        /// <returns>是否序列化单机模式版本资源列表（版本 2）成功。</returns>
+        public static bool PackageVersionListSerializeCallback_V2(BinaryWriter binaryWriter, PackageVersionList versionList)
+        {
+            if (!versionList.IsValid)
+            {
+                return false;
+            }
+
+            Utility.Random.GetRandomBytes(s_CachedHashBytes);
+            binaryWriter.Write(s_CachedHashBytes);
+            binaryWriter.WriteEncryptedString(versionList.ApplicableGameVersion, s_CachedHashBytes);
+            binaryWriter.Write7BitEncodedInt32(versionList.InternalResourceVersion);
+            PackageVersionList.Asset[] assets = versionList.GetAssets();
+            binaryWriter.Write7BitEncodedInt32(assets.Length);
+            foreach (PackageVersionList.Asset asset in assets)
+            {
+                binaryWriter.WriteEncryptedString(asset.Name, s_CachedHashBytes);
+                int[] dependencyAssetIndexes = asset.GetDependencyAssetIndexes();
+                binaryWriter.Write7BitEncodedInt32(dependencyAssetIndexes.Length);
+                foreach (int dependencyAssetIndex in dependencyAssetIndexes)
+                {
+                    binaryWriter.Write7BitEncodedInt32(dependencyAssetIndex);
+                }
+            }
+
+            PackageVersionList.Resource[] resources = versionList.GetResources();
+            binaryWriter.Write7BitEncodedInt32(resources.Length);
+            foreach (PackageVersionList.Resource resource in resources)
+            {
+                binaryWriter.WriteEncryptedString(resource.Name, s_CachedHashBytes);
+                binaryWriter.WriteEncryptedString(resource.Variant, s_CachedHashBytes);
+                binaryWriter.WriteEncryptedString(resource.Extension != DefaultExtension ? resource.Extension : null, s_CachedHashBytes);
+                binaryWriter.Write(resource.LoadType);
+                binaryWriter.Write7BitEncodedInt32(resource.Length);
+                binaryWriter.Write(resource.HashCode);
+                int[] assetIndexes = resource.GetAssetIndexes();
+                binaryWriter.Write7BitEncodedInt32(assetIndexes.Length);
+                foreach (int assetIndex in assetIndexes)
+                {
+                    binaryWriter.Write7BitEncodedInt32(assetIndex);
+                }
+            }
+
+            PackageVersionList.FileSystem[] fileSystems = versionList.GetFileSystems();
+            binaryWriter.Write7BitEncodedInt32(fileSystems.Length);
+            foreach (PackageVersionList.FileSystem fileSystem in fileSystems)
+            {
+                binaryWriter.WriteEncryptedString(fileSystem.Name, s_CachedHashBytes);
+                int[] resourceIndexes = fileSystem.GetResourceIndexes();
+                binaryWriter.Write7BitEncodedInt32(resourceIndexes.Length);
+                foreach (int resourceIndex in resourceIndexes)
+                {
+                    binaryWriter.Write7BitEncodedInt32(resourceIndex);
                 }
             }
 

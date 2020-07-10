@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 
 using UnityEditor;
+using UnityEngine;
 
 namespace UnityGameFramework.Editor.ResourceTools
 {
@@ -43,9 +44,61 @@ namespace UnityGameFramework.Editor.ResourceTools
         /// <param name="outputPackedSelected">是否生成可更新模式所需的本地文件。</param>
         /// <param name="outputPackedPath">为可更新模式生成的本地文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
         /// <param name="buildReportPath">生成报告路径。</param>
-        void PreprocessAllPlatforms(string productName, string companyName, string gameIdentifier,
+        void OnPreprocessAllPlatforms(string productName, string companyName, string gameIdentifier,
             string gameFrameworkVersion, string unityVersion, string applicableGameVersion, int internalResourceVersion, BuildAssetBundleOptions buildAssetBundleOptions, bool zip,
             string outputDirectory, string workingPath, bool outputPackageSelected, string outputPackagePath, bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, string buildReportPath);
+
+        /// <summary>
+        /// 某个平台生成开始前的预处理事件。
+        /// </summary>
+        /// <param name="platform">生成平台。</param>
+        /// <param name="workingPath">生成时的工作路径。</param>
+        /// <param name="outputPackageSelected">是否生成单机模式所需的文件。</param>
+        /// <param name="outputPackagePath">为单机模式生成的文件存放于此路径。若游戏是单机游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
+        /// <param name="outputFullSelected">是否生成可更新模式所需的远程文件。</param>
+        /// <param name="outputFullPath">为可更新模式生成的远程文件存放于此路径。若游戏是网络游戏，生成结束后应将此目录上传至 Web 服务器，供玩家下载用。</param>
+        /// <param name="outputPackedSelected">是否生成可更新模式所需的本地文件。</param>
+        /// <param name="outputPackedPath">为可更新模式生成的本地文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
+        void OnPreprocessPlatform(Platform platform, string workingPath, bool outputPackageSelected, string outputPackagePath, bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath);
+
+        /// <summary>
+        /// 某个平台生成 AssetBundle 完成事件。
+        /// </summary>
+        /// <param name="platform">生成平台。</param>
+        /// <param name="workingPath">生成时的工作路径。</param>
+        /// <param name="outputPackageSelected">是否生成单机模式所需的文件。</param>
+        /// <param name="outputPackagePath">为单机模式生成的文件存放于此路径。若游戏是单机游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
+        /// <param name="outputFullSelected">是否生成可更新模式所需的远程文件。</param>
+        /// <param name="outputFullPath">为可更新模式生成的远程文件存放于此路径。若游戏是网络游戏，生成结束后应将此目录上传至 Web 服务器，供玩家下载用。</param>
+        /// <param name="outputPackedSelected">是否生成可更新模式所需的本地文件。</param>
+        /// <param name="outputPackedPath">为可更新模式生成的本地文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
+        /// <param name="assetBundleManifest">AssetBundle 的描述文件。</param>
+        void OnBuildAssetBundlesComplete(Platform platform, string workingPath, bool outputPackageSelected, string outputPackagePath, bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, AssetBundleManifest assetBundleManifest);
+
+        /// <summary>
+        /// 某个平台可更新模式版本列表文件的输出事件。
+        /// </summary>
+        /// <param name="platform">生成平台。</param>
+        /// <param name="versionListPath">可更新模式版本列表文件的路径。</param>
+        /// <param name="versionListLength">可更新模式版本列表文件的长度。</param>
+        /// <param name="versionListHashCode">可更新模式版本列表文件的校验值。</param>
+        /// <param name="versionListZipLength">可更新模式版本列表文件压缩后的长度。</param>
+        /// <param name="versionListZipHashCode">可更新模式版本列表文件压缩后的校验值。</param>
+        void OnOutputUpdatableVersionListData(Platform platform, string versionListPath, int versionListLength, int versionListHashCode, int versionListZipLength, int versionListZipHashCode);
+
+        /// <summary>
+        /// 某个平台生成结束后的后处理事件。
+        /// </summary>
+        /// <param name="platform">生成平台。</param>
+        /// <param name="workingPath">生成时的工作路径。</param>
+        /// <param name="outputPackageSelected">是否生成单机模式所需的文件。</param>
+        /// <param name="outputPackagePath">为单机模式生成的文件存放于此路径。若游戏是单机游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
+        /// <param name="outputFullSelected">是否生成可更新模式所需的远程文件。</param>
+        /// <param name="outputFullPath">为可更新模式生成的远程文件存放于此路径。若游戏是网络游戏，生成结束后应将此目录上传至 Web 服务器，供玩家下载用。</param>
+        /// <param name="outputPackedSelected">是否生成可更新模式所需的本地文件。</param>
+        /// <param name="outputPackedPath">为可更新模式生成的本地文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
+        /// <param name="isSuccess">是否生成成功。</param>
+        void OnPostprocessPlatform(Platform platform, string workingPath, bool outputPackageSelected, string outputPackagePath, bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, bool isSuccess);
 
         /// <summary>
         /// 所有平台生成结束后的后处理事件。
@@ -68,46 +121,8 @@ namespace UnityGameFramework.Editor.ResourceTools
         /// <param name="outputPackedSelected">是否生成可更新模式所需的本地文件。</param>
         /// <param name="outputPackedPath">为可更新模式生成的本地文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
         /// <param name="buildReportPath">生成报告路径。</param>
-        void PostprocessAllPlatforms(string productName, string companyName, string gameIdentifier,
+        void OnPostprocessAllPlatforms(string productName, string companyName, string gameIdentifier,
             string gameFrameworkVersion, string unityVersion, string applicableGameVersion, int internalResourceVersion, BuildAssetBundleOptions buildAssetBundleOptions, bool zip,
             string outputDirectory, string workingPath, bool outputPackageSelected, string outputPackagePath, bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, string buildReportPath);
-
-        /// <summary>
-        /// 某个平台生成开始前的预处理事件。
-        /// </summary>
-        /// <param name="platform">生成平台。</param>
-        /// <param name="workingPath">生成时的工作路径。</param>
-        /// <param name="outputPackageSelected">是否生成单机模式所需的文件。</param>
-        /// <param name="outputPackagePath">为单机模式生成的文件存放于此路径。若游戏是单机游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
-        /// <param name="outputFullSelected">是否生成可更新模式所需的远程文件。</param>
-        /// <param name="outputFullPath">为可更新模式生成的远程文件存放于此路径。若游戏是网络游戏，生成结束后应将此目录上传至 Web 服务器，供玩家下载用。</param>
-        /// <param name="outputPackedSelected">是否生成可更新模式所需的本地文件。</param>
-        /// <param name="outputPackedPath">为可更新模式生成的本地文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
-        void PreprocessPlatform(Platform platform, string workingPath, bool outputPackageSelected, string outputPackagePath, bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath);
-
-        /// <summary>
-        /// 某个平台生成结束后的后处理事件。
-        /// </summary>
-        /// <param name="platform">生成平台。</param>
-        /// <param name="workingPath">生成时的工作路径。</param>
-        /// <param name="outputPackageSelected">是否生成单机模式所需的文件。</param>
-        /// <param name="outputPackagePath">为单机模式生成的文件存放于此路径。若游戏是单机游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
-        /// <param name="outputFullSelected">是否生成可更新模式所需的远程文件。</param>
-        /// <param name="outputFullPath">为可更新模式生成的远程文件存放于此路径。若游戏是网络游戏，生成结束后应将此目录上传至 Web 服务器，供玩家下载用。</param>
-        /// <param name="outputPackedSelected">是否生成可更新模式所需的本地文件。</param>
-        /// <param name="outputPackedPath">为可更新模式生成的本地文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
-        /// <param name="isSuccess">是否生成成功。</param>
-        void PostprocessPlatform(Platform platform, string workingPath, bool outputPackageSelected, string outputPackagePath, bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, bool isSuccess);
-
-        /// <summary>
-        /// 输出某个平台可更新模式版本列表文件的处理事件。
-        /// </summary>
-        /// <param name="platform">生成平台。</param>
-        /// <param name="versionListPath">可更新模式版本列表文件的路径。</param>
-        /// <param name="versionListLength">可更新模式版本列表文件的长度。</param>
-        /// <param name="versionListHashCode">可更新模式版本列表文件的校验值。</param>
-        /// <param name="versionListZipLength">可更新模式版本列表文件压缩后的长度。</param>
-        /// <param name="versionListZipHashCode">可更新模式版本列表文件压缩后的校验值。</param>
-        void OutputUpdatableVersionListData(Platform platform, string versionListPath, int versionListLength, int versionListHashCode, int versionListZipLength, int versionListZipHashCode);
     }
 }

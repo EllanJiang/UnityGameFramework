@@ -1295,15 +1295,15 @@
         </member>
         <member name="M:GameFramework.GameFrameworkLinkedList`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
             <summary>
-            返回一个循环访问数据表的枚举器。
+            返回循环访问集合的枚举数。
             </summary>
-            <returns>可用于循环访问数据表的对象。</returns>
+            <returns>循环访问集合的枚举数。</returns>
         </member>
         <member name="M:GameFramework.GameFrameworkLinkedList`1.System#Collections#IEnumerable#GetEnumerator">
             <summary>
-            返回一个循环访问数据表的枚举器。
+            返回循环访问集合的枚举数。
             </summary>
-            <returns>可用于循环访问数据表的对象。</returns>
+            <returns>循环访问集合的枚举数。</returns>
         </member>
         <member name="T:GameFramework.GameFrameworkLinkedList`1.Enumerator">
             <summary>
@@ -1530,15 +1530,15 @@
         </member>
         <member name="M:GameFramework.GameFrameworkMultiDictionary`2.System#Collections#Generic#IEnumerable{System#Collections#Generic#KeyValuePair{TKey,GameFramework#GameFrameworkLinkedListRange{TValue}}}#GetEnumerator">
             <summary>
-            返回一个循环访问数据表的枚举器。
+            返回循环访问集合的枚举数。
             </summary>
-            <returns>可用于循环访问数据表的对象。</returns>
+            <returns>循环访问集合的枚举数。</returns>
         </member>
         <member name="M:GameFramework.GameFrameworkMultiDictionary`2.System#Collections#IEnumerable#GetEnumerator">
             <summary>
-            返回一个循环访问数据表的枚举器。
+            返回循环访问集合的枚举数。
             </summary>
-            <returns>可用于循环访问数据表的对象。</returns>
+            <returns>循环访问集合的枚举数。</returns>
         </member>
         <member name="T:GameFramework.GameFrameworkMultiDictionary`2.Enumerator">
             <summary>
@@ -3974,15 +3974,15 @@
         </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.GetEnumerator">
             <summary>
-            返回一个循环访问数据表的枚举器。
+            返回循环访问集合的枚举数。
             </summary>
-            <returns>可用于循环访问数据表的对象。</returns>
+            <returns>循环访问集合的枚举数。</returns>
         </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.System#Collections#IEnumerable#GetEnumerator">
             <summary>
-            返回一个循环访问数据表的枚举器。
+            返回循环访问集合的枚举数。
             </summary>
-            <returns>可用于循环访问数据表的对象。</returns>
+            <returns>循环访问集合的枚举数。</returns>
         </member>
         <member name="M:GameFramework.DataTable.DataTableManager.DataTable`1.Shutdown">
             <summary>

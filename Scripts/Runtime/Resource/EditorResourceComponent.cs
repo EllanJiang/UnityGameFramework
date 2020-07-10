@@ -883,7 +883,7 @@ namespace UnityGameFramework.Runtime
                 return HasAssetResult.NotExist;
             }
 
-            return obj.GetType() == typeof(UnityEditor.DefaultAsset) ? HasAssetResult.Binary : HasAssetResult.Asset;
+            return obj.GetType() == typeof(UnityEditor.DefaultAsset) ? HasAssetResult.BinaryOnDisk : HasAssetResult.AssetOnDisk;
 #else
             return HasAssetResult.NotExist;
 #endif

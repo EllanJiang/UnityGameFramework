@@ -180,9 +180,13 @@ namespace UnityGameFramework.Runtime
         /// <returns>实际读取了多少字节。</returns>
         protected override int Read(byte[] buffer, int startIndex, int length)
         {
+#if UNITY_2019_1_OR_NEWER
+            sbyte[] result = null;
+#else
             byte[] result = null;
+#endif
             int bytesRead = InternalRead(length, out result);
-            Array.Copy(results, 0, buffer, startIndex, bytesRead);
+            Array.Copy(result, 0, buffer, startIndex, bytesRead);
             return bytesRead;
         }
 
@@ -243,9 +247,17 @@ namespace UnityGameFramework.Runtime
             return m_FileStream.Call<int>("read");
         }
 
+#if UNITY_2019_1_OR_NEWER
+        private int InternalRead(int length, out sbyte[] result)
+#else
         private int InternalRead(int length, out byte[] result)
+#endif
         {
+#if UNITY_2019_1_OR_NEWER
+            IntPtr resultPtr = AndroidJNI.NewSByteArray(length);
+#else
             IntPtr resultPtr = AndroidJNI.NewByteArray(length);
+#endif
             int offset = 0;
             int bytesLeft = length;
             while (bytesLeft > 0)
@@ -263,7 +275,12 @@ namespace UnityGameFramework.Runtime
                 bytesLeft -= bytesRead;
             }
 
+#if UNITY_2019_1_OR_NEWER
+            result = AndroidJNI.FromSByteArray(resultPtr);
+#else
             result = AndroidJNI.FromByteArray(resultPtr);
+#endif
+
             AndroidJNI.DeleteLocalRef(resultPtr);
             return offset;
         }

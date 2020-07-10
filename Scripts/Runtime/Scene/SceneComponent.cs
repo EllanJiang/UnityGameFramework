@@ -301,6 +301,11 @@ namespace UnityGameFramework.Runtime
             m_SceneOrder.Remove(sceneAssetName);
         }
 
+        /// <summary>
+        /// 设置场景顺序。
+        /// </summary>
+        /// <param name="sceneAssetName">场景资源名称。</param>
+        /// <param name="sceneOrder">要设置的场景顺序。</param>
         public void SetSceneOrder(string sceneAssetName, int sceneOrder)
         {
             if (string.IsNullOrEmpty(sceneAssetName))

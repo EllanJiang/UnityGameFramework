@@ -275,6 +275,10 @@ namespace UnityGameFramework.Runtime
             m_Settings[settingName] = value;
         }
 
+        /// <summary>
+        /// 序列化数据。
+        /// </summary>
+        /// <param name="binaryWriter">目标流。</param>
         public void Serialize(BinaryWriter binaryWriter)
         {
             binaryWriter.Write7BitEncodedInt32(m_Settings.Count);
@@ -285,6 +289,10 @@ namespace UnityGameFramework.Runtime
             }
         }
 
+        /// <summary>
+        /// 反序列化数据。
+        /// </summary>
+        /// <param name="binaryReader">指定流。</param>
         public void Deserialize(BinaryReader binaryReader)
         {
             m_Settings.Clear();

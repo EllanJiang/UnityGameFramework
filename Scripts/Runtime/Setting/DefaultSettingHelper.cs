@@ -23,6 +23,9 @@ namespace UnityGameFramework.Runtime
         private DefaultSetting m_Settings = null;
         private DefaultSettingSerializer m_Serializer = null;
 
+        /// <summary>
+        /// 获取游戏配置文件路径。
+        /// </summary>
         public virtual string FilePath
         {
             get

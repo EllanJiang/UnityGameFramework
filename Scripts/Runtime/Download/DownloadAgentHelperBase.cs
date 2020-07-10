@@ -16,6 +16,9 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public abstract class DownloadAgentHelperBase : MonoBehaviour, IDownloadAgentHelper
     {
+        /// <summary>
+        /// 范围不适用错误码。
+        /// </summary>
         protected const int RangeNotSatisfiableErrorCode = 416;
 
         /// <summary>

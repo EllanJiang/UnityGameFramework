@@ -82,7 +82,7 @@ namespace UnityGameFramework.Runtime
         {
             try
             {
-                using (MemoryStream memoryStream = new MemoryStream(configBytes, false))
+                using (MemoryStream memoryStream = new MemoryStream(configBytes, startIndex, length, false))
                 {
                     using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                     {

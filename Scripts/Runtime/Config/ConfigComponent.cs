@@ -168,22 +168,68 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 解析全局配置。
         /// </summary>
-        /// <param name="configData">要解析的全局配置数据。</param>
+        /// <param name="configString">要解析的全局配置字符串。</param>
         /// <returns>是否解析全局配置成功。</returns>
-        public bool ParseConfig(object configData)
+        public bool ParseConfig(string configString)
         {
-            return m_ConfigManager.ParseConfig(configData);
+            return m_ConfigManager.ParseConfig(configString);
         }
 
         /// <summary>
         /// 解析全局配置。
         /// </summary>
-        /// <param name="configData">要解析的全局配置数据。</param>
+        /// <param name="configString">要解析的全局配置字符串。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否解析全局配置成功。</returns>
-        public bool ParseConfig(object configData, object userData)
+        public bool ParseConfig(string configString, object userData)
         {
-            return m_ConfigManager.ParseConfig(configData, userData);
+            return m_ConfigManager.ParseConfig(configString, userData);
+        }
+
+        /// <summary>
+        /// 解析全局配置。
+        /// </summary>
+        /// <param name="configBytes">要解析的全局配置二进制流。</param>
+        /// <returns>是否解析全局配置成功。</returns>
+        public bool ParseConfig(byte[] configBytes)
+        {
+            return m_ConfigManager.ParseConfig(configBytes);
+        }
+
+        /// <summary>
+        /// 解析全局配置。
+        /// </summary>
+        /// <param name="configBytes">要解析的全局配置二进制流。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析全局配置成功。</returns>
+        public bool ParseConfig(byte[] configBytes, object userData)
+        {
+            return m_ConfigManager.ParseConfig(configBytes, userData);
+        }
+
+        /// <summary>
+        /// 解析全局配置。
+        /// </summary>
+        /// <param name="configBytes">要解析的全局配置二进制流。</param>
+        /// <param name="startIndex">全局配置二进制流的起始位置。</param>
+        /// <param name="length">全局配置二进制流的长度。</param>
+        /// <returns>是否解析全局配置成功。</returns>
+        public bool ParseConfig(byte[] configBytes, int startIndex, int length)
+        {
+            return m_ConfigManager.ParseConfig(configBytes, startIndex, length);
+        }
+
+        /// <summary>
+        /// 解析全局配置。
+        /// </summary>
+        /// <param name="configBytes">要解析的全局配置二进制流。</param>
+        /// <param name="startIndex">全局配置二进制流的起始位置。</param>
+        /// <param name="length">全局配置二进制流的长度。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析全局配置成功。</returns>
+        public bool ParseConfig(byte[] configBytes, int startIndex, int length, object userData)
+        {
+            return m_ConfigManager.ParseConfig(configBytes, startIndex, length, userData);
         }
 
         /// <summary>

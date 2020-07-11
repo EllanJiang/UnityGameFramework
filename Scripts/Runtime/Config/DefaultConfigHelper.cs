@@ -30,72 +30,80 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 解析全局配置。
         /// </summary>
-        /// <param name="configData">要解析的全局配置数据。</param>
+        /// <param name="configString">要解析的全局配置字符串。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否解析全局配置成功。</returns>
-        public override bool ParseConfig(object configData, object userData)
+        public override bool ParseConfig(string configString, object userData)
         {
             try
             {
-                string configText = configData as string;
-                if (configText != null)
+                string[] configRowTexts = configString.Split(RowSplitSeparator, StringSplitOptions.None);
+                for (int i = 0; i < configRowTexts.Length; i++)
                 {
-                    string[] configRowTexts = configText.Split(RowSplitSeparator, StringSplitOptions.None);
-                    for (int i = 0; i < configRowTexts.Length; i++)
+                    if (configRowTexts[i].Length <= 0 || configRowTexts[i][0] == '#')
                     {
-                        if (configRowTexts[i].Length <= 0 || configRowTexts[i][0] == '#')
-                        {
-                            continue;
-                        }
-
-                        string[] splitLine = configRowTexts[i].Split(ColumnSplitSeparator, StringSplitOptions.None);
-                        if (splitLine.Length != ColumnCount)
-                        {
-                            Log.Warning("Can not parse config '{0}'.", configText);
-                            return false;
-                        }
-
-                        string configName = splitLine[1];
-                        string configValue = splitLine[3];
-                        if (!AddConfig(configName, configValue))
-                        {
-                            Log.Warning("Can not add raw string with config name '{0}' which may be invalid or duplicate.", configName);
-                            return false;
-                        }
+                        continue;
                     }
 
-                    return true;
-                }
-
-                byte[] configBytes = configData as byte[];
-                if (configBytes != null)
-                {
-                    using (MemoryStream memoryStream = new MemoryStream(configBytes, false))
+                    string[] splitLine = configRowTexts[i].Split(ColumnSplitSeparator, StringSplitOptions.None);
+                    if (splitLine.Length != ColumnCount)
                     {
-                        using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
-                        {
-                            while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
-                            {
-                                string configName = binaryReader.ReadString();
-                                string configValue = binaryReader.ReadString();
-                                if (!AddConfig(configName, configValue))
-                                {
-                                    Log.Warning("Can not add raw string with config name '{0}' which may be invalid or duplicate.", configName);
-                                    return false;
-                                }
-                            }
-                        }
+                        Log.Warning("Can not parse config '{0}'.", configString);
+                        return false;
                     }
 
-                    return true;
+                    string configName = splitLine[1];
+                    string configValue = splitLine[3];
+                    if (!AddConfig(configName, configValue))
+                    {
+                        Log.Warning("Can not add config with config name '{0}' which may be invalid or duplicate.", configName);
+                        return false;
+                    }
                 }
 
-                Log.Warning("Can not parse config data which type '{0}' is invalid.", configData.GetType().FullName);
-                return false;
+                return true;
             }
             catch (Exception exception)
             {
-                Log.Warning("Can not parse config data with exception '{0}'.", exception.ToString());
+                Log.Warning("Can not parse config string with exception '{0}'.", exception.ToString());
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 解析全局配置。
+        /// </summary>
+        /// <param name="configBytes">要解析的全局配置二进制数据。</param>
+        /// <param name="startIndex">全局配置二进制数据的起始位置。</param>
+        /// <param name="length">全局配置二进制数据的长度。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析全局配置成功。</returns>
+        public override bool ParseConfig(byte[] configBytes, int startIndex, int length, object userData)
+        {
+            try
+            {
+                using (MemoryStream memoryStream = new MemoryStream(configBytes, false))
+                {
+                    using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
+                    {
+                        while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
+                        {
+                            string configName = binaryReader.ReadString();
+                            string configValue = binaryReader.ReadString();
+                            if (!AddConfig(configName, configValue))
+                            {
+                                Log.Warning("Can not add raw string with config name '{0}' which may be invalid or duplicate.", configName);
+                                return false;
+                            }
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Log.Warning("Can not parse config bytes with exception '{0}'.", exception.ToString());
                 return false;
             }
         }
@@ -132,21 +140,30 @@ namespace UnityGameFramework.Runtime
                 }
             }
 
-            byte[] configBytes = configObject as byte[];
-            if (configBytes != null)
-            {
-                if (configAssetName.EndsWith(BytesAssetExtension, StringComparison.Ordinal))
-                {
-                    return m_ConfigManager.ParseConfig(configBytes, userData);
-                }
-                else
-                {
-                    return m_ConfigManager.ParseConfig(Utility.Converter.GetString(configBytes), userData);
-                }
-            }
-
-            Log.Warning("Config object '{0}' is invalid.", configName);
+            Log.Warning("Config asset '{0}' is invalid.", configAssetName);
             return false;
+        }
+
+        /// <summary>
+        /// 加载全局配置。
+        /// </summary>
+        /// <param name="configName">全局配置名称。</param>
+        /// <param name="configAssetName">全局配置资源名称。</param>
+        /// <param name="configBytes">全局配置二进制数据。</param>
+        /// <param name="startIndex">全局配置二进制数据的起始位置。</param>
+        /// <param name="length">全局配置二进制数据的长度。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否加载成功。</returns>
+        protected override bool LoadConfig(string configName, string configAssetName, byte[] configBytes, int startIndex, int length, object userData)
+        {
+            if (configAssetName.EndsWith(BytesAssetExtension, StringComparison.Ordinal))
+            {
+                return m_ConfigManager.ParseConfig(configBytes, startIndex, length, userData);
+            }
+            else
+            {
+                return m_ConfigManager.ParseConfig(Utility.Converter.GetString(configBytes, startIndex, length), userData);
+            }
         }
 
         /// <summary>

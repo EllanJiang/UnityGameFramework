@@ -135,7 +135,7 @@ namespace UnityGameFramework.Runtime
                                 return false;
                             }
 
-                            binaryReader.BaseStream.Position += length;
+                            binaryReader.BaseStream.Position += dataRowBytesLength;
                         }
                     }
                 }

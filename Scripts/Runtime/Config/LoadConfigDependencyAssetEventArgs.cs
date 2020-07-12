@@ -25,7 +25,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public LoadConfigDependencyAssetEventArgs()
         {
-            ConfigName = null;
             ConfigAssetName = null;
             DependencyAssetName = null;
             LoadedCount = 0;
@@ -42,15 +41,6 @@ namespace UnityGameFramework.Runtime
             {
                 return EventId;
             }
-        }
-
-        /// <summary>
-        /// 获取全局配置名称。
-        /// </summary>
-        public string ConfigName
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -103,16 +93,14 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="e">内部事件。</param>
         /// <returns>创建的加载全局配置时加载依赖资源事件。</returns>
-        public static LoadConfigDependencyAssetEventArgs Create(GameFramework.Config.LoadConfigDependencyAssetEventArgs e)
+        public static LoadConfigDependencyAssetEventArgs Create(ReadDataDependencyAssetEventArgs e)
         {
-            LoadConfigInfo loadConfigInfo = (LoadConfigInfo)e.UserData;
             LoadConfigDependencyAssetEventArgs loadConfigDependencyAssetEventArgs = ReferencePool.Acquire<LoadConfigDependencyAssetEventArgs>();
-            loadConfigDependencyAssetEventArgs.ConfigName = loadConfigInfo.ConfigName;
-            loadConfigDependencyAssetEventArgs.ConfigAssetName = e.ConfigAssetName;
+            loadConfigDependencyAssetEventArgs.ConfigAssetName = e.DataAssetName;
             loadConfigDependencyAssetEventArgs.DependencyAssetName = e.DependencyAssetName;
             loadConfigDependencyAssetEventArgs.LoadedCount = e.LoadedCount;
             loadConfigDependencyAssetEventArgs.TotalCount = e.TotalCount;
-            loadConfigDependencyAssetEventArgs.UserData = loadConfigInfo.UserData;
+            loadConfigDependencyAssetEventArgs.UserData = e.UserData;
             return loadConfigDependencyAssetEventArgs;
         }
 
@@ -121,7 +109,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public override void Clear()
         {
-            ConfigName = null;
             ConfigAssetName = null;
             DependencyAssetName = null;
             LoadedCount = 0;

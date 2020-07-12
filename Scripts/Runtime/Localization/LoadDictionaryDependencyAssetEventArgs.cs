@@ -25,7 +25,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public LoadDictionaryDependencyAssetEventArgs()
         {
-            DictionaryName = null;
             DictionaryAssetName = null;
             DependencyAssetName = null;
             LoadedCount = 0;
@@ -42,15 +41,6 @@ namespace UnityGameFramework.Runtime
             {
                 return EventId;
             }
-        }
-
-        /// <summary>
-        /// 获取字典名称。
-        /// </summary>
-        public string DictionaryName
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -103,16 +93,14 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="e">内部事件。</param>
         /// <returns>创建的加载字典时加载依赖资源事件。</returns>
-        public static LoadDictionaryDependencyAssetEventArgs Create(GameFramework.Localization.LoadDictionaryDependencyAssetEventArgs e)
+        public static LoadDictionaryDependencyAssetEventArgs Create(ReadDataDependencyAssetEventArgs e)
         {
-            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
             LoadDictionaryDependencyAssetEventArgs loadDictionaryDependencyAssetEventArgs = ReferencePool.Acquire<LoadDictionaryDependencyAssetEventArgs>();
-            loadDictionaryDependencyAssetEventArgs.DictionaryName = loadDictionaryInfo.DictionaryName;
-            loadDictionaryDependencyAssetEventArgs.DictionaryAssetName = e.DictionaryAssetName;
+            loadDictionaryDependencyAssetEventArgs.DictionaryAssetName = e.DataAssetName;
             loadDictionaryDependencyAssetEventArgs.DependencyAssetName = e.DependencyAssetName;
             loadDictionaryDependencyAssetEventArgs.LoadedCount = e.LoadedCount;
             loadDictionaryDependencyAssetEventArgs.TotalCount = e.TotalCount;
-            loadDictionaryDependencyAssetEventArgs.UserData = loadDictionaryInfo.UserData;
+            loadDictionaryDependencyAssetEventArgs.UserData = e.UserData;
             return loadDictionaryDependencyAssetEventArgs;
         }
 
@@ -121,7 +109,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public override void Clear()
         {
-            DictionaryName = null;
             DictionaryAssetName = null;
             DependencyAssetName = null;
             LoadedCount = 0;

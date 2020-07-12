@@ -1476,11 +1476,11 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
-            string[] splitAssetFullName = assetFullName.Split('/');
+            string[] splitedAssetFullName = assetFullName.Split('/');
             string currentPath = Path.GetPathRoot(assetFullName);
-            for (int i = 1; i < splitAssetFullName.Length - 1; i++)
+            for (int i = 1; i < splitedAssetFullName.Length - 1; i++)
             {
-                string[] directoryNames = Directory.GetDirectories(currentPath, splitAssetFullName[i]);
+                string[] directoryNames = Directory.GetDirectories(currentPath, splitedAssetFullName[i]);
                 if (directoryNames.Length != 1)
                 {
                     return false;
@@ -1489,7 +1489,7 @@ namespace UnityGameFramework.Runtime
                 currentPath = directoryNames[0];
             }
 
-            string[] fileNames = Directory.GetFiles(currentPath, splitAssetFullName[splitAssetFullName.Length - 1]);
+            string[] fileNames = Directory.GetFiles(currentPath, splitedAssetFullName[splitedAssetFullName.Length - 1]);
             if (fileNames.Length != 1)
             {
                 return false;

@@ -25,7 +25,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public LoadConfigUpdateEventArgs()
         {
-            ConfigName = null;
             ConfigAssetName = null;
             Progress = 0f;
             UserData = null;
@@ -40,15 +39,6 @@ namespace UnityGameFramework.Runtime
             {
                 return EventId;
             }
-        }
-
-        /// <summary>
-        /// 获取全局配置名称。
-        /// </summary>
-        public string ConfigName
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -83,14 +73,12 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="e">内部事件。</param>
         /// <returns>创建的加载全局配置更新事件。</returns>
-        public static LoadConfigUpdateEventArgs Create(GameFramework.Config.LoadConfigUpdateEventArgs e)
+        public static LoadConfigUpdateEventArgs Create(ReadDataUpdateEventArgs e)
         {
-            LoadConfigInfo loadConfigInfo = (LoadConfigInfo)e.UserData;
             LoadConfigUpdateEventArgs loadConfigUpdateEventArgs = ReferencePool.Acquire<LoadConfigUpdateEventArgs>();
-            loadConfigUpdateEventArgs.ConfigName = loadConfigInfo.ConfigName;
-            loadConfigUpdateEventArgs.ConfigAssetName = e.ConfigAssetName;
+            loadConfigUpdateEventArgs.ConfigAssetName = e.DataAssetName;
             loadConfigUpdateEventArgs.Progress = e.Progress;
-            loadConfigUpdateEventArgs.UserData = loadConfigInfo.UserData;
+            loadConfigUpdateEventArgs.UserData = e.UserData;
             return loadConfigUpdateEventArgs;
         }
 
@@ -99,7 +87,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public override void Clear()
         {
-            ConfigName = null;
             ConfigAssetName = null;
             Progress = 0f;
             UserData = null;

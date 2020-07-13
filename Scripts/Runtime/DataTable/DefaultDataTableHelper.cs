@@ -19,7 +19,6 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class DefaultDataTableHelper : DataTableHelperBase
     {
-        private static readonly string[] EmptyStringArray = new string[] { };
         private static readonly string BytesAssetExtension = ".bytes";
 
         private ResourceComponent m_ResourceComponent = null;

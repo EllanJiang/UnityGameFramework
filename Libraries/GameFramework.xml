@@ -16,6 +16,11 @@
             </summary>
             <param name="owner">数据提供者的持有者。</param>
         </member>
+        <member name="P:GameFramework.DataProvider`1.CachedBytesSize">
+            <summary>
+            获取缓冲二进制流的大小。
+            </summary>
+        </member>
         <member name="E:GameFramework.DataProvider`1.ReadDataSuccess">
             <summary>
             读取数据成功事件。
@@ -134,6 +139,11 @@
         <member name="T:GameFramework.DataProviderCreator">
             <summary>
             数据提供者创建器。
+            </summary>
+        </member>
+        <member name="P:GameFramework.DataProviderCreator.CachedBytesSize">
+            <summary>
+            获取缓冲二进制流的大小。
             </summary>
         </member>
         <member name="M:GameFramework.DataProviderCreator.Create``1(``0,GameFramework.Resource.IResourceManager,GameFramework.IDataProviderHelper{``0})">

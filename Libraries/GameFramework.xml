@@ -13201,12 +13201,12 @@
         </member>
         <member name="P:GameFramework.Resource.IResourceManager.AssetCount">
             <summary>
-            获取已准备完毕资源数量。
+            获取资源数量。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.IResourceManager.ResourceCount">
             <summary>
-            获取已准备完毕资源数量。
+            获取资源数量。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.IResourceManager.ResourceGroupCount">
@@ -14824,12 +14824,12 @@
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.AssetCount">
             <summary>
-            获取已准备完毕资源数量。
+            获取资源数量。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceCount">
             <summary>
-            获取已准备完毕资源数量。
+            获取资源数量。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCount">

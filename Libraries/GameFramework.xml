@@ -21732,26 +21732,52 @@
         </member>
         <member name="M:GameFramework.Utility.Converter.GetBytes(System.String)">
             <summary>
-            以字节数组的形式获取指定的 UTF-8 字符串。
+            以字节数组的形式获取 UTF-8 编码的字符串。
             </summary>
             <param name="value">要转换的字符串。</param>
             <returns>用于存放结果的字节数组。</returns>
         </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.String,System.Text.Encoding)">
+            <summary>
+            以字节数组的形式获取指定编码的字符串。
+            </summary>
+            <param name="value">要转换的字符串。</param>
+            <param name="encoding">要使用的编码。</param>
+            <returns>用于存放结果的字节数组。</returns>
+        </member>
         <member name="M:GameFramework.Utility.Converter.GetString(System.Byte[])">
             <summary>
-            返回由字节数组转换来的 UTF-8 字符串。
+            返回由字节数组使用 UTF-8 编码转换成的字符串。
             </summary>
             <param name="value">字节数组。</param>
-            <returns>UTF-8 字符串。</returns>
+            <returns>转换后的字符串。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetString(System.Byte[],System.Text.Encoding)">
+            <summary>
+            返回由字节数组使用指定编码转换成的字符串。
+            </summary>
+            <param name="value">字节数组。</param>
+            <param name="encoding">要使用的编码。</param>
+            <returns>转换后的字符串。</returns>
         </member>
         <member name="M:GameFramework.Utility.Converter.GetString(System.Byte[],System.Int32,System.Int32)">
             <summary>
-            返回由字节数组转换来的 UTF-8 字符串。
+            返回由字节数组使用 UTF-8 编码转换成的字符串。
             </summary>
             <param name="value">字节数组。</param>
             <param name="startIndex">value 内的起始位置。</param>
             <param name="length">长度。</param>
-            <returns>UTF-8 字符串。</returns>
+            <returns>转换后的字符串。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetString(System.Byte[],System.Int32,System.Int32,System.Text.Encoding)">
+            <summary>
+            返回由字节数组使用指定编码转换成的字符串。
+            </summary>
+            <param name="value">字节数组。</param>
+            <param name="startIndex">value 内的起始位置。</param>
+            <param name="length">长度。</param>
+            <param name="encoding">要使用的编码。</param>
+            <returns>转换后的字符串。</returns>
         </member>
         <member name="T:GameFramework.Utility.Encryption">
             <summary>

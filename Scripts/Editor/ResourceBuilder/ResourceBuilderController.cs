@@ -879,9 +879,6 @@ namespace UnityGameFramework.Editor.ResourceTools
 
             // Build AssetBundles
             m_BuildReport.LogInfo("Unity start build asset bundles for '{0}'...", platformName);
-
-            UseEncrytion(ref buildAssetBundleOptions);
-
             AssetBundleManifest assetBundleManifest = BuildPipeline.BuildAssetBundles(workingPath, assetBundleBuildDatas, buildAssetBundleOptions, GetBuildTarget(platform));
             if (assetBundleManifest == null)
             {
@@ -1613,24 +1610,6 @@ namespace UnityGameFramework.Editor.ResourceTools
             }
 
             return DefaultExtension;
-        }
-
-        private void UseEncrytion(ref BuildAssetBundleOptions buildAssetBundleOptions)
-        {
-            m_BuildReport.LogInfo("Encrytion is {0}", EditorPrefs.GetBool("Encryption"));
-            System.Reflection.MethodInfo method = typeof(BuildPipeline).GetMethod("SetAssetBundleEncryptKey", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-            if (method != null)
-            {
-                if (EditorPrefs.HasKey("Encryption") && EditorPrefs.GetBool("Encryption"))
-                {
-                    method.Invoke(null, new object[] { "0123456789abcdef" });
-                    buildAssetBundleOptions |= (BuildAssetBundleOptions)Enum.Parse(typeof(BuildAssetBundleOptions), "EnableProtection");
-                }
-                else
-                {
-                    method.Invoke(null, new object[] { null });
-                }
-            }
         }
     }
 }

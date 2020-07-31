@@ -25,7 +25,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public LoadConfigFailureEventArgs()
         {
-            ConfigName = null;
             ConfigAssetName = null;
             ErrorMessage = null;
             UserData = null;
@@ -40,15 +39,6 @@ namespace UnityGameFramework.Runtime
             {
                 return EventId;
             }
-        }
-
-        /// <summary>
-        /// 获取全局配置名称。
-        /// </summary>
-        public string ConfigName
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -83,15 +73,12 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="e">内部事件。</param>
         /// <returns>创建的加载全局配置失败事件。</returns>
-        public static LoadConfigFailureEventArgs Create(GameFramework.Config.LoadConfigFailureEventArgs e)
+        public static LoadConfigFailureEventArgs Create(ReadDataFailureEventArgs e)
         {
-            LoadConfigInfo loadConfigInfo = (LoadConfigInfo)e.UserData;
             LoadConfigFailureEventArgs loadConfigFailureEventArgs = ReferencePool.Acquire<LoadConfigFailureEventArgs>();
-            loadConfigFailureEventArgs.ConfigName = loadConfigInfo.ConfigName;
-            loadConfigFailureEventArgs.ConfigAssetName = e.ConfigAssetName;
+            loadConfigFailureEventArgs.ConfigAssetName = e.DataAssetName;
             loadConfigFailureEventArgs.ErrorMessage = e.ErrorMessage;
-            loadConfigFailureEventArgs.UserData = loadConfigInfo.UserData;
-            ReferencePool.Release(loadConfigInfo);
+            loadConfigFailureEventArgs.UserData = e.UserData;
             return loadConfigFailureEventArgs;
         }
 
@@ -100,7 +87,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public override void Clear()
         {
-            ConfigName = null;
             ConfigAssetName = null;
             ErrorMessage = null;
             UserData = null;

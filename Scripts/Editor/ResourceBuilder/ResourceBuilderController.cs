@@ -1337,6 +1337,7 @@ namespace UnityGameFramework.Editor.ResourceTools
 
         private void CreateFileSystems(IEnumerable<ResourceData> resourceDatas, string outputPath, Dictionary<string, IFileSystem> outputFileSystem)
         {
+            outputFileSystem.Clear();
             string[] fileSystemNames = GetFileSystemNames(resourceDatas);
             if (fileSystemNames.Length > 0 && m_FileSystemManager == null)
             {

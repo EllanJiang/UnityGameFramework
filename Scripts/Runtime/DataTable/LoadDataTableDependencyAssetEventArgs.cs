@@ -7,7 +7,6 @@
 
 using GameFramework;
 using GameFramework.Event;
-using System;
 
 namespace UnityGameFramework.Runtime
 {
@@ -26,8 +25,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public LoadDataTableDependencyAssetEventArgs()
         {
-            DataRowType = null;
-            DataTableName = null;
             DataTableAssetName = null;
             DependencyAssetName = null;
             LoadedCount = 0;
@@ -44,24 +41,6 @@ namespace UnityGameFramework.Runtime
             {
                 return EventId;
             }
-        }
-
-        /// <summary>
-        /// 获取数据表行的类型。
-        /// </summary>
-        public Type DataRowType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取数据表名称。
-        /// </summary>
-        public string DataTableName
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -114,17 +93,14 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="e">内部事件。</param>
         /// <returns>创建的加载数据表时加载依赖资源事件。</returns>
-        public static LoadDataTableDependencyAssetEventArgs Create(GameFramework.DataTable.LoadDataTableDependencyAssetEventArgs e)
+        public static LoadDataTableDependencyAssetEventArgs Create(ReadDataDependencyAssetEventArgs e)
         {
-            LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
             LoadDataTableDependencyAssetEventArgs loadDataTableDependencyAssetEventArgs = ReferencePool.Acquire<LoadDataTableDependencyAssetEventArgs>();
-            loadDataTableDependencyAssetEventArgs.DataRowType = loadDataTableInfo.DataRowType;
-            loadDataTableDependencyAssetEventArgs.DataTableName = loadDataTableInfo.DataTableName;
-            loadDataTableDependencyAssetEventArgs.DataTableAssetName = e.DataTableAssetName;
+            loadDataTableDependencyAssetEventArgs.DataTableAssetName = e.DataAssetName;
             loadDataTableDependencyAssetEventArgs.DependencyAssetName = e.DependencyAssetName;
             loadDataTableDependencyAssetEventArgs.LoadedCount = e.LoadedCount;
             loadDataTableDependencyAssetEventArgs.TotalCount = e.TotalCount;
-            loadDataTableDependencyAssetEventArgs.UserData = loadDataTableInfo.UserData;
+            loadDataTableDependencyAssetEventArgs.UserData = e.UserData;
             return loadDataTableDependencyAssetEventArgs;
         }
 
@@ -133,8 +109,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public override void Clear()
         {
-            DataRowType = null;
-            DataTableName = null;
             DataTableAssetName = null;
             DependencyAssetName = null;
             LoadedCount = 0;

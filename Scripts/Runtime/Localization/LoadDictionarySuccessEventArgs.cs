@@ -25,7 +25,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public LoadDictionarySuccessEventArgs()
         {
-            DictionaryName = null;
             DictionaryAssetName = null;
             Duration = 0f;
             UserData = null;
@@ -40,15 +39,6 @@ namespace UnityGameFramework.Runtime
             {
                 return EventId;
             }
-        }
-
-        /// <summary>
-        /// 获取字典名称。
-        /// </summary>
-        public string DictionaryName
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -83,15 +73,12 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="e">内部事件。</param>
         /// <returns>创建的加载字典成功事件。</returns>
-        public static LoadDictionarySuccessEventArgs Create(GameFramework.Localization.LoadDictionarySuccessEventArgs e)
+        public static LoadDictionarySuccessEventArgs Create(ReadDataSuccessEventArgs e)
         {
-            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
             LoadDictionarySuccessEventArgs loadDictionarySuccessEventArgs = ReferencePool.Acquire<LoadDictionarySuccessEventArgs>();
-            loadDictionarySuccessEventArgs.DictionaryName = loadDictionaryInfo.DictionaryName;
-            loadDictionarySuccessEventArgs.DictionaryAssetName = e.DictionaryAssetName;
+            loadDictionarySuccessEventArgs.DictionaryAssetName = e.DataAssetName;
             loadDictionarySuccessEventArgs.Duration = e.Duration;
-            loadDictionarySuccessEventArgs.UserData = loadDictionaryInfo.UserData;
-            ReferencePool.Release(loadDictionaryInfo);
+            loadDictionarySuccessEventArgs.UserData = e.UserData;
             return loadDictionarySuccessEventArgs;
         }
 
@@ -100,7 +87,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public override void Clear()
         {
-            DictionaryName = null;
             DictionaryAssetName = null;
             Duration = 0f;
             UserData = null;

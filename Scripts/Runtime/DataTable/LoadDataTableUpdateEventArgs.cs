@@ -7,7 +7,6 @@
 
 using GameFramework;
 using GameFramework.Event;
-using System;
 
 namespace UnityGameFramework.Runtime
 {
@@ -26,8 +25,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public LoadDataTableUpdateEventArgs()
         {
-            DataRowType = null;
-            DataTableName = null;
             DataTableAssetName = null;
             Progress = 0f;
             UserData = null;
@@ -42,24 +39,6 @@ namespace UnityGameFramework.Runtime
             {
                 return EventId;
             }
-        }
-
-        /// <summary>
-        /// 获取数据行的类型。
-        /// </summary>
-        public Type DataRowType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取数据表名称。
-        /// </summary>
-        public string DataTableName
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -94,15 +73,12 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="e">内部事件。</param>
         /// <returns>创建的加载数据表更新事件。</returns>
-        public static LoadDataTableUpdateEventArgs Create(GameFramework.DataTable.LoadDataTableUpdateEventArgs e)
+        public static LoadDataTableUpdateEventArgs Create(ReadDataUpdateEventArgs e)
         {
-            LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
             LoadDataTableUpdateEventArgs loadDataTableUpdateEventArgs = ReferencePool.Acquire<LoadDataTableUpdateEventArgs>();
-            loadDataTableUpdateEventArgs.DataRowType = loadDataTableInfo.DataRowType;
-            loadDataTableUpdateEventArgs.DataTableName = loadDataTableInfo.DataTableName;
-            loadDataTableUpdateEventArgs.DataTableAssetName = e.DataTableAssetName;
+            loadDataTableUpdateEventArgs.DataTableAssetName = e.DataAssetName;
             loadDataTableUpdateEventArgs.Progress = e.Progress;
-            loadDataTableUpdateEventArgs.UserData = loadDataTableInfo.UserData;
+            loadDataTableUpdateEventArgs.UserData = e.UserData;
             return loadDataTableUpdateEventArgs;
         }
 
@@ -111,8 +87,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public override void Clear()
         {
-            DataRowType = null;
-            DataTableName = null;
             DataTableAssetName = null;
             Progress = 0f;
             UserData = null;

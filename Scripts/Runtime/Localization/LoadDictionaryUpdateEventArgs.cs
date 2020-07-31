@@ -25,7 +25,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public LoadDictionaryUpdateEventArgs()
         {
-            DictionaryName = null;
             DictionaryAssetName = null;
             Progress = 0f;
             UserData = null;
@@ -40,15 +39,6 @@ namespace UnityGameFramework.Runtime
             {
                 return EventId;
             }
-        }
-
-        /// <summary>
-        /// 获取字典名称。
-        /// </summary>
-        public string DictionaryName
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -83,14 +73,12 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="e">内部事件。</param>
         /// <returns>创建的加载字典更新事件。</returns>
-        public static LoadDictionaryUpdateEventArgs Create(GameFramework.Localization.LoadDictionaryUpdateEventArgs e)
+        public static LoadDictionaryUpdateEventArgs Create(ReadDataUpdateEventArgs e)
         {
-            LoadDictionaryInfo loadDictionaryInfo = (LoadDictionaryInfo)e.UserData;
             LoadDictionaryUpdateEventArgs loadDictionaryUpdateEventArgs = ReferencePool.Acquire<LoadDictionaryUpdateEventArgs>();
-            loadDictionaryUpdateEventArgs.DictionaryName = loadDictionaryInfo.DictionaryName;
-            loadDictionaryUpdateEventArgs.DictionaryAssetName = e.DictionaryAssetName;
+            loadDictionaryUpdateEventArgs.DictionaryAssetName = e.DataAssetName;
             loadDictionaryUpdateEventArgs.Progress = e.Progress;
-            loadDictionaryUpdateEventArgs.UserData = loadDictionaryInfo.UserData;
+            loadDictionaryUpdateEventArgs.UserData = e.UserData;
             return loadDictionaryUpdateEventArgs;
         }
 
@@ -99,7 +87,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public override void Clear()
         {
-            DictionaryName = null;
             DictionaryAssetName = null;
             Progress = 0f;
             UserData = null;

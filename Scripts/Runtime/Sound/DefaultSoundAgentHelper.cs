@@ -23,6 +23,7 @@ namespace UnityGameFramework.Runtime
         private AudioSource m_AudioSource = null;
         private EntityLogic m_BindingEntityLogic = null;
         private float m_VolumeWhenPause = 0f;
+        private bool m_ApplicationPauseFlag = false;
         private EventHandler<ResetSoundAgentEventArgs> m_ResetSoundAgentEventHandler = null;
 
         /// <summary>
@@ -369,7 +370,7 @@ namespace UnityGameFramework.Runtime
 
         private void Update()
         {
-            if (!IsPlaying && m_AudioSource.clip != null && m_ResetSoundAgentEventHandler != null)
+            if (!m_ApplicationPauseFlag && !IsPlaying && m_AudioSource.clip != null && m_ResetSoundAgentEventHandler != null)
             {
                 ResetSoundAgentEventArgs resetSoundAgentEventArgs = ResetSoundAgentEventArgs.Create();
                 m_ResetSoundAgentEventHandler(this, resetSoundAgentEventArgs);
@@ -381,6 +382,11 @@ namespace UnityGameFramework.Runtime
             {
                 UpdateAgentPosition();
             }
+        }
+
+        private void OnApplicationPause(bool pause)
+        {
+            m_ApplicationPauseFlag = pause;
         }
 
         private void UpdateAgentPosition()

@@ -25,7 +25,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public LoadConfigSuccessEventArgs()
         {
-            ConfigName = null;
             ConfigAssetName = null;
             Duration = 0f;
             UserData = null;
@@ -40,15 +39,6 @@ namespace UnityGameFramework.Runtime
             {
                 return EventId;
             }
-        }
-
-        /// <summary>
-        /// 获取全局配置名称。
-        /// </summary>
-        public string ConfigName
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -83,15 +73,12 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="e">内部事件。</param>
         /// <returns>创建的加载全局配置成功事件。</returns>
-        public static LoadConfigSuccessEventArgs Create(GameFramework.Config.LoadConfigSuccessEventArgs e)
+        public static LoadConfigSuccessEventArgs Create(ReadDataSuccessEventArgs e)
         {
-            LoadConfigInfo loadConfigInfo = (LoadConfigInfo)e.UserData;
             LoadConfigSuccessEventArgs loadConfigSuccessEventArgs = ReferencePool.Acquire<LoadConfigSuccessEventArgs>();
-            loadConfigSuccessEventArgs.ConfigName = loadConfigInfo.ConfigName;
-            loadConfigSuccessEventArgs.ConfigAssetName = e.ConfigAssetName;
+            loadConfigSuccessEventArgs.ConfigAssetName = e.DataAssetName;
             loadConfigSuccessEventArgs.Duration = e.Duration;
-            loadConfigSuccessEventArgs.UserData = loadConfigInfo.UserData;
-            ReferencePool.Release(loadConfigInfo);
+            loadConfigSuccessEventArgs.UserData = e.UserData;
             return loadConfigSuccessEventArgs;
         }
 
@@ -100,7 +87,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public override void Clear()
         {
-            ConfigName = null;
             ConfigAssetName = null;
             Duration = 0f;
             UserData = null;

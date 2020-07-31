@@ -796,15 +796,15 @@ namespace UnityGameFramework.Editor.ResourceTools
             Resource[] resources = m_Controller.GetResources();
             foreach (Resource resource in resources)
             {
-                string[] splitPath = resource.Name.Split('/');
+                string[] splitedPath = resource.Name.Split('/');
                 ResourceFolder folder = m_ResourceRoot;
-                for (int i = 0; i < splitPath.Length - 1; i++)
+                for (int i = 0; i < splitedPath.Length - 1; i++)
                 {
-                    ResourceFolder subFolder = folder.GetFolder(splitPath[i]);
-                    folder = subFolder == null ? folder.AddFolder(splitPath[i]) : subFolder;
+                    ResourceFolder subFolder = folder.GetFolder(splitedPath[i]);
+                    folder = subFolder == null ? folder.AddFolder(splitedPath[i]) : subFolder;
                 }
 
-                string fullName = resource.Variant != null ? Utility.Text.Format("{0}.{1}", splitPath[splitPath.Length - 1], resource.Variant) : splitPath[splitPath.Length - 1];
+                string fullName = resource.Variant != null ? Utility.Text.Format("{0}.{1}", splitedPath[splitedPath.Length - 1], resource.Variant) : splitedPath[splitedPath.Length - 1];
                 folder.AddItem(fullName, resource);
             }
         }

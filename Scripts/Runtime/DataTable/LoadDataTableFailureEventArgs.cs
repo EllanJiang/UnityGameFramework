@@ -7,7 +7,6 @@
 
 using GameFramework;
 using GameFramework.Event;
-using System;
 
 namespace UnityGameFramework.Runtime
 {
@@ -26,8 +25,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public LoadDataTableFailureEventArgs()
         {
-            DataRowType = null;
-            DataTableName = null;
             DataTableAssetName = null;
             ErrorMessage = null;
             UserData = null;
@@ -42,24 +39,6 @@ namespace UnityGameFramework.Runtime
             {
                 return EventId;
             }
-        }
-
-        /// <summary>
-        /// 获取数据表行的类型。
-        /// </summary>
-        public Type DataRowType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取数据表名称。
-        /// </summary>
-        public string DataTableName
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -94,16 +73,12 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="e">内部事件。</param>
         /// <returns>创建的加载数据表失败事件。</returns>
-        public static LoadDataTableFailureEventArgs Create(GameFramework.DataTable.LoadDataTableFailureEventArgs e)
+        public static LoadDataTableFailureEventArgs Create(ReadDataFailureEventArgs e)
         {
-            LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
             LoadDataTableFailureEventArgs loadDataTableFailureEventArgs = ReferencePool.Acquire<LoadDataTableFailureEventArgs>();
-            loadDataTableFailureEventArgs.DataRowType = loadDataTableInfo.DataRowType;
-            loadDataTableFailureEventArgs.DataTableName = loadDataTableInfo.DataTableName;
-            loadDataTableFailureEventArgs.DataTableAssetName = e.DataTableAssetName;
+            loadDataTableFailureEventArgs.DataTableAssetName = e.DataAssetName;
             loadDataTableFailureEventArgs.ErrorMessage = e.ErrorMessage;
-            loadDataTableFailureEventArgs.UserData = loadDataTableInfo.UserData;
-            ReferencePool.Release(loadDataTableInfo);
+            loadDataTableFailureEventArgs.UserData = e.UserData;
             return loadDataTableFailureEventArgs;
         }
 
@@ -112,8 +87,6 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public override void Clear()
         {
-            DataRowType = null;
-            DataTableName = null;
             DataTableAssetName = null;
             ErrorMessage = null;
             UserData = null;

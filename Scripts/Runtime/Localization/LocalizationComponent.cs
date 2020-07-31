@@ -87,17 +87,17 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_LocalizationManager.LoadDictionarySuccess += OnLoadDictionarySuccess;
-            m_LocalizationManager.LoadDictionaryFailure += OnLoadDictionaryFailure;
+            m_LocalizationManager.ReadDataSuccess += OnReadDataSuccess;
+            m_LocalizationManager.ReadDataFailure += OnReadDataFailure;
 
             if (m_EnableLoadDictionaryUpdateEvent)
             {
-                m_LocalizationManager.LoadDictionaryUpdate += OnLoadDictionaryUpdate;
+                m_LocalizationManager.ReadDataUpdate += OnReadDataUpdate;
             }
 
             if (m_EnableLoadDictionaryDependencyAssetEvent)
             {
-                m_LocalizationManager.LoadDictionaryDependencyAsset += OnLoadDictionaryDependencyAsset;
+                m_LocalizationManager.ReadDataDependencyAsset += OnReadDataDependencyAsset;
             }
         }
 
@@ -138,79 +138,116 @@ namespace UnityGameFramework.Runtime
             transform.SetParent(this.transform);
             transform.localScale = Vector3.one;
 
+            m_LocalizationManager.SetDataProviderHelper(localizationHelper);
             m_LocalizationManager.SetLocalizationHelper(localizationHelper);
             m_LocalizationManager.Language = baseComponent.EditorResourceMode && baseComponent.EditorLanguage != Language.Unspecified ? baseComponent.EditorLanguage : m_LocalizationManager.SystemLanguage;
         }
 
         /// <summary>
-        /// 加载字典。
+        /// 读取字典。
         /// </summary>
-        /// <param name="dictionaryName">字典名称。</param>
         /// <param name="dictionaryAssetName">字典资源名称。</param>
-        public void LoadDictionary(string dictionaryName, string dictionaryAssetName)
+        public void ReadData(string dictionaryAssetName)
         {
-            LoadDictionary(dictionaryName, dictionaryAssetName, DefaultPriority, null);
+            m_LocalizationManager.ReadData(dictionaryAssetName);
         }
 
         /// <summary>
-        /// 加载字典。
+        /// 读取字典。
         /// </summary>
-        /// <param name="dictionaryName">字典名称。</param>
         /// <param name="dictionaryAssetName">字典资源名称。</param>
         /// <param name="priority">加载字典资源的优先级。</param>
-        public void LoadDictionary(string dictionaryName, string dictionaryAssetName, int priority)
+        public void ReadData(string dictionaryAssetName, int priority)
         {
-            LoadDictionary(dictionaryName, dictionaryAssetName, priority, null);
+            m_LocalizationManager.ReadData(dictionaryAssetName, priority);
         }
 
         /// <summary>
-        /// 加载字典。
+        /// 读取字典。
         /// </summary>
-        /// <param name="dictionaryName">字典名称。</param>
         /// <param name="dictionaryAssetName">字典资源名称。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadDictionary(string dictionaryName, string dictionaryAssetName, object userData)
+        public void ReadData(string dictionaryAssetName, object userData)
         {
-            LoadDictionary(dictionaryName, dictionaryAssetName, DefaultPriority, userData);
+            m_LocalizationManager.ReadData(dictionaryAssetName, userData);
         }
 
         /// <summary>
-        /// 加载字典。
+        /// 读取字典。
         /// </summary>
-        /// <param name="dictionaryName">字典名称。</param>
         /// <param name="dictionaryAssetName">字典资源名称。</param>
         /// <param name="priority">加载字典资源的优先级。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadDictionary(string dictionaryName, string dictionaryAssetName, int priority, object userData)
+        public void ReadData(string dictionaryAssetName, int priority, object userData)
         {
-            if (string.IsNullOrEmpty(dictionaryName))
-            {
-                Log.Error("Dictionary name is invalid.");
-                return;
-            }
-
-            m_LocalizationManager.LoadDictionary(dictionaryAssetName, priority, LoadDictionaryInfo.Create(dictionaryName, userData));
+            m_LocalizationManager.ReadData(dictionaryAssetName, priority, userData);
         }
 
         /// <summary>
         /// 解析字典。
         /// </summary>
-        /// <param name="dictionaryData">要解析的字典数据。</param>
+        /// <param name="dictionaryString">要解析的字典字符串。</param>
         /// <returns>是否解析字典成功。</returns>
-        public bool ParseDictionary(object dictionaryData)
+        public bool ParseData(string dictionaryString)
         {
-            return m_LocalizationManager.ParseDictionary(dictionaryData);
+            return m_LocalizationManager.ParseData(dictionaryString);
         }
 
         /// <summary>
         /// 解析字典。
         /// </summary>
-        /// <param name="dictionaryData">要解析的字典数据。</param>
+        /// <param name="dictionaryString">要解析的字典字符串。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否解析字典成功。</returns>
-        public bool ParseDictionary(object dictionaryData, object userData)
+        public bool ParseData(string dictionaryString, object userData)
         {
-            return m_LocalizationManager.ParseDictionary(dictionaryData, userData);
+            return m_LocalizationManager.ParseData(dictionaryString, userData);
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="dictionaryBytes">要解析的字典二进制流。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public bool ParseData(byte[] dictionaryBytes)
+        {
+            return m_LocalizationManager.ParseData(dictionaryBytes);
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="dictionaryBytes">要解析的字典二进制流。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public bool ParseData(byte[] dictionaryBytes, object userData)
+        {
+            return m_LocalizationManager.ParseData(dictionaryBytes, userData);
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="dictionaryBytes">要解析的字典二进制流。</param>
+        /// <param name="startIndex">字典二进制流的起始位置。</param>
+        /// <param name="length">字典二进制流的长度。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public bool ParseData(byte[] dictionaryBytes, int startIndex, int length)
+        {
+            return m_LocalizationManager.ParseData(dictionaryBytes, startIndex, length);
+        }
+
+        /// <summary>
+        /// 解析字典。
+        /// </summary>
+        /// <param name="dictionaryBytes">要解析的字典二进制流。</param>
+        /// <param name="startIndex">字典二进制流的起始位置。</param>
+        /// <param name="length">字典二进制流的长度。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析字典成功。</returns>
+        public bool ParseData(byte[] dictionaryBytes, int startIndex, int length, object userData)
+        {
+            return m_LocalizationManager.ParseData(dictionaryBytes, startIndex, length, userData);
         }
 
         /// <summary>
@@ -308,23 +345,23 @@ namespace UnityGameFramework.Runtime
             m_LocalizationManager.RemoveAllRawStrings();
         }
 
-        private void OnLoadDictionarySuccess(object sender, GameFramework.Localization.LoadDictionarySuccessEventArgs e)
+        private void OnReadDataSuccess(object sender, ReadDataSuccessEventArgs e)
         {
             m_EventComponent.Fire(this, LoadDictionarySuccessEventArgs.Create(e));
         }
 
-        private void OnLoadDictionaryFailure(object sender, GameFramework.Localization.LoadDictionaryFailureEventArgs e)
+        private void OnReadDataFailure(object sender, ReadDataFailureEventArgs e)
         {
-            Log.Warning("Load dictionary failure, asset name '{0}', error message '{1}'.", e.DictionaryAssetName, e.ErrorMessage);
+            Log.Warning("Load dictionary failure, asset name '{0}', error message '{1}'.", e.DataAssetName, e.ErrorMessage);
             m_EventComponent.Fire(this, LoadDictionaryFailureEventArgs.Create(e));
         }
 
-        private void OnLoadDictionaryUpdate(object sender, GameFramework.Localization.LoadDictionaryUpdateEventArgs e)
+        private void OnReadDataUpdate(object sender, ReadDataUpdateEventArgs e)
         {
             m_EventComponent.Fire(this, LoadDictionaryUpdateEventArgs.Create(e));
         }
 
-        private void OnLoadDictionaryDependencyAsset(object sender, GameFramework.Localization.LoadDictionaryDependencyAssetEventArgs e)
+        private void OnReadDataDependencyAsset(object sender, ReadDataDependencyAssetEventArgs e)
         {
             m_EventComponent.Fire(this, LoadDictionaryDependencyAssetEventArgs.Create(e));
         }

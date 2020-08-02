@@ -63,7 +63,7 @@ namespace UnityGameFramework.Runtime
             {
                 if (byteLength < 1024L) // 2 ^ 10
                 {
-                    return Utility.Text.Format("{0} B", byteLength.ToString());
+                    return Utility.Text.Format("{0} Bytes", byteLength.ToString());
                 }
 
                 if (byteLength < 1048576L) // 2 ^ 20

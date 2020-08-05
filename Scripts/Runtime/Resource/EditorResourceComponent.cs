@@ -1373,6 +1373,17 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
         /// <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+        /// <returns>实际加载了多少字节。</returns>
+        public int LoadBinarySegmentFromFileSystem(string binaryAssetName, byte[] buffer)
+        {
+            throw new NotSupportedException("LoadBinarySegmentFromFileSystem");
+        }
+
+        /// <summary>
+        /// 从文件系统中加载二进制资源的片段。
+        /// </summary>
+        /// <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+        /// <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
         /// <param name="length">要加载片段的长度。</param>
         /// <returns>实际加载了多少字节。</returns>
         public int LoadBinarySegmentFromFileSystem(string binaryAssetName, byte[] buffer, int length)
@@ -1389,6 +1400,18 @@ namespace UnityGameFramework.Runtime
         /// <param name="length">要加载片段的长度。</param>
         /// <returns>实际加载了多少字节。</returns>
         public int LoadBinarySegmentFromFileSystem(string binaryAssetName, byte[] buffer, int startIndex, int length)
+        {
+            throw new NotSupportedException("LoadBinarySegmentFromFileSystem");
+        }
+
+        /// <summary>
+        /// 从文件系统中加载二进制资源的片段。
+        /// </summary>
+        /// <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+        /// <param name="offset">要加载片段的偏移。</param>
+        /// <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+        /// <returns>实际加载了多少字节。</returns>
+        public int LoadBinarySegmentFromFileSystem(string binaryAssetName, int offset, byte[] buffer)
         {
             throw new NotSupportedException("LoadBinarySegmentFromFileSystem");
         }

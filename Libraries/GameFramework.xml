@@ -7657,6 +7657,14 @@
             <param name="length">要读取片段的长度。</param>
             <returns>存储读取文件片段内容的二进制流。</returns>
         </member>
+        <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Byte[])">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
         <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Byte[],System.Int32)">
             <summary>
             读取指定文件的指定片段。
@@ -7674,6 +7682,15 @@
             <param name="buffer">存储读取文件片段内容的二进制流。</param>
             <param name="startIndex">存储读取文件片段内容的二进制流的起始位置。</param>
             <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Int32,System.Byte[])">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="offset">要读取片段的偏移。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
             <returns>实际读取了多少字节。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Int32,System.Byte[],System.Int32)">
@@ -8103,6 +8120,14 @@
             <param name="length">要读取片段的长度。</param>
             <returns>存储读取文件片段内容的二进制流。</returns>
         </member>
+        <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Byte[])">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
         <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Byte[],System.Int32)">
             <summary>
             读取指定文件的指定片段。
@@ -8120,6 +8145,15 @@
             <param name="buffer">存储读取文件片段内容的二进制流。</param>
             <param name="startIndex">存储读取文件片段内容的二进制流的起始位置。</param>
             <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Int32,System.Byte[])">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="offset">要读取片段的偏移。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
             <returns>实际读取了多少字节。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Int32,System.Byte[],System.Int32)">
@@ -13687,6 +13721,14 @@
             <param name="length">要加载片段的长度。</param>
             <returns>存储加载二进制资源片段内容的二进制流。</returns>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Byte[])">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
         <member name="M:GameFramework.Resource.IResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Byte[],System.Int32)">
             <summary>
             从文件系统中加载二进制资源的片段。
@@ -13704,6 +13746,15 @@
             <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
             <param name="startIndex">存储加载二进制资源片段内容的二进制流的起始位置。</param>
             <param name="length">要加载片段的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int32,System.Byte[])">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="offset">要加载片段的偏移。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
             <returns>实际加载了多少字节。</returns>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int32,System.Byte[],System.Int32)">
@@ -15322,6 +15373,14 @@
             <param name="length">要加载片段的长度。</param>
             <returns>存储加载二进制资源片段内容的二进制流。</returns>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Byte[])">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Byte[],System.Int32)">
             <summary>
             从文件系统中加载二进制资源的片段。
@@ -15339,6 +15398,15 @@
             <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
             <param name="startIndex">存储加载二进制资源片段内容的二进制流的起始位置。</param>
             <param name="length">要加载片段的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int32,System.Byte[])">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="offset">要加载片段的偏移。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
             <returns>实际加载了多少字节。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int32,System.Byte[],System.Int32)">

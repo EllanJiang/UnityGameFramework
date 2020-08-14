@@ -21805,6 +21805,23 @@
             <param name="value">要转换的字符串。</param>
             <returns>用于存放结果的字节数组。</returns>
         </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.String,System.Byte[])">
+            <summary>
+            以字节数组的形式获取 UTF-8 编码的字符串。
+            </summary>
+            <param name="value">要转换的字符串。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <returns>buffer 内实际填充了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.String,System.Byte[],System.Int32)">
+            <summary>
+            以字节数组的形式获取 UTF-8 编码的字符串。
+            </summary>
+            <param name="value">要转换的字符串。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <param name="startIndex">buffer 内的起始位置。</param>
+            <returns>buffer 内实际填充了多少字节。</returns>
+        </member>
         <member name="M:GameFramework.Utility.Converter.GetBytes(System.String,System.Text.Encoding)">
             <summary>
             以字节数组的形式获取指定编码的字符串。
@@ -21812,6 +21829,25 @@
             <param name="value">要转换的字符串。</param>
             <param name="encoding">要使用的编码。</param>
             <returns>用于存放结果的字节数组。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.String,System.Text.Encoding,System.Byte[])">
+            <summary>
+            以字节数组的形式获取指定编码的字符串。
+            </summary>
+            <param name="value">要转换的字符串。</param>
+            <param name="encoding">要使用的编码。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <returns>buffer 内实际填充了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.String,System.Text.Encoding,System.Byte[],System.Int32)">
+            <summary>
+            以字节数组的形式获取指定编码的字符串。
+            </summary>
+            <param name="value">要转换的字符串。</param>
+            <param name="encoding">要使用的编码。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <param name="startIndex">buffer 内的起始位置。</param>
+            <returns>buffer 内实际填充了多少字节。</returns>
         </member>
         <member name="M:GameFramework.Utility.Converter.GetString(System.Byte[])">
             <summary>
@@ -21919,13 +21955,6 @@
             <param name="obj">要序列化的对象。</param>
             <returns>序列化后的 JSON 字符串。</returns>
         </member>
-        <member name="M:GameFramework.Utility.Json.ToJsonData(System.Object)">
-            <summary>
-            将对象序列化为 JSON 流。
-            </summary>
-            <param name="obj">要序列化的对象。</param>
-            <returns>序列化后的 JSON 流。</returns>
-        </member>
         <member name="M:GameFramework.Utility.Json.ToObject``1(System.String)">
             <summary>
             将 JSON 字符串反序列化为对象。
@@ -21940,22 +21969,6 @@
             </summary>
             <param name="objectType">对象类型。</param>
             <param name="json">要反序列化的 JSON 字符串。</param>
-            <returns>反序列化后的对象。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Json.ToObject``1(System.Byte[])">
-            <summary>
-            将 JSON 流反序列化为对象。
-            </summary>
-            <typeparam name="T">对象类型。</typeparam>
-            <param name="jsonData">要反序列化的 JSON 流。</param>
-            <returns>反序列化后的对象。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Json.ToObject(System.Type,System.Byte[])">
-            <summary>
-            将 JSON 字符串反序列化为对象。
-            </summary>
-            <param name="objectType">对象类型。</param>
-            <param name="jsonData">要反序列化的 JSON 流。</param>
             <returns>反序列化后的对象。</returns>
         </member>
         <member name="T:GameFramework.Utility.Json.IJsonHelper">

@@ -1,15 +1,14 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
 using GameFramework.Localization;
 using GameFramework.Resource;
 using System;
-using System.Threading;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -42,9 +41,6 @@ namespace UnityGameFramework.Runtime
 
         [SerializeField]
         private string m_JsonHelperTypeName = "UnityGameFramework.Runtime.DefaultJsonHelper";
-
-        [SerializeField]
-        private string m_ProfilerHelperTypeName = "UnityGameFramework.Runtime.DefaultProfilerHelper";
 
         [SerializeField]
         private int m_FrameRate = 30;
@@ -123,7 +119,7 @@ namespace UnityGameFramework.Runtime
             }
             set
             {
-                Time.timeScale = m_GameSpeed = (value >= 0f ? value : 0f);
+                Time.timeScale = m_GameSpeed = value >= 0f ? value : 0f;
             }
         }
 
@@ -196,7 +192,6 @@ namespace UnityGameFramework.Runtime
 #if UNITY_5_3_OR_NEWER || UNITY_5_3
             InitZipHelper();
             InitJsonHelper();
-            InitProfilerHelper();
 
             Utility.Converter.ScreenDpi = Screen.dpi;
             if (Utility.Converter.ScreenDpi <= 0)
@@ -232,11 +227,16 @@ namespace UnityGameFramework.Runtime
             GameFrameworkEntry.Update(Time.deltaTime, Time.unscaledDeltaTime);
         }
 
-        private void OnDestroy()
+        private void OnApplicationQuit()
         {
 #if UNITY_5_6_OR_NEWER
             Application.lowMemory -= OnLowMemory;
 #endif
+            StopAllCoroutines();
+        }
+
+        private void OnDestroy()
+        {
             GameFrameworkEntry.Shutdown();
         }
 
@@ -375,30 +375,6 @@ namespace UnityGameFramework.Runtime
             }
 
             Utility.Json.SetJsonHelper(jsonHelper);
-        }
-
-        private void InitProfilerHelper()
-        {
-            if (string.IsNullOrEmpty(m_ProfilerHelperTypeName))
-            {
-                return;
-            }
-
-            Type profilerHelperType = Utility.Assembly.GetType(m_ProfilerHelperTypeName);
-            if (profilerHelperType == null)
-            {
-                Log.Error("Can not find profiler helper type '{0}'.", m_ProfilerHelperTypeName);
-                return;
-            }
-
-            Utility.Profiler.IProfilerHelper profilerHelper = (Utility.Profiler.IProfilerHelper)Activator.CreateInstance(profilerHelperType, Thread.CurrentThread);
-            if (profilerHelper == null)
-            {
-                Log.Error("Can not create profiler helper instance '{0}'.", m_ProfilerHelperTypeName);
-                return;
-            }
-
-            Utility.Profiler.SetProfilerHelper(profilerHelper);
         }
 
         private void OnLowMemory()

@@ -1,12 +1,12 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
-using System;
 
 namespace UnityGameFramework.Runtime
 {
@@ -21,6 +21,16 @@ namespace UnityGameFramework.Runtime
         public static readonly int EventId = typeof(LoadDataTableFailureEventArgs).GetHashCode();
 
         /// <summary>
+        /// 初始化加载数据表失败事件的新实例。
+        /// </summary>
+        public LoadDataTableFailureEventArgs()
+        {
+            DataTableAssetName = null;
+            ErrorMessage = null;
+            UserData = null;
+        }
+
+        /// <summary>
         /// 获取加载数据表失败事件编号。
         /// </summary>
         public override int Id
@@ -29,24 +39,6 @@ namespace UnityGameFramework.Runtime
             {
                 return EventId;
             }
-        }
-
-        /// <summary>
-        /// 获取数据表行的类型。
-        /// </summary>
-        public Type DataRowType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取数据表名称。
-        /// </summary>
-        public string DataTableName
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -77,32 +69,27 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建加载数据表失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的加载数据表失败事件。</returns>
+        public static LoadDataTableFailureEventArgs Create(ReadDataFailureEventArgs e)
+        {
+            LoadDataTableFailureEventArgs loadDataTableFailureEventArgs = ReferencePool.Acquire<LoadDataTableFailureEventArgs>();
+            loadDataTableFailureEventArgs.DataTableAssetName = e.DataAssetName;
+            loadDataTableFailureEventArgs.ErrorMessage = e.ErrorMessage;
+            loadDataTableFailureEventArgs.UserData = e.UserData;
+            return loadDataTableFailureEventArgs;
+        }
+
+        /// <summary>
         /// 清理加载数据表失败事件。
         /// </summary>
         public override void Clear()
         {
-            DataRowType = default(Type);
-            DataTableName = default(string);
-            DataTableAssetName = default(string);
-            ErrorMessage = default(string);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充加载数据表失败事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>加载数据表失败事件。</returns>
-        public LoadDataTableFailureEventArgs Fill(GameFramework.DataTable.LoadDataTableFailureEventArgs e)
-        {
-            LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
-            DataRowType = loadDataTableInfo.DataRowType;
-            DataTableName = loadDataTableInfo.DataTableName;
-            DataTableAssetName = e.DataTableAssetName;
-            ErrorMessage = e.ErrorMessage;
-            UserData = loadDataTableInfo.UserData;
-
-            return this;
+            DataTableAssetName = null;
+            ErrorMessage = null;
+            UserData = null;
         }
     }
 }

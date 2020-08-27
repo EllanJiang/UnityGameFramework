@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
@@ -20,6 +21,17 @@ namespace UnityGameFramework.Runtime
         /// Web 请求成功事件编号。
         /// </summary>
         public static readonly int EventId = typeof(WebRequestSuccessEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化 Web 请求成功事件的新实例。
+        /// </summary>
+        public WebRequestSuccessEventArgs()
+        {
+            SerialId = 0;
+            WebRequestUri = null;
+            m_WebResponseBytes = null;
+            UserData = null;
+        }
 
         /// <summary>
         /// 获取 Web 请求成功事件编号。
@@ -69,30 +81,31 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建 Web 请求成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的 Web 请求成功事件。</returns>
+        public static WebRequestSuccessEventArgs Create(GameFramework.WebRequest.WebRequestSuccessEventArgs e)
+        {
+            WWWFormInfo wwwFormInfo = (WWWFormInfo)e.UserData;
+            WebRequestSuccessEventArgs webRequestSuccessEventArgs = ReferencePool.Acquire<WebRequestSuccessEventArgs>();
+            webRequestSuccessEventArgs.SerialId = e.SerialId;
+            webRequestSuccessEventArgs.WebRequestUri = e.WebRequestUri;
+            webRequestSuccessEventArgs.m_WebResponseBytes = e.GetWebResponseBytes();
+            webRequestSuccessEventArgs.UserData = wwwFormInfo.UserData;
+            ReferencePool.Release(wwwFormInfo);
+            return webRequestSuccessEventArgs;
+        }
+
+        /// <summary>
         /// 清理 Web 请求成功事件。
         /// </summary>
         public override void Clear()
         {
-            SerialId = default(int);
-            WebRequestUri = default(string);
-            m_WebResponseBytes = default(byte[]);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充 Web 请求成功事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>Web 请求成功事件。</returns>
-        public WebRequestSuccessEventArgs Fill(GameFramework.WebRequest.WebRequestSuccessEventArgs e)
-        {
-            WWWFormInfo wwwFormInfo = (WWWFormInfo)e.UserData;
-            SerialId = e.SerialId;
-            WebRequestUri = e.WebRequestUri;
-            m_WebResponseBytes = e.GetWebResponseBytes();
-            UserData = wwwFormInfo.UserData;
-
-            return this;
+            SerialId = 0;
+            WebRequestUri = null;
+            m_WebResponseBytes = null;
+            UserData = null;
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Entity;
 using System;
 using UnityEngine;
@@ -125,7 +126,14 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_EntityLogic.OnInit(showEntityInfo.UserData);
+            try
+            {
+                m_EntityLogic.OnInit(showEntityInfo.UserData);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnInit with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
         }
 
         /// <summary>
@@ -133,8 +141,17 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public void OnRecycle()
         {
+            try
+            {
+                m_EntityLogic.OnRecycle();
+                m_EntityLogic.enabled = false;
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnRecycle with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
+
             m_Id = 0;
-            m_EntityLogic.enabled = false;
         }
 
         /// <summary>
@@ -144,15 +161,31 @@ namespace UnityGameFramework.Runtime
         public void OnShow(object userData)
         {
             ShowEntityInfo showEntityInfo = (ShowEntityInfo)userData;
-            m_EntityLogic.OnShow(showEntityInfo.UserData);
+            try
+            {
+                m_EntityLogic.OnShow(showEntityInfo.UserData);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnShow with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
         }
 
         /// <summary>
         /// 实体隐藏。
         /// </summary>
-        public void OnHide(object userData)
+        /// <param name="isShutdown">是否是关闭实体管理器时触发。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public void OnHide(bool isShutdown, object userData)
         {
-            m_EntityLogic.OnHide(userData);
+            try
+            {
+                m_EntityLogic.OnHide(isShutdown, userData);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnHide with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
         }
 
         /// <summary>
@@ -163,7 +196,14 @@ namespace UnityGameFramework.Runtime
         public void OnAttached(IEntity childEntity, object userData)
         {
             AttachEntityInfo attachEntityInfo = (AttachEntityInfo)userData;
-            m_EntityLogic.OnAttached(((Entity)childEntity).Logic, attachEntityInfo.ParentTransform, attachEntityInfo.UserData);
+            try
+            {
+                m_EntityLogic.OnAttached(((Entity)childEntity).Logic, attachEntityInfo.ParentTransform, attachEntityInfo.UserData);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnAttached with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
         }
 
         /// <summary>
@@ -173,7 +213,14 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public void OnDetached(IEntity childEntity, object userData)
         {
-            m_EntityLogic.OnDetached(((Entity)childEntity).Logic, userData);
+            try
+            {
+                m_EntityLogic.OnDetached(((Entity)childEntity).Logic, userData);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnDetached with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
         }
 
         /// <summary>
@@ -184,7 +231,16 @@ namespace UnityGameFramework.Runtime
         public void OnAttachTo(IEntity parentEntity, object userData)
         {
             AttachEntityInfo attachEntityInfo = (AttachEntityInfo)userData;
-            m_EntityLogic.OnAttachTo(((Entity)parentEntity).Logic, attachEntityInfo.ParentTransform, attachEntityInfo.UserData);
+            try
+            {
+                m_EntityLogic.OnAttachTo(((Entity)parentEntity).Logic, attachEntityInfo.ParentTransform, attachEntityInfo.UserData);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnAttachTo with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
+
+            ReferencePool.Release(attachEntityInfo);
         }
 
         /// <summary>
@@ -194,7 +250,14 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         public void OnDetachFrom(IEntity parentEntity, object userData)
         {
-            m_EntityLogic.OnDetachFrom(((Entity)parentEntity).Logic, userData);
+            try
+            {
+                m_EntityLogic.OnDetachFrom(((Entity)parentEntity).Logic, userData);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnDetachFrom with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
         }
 
         /// <summary>
@@ -204,7 +267,14 @@ namespace UnityGameFramework.Runtime
         /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
         public void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
-            m_EntityLogic.OnUpdate(elapseSeconds, realElapseSeconds);
+            try
+            {
+                m_EntityLogic.OnUpdate(elapseSeconds, realElapseSeconds);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Entity '[{0}]{1}' OnUpdate with exception '{2}'.", m_Id.ToString(), m_EntityAssetName, exception.ToString());
+            }
         }
     }
 }

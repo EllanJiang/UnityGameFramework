@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using System.Collections.Generic;
@@ -138,7 +138,7 @@ namespace UnityGameFramework.Editor
         /// 获取指定平台的脚本宏定义。
         /// </summary>
         /// <param name="buildTargetGroup">要获取脚本宏定义的平台。</param>
-        /// <returns></returns>
+        /// <returns>平台的脚本宏定义。</returns>
         public static string[] GetScriptingDefineSymbols(BuildTargetGroup buildTargetGroup)
         {
             return PlayerSettings.GetScriptingDefineSymbolsForGroup(buildTargetGroup).Split(';');

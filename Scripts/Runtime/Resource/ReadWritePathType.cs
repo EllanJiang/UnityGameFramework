@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 namespace UnityGameFramework.Runtime
@@ -10,7 +10,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 读写区路径类型。
     /// </summary>
-    public enum ReadWritePathType
+    public enum ReadWritePathType : byte
     {
         /// <summary>
         /// 未指定。

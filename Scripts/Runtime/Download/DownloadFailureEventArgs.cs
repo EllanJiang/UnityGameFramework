@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
@@ -18,6 +19,18 @@ namespace UnityGameFramework.Runtime
         /// 下载失败事件编号。
         /// </summary>
         public static readonly int EventId = typeof(DownloadFailureEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化下载失败事件的新实例。
+        /// </summary>
+        public DownloadFailureEventArgs()
+        {
+            SerialId = 0;
+            DownloadPath = null;
+            DownloadUri = null;
+            ErrorMessage = null;
+            UserData = null;
+        }
 
         /// <summary>
         /// 获取下载失败事件编号。
@@ -76,31 +89,31 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建下载失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的下载失败事件。</returns>
+        public static DownloadFailureEventArgs Create(GameFramework.Download.DownloadFailureEventArgs e)
+        {
+            DownloadFailureEventArgs downloadFailureEventArgs = ReferencePool.Acquire<DownloadFailureEventArgs>();
+            downloadFailureEventArgs.SerialId = e.SerialId;
+            downloadFailureEventArgs.DownloadPath = e.DownloadPath;
+            downloadFailureEventArgs.DownloadUri = e.DownloadUri;
+            downloadFailureEventArgs.ErrorMessage = e.ErrorMessage;
+            downloadFailureEventArgs.UserData = e.UserData;
+            return downloadFailureEventArgs;
+        }
+
+        /// <summary>
         /// 清理下载失败事件。
         /// </summary>
         public override void Clear()
         {
-            SerialId = default(int);
-            DownloadPath = default(string);
-            DownloadUri = default(string);
-            ErrorMessage = default(string);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充下载失败事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>下载失败事件。</returns>
-        public DownloadFailureEventArgs Fill(GameFramework.Download.DownloadFailureEventArgs e)
-        {
-            SerialId = e.SerialId;
-            DownloadPath = e.DownloadPath;
-            DownloadUri = e.DownloadUri;
-            ErrorMessage = e.ErrorMessage;
-            UserData = e.UserData;
-
-            return this;
+            SerialId = 0;
+            DownloadPath = null;
+            DownloadUri = null;
+            ErrorMessage = null;
+            UserData = null;
         }
     }
 }

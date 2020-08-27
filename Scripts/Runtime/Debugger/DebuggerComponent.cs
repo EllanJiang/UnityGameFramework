@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -13,7 +13,7 @@ using UnityEngine;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// 调试组件。
+    /// 调试器组件。
     /// </summary>
     [DisallowMultipleComponent]
     [AddComponentMenu("Game Framework/Debugger")]
@@ -44,7 +44,7 @@ namespace UnityGameFramework.Runtime
         private GUISkin m_Skin = null;
 
         [SerializeField]
-        private DebuggerActiveWindowType m_ActiveWindow = DebuggerActiveWindowType.Auto;
+        private DebuggerActiveWindowType m_ActiveWindow = DebuggerActiveWindowType.AlwaysOpen;
 
         [SerializeField]
         private bool m_ShowFullWindow = false;
@@ -68,24 +68,27 @@ namespace UnityGameFramework.Runtime
         private QualityInformationWindow m_QualityInformationWindow = new QualityInformationWindow();
         private ProfilerInformationWindow m_ProfilerInformationWindow = new ProfilerInformationWindow();
         private WebPlayerInformationWindow m_WebPlayerInformationWindow = new WebPlayerInformationWindow();
+        private RuntimeMemorySummaryWindow m_RuntimeMemorySummaryWindow = new RuntimeMemorySummaryWindow();
         private RuntimeMemoryInformationWindow<Object> m_RuntimeMemoryAllInformationWindow = new RuntimeMemoryInformationWindow<Object>();
         private RuntimeMemoryInformationWindow<Texture> m_RuntimeMemoryTextureInformationWindow = new RuntimeMemoryInformationWindow<Texture>();
         private RuntimeMemoryInformationWindow<Mesh> m_RuntimeMemoryMeshInformationWindow = new RuntimeMemoryInformationWindow<Mesh>();
         private RuntimeMemoryInformationWindow<Material> m_RuntimeMemoryMaterialInformationWindow = new RuntimeMemoryInformationWindow<Material>();
+        private RuntimeMemoryInformationWindow<Shader> m_RuntimeMemoryShaderInformationWindow = new RuntimeMemoryInformationWindow<Shader>();
         private RuntimeMemoryInformationWindow<AnimationClip> m_RuntimeMemoryAnimationClipInformationWindow = new RuntimeMemoryInformationWindow<AnimationClip>();
         private RuntimeMemoryInformationWindow<AudioClip> m_RuntimeMemoryAudioClipInformationWindow = new RuntimeMemoryInformationWindow<AudioClip>();
         private RuntimeMemoryInformationWindow<Font> m_RuntimeMemoryFontInformationWindow = new RuntimeMemoryInformationWindow<Font>();
-        private RuntimeMemoryInformationWindow<GameObject> m_RuntimeMemoryGameObjectInformationWindow = new RuntimeMemoryInformationWindow<GameObject>();
-        private RuntimeMemoryInformationWindow<Component> m_RuntimeMemoryComponentInformationWindow = new RuntimeMemoryInformationWindow<Component>();
+        private RuntimeMemoryInformationWindow<TextAsset> m_RuntimeMemoryTextAssetInformationWindow = new RuntimeMemoryInformationWindow<TextAsset>();
+        private RuntimeMemoryInformationWindow<ScriptableObject> m_RuntimeMemoryScriptableObjectInformationWindow = new RuntimeMemoryInformationWindow<ScriptableObject>();
         private ObjectPoolInformationWindow m_ObjectPoolInformationWindow = new ObjectPoolInformationWindow();
-
+        private ReferencePoolInformationWindow m_ReferencePoolInformationWindow = new ReferencePoolInformationWindow();
+        private NetworkInformationWindow m_NetworkInformationWindow = new NetworkInformationWindow();
         private SettingsWindow m_SettingsWindow = new SettingsWindow();
         private OperationsWindow m_OperationsWindow = new OperationsWindow();
 
         private FpsCounter m_FpsCounter = null;
 
         /// <summary>
-        /// 获取或设置调试窗口是否激活。
+        /// 获取或设置调试器窗口是否激活。
         /// </summary>
         public bool ActiveWindow
         {
@@ -96,7 +99,6 @@ namespace UnityGameFramework.Runtime
             set
             {
                 m_DebuggerManager.ActiveWindow = value;
-                enabled = value;
             }
         }
 
@@ -174,13 +176,23 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            if (m_ActiveWindow == DebuggerActiveWindowType.Auto)
+            switch (m_ActiveWindow)
             {
-                ActiveWindow = Debug.isDebugBuild;
-            }
-            else
-            {
-                ActiveWindow = (m_ActiveWindow == DebuggerActiveWindowType.Open);
+                case DebuggerActiveWindowType.AlwaysOpen:
+                    ActiveWindow = true;
+                    break;
+
+                case DebuggerActiveWindowType.OnlyOpenWhenDevelopment:
+                    ActiveWindow = Debug.isDebugBuild;
+                    break;
+
+                case DebuggerActiveWindowType.OnlyOpenInEditor:
+                    ActiveWindow = Application.isEditor;
+                    break;
+
+                default:
+                    ActiveWindow = false;
+                    break;
             }
 
             m_FpsCounter = new FpsCounter(0.5f);
@@ -205,18 +217,25 @@ namespace UnityGameFramework.Runtime
             RegisterDebuggerWindow("Information/Other/Quality", m_QualityInformationWindow);
             RegisterDebuggerWindow("Information/Other/Web Player", m_WebPlayerInformationWindow);
             RegisterDebuggerWindow("Profiler/Summary", m_ProfilerInformationWindow);
+            RegisterDebuggerWindow("Profiler/Memory/Summary", m_RuntimeMemorySummaryWindow);
             RegisterDebuggerWindow("Profiler/Memory/All", m_RuntimeMemoryAllInformationWindow);
             RegisterDebuggerWindow("Profiler/Memory/Texture", m_RuntimeMemoryTextureInformationWindow);
             RegisterDebuggerWindow("Profiler/Memory/Mesh", m_RuntimeMemoryMeshInformationWindow);
             RegisterDebuggerWindow("Profiler/Memory/Material", m_RuntimeMemoryMaterialInformationWindow);
+            RegisterDebuggerWindow("Profiler/Memory/Shader", m_RuntimeMemoryShaderInformationWindow);
             RegisterDebuggerWindow("Profiler/Memory/AnimationClip", m_RuntimeMemoryAnimationClipInformationWindow);
             RegisterDebuggerWindow("Profiler/Memory/AudioClip", m_RuntimeMemoryAudioClipInformationWindow);
             RegisterDebuggerWindow("Profiler/Memory/Font", m_RuntimeMemoryFontInformationWindow);
-            RegisterDebuggerWindow("Profiler/Memory/GameObject", m_RuntimeMemoryGameObjectInformationWindow);
-            RegisterDebuggerWindow("Profiler/Memory/Component", m_RuntimeMemoryComponentInformationWindow);
+            RegisterDebuggerWindow("Profiler/Memory/TextAsset", m_RuntimeMemoryTextAssetInformationWindow);
+            RegisterDebuggerWindow("Profiler/Memory/ScriptableObject", m_RuntimeMemoryScriptableObjectInformationWindow);
             if (GameEntry.GetComponent<ObjectPoolComponent>() != null)
             {
                 RegisterDebuggerWindow("Profiler/Object Pool", m_ObjectPoolInformationWindow);
+            }
+            RegisterDebuggerWindow("Profiler/Reference Pool", m_ReferencePoolInformationWindow);
+            if (GameEntry.GetComponent<NetworkComponent>() != null)
+            {
+                RegisterDebuggerWindow("Profiler/Network", m_NetworkInformationWindow);
             }
             RegisterDebuggerWindow("Other/Settings", m_SettingsWindow);
             RegisterDebuggerWindow("Other/Operations", m_OperationsWindow);
@@ -254,38 +273,48 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 注册调试窗口。
+        /// 注册调试器窗口。
         /// </summary>
-        /// <param name="path">调试窗口路径。</param>
-        /// <param name="debuggerWindow">要注册的调试窗口。</param>
-        /// <param name="args">初始化调试窗口参数。</param>
+        /// <param name="path">调试器窗口路径。</param>
+        /// <param name="debuggerWindow">要注册的调试器窗口。</param>
+        /// <param name="args">初始化调试器窗口参数。</param>
         public void RegisterDebuggerWindow(string path, IDebuggerWindow debuggerWindow, params object[] args)
         {
             m_DebuggerManager.RegisterDebuggerWindow(path, debuggerWindow, args);
         }
 
         /// <summary>
-        /// 获取调试窗口。
+        /// 解除注册调试器窗口。
         /// </summary>
-        /// <param name="path">调试窗口路径。</param>
-        /// <returns>要获取的调试窗口。</returns>
+        /// <param name="path">调试器窗口路径。</param>
+        /// <returns>是否解除注册调试器窗口成功。</returns>
+        public bool UnregisterDebuggerWindow(string path)
+        {
+            return m_DebuggerManager.UnregisterDebuggerWindow(path);
+        }
+
+        /// <summary>
+        /// 获取调试器窗口。
+        /// </summary>
+        /// <param name="path">调试器窗口路径。</param>
+        /// <returns>要获取的调试器窗口。</returns>
         public IDebuggerWindow GetDebuggerWindow(string path)
         {
             return m_DebuggerManager.GetDebuggerWindow(path);
         }
 
         /// <summary>
-        /// 选中调试窗口。
+        /// 选中调试器窗口。
         /// </summary>
-        /// <param name="path">调试窗口路径。</param>
-        /// <returns>是否成功选中调试窗口。</returns>
+        /// <param name="path">调试器窗口路径。</param>
+        /// <returns>是否成功选中调试器窗口。</returns>
         public bool SelectDebuggerWindow(string path)
         {
             return m_DebuggerManager.SelectDebuggerWindow(path);
         }
 
         /// <summary>
-        /// 还原调试窗口布局。
+        /// 还原调试器窗口布局。
         /// </summary>
         public void ResetLayout()
         {

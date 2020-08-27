@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework.Resource;
@@ -16,11 +16,12 @@ namespace UnityGameFramework.Runtime
     public abstract class ResourceHelperBase : MonoBehaviour, IResourceHelper
     {
         /// <summary>
-        /// 直接从指定文件路径读取数据流。
+        /// 直接从指定文件路径加载数据流。
         /// </summary>
         /// <param name="fileUri">文件路径。</param>
-        /// <param name="loadBytesCallback">读取数据流回调函数。</param>
-        public abstract void LoadBytes(string fileUri, LoadBytesCallback loadBytesCallback);
+        /// <param name="loadBytesCallbacks">加载数据流回调函数集。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public abstract void LoadBytes(string fileUri, LoadBytesCallbacks loadBytesCallbacks, object userData);
 
         /// <summary>
         /// 卸载场景。

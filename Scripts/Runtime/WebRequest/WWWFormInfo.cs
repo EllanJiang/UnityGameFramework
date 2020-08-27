@@ -1,23 +1,24 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
 {
-    internal sealed class WWWFormInfo
+    internal sealed class WWWFormInfo : IReference
     {
-        private readonly WWWForm m_WWWForm;
-        private readonly object m_UserData;
+        private WWWForm m_WWWForm;
+        private object m_UserData;
 
-        public WWWFormInfo(WWWForm wwwForm, object userData)
+        public WWWFormInfo()
         {
-            m_WWWForm = wwwForm;
-            m_UserData = userData;
+            m_WWWForm = null;
+            m_UserData = null;
         }
 
         public WWWForm WWWForm
@@ -34,6 +35,20 @@ namespace UnityGameFramework.Runtime
             {
                 return m_UserData;
             }
+        }
+
+        public static WWWFormInfo Create(WWWForm wwwForm, object userData)
+        {
+            WWWFormInfo wwwFormInfo = ReferencePool.Acquire<WWWFormInfo>();
+            wwwFormInfo.m_WWWForm = wwwForm;
+            wwwFormInfo.m_UserData = userData;
+            return wwwFormInfo;
+        }
+
+        public void Clear()
+        {
+            m_WWWForm = null;
+            m_UserData = null;
         }
     }
 }

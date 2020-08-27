@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.WebRequest;
 using System;
 #if UNITY_5_4_OR_NEWER
@@ -134,7 +135,7 @@ namespace UnityGameFramework.Runtime
         /// 释放资源。
         /// </summary>
         /// <param name="disposing">释放资源标记。</param>
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (m_Disposed)
             {
@@ -162,17 +163,21 @@ namespace UnityGameFramework.Runtime
 
             bool isError = false;
 #if UNITY_2017_1_OR_NEWER
-            isError = m_UnityWebRequest.isNetworkError;
+            isError = m_UnityWebRequest.isNetworkError || m_UnityWebRequest.isHttpError;
 #else
             isError = m_UnityWebRequest.isError;
 #endif
             if (isError)
             {
-                m_WebRequestAgentHelperErrorEventHandler(this, new WebRequestAgentHelperErrorEventArgs(m_UnityWebRequest.error));
+                WebRequestAgentHelperErrorEventArgs webRequestAgentHelperErrorEventArgs = WebRequestAgentHelperErrorEventArgs.Create(m_UnityWebRequest.error);
+                m_WebRequestAgentHelperErrorEventHandler(this, webRequestAgentHelperErrorEventArgs);
+                ReferencePool.Release(webRequestAgentHelperErrorEventArgs);
             }
             else if (m_UnityWebRequest.downloadHandler.isDone)
             {
-                m_WebRequestAgentHelperCompleteEventHandler(this, new WebRequestAgentHelperCompleteEventArgs(m_UnityWebRequest.downloadHandler.data));
+                WebRequestAgentHelperCompleteEventArgs webRequestAgentHelperCompleteEventArgs = WebRequestAgentHelperCompleteEventArgs.Create(m_UnityWebRequest.downloadHandler.data);
+                m_WebRequestAgentHelperCompleteEventHandler(this, webRequestAgentHelperCompleteEventArgs);
+                ReferencePool.Release(webRequestAgentHelperCompleteEventArgs);
             }
         }
     }

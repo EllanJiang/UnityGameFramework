@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 #if !UNITY_2018_3_OR_NEWER
@@ -177,7 +177,7 @@ namespace UnityGameFramework.Runtime
         /// 释放资源。
         /// </summary>
         /// <param name="disposing">释放资源标记。</param>
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (m_Disposed)
             {
@@ -207,7 +207,14 @@ namespace UnityGameFramework.Runtime
             if (deltaLength > 0)
             {
                 m_LastDownloadedSize = m_WWW.bytesDownloaded;
-                m_DownloadAgentHelperUpdateLengthEventHandler(this, new DownloadAgentHelperUpdateLengthEventArgs(deltaLength));
+                DownloadAgentHelperUpdateLengthEventArgs downloadAgentHelperUpdateLengthEventArgs = DownloadAgentHelperUpdateLengthEventArgs.Create(deltaLength);
+                m_DownloadAgentHelperUpdateLengthEventHandler(this, downloadAgentHelperUpdateLengthEventArgs);
+                ReferencePool.Release(downloadAgentHelperUpdateLengthEventArgs);
+            }
+
+            if (m_WWW == null)
+            {
+                return;
             }
 
             if (!m_WWW.isDone)
@@ -217,13 +224,20 @@ namespace UnityGameFramework.Runtime
 
             if (!string.IsNullOrEmpty(m_WWW.error))
             {
-                m_DownloadAgentHelperErrorEventHandler(this, new DownloadAgentHelperErrorEventArgs(m_WWW.error));
+                DownloadAgentHelperErrorEventArgs dodwnloadAgentHelperErrorEventArgs = DownloadAgentHelperErrorEventArgs.Create(m_WWW.error.StartsWith(RangeNotSatisfiableErrorCode.ToString(), StringComparison.Ordinal), m_WWW.error);
+                m_DownloadAgentHelperErrorEventHandler(this, dodwnloadAgentHelperErrorEventArgs);
+                ReferencePool.Release(dodwnloadAgentHelperErrorEventArgs);
             }
             else
             {
                 byte[] bytes = m_WWW.bytes;
-                m_DownloadAgentHelperUpdateBytesEventHandler(this, new DownloadAgentHelperUpdateBytesEventArgs(bytes, 0, bytes.Length));
-                m_DownloadAgentHelperCompleteEventHandler(this, new DownloadAgentHelperCompleteEventArgs(bytes.Length));
+                DownloadAgentHelperUpdateBytesEventArgs downloadAgentHelperUpdateBytesEventArgs = DownloadAgentHelperUpdateBytesEventArgs.Create(bytes, 0, bytes.Length);
+                m_DownloadAgentHelperUpdateBytesEventHandler(this, downloadAgentHelperUpdateBytesEventArgs);
+                ReferencePool.Release(downloadAgentHelperUpdateBytesEventArgs);
+
+                DownloadAgentHelperCompleteEventArgs downloadAgentHelperCompleteEventArgs = DownloadAgentHelperCompleteEventArgs.Create(bytes.Length);
+                m_DownloadAgentHelperCompleteEventHandler(this, downloadAgentHelperCompleteEventArgs);
+                ReferencePool.Release(downloadAgentHelperCompleteEventArgs);
             }
         }
     }

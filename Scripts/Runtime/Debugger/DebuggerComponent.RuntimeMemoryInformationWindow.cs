@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -21,11 +21,11 @@ namespace UnityGameFramework.Runtime
         {
             private const int ShowSampleCount = 300;
 
+            private readonly List<Sample> m_Samples = new List<Sample>();
             private DateTime m_SampleTime = DateTime.MinValue;
-            private long m_SampleSize = 0;
-            private long m_DuplicateSampleSize = 0;
+            private long m_SampleSize = 0L;
+            private long m_DuplicateSampleSize = 0L;
             private int m_DuplicateSimpleCount = 0;
-            private List<Sample> m_Samples = new List<Sample>();
 
             protected override void OnDrawScrollableWindow()
             {
@@ -46,11 +46,11 @@ namespace UnityGameFramework.Runtime
                     {
                         if (m_DuplicateSimpleCount > 0)
                         {
-                            GUILayout.Label(Utility.Text.Format("<b>{0} {1}s ({2}) obtained at {3}, while {4} {1}s ({5}) might be duplicated.</b>", m_Samples.Count.ToString(), typeName, GetSizeString(m_SampleSize), m_SampleTime.ToString("yyyy-MM-dd HH:mm:ss"), m_DuplicateSimpleCount.ToString(), GetSizeString(m_DuplicateSampleSize)));
+                            GUILayout.Label(Utility.Text.Format("<b>{0} {1}s ({2}) obtained at {3}, while {4} {1}s ({5}) might be duplicated.</b>", m_Samples.Count.ToString(), typeName, GetByteLengthString(m_SampleSize), m_SampleTime.ToString("yyyy-MM-dd HH:mm:ss"), m_DuplicateSimpleCount.ToString(), GetByteLengthString(m_DuplicateSampleSize)));
                         }
                         else
                         {
-                            GUILayout.Label(Utility.Text.Format("<b>{0} {1}s ({2}) obtained at {3}.</b>", m_Samples.Count.ToString(), typeName, GetSizeString(m_SampleSize), m_SampleTime.ToString("yyyy-MM-dd HH:mm:ss")));
+                            GUILayout.Label(Utility.Text.Format("<b>{0} {1}s ({2}) obtained at {3}.</b>", m_Samples.Count.ToString(), typeName, GetByteLengthString(m_SampleSize), m_SampleTime.ToString("yyyy-MM-dd HH:mm:ss")));
                         }
 
                         if (m_Samples.Count > 0)
@@ -71,7 +71,7 @@ namespace UnityGameFramework.Runtime
                             {
                                 GUILayout.Label(m_Samples[i].Highlight ? Utility.Text.Format("<color=yellow>{0}</color>", m_Samples[i].Name) : m_Samples[i].Name);
                                 GUILayout.Label(m_Samples[i].Highlight ? Utility.Text.Format("<color=yellow>{0}</color>", m_Samples[i].Type) : m_Samples[i].Type, GUILayout.Width(240f));
-                                GUILayout.Label(m_Samples[i].Highlight ? Utility.Text.Format("<color=yellow>{0}</color>", GetSizeString(m_Samples[i].Size)) : GetSizeString(m_Samples[i].Size), GUILayout.Width(80f));
+                                GUILayout.Label(m_Samples[i].Highlight ? Utility.Text.Format("<color=yellow>{0}</color>", GetByteLengthString(m_Samples[i].Size)) : GetByteLengthString(m_Samples[i].Size), GUILayout.Width(80f));
                             }
                             GUILayout.EndHorizontal();
 
@@ -118,31 +118,6 @@ namespace UnityGameFramework.Runtime
                         m_DuplicateSimpleCount++;
                     }
                 }
-            }
-
-            private string GetSizeString(long size)
-            {
-                if (size < 1024L)
-                {
-                    return Utility.Text.Format("{0} Bytes", size.ToString());
-                }
-
-                if (size < 1024L * 1024L)
-                {
-                    return Utility.Text.Format("{0} KB", (size / 1024f).ToString("F2"));
-                }
-
-                if (size < 1024L * 1024L * 1024L)
-                {
-                    return Utility.Text.Format("{0} MB", (size / 1024f / 1024f).ToString("F2"));
-                }
-
-                if (size < 1024L * 1024L * 1024L * 1024L)
-                {
-                    return Utility.Text.Format("{0} GB", (size / 1024f / 1024f / 1024f).ToString("F2"));
-                }
-
-                return Utility.Text.Format("{0} TB", (size / 1024f / 1024f / 1024f / 1024f).ToString("F2"));
             }
 
             private int SampleComparer(Sample a, Sample b)

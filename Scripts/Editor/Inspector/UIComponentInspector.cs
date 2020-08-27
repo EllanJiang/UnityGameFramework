@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using UnityEditor;
@@ -36,11 +36,15 @@ namespace UnityGameFramework.Editor
 
             UIComponent t = (UIComponent)target;
 
-            EditorGUILayout.PropertyField(m_EnableOpenUIFormSuccessEvent);
-            EditorGUILayout.PropertyField(m_EnableOpenUIFormFailureEvent);
-            EditorGUILayout.PropertyField(m_EnableOpenUIFormUpdateEvent);
-            EditorGUILayout.PropertyField(m_EnableOpenUIFormDependencyAssetEvent);
-            EditorGUILayout.PropertyField(m_EnableCloseUIFormCompleteEvent);
+            EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
+            {
+                EditorGUILayout.PropertyField(m_EnableOpenUIFormSuccessEvent);
+                EditorGUILayout.PropertyField(m_EnableOpenUIFormFailureEvent);
+                EditorGUILayout.PropertyField(m_EnableOpenUIFormUpdateEvent);
+                EditorGUILayout.PropertyField(m_EnableOpenUIFormDependencyAssetEvent);
+                EditorGUILayout.PropertyField(m_EnableCloseUIFormCompleteEvent);
+            }
+            EditorGUI.EndDisabledGroup();
 
             float instanceAutoReleaseInterval = EditorGUILayout.DelayedFloatField("Instance Auto Release Interval", m_InstanceAutoReleaseInterval.floatValue);
             if (instanceAutoReleaseInterval != m_InstanceAutoReleaseInterval.floatValue)

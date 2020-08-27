@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
@@ -18,6 +19,16 @@ namespace UnityGameFramework.Runtime
         /// 加载场景成功事件编号。
         /// </summary>
         public static readonly int EventId = typeof(LoadSceneSuccessEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化加载场景成功事件的新实例。
+        /// </summary>
+        public LoadSceneSuccessEventArgs()
+        {
+            SceneAssetName = null;
+            Duration = 0f;
+            UserData = null;
+        }
 
         /// <summary>
         /// 获取加载场景成功事件编号。
@@ -58,27 +69,27 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建加载场景成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的加载场景成功事件。</returns>
+        public static LoadSceneSuccessEventArgs Create(GameFramework.Scene.LoadSceneSuccessEventArgs e)
+        {
+            LoadSceneSuccessEventArgs loadSceneSuccessEventArgs = ReferencePool.Acquire<LoadSceneSuccessEventArgs>();
+            loadSceneSuccessEventArgs.SceneAssetName = e.SceneAssetName;
+            loadSceneSuccessEventArgs.Duration = e.Duration;
+            loadSceneSuccessEventArgs.UserData = e.UserData;
+            return loadSceneSuccessEventArgs;
+        }
+
+        /// <summary>
         /// 清理加载场景成功事件。
         /// </summary>
         public override void Clear()
         {
-            SceneAssetName = default(string);
-            Duration = default(float);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充加载场景成功事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>加载场景成功事件。</returns>
-        public LoadSceneSuccessEventArgs Fill(GameFramework.Scene.LoadSceneSuccessEventArgs e)
-        {
-            SceneAssetName = e.SceneAssetName;
-            Duration = e.Duration;
-            UserData = e.UserData;
-
-            return this;
+            SceneAssetName = null;
+            Duration = 0f;
+            UserData = null;
         }
     }
 }

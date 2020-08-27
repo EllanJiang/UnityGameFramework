@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using UnityEngine;
@@ -16,6 +16,8 @@ namespace UnityGameFramework.Runtime
     {
         private bool m_Available = false;
         private bool m_Visible = false;
+        private Entity m_Entity = null;
+        private Transform m_CachedTransform = null;
         private int m_OriginalLayer = 0;
         private Transform m_OriginalTransform = null;
 
@@ -26,7 +28,7 @@ namespace UnityGameFramework.Runtime
         {
             get
             {
-                return GetComponent<Entity>();
+                return m_Entity;
             }
         }
 
@@ -88,8 +90,10 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public Transform CachedTransform
         {
-            get;
-            private set;
+            get
+            {
+                return m_CachedTransform;
+            }
         }
 
         /// <summary>
@@ -98,13 +102,21 @@ namespace UnityGameFramework.Runtime
         /// <param name="userData">用户自定义数据。</param>
         protected internal virtual void OnInit(object userData)
         {
-            if (CachedTransform == null)
+            if (m_CachedTransform == null)
             {
-                CachedTransform = transform;
+                m_CachedTransform = transform;
             }
 
+            m_Entity = GetComponent<Entity>();
             m_OriginalLayer = gameObject.layer;
             m_OriginalTransform = CachedTransform.parent;
+        }
+
+        /// <summary>
+        /// 实体回收。
+        /// </summary>
+        protected internal virtual void OnRecycle()
+        {
         }
 
         /// <summary>
@@ -120,8 +132,9 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 实体隐藏。
         /// </summary>
+        /// <param name="isShutdown">是否是关闭实体管理器时触发。</param>
         /// <param name="userData">用户自定义数据。</param>
-        protected internal virtual void OnHide(object userData)
+        protected internal virtual void OnHide(bool isShutdown, object userData)
         {
             gameObject.SetLayerRecursively(m_OriginalLayer);
             Visible = false;

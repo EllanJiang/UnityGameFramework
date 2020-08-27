@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using UnityEngine;
@@ -31,13 +31,16 @@ namespace UnityGameFramework.Runtime
                     }
                     GUILayout.EndHorizontal();
 
-                    DrawItem("Enabled:", Input.gyro.enabled.ToString());
-                    DrawItem("Update Interval:", Input.gyro.updateInterval.ToString());
-                    DrawItem("Attitude:", Input.gyro.attitude.eulerAngles.ToString());
-                    DrawItem("Gravity:", Input.gyro.gravity.ToString());
-                    DrawItem("Rotation Rate:", Input.gyro.rotationRate.ToString());
-                    DrawItem("Rotation Rate Unbiased:", Input.gyro.rotationRateUnbiased.ToString());
-                    DrawItem("User Acceleration:", Input.gyro.userAcceleration.ToString());
+                    DrawItem("Enabled", Input.gyro.enabled.ToString());
+                    if (Input.gyro.enabled)
+                    {
+                        DrawItem("Update Interval", Input.gyro.updateInterval.ToString());
+                        DrawItem("Attitude", Input.gyro.attitude.eulerAngles.ToString());
+                        DrawItem("Gravity", Input.gyro.gravity.ToString());
+                        DrawItem("Rotation Rate", Input.gyro.rotationRate.ToString());
+                        DrawItem("Rotation Rate Unbiased", Input.gyro.rotationRateUnbiased.ToString());
+                        DrawItem("User Acceleration", Input.gyro.userAcceleration.ToString());
+                    }
                 }
                 GUILayout.EndVertical();
             }

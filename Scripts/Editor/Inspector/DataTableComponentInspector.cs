@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -15,8 +15,6 @@ namespace UnityGameFramework.Editor
     [CustomEditor(typeof(DataTableComponent))]
     internal sealed class DataTableComponentInspector : GameFrameworkInspector
     {
-        private SerializedProperty m_EnableLoadDataTableSuccessEvent = null;
-        private SerializedProperty m_EnableLoadDataTableFailureEvent = null;
         private SerializedProperty m_EnableLoadDataTableUpdateEvent = null;
         private SerializedProperty m_EnableLoadDataTableDependencyAssetEvent = null;
 
@@ -30,13 +28,10 @@ namespace UnityGameFramework.Editor
 
             DataTableComponent t = (DataTableComponent)target;
 
-            EditorGUILayout.PropertyField(m_EnableLoadDataTableSuccessEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadDataTableFailureEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadDataTableUpdateEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadDataTableDependencyAssetEvent);
-
             EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
             {
+                EditorGUILayout.PropertyField(m_EnableLoadDataTableUpdateEvent);
+                EditorGUILayout.PropertyField(m_EnableLoadDataTableDependencyAssetEvent);
                 m_DataTableHelperInfo.Draw();
             }
             EditorGUI.EndDisabledGroup();
@@ -66,8 +61,6 @@ namespace UnityGameFramework.Editor
 
         private void OnEnable()
         {
-            m_EnableLoadDataTableSuccessEvent = serializedObject.FindProperty("m_EnableLoadDataTableSuccessEvent");
-            m_EnableLoadDataTableFailureEvent = serializedObject.FindProperty("m_EnableLoadDataTableFailureEvent");
             m_EnableLoadDataTableUpdateEvent = serializedObject.FindProperty("m_EnableLoadDataTableUpdateEvent");
             m_EnableLoadDataTableDependencyAssetEvent = serializedObject.FindProperty("m_EnableLoadDataTableDependencyAssetEvent");
 
@@ -78,7 +71,7 @@ namespace UnityGameFramework.Editor
 
         private void DrawDataTable(DataTableBase dataTable)
         {
-            EditorGUILayout.LabelField(Utility.Text.GetFullName(dataTable.Type, dataTable.Name), Utility.Text.Format("{0} Rows", dataTable.Count.ToString()));
+            EditorGUILayout.LabelField(dataTable.FullName, Utility.Text.Format("{0} Rows", dataTable.Count.ToString()));
         }
 
         private void RefreshTypeNames()

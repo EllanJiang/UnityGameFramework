@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
@@ -18,6 +19,15 @@ namespace UnityGameFramework.Runtime
         /// 加载场景失败事件编号。
         /// </summary>
         public static readonly int EventId = typeof(UnloadSceneFailureEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化卸载场景失败事件的新实例。
+        /// </summary>
+        public UnloadSceneFailureEventArgs()
+        {
+            SceneAssetName = null;
+            UserData = null;
+        }
 
         /// <summary>
         /// 获取加载场景失败事件编号。
@@ -49,25 +59,25 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建卸载场景失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的卸载场景失败事件。</returns>
+        public static UnloadSceneFailureEventArgs Create(GameFramework.Scene.UnloadSceneFailureEventArgs e)
+        {
+            UnloadSceneFailureEventArgs unloadSceneFailureEventArgs = ReferencePool.Acquire<UnloadSceneFailureEventArgs>();
+            unloadSceneFailureEventArgs.SceneAssetName = e.SceneAssetName;
+            unloadSceneFailureEventArgs.UserData = e.UserData;
+            return unloadSceneFailureEventArgs;
+        }
+
+        /// <summary>
         /// 清理卸载场景失败事件。
         /// </summary>
         public override void Clear()
         {
-            SceneAssetName = default(string);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充卸载场景失败事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>卸载场景失败事件。</returns>
-        public UnloadSceneFailureEventArgs Fill(GameFramework.Scene.UnloadSceneFailureEventArgs e)
-        {
-            SceneAssetName = e.SceneAssetName;
-            UserData = e.UserData;
-
-            return this;
+            SceneAssetName = null;
+            UserData = null;
         }
     }
 }

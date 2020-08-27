@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 using System;
 
@@ -19,6 +20,17 @@ namespace UnityGameFramework.Runtime
         /// 显示实体成功事件编号。
         /// </summary>
         public static readonly int EventId = typeof(ShowEntitySuccessEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化显示实体成功事件的新实例。
+        /// </summary>
+        public ShowEntitySuccessEventArgs()
+        {
+            EntityLogicType = null;
+            Entity = null;
+            Duration = 0f;
+            UserData = null;
+        }
 
         /// <summary>
         /// 获取显示实体成功事件编号。
@@ -68,30 +80,31 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建显示实体成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的显示实体成功事件。</returns>
+        public static ShowEntitySuccessEventArgs Create(GameFramework.Entity.ShowEntitySuccessEventArgs e)
+        {
+            ShowEntityInfo showEntityInfo = (ShowEntityInfo)e.UserData;
+            ShowEntitySuccessEventArgs showEntitySuccessEventArgs = ReferencePool.Acquire<ShowEntitySuccessEventArgs>();
+            showEntitySuccessEventArgs.EntityLogicType = showEntityInfo.EntityLogicType;
+            showEntitySuccessEventArgs.Entity = (Entity)e.Entity;
+            showEntitySuccessEventArgs.Duration = e.Duration;
+            showEntitySuccessEventArgs.UserData = showEntityInfo.UserData;
+            ReferencePool.Release(showEntityInfo);
+            return showEntitySuccessEventArgs;
+        }
+
+        /// <summary>
         /// 清理显示实体成功事件。
         /// </summary>
         public override void Clear()
         {
-            EntityLogicType = default(Type);
-            Entity = default(Entity);
-            Duration = default(float);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充显示实体成功事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>显示实体成功事件。</returns>
-        public ShowEntitySuccessEventArgs Fill(GameFramework.Entity.ShowEntitySuccessEventArgs e)
-        {
-            ShowEntityInfo showEntityInfo = (ShowEntityInfo)e.UserData;
-            EntityLogicType = showEntityInfo.EntityLogicType;
-            Entity = (Entity)e.Entity;
-            Duration = e.Duration;
-            UserData = showEntityInfo.UserData;
-
-            return this;
+            EntityLogicType = null;
+            Entity = null;
+            Duration = 0f;
+            UserData = null;
         }
     }
 }

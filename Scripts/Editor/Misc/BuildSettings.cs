@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -25,7 +25,7 @@ namespace UnityGameFramework.Editor
 
         static BuildSettings()
         {
-            s_ConfigurationPath = Type.GetConfigurationPath<BuildSettingsConfigPathAttribute>() ?? Utility.Path.GetCombinePath(Application.dataPath, "GameFramework/Configs/BuildSettings.xml");
+            s_ConfigurationPath = Type.GetConfigurationPath<BuildSettingsConfigPathAttribute>() ?? Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "GameFramework/Configs/BuildSettings.xml"));
             s_DefaultSceneNames.Clear();
             s_SearchScenePaths.Clear();
 

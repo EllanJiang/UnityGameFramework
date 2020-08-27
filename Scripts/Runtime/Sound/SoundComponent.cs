@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -30,12 +30,6 @@ namespace UnityGameFramework.Runtime
         private ISoundManager m_SoundManager = null;
         private EventComponent m_EventComponent = null;
         private AudioListener m_AudioListener = null;
-
-        [SerializeField]
-        private bool m_EnablePlaySoundSuccessEvent = true;
-
-        [SerializeField]
-        private bool m_EnablePlaySoundFailureEvent = true;
 
         [SerializeField]
         private bool m_EnablePlaySoundUpdateEvent = false;
@@ -108,8 +102,16 @@ namespace UnityGameFramework.Runtime
 
             m_SoundManager.PlaySoundSuccess += OnPlaySoundSuccess;
             m_SoundManager.PlaySoundFailure += OnPlaySoundFailure;
-            m_SoundManager.PlaySoundUpdate += OnPlaySoundUpdate;
-            m_SoundManager.PlaySoundDependencyAsset += OnPlaySoundDependencyAsset;
+
+            if (m_EnablePlaySoundUpdateEvent)
+            {
+                m_SoundManager.PlaySoundUpdate += OnPlaySoundUpdate;
+            }
+
+            if (m_EnablePlaySoundDependencyAssetEvent)
+            {
+                m_SoundManager.PlaySoundDependencyAsset += OnPlaySoundDependencyAsset;
+            }
 
             m_AudioListener = gameObject.GetOrAddComponent<AudioListener>();
 
@@ -172,7 +174,7 @@ namespace UnityGameFramework.Runtime
 
             if (m_InstanceRoot == null)
             {
-                m_InstanceRoot = (new GameObject("Sound Instances")).transform;
+                m_InstanceRoot = new GameObject("Sound Instances").transform;
                 m_InstanceRoot.SetParent(gameObject.transform);
                 m_InstanceRoot.localScale = Vector3.one;
             }
@@ -453,7 +455,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>声音的序列编号。</returns>
         public int PlaySound(string soundAssetName, string soundGroupName, int priority, PlaySoundParams playSoundParams, Entity bindingEntity, object userData)
         {
-            return m_SoundManager.PlaySound(soundAssetName, soundGroupName, priority, playSoundParams, new PlaySoundInfo(bindingEntity, Vector3.zero, userData));
+            return m_SoundManager.PlaySound(soundAssetName, soundGroupName, priority, playSoundParams, PlaySoundInfo.Create(bindingEntity, Vector3.zero, userData));
         }
 
         /// <summary>
@@ -482,7 +484,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>声音的序列编号。</returns>
         public int PlaySound(string soundAssetName, string soundGroupName, int priority, PlaySoundParams playSoundParams, Vector3 worldPosition, object userData)
         {
-            return m_SoundManager.PlaySound(soundAssetName, soundGroupName, priority, playSoundParams, new PlaySoundInfo(null, worldPosition, userData));
+            return m_SoundManager.PlaySound(soundAssetName, soundGroupName, priority, playSoundParams, PlaySoundInfo.Create(null, worldPosition, userData));
         }
 
         /// <summary>
@@ -624,10 +626,7 @@ namespace UnityGameFramework.Runtime
                 }
             }
 
-            if (m_EnablePlaySoundSuccessEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<PlaySoundSuccessEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, PlaySoundSuccessEventArgs.Create(e));
         }
 
         private void OnPlaySoundFailure(object sender, GameFramework.Sound.PlaySoundFailureEventArgs e)
@@ -642,26 +641,17 @@ namespace UnityGameFramework.Runtime
                 Log.Warning(logMessage);
             }
 
-            if (m_EnablePlaySoundFailureEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<PlaySoundFailureEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, PlaySoundFailureEventArgs.Create(e));
         }
 
         private void OnPlaySoundUpdate(object sender, GameFramework.Sound.PlaySoundUpdateEventArgs e)
         {
-            if (m_EnablePlaySoundUpdateEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<PlaySoundUpdateEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, PlaySoundUpdateEventArgs.Create(e));
         }
 
         private void OnPlaySoundDependencyAsset(object sender, GameFramework.Sound.PlaySoundDependencyAssetEventArgs e)
         {
-            if (m_EnablePlaySoundDependencyAssetEvent)
-            {
-                m_EventComponent.Fire(this, ReferencePool.Acquire<PlaySoundDependencyAssetEventArgs>().Fill(e));
-            }
+            m_EventComponent.Fire(this, PlaySoundDependencyAssetEventArgs.Create(e));
         }
 
         private void OnLoadSceneSuccess(object sender, GameFramework.Scene.LoadSceneSuccessEventArgs e)

@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -106,11 +106,12 @@ namespace UnityGameFramework.Runtime
         /// 创建网络频道。
         /// </summary>
         /// <param name="name">网络频道名称。</param>
+        /// <param name="serviceType">网络服务类型。</param>
         /// <param name="networkChannelHelper">网络频道辅助器。</param>
         /// <returns>要创建的网络频道。</returns>
-        public INetworkChannel CreateNetworkChannel(string name, INetworkChannelHelper networkChannelHelper)
+        public INetworkChannel CreateNetworkChannel(string name, ServiceType serviceType, INetworkChannelHelper networkChannelHelper)
         {
-            return m_NetworkManager.CreateNetworkChannel(name, networkChannelHelper);
+            return m_NetworkManager.CreateNetworkChannel(name, serviceType, networkChannelHelper);
         }
 
         /// <summary>
@@ -125,27 +126,27 @@ namespace UnityGameFramework.Runtime
 
         private void OnNetworkConnected(object sender, GameFramework.Network.NetworkConnectedEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<NetworkConnectedEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, NetworkConnectedEventArgs.Create(e));
         }
 
         private void OnNetworkClosed(object sender, GameFramework.Network.NetworkClosedEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<NetworkClosedEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, NetworkClosedEventArgs.Create(e));
         }
 
         private void OnNetworkMissHeartBeat(object sender, GameFramework.Network.NetworkMissHeartBeatEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<NetworkMissHeartBeatEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, NetworkMissHeartBeatEventArgs.Create(e));
         }
 
         private void OnNetworkError(object sender, GameFramework.Network.NetworkErrorEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<NetworkErrorEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, NetworkErrorEventArgs.Create(e));
         }
 
         private void OnNetworkCustomError(object sender, GameFramework.Network.NetworkCustomErrorEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<NetworkCustomErrorEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, NetworkCustomErrorEventArgs.Create(e));
         }
     }
 }

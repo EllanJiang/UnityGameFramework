@@ -1,12 +1,12 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
-using System;
 
 namespace UnityGameFramework.Runtime
 {
@@ -21,6 +21,18 @@ namespace UnityGameFramework.Runtime
         public static readonly int EventId = typeof(LoadDataTableDependencyAssetEventArgs).GetHashCode();
 
         /// <summary>
+        /// 初始化加载数据表时加载依赖资源事件的新实例。
+        /// </summary>
+        public LoadDataTableDependencyAssetEventArgs()
+        {
+            DataTableAssetName = null;
+            DependencyAssetName = null;
+            LoadedCount = 0;
+            TotalCount = 0;
+            UserData = null;
+        }
+
+        /// <summary>
         /// 获取加载数据表时加载依赖资源事件编号。
         /// </summary>
         public override int Id
@@ -29,24 +41,6 @@ namespace UnityGameFramework.Runtime
             {
                 return EventId;
             }
-        }
-
-        /// <summary>
-        /// 获取数据表行的类型。
-        /// </summary>
-        public Type DataRowType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取数据表名称。
-        /// </summary>
-        public string DataTableName
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -95,36 +89,31 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建加载数据表时加载依赖资源事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的加载数据表时加载依赖资源事件。</returns>
+        public static LoadDataTableDependencyAssetEventArgs Create(ReadDataDependencyAssetEventArgs e)
+        {
+            LoadDataTableDependencyAssetEventArgs loadDataTableDependencyAssetEventArgs = ReferencePool.Acquire<LoadDataTableDependencyAssetEventArgs>();
+            loadDataTableDependencyAssetEventArgs.DataTableAssetName = e.DataAssetName;
+            loadDataTableDependencyAssetEventArgs.DependencyAssetName = e.DependencyAssetName;
+            loadDataTableDependencyAssetEventArgs.LoadedCount = e.LoadedCount;
+            loadDataTableDependencyAssetEventArgs.TotalCount = e.TotalCount;
+            loadDataTableDependencyAssetEventArgs.UserData = e.UserData;
+            return loadDataTableDependencyAssetEventArgs;
+        }
+
+        /// <summary>
         /// 清理加载数据表时加载依赖资源事件。
         /// </summary>
         public override void Clear()
         {
-            DataRowType = default(Type);
-            DataTableName = default(string);
-            DataTableAssetName = default(string);
-            DependencyAssetName = default(string);
-            LoadedCount = default(int);
-            TotalCount = default(int);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充加载数据表时加载依赖资源事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>加载数据表时加载依赖资源事件。</returns>
-        public LoadDataTableDependencyAssetEventArgs Fill(GameFramework.DataTable.LoadDataTableDependencyAssetEventArgs e)
-        {
-            LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
-            DataRowType = loadDataTableInfo.DataRowType;
-            DataTableName = loadDataTableInfo.DataTableName;
-            DataTableAssetName = e.DataTableAssetName;
-            DependencyAssetName = e.DependencyAssetName;
-            LoadedCount = e.LoadedCount;
-            TotalCount = e.TotalCount;
-            UserData = loadDataTableInfo.UserData;
-
-            return this;
+            DataTableAssetName = null;
+            DependencyAssetName = null;
+            LoadedCount = 0;
+            TotalCount = 0;
+            UserData = null;
         }
     }
 }

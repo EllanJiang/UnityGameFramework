@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -128,7 +128,7 @@ namespace UnityGameFramework.Runtime
 
             if (m_InstanceRoot == null)
             {
-                m_InstanceRoot = (new GameObject("Web Request Agent Instances")).transform;
+                m_InstanceRoot = new GameObject("Web Request Agent Instances").transform;
                 m_InstanceRoot.SetParent(gameObject.transform);
                 m_InstanceRoot.localScale = Vector3.one;
             }
@@ -298,6 +298,15 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取所有 Web 请求任务的信息。
+        /// </summary>
+        /// <returns>所有 Web 请求任务的信息。</returns>
+        public TaskInfo[] GetAllWebRequestInfos()
+        {
+            return m_WebRequestManager.GetAllWebRequestInfos();
+        }
+
+        /// <summary>
         /// 增加 Web 请求代理辅助器。
         /// </summary>
         /// <param name="index">Web 请求代理辅助器索引。</param>
@@ -329,23 +338,23 @@ namespace UnityGameFramework.Runtime
         /// <returns>新增 Web 请求任务的序列编号。</returns>
         private int AddWebRequest(string webRequestUri, byte[] postData, WWWForm wwwForm, int priority, object userData)
         {
-            return m_WebRequestManager.AddWebRequest(webRequestUri, postData, priority, new WWWFormInfo(wwwForm, userData));
+            return m_WebRequestManager.AddWebRequest(webRequestUri, postData, priority, WWWFormInfo.Create(wwwForm, userData));
         }
 
         private void OnWebRequestStart(object sender, GameFramework.WebRequest.WebRequestStartEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<WebRequestStartEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, WebRequestStartEventArgs.Create(e));
         }
 
         private void OnWebRequestSuccess(object sender, GameFramework.WebRequest.WebRequestSuccessEventArgs e)
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<WebRequestSuccessEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, WebRequestSuccessEventArgs.Create(e));
         }
 
         private void OnWebRequestFailure(object sender, GameFramework.WebRequest.WebRequestFailureEventArgs e)
         {
             Log.Warning("Web request failure, web request serial id '{0}', web request uri '{1}', error message '{2}'.", e.SerialId.ToString(), e.WebRequestUri, e.ErrorMessage);
-            m_EventComponent.Fire(this, ReferencePool.Acquire<WebRequestFailureEventArgs>().Fill(e));
+            m_EventComponent.Fire(this, WebRequestFailureEventArgs.Create(e));
         }
     }
 }

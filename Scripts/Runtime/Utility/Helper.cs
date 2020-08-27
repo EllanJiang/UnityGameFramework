@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -53,7 +53,7 @@ namespace UnityGameFramework.Runtime
                     return null;
                 }
 
-                helper = (T)(new GameObject()).AddComponent(helperType);
+                helper = (T)new GameObject().AddComponent(helperType);
             }
             else if (customHelper == null)
             {
@@ -62,7 +62,7 @@ namespace UnityGameFramework.Runtime
             }
             else if (customHelper.gameObject.InScene())
             {
-                helper = (index > 0 ? Object.Instantiate(customHelper) : customHelper);
+                helper = index > 0 ? Object.Instantiate(customHelper) : customHelper;
             }
             else
             {

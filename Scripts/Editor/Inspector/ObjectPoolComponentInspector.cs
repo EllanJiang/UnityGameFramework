@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -20,7 +20,7 @@ namespace UnityGameFramework.Editor
     [CustomEditor(typeof(ObjectPoolComponent))]
     internal sealed class ObjectPoolComponentInspector : GameFrameworkInspector
     {
-        private HashSet<string> m_OpenedItems = new HashSet<string>();
+        private readonly HashSet<string> m_OpenedItems = new HashSet<string>();
 
         public override void OnInspectorGUI()
         {
@@ -83,9 +83,10 @@ namespace UnityGameFramework.Editor
                     ObjectInfo[] objectInfos = objectPool.GetAllObjectInfos();
                     if (objectInfos.Length > 0)
                     {
+                        EditorGUILayout.LabelField("Name", objectPool.AllowMultiSpawn ? "Locked\tCount\tFlag\tPriority\tLast Use Time" : "Locked\tIn Use\tFlag\tPriority\tLast Use Time");
                         foreach (ObjectInfo objectInfo in objectInfos)
                         {
-                            EditorGUILayout.LabelField(objectInfo.Name, Utility.Text.Format("{0}, {1}, {2}, {3}, {4}", objectInfo.Locked.ToString(), objectPool.AllowMultiSpawn ? objectInfo.SpawnCount.ToString() : objectInfo.IsInUse.ToString(), objectInfo.CustomCanReleaseFlag.ToString(), objectInfo.Priority.ToString(), objectInfo.LastUseTime.ToString("yyyy-MM-dd HH:mm:ss")));
+                            EditorGUILayout.LabelField(string.IsNullOrEmpty(objectInfo.Name) ? "<None>" : objectInfo.Name, Utility.Text.Format("{0}\t{1}\t{2}\t{3}\t{4}", objectInfo.Locked.ToString(), objectPool.AllowMultiSpawn ? objectInfo.SpawnCount.ToString() : objectInfo.IsInUse.ToString(), objectInfo.CustomCanReleaseFlag.ToString(), objectInfo.Priority.ToString(), objectInfo.LastUseTime.ToString("yyyy-MM-dd HH:mm:ss")));
                         }
 
                         if (GUILayout.Button("Release"))
@@ -101,22 +102,25 @@ namespace UnityGameFramework.Editor
                         if (GUILayout.Button("Export CSV Data"))
                         {
                             string exportFileName = EditorUtility.SaveFilePanel("Export CSV Data", string.Empty, Utility.Text.Format("Object Pool Data - {0}.csv", objectPool.Name), string.Empty);
-                            try
+                            if (!string.IsNullOrEmpty(exportFileName))
                             {
-                                int index = 0;
-                                string[] data = new string[objectInfos.Length + 1];
-                                data[index++] = Utility.Text.Format("Name,Locked,{0},Custom Can Release Flag,Priority,Last Use Time", objectPool.AllowMultiSpawn ? "Count" : "In Use");
-                                foreach (ObjectInfo objectInfo in objectInfos)
+                                try
                                 {
-                                    data[index++] = Utility.Text.Format("{0},{1},{2},{3},{4},{5}", objectInfo.Name, objectInfo.Locked.ToString(), objectPool.AllowMultiSpawn ? objectInfo.SpawnCount.ToString() : objectInfo.IsInUse.ToString(), objectInfo.CustomCanReleaseFlag.ToString(), objectInfo.Priority.ToString(), objectInfo.LastUseTime.ToString("yyyy-MM-dd HH:mm:ss"));
-                                }
+                                    int index = 0;
+                                    string[] data = new string[objectInfos.Length + 1];
+                                    data[index++] = Utility.Text.Format("Name,Locked,{0},Custom Can Release Flag,Priority,Last Use Time", objectPool.AllowMultiSpawn ? "Count" : "In Use");
+                                    foreach (ObjectInfo objectInfo in objectInfos)
+                                    {
+                                        data[index++] = Utility.Text.Format("{0},{1},{2},{3},{4},{5}", objectInfo.Name, objectInfo.Locked.ToString(), objectPool.AllowMultiSpawn ? objectInfo.SpawnCount.ToString() : objectInfo.IsInUse.ToString(), objectInfo.CustomCanReleaseFlag.ToString(), objectInfo.Priority.ToString(), objectInfo.LastUseTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                                    }
 
-                                File.WriteAllLines(exportFileName, data, Encoding.UTF8);
-                                Debug.Log(Utility.Text.Format("Export CSV data to '{0}' success.", exportFileName));
-                            }
-                            catch (Exception exception)
-                            {
-                                Debug.LogError(Utility.Text.Format("Export CSV data to '{0}' failure, exception is '{1}'.", exportFileName, exception.Message));
+                                    File.WriteAllLines(exportFileName, data, Encoding.UTF8);
+                                    Debug.Log(Utility.Text.Format("Export object pool CSV data to '{0}' success.", exportFileName));
+                                }
+                                catch (Exception exception)
+                                {
+                                    Debug.LogError(Utility.Text.Format("Export object pool CSV data to '{0}' failure, exception is '{1}'.", exportFileName, exception.ToString()));
+                                }
                             }
                         }
                     }

@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 namespace UnityGameFramework.Runtime
@@ -10,21 +10,26 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 调试器激活窗口类型。
     /// </summary>
-    public enum DebuggerActiveWindowType
+    public enum DebuggerActiveWindowType : byte
     {
         /// <summary>
-        /// 自动（发布版本状态关闭，开发版本状态打开）。
+        /// 总是打开。
         /// </summary>
-        Auto = 0,
+        AlwaysOpen = 0,
 
         /// <summary>
-        /// 关闭。
+        /// 仅在开发模式时打开。
         /// </summary>
-        Close,
+        OnlyOpenWhenDevelopment,
 
         /// <summary>
-        /// 打开。
+        /// 仅在编辑器中打开。
         /// </summary>
-        Open,
+        OnlyOpenInEditor,
+
+        /// <summary>
+        /// 总是关闭。
+        /// </summary>
+        AlwaysClose,
     }
 }

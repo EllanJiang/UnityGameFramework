@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using UnityEngine;
@@ -31,12 +31,15 @@ namespace UnityGameFramework.Runtime
                     }
                     GUILayout.EndHorizontal();
 
-                    DrawItem("Enabled:", Input.compass.enabled.ToString());
-                    DrawItem("Heading Accuracy:", Input.compass.headingAccuracy.ToString());
-                    DrawItem("Magnetic Heading:", Input.compass.magneticHeading.ToString());
-                    DrawItem("Raw Vector:", Input.compass.rawVector.ToString());
-                    DrawItem("Timestamp:", Input.compass.timestamp.ToString());
-                    DrawItem("True Heading:", Input.compass.trueHeading.ToString());
+                    DrawItem("Enabled", Input.compass.enabled.ToString());
+                    if (Input.compass.enabled)
+                    {
+                        DrawItem("Heading Accuracy", Input.compass.headingAccuracy.ToString());
+                        DrawItem("Magnetic Heading", Input.compass.magneticHeading.ToString());
+                        DrawItem("Raw Vector", Input.compass.rawVector.ToString());
+                        DrawItem("Timestamp", Input.compass.timestamp.ToString());
+                        DrawItem("True Heading", Input.compass.trueHeading.ToString());
+                    }
                 }
                 GUILayout.EndVertical();
             }

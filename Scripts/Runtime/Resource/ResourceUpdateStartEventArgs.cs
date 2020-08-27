@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
@@ -18,6 +19,19 @@ namespace UnityGameFramework.Runtime
         /// 资源更新开始事件编号。
         /// </summary>
         public static readonly int EventId = typeof(ResourceUpdateStartEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化资源更新开始事件的新实例。
+        /// </summary>
+        public ResourceUpdateStartEventArgs()
+        {
+            Name = null;
+            DownloadPath = null;
+            DownloadUri = null;
+            CurrentLength = 0;
+            ZipLength = 0;
+            RetryCount = 0;
+        }
 
         /// <summary>
         /// 获取资源更新开始事件编号。
@@ -67,7 +81,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取压缩包大小。
+        /// 获取压缩后大小。
         /// </summary>
         public int ZipLength
         {
@@ -85,33 +99,33 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建资源更新开始事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的资源更新开始事件。</returns>
+        public static ResourceUpdateStartEventArgs Create(GameFramework.Resource.ResourceUpdateStartEventArgs e)
+        {
+            ResourceUpdateStartEventArgs resourceUpdateStartEventArgs = ReferencePool.Acquire<ResourceUpdateStartEventArgs>();
+            resourceUpdateStartEventArgs.Name = e.Name;
+            resourceUpdateStartEventArgs.DownloadPath = e.DownloadPath;
+            resourceUpdateStartEventArgs.DownloadUri = e.DownloadUri;
+            resourceUpdateStartEventArgs.CurrentLength = e.CurrentLength;
+            resourceUpdateStartEventArgs.ZipLength = e.ZipLength;
+            resourceUpdateStartEventArgs.RetryCount = e.RetryCount;
+            return resourceUpdateStartEventArgs;
+        }
+
+        /// <summary>
         /// 清理资源更新开始事件。
         /// </summary>
         public override void Clear()
         {
-            Name = default(string);
-            DownloadPath = default(string);
-            DownloadUri = default(string);
-            CurrentLength = default(int);
-            ZipLength = default(int);
-            RetryCount = default(int);
-        }
-
-        /// <summary>
-        /// 填充资源更新开始事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>资源更新开始事件。</returns>
-        public ResourceUpdateStartEventArgs Fill(GameFramework.Resource.ResourceUpdateStartEventArgs e)
-        {
-            Name = e.Name;
-            DownloadPath = e.DownloadPath;
-            DownloadUri = e.DownloadUri;
-            CurrentLength = e.CurrentLength;
-            ZipLength = e.ZipLength;
-            RetryCount = e.RetryCount;
-
-            return this;
+            Name = null;
+            DownloadPath = null;
+            DownloadUri = null;
+            CurrentLength = 0;
+            ZipLength = 0;
+            RetryCount = 0;
         }
     }
 }

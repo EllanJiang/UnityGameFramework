@@ -1,26 +1,37 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// 加载配置更新事件。
+    /// 加载全局配置更新事件。
     /// </summary>
     public sealed class LoadConfigUpdateEventArgs : GameEventArgs
     {
         /// <summary>
-        /// 加载配置失败事件编号。
+        /// 加载全局配置失败事件编号。
         /// </summary>
         public static readonly int EventId = typeof(LoadConfigUpdateEventArgs).GetHashCode();
 
         /// <summary>
-        /// 获取加载配置失败事件编号。
+        /// 初始化加载全局配置更新事件的新实例。
+        /// </summary>
+        public LoadConfigUpdateEventArgs()
+        {
+            ConfigAssetName = null;
+            Progress = 0f;
+            UserData = null;
+        }
+
+        /// <summary>
+        /// 获取加载全局配置失败事件编号。
         /// </summary>
         public override int Id
         {
@@ -31,16 +42,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取配置名称。
-        /// </summary>
-        public string ConfigName
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取配置资源名称。
+        /// 获取全局配置资源名称。
         /// </summary>
         public string ConfigAssetName
         {
@@ -49,7 +51,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取加载配置进度。
+        /// 获取加载全局配置进度。
         /// </summary>
         public float Progress
         {
@@ -67,30 +69,27 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 清理加载配置更新事件。
+        /// 创建加载全局配置更新事件。
         /// </summary>
-        public override void Clear()
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的加载全局配置更新事件。</returns>
+        public static LoadConfigUpdateEventArgs Create(ReadDataUpdateEventArgs e)
         {
-            ConfigName = default(string);
-            ConfigAssetName = default(string);
-            Progress = default(float);
-            UserData = default(object);
+            LoadConfigUpdateEventArgs loadConfigUpdateEventArgs = ReferencePool.Acquire<LoadConfigUpdateEventArgs>();
+            loadConfigUpdateEventArgs.ConfigAssetName = e.DataAssetName;
+            loadConfigUpdateEventArgs.Progress = e.Progress;
+            loadConfigUpdateEventArgs.UserData = e.UserData;
+            return loadConfigUpdateEventArgs;
         }
 
         /// <summary>
-        /// 填充加载配置更新事件。
+        /// 清理加载全局配置更新事件。
         /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>加载配置更新事件。</returns>
-        public LoadConfigUpdateEventArgs Fill(GameFramework.Config.LoadConfigUpdateEventArgs e)
+        public override void Clear()
         {
-            LoadConfigInfo loadConfigInfo = (LoadConfigInfo)e.UserData;
-            ConfigName = loadConfigInfo.ConfigName;
-            ConfigAssetName = e.ConfigAssetName;
-            Progress = e.Progress;
-            UserData = loadConfigInfo.UserData;
-
-            return this;
+            ConfigAssetName = null;
+            Progress = 0f;
+            UserData = null;
         }
     }
 }

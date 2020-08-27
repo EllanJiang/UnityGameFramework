@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Sound;
 using System;
 using System.Collections;
@@ -22,6 +23,7 @@ namespace UnityGameFramework.Runtime
         private AudioSource m_AudioSource = null;
         private EntityLogic m_BindingEntityLogic = null;
         private float m_VolumeWhenPause = 0f;
+        private bool m_ApplicationPauseFlag = false;
         private EventHandler<ResetSoundAgentEventArgs> m_ResetSoundAgentEventHandler = null;
 
         /// <summary>
@@ -343,7 +345,9 @@ namespace UnityGameFramework.Runtime
 
             if (m_ResetSoundAgentEventHandler != null)
             {
-                m_ResetSoundAgentEventHandler(this, new ResetSoundAgentEventArgs());
+                ResetSoundAgentEventArgs resetSoundAgentEventArgs = ResetSoundAgentEventArgs.Create();
+                m_ResetSoundAgentEventHandler(this, resetSoundAgentEventArgs);
+                ReferencePool.Release(resetSoundAgentEventArgs);
             }
         }
 
@@ -366,9 +370,11 @@ namespace UnityGameFramework.Runtime
 
         private void Update()
         {
-            if (!IsPlaying && m_AudioSource.clip != null && m_ResetSoundAgentEventHandler != null)
+            if (!m_ApplicationPauseFlag && !IsPlaying && m_AudioSource.clip != null && m_ResetSoundAgentEventHandler != null)
             {
-                m_ResetSoundAgentEventHandler(this, new ResetSoundAgentEventArgs());
+                ResetSoundAgentEventArgs resetSoundAgentEventArgs = ResetSoundAgentEventArgs.Create();
+                m_ResetSoundAgentEventHandler(this, resetSoundAgentEventArgs);
+                ReferencePool.Release(resetSoundAgentEventArgs);
                 return;
             }
 
@@ -376,6 +382,11 @@ namespace UnityGameFramework.Runtime
             {
                 UpdateAgentPosition();
             }
+        }
+
+        private void OnApplicationPause(bool pause)
+        {
+            m_ApplicationPauseFlag = pause;
         }
 
         private void UpdateAgentPosition()
@@ -388,7 +399,9 @@ namespace UnityGameFramework.Runtime
 
             if (m_ResetSoundAgentEventHandler != null)
             {
-                m_ResetSoundAgentEventHandler(this, new ResetSoundAgentEventArgs());
+                ResetSoundAgentEventArgs resetSoundAgentEventArgs = ResetSoundAgentEventArgs.Create();
+                m_ResetSoundAgentEventHandler(this, resetSoundAgentEventArgs);
+                ReferencePool.Release(resetSoundAgentEventArgs);
             }
         }
 

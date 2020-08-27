@@ -1,23 +1,24 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using System;
 
 namespace UnityGameFramework.Runtime
 {
-    internal sealed class ShowEntityInfo
+    internal sealed class ShowEntityInfo : IReference
     {
-        private readonly Type m_EntityLogicType;
-        private readonly object m_UserData;
+        private Type m_EntityLogicType;
+        private object m_UserData;
 
-        public ShowEntityInfo(Type entityLogicType, object userData)
+        public ShowEntityInfo()
         {
-            m_EntityLogicType = entityLogicType;
-            m_UserData = userData;
+            m_EntityLogicType = null;
+            m_UserData = null;
         }
 
         public Type EntityLogicType
@@ -34,6 +35,20 @@ namespace UnityGameFramework.Runtime
             {
                 return m_UserData;
             }
+        }
+
+        public static ShowEntityInfo Create(Type entityLogicType, object userData)
+        {
+            ShowEntityInfo showEntityInfo = ReferencePool.Acquire<ShowEntityInfo>();
+            showEntityInfo.m_EntityLogicType = entityLogicType;
+            showEntityInfo.m_UserData = userData;
+            return showEntityInfo;
+        }
+
+        public void Clear()
+        {
+            m_EntityLogicType = null;
+            m_UserData = null;
         }
     }
 }

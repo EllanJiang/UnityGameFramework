@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
@@ -18,6 +19,19 @@ namespace UnityGameFramework.Runtime
         /// 打开界面失败事件编号。
         /// </summary>
         public static readonly int EventId = typeof(OpenUIFormFailureEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化打开界面失败事件的新实例。
+        /// </summary>
+        public OpenUIFormFailureEventArgs()
+        {
+            SerialId = 0;
+            UIFormAssetName = null;
+            UIGroupName = null;
+            PauseCoveredUIForm = false;
+            ErrorMessage = null;
+            UserData = null;
+        }
 
         /// <summary>
         /// 获取打开界面失败事件编号。
@@ -85,33 +99,33 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建打开界面失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的打开界面失败事件。</returns>
+        public static OpenUIFormFailureEventArgs Create(GameFramework.UI.OpenUIFormFailureEventArgs e)
+        {
+            OpenUIFormFailureEventArgs openUIFormFailureEventArgs = ReferencePool.Acquire<OpenUIFormFailureEventArgs>();
+            openUIFormFailureEventArgs.SerialId = e.SerialId;
+            openUIFormFailureEventArgs.UIFormAssetName = e.UIFormAssetName;
+            openUIFormFailureEventArgs.UIGroupName = e.UIGroupName;
+            openUIFormFailureEventArgs.PauseCoveredUIForm = e.PauseCoveredUIForm;
+            openUIFormFailureEventArgs.ErrorMessage = e.ErrorMessage;
+            openUIFormFailureEventArgs.UserData = e.UserData;
+            return openUIFormFailureEventArgs;
+        }
+
+        /// <summary>
         /// 清理打开界面失败事件。
         /// </summary>
         public override void Clear()
         {
-            SerialId = default(int);
-            UIFormAssetName = default(string);
-            UIGroupName = default(string);
-            PauseCoveredUIForm = default(bool);
-            ErrorMessage = default(string);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充打开界面失败事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>打开界面失败事件。</returns>
-        public OpenUIFormFailureEventArgs Fill(GameFramework.UI.OpenUIFormFailureEventArgs e)
-        {
-            SerialId = e.SerialId;
-            UIFormAssetName = e.UIFormAssetName;
-            UIGroupName = e.UIGroupName;
-            PauseCoveredUIForm = e.PauseCoveredUIForm;
-            ErrorMessage = e.ErrorMessage;
-            UserData = e.UserData;
-
-            return this;
+            SerialId = 0;
+            UIFormAssetName = null;
+            UIGroupName = null;
+            PauseCoveredUIForm = false;
+            ErrorMessage = null;
+            UserData = null;
         }
     }
 }

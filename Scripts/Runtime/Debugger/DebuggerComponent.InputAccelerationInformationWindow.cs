@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,9 +19,9 @@ namespace UnityGameFramework.Runtime
                 GUILayout.Label("<b>Input Acceleration Information</b>");
                 GUILayout.BeginVertical("box");
                 {
-                    DrawItem("Acceleration:", Input.acceleration.ToString());
-                    DrawItem("Acceleration Event Count:", Input.accelerationEventCount.ToString());
-                    DrawItem("Acceleration Events:", GetAccelerationEventsString(Input.accelerationEvents));
+                    DrawItem("Acceleration", Input.acceleration.ToString());
+                    DrawItem("Acceleration Event Count", Input.accelerationEventCount.ToString());
+                    DrawItem("Acceleration Events", GetAccelerationEventsString(Input.accelerationEvents));
                 }
                 GUILayout.EndVertical();
             }

@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework.Download;
@@ -16,6 +16,11 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public abstract class DownloadAgentHelperBase : MonoBehaviour, IDownloadAgentHelper
     {
+        /// <summary>
+        /// 范围不适用错误码。
+        /// </summary>
+        protected const int RangeNotSatisfiableErrorCode = 416;
+
         /// <summary>
         /// 下载代理辅助器更新数据流事件。
         /// </summary>

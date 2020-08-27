@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
@@ -18,6 +19,18 @@ namespace UnityGameFramework.Runtime
         /// 资源更新成功事件编号。
         /// </summary>
         public static readonly int EventId = typeof(ResourceUpdateSuccessEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化资源更新成功事件的新实例。
+        /// </summary>
+        public ResourceUpdateSuccessEventArgs()
+        {
+            Name = null;
+            DownloadPath = null;
+            DownloadUri = null;
+            Length = 0;
+            ZipLength = 0;
+        }
 
         /// <summary>
         /// 获取资源更新成功事件编号。
@@ -67,7 +80,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取压缩包大小。
+        /// 获取压缩后大小。
         /// </summary>
         public int ZipLength
         {
@@ -76,31 +89,31 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建资源更新成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的资源更新成功事件。</returns>
+        public static ResourceUpdateSuccessEventArgs Create(GameFramework.Resource.ResourceUpdateSuccessEventArgs e)
+        {
+            ResourceUpdateSuccessEventArgs resourceUpdateSuccessEventArgs = ReferencePool.Acquire<ResourceUpdateSuccessEventArgs>();
+            resourceUpdateSuccessEventArgs.Name = e.Name;
+            resourceUpdateSuccessEventArgs.DownloadPath = e.DownloadPath;
+            resourceUpdateSuccessEventArgs.DownloadUri = e.DownloadUri;
+            resourceUpdateSuccessEventArgs.Length = e.Length;
+            resourceUpdateSuccessEventArgs.ZipLength = e.ZipLength;
+            return resourceUpdateSuccessEventArgs;
+        }
+
+        /// <summary>
         /// 清理资源更新成功事件。
         /// </summary>
         public override void Clear()
         {
-            Name = default(string);
-            DownloadPath = default(string);
-            DownloadUri = default(string);
-            Length = default(int);
-            ZipLength = default(int);
-        }
-
-        /// <summary>
-        /// 填充资源更新成功事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>资源更新成功事件。</returns>
-        public ResourceUpdateSuccessEventArgs Fill(GameFramework.Resource.ResourceUpdateSuccessEventArgs e)
-        {
-            Name = e.Name;
-            DownloadPath = e.DownloadPath;
-            DownloadUri = e.DownloadUri;
-            Length = e.Length;
-            ZipLength = e.ZipLength;
-
-            return this;
+            Name = null;
+            DownloadPath = null;
+            DownloadUri = null;
+            Length = 0;
+            ZipLength = 0;
         }
     }
 }

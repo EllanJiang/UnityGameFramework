@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,13 +19,13 @@ namespace UnityGameFramework.Runtime
                 GUILayout.Label("<b>Input Touch Information</b>");
                 GUILayout.BeginVertical("box");
                 {
-                    DrawItem("Touch Supported:", Input.touchSupported.ToString());
-                    DrawItem("Touch Pressure Supported:", Input.touchPressureSupported.ToString());
-                    DrawItem("Stylus Touch Supported:", Input.stylusTouchSupported.ToString());
-                    DrawItem("Simulate Mouse With Touches:", Input.simulateMouseWithTouches.ToString());
-                    DrawItem("Multi Touch Enabled:", Input.multiTouchEnabled.ToString());
-                    DrawItem("Touch Count:", Input.touchCount.ToString());
-                    DrawItem("Touches:", GetTouchesString(Input.touches));
+                    DrawItem("Touch Supported", Input.touchSupported.ToString());
+                    DrawItem("Touch Pressure Supported", Input.touchPressureSupported.ToString());
+                    DrawItem("Stylus Touch Supported", Input.stylusTouchSupported.ToString());
+                    DrawItem("Simulate Mouse With Touches", Input.simulateMouseWithTouches.ToString());
+                    DrawItem("Multi Touch Enabled", Input.multiTouchEnabled.ToString());
+                    DrawItem("Touch Count", Input.touchCount.ToString());
+                    DrawItem("Touches", GetTouchesString(Input.touches));
                 }
                 GUILayout.EndVertical();
             }

@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using UnityEngine;
@@ -19,18 +19,18 @@ namespace UnityGameFramework.Runtime
                 GUILayout.BeginVertical("box");
                 {
 #if !UNITY_2017_2_OR_NEWER
-                    DrawItem("Is Web Player:", Application.isWebPlayer.ToString());
+                    DrawItem("Is Web Player", Application.isWebPlayer.ToString());
 #endif
-                    DrawItem("Absolute URL:", Application.absoluteURL);
+                    DrawItem("Absolute URL", Application.absoluteURL);
 #if !UNITY_2017_2_OR_NEWER
-                    DrawItem("Source Value:", Application.srcValue);
+                    DrawItem("Source Value", Application.srcValue);
 #endif
 #if !UNITY_2018_2_OR_NEWER
-                    DrawItem("Streamed Bytes:", Application.streamedBytes.ToString());
+                    DrawItem("Streamed Bytes", Application.streamedBytes.ToString());
 #endif
 #if UNITY_5_3 || UNITY_5_4
-                    DrawItem("Web Security Enabled:", Application.webSecurityEnabled.ToString());
-                    DrawItem("Web Security Host URL:", Application.webSecurityHostUrl.ToString());
+                    DrawItem("Web Security Enabled", Application.webSecurityEnabled.ToString());
+                    DrawItem("Web Security Host URL", Application.webSecurityHostUrl.ToString());
 #endif
                 }
                 GUILayout.EndVertical();

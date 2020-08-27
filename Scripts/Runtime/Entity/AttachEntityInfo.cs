@@ -1,23 +1,24 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
 {
-    internal sealed class AttachEntityInfo
+    internal sealed class AttachEntityInfo : IReference
     {
-        private readonly Transform m_ParentTransform;
-        private readonly object m_UserData;
+        private Transform m_ParentTransform;
+        private object m_UserData;
 
-        public AttachEntityInfo(Transform parentTransform, object userData)
+        public AttachEntityInfo()
         {
-            m_ParentTransform = parentTransform;
-            m_UserData = userData;
+            m_ParentTransform = null;
+            m_UserData = null;
         }
 
         public Transform ParentTransform
@@ -34,6 +35,20 @@ namespace UnityGameFramework.Runtime
             {
                 return m_UserData;
             }
+        }
+
+        public static AttachEntityInfo Create(Transform parentTransform, object userData)
+        {
+            AttachEntityInfo attachEntityInfo = ReferencePool.Acquire<AttachEntityInfo>();
+            attachEntityInfo.m_ParentTransform = parentTransform;
+            attachEntityInfo.m_UserData = userData;
+            return attachEntityInfo;
+        }
+
+        public void Clear()
+        {
+            m_ParentTransform = null;
+            m_UserData = null;
         }
     }
 }

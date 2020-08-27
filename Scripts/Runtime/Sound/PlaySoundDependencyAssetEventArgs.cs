@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 using GameFramework.Sound;
 
@@ -19,6 +20,22 @@ namespace UnityGameFramework.Runtime
         /// 播放声音时加载依赖资源事件编号。
         /// </summary>
         public static readonly int EventId = typeof(PlaySoundDependencyAssetEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化播放声音时加载依赖资源事件的新实例。
+        /// </summary>
+        public PlaySoundDependencyAssetEventArgs()
+        {
+            SerialId = 0;
+            SoundAssetName = null;
+            SoundGroupName = null;
+            PlaySoundParams = null;
+            DependencyAssetName = null;
+            LoadedCount = 0;
+            TotalCount = 0;
+            BindingEntity = null;
+            UserData = null;
+        }
 
         /// <summary>
         /// 获取播放声音时加载依赖资源事件编号。
@@ -113,40 +130,40 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建播放声音时加载依赖资源事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的播放声音时加载依赖资源事件。</returns>
+        public static PlaySoundDependencyAssetEventArgs Create(GameFramework.Sound.PlaySoundDependencyAssetEventArgs e)
+        {
+            PlaySoundInfo playSoundInfo = (PlaySoundInfo)e.UserData;
+            PlaySoundDependencyAssetEventArgs playSoundDependencyAssetEventArgs = ReferencePool.Acquire<PlaySoundDependencyAssetEventArgs>();
+            playSoundDependencyAssetEventArgs.SerialId = e.SerialId;
+            playSoundDependencyAssetEventArgs.SoundAssetName = e.SoundAssetName;
+            playSoundDependencyAssetEventArgs.SoundGroupName = e.SoundGroupName;
+            playSoundDependencyAssetEventArgs.PlaySoundParams = e.PlaySoundParams;
+            playSoundDependencyAssetEventArgs.DependencyAssetName = e.DependencyAssetName;
+            playSoundDependencyAssetEventArgs.LoadedCount = e.LoadedCount;
+            playSoundDependencyAssetEventArgs.TotalCount = e.TotalCount;
+            playSoundDependencyAssetEventArgs.BindingEntity = playSoundInfo.BindingEntity;
+            playSoundDependencyAssetEventArgs.UserData = playSoundInfo.UserData;
+            return playSoundDependencyAssetEventArgs;
+        }
+
+        /// <summary>
         /// 清理播放声音时加载依赖资源事件。
         /// </summary>
         public override void Clear()
         {
-            SerialId = default(int);
-            SoundAssetName = default(string);
-            SoundGroupName = default(string);
-            PlaySoundParams = default(PlaySoundParams);
-            DependencyAssetName = default(string);
-            LoadedCount = default(int);
-            TotalCount = default(int);
-            BindingEntity = default(Entity);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充播放声音时加载依赖资源事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>播放声音时加载依赖资源事件。</returns>
-        public PlaySoundDependencyAssetEventArgs Fill(GameFramework.Sound.PlaySoundDependencyAssetEventArgs e)
-        {
-            PlaySoundInfo playSoundInfo = (PlaySoundInfo)e.UserData;
-            SerialId = e.SerialId;
-            SoundAssetName = e.SoundAssetName;
-            SoundGroupName = e.SoundGroupName;
-            PlaySoundParams = e.PlaySoundParams;
-            DependencyAssetName = e.DependencyAssetName;
-            LoadedCount = e.LoadedCount;
-            TotalCount = e.TotalCount;
-            BindingEntity = playSoundInfo.BindingEntity;
-            UserData = playSoundInfo.UserData;
-
-            return this;
+            SerialId = 0;
+            SoundAssetName = null;
+            SoundGroupName = null;
+            PlaySoundParams = null;
+            DependencyAssetName = null;
+            LoadedCount = 0;
+            TotalCount = 0;
+            BindingEntity = null;
+            UserData = null;
         }
     }
 }

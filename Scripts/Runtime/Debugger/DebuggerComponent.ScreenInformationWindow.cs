@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -29,6 +29,9 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Full Screen Mode", Screen.fullScreenMode.ToString());
 #endif
                     DrawItem("Sleep Timeout", GetSleepTimeoutDescription(Screen.sleepTimeout));
+#if UNITY_2019_2_OR_NEWER
+                    DrawItem("Brightness", Screen.brightness.ToString("F2"));
+#endif
                     DrawItem("Cursor Visible", Cursor.visible.ToString());
                     DrawItem("Cursor Lock State", Cursor.lockState.ToString());
                     DrawItem("Auto Landscape Left", Screen.autorotateToLandscapeLeft.ToString());
@@ -37,6 +40,9 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Auto Portrait Upside Down", Screen.autorotateToPortraitUpsideDown.ToString());
 #if UNITY_2017_2_OR_NEWER && !UNITY_2017_2_0
                     DrawItem("Safe Area", Screen.safeArea.ToString());
+#endif
+#if UNITY_2019_2_OR_NEWER
+                    DrawItem("Cutouts", GetCutoutsString(Screen.cutouts));
 #endif
                     DrawItem("Support Resolutions", GetResolutionsString(Screen.resolutions));
                 }
@@ -61,6 +67,17 @@ namespace UnityGameFramework.Runtime
             private string GetResolutionString(Resolution resolution)
             {
                 return Utility.Text.Format("{0} x {1} @ {2}Hz", resolution.width.ToString(), resolution.height.ToString(), resolution.refreshRate.ToString());
+            }
+
+            private string GetCutoutsString(Rect[] cutouts)
+            {
+                string[] cutoutStrings = new string[cutouts.Length];
+                for (int i = 0; i < cutouts.Length; i++)
+                {
+                    cutoutStrings[i] = cutouts[i].ToString();
+                }
+
+                return string.Join("; ", cutoutStrings);
             }
 
             private string GetResolutionsString(Resolution[] resolutions)

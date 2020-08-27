@@ -1,11 +1,13 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
-using GameFramework;
+#if !UNITY_2019_1_OR_NEWER
+
+using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEditor;
@@ -71,7 +73,7 @@ namespace UnityGameFramework.Editor
                 }
             }
 
-            InternalEditorUtility.OpenFileAtLineExternal(Utility.Path.GetCombinePath(Application.dataPath, match.Groups[1].Value.Substring(7)), int.Parse(match.Groups[2].Value));
+            InternalEditorUtility.OpenFileAtLineExternal(Path.Combine(Application.dataPath, match.Groups[1].Value.Substring(7)), int.Parse(match.Groups[2].Value));
             return true;
         }
 
@@ -116,3 +118,5 @@ namespace UnityGameFramework.Editor
         }
     }
 }
+
+#endif

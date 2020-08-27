@@ -1,12 +1,13 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 #if !UNITY_2018_3_OR_NEWER
 
+using GameFramework;
 using GameFramework.WebRequest;
 using System;
 using UnityEngine;
@@ -120,7 +121,7 @@ namespace UnityGameFramework.Runtime
         /// 释放资源。
         /// </summary>
         /// <param name="disposing">释放资源标记。</param>
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (m_Disposed)
             {
@@ -148,11 +149,15 @@ namespace UnityGameFramework.Runtime
 
             if (!string.IsNullOrEmpty(m_WWW.error))
             {
-                m_WebRequestAgentHelperErrorEventHandler(this, new WebRequestAgentHelperErrorEventArgs(m_WWW.error));
+                WebRequestAgentHelperErrorEventArgs webRequestAgentHelperErrorEventArgs = WebRequestAgentHelperErrorEventArgs.Create(m_WWW.error);
+                m_WebRequestAgentHelperErrorEventHandler(this, webRequestAgentHelperErrorEventArgs);
+                ReferencePool.Release(webRequestAgentHelperErrorEventArgs);
             }
             else
             {
-                m_WebRequestAgentHelperCompleteEventHandler(this, new WebRequestAgentHelperCompleteEventArgs(m_WWW.bytes));
+                WebRequestAgentHelperCompleteEventArgs webRequestAgentHelperCompleteEventArgs = WebRequestAgentHelperCompleteEventArgs.Create(m_WWW.bytes);
+                m_WebRequestAgentHelperCompleteEventHandler(this, webRequestAgentHelperCompleteEventArgs);
+                ReferencePool.Release(webRequestAgentHelperCompleteEventArgs);
             }
         }
     }

@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 using GameFramework.Network;
 
@@ -19,6 +20,15 @@ namespace UnityGameFramework.Runtime
         /// 用户自定义网络错误事件编号。
         /// </summary>
         public static readonly int EventId = typeof(NetworkCustomErrorEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化用户自定义网络错误事件的新实例。
+        /// </summary>
+        public NetworkCustomErrorEventArgs()
+        {
+            NetworkChannel = null;
+            CustomErrorData = null;
+        }
 
         /// <summary>
         /// 获取用户自定义网络错误事件编号。
@@ -50,25 +60,25 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建用户自定义网络错误事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的用户自定义网络错误事件。</returns>
+        public static NetworkCustomErrorEventArgs Create(GameFramework.Network.NetworkCustomErrorEventArgs e)
+        {
+            NetworkCustomErrorEventArgs networkCustomErrorEventArgs = ReferencePool.Acquire<NetworkCustomErrorEventArgs>();
+            networkCustomErrorEventArgs.NetworkChannel = e.NetworkChannel;
+            networkCustomErrorEventArgs.CustomErrorData = e.CustomErrorData;
+            return networkCustomErrorEventArgs;
+        }
+
+        /// <summary>
         /// 清理用户自定义网络错误事件。
         /// </summary>
         public override void Clear()
         {
-            NetworkChannel = default(INetworkChannel);
-            CustomErrorData = default(object);
-        }
-
-        /// <summary>
-        /// 填充用户自定义网络错误事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>用户自定义网络错误事件。</returns>
-        public NetworkCustomErrorEventArgs Fill(GameFramework.Network.NetworkCustomErrorEventArgs e)
-        {
-            NetworkChannel = e.NetworkChannel;
-            CustomErrorData = e.CustomErrorData;
-
-            return this;
+            NetworkChannel = null;
+            CustomErrorData = null;
         }
     }
 }

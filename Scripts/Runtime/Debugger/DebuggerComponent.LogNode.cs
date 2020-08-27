@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,25 +19,21 @@ namespace UnityGameFramework.Runtime
         public sealed class LogNode : IReference
         {
             private DateTime m_LogTime;
+            private int m_LogFrameCount;
             private LogType m_LogType;
             private string m_LogMessage;
             private string m_StackTrack;
 
             /// <summary>
-            /// 填充日志记录结点。
+            /// 初始化日志记录结点的新实例。
             /// </summary>
-            /// <param name="logType">日志类型。</param>
-            /// <param name="logMessage">日志内容。</param>
-            /// <param name="stackTrack">日志堆栈信息。</param>
-            /// <returns></returns>
-            public LogNode Fill(LogType logType, string logMessage, string stackTrack)
+            public LogNode()
             {
-                m_LogTime = DateTime.Now;
-                m_LogType = logType;
-                m_LogMessage = logMessage;
-                m_StackTrack = stackTrack;
-
-                return this;
+                m_LogTime = default(DateTime);
+                m_LogFrameCount = 0;
+                m_LogType = LogType.Error;
+                m_LogMessage = null;
+                m_StackTrack = null;
             }
 
             /// <summary>
@@ -48,6 +44,17 @@ namespace UnityGameFramework.Runtime
                 get
                 {
                     return m_LogTime;
+                }
+            }
+
+            /// <summary>
+            /// 获取日志帧计数。
+            /// </summary>
+            public int LogFrameCount
+            {
+                get
+                {
+                    return m_LogFrameCount;
                 }
             }
 
@@ -85,14 +92,33 @@ namespace UnityGameFramework.Runtime
             }
 
             /// <summary>
+            /// 创建日志记录结点。
+            /// </summary>
+            /// <param name="logType">日志类型。</param>
+            /// <param name="logMessage">日志内容。</param>
+            /// <param name="stackTrack">日志堆栈信息。</param>
+            /// <returns>创建的日志记录结点。</returns>
+            public static LogNode Create(LogType logType, string logMessage, string stackTrack)
+            {
+                LogNode logNode = ReferencePool.Acquire<LogNode>();
+                logNode.m_LogTime = DateTime.Now;
+                logNode.m_LogFrameCount = Time.frameCount;
+                logNode.m_LogType = logType;
+                logNode.m_LogMessage = logMessage;
+                logNode.m_StackTrack = stackTrack;
+                return logNode;
+            }
+
+            /// <summary>
             /// 清理日志记录结点。
             /// </summary>
             public void Clear()
             {
                 m_LogTime = default(DateTime);
-                m_LogType = default(LogType);
-                m_LogMessage = default(string);
-                m_StackTrack = default(string);
+                m_LogFrameCount = 0;
+                m_LogType = LogType.Error;
+                m_LogMessage = null;
+                m_StackTrack = null;
             }
         }
     }

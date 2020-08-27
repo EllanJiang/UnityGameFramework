@@ -1,11 +1,16 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
+using System;
+using System.IO;
+using System.Text;
 using UnityEditor;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace UnityGameFramework.Editor
@@ -64,11 +69,53 @@ namespace UnityGameFramework.Editor
 
             if (EditorApplication.isPlaying && IsPrefabInHierarchy(t.gameObject))
             {
+                EditorGUILayout.LabelField("Paused", t.Paused.ToString());
                 EditorGUILayout.LabelField("Total Agent Count", t.TotalAgentCount.ToString());
                 EditorGUILayout.LabelField("Free Agent Count", t.FreeAgentCount.ToString());
                 EditorGUILayout.LabelField("Working Agent Count", t.WorkingAgentCount.ToString());
                 EditorGUILayout.LabelField("Waiting Agent Count", t.WaitingTaskCount.ToString());
                 EditorGUILayout.LabelField("Current Speed", t.CurrentSpeed.ToString());
+                EditorGUILayout.BeginVertical("box");
+                {
+                    TaskInfo[] downloadInfos = t.GetAllDownloadInfos();
+                    if (downloadInfos.Length > 0)
+                    {
+                        foreach (TaskInfo downloadInfo in downloadInfos)
+                        {
+                            DrawDownloadInfo(downloadInfo);
+                        }
+
+                        if (GUILayout.Button("Export CSV Data"))
+                        {
+                            string exportFileName = EditorUtility.SaveFilePanel("Export CSV Data", string.Empty, "Download Task Data.csv", string.Empty);
+                            if (!string.IsNullOrEmpty(exportFileName))
+                            {
+                                try
+                                {
+                                    int index = 0;
+                                    string[] data = new string[downloadInfos.Length + 1];
+                                    data[index++] = "Download Path,Serial Id,Priority,Status";
+                                    foreach (TaskInfo downloadInfo in downloadInfos)
+                                    {
+                                        data[index++] = Utility.Text.Format("{0},{1},{2},{3}", downloadInfo.Description, downloadInfo.SerialId.ToString(), downloadInfo.Priority.ToString(), downloadInfo.Status.ToString());
+                                    }
+
+                                    File.WriteAllLines(exportFileName, data, Encoding.UTF8);
+                                    Debug.Log(Utility.Text.Format("Export download task CSV data to '{0}' success.", exportFileName));
+                                }
+                                catch (Exception exception)
+                                {
+                                    Debug.LogError(Utility.Text.Format("Export download task CSV data to '{0}' failure, exception is '{1}'.", exportFileName, exception.ToString()));
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        GUILayout.Label("Download Task is Empty ...");
+                    }
+                }
+                EditorGUILayout.EndVertical();
             }
 
             serializedObject.ApplyModifiedProperties();
@@ -93,6 +140,11 @@ namespace UnityGameFramework.Editor
             m_DownloadAgentHelperInfo.Init(serializedObject);
 
             RefreshTypeNames();
+        }
+
+        private void DrawDownloadInfo(TaskInfo downloadInfo)
+        {
+            EditorGUILayout.LabelField(downloadInfo.Description, Utility.Text.Format("[SerialId]{0} [Priority]{1} [Status]{2}", downloadInfo.SerialId.ToString(), downloadInfo.Priority.ToString(), downloadInfo.Status.ToString()));
         }
 
         private void RefreshTypeNames()

@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -43,7 +43,7 @@ namespace UnityGameFramework.Runtime
         /// 从 byte[] 变量类到 byte[] 的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
-        public static implicit operator byte[] (VarBytes value)
+        public static implicit operator byte[](VarBytes value)
         {
             return value.Value;
         }

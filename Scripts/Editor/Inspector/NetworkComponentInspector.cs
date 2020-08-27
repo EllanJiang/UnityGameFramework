@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -51,7 +51,8 @@ namespace UnityGameFramework.Editor
             EditorGUILayout.BeginVertical("box");
             {
                 EditorGUILayout.LabelField(networkChannel.Name, networkChannel.Connected ? "Connected" : "Disconnected");
-                EditorGUILayout.LabelField("Network Type", networkChannel.NetworkType.ToString());
+                EditorGUILayout.LabelField("Service Type", networkChannel.ServiceType.ToString());
+                EditorGUILayout.LabelField("Address Family", networkChannel.AddressFamily.ToString());
                 EditorGUILayout.LabelField("Local Address", networkChannel.Connected ? networkChannel.Socket.LocalEndPoint.ToString() : "Unavailable");
                 EditorGUILayout.LabelField("Remote Address", networkChannel.Connected ? networkChannel.Socket.RemoteEndPoint.ToString() : "Unavailable");
                 EditorGUILayout.LabelField("Send Packet", Utility.Text.Format("{0} / {1}", networkChannel.SendPacketCount.ToString(), networkChannel.SentPacketCount.ToString()));

@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
@@ -18,6 +19,15 @@ namespace UnityGameFramework.Runtime
         /// 加载场景成功事件编号。
         /// </summary>
         public static readonly int EventId = typeof(UnloadSceneSuccessEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化卸载场景成功事件的新实例。
+        /// </summary>
+        public UnloadSceneSuccessEventArgs()
+        {
+            SceneAssetName = null;
+            UserData = null;
+        }
 
         /// <summary>
         /// 获取加载场景成功事件编号。
@@ -49,25 +59,25 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建卸载场景成功事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的卸载场景成功事件。</returns>
+        public static UnloadSceneSuccessEventArgs Create(GameFramework.Scene.UnloadSceneSuccessEventArgs e)
+        {
+            UnloadSceneSuccessEventArgs unloadSceneSuccessEventArgs = ReferencePool.Acquire<UnloadSceneSuccessEventArgs>();
+            unloadSceneSuccessEventArgs.SceneAssetName = e.SceneAssetName;
+            unloadSceneSuccessEventArgs.UserData = e.UserData;
+            return unloadSceneSuccessEventArgs;
+        }
+
+        /// <summary>
         /// 清理卸载场景成功事件。
         /// </summary>
         public override void Clear()
         {
-            SceneAssetName = default(string);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充卸载场景成功事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>卸载场景成功事件。</returns>
-        public UnloadSceneSuccessEventArgs Fill(GameFramework.Scene.UnloadSceneSuccessEventArgs e)
-        {
-            SceneAssetName = e.SceneAssetName;
-            UserData = e.UserData;
-
-            return this;
+            SceneAssetName = null;
+            UserData = null;
         }
     }
 }

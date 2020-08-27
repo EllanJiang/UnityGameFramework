@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using UnityEditor;
@@ -14,12 +14,8 @@ namespace UnityGameFramework.Editor
     [CustomEditor(typeof(SceneComponent))]
     internal sealed class SceneComponentInspector : GameFrameworkInspector
     {
-        private SerializedProperty m_EnableLoadSceneSuccessEvent = null;
-        private SerializedProperty m_EnableLoadSceneFailureEvent = null;
         private SerializedProperty m_EnableLoadSceneUpdateEvent = null;
         private SerializedProperty m_EnableLoadSceneDependencyAssetEvent = null;
-        private SerializedProperty m_EnableUnloadSceneSuccessEvent = null;
-        private SerializedProperty m_EnableUnloadSceneFailureEvent = null;
 
         public override void OnInspectorGUI()
         {
@@ -29,12 +25,12 @@ namespace UnityGameFramework.Editor
 
             SceneComponent t = (SceneComponent)target;
 
-            EditorGUILayout.PropertyField(m_EnableLoadSceneSuccessEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadSceneFailureEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadSceneUpdateEvent);
-            EditorGUILayout.PropertyField(m_EnableLoadSceneDependencyAssetEvent);
-            EditorGUILayout.PropertyField(m_EnableUnloadSceneSuccessEvent);
-            EditorGUILayout.PropertyField(m_EnableUnloadSceneFailureEvent);
+            EditorGUI.BeginDisabledGroup(EditorApplication.isPlayingOrWillChangePlaymode);
+            {
+                EditorGUILayout.PropertyField(m_EnableLoadSceneUpdateEvent);
+                EditorGUILayout.PropertyField(m_EnableLoadSceneDependencyAssetEvent);
+            }
+            EditorGUI.EndDisabledGroup();
 
             serializedObject.ApplyModifiedProperties();
 
@@ -51,12 +47,8 @@ namespace UnityGameFramework.Editor
 
         private void OnEnable()
         {
-            m_EnableLoadSceneSuccessEvent = serializedObject.FindProperty("m_EnableLoadSceneSuccessEvent");
-            m_EnableLoadSceneFailureEvent = serializedObject.FindProperty("m_EnableLoadSceneFailureEvent");
             m_EnableLoadSceneUpdateEvent = serializedObject.FindProperty("m_EnableLoadSceneUpdateEvent");
             m_EnableLoadSceneDependencyAssetEvent = serializedObject.FindProperty("m_EnableLoadSceneDependencyAssetEvent");
-            m_EnableUnloadSceneSuccessEvent = serializedObject.FindProperty("m_EnableUnloadSceneSuccessEvent");
-            m_EnableUnloadSceneFailureEvent = serializedObject.FindProperty("m_EnableUnloadSceneFailureEvent");
         }
 
         private string GetSceneNameString(string[] sceneAssetNames)

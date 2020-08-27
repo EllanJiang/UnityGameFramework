@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
@@ -18,6 +19,18 @@ namespace UnityGameFramework.Runtime
         /// 下载更新事件编号。
         /// </summary>
         public static readonly int EventId = typeof(DownloadUpdateEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化下载更新事件的新实例。
+        /// </summary>
+        public DownloadUpdateEventArgs()
+        {
+            SerialId = 0;
+            DownloadPath = null;
+            DownloadUri = null;
+            CurrentLength = 0;
+            UserData = null;
+        }
 
         /// <summary>
         /// 获取下载更新事件编号。
@@ -76,31 +89,31 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建下载更新事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的下载更新事件。</returns>
+        public static DownloadUpdateEventArgs Create(GameFramework.Download.DownloadUpdateEventArgs e)
+        {
+            DownloadUpdateEventArgs downloadUpdateEventArgs = ReferencePool.Acquire<DownloadUpdateEventArgs>();
+            downloadUpdateEventArgs.SerialId = e.SerialId;
+            downloadUpdateEventArgs.DownloadPath = e.DownloadPath;
+            downloadUpdateEventArgs.DownloadUri = e.DownloadUri;
+            downloadUpdateEventArgs.CurrentLength = e.CurrentLength;
+            downloadUpdateEventArgs.UserData = e.UserData;
+            return downloadUpdateEventArgs;
+        }
+
+        /// <summary>
         /// 清理下载更新事件。
         /// </summary>
         public override void Clear()
         {
-            SerialId = default(int);
-            DownloadPath = default(string);
-            DownloadUri = default(string);
-            CurrentLength = default(int);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充下载更新事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>下载更新事件。</returns>
-        public DownloadUpdateEventArgs Fill(GameFramework.Download.DownloadUpdateEventArgs e)
-        {
-            SerialId = e.SerialId;
-            DownloadPath = e.DownloadPath;
-            DownloadUri = e.DownloadUri;
-            CurrentLength = e.CurrentLength;
-            UserData = e.UserData;
-
-            return this;
+            SerialId = 0;
+            DownloadPath = null;
+            DownloadUri = null;
+            CurrentLength = 0;
+            UserData = null;
         }
     }
 }

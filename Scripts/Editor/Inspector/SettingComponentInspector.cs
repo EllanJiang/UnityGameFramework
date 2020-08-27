@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using UnityEditor;
@@ -27,6 +27,19 @@ namespace UnityGameFramework.Editor
                 m_SettingHelperInfo.Draw();
             }
             EditorGUI.EndDisabledGroup();
+
+            if (EditorApplication.isPlaying && IsPrefabInHierarchy(t.gameObject))
+            {
+                EditorGUILayout.LabelField("Setting Count", t.Count >= 0 ? t.Count.ToString() : "<Unknown>");
+                if (t.Count > 0)
+                {
+                    string[] settingNames = t.GetAllSettingNames();
+                    foreach (string settingName in settingNames)
+                    {
+                        EditorGUILayout.LabelField(settingName, t.GetString(settingName));
+                    }
+                }
+            }
 
             if (EditorApplication.isPlaying)
             {

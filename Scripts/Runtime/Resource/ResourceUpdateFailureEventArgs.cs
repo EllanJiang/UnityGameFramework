@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 
 namespace UnityGameFramework.Runtime
@@ -18,6 +19,18 @@ namespace UnityGameFramework.Runtime
         /// 资源更新失败事件编号。
         /// </summary>
         public static readonly int EventId = typeof(ResourceUpdateFailureEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化资源更新失败事件的新实例。
+        /// </summary>
+        public ResourceUpdateFailureEventArgs()
+        {
+            Name = null;
+            DownloadUri = null;
+            RetryCount = 0;
+            TotalRetryCount = 0;
+            ErrorMessage = null;
+        }
 
         /// <summary>
         /// 获取资源更新失败事件编号。
@@ -76,31 +89,31 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建资源更新失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的资源更新失败事件。</returns>
+        public static ResourceUpdateFailureEventArgs Create(GameFramework.Resource.ResourceUpdateFailureEventArgs e)
+        {
+            ResourceUpdateFailureEventArgs resourceUpdateFailureEventArgs = ReferencePool.Acquire<ResourceUpdateFailureEventArgs>();
+            resourceUpdateFailureEventArgs.Name = e.Name;
+            resourceUpdateFailureEventArgs.DownloadUri = e.DownloadUri;
+            resourceUpdateFailureEventArgs.RetryCount = e.RetryCount;
+            resourceUpdateFailureEventArgs.TotalRetryCount = e.TotalRetryCount;
+            resourceUpdateFailureEventArgs.ErrorMessage = e.ErrorMessage;
+            return resourceUpdateFailureEventArgs;
+        }
+
+        /// <summary>
         /// 清理资源更新失败事件。
         /// </summary>
         public override void Clear()
         {
-            Name = default(string);
-            DownloadUri = default(string);
-            RetryCount = default(int);
-            TotalRetryCount = default(int);
-            ErrorMessage = default(string);
-        }
-
-        /// <summary>
-        /// 填充资源更新失败事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>资源更新失败事件。</returns>
-        public ResourceUpdateFailureEventArgs Fill(GameFramework.Resource.ResourceUpdateFailureEventArgs e)
-        {
-            Name = e.Name;
-            DownloadUri = e.DownloadUri;
-            RetryCount = e.RetryCount;
-            TotalRetryCount = e.TotalRetryCount;
-            ErrorMessage = e.ErrorMessage;
-
-            return this;
+            Name = null;
+            DownloadUri = null;
+            RetryCount = 0;
+            TotalRetryCount = 0;
+            ErrorMessage = null;
         }
     }
 }

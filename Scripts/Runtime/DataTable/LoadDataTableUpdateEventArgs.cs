@@ -1,12 +1,12 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
-using System;
 
 namespace UnityGameFramework.Runtime
 {
@@ -21,6 +21,16 @@ namespace UnityGameFramework.Runtime
         public static readonly int EventId = typeof(LoadDataTableUpdateEventArgs).GetHashCode();
 
         /// <summary>
+        /// 初始化加载数据表更新事件的新实例。
+        /// </summary>
+        public LoadDataTableUpdateEventArgs()
+        {
+            DataTableAssetName = null;
+            Progress = 0f;
+            UserData = null;
+        }
+
+        /// <summary>
         /// 获取加载数据表更新事件编号。
         /// </summary>
         public override int Id
@@ -29,24 +39,6 @@ namespace UnityGameFramework.Runtime
             {
                 return EventId;
             }
-        }
-
-        /// <summary>
-        /// 获取数据行的类型。
-        /// </summary>
-        public Type DataRowType
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取数据表名称。
-        /// </summary>
-        public string DataTableName
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -77,32 +69,27 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建加载数据表更新事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的加载数据表更新事件。</returns>
+        public static LoadDataTableUpdateEventArgs Create(ReadDataUpdateEventArgs e)
+        {
+            LoadDataTableUpdateEventArgs loadDataTableUpdateEventArgs = ReferencePool.Acquire<LoadDataTableUpdateEventArgs>();
+            loadDataTableUpdateEventArgs.DataTableAssetName = e.DataAssetName;
+            loadDataTableUpdateEventArgs.Progress = e.Progress;
+            loadDataTableUpdateEventArgs.UserData = e.UserData;
+            return loadDataTableUpdateEventArgs;
+        }
+
+        /// <summary>
         /// 清理加载数据表更新事件。
         /// </summary>
         public override void Clear()
         {
-            DataRowType = default(Type);
-            DataTableName = default(string);
-            DataTableAssetName = default(string);
-            Progress = default(float);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充加载数据表更新事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>加载数据表更新事件。</returns>
-        public LoadDataTableUpdateEventArgs Fill(GameFramework.DataTable.LoadDataTableUpdateEventArgs e)
-        {
-            LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
-            DataRowType = loadDataTableInfo.DataRowType;
-            DataTableName = loadDataTableInfo.DataTableName;
-            DataTableAssetName = e.DataTableAssetName;
-            Progress = e.Progress;
-            UserData = loadDataTableInfo.UserData;
-
-            return this;
+            DataTableAssetName = null;
+            Progress = 0f;
+            UserData = null;
         }
     }
 }

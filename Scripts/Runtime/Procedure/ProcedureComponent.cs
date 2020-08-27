@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -38,6 +38,17 @@ namespace UnityGameFramework.Runtime
             get
             {
                 return m_ProcedureManager.CurrentProcedure;
+            }
+        }
+
+        /// <summary>
+        /// 获取当前流程持续时间。
+        /// </summary>
+        public float CurrentProcedureTime
+        {
+            get
+            {
+                return m_ProcedureManager.CurrentProcedureTime;
             }
         }
 
@@ -97,7 +108,7 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 是否存在流程。
         /// </summary>
-        /// <typeparam name="T">流程类型。</typeparam>
+        /// <typeparam name="T">要检查的流程类型。</typeparam>
         /// <returns>是否存在流程。</returns>
         public bool HasProcedure<T>() where T : ProcedureBase
         {
@@ -105,13 +116,33 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 是否存在流程。
+        /// </summary>
+        /// <param name="procedureType">要检查的流程类型。</param>
+        /// <returns>是否存在流程。</returns>
+        public bool HasProcedure(Type procedureType)
+        {
+            return m_ProcedureManager.HasProcedure(procedureType);
+        }
+
+        /// <summary>
         /// 获取流程。
         /// </summary>
+        /// <typeparam name="T">要获取的流程类型。</typeparam>
         /// <returns>要获取的流程。</returns>
-        /// <typeparam name="T">流程类型。</typeparam>
         public ProcedureBase GetProcedure<T>() where T : ProcedureBase
         {
             return m_ProcedureManager.GetProcedure<T>();
+        }
+
+        /// <summary>
+        /// 获取流程。
+        /// </summary>
+        /// <param name="procedureType">要获取的流程类型。</param>
+        /// <returns>要获取的流程。</returns>
+        public ProcedureBase GetProcedure(Type procedureType)
+        {
+            return m_ProcedureManager.GetProcedure(procedureType);
         }
     }
 }

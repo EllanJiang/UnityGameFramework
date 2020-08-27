@@ -1,8 +1,8 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
@@ -47,7 +47,7 @@ namespace UnityGameFramework.Editor
             if (selectedIndex != m_HelperTypeNameIndex)
             {
                 m_HelperTypeNameIndex = selectedIndex;
-                m_HelperTypeName.stringValue = (selectedIndex <= 0 ? null : m_HelperTypeNames[selectedIndex]);
+                m_HelperTypeName.stringValue = selectedIndex <= 0 ? null : m_HelperTypeNames[selectedIndex];
             }
 
             if (m_HelperTypeNameIndex <= 0)

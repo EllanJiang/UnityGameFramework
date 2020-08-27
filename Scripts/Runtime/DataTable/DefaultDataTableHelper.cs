@@ -1,14 +1,15 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
+using GameFramework.DataTable;
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -18,187 +19,147 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public class DefaultDataTableHelper : DataTableHelperBase
     {
-        private DataTableComponent m_DataTableComponent = null;
+        private static readonly string BytesAssetExtension = ".bytes";
+
         private ResourceComponent m_ResourceComponent = null;
 
         /// <summary>
-        /// 获取数据表行片段。
+        /// 读取数据表。
         /// </summary>
-        /// <param name="text">要解析的数据表文本。</param>
-        /// <returns>数据表行片段。</returns>
-        public override IEnumerable<GameFrameworkSegment<string>> GetDataRowSegments(string text)
+        /// <param name="dataTable">数据表。</param>
+        /// <param name="dataTableAssetName">数据表资源名称。</param>
+        /// <param name="dataTableAsset">数据表资源。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否读取数据表成功。</returns>
+        public override bool ReadData(DataTableBase dataTable, string dataTableAssetName, object dataTableAsset, object userData)
         {
-            List<GameFrameworkSegment<string>> dataRowSegments = new List<GameFrameworkSegment<string>>();
-            GameFrameworkSegment<string> dataRowSegment;
-            int position = 0;
-            while ((dataRowSegment = ReadLine(text, ref position)) != default(GameFrameworkSegment<string>))
+            TextAsset dataTableTextAsset = dataTableAsset as TextAsset;
+            if (dataTableTextAsset != null)
             {
-                if (text[dataRowSegment.Offset] == '#')
+                if (dataTableAssetName.EndsWith(BytesAssetExtension, StringComparison.Ordinal))
                 {
-                    continue;
+                    return dataTable.ParseData(dataTableTextAsset.bytes, userData);
                 }
-
-                dataRowSegments.Add(dataRowSegment);
-            }
-
-            return dataRowSegments;
-        }
-
-        /// <summary>
-        /// 获取数据表行片段。
-        /// </summary>
-        /// <param name="bytes">要解析的数据表二进制流。</param>
-        /// <returns>数据表行片段。</returns>
-        public override IEnumerable<GameFrameworkSegment<byte[]>> GetDataRowSegments(byte[] bytes)
-        {
-            List<GameFrameworkSegment<byte[]>> dataRowSegments = new List<GameFrameworkSegment<byte[]>>();
-            using (MemoryStream stream = new MemoryStream(bytes, false))
-            {
-                while (stream.Position < stream.Length)
+                else
                 {
-                    int length = ReadInt32(stream);
-                    dataRowSegments.Add(new GameFrameworkSegment<byte[]>(bytes, (int)stream.Position, length));
-                    stream.Position += length;
+                    return dataTable.ParseData(dataTableTextAsset.text, userData);
                 }
             }
 
-            return dataRowSegments;
+            Log.Warning("Data table asset '{0}' is invalid.", dataTableAssetName);
+            return false;
         }
 
         /// <summary>
-        /// 获取数据表行片段。
+        /// 读取数据表。
         /// </summary>
-        /// <param name="stream">要解析的数据表二进制流。</param>
-        /// <returns>数据表行片段。</returns>
-        public override IEnumerable<GameFrameworkSegment<Stream>> GetDataRowSegments(Stream stream)
+        /// <param name="dataTable">数据表。</param>
+        /// <param name="dataTableAssetName">数据表资源名称。</param>
+        /// <param name="dataTableBytes">数据表二进制流。</param>
+        /// <param name="startIndex">数据表二进制流的起始位置。</param>
+        /// <param name="length">数据表二进制流的长度。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否读取数据表成功。</returns>
+        public override bool ReadData(DataTableBase dataTable, string dataTableAssetName, byte[] dataTableBytes, int startIndex, int length, object userData)
         {
-            List<GameFrameworkSegment<Stream>> dataRowSegments = new List<GameFrameworkSegment<Stream>>();
-            while (stream.Position < stream.Length)
+            if (dataTableAssetName.EndsWith(BytesAssetExtension, StringComparison.Ordinal))
             {
-                int length = ReadInt32(stream);
-                dataRowSegments.Add(new GameFrameworkSegment<Stream>(stream, (int)stream.Position, length));
-                stream.Position += length;
+                return dataTable.ParseData(dataTableBytes, startIndex, length, userData);
             }
+            else
+            {
+                return dataTable.ParseData(Utility.Converter.GetString(dataTableBytes, startIndex, length), userData);
+            }
+        }
 
-            return dataRowSegments;
+        /// <summary>
+        /// 解析数据表。
+        /// </summary>
+        /// <param name="dataTable">数据表。</param>
+        /// <param name="dataTableString">要解析的数据表字符串。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析数据表成功。</returns>
+        public override bool ParseData(DataTableBase dataTable, string dataTableString, object userData)
+        {
+            try
+            {
+                int position = 0;
+                string dataRowString = null;
+                while ((dataRowString = dataTableString.ReadLine(ref position)) != null)
+                {
+                    if (dataRowString[0] == '#')
+                    {
+                        continue;
+                    }
+
+                    if (!dataTable.AddDataRow(dataRowString, userData))
+                    {
+                        Log.Warning("Can not parse data row string '{0}'.", dataRowString);
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Log.Warning("Can not parse data table string with exception '{0}'.", exception.ToString());
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 解析数据表。
+        /// </summary>
+        /// <param name="dataTable">数据表。</param>
+        /// <param name="dataTableBytes">要解析的数据表二进制流。</param>
+        /// <param name="startIndex">数据表二进制流的起始位置。</param>
+        /// <param name="length">数据表二进制流的长度。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>是否解析数据表成功。</returns>
+        public override bool ParseData(DataTableBase dataTable, byte[] dataTableBytes, int startIndex, int length, object userData)
+        {
+            try
+            {
+                using (MemoryStream memoryStream = new MemoryStream(dataTableBytes, startIndex, length, false))
+                {
+                    using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
+                    {
+                        while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
+                        {
+                            int dataRowBytesLength = binaryReader.Read7BitEncodedInt32();
+                            if (!dataTable.AddDataRow(dataTableBytes, (int)binaryReader.BaseStream.Position, dataRowBytesLength, userData))
+                            {
+                                Log.Warning("Can not parse data row bytes.");
+                                return false;
+                            }
+
+                            binaryReader.BaseStream.Position += dataRowBytesLength;
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Log.Warning("Can not parse dictionary bytes with exception '{0}'.", exception.ToString());
+                return false;
+            }
         }
 
         /// <summary>
         /// 释放数据表资源。
         /// </summary>
+        /// <param name="dataTable">数据表。</param>
         /// <param name="dataTableAsset">要释放的数据表资源。</param>
-        public override void ReleaseDataTableAsset(object dataTableAsset)
+        public override void ReleaseDataAsset(DataTableBase dataTable, object dataTableAsset)
         {
             m_ResourceComponent.UnloadAsset(dataTableAsset);
         }
 
-        /// <summary>
-        /// 加载数据表。
-        /// </summary>
-        /// <param name="dataRowType">数据表行的类型。</param>
-        /// <param name="dataTableName">数据表名称。</param>
-        /// <param name="dataTableNameInType">数据表类型下的名称。</param>
-        /// <param name="dataTableAsset">数据表资源。</param>
-        /// <param name="loadType">数据表加载方式。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否加载成功。</returns>
-        protected override bool LoadDataTable(Type dataRowType, string dataTableName, string dataTableNameInType, object dataTableAsset, LoadType loadType, object userData)
-        {
-            TextAsset textAsset = dataTableAsset as TextAsset;
-            if (textAsset == null)
-            {
-                Log.Warning("Data table asset '{0}' is invalid.", dataTableName);
-                return false;
-            }
-
-            if (dataRowType == null)
-            {
-                Log.Warning("Data row type is invalid.");
-                return false;
-            }
-
-            switch (loadType)
-            {
-                case LoadType.Text:
-                    m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, textAsset.text);
-                    break;
-
-                case LoadType.Bytes:
-                    m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, textAsset.bytes);
-                    break;
-
-                case LoadType.Stream:
-                    using (MemoryStream stream = new MemoryStream(textAsset.bytes, false))
-                    {
-                        m_DataTableComponent.CreateDataTable(dataRowType, dataTableNameInType, stream);
-                    }
-                    break;
-
-                default:
-                    Log.Warning("Unknown load type.");
-                    return false;
-            }
-
-            return true;
-        }
-
-        private int ReadInt32(Stream stream)
-        {
-            return stream.ReadByte() | (stream.ReadByte() << 8) | (stream.ReadByte() << 16) | (stream.ReadByte() << 24);
-        }
-
-        private GameFrameworkSegment<string> ReadLine(string text, ref int position)
-        {
-            int length = text.Length;
-            int offset = position;
-            while (offset < length)
-            {
-                char ch = text[offset];
-                switch (ch)
-                {
-                    case '\r':
-                    case '\n':
-                        if (offset - position > 0)
-                        {
-                            GameFrameworkSegment<string> segment = new GameFrameworkSegment<string>(text, position, offset - position);
-                            position = offset + 1;
-                            if (((ch == '\r') && (position < length)) && (text[position] == '\n'))
-                            {
-                                position++;
-                            }
-
-                            return segment;
-                        }
-
-                        offset++;
-                        position++;
-                        break;
-
-                    default:
-                        offset++;
-                        break;
-                }
-            }
-
-            if (offset > position)
-            {
-                GameFrameworkSegment<string> segment = new GameFrameworkSegment<string>(text, position, offset - position);
-                position = offset;
-                return segment;
-            }
-
-            return default(GameFrameworkSegment<string>);
-        }
-
         private void Start()
         {
-            m_DataTableComponent = GameEntry.GetComponent<DataTableComponent>();
-            if (m_DataTableComponent == null)
-            {
-                Log.Fatal("Data table component is invalid.");
-                return;
-            }
-
             m_ResourceComponent = GameEntry.GetComponent<ResourceComponent>();
             if (m_ResourceComponent == null)
             {

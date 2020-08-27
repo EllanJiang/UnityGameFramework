@@ -1,10 +1,11 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
+// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Homepage: https://gameframework.cn/
+// Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using GameFramework.Event;
 using GameFramework.Sound;
 
@@ -19,6 +20,21 @@ namespace UnityGameFramework.Runtime
         /// 播放声音失败事件编号。
         /// </summary>
         public static readonly int EventId = typeof(PlaySoundFailureEventArgs).GetHashCode();
+
+        /// <summary>
+        /// 初始化播放声音失败事件的新实例。
+        /// </summary>
+        public PlaySoundFailureEventArgs()
+        {
+            SerialId = 0;
+            SoundAssetName = null;
+            SoundGroupName = null;
+            PlaySoundParams = null;
+            BindingEntity = null;
+            ErrorCode = 0;
+            ErrorMessage = null;
+            UserData = null;
+        }
 
         /// <summary>
         /// 获取播放声音失败事件编号。
@@ -104,38 +120,39 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 创建播放声音失败事件。
+        /// </summary>
+        /// <param name="e">内部事件。</param>
+        /// <returns>创建的播放声音失败事件。</returns>
+        public static PlaySoundFailureEventArgs Create(GameFramework.Sound.PlaySoundFailureEventArgs e)
+        {
+            PlaySoundInfo playSoundInfo = (PlaySoundInfo)e.UserData;
+            PlaySoundFailureEventArgs playSoundFailureEventArgs = ReferencePool.Acquire<PlaySoundFailureEventArgs>();
+            playSoundFailureEventArgs.SerialId = e.SerialId;
+            playSoundFailureEventArgs.SoundAssetName = e.SoundAssetName;
+            playSoundFailureEventArgs.SoundGroupName = e.SoundGroupName;
+            playSoundFailureEventArgs.PlaySoundParams = e.PlaySoundParams;
+            playSoundFailureEventArgs.BindingEntity = playSoundInfo.BindingEntity;
+            playSoundFailureEventArgs.ErrorCode = e.ErrorCode;
+            playSoundFailureEventArgs.ErrorMessage = e.ErrorMessage;
+            playSoundFailureEventArgs.UserData = playSoundInfo.UserData;
+            ReferencePool.Release(playSoundInfo);
+            return playSoundFailureEventArgs;
+        }
+
+        /// <summary>
         /// 清理播放声音失败事件。
         /// </summary>
         public override void Clear()
         {
-            SerialId = default(int);
-            SoundAssetName = default(string);
-            SoundGroupName = default(string);
-            PlaySoundParams = default(PlaySoundParams);
-            BindingEntity = default(Entity);
-            ErrorCode = default(int);
-            ErrorMessage = default(string);
-            UserData = default(object);
-        }
-
-        /// <summary>
-        /// 填充播放声音失败事件。
-        /// </summary>
-        /// <param name="e">内部事件。</param>
-        /// <returns>播放声音失败事件。</returns>
-        public PlaySoundFailureEventArgs Fill(GameFramework.Sound.PlaySoundFailureEventArgs e)
-        {
-            PlaySoundInfo playSoundInfo = (PlaySoundInfo)e.UserData;
-            SerialId = e.SerialId;
-            SoundAssetName = e.SoundAssetName;
-            SoundGroupName = e.SoundGroupName;
-            PlaySoundParams = e.PlaySoundParams;
-            BindingEntity = playSoundInfo.BindingEntity;
-            ErrorCode = e.ErrorCode;
-            ErrorMessage = e.ErrorMessage;
-            UserData = playSoundInfo.UserData;
-
-            return this;
+            SerialId = 0;
+            SoundAssetName = null;
+            SoundGroupName = null;
+            PlaySoundParams = null;
+            BindingEntity = null;
+            ErrorCode = 0;
+            ErrorMessage = null;
+            UserData = null;
         }
     }
 }

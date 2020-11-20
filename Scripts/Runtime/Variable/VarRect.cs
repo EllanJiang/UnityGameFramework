@@ -23,21 +23,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 UnityEngine.Rect 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarRect(Rect value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 UnityEngine.Rect 到 UnityEngine.Rect 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarRect(Rect value)
         {
-            return new VarRect(value);
+            VarRect varValue = ReferencePool.Acquire<VarRect>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

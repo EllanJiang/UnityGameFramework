@@ -22,21 +22,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 ulong 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarULong(ulong value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 ulong 到 ulong 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarULong(ulong value)
         {
-            return new VarULong(value);
+            VarULong varValue = ReferencePool.Acquire<VarULong>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

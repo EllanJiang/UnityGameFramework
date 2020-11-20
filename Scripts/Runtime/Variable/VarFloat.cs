@@ -22,21 +22,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 float 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarFloat(float value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 float 到 float 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarFloat(float value)
         {
-            return new VarFloat(value);
+            VarFloat varValue = ReferencePool.Acquire<VarFloat>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

@@ -22,21 +22,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 sbyte 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarSByte(sbyte value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 sbyte 到 sbyte 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarSByte(sbyte value)
         {
-            return new VarSByte(value);
+            VarSByte varValue = ReferencePool.Acquire<VarSByte>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

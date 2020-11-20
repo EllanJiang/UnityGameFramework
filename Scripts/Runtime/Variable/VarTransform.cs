@@ -23,21 +23,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 UnityEngine.Transform 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarTransform(Transform value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 UnityEngine.Transform 到 UnityEngine.Transform 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarTransform(Transform value)
         {
-            return new VarTransform(value);
+            VarTransform varValue = ReferencePool.Acquire<VarTransform>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

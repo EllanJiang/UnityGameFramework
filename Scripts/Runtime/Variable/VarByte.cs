@@ -22,21 +22,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 byte 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarByte(byte value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 byte 到 byte 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarByte(byte value)
         {
-            return new VarByte(value);
+            VarByte varValue = ReferencePool.Acquire<VarByte>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

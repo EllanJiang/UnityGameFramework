@@ -23,21 +23,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 UnityEngine.Vector4 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarVector4(Vector4 value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 UnityEngine.Vector4 到 UnityEngine.Vector4 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarVector4(Vector4 value)
         {
-            return new VarVector4(value);
+            VarVector4 varValue = ReferencePool.Acquire<VarVector4>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

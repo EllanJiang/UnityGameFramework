@@ -23,21 +23,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 UnityEngine.Vector2 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarVector2(Vector2 value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 UnityEngine.Vector2 到 UnityEngine.Vector2 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarVector2(Vector2 value)
         {
-            return new VarVector2(value);
+            VarVector2 varValue = ReferencePool.Acquire<VarVector2>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

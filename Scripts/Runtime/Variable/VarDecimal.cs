@@ -22,21 +22,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 decimal 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarDecimal(decimal value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 decimal 到 decimal 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarDecimal(decimal value)
         {
-            return new VarDecimal(value);
+            VarDecimal varValue = ReferencePool.Acquire<VarDecimal>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

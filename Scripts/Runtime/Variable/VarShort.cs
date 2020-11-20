@@ -22,21 +22,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 short 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarShort(short value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 short 到 short 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarShort(short value)
         {
-            return new VarShort(value);
+            VarShort varValue = ReferencePool.Acquire<VarShort>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

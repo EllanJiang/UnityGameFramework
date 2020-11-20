@@ -22,21 +22,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 string 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarString(string value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 string 到 string 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarString(string value)
         {
-            return new VarString(value);
+            VarString varValue = ReferencePool.Acquire<VarString>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

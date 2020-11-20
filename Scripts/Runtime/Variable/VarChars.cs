@@ -22,21 +22,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 char[] 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarChars(char[] value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 char[] 到 char[] 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarChars(char[] value)
         {
-            return new VarChars(value);
+            VarChars varValue = ReferencePool.Acquire<VarChars>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

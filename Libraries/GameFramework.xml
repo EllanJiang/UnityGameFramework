@@ -2745,12 +2745,6 @@
             初始化变量的新实例。
             </summary>
         </member>
-        <member name="M:GameFramework.Variable`1.#ctor(`0)">
-            <summary>
-            初始化变量的新实例。
-            </summary>
-            <param name="value">初始值。</param>
-        </member>
         <member name="P:GameFramework.Variable`1.Type">
             <summary>
             获取变量类型。
@@ -2773,9 +2767,9 @@
             </summary>
             <param name="value">变量值。</param>
         </member>
-        <member name="M:GameFramework.Variable`1.Reset">
+        <member name="M:GameFramework.Variable`1.Clear">
             <summary>
-            重置变量值。
+            清理变量值。
             </summary>
         </member>
         <member name="M:GameFramework.Variable`1.ToString">
@@ -2811,9 +2805,9 @@
             </summary>
             <param name="value">变量值。</param>
         </member>
-        <member name="M:GameFramework.Variable.Reset">
+        <member name="M:GameFramework.Variable.Clear">
             <summary>
-            重置变量值。
+            清理变量值。
             </summary>
         </member>
         <member name="T:GameFramework.Version">

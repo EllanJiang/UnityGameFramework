@@ -23,21 +23,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 System.DateTime 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarDateTime(DateTime value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 System.DateTime 到 System.DateTime 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarDateTime(DateTime value)
         {
-            return new VarDateTime(value);
+            VarDateTime varValue = ReferencePool.Acquire<VarDateTime>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

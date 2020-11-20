@@ -6061,33 +6061,54 @@
             <param name="childEntity">要获取父实体的子实体。</param>
             <returns>子实体的父实体。</returns>
         </member>
-        <member name="M:GameFramework.Entity.EntityManager.GetChildEntities(System.Int32)">
+        <member name="M:GameFramework.Entity.EntityManager.GetChildEntityCount(System.Int32)">
+            <summary>
+            获取子实体数量。
+            </summary>
+            <param name="parentEntityId">要获取子实体数量的父实体的实体编号。</param>
+            <returns>子实体数量。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.EntityManager.GetChildEntity(System.Int32)">
             <summary>
             获取子实体。
             </summary>
             <param name="parentEntityId">要获取子实体的父实体的实体编号。</param>
-            <returns>子实体数组。</returns>
+            <returns>子实体。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.EntityManager.GetChildEntity(GameFramework.Entity.IEntity)">
+            <summary>
+            获取子实体。
+            </summary>
+            <param name="parentEntity">要获取子实体的父实体。</param>
+            <returns>子实体。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.EntityManager.GetChildEntities(System.Int32)">
+            <summary>
+            获取所有子实体。
+            </summary>
+            <param name="parentEntityId">要获取所有子实体的父实体的实体编号。</param>
+            <returns>所有子实体。</returns>
         </member>
         <member name="M:GameFramework.Entity.EntityManager.GetChildEntities(System.Int32,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
             <summary>
-            获取子实体。
+            获取所有子实体。
             </summary>
-            <param name="parentEntityId">要获取子实体的父实体的实体编号。</param>
-            <param name="results">子实体数组。</param>
+            <param name="parentEntityId">要获取所有子实体的父实体的实体编号。</param>
+            <param name="results">所有子实体。</param>
         </member>
         <member name="M:GameFramework.Entity.EntityManager.GetChildEntities(GameFramework.Entity.IEntity)">
             <summary>
-            获取子实体。
+            获取所有子实体。
             </summary>
-            <param name="parentEntity">要获取子实体的父实体。</param>
-            <returns>子实体数组。</returns>
+            <param name="parentEntity">要获取所有子实体的父实体。</param>
+            <returns>所有子实体。</returns>
         </member>
         <member name="M:GameFramework.Entity.EntityManager.GetChildEntities(GameFramework.Entity.IEntity,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
             <summary>
-            获取子实体。
+            获取所有子实体。
             </summary>
-            <param name="parentEntity">要获取子实体的父实体。</param>
-            <param name="results">子实体数组。</param>
+            <param name="parentEntity">要获取所有子实体的父实体。</param>
+            <param name="results">所有子实体。</param>
         </member>
         <member name="M:GameFramework.Entity.EntityManager.AttachEntity(System.Int32,System.Int32)">
             <summary>
@@ -6890,33 +6911,54 @@
             <param name="childEntity">要获取父实体的子实体。</param>
             <returns>子实体的父实体。</returns>
         </member>
-        <member name="M:GameFramework.Entity.IEntityManager.GetChildEntities(System.Int32)">
+        <member name="M:GameFramework.Entity.IEntityManager.GetChildEntityCount(System.Int32)">
+            <summary>
+            获取子实体数量。
+            </summary>
+            <param name="parentEntityId">要获取子实体数量的父实体的实体编号。</param>
+            <returns>子实体数量。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.IEntityManager.GetChildEntity(System.Int32)">
             <summary>
             获取子实体。
             </summary>
             <param name="parentEntityId">要获取子实体的父实体的实体编号。</param>
-            <returns>子实体数组。</returns>
+            <returns>子实体。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.IEntityManager.GetChildEntity(GameFramework.Entity.IEntity)">
+            <summary>
+            获取子实体。
+            </summary>
+            <param name="parentEntity">要获取子实体的父实体。</param>
+            <returns>子实体。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.IEntityManager.GetChildEntities(System.Int32)">
+            <summary>
+            获取所有子实体。
+            </summary>
+            <param name="parentEntityId">要获取所有子实体的父实体的实体编号。</param>
+            <returns>所有子实体。</returns>
         </member>
         <member name="M:GameFramework.Entity.IEntityManager.GetChildEntities(System.Int32,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
             <summary>
-            获取子实体。
+            获取所有子实体。
             </summary>
-            <param name="parentEntityId">要获取子实体的父实体的实体编号。</param>
-            <param name="results">子实体数组。</param>
+            <param name="parentEntityId">要获取所有子实体的父实体的实体编号。</param>
+            <param name="results">所有子实体。</param>
         </member>
         <member name="M:GameFramework.Entity.IEntityManager.GetChildEntities(GameFramework.Entity.IEntity)">
             <summary>
-            获取子实体。
+            获取所有子实体。
             </summary>
-            <param name="parentEntity">要获取子实体的父实体。</param>
-            <returns>子实体数组。</returns>
+            <param name="parentEntity">要获取所有子实体的父实体。</param>
+            <returns>所有子实体。</returns>
         </member>
         <member name="M:GameFramework.Entity.IEntityManager.GetChildEntities(GameFramework.Entity.IEntity,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
             <summary>
-            获取子实体。
+            获取所有子实体。
             </summary>
-            <param name="parentEntity">要获取子实体的父实体。</param>
-            <param name="results">子实体数组。</param>
+            <param name="parentEntity">要获取所有子实体的父实体。</param>
+            <param name="results">所有子实体。</param>
         </member>
         <member name="M:GameFramework.Entity.IEntityManager.AttachEntity(System.Int32,System.Int32)">
             <summary>
@@ -13505,7 +13547,7 @@
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.UpdateResources(GameFramework.Resource.UpdateResourcesCompleteCallback)">
             <summary>
-            使用可更新模式并更新全部资源。
+            使用可更新模式并更新所有资源。
             </summary>
             <param name="updateResourcesCompleteCallback">使用可更新模式并更新默认资源组完成时的回调函数。</param>
         </member>
@@ -15157,7 +15199,7 @@
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.UpdateResources(GameFramework.Resource.UpdateResourcesCompleteCallback)">
             <summary>
-            使用可更新模式并更新全部资源。
+            使用可更新模式并更新所有资源。
             </summary>
             <param name="updateResourcesCompleteCallback">使用可更新模式并更新默认资源组完成时的回调函数。</param>
         </member>

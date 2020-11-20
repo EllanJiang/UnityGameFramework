@@ -324,7 +324,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取记录的全部日志。
+        /// 获取记录的所有日志。
         /// </summary>
         /// <param name="results">要获取的日志。</param>
         public void GetRecentLogs(List<LogNode> results)

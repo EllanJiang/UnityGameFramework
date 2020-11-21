@@ -56,7 +56,6 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Temp Allocator Size", GetByteLengthString(Profiler.GetTempAllocatorSize()));
 #endif
                     DrawItem("Marshal Cached HGlobal Size", GetByteLengthString(Utility.Marshal.CachedHGlobalSize));
-                    DrawItem("Data Provider Cached Bytes Size", GetByteLengthString(DataProviderCreator.CachedBytesSize));
                 }
                 GUILayout.EndVertical();
             }

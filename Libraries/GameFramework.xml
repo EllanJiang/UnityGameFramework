@@ -141,10 +141,12 @@
             数据提供者创建器。
             </summary>
         </member>
-        <member name="P:GameFramework.DataProviderCreator.CachedBytesSize">
+        <member name="M:GameFramework.DataProviderCreator.GetCachedBytesSize``1">
             <summary>
             获取缓冲二进制流的大小。
             </summary>
+            <typeparam name="T">数据提供者的持有者的类型。</typeparam>
+            <returns>缓冲二进制流的大小。</returns>
         </member>
         <member name="M:GameFramework.DataProviderCreator.Create``1(``0,GameFramework.Resource.IResourceManager,GameFramework.IDataProviderHelper{``0})">
             <summary>

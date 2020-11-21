@@ -23,6 +23,17 @@ namespace UnityGameFramework.Runtime
         private IObjectPoolManager m_ObjectPoolManager = null;
 
         /// <summary>
+        /// 获取对象池数量。
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                return m_ObjectPoolManager.Count;
+            }
+        }
+
+        /// <summary>
         /// 游戏框架组件初始化。
         /// </summary>
         protected override void Awake()
@@ -39,17 +50,6 @@ namespace UnityGameFramework.Runtime
 
         private void Start()
         {
-        }
-
-        /// <summary>
-        /// 获取对象池数量。
-        /// </summary>
-        public int Count
-        {
-            get
-            {
-                return m_ObjectPoolManager.Count;
-            }
         }
 
         /// <summary>

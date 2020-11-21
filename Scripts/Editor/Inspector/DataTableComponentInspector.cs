@@ -17,6 +17,7 @@ namespace UnityGameFramework.Editor
     {
         private SerializedProperty m_EnableLoadDataTableUpdateEvent = null;
         private SerializedProperty m_EnableLoadDataTableDependencyAssetEvent = null;
+        private SerializedProperty m_CachedBytesSize = null;
 
         private HelperInfo<DataTableHelperBase> m_DataTableHelperInfo = new HelperInfo<DataTableHelperBase>("DataTable");
 
@@ -33,12 +34,14 @@ namespace UnityGameFramework.Editor
                 EditorGUILayout.PropertyField(m_EnableLoadDataTableUpdateEvent);
                 EditorGUILayout.PropertyField(m_EnableLoadDataTableDependencyAssetEvent);
                 m_DataTableHelperInfo.Draw();
+                EditorGUILayout.PropertyField(m_CachedBytesSize);
             }
             EditorGUI.EndDisabledGroup();
 
             if (EditorApplication.isPlaying && IsPrefabInHierarchy(t.gameObject))
             {
                 EditorGUILayout.LabelField("Data Table Count", t.Count.ToString());
+                EditorGUILayout.LabelField("Cached Bytes Size", t.CachedBytesSize.ToString());
 
                 DataTableBase[] dataTables = t.GetAllDataTables();
                 foreach (DataTableBase dataTable in dataTables)
@@ -63,6 +66,7 @@ namespace UnityGameFramework.Editor
         {
             m_EnableLoadDataTableUpdateEvent = serializedObject.FindProperty("m_EnableLoadDataTableUpdateEvent");
             m_EnableLoadDataTableDependencyAssetEvent = serializedObject.FindProperty("m_EnableLoadDataTableDependencyAssetEvent");
+            m_CachedBytesSize = serializedObject.FindProperty("m_CachedBytesSize");
 
             m_DataTableHelperInfo.Init(serializedObject);
 

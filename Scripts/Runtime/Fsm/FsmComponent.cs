@@ -23,6 +23,17 @@ namespace UnityGameFramework.Runtime
         private IFsmManager m_FsmManager = null;
 
         /// <summary>
+        /// 获取有限状态机数量。
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                return m_FsmManager.Count;
+            }
+        }
+
+        /// <summary>
         /// 游戏框架组件初始化。
         /// </summary>
         protected override void Awake()
@@ -39,17 +50,6 @@ namespace UnityGameFramework.Runtime
 
         private void Start()
         {
-        }
-
-        /// <summary>
-        /// 获取有限状态机数量。
-        /// </summary>
-        public int Count
-        {
-            get
-            {
-                return m_FsmManager.Count;
-            }
         }
 
         /// <summary>

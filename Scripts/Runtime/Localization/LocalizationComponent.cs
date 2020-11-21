@@ -36,6 +36,9 @@ namespace UnityGameFramework.Runtime
         [SerializeField]
         private LocalizationHelperBase m_CustomLocalizationHelper = null;
 
+        [SerializeField]
+        private int m_CachedBytesSize = 0;
+
         /// <summary>
         /// 获取或设置本地化语言。
         /// </summary>
@@ -70,6 +73,17 @@ namespace UnityGameFramework.Runtime
             get
             {
                 return m_LocalizationManager.DictionaryCount;
+            }
+        }
+
+        /// <summary>
+        /// 获取缓冲二进制流的大小。
+        /// </summary>
+        public int CachedBytesSize
+        {
+            get
+            {
+                return m_LocalizationManager.CachedBytesSize;
             }
         }
 
@@ -141,6 +155,27 @@ namespace UnityGameFramework.Runtime
             m_LocalizationManager.SetDataProviderHelper(localizationHelper);
             m_LocalizationManager.SetLocalizationHelper(localizationHelper);
             m_LocalizationManager.Language = baseComponent.EditorResourceMode && baseComponent.EditorLanguage != Language.Unspecified ? baseComponent.EditorLanguage : m_LocalizationManager.SystemLanguage;
+            if (m_CachedBytesSize > 0)
+            {
+                EnsureCachedBytesSize(m_CachedBytesSize);
+            }
+        }
+
+        /// <summary>
+        /// 确保二进制流缓存分配足够大小的内存并缓存。
+        /// </summary>
+        /// <param name="ensureSize">要确保二进制流缓存分配内存的大小。</param>
+        public void EnsureCachedBytesSize(int ensureSize)
+        {
+            m_LocalizationManager.EnsureCachedBytesSize(ensureSize);
+        }
+
+        /// <summary>
+        /// 释放缓存的二进制流。
+        /// </summary>
+        public void FreeCachedBytes()
+        {
+            m_LocalizationManager.FreeCachedBytes();
         }
 
         /// <summary>

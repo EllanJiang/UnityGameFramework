@@ -28,6 +28,17 @@ namespace UnityGameFramework.Runtime
         private FileSystemHelperBase m_CustomFileSystemHelper = null;
 
         /// <summary>
+        /// 获取文件系统数量。
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                return m_FileSystemManager.Count;
+            }
+        }
+
+        /// <summary>
         /// 游戏框架组件初始化。
         /// </summary>
         protected override void Awake()
@@ -58,17 +69,6 @@ namespace UnityGameFramework.Runtime
 
         private void Start()
         {
-        }
-
-        /// <summary>
-        /// 获取文件系统数量。
-        /// </summary>
-        public int Count
-        {
-            get
-            {
-                return m_FileSystemManager.Count;
-            }
         }
 
         /// <summary>

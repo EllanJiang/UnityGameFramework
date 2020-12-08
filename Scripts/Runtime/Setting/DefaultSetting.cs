@@ -9,6 +9,7 @@ using GameFramework;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace UnityGameFramework.Runtime
 {
@@ -278,28 +279,34 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 序列化数据。
         /// </summary>
-        /// <param name="binaryWriter">目标流。</param>
-        public void Serialize(BinaryWriter binaryWriter)
+        /// <param name="stream">目标流。</param>
+        public void Serialize(Stream stream)
         {
-            binaryWriter.Write7BitEncodedInt32(m_Settings.Count);
-            foreach (KeyValuePair<string, string> setting in m_Settings)
+            using (BinaryWriter binaryWriter = new BinaryWriter(stream, Encoding.UTF8))
             {
-                binaryWriter.Write(setting.Key);
-                binaryWriter.Write(setting.Value);
+                binaryWriter.Write7BitEncodedInt32(m_Settings.Count);
+                foreach (KeyValuePair<string, string> setting in m_Settings)
+                {
+                    binaryWriter.Write(setting.Key);
+                    binaryWriter.Write(setting.Value);
+                }
             }
         }
 
         /// <summary>
         /// 反序列化数据。
         /// </summary>
-        /// <param name="binaryReader">指定流。</param>
-        public void Deserialize(BinaryReader binaryReader)
+        /// <param name="stream">指定流。</param>
+        public void Deserialize(Stream stream)
         {
             m_Settings.Clear();
-            int settingCount = binaryReader.Read7BitEncodedInt32();
-            for (int i = 0; i < settingCount; i++)
+            using (BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8))
             {
-                m_Settings.Add(binaryReader.ReadString(), binaryReader.ReadString());
+                int settingCount = binaryReader.Read7BitEncodedInt32();
+                for (int i = 0; i < settingCount; i++)
+                {
+                    m_Settings.Add(binaryReader.ReadString(), binaryReader.ReadString());
+                }
             }
         }
     }

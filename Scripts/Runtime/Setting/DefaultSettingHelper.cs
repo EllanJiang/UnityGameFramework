@@ -348,15 +348,15 @@ namespace UnityGameFramework.Runtime
             m_Serializer.RegisterDeserializeCallback(0, DeserializeDefaultSettingCallback);
         }
 
-        private bool SerializeDefaultSettingCallback(BinaryWriter binaryWriter, DefaultSetting defaultSetting)
+        private bool SerializeDefaultSettingCallback(Stream stream, DefaultSetting defaultSetting)
         {
-            m_Settings.Serialize(binaryWriter);
+            m_Settings.Serialize(stream);
             return true;
         }
 
-        private DefaultSetting DeserializeDefaultSettingCallback(BinaryReader binaryReader)
+        private DefaultSetting DeserializeDefaultSettingCallback(Stream stream)
         {
-            m_Settings.Deserialize(binaryReader);
+            m_Settings.Deserialize(stream);
             return m_Settings;
         }
     }

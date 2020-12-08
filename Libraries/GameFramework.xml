@@ -2014,7 +2014,7 @@
             <summary>
             序列化回调函数。
             </summary>
-            <param name="binaryWriter">目标流。</param>
+            <param name="stream">目标流。</param>
             <param name="data">要序列化的数据。</param>
             <returns>是否序列化数据成功。</returns>
         </member>
@@ -2022,14 +2022,14 @@
             <summary>
             反序列化回调函数。
             </summary>
-            <param name="binaryReader">指定流。</param>
+            <param name="stream">指定流。</param>
             <returns>反序列化的数据。</returns>
         </member>
         <member name="T:GameFramework.GameFrameworkSerializer`1.TryGetValueCallback">
             <summary>
             尝试从指定流获取指定键的值回调函数。
             </summary>
-            <param name="binaryReader">指定流。</param>
+            <param name="stream">指定流。</param>
             <param name="key">指定键。</param>
             <param name="value">指定键的值。</param>
             <returns>是否从指定流获取指定键的值成功。</returns>

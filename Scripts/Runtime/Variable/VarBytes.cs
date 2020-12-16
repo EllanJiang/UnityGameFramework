@@ -10,19 +10,19 @@ using GameFramework;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// byte[] 变量类。
+    /// System.Byte[] 变量类。
     /// </summary>
     public sealed class VarBytes : Variable<byte[]>
     {
         /// <summary>
-        /// 初始化 byte[] 变量类的新实例。
+        /// 初始化 System.Byte[] 变量类的新实例。
         /// </summary>
         public VarBytes()
         {
         }
 
         /// <summary>
-        /// 从 byte[] 到 byte[] 变量类的隐式转换。
+        /// 从 System.Byte[] 到 System.Byte[] 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarBytes(byte[] value)
@@ -33,7 +33,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 从 byte[] 变量类到 byte[] 的隐式转换。
+        /// 从 System.Byte[] 变量类到 System.Byte[] 的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator byte[](VarBytes value)

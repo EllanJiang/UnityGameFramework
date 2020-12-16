@@ -10,33 +10,33 @@ using GameFramework;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// ulong 变量类。
+    /// System.UInt64 变量类。
     /// </summary>
-    public sealed class VarULong : Variable<ulong>
+    public sealed class VarUInt64 : Variable<ulong>
     {
         /// <summary>
-        /// 初始化 ulong 变量类的新实例。
+        /// 初始化 System.UInt64 变量类的新实例。
         /// </summary>
-        public VarULong()
+        public VarUInt64()
         {
         }
 
         /// <summary>
-        /// 从 ulong 到 ulong 变量类的隐式转换。
+        /// 从 System.UInt64 到 System.UInt64 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
-        public static implicit operator VarULong(ulong value)
+        public static implicit operator VarUInt64(ulong value)
         {
-            VarULong varValue = ReferencePool.Acquire<VarULong>();
+            VarUInt64 varValue = ReferencePool.Acquire<VarUInt64>();
             varValue.Value = value;
             return varValue;
         }
 
         /// <summary>
-        /// 从 ulong 变量类到 ulong 的隐式转换。
+        /// 从 System.UInt64 变量类到 System.UInt64 的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
-        public static implicit operator ulong(VarULong value)
+        public static implicit operator ulong(VarUInt64 value)
         {
             return value.Value;
         }

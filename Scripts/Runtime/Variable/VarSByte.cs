@@ -10,19 +10,19 @@ using GameFramework;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// sbyte 变量类。
+    /// System.SByte 变量类。
     /// </summary>
     public sealed class VarSByte : Variable<sbyte>
     {
         /// <summary>
-        /// 初始化 sbyte 变量类的新实例。
+        /// 初始化 System.SByte 变量类的新实例。
         /// </summary>
         public VarSByte()
         {
         }
 
         /// <summary>
-        /// 从 sbyte 到 sbyte 变量类的隐式转换。
+        /// 从 System.SByte 到 System.SByte 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarSByte(sbyte value)
@@ -33,7 +33,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 从 sbyte 变量类到 sbyte 的隐式转换。
+        /// 从 System.SByte 变量类到 System.SByte 的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator sbyte(VarSByte value)

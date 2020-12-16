@@ -10,33 +10,33 @@ using GameFramework;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// int 变量类。
+    /// System.Int16 变量类。
     /// </summary>
-    public sealed class VarInt : Variable<int>
+    public sealed class VarInt16 : Variable<short>
     {
         /// <summary>
-        /// 初始化 int 变量类的新实例。
+        /// 初始化 System.Int16 变量类的新实例。
         /// </summary>
-        public VarInt()
+        public VarInt16()
         {
         }
 
         /// <summary>
-        /// 从 int 到 int 变量类的隐式转换。
+        /// 从 System.Int16 到 System.Int16 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
-        public static implicit operator VarInt(int value)
+        public static implicit operator VarInt16(short value)
         {
-            VarInt varValue = ReferencePool.Acquire<VarInt>();
+            VarInt16 varValue = ReferencePool.Acquire<VarInt16>();
             varValue.Value = value;
             return varValue;
         }
 
         /// <summary>
-        /// 从 int 变量类到 int 的隐式转换。
+        /// 从 System.Int16 变量类到 System.Int16 的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
-        public static implicit operator int(VarInt value)
+        public static implicit operator short(VarInt16 value)
         {
             return value.Value;
         }

@@ -10,19 +10,19 @@ using GameFramework;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// double 变量类。
+    /// System.Double 变量类。
     /// </summary>
     public sealed class VarDouble : Variable<double>
     {
         /// <summary>
-        /// 初始化 double 变量类的新实例。
+        /// 初始化 System.Double 变量类的新实例。
         /// </summary>
         public VarDouble()
         {
         }
 
         /// <summary>
-        /// 从 double 到 double 变量类的隐式转换。
+        /// 从 System.Double 到 System.Double 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarDouble(double value)
@@ -33,7 +33,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 从 double 变量类到 double 的隐式转换。
+        /// 从 System.Double 变量类到 System.Double 的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator double(VarDouble value)

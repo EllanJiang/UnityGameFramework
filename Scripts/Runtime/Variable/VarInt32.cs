@@ -10,33 +10,33 @@ using GameFramework;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// uint 变量类。
+    /// System.Int32 变量类。
     /// </summary>
-    public sealed class VarUInt : Variable<uint>
+    public sealed class VarInt32 : Variable<int>
     {
         /// <summary>
-        /// 初始化 uint 变量类的新实例。
+        /// 初始化 System.Int32 变量类的新实例。
         /// </summary>
-        public VarUInt()
+        public VarInt32()
         {
         }
 
         /// <summary>
-        /// 从 uint 到 uint 变量类的隐式转换。
+        /// 从 System.Int32 到 System.Int32 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
-        public static implicit operator VarUInt(uint value)
+        public static implicit operator VarInt32(int value)
         {
-            VarUInt varValue = ReferencePool.Acquire<VarUInt>();
+            VarInt32 varValue = ReferencePool.Acquire<VarInt32>();
             varValue.Value = value;
             return varValue;
         }
 
         /// <summary>
-        /// 从 uint 变量类到 uint 的隐式转换。
+        /// 从 System.Int32 变量类到 System.Int32 的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
-        public static implicit operator uint(VarUInt value)
+        public static implicit operator int(VarInt32 value)
         {
             return value.Value;
         }

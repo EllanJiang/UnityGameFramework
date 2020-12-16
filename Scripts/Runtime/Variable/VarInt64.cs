@@ -10,33 +10,33 @@ using GameFramework;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// ushort 变量类。
+    /// System.Int64 变量类。
     /// </summary>
-    public sealed class VarUShort : Variable<ushort>
+    public sealed class VarInt64 : Variable<long>
     {
         /// <summary>
-        /// 初始化 ushort 变量类的新实例。
+        /// 初始化 System.Int64 变量类的新实例。
         /// </summary>
-        public VarUShort()
+        public VarInt64()
         {
         }
 
         /// <summary>
-        /// 从 ushort 到 ushort 变量类的隐式转换。
+        /// 从 System.Int64 到 System.Int64 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
-        public static implicit operator VarUShort(ushort value)
+        public static implicit operator VarInt64(long value)
         {
-            VarUShort varValue = ReferencePool.Acquire<VarUShort>();
+            VarInt64 varValue = ReferencePool.Acquire<VarInt64>();
             varValue.Value = value;
             return varValue;
         }
 
         /// <summary>
-        /// 从 short 变量类到 short 的隐式转换。
+        /// 从 System.Int64 变量类到 System.Int64 的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
-        public static implicit operator ushort(VarUShort value)
+        public static implicit operator long(VarInt64 value)
         {
             return value.Value;
         }

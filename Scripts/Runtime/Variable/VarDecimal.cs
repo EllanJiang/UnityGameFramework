@@ -10,19 +10,19 @@ using GameFramework;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// decimal 变量类。
+    /// System.Decimal 变量类。
     /// </summary>
     public sealed class VarDecimal : Variable<decimal>
     {
         /// <summary>
-        /// 初始化 decimal 变量类的新实例。
+        /// 初始化 System.Decimal 变量类的新实例。
         /// </summary>
         public VarDecimal()
         {
         }
 
         /// <summary>
-        /// 从 decimal 到 decimal 变量类的隐式转换。
+        /// 从 System.Decimal 到 System.Decimal 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarDecimal(decimal value)
@@ -33,7 +33,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 从 decimal 变量类到 decimal 的隐式转换。
+        /// 从 System.Decimal 变量类到 System.Decimal 的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator decimal(VarDecimal value)

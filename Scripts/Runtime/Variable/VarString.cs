@@ -10,19 +10,19 @@ using GameFramework;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// string 变量类。
+    /// System.String 变量类。
     /// </summary>
     public sealed class VarString : Variable<string>
     {
         /// <summary>
-        /// 初始化 string 变量类的新实例。
+        /// 初始化 System.String 变量类的新实例。
         /// </summary>
         public VarString()
         {
         }
 
         /// <summary>
-        /// 从 string 到 string 变量类的隐式转换。
+        /// 从 System.String 到 System.String 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarString(string value)
@@ -33,7 +33,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 从 string 变量类到 string 的隐式转换。
+        /// 从 System.String 变量类到 System.String 的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator string(VarString value)

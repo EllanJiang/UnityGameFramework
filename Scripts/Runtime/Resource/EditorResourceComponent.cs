@@ -13,6 +13,7 @@ using GameFramework.Resource;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -1573,6 +1574,7 @@ namespace UnityGameFramework.Runtime
             return null;
         }
 
+        [StructLayout(LayoutKind.Auto)]
         private struct LoadAssetInfo
         {
             private readonly string m_AssetName;
@@ -1651,6 +1653,7 @@ namespace UnityGameFramework.Runtime
             }
         }
 
+        [StructLayout(LayoutKind.Auto)]
         private struct LoadSceneInfo
         {
             private readonly AsyncOperation m_AsyncOperation;
@@ -1719,6 +1722,7 @@ namespace UnityGameFramework.Runtime
             }
         }
 
+        [StructLayout(LayoutKind.Auto)]
         private struct UnloadSceneInfo
         {
             private readonly AsyncOperation m_AsyncOperation;

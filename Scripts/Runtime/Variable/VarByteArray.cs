@@ -10,33 +10,33 @@ using GameFramework;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// System.Byte[] 变量类。
+    /// System.Byte 数组变量类。
     /// </summary>
-    public sealed class VarBytes : Variable<byte[]>
+    public sealed class VarByteArray : Variable<byte[]>
     {
         /// <summary>
-        /// 初始化 System.Byte[] 变量类的新实例。
+        /// 初始化 System.Byte 数组变量类的新实例。
         /// </summary>
-        public VarBytes()
+        public VarByteArray()
         {
         }
 
         /// <summary>
-        /// 从 System.Byte[] 到 System.Byte[] 变量类的隐式转换。
+        /// 从 System.Byte 数组到 System.Byte 数组变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
-        public static implicit operator VarBytes(byte[] value)
+        public static implicit operator VarByteArray(byte[] value)
         {
-            VarBytes varValue = ReferencePool.Acquire<VarBytes>();
+            VarByteArray varValue = ReferencePool.Acquire<VarByteArray>();
             varValue.Value = value;
             return varValue;
         }
 
         /// <summary>
-        /// 从 System.Byte[] 变量类到 System.Byte[] 的隐式转换。
+        /// 从 System.Byte 数组变量类到 System.Byte 数组的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
-        public static implicit operator byte[](VarBytes value)
+        public static implicit operator byte[](VarByteArray value)
         {
             return value.Value;
         }

@@ -1585,12 +1585,6 @@
             获取一个值，该值指示是否同步对 ICollection 的访问（线程安全）。
             </summary>
         </member>
-        <member name="M:GameFramework.GameFrameworkLinkedList`1.Add(`0)">
-            <summary>
-            将值添加到 ICollection`1 的结尾处。
-            </summary>
-            <param name="value">要添加的值。</param>
-        </member>
         <member name="M:GameFramework.GameFrameworkLinkedList`1.AddAfter(System.Collections.Generic.LinkedListNode{`0},`0)">
             <summary>
             在链表中指定的现有结点后添加包含指定值的新结点。
@@ -1720,6 +1714,12 @@
             返回循环访问集合的枚举数。
             </summary>
             <returns>循环访问集合的枚举数。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.System#Collections#Generic#ICollection{T}#Add(`0)">
+            <summary>
+            将值添加到 ICollection`1 的结尾处。
+            </summary>
+            <param name="value">要添加的值。</param>
         </member>
         <member name="M:GameFramework.GameFrameworkLinkedList`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
             <summary>

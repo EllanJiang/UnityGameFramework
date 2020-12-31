@@ -487,7 +487,7 @@ namespace UnityGameFramework.Runtime
                 Color32 color = GetLogStringColor(logNode.LogType);
                 return Utility.Text.Format("<color=#{0}{1}{2}{3}>[{4}][{5}] {6}</color>",
                     color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"),
-                    logNode.LogTime.ToString("HH:mm:ss.fff"), logNode.LogFrameCount.ToString(), logNode.LogMessage);
+                    logNode.LogTime.ToLocalTime().ToString("HH:mm:ss.fff"), logNode.LogFrameCount.ToString(), logNode.LogMessage);
             }
 
             internal Color32 GetLogStringColor(LogType logType)

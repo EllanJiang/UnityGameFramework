@@ -101,7 +101,7 @@ namespace UnityGameFramework.Runtime
             public static LogNode Create(LogType logType, string logMessage, string stackTrack)
             {
                 LogNode logNode = ReferencePool.Acquire<LogNode>();
-                logNode.m_LogTime = DateTime.Now;
+                logNode.m_LogTime = DateTime.UtcNow;
                 logNode.m_LogFrameCount = Time.frameCount;
                 logNode.m_LogType = logType;
                 logNode.m_LogMessage = logMessage;

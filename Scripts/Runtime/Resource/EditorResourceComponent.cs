@@ -557,7 +557,7 @@ namespace UnityGameFramework.Runtime
                 while (current != null && count < m_LoadAssetCountPerFrame)
                 {
                     LoadAssetInfo loadAssetInfo = current.Value;
-                    float elapseSeconds = (float)(DateTime.Now - loadAssetInfo.StartTime).TotalSeconds;
+                    float elapseSeconds = (float)(DateTime.UtcNow - loadAssetInfo.StartTime).TotalSeconds;
                     if (elapseSeconds >= loadAssetInfo.DelaySeconds)
                     {
                         UnityEngine.Object asset = GetCachedAsset(loadAssetInfo.AssetName);
@@ -624,7 +624,7 @@ namespace UnityGameFramework.Runtime
                         {
                             if (loadSceneInfo.LoadSceneCallbacks.LoadSceneSuccessCallback != null)
                             {
-                                loadSceneInfo.LoadSceneCallbacks.LoadSceneSuccessCallback(loadSceneInfo.SceneAssetName, (float)(DateTime.Now - loadSceneInfo.StartTime).TotalSeconds, loadSceneInfo.UserData);
+                                loadSceneInfo.LoadSceneCallbacks.LoadSceneSuccessCallback(loadSceneInfo.SceneAssetName, (float)(DateTime.UtcNow - loadSceneInfo.StartTime).TotalSeconds, loadSceneInfo.UserData);
                             }
                         }
                         else
@@ -1015,7 +1015,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_LoadAssetInfos.AddLast(new LoadAssetInfo(assetName, assetType, priority, DateTime.Now, m_MinLoadAssetRandomDelaySeconds + (float)Utility.Random.GetRandomDouble() * (m_MaxLoadAssetRandomDelaySeconds - m_MinLoadAssetRandomDelaySeconds), loadAssetCallbacks, userData));
+            m_LoadAssetInfos.AddLast(new LoadAssetInfo(assetName, assetType, priority, DateTime.UtcNow, m_MinLoadAssetRandomDelaySeconds + (float)Utility.Random.GetRandomDouble() * (m_MaxLoadAssetRandomDelaySeconds - m_MinLoadAssetRandomDelaySeconds), loadAssetCallbacks, userData));
         }
 
         /// <summary>
@@ -1114,7 +1114,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            m_LoadSceneInfos.AddLast(new LoadSceneInfo(asyncOperation, sceneAssetName, priority, DateTime.Now, loadSceneCallbacks, userData));
+            m_LoadSceneInfos.AddLast(new LoadSceneInfo(asyncOperation, sceneAssetName, priority, DateTime.UtcNow, loadSceneCallbacks, userData));
         }
 
         /// <summary>

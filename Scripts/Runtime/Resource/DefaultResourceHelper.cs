@@ -113,7 +113,7 @@ namespace UnityGameFramework.Runtime
             bool isError = false;
             byte[] bytes = null;
             string errorMessage = null;
-            DateTime startTime = DateTime.Now;
+            DateTime startTime = DateTime.UtcNow;
 
 #if UNITY_5_4_OR_NEWER
             UnityWebRequest unityWebRequest = UnityWebRequest.Get(fileUri);
@@ -143,7 +143,7 @@ namespace UnityGameFramework.Runtime
 
             if (!isError)
             {
-                float elapseSeconds = (float)(DateTime.Now - startTime).TotalSeconds;
+                float elapseSeconds = (float)(DateTime.UtcNow - startTime).TotalSeconds;
                 loadBytesCallbacks.LoadBytesSuccessCallback(fileUri, bytes, elapseSeconds, userData);
             }
             else if (loadBytesCallbacks.LoadBytesFailureCallback != null)

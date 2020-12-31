@@ -644,7 +644,7 @@ namespace UnityGameFramework.Editor.ResourceTools
 
             try
             {
-                m_BuildReport.LogInfo("Build Start Time: {0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                m_BuildReport.LogInfo("Build Start Time: {0}", DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss.fff"));
 
                 if (m_BuildEventHandler != null)
                 {

@@ -242,7 +242,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             private void LogInternal(string type, string format, object[] args)
             {
                 m_LogBuilder.Append("[");
-                m_LogBuilder.Append(DateTime.Now.ToString("HH:mm:ss.fff"));
+                m_LogBuilder.Append(DateTime.UtcNow.ToLocalTime().ToString("HH:mm:ss.fff"));
                 m_LogBuilder.Append("][");
                 m_LogBuilder.Append(type);
                 m_LogBuilder.Append("] ");

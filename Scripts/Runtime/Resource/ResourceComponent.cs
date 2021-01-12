@@ -27,6 +27,7 @@ namespace UnityGameFramework.Runtime
 
         private IResourceManager m_ResourceManager = null;
         private EventComponent m_EventComponent = null;
+        private bool m_EditorResourceMode = false;
         private bool m_ForceUnloadUnusedAssets = false;
         private bool m_PreorderUnloadUnusedAssets = false;
         private bool m_PerformGCCollect = false;
@@ -602,8 +603,8 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            bool editorResourceMode = baseComponent.EditorResourceMode;
-            m_ResourceManager = editorResourceMode ? baseComponent.EditorResourceHelper : GameFrameworkEntry.GetModule<IResourceManager>();
+            m_EditorResourceMode = baseComponent.EditorResourceMode;
+            m_ResourceManager = m_EditorResourceMode ? baseComponent.EditorResourceHelper : GameFrameworkEntry.GetModule<IResourceManager>();
             if (m_ResourceManager == null)
             {
                 Log.Fatal("Resource manager is invalid.");
@@ -632,7 +633,7 @@ namespace UnityGameFramework.Runtime
                 m_ResourceManager.SetReadWritePath(Application.persistentDataPath);
             }
 
-            if (editorResourceMode)
+            if (m_EditorResourceMode)
             {
                 return;
             }

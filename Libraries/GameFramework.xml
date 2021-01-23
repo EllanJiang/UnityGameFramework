@@ -5050,7 +5050,7 @@
             获取下载的数据大小。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.Create(System.Int32)">
+        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.Create(System.Int64)">
             <summary>
             创建下载代理辅助器完成事件。
             </summary>
@@ -5563,7 +5563,7 @@
             获取用户自定义数据。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadStartEventArgs.Create(System.Int32,System.String,System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Download.DownloadStartEventArgs.Create(System.Int32,System.String,System.String,System.Int64,System.Object)">
             <summary>
             创建下载开始事件。
             </summary>
@@ -5614,7 +5614,7 @@
             获取用户自定义数据。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadSuccessEventArgs.Create(System.Int32,System.String,System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Download.DownloadSuccessEventArgs.Create(System.Int32,System.String,System.String,System.Int64,System.Object)">
             <summary>
             创建下载成功事件。
             </summary>
@@ -5665,7 +5665,7 @@
             获取用户自定义数据。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadUpdateEventArgs.Create(System.Int32,System.String,System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Download.DownloadUpdateEventArgs.Create(System.Int32,System.String,System.String,System.Int64,System.Object)">
             <summary>
             创建下载更新事件。
             </summary>
@@ -5713,7 +5713,7 @@
             <param name="downloadUri">下载地址。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Download.IDownloadAgentHelper.Download(System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Download.IDownloadAgentHelper.Download(System.String,System.Int64,System.Object)">
             <summary>
             通过下载代理辅助器下载指定地址的数据。
             </summary>
@@ -5721,7 +5721,7 @@
             <param name="fromPosition">下载数据起始位置。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Download.IDownloadAgentHelper.Download(System.String,System.Int32,System.Int32,System.Object)">
+        <member name="M:GameFramework.Download.IDownloadAgentHelper.Download(System.String,System.Int64,System.Int64,System.Object)">
             <summary>
             通过下载代理辅助器下载指定地址的数据。
             </summary>

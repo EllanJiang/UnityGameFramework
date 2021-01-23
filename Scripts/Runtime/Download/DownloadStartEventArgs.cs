@@ -28,7 +28,7 @@ namespace UnityGameFramework.Runtime
             SerialId = 0;
             DownloadPath = null;
             DownloadUri = null;
-            CurrentLength = 0;
+            CurrentLength = 0L;
             UserData = null;
         }
 
@@ -73,7 +73,7 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 获取当前大小。
         /// </summary>
-        public int CurrentLength
+        public long CurrentLength
         {
             get;
             private set;
@@ -112,7 +112,7 @@ namespace UnityGameFramework.Runtime
             SerialId = 0;
             DownloadPath = null;
             DownloadUri = null;
-            CurrentLength = 0;
+            CurrentLength = 0L;
             UserData = null;
         }
     }

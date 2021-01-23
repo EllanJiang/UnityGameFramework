@@ -54,7 +54,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="downloadUri">下载地址。</param>
         /// <param name="fromPosition">下载数据起始位置。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public abstract void Download(string downloadUri, int fromPosition, object userData);
+        public abstract void Download(string downloadUri, long fromPosition, object userData);
 
         /// <summary>
         /// 通过下载代理辅助器下载指定地址的数据。
@@ -63,7 +63,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="fromPosition">下载数据起始位置。</param>
         /// <param name="toPosition">下载数据结束位置。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public abstract void Download(string downloadUri, int fromPosition, int toPosition, object userData);
+        public abstract void Download(string downloadUri, long fromPosition, long toPosition, object userData);
 
         /// <summary>
         /// 重置下载代理辅助器。

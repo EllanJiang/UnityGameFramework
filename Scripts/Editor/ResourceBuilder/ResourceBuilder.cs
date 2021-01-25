@@ -21,7 +21,7 @@ namespace UnityGameFramework.Editor.ResourceTools
         private bool m_OrderBuildResources = false;
         private int m_BuildEventHandlerTypeNameIndex = 0;
 
-        [MenuItem("Game Framework/Resource Tools/Resource Builder", false, 41)]
+        [MenuItem("Game Framework/Resource Tools/Resource Builder", false, 40)]
         private static void Open()
         {
             ResourceBuilder window = GetWindow<ResourceBuilder>("Resource Builder", true);

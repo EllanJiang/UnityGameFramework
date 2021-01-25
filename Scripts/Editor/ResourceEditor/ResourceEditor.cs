@@ -44,7 +44,7 @@ namespace UnityGameFramework.Editor.ResourceTools
         private int m_CurrentResourceRowOnDraw = 0;
         private int m_CurrentSourceRowOnDraw = 0;
 
-        [MenuItem("Game Framework/Resource Tools/Resource Editor", false, 42)]
+        [MenuItem("Game Framework/Resource Tools/Resource Editor", false, 41)]
         private static void Open()
         {
             ResourceEditor window = GetWindow<ResourceEditor>("Resource Editor", true);

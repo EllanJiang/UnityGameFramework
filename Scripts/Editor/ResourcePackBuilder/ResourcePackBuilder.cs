@@ -30,7 +30,7 @@ namespace UnityGameFramework.Editor.ResourceTools
         private bool[] m_SourceVersionIndexes = null;
         private int m_SourceVersionCount = 0;
 
-        [MenuItem("Game Framework/Resource Tools/Resource Pack Builder", false, 44)]
+        [MenuItem("Game Framework/Resource Tools/Resource Pack Builder", false, 43)]
         private static void Open()
         {
             ResourcePackBuilder window = GetWindow<ResourcePackBuilder>("Resource Pack Builder", true);

@@ -833,7 +833,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             List<string> validNames = new List<string>();
             foreach (ResourceData assetBundleResourceData in assetBundleResourceDatas)
             {
-                validNames.Add(GetResourceFullName(assetBundleResourceData.Name, assetBundleResourceData.Variant).ToLower());
+                validNames.Add(GetResourceFullName(assetBundleResourceData.Name, assetBundleResourceData.Variant).ToLowerInvariant());
             }
 
             if (Directory.Exists(workingPath))
@@ -1018,7 +1018,7 @@ namespace UnityGameFramework.Editor.ResourceTools
         {
             string fullName = GetResourceFullName(name, variant);
             ResourceData resourceData = m_ResourceDatas[fullName];
-            string workingName = Utility.Path.GetRegularPath(Path.Combine(workingPath, fullName.ToLower()));
+            string workingName = Utility.Path.GetRegularPath(Path.Combine(workingPath, fullName.ToLowerInvariant()));
 
             byte[] bytes = File.ReadAllBytes(workingName);
             int length = bytes.Length;

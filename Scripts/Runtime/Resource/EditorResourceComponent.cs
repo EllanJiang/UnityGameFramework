@@ -1530,7 +1530,7 @@ namespace UnityGameFramework.Runtime
 
             if (assetFullName != fileFullName)
             {
-                if (assetFullName.ToLower() == fileFullName.ToLower())
+                if (assetFullName.ToLowerInvariant() == fileFullName.ToLowerInvariant())
                 {
                     Log.Warning("The real path of the specific asset '{0}' is '{1}'. Check the case of letters in the path.", assetName, "Assets" + fileFullName.Substring(Application.dataPath.Length));
                 }

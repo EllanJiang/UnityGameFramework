@@ -326,159 +326,166 @@ namespace UnityGameFramework.Editor.ResourceTools
 
         public bool BuildResourcePack(string sourceVersion, string targetVersion)
         {
-            if (!Directory.Exists(OutputPath))
+            try
             {
-                Directory.CreateDirectory(OutputPath);
-            }
-
-            string defaultBackupDiffPath = Path.Combine(OutputPath, DefaultResourcePackName);
-            string defaultResourcePackName = Utility.Text.Format("{0}.{1}", defaultBackupDiffPath, DefaultExtension);
-            if (File.Exists(defaultResourcePackName))
-            {
-                File.Delete(defaultResourcePackName);
-            }
-
-            if (BackupDiff)
-            {
-                if (Directory.Exists(defaultBackupDiffPath))
+                if (!Directory.Exists(OutputPath))
                 {
-                    Directory.Delete(defaultBackupDiffPath, true);
+                    Directory.CreateDirectory(OutputPath);
                 }
 
-                Directory.CreateDirectory(defaultBackupDiffPath);
-            }
-
-            UpdatableVersionList sourceUpdatableVersionList = default(UpdatableVersionList);
-            if (sourceVersion != null)
-            {
-                DirectoryInfo sourceDirectoryInfo = new DirectoryInfo(Path.Combine(Path.Combine(SourcePath, sourceVersion), Platform.ToString()));
-                FileInfo[] sourceVersionListFiles = sourceDirectoryInfo.GetFiles("GameFrameworkVersion.*.dat", SearchOption.TopDirectoryOnly);
-                byte[] sourceVersionListBytes = File.ReadAllBytes(sourceVersionListFiles[0].FullName);
-                sourceVersionListBytes = Utility.Zip.Decompress(sourceVersionListBytes);
-                using (Stream stream = new MemoryStream(sourceVersionListBytes))
+                string defaultBackupDiffPath = Path.Combine(OutputPath, DefaultResourcePackName);
+                string defaultResourcePackName = Utility.Text.Format("{0}.{1}", defaultBackupDiffPath, DefaultExtension);
+                if (File.Exists(defaultResourcePackName))
                 {
-                    sourceUpdatableVersionList = m_UpdatableVersionListSerializer.Deserialize(stream);
+                    File.Delete(defaultResourcePackName);
                 }
-            }
 
-            UpdatableVersionList targetUpdatableVersionList = default(UpdatableVersionList);
-            DirectoryInfo targetDirectoryInfo = new DirectoryInfo(Path.Combine(Path.Combine(SourcePath, targetVersion), Platform.ToString()));
-            FileInfo[] targetVersionListFiles = targetDirectoryInfo.GetFiles("GameFrameworkVersion.*.dat", SearchOption.TopDirectoryOnly);
-            byte[] targetVersionListBytes = File.ReadAllBytes(targetVersionListFiles[0].FullName);
-            targetVersionListBytes = Utility.Zip.Decompress(targetVersionListBytes);
-            using (Stream stream = new MemoryStream(targetVersionListBytes))
-            {
-                targetUpdatableVersionList = m_UpdatableVersionListSerializer.Deserialize(stream);
-            }
-
-            List<ResourcePackVersionList.Resource> resources = new List<ResourcePackVersionList.Resource>();
-            UpdatableVersionList.Resource[] sourceResources = sourceUpdatableVersionList.IsValid ? sourceUpdatableVersionList.GetResources() : EmptyResourceArray;
-            UpdatableVersionList.Resource[] targetResources = targetUpdatableVersionList.GetResources();
-            long offset = 0L;
-            foreach (UpdatableVersionList.Resource targetResource in targetResources)
-            {
-                bool ready = false;
-                foreach (UpdatableVersionList.Resource sourceResource in sourceResources)
+                if (BackupDiff)
                 {
-                    if (sourceResource.Name != targetResource.Name || sourceResource.Variant != targetResource.Variant || sourceResource.Extension != targetResource.Extension)
+                    if (Directory.Exists(defaultBackupDiffPath))
                     {
-                        continue;
+                        Directory.Delete(defaultBackupDiffPath, true);
                     }
 
-                    if (sourceResource.LoadType == targetResource.LoadType && sourceResource.Length == targetResource.Length && sourceResource.HashCode == targetResource.HashCode)
+                    Directory.CreateDirectory(defaultBackupDiffPath);
+                }
+
+                UpdatableVersionList sourceUpdatableVersionList = default(UpdatableVersionList);
+                if (sourceVersion != null)
+                {
+                    DirectoryInfo sourceDirectoryInfo = new DirectoryInfo(Path.Combine(Path.Combine(SourcePath, sourceVersion), Platform.ToString()));
+                    FileInfo[] sourceVersionListFiles = sourceDirectoryInfo.GetFiles("GameFrameworkVersion.*.dat", SearchOption.TopDirectoryOnly);
+                    byte[] sourceVersionListBytes = File.ReadAllBytes(sourceVersionListFiles[0].FullName);
+                    sourceVersionListBytes = Utility.Zip.Decompress(sourceVersionListBytes);
+                    using (Stream stream = new MemoryStream(sourceVersionListBytes))
                     {
-                        ready = true;
+                        sourceUpdatableVersionList = m_UpdatableVersionListSerializer.Deserialize(stream);
+                    }
+                }
+
+                UpdatableVersionList targetUpdatableVersionList = default(UpdatableVersionList);
+                DirectoryInfo targetDirectoryInfo = new DirectoryInfo(Path.Combine(Path.Combine(SourcePath, targetVersion), Platform.ToString()));
+                FileInfo[] targetVersionListFiles = targetDirectoryInfo.GetFiles("GameFrameworkVersion.*.dat", SearchOption.TopDirectoryOnly);
+                byte[] targetVersionListBytes = File.ReadAllBytes(targetVersionListFiles[0].FullName);
+                targetVersionListBytes = Utility.Zip.Decompress(targetVersionListBytes);
+                using (Stream stream = new MemoryStream(targetVersionListBytes))
+                {
+                    targetUpdatableVersionList = m_UpdatableVersionListSerializer.Deserialize(stream);
+                }
+
+                List<ResourcePackVersionList.Resource> resources = new List<ResourcePackVersionList.Resource>();
+                UpdatableVersionList.Resource[] sourceResources = sourceUpdatableVersionList.IsValid ? sourceUpdatableVersionList.GetResources() : EmptyResourceArray;
+                UpdatableVersionList.Resource[] targetResources = targetUpdatableVersionList.GetResources();
+                long offset = 0L;
+                foreach (UpdatableVersionList.Resource targetResource in targetResources)
+                {
+                    bool ready = false;
+                    foreach (UpdatableVersionList.Resource sourceResource in sourceResources)
+                    {
+                        if (sourceResource.Name != targetResource.Name || sourceResource.Variant != targetResource.Variant || sourceResource.Extension != targetResource.Extension)
+                        {
+                            continue;
+                        }
+
+                        if (sourceResource.LoadType == targetResource.LoadType && sourceResource.Length == targetResource.Length && sourceResource.HashCode == targetResource.HashCode)
+                        {
+                            ready = true;
+                        }
+
+                        break;
                     }
 
-                    break;
+                    if (!ready)
+                    {
+                        resources.Add(new ResourcePackVersionList.Resource(targetResource.Name, targetResource.Variant, targetResource.Extension, targetResource.LoadType, offset, targetResource.Length, targetResource.HashCode, targetResource.ZipLength, targetResource.ZipHashCode));
+                        offset += targetResource.ZipLength;
+                    }
                 }
 
-                if (!ready)
+                ResourcePackVersionList.Resource[] resourceArray = resources.ToArray();
+                using (FileStream fileStream = new FileStream(defaultResourcePackName, FileMode.Create, FileAccess.Write))
                 {
-                    resources.Add(new ResourcePackVersionList.Resource(targetResource.Name, targetResource.Variant, targetResource.Extension, targetResource.LoadType, offset, targetResource.Length, targetResource.HashCode, targetResource.ZipLength, targetResource.ZipHashCode));
-                    offset += targetResource.ZipLength;
+                    if (!m_ResourcePackVersionListSerializer.Serialize(fileStream, new ResourcePackVersionList(0, 0L, 0, resourceArray)))
+                    {
+                        return false;
+                    }
                 }
-            }
 
-            ResourcePackVersionList.Resource[] resourceArray = resources.ToArray();
-            using (FileStream fileStream = new FileStream(defaultResourcePackName, FileMode.Create, FileAccess.Write))
-            {
-                if (!m_ResourcePackVersionListSerializer.Serialize(fileStream, new ResourcePackVersionList(0, 0L, 0, resourceArray)))
+                int position = 0;
+                int hashCode = 0;
+                string targetDirectoryPath = targetDirectoryInfo.FullName;
+                using (FileStream fileStream = new FileStream(defaultResourcePackName, FileMode.Open, FileAccess.ReadWrite))
                 {
-                    return false;
-                }
-            }
+                    position = (int)fileStream.Length;
+                    fileStream.Position = position;
+                    foreach (ResourcePackVersionList.Resource resource in resourceArray)
+                    {
+                        string resourceName = Path.Combine(targetDirectoryPath, GetResourceFullName(resource.Name, resource.Variant, resource.HashCode));
+                        if (!File.Exists(resourceName))
+                        {
+                            return false;
+                        }
 
-            int position = 0;
-            int hashCode = 0;
-            string targetDirectoryPath = targetDirectoryInfo.FullName;
-            using (FileStream fileStream = new FileStream(defaultResourcePackName, FileMode.Open, FileAccess.ReadWrite))
-            {
-                position = (int)fileStream.Length;
-                fileStream.Position = position;
-                foreach (ResourcePackVersionList.Resource resource in resourceArray)
-                {
-                    string resourceName = Path.Combine(targetDirectoryPath, GetResourceFullName(resource.Name, resource.Variant, resource.HashCode));
-                    if (!File.Exists(resourceName))
+                        byte[] resourceBytes = File.ReadAllBytes(resourceName);
+                        fileStream.Write(resourceBytes, 0, resourceBytes.Length);
+                        if (BackupDiff)
+                        {
+                            string backupDiffName = Path.Combine(defaultBackupDiffPath, GetResourceFullName(resource.Name, resource.Variant, resource.HashCode));
+                            string directoryName = Path.GetDirectoryName(backupDiffName);
+                            if (!Directory.Exists(directoryName))
+                            {
+                                Directory.CreateDirectory(directoryName);
+                            }
+
+                            File.WriteAllBytes(backupDiffName, resourceBytes);
+                        }
+                    }
+
+                    if (fileStream.Position - position != offset)
                     {
                         return false;
                     }
 
-                    byte[] resourceBytes = File.ReadAllBytes(resourceName);
-                    fileStream.Write(resourceBytes, 0, resourceBytes.Length);
-                    if (BackupDiff)
-                    {
-                        string backupDiffName = Path.Combine(defaultBackupDiffPath, GetResourceFullName(resource.Name, resource.Variant, resource.HashCode));
-                        string directoryName = Path.GetDirectoryName(backupDiffName);
-                        if (!Directory.Exists(directoryName))
-                        {
-                            Directory.CreateDirectory(directoryName);
-                        }
+                    fileStream.Position = position;
+                    hashCode = Utility.Verifier.GetCrc32(fileStream);
 
-                        File.WriteAllBytes(backupDiffName, resourceBytes);
+                    fileStream.Position = 0L;
+                    if (!m_ResourcePackVersionListSerializer.Serialize(fileStream, new ResourcePackVersionList(position, offset, hashCode, resourceArray)))
+                    {
+                        return false;
                     }
                 }
 
-                if (fileStream.Position - position != offset)
+                string backupDiffPath = Path.Combine(OutputPath, Utility.Text.Format("{0}-{1}-{2}", DefaultResourcePackName, sourceVersion ?? GetNoneVersion(targetVersion), targetVersion));
+                string resourcePackName = Utility.Text.Format("{0}.{1:x8}.{2}", backupDiffPath, hashCode, DefaultExtension);
+                if (File.Exists(resourcePackName))
                 {
-                    return false;
+                    File.Delete(resourcePackName);
                 }
 
-                fileStream.Position = position;
-                hashCode = Utility.Verifier.GetCrc32(fileStream);
+                File.Move(defaultResourcePackName, resourcePackName);
 
-                fileStream.Position = 0L;
-                if (!m_ResourcePackVersionListSerializer.Serialize(fileStream, new ResourcePackVersionList(position, offset, hashCode, resourceArray)))
+                if (BackupDiff)
                 {
-                    return false;
+                    if (BackupVersion)
+                    {
+                        File.Copy(targetVersionListFiles[0].FullName, Path.Combine(defaultBackupDiffPath, Path.GetFileName(targetVersionListFiles[0].FullName)));
+                    }
+
+                    if (Directory.Exists(backupDiffPath))
+                    {
+                        Directory.Delete(backupDiffPath, true);
+                    }
+
+                    Directory.Move(defaultBackupDiffPath, backupDiffPath);
                 }
+
+                return true;
             }
-
-            string backupDiffPath = Path.Combine(OutputPath, Utility.Text.Format("{0}-{1}-{2}", DefaultResourcePackName, sourceVersion ?? GetNoneVersion(targetVersion), targetVersion));
-            string resourcePackName = Utility.Text.Format("{0}.{1:x8}.{2}", backupDiffPath, hashCode, DefaultExtension);
-            if (File.Exists(resourcePackName))
+            catch
             {
-                File.Delete(resourcePackName);
+                return false;
             }
-
-            File.Move(defaultResourcePackName, resourcePackName);
-
-            if (BackupDiff)
-            {
-                if (BackupVersion)
-                {
-                    File.Copy(targetVersionListFiles[0].FullName, Path.Combine(defaultBackupDiffPath, Path.GetFileName(targetVersionListFiles[0].FullName)));
-                }
-
-                if (Directory.Exists(backupDiffPath))
-                {
-                    Directory.Delete(backupDiffPath, true);
-                }
-
-                Directory.Move(defaultBackupDiffPath, backupDiffPath);
-            }
-
-            return true;
         }
 
         private string GetNoneVersion(string targetVersion)

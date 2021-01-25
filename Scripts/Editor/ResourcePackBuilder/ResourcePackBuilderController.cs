@@ -9,6 +9,7 @@ using GameFramework;
 using GameFramework.Resource;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
 using UnityEditor;
 using UnityEngine;
 using UnityGameFramework.Runtime;
@@ -22,11 +23,14 @@ namespace UnityGameFramework.Editor.ResourceTools
         private static readonly string[] EmptyStringArray = new string[0];
         private static readonly UpdatableVersionList.Resource[] EmptyResourceArray = new UpdatableVersionList.Resource[0];
 
+        private readonly string m_ConfigurationPath;
         private readonly UpdatableVersionListSerializer m_UpdatableVersionListSerializer;
         private readonly ResourcePackVersionListSerializer m_ResourcePackVersionListSerializer;
 
         public ResourcePackBuilderController()
         {
+            m_ConfigurationPath = Type.GetConfigurationPath<ResourceBuilderConfigPathAttribute>() ?? Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "GameFramework/Configs/ResourceBuilder.xml"));
+
             m_UpdatableVersionListSerializer = new UpdatableVersionListSerializer();
             m_UpdatableVersionListSerializer.RegisterDeserializeCallback(0, BuiltinVersionListSerializer.UpdatableVersionListDeserializeCallback_V0);
             m_UpdatableVersionListSerializer.RegisterDeserializeCallback(1, BuiltinVersionListSerializer.UpdatableVersionListDeserializeCallback_V1);
@@ -185,6 +189,44 @@ namespace UnityGameFramework.Editor.ResourceTools
         public event GameFrameworkAction<int, int, string, string> OnBuildResourcePackSuccess = null;
 
         public event GameFrameworkAction<int, int, string, string> OnBuildResourcePackFailure = null;
+
+        public bool Load()
+        {
+            if (!File.Exists(m_ConfigurationPath))
+            {
+                return false;
+            }
+
+            try
+            {
+                XmlDocument xmlDocument = new XmlDocument();
+                xmlDocument.Load(m_ConfigurationPath);
+                XmlNode xmlRoot = xmlDocument.SelectSingleNode("UnityGameFramework");
+                XmlNode xmlEditor = xmlRoot.SelectSingleNode("ResourceBuilder");
+                XmlNode xmlSettings = xmlEditor.SelectSingleNode("Settings");
+
+                XmlNodeList xmlNodeList = null;
+                XmlNode xmlNode = null;
+
+                xmlNodeList = xmlSettings.ChildNodes;
+                for (int i = 0; i < xmlNodeList.Count; i++)
+                {
+                    xmlNode = xmlNodeList.Item(i);
+                    switch (xmlNode.Name)
+                    {
+                        case "OutputDirectory":
+                            WorkingDirectory = xmlNode.InnerText;
+                            break;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
 
         public string[] GetVersionNames()
         {

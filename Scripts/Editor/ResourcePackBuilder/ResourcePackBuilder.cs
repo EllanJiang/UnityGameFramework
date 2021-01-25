@@ -44,6 +44,9 @@ namespace UnityGameFramework.Editor.ResourceTools
             m_Controller.OnBuildResourcePacksCompleted += OnBuildResourcePacksCompleted;
             m_Controller.OnBuildResourcePackSuccess += OnBuildResourcePackSuccess;
             m_Controller.OnBuildResourcePackFailure += OnBuildResourcePackFailure;
+
+            m_Controller.Load();
+            RefreshVersionNames();
         }
 
         private void Update()

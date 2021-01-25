@@ -34,11 +34,7 @@ namespace UnityGameFramework.Editor.ResourceTools
         private static void Open()
         {
             ResourcePackBuilder window = GetWindow<ResourcePackBuilder>("Resource Pack Builder", true);
-#if UNITY_2019_3_OR_NEWER
-            window.minSize = new Vector2(800f, 370f);
-#else
-            window.minSize = new Vector2(800f, 345f);
-#endif
+            window.minSize = new Vector2(800f, 400f);
         }
 
         private void OnEnable()
@@ -136,6 +132,10 @@ namespace UnityGameFramework.Editor.ResourceTools
                     {
                         EditorGUILayout.HelpBox("Please select a valid working directory and platform first.", MessageType.Warning);
                     }
+                    else if (m_VersionNamesForTargetDisplay.Length <= 0)
+                    {
+                        EditorGUILayout.HelpBox("No version was found in the specified working directory.", MessageType.Warning);
+                    }
                     else
                     {
                         EditorGUILayout.BeginHorizontal();
@@ -150,6 +150,21 @@ namespace UnityGameFramework.Editor.ResourceTools
                             GUILayout.Label(m_Controller.OutputPath);
                         }
                         EditorGUILayout.EndHorizontal();
+                        EditorGUILayout.BeginHorizontal();
+                        {
+                            EditorGUILayout.LabelField("Backup Diff", GUILayout.Width(160f));
+                            m_Controller.BackupDiff = EditorGUILayout.Toggle(m_Controller.BackupDiff);
+                        }
+                        EditorGUILayout.EndHorizontal();
+                        if (m_Controller.BackupDiff)
+                        {
+                            EditorGUILayout.BeginHorizontal();
+                            {
+                                EditorGUILayout.LabelField("Backup Version", GUILayout.Width(160f));
+                                m_Controller.BackupVersion = EditorGUILayout.Toggle(m_Controller.BackupVersion);
+                            }
+                            EditorGUILayout.EndHorizontal();
+                        }
                         EditorGUILayout.BeginHorizontal();
                         {
                             EditorGUILayout.LabelField("Length Limit", GUILayout.Width(160f));

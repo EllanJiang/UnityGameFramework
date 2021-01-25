@@ -134,7 +134,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                     }
                     else if (m_VersionNamesForTargetDisplay.Length <= 0)
                     {
-                        EditorGUILayout.HelpBox("No version was found in the specified working directory.", MessageType.Warning);
+                        EditorGUILayout.HelpBox("No version was found in the specified working directory and platform.", MessageType.Warning);
                     }
                     else
                     {

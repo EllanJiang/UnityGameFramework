@@ -158,9 +158,9 @@ namespace UnityGameFramework.Editor.ResourceTools
                 return m_Codes.ToArray();
             }
 
-            public void AddCode(Platform platform, int length, int hashCode, int zipLength, int zipHashCode)
+            public void AddCode(Platform platform, int length, int hashCode, int compressedLength, int compressedHashCode)
             {
-                m_Codes.Add(new ResourceCode(platform, length, hashCode, zipLength, zipHashCode));
+                m_Codes.Add(new ResourceCode(platform, length, hashCode, compressedLength, compressedHashCode));
             }
         }
     }

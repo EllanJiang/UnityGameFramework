@@ -152,7 +152,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                         EditorGUILayout.EndHorizontal();
                         EditorGUILayout.BeginVertical();
                         {
-                            m_Controller.ZipSelected = EditorGUILayout.ToggleLeft("Zip All Resources", m_Controller.ZipSelected);
+                            m_Controller.CompressSelected = EditorGUILayout.ToggleLeft("Compress All Resources with Specified Compression", m_Controller.CompressSelected);
                         }
                         EditorGUILayout.EndVertical();
                     }
@@ -343,21 +343,21 @@ namespace UnityGameFramework.Editor.ResourceTools
 
         private void GetCompressMessage(out string message, out MessageType messageType)
         {
-            if (m_Controller.ZipSelected)
+            if (m_Controller.CompressSelected)
             {
                 if (m_Controller.UncompressedAssetBundleSelected)
                 {
-                    message = "Compresses AssetBundles with ZIP only. It uses more storage but it's faster when loading the AssetBundles.";
+                    message = "Compresses AssetBundles with specified compression only. It uses more storage but it's faster when loading the AssetBundles.";
                     messageType = MessageType.Info;
                 }
                 else if (m_Controller.ChunkBasedCompressionSelected)
                 {
-                    message = "Compresses AssetBundles with both chunk-based compression and ZIP. Recommended when you use 'AssetBundle.LoadFromFile'.";
+                    message = "Compresses AssetBundles with both chunk-based compression and specified compression. Recommended when you use 'AssetBundle.LoadFromFile'.";
                     messageType = MessageType.Info;
                 }
                 else
                 {
-                    message = "Compresses AssetBundles with both LZMA and ZIP. Not recommended.";
+                    message = "Compresses AssetBundles with both LZMA and specified compression. Not recommended.";
                     messageType = MessageType.Warning;
                 }
             }

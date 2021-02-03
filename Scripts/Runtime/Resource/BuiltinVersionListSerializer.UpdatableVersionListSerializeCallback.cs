@@ -50,8 +50,8 @@ namespace UnityGameFramework.Runtime
                     binaryWriter.Write(resource.LoadType);
                     binaryWriter.Write(resource.Length);
                     binaryWriter.Write(resource.HashCode);
-                    binaryWriter.Write(resource.ZipLength);
-                    binaryWriter.Write(resource.ZipHashCode);
+                    binaryWriter.Write(resource.CompressedLength);
+                    binaryWriter.Write(resource.CompressedHashCode);
                     int[] assetIndexes = resource.GetAssetIndexes();
                     binaryWriter.Write(assetIndexes.Length);
                     byte[] hashBytes = new byte[CachedHashBytesLength];
@@ -129,8 +129,8 @@ namespace UnityGameFramework.Runtime
                     binaryWriter.Write(resource.LoadType);
                     binaryWriter.Write7BitEncodedInt32(resource.Length);
                     binaryWriter.Write(resource.HashCode);
-                    binaryWriter.Write7BitEncodedInt32(resource.ZipLength);
-                    binaryWriter.Write(resource.ZipHashCode);
+                    binaryWriter.Write7BitEncodedInt32(resource.CompressedLength);
+                    binaryWriter.Write(resource.CompressedHashCode);
                     int[] assetIndexes = resource.GetAssetIndexes();
                     binaryWriter.Write7BitEncodedInt32(assetIndexes.Length);
                     foreach (int assetIndex in assetIndexes)
@@ -199,8 +199,8 @@ namespace UnityGameFramework.Runtime
                     binaryWriter.Write(resource.LoadType);
                     binaryWriter.Write7BitEncodedInt32(resource.Length);
                     binaryWriter.Write(resource.HashCode);
-                    binaryWriter.Write7BitEncodedInt32(resource.ZipLength);
-                    binaryWriter.Write(resource.ZipHashCode);
+                    binaryWriter.Write7BitEncodedInt32(resource.CompressedLength);
+                    binaryWriter.Write(resource.CompressedHashCode);
                     int[] assetIndexes = resource.GetAssetIndexes();
                     binaryWriter.Write7BitEncodedInt32(assetIndexes.Length);
                     foreach (int assetIndex in assetIndexes)

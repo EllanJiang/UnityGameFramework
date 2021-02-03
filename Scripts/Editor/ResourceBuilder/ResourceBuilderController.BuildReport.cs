@@ -31,13 +31,13 @@ namespace UnityGameFramework.Editor.ResourceTools
             private string m_ApplicableGameVersion = null;
             private int m_InternalResourceVersion = 0;
             private Platform m_Platforms = Platform.Undefined;
-            private bool m_ZipSelected = false;
+            private bool m_CompressSelected = false;
             private int m_BuildAssetBundleOptions = 0;
             private StringBuilder m_LogBuilder = null;
             private SortedDictionary<string, ResourceData> m_ResourceDatas = null;
 
             public void Initialize(string buildReportPath, string productName, string companyName, string gameIdentifier, string gameFrameworkVersion, string unityVersion, string applicableGameVersion, int internalResourceVersion,
-                Platform platforms, bool zipSelected, int buildAssetBundleOptions, SortedDictionary<string, ResourceData> resourceDatas)
+                Platform platforms, bool compressSelected, int buildAssetBundleOptions, SortedDictionary<string, ResourceData> resourceDatas)
             {
                 if (string.IsNullOrEmpty(buildReportPath))
                 {
@@ -54,7 +54,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 m_ApplicableGameVersion = applicableGameVersion;
                 m_InternalResourceVersion = internalResourceVersion;
                 m_Platforms = platforms;
-                m_ZipSelected = zipSelected;
+                m_CompressSelected = compressSelected;
                 m_BuildAssetBundleOptions = buildAssetBundleOptions;
                 m_LogBuilder = new StringBuilder();
                 m_ResourceDatas = resourceDatas;
@@ -121,8 +121,8 @@ namespace UnityGameFramework.Editor.ResourceTools
                 xmlElement = xmlDocument.CreateElement("Platforms");
                 xmlElement.InnerText = m_Platforms.ToString();
                 xmlSummary.AppendChild(xmlElement);
-                xmlElement = xmlDocument.CreateElement("ZipSelected");
-                xmlElement.InnerText = m_ZipSelected.ToString();
+                xmlElement = xmlDocument.CreateElement("CompressSelected");
+                xmlElement.InnerText = m_CompressSelected.ToString();
                 xmlSummary.AppendChild(xmlElement);
                 xmlElement = xmlDocument.CreateElement("BuildAssetBundleOptions");
                 xmlElement.InnerText = m_BuildAssetBundleOptions.ToString();
@@ -225,11 +225,11 @@ namespace UnityGameFramework.Editor.ResourceTools
                         xmlAttribute = xmlDocument.CreateAttribute("HashCode");
                         xmlAttribute.Value = resourceCode.HashCode.ToString();
                         xmlCode.Attributes.SetNamedItem(xmlAttribute);
-                        xmlAttribute = xmlDocument.CreateAttribute("ZipLength");
-                        xmlAttribute.Value = resourceCode.ZipLength.ToString();
+                        xmlAttribute = xmlDocument.CreateAttribute("CompressedLength");
+                        xmlAttribute.Value = resourceCode.CompressedLength.ToString();
                         xmlCode.Attributes.SetNamedItem(xmlAttribute);
-                        xmlAttribute = xmlDocument.CreateAttribute("ZipHashCode");
-                        xmlAttribute.Value = resourceCode.ZipHashCode.ToString();
+                        xmlAttribute = xmlDocument.CreateAttribute("CompressedHashCode");
+                        xmlAttribute.Value = resourceCode.CompressedHashCode.ToString();
                         xmlCode.Attributes.SetNamedItem(xmlAttribute);
                         xmlCodes.AppendChild(xmlCode);
                     }

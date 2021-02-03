@@ -51,8 +51,8 @@ namespace UnityGameFramework.Runtime
                     binaryWriter.Write7BitEncodedInt64(resource.Offset);
                     binaryWriter.Write7BitEncodedInt32(resource.Length);
                     binaryWriter.Write(resource.HashCode);
-                    binaryWriter.Write7BitEncodedInt32(resource.ZipLength);
-                    binaryWriter.Write(resource.ZipHashCode);
+                    binaryWriter.Write7BitEncodedInt32(resource.CompressedLength);
+                    binaryWriter.Write(resource.CompressedHashCode);
                 }
             }
 

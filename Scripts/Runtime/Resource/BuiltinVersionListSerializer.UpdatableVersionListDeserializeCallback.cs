@@ -44,8 +44,8 @@ namespace UnityGameFramework.Runtime
                     byte loadType = binaryReader.ReadByte();
                     int length = binaryReader.ReadInt32();
                     int hashCode = binaryReader.ReadInt32();
-                    int zipLength = binaryReader.ReadInt32();
-                    int zipHashCode = binaryReader.ReadInt32();
+                    int compressedLength = binaryReader.ReadInt32();
+                    int compressedHashCode = binaryReader.ReadInt32();
                     Utility.Converter.GetBytes(hashCode, s_CachedHashBytes);
 
                     int assetNameCount = binaryReader.ReadInt32();
@@ -64,7 +64,7 @@ namespace UnityGameFramework.Runtime
                     }
 
                     resourceToAssetNames[i] = assetNames;
-                    resources[i] = new UpdatableVersionList.Resource(name, variant, null, loadType, length, hashCode, zipLength, zipHashCode, assetNameCount > 0 ? new int[assetNameCount] : null);
+                    resources[i] = new UpdatableVersionList.Resource(name, variant, null, loadType, length, hashCode, compressedLength, compressedHashCode, assetNameCount > 0 ? new int[assetNameCount] : null);
                 }
 
                 assetNameToDependencyAssetNames.Sort(AssetNameToDependencyAssetNamesComparer);
@@ -153,8 +153,8 @@ namespace UnityGameFramework.Runtime
                     byte loadType = binaryReader.ReadByte();
                     int length = binaryReader.Read7BitEncodedInt32();
                     int hashCode = binaryReader.ReadInt32();
-                    int zipLength = binaryReader.Read7BitEncodedInt32();
-                    int zipHashCode = binaryReader.ReadInt32();
+                    int compressedLength = binaryReader.Read7BitEncodedInt32();
+                    int compressedHashCode = binaryReader.ReadInt32();
                     int assetIndexCount = binaryReader.Read7BitEncodedInt32();
                     int[] assetIndexes = assetIndexCount > 0 ? new int[assetIndexCount] : null;
                     for (int j = 0; j < assetIndexCount; j++)
@@ -162,7 +162,7 @@ namespace UnityGameFramework.Runtime
                         assetIndexes[j] = binaryReader.Read7BitEncodedInt32();
                     }
 
-                    resources[i] = new UpdatableVersionList.Resource(name, variant, extension, loadType, length, hashCode, zipLength, zipHashCode, assetIndexes);
+                    resources[i] = new UpdatableVersionList.Resource(name, variant, extension, loadType, length, hashCode, compressedLength, compressedHashCode, assetIndexes);
                 }
 
                 int resourceGroupCount = binaryReader.Read7BitEncodedInt32();
@@ -221,8 +221,8 @@ namespace UnityGameFramework.Runtime
                     byte loadType = binaryReader.ReadByte();
                     int length = binaryReader.Read7BitEncodedInt32();
                     int hashCode = binaryReader.ReadInt32();
-                    int zipLength = binaryReader.Read7BitEncodedInt32();
-                    int zipHashCode = binaryReader.ReadInt32();
+                    int compressedLength = binaryReader.Read7BitEncodedInt32();
+                    int compressedHashCode = binaryReader.ReadInt32();
                     int assetIndexCount = binaryReader.Read7BitEncodedInt32();
                     int[] assetIndexes = assetIndexCount > 0 ? new int[assetIndexCount] : null;
                     for (int j = 0; j < assetIndexCount; j++)
@@ -230,7 +230,7 @@ namespace UnityGameFramework.Runtime
                         assetIndexes[j] = binaryReader.Read7BitEncodedInt32();
                     }
 
-                    resources[i] = new UpdatableVersionList.Resource(name, variant, extension, loadType, length, hashCode, zipLength, zipHashCode, assetIndexes);
+                    resources[i] = new UpdatableVersionList.Resource(name, variant, extension, loadType, length, hashCode, compressedLength, compressedHashCode, assetIndexes);
                 }
 
                 int fileSystemCount = binaryReader.Read7BitEncodedInt32();

@@ -24,7 +24,7 @@ namespace UnityGameFramework.Editor
         private SerializedProperty m_EditorLanguage = null;
         private SerializedProperty m_VersionHelperTypeName = null;
         private SerializedProperty m_LogHelperTypeName = null;
-        private SerializedProperty m_ZipHelperTypeName = null;
+        private SerializedProperty m_CompressionHelperTypeName = null;
         private SerializedProperty m_JsonHelperTypeName = null;
         private SerializedProperty m_FrameRate = null;
         private SerializedProperty m_GameSpeed = null;
@@ -35,8 +35,8 @@ namespace UnityGameFramework.Editor
         private int m_VersionHelperTypeNameIndex = 0;
         private string[] m_LogHelperTypeNames = null;
         private int m_LogHelperTypeNameIndex = 0;
-        private string[] m_ZipHelperTypeNames = null;
-        private int m_ZipHelperTypeNameIndex = 0;
+        private string[] m_CompressionHelperTypeNames = null;
+        private int m_CompressionHelperTypeNameIndex = 0;
         private string[] m_JsonHelperTypeNames = null;
         private int m_JsonHelperTypeNameIndex = 0;
 
@@ -76,11 +76,11 @@ namespace UnityGameFramework.Editor
                         m_LogHelperTypeName.stringValue = logHelperSelectedIndex <= 0 ? null : m_LogHelperTypeNames[logHelperSelectedIndex];
                     }
 
-                    int zipHelperSelectedIndex = EditorGUILayout.Popup("Zip Helper", m_ZipHelperTypeNameIndex, m_ZipHelperTypeNames);
-                    if (zipHelperSelectedIndex != m_ZipHelperTypeNameIndex)
+                    int compressionHelperSelectedIndex = EditorGUILayout.Popup("Compression Helper", m_CompressionHelperTypeNameIndex, m_CompressionHelperTypeNames);
+                    if (compressionHelperSelectedIndex != m_CompressionHelperTypeNameIndex)
                     {
-                        m_ZipHelperTypeNameIndex = zipHelperSelectedIndex;
-                        m_ZipHelperTypeName.stringValue = zipHelperSelectedIndex <= 0 ? null : m_ZipHelperTypeNames[zipHelperSelectedIndex];
+                        m_CompressionHelperTypeNameIndex = compressionHelperSelectedIndex;
+                        m_CompressionHelperTypeName.stringValue = compressionHelperSelectedIndex <= 0 ? null : m_CompressionHelperTypeNames[compressionHelperSelectedIndex];
                     }
 
                     int jsonHelperSelectedIndex = EditorGUILayout.Popup("JSON Helper", m_JsonHelperTypeNameIndex, m_JsonHelperTypeNames);
@@ -172,7 +172,7 @@ namespace UnityGameFramework.Editor
             m_EditorLanguage = serializedObject.FindProperty("m_EditorLanguage");
             m_VersionHelperTypeName = serializedObject.FindProperty("m_VersionHelperTypeName");
             m_LogHelperTypeName = serializedObject.FindProperty("m_LogHelperTypeName");
-            m_ZipHelperTypeName = serializedObject.FindProperty("m_ZipHelperTypeName");
+            m_CompressionHelperTypeName = serializedObject.FindProperty("m_CompressionHelperTypeName");
             m_JsonHelperTypeName = serializedObject.FindProperty("m_JsonHelperTypeName");
             m_FrameRate = serializedObject.FindProperty("m_FrameRate");
             m_GameSpeed = serializedObject.FindProperty("m_GameSpeed");
@@ -220,21 +220,21 @@ namespace UnityGameFramework.Editor
                 }
             }
 
-            List<string> zipHelperTypeNames = new List<string>
+            List<string> compressionHelperTypeNames = new List<string>
             {
                 NoneOptionName
             };
 
-            zipHelperTypeNames.AddRange(Type.GetTypeNames(typeof(Utility.Zip.IZipHelper)));
-            m_ZipHelperTypeNames = zipHelperTypeNames.ToArray();
-            m_ZipHelperTypeNameIndex = 0;
-            if (!string.IsNullOrEmpty(m_ZipHelperTypeName.stringValue))
+            compressionHelperTypeNames.AddRange(Type.GetTypeNames(typeof(Utility.Compression.ICompressionHelper)));
+            m_CompressionHelperTypeNames = compressionHelperTypeNames.ToArray();
+            m_CompressionHelperTypeNameIndex = 0;
+            if (!string.IsNullOrEmpty(m_CompressionHelperTypeName.stringValue))
             {
-                m_ZipHelperTypeNameIndex = zipHelperTypeNames.IndexOf(m_ZipHelperTypeName.stringValue);
-                if (m_ZipHelperTypeNameIndex <= 0)
+                m_CompressionHelperTypeNameIndex = compressionHelperTypeNames.IndexOf(m_CompressionHelperTypeName.stringValue);
+                if (m_CompressionHelperTypeNameIndex <= 0)
                 {
-                    m_ZipHelperTypeNameIndex = 0;
-                    m_ZipHelperTypeName.stringValue = null;
+                    m_CompressionHelperTypeNameIndex = 0;
+                    m_CompressionHelperTypeName.stringValue = null;
                 }
             }
 

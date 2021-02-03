@@ -29,7 +29,7 @@ namespace UnityGameFramework.Runtime
             ApplyPath = null;
             ResourcePackPath = null;
             Length = 0;
-            ZipLength = 0;
+            CompressedLength = 0;
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 获取压缩后大小。
         /// </summary>
-        public int ZipLength
+        public int CompressedLength
         {
             get;
             private set;
@@ -100,7 +100,7 @@ namespace UnityGameFramework.Runtime
             resourceApplySuccessEventArgs.ApplyPath = e.ApplyPath;
             resourceApplySuccessEventArgs.ResourcePackPath = e.ResourcePackPath;
             resourceApplySuccessEventArgs.Length = e.Length;
-            resourceApplySuccessEventArgs.ZipLength = e.ZipLength;
+            resourceApplySuccessEventArgs.CompressedLength = e.CompressedLength;
             return resourceApplySuccessEventArgs;
         }
 
@@ -113,7 +113,7 @@ namespace UnityGameFramework.Runtime
             ApplyPath = null;
             ResourcePackPath = null;
             Length = 0;
-            ZipLength = 0;
+            CompressedLength = 0;
         }
     }
 }

@@ -40,9 +40,9 @@ namespace UnityGameFramework.Runtime
                     long offset = binaryReader.Read7BitEncodedInt64();
                     int length = binaryReader.Read7BitEncodedInt32();
                     int hashCode = binaryReader.ReadInt32();
-                    int zipLength = binaryReader.Read7BitEncodedInt32();
-                    int zipHashCode = binaryReader.ReadInt32();
-                    resources[i] = new ResourcePackVersionList.Resource(name, variant, extension, loadType, offset, length, hashCode, zipLength, zipHashCode);
+                    int compressedLength = binaryReader.Read7BitEncodedInt32();
+                    int compressedHashCode = binaryReader.ReadInt32();
+                    resources[i] = new ResourcePackVersionList.Resource(name, variant, extension, loadType, offset, length, hashCode, compressedLength, compressedHashCode);
                 }
 
                 return new ResourcePackVersionList(dataOffset, dataLength, dataHashCode, resources);

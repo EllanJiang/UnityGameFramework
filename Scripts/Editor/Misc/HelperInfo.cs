@@ -67,7 +67,7 @@ namespace UnityGameFramework.Editor
                 CustomOptionName
             };
 
-            helperTypeNameList.AddRange(Type.GetTypeNames(typeof(T)));
+            helperTypeNameList.AddRange(Type.GetRuntimeTypeNames(typeof(T)));
             m_HelperTypeNames = helperTypeNameList.ToArray();
 
             m_HelperTypeNameIndex = 0;

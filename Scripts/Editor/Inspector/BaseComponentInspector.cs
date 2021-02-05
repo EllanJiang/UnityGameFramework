@@ -189,7 +189,7 @@ namespace UnityGameFramework.Editor
                 NoneOptionName
             };
 
-            versionHelperTypeNames.AddRange(Type.GetTypeNames(typeof(Version.IVersionHelper)));
+            versionHelperTypeNames.AddRange(Type.GetRuntimeTypeNames(typeof(Version.IVersionHelper)));
             m_VersionHelperTypeNames = versionHelperTypeNames.ToArray();
             m_VersionHelperTypeNameIndex = 0;
             if (!string.IsNullOrEmpty(m_VersionHelperTypeName.stringValue))
@@ -207,7 +207,7 @@ namespace UnityGameFramework.Editor
                 NoneOptionName
             };
 
-            logHelperTypeNames.AddRange(Type.GetTypeNames(typeof(GameFrameworkLog.ILogHelper)));
+            logHelperTypeNames.AddRange(Type.GetRuntimeTypeNames(typeof(GameFrameworkLog.ILogHelper)));
             m_LogHelperTypeNames = logHelperTypeNames.ToArray();
             m_LogHelperTypeNameIndex = 0;
             if (!string.IsNullOrEmpty(m_LogHelperTypeName.stringValue))
@@ -225,7 +225,7 @@ namespace UnityGameFramework.Editor
                 NoneOptionName
             };
 
-            compressionHelperTypeNames.AddRange(Type.GetTypeNames(typeof(Utility.Compression.ICompressionHelper)));
+            compressionHelperTypeNames.AddRange(Type.GetRuntimeTypeNames(typeof(Utility.Compression.ICompressionHelper)));
             m_CompressionHelperTypeNames = compressionHelperTypeNames.ToArray();
             m_CompressionHelperTypeNameIndex = 0;
             if (!string.IsNullOrEmpty(m_CompressionHelperTypeName.stringValue))
@@ -243,7 +243,7 @@ namespace UnityGameFramework.Editor
                 NoneOptionName
             };
 
-            jsonHelperTypeNames.AddRange(Type.GetTypeNames(typeof(Utility.Json.IJsonHelper)));
+            jsonHelperTypeNames.AddRange(Type.GetRuntimeTypeNames(typeof(Utility.Json.IJsonHelper)));
             m_JsonHelperTypeNames = jsonHelperTypeNames.ToArray();
             m_JsonHelperTypeNameIndex = 0;
             if (!string.IsNullOrEmpty(m_JsonHelperTypeName.stringValue))

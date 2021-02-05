@@ -16,20 +16,24 @@ namespace UnityGameFramework.Editor
     /// </summary>
     internal static class Type
     {
-        private static readonly string[] AssemblyNames =
+        private static readonly string[] RuntimeAssemblyNames =
         {
 #if UNITY_2017_3_OR_NEWER
             "UnityGameFramework.Runtime",
 #endif
-            "Assembly-CSharp"
+            "Assembly-CSharp",
         };
 
-        private static readonly string[] EditorAssemblyNames =
+        private static readonly string[] RuntimeOrEditorAssemblyNames =
         {
+#if UNITY_2017_3_OR_NEWER
+            "UnityGameFramework.Runtime",
+#endif
+            "Assembly-CSharp",
 #if UNITY_2017_3_OR_NEWER
             "UnityGameFramework.Editor",
 #endif
-            "Assembly-CSharp-Editor"
+            "Assembly-CSharp-Editor",
         };
 
         /// <summary>
@@ -67,23 +71,23 @@ namespace UnityGameFramework.Editor
         }
 
         /// <summary>
-        /// 获取指定基类的所有子类的名称。
+        /// 在运行时程序集中获取指定基类的所有子类的名称。
         /// </summary>
         /// <param name="typeBase">基类类型。</param>
         /// <returns>指定基类的所有子类的名称。</returns>
-        internal static string[] GetTypeNames(System.Type typeBase)
+        internal static string[] GetRuntimeTypeNames(System.Type typeBase)
         {
-            return GetTypeNames(typeBase, AssemblyNames);
+            return GetTypeNames(typeBase, RuntimeAssemblyNames);
         }
 
         /// <summary>
-        /// 获取指定基类的所有子类的名称。
+        /// 在运行时或编辑器程序集中获取指定基类的所有子类的名称。
         /// </summary>
         /// <param name="typeBase">基类类型。</param>
         /// <returns>指定基类的所有子类的名称。</returns>
-        internal static string[] GetEditorTypeNames(System.Type typeBase)
+        internal static string[] GetRuntimeOrEditorTypeNames(System.Type typeBase)
         {
-            return GetTypeNames(typeBase, EditorAssemblyNames);
+            return GetTypeNames(typeBase, RuntimeOrEditorAssemblyNames);
         }
 
         private static string[] GetTypeNames(System.Type typeBase, string[] assemblyNames)

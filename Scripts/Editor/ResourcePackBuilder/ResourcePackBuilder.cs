@@ -25,6 +25,7 @@ namespace UnityGameFramework.Editor.ResourceTools
         private string[] m_VersionNamesForTargetDisplay = null;
         private string[] m_VersionNamesForSourceDisplay = null;
         private int m_PlatformIndex = 0;
+        private int m_CompressionHelperTypeNameIndex = 0;
         private int m_LengthLimitIndex = 0;
         private int m_TargetVersionIndex = 0;
         private bool[] m_SourceVersionIndexes = null;
@@ -47,6 +48,19 @@ namespace UnityGameFramework.Editor.ResourceTools
 
             m_Controller.Load();
             RefreshVersionNames();
+
+            m_CompressionHelperTypeNameIndex = 0;
+            string[] compressionHelperTypeNames = m_Controller.GetCompressionHelperTypeNames();
+            for (int i = 0; i < compressionHelperTypeNames.Length; i++)
+            {
+                if (m_Controller.CompressionHelperTypeName == compressionHelperTypeNames[i])
+                {
+                    m_CompressionHelperTypeNameIndex = i;
+                    break;
+                }
+            }
+
+            m_Controller.RefreshCompressionHelper();
         }
 
         private void Update()
@@ -131,9 +145,29 @@ namespace UnityGameFramework.Editor.ResourceTools
                         }
                     }
                     EditorGUILayout.EndHorizontal();
-                    if (m_Controller.Platform == Platform.Undefined || !m_Controller.IsValidWorkingDirectory)
+                    EditorGUILayout.BeginHorizontal();
                     {
-                        EditorGUILayout.HelpBox("Please select a valid working directory and platform first.", MessageType.Warning);
+                        EditorGUILayout.LabelField("Compression Helper", GUILayout.Width(160f));
+                        string[] names = m_Controller.GetCompressionHelperTypeNames();
+                        int selectedIndex = EditorGUILayout.Popup(m_CompressionHelperTypeNameIndex, names);
+                        if (selectedIndex != m_CompressionHelperTypeNameIndex)
+                        {
+                            m_CompressionHelperTypeNameIndex = selectedIndex;
+                            m_Controller.CompressionHelperTypeName = selectedIndex <= 0 ? string.Empty : names[selectedIndex];
+                            if (m_Controller.RefreshCompressionHelper())
+                            {
+                                Debug.Log("Set compression helper success.");
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Set compression helper failure.");
+                            }
+                        }
+                    }
+                    EditorGUILayout.EndHorizontal();
+                    if (m_Controller.Platform == Platform.Undefined || string.IsNullOrEmpty(m_Controller.CompressionHelperTypeName) || !m_Controller.IsValidWorkingDirectory)
+                    {
+                        EditorGUILayout.HelpBox("Please select a valid working directory, platform and compression helper first.", MessageType.Warning);
                     }
                     else if (m_VersionNamesForTargetDisplay.Length <= 0)
                     {
@@ -300,7 +334,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 GUILayout.Space(2f);
                 EditorGUILayout.BeginHorizontal();
                 {
-                    EditorGUI.BeginDisabledGroup(m_Controller.Platform == Platform.Undefined || !m_Controller.IsValidWorkingDirectory || m_SourceVersionCount <= 0);
+                    EditorGUI.BeginDisabledGroup(m_Controller.Platform == Platform.Undefined || string.IsNullOrEmpty(m_Controller.CompressionHelperTypeName) || !m_Controller.IsValidWorkingDirectory || m_SourceVersionCount <= 0);
                     {
                         if (GUILayout.Button("Start Build Resource Packs"))
                         {

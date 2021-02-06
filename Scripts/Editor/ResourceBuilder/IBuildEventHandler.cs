@@ -33,9 +33,14 @@ namespace UnityGameFramework.Editor.ResourceTools
         /// <param name="unityVersion">Unity 版本。</param>
         /// <param name="applicableGameVersion">适用游戏版本。</param>
         /// <param name="internalResourceVersion">内部资源版本。</param>
-        /// <param name="buildAssetBundleOptions">生成选项。</param>
-        /// <param name="compressSelected">是否压缩。</param>
+        /// <param name="platforms">生成的目标平台。</param>
+        /// <param name="assetBundleCompression">AssetBundle 压缩类型。</param>
+        /// <param name="compressionHelperTypeName">压缩解压缩辅助器类型名称。</param>
+        /// <param name="additionalCompressionSelected">是否进行再压缩以降低传输开销。</param>
+        /// <param name="forceRebuildAssetBundleSelected">是否强制重新构建 AssetBundle。</param>
+        /// <param name="buildEventHandlerTypeName">生成资源事件处理函数名称。</param>
         /// <param name="outputDirectory">生成目录。</param>
+        /// <param name="buildAssetBundleOptions">AssetBundle 生成选项。</param>
         /// <param name="workingPath">生成时的工作路径。</param>
         /// <param name="outputPackageSelected">是否生成单机模式所需的文件。</param>
         /// <param name="outputPackagePath">为单机模式生成的文件存放于此路径。若游戏是单机游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
@@ -44,9 +49,9 @@ namespace UnityGameFramework.Editor.ResourceTools
         /// <param name="outputPackedSelected">是否生成可更新模式所需的本地文件。</param>
         /// <param name="outputPackedPath">为可更新模式生成的本地文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
         /// <param name="buildReportPath">生成报告路径。</param>
-        void OnPreprocessAllPlatforms(string productName, string companyName, string gameIdentifier,
-            string gameFrameworkVersion, string unityVersion, string applicableGameVersion, int internalResourceVersion, BuildAssetBundleOptions buildAssetBundleOptions, bool compressSelected,
-            string outputDirectory, string workingPath, bool outputPackageSelected, string outputPackagePath, bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, string buildReportPath);
+        void OnPreprocessAllPlatforms(string productName, string companyName, string gameIdentifier, string gameFrameworkVersion, string unityVersion, string applicableGameVersion, int internalResourceVersion,
+            Platform platforms, AssetBundleCompressionType assetBundleCompression, string compressionHelperTypeName, bool additionalCompressionSelected, bool forceRebuildAssetBundleSelected, string buildEventHandlerTypeName, string outputDirectory, BuildAssetBundleOptions buildAssetBundleOptions,
+            string workingPath, bool outputPackageSelected, string outputPackagePath, bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, string buildReportPath);
 
         /// <summary>
         /// 某个平台生成开始前的预处理事件。
@@ -110,9 +115,14 @@ namespace UnityGameFramework.Editor.ResourceTools
         /// <param name="unityVersion">Unity 版本。</param>
         /// <param name="applicableGameVersion">适用游戏版本。</param>
         /// <param name="internalResourceVersion">内部资源版本。</param>
-        /// <param name="buildAssetBundleOptions">生成选项。</param>
-        /// <param name="compressSelected">是否压缩。</param>
+        /// <param name="platforms">生成的目标平台。</param>
+        /// <param name="assetBundleCompression">AssetBundle 压缩类型。</param>
+        /// <param name="compressionHelperTypeName">压缩解压缩辅助器类型名称。</param>
+        /// <param name="additionalCompressionSelected">是否进行再压缩以降低传输开销。</param>
+        /// <param name="forceRebuildAssetBundleSelected">是否强制重新构建 AssetBundle。</param>
+        /// <param name="buildEventHandlerTypeName">生成资源事件处理函数名称。</param>
         /// <param name="outputDirectory">生成目录。</param>
+        /// <param name="buildAssetBundleOptions">AssetBundle 生成选项。</param>
         /// <param name="workingPath">生成时的工作路径。</param>
         /// <param name="outputPackageSelected">是否生成单机模式所需的文件。</param>
         /// <param name="outputPackagePath">为单机模式生成的文件存放于此路径。若游戏是单机游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
@@ -121,8 +131,8 @@ namespace UnityGameFramework.Editor.ResourceTools
         /// <param name="outputPackedSelected">是否生成可更新模式所需的本地文件。</param>
         /// <param name="outputPackedPath">为可更新模式生成的本地文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
         /// <param name="buildReportPath">生成报告路径。</param>
-        void OnPostprocessAllPlatforms(string productName, string companyName, string gameIdentifier,
-            string gameFrameworkVersion, string unityVersion, string applicableGameVersion, int internalResourceVersion, BuildAssetBundleOptions buildAssetBundleOptions, bool compressSelected,
-            string outputDirectory, string workingPath, bool outputPackageSelected, string outputPackagePath, bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, string buildReportPath);
+        void OnPostprocessAllPlatforms(string productName, string companyName, string gameIdentifier, string gameFrameworkVersion, string unityVersion, string applicableGameVersion, int internalResourceVersion,
+            Platform platforms, AssetBundleCompressionType assetBundleCompression, string compressionHelperTypeName, bool additionalCompressionSelected, bool forceRebuildAssetBundleSelected, string buildEventHandlerTypeName, string outputDirectory, BuildAssetBundleOptions buildAssetBundleOptions,
+            string workingPath, bool outputPackageSelected, string outputPackagePath, bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, string buildReportPath);
     }
 }

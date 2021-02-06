@@ -7,6 +7,7 @@
 
 using GameFramework;
 using GameFramework.Resource;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -20,10 +21,12 @@ namespace UnityGameFramework.Editor.ResourceTools
     {
         private const string DefaultResourcePackName = "GameFrameworkResourcePack";
         private const string DefaultExtension = "dat";
+        private const string NoneOptionName = "<None>";
         private static readonly string[] EmptyStringArray = new string[0];
         private static readonly UpdatableVersionList.Resource[] EmptyResourceArray = new UpdatableVersionList.Resource[0];
 
         private readonly string m_ConfigurationPath;
+        private readonly List<string> m_CompressionHelperTypeNames;
         private readonly UpdatableVersionListSerializer m_UpdatableVersionListSerializer;
         private readonly ResourcePackVersionListSerializer m_ResourcePackVersionListSerializer;
 
@@ -39,8 +42,15 @@ namespace UnityGameFramework.Editor.ResourceTools
             m_ResourcePackVersionListSerializer = new ResourcePackVersionListSerializer();
             m_ResourcePackVersionListSerializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.ResourcePackVersionListSerializeCallback_V0);
 
-            Utility.Compression.SetCompressionHelper(new DefaultCompressionHelper());
+            m_CompressionHelperTypeNames = new List<string>
+            {
+                NoneOptionName
+            };
+
+            m_CompressionHelperTypeNames.AddRange(Type.GetRuntimeOrEditorTypeNames(typeof(Utility.Compression.ICompressionHelper)));
+
             Platform = Platform.Windows;
+            CompressionHelperTypeName = string.Empty;
         }
 
         public string ProductName
@@ -75,7 +85,7 @@ namespace UnityGameFramework.Editor.ResourceTools
         {
             get
             {
-                return Version.GameFrameworkVersion;
+                return GameFramework.Version.GameFrameworkVersion;
             }
         }
 
@@ -101,25 +111,13 @@ namespace UnityGameFramework.Editor.ResourceTools
             set;
         }
 
-        public bool IsValidWorkingDirectory
+        public Platform Platform
         {
-            get
-            {
-                if (string.IsNullOrEmpty(WorkingDirectory))
-                {
-                    return false;
-                }
-
-                if (!Directory.Exists(WorkingDirectory))
-                {
-                    return false;
-                }
-
-                return true;
-            }
+            get;
+            set;
         }
 
-        public Platform Platform
+        public string CompressionHelperTypeName
         {
             get;
             set;
@@ -141,6 +139,24 @@ namespace UnityGameFramework.Editor.ResourceTools
         {
             get;
             set;
+        }
+
+        public bool IsValidWorkingDirectory
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(WorkingDirectory))
+                {
+                    return false;
+                }
+
+                if (!Directory.Exists(WorkingDirectory))
+                {
+                    return false;
+                }
+
+                return true;
+            }
         }
 
         public string SourcePath
@@ -214,6 +230,10 @@ namespace UnityGameFramework.Editor.ResourceTools
                     xmlNode = xmlNodeList.Item(i);
                     switch (xmlNode.Name)
                     {
+                        case "CompressionHelperTypeName":
+                            CompressionHelperTypeName = xmlNode.InnerText;
+                            break;
+
                         case "OutputDirectory":
                             WorkingDirectory = xmlNode.InnerText;
                             break;
@@ -226,6 +246,11 @@ namespace UnityGameFramework.Editor.ResourceTools
             }
 
             return true;
+        }
+
+        public string[] GetCompressionHelperTypeNames()
+        {
+            return m_CompressionHelperTypeNames.ToArray();
         }
 
         public string[] GetVersionNames()
@@ -288,6 +313,32 @@ namespace UnityGameFramework.Editor.ResourceTools
             });
 
             return versionNames.ToArray();
+        }
+
+        public bool RefreshCompressionHelper()
+        {
+            bool retVal = false;
+            if (!string.IsNullOrEmpty(CompressionHelperTypeName) && m_CompressionHelperTypeNames.Contains(CompressionHelperTypeName))
+            {
+                System.Type compressionHelperType = Utility.Assembly.GetType(CompressionHelperTypeName);
+                if (compressionHelperType != null)
+                {
+                    Utility.Compression.ICompressionHelper compressionHelper = (Utility.Compression.ICompressionHelper)Activator.CreateInstance(compressionHelperType);
+                    if (compressionHelper != null)
+                    {
+                        Utility.Compression.SetCompressionHelper(compressionHelper);
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                retVal = true;
+            }
+
+            CompressionHelperTypeName = string.Empty;
+            Utility.Compression.SetCompressionHelper(null);
+            return retVal;
         }
 
         public void BuildResourcePacks(string[] sourceVersions, string targetVersion)

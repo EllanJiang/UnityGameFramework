@@ -340,28 +340,43 @@ namespace UnityGameFramework.Editor.ResourceTools
 
         private void GetBuildMessage(out string message, out MessageType messageType)
         {
+            message = string.Empty;
+            messageType = MessageType.Error;
             if (m_Controller.Platforms == Platform.Undefined)
             {
-                message = "Platform undefined.";
-                messageType = MessageType.Error;
-                return;
+                if (!string.IsNullOrEmpty(message))
+                {
+                    message += "\n";
+                }
+
+                message += "Platform is invalid.";
             }
 
             if (string.IsNullOrEmpty(m_Controller.CompressionHelperTypeName))
             {
-                message = "Compression helper is invalid.";
-                messageType = MessageType.Error;
-                return;
+                if (!string.IsNullOrEmpty(message))
+                {
+                    message += "\n";
+                }
+
+                message += "Compression helper is invalid.";
             }
 
             if (!m_Controller.IsValidOutputDirectory)
             {
-                message = "Output directory is invalid.";
-                messageType = MessageType.Error;
+                if (!string.IsNullOrEmpty(message))
+                {
+                    message += "\n";
+                }
+
+                message += "Output directory is invalid.";
+            }
+
+            if (!string.IsNullOrEmpty(message))
+            {
                 return;
             }
 
-            message = string.Empty;
             messageType = MessageType.Info;
             if (Directory.Exists(m_Controller.OutputPackagePath))
             {

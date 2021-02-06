@@ -937,7 +937,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ResourceMode: 1
   m_ReadWritePathType: 0
-  m_UnloadUnusedAssetsInterval: 60
+  m_MinUnloadUnusedAssetsInterval: 60
+  m_MaxUnloadUnusedAssetsInterval: 300
   m_AssetAutoReleaseInterval: 60
   m_AssetCapacity: 64
   m_AssetExpireTime: 60
@@ -970,7 +971,7 @@ MonoBehaviour:
   m_EditorLanguage: 0
   m_VersionHelperTypeName: UnityGameFramework.Runtime.DefaultVersionHelper
   m_LogHelperTypeName: UnityGameFramework.Runtime.DefaultLogHelper
-  m_ZipHelperTypeName: UnityGameFramework.Runtime.DefaultZipHelper
+  m_CompressionHelperTypeName: UnityGameFramework.Runtime.DefaultCompressionHelper
   m_JsonHelperTypeName: UnityGameFramework.Runtime.DefaultJsonHelper
   m_FrameRate: 30
   m_GameSpeed: 1

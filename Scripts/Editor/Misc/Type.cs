@@ -45,7 +45,7 @@ namespace UnityGameFramework.Editor
         {
             foreach (System.Type type in Utility.Assembly.GetTypes())
             {
-                if (!type.IsAbstract || !type.IsSealed)
+                if (!type.IsAbstract && !type.IsSealed)
                 {
                     continue;
                 }

@@ -861,6 +861,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 停止更新资源。
+        /// </summary>
+        public void StopUpdateResources()
+        {
+            throw new NotSupportedException("StopUpdateResources");
+        }
+
+        /// <summary>
         /// 校验资源包。
         /// </summary>
         /// <param name="resourcePackPath">要校验的资源包路径。</param>
@@ -868,6 +876,24 @@ namespace UnityGameFramework.Runtime
         public bool VerifyResourcePack(string resourcePackPath)
         {
             throw new NotSupportedException("VerifyResourcePack");
+        }
+
+        /// <summary>
+        /// 获取所有加载资源任务的信息。
+        /// </summary>
+        /// <returns>所有加载资源任务的信息。</returns>
+        public TaskInfo[] GetAllLoadAssetInfos()
+        {
+            throw new NotSupportedException("GetAllLoadAssetInfos");
+        }
+
+        /// <summary>
+        /// 获取所有加载资源任务的信息。
+        /// </summary>
+        /// <param name="results">所有加载资源任务的信息。</param>
+        public void GetAllLoadAssetInfos(List<TaskInfo> results)
+        {
+            throw new NotSupportedException("GetAllLoadAssetInfos");
         }
 
         /// <summary>
@@ -1477,12 +1503,21 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取所有加载资源任务的信息。
+        /// 获取所有资源组。
         /// </summary>
-        /// <returns>所有加载资源任务的信息。</returns>
-        public TaskInfo[] GetAllLoadAssetInfos()
+        /// <returns>所有资源组。</returns>
+        public IResourceGroup[] GetAllResourceGroups()
         {
-            throw new NotSupportedException("GetAllLoadAssetInfos");
+            throw new NotSupportedException("GetAllResourceGroups");
+        }
+
+        /// <summary>
+        /// 获取所有资源组。
+        /// </summary>
+        /// <param name="results">所有资源组。</param>
+        public void GetAllResourceGroups(List<IResourceGroup> results)
+        {
+            throw new NotSupportedException("GetAllResourceGroups");
         }
 
         private bool HasFile(string assetName)

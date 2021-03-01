@@ -11,6 +11,7 @@ using GameFramework.FileSystem;
 using GameFramework.ObjectPool;
 using GameFramework.Resource;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -876,6 +877,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 停止更新资源。
+        /// </summary>
+        public void StopUpdateResources()
+        {
+            m_ResourceManager.StopUpdateResources();
+        }
+
+        /// <summary>
         /// 校验资源包。
         /// </summary>
         /// <param name="resourcePackPath">要校验的资源包路径。</param>
@@ -883,6 +892,24 @@ namespace UnityGameFramework.Runtime
         public bool VerifyResourcePack(string resourcePackPath)
         {
             return m_ResourceManager.VerifyResourcePack(resourcePackPath);
+        }
+
+        /// <summary>
+        /// 获取所有加载资源任务的信息。
+        /// </summary>
+        /// <returns>所有加载资源任务的信息。</returns>
+        public TaskInfo[] GetAllLoadAssetInfos()
+        {
+            return m_ResourceManager.GetAllLoadAssetInfos();
+        }
+
+        /// <summary>
+        /// 获取所有加载资源任务的信息。
+        /// </summary>
+        /// <param name="results">所有加载资源任务的信息。</param>
+        public void GetAllLoadAssetInfos(List<TaskInfo> results)
+        {
+            m_ResourceManager.GetAllLoadAssetInfos(results);
         }
 
         /// <summary>
@@ -1334,12 +1361,21 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取所有加载资源任务的信息。
+        /// 获取所有资源组。
         /// </summary>
-        /// <returns>所有加载资源任务的信息。</returns>
-        public TaskInfo[] GetAllLoadAssetInfos()
+        /// <returns>所有资源组。</returns>
+        public IResourceGroup[] GetAllResourceGroups()
         {
-            return m_ResourceManager.GetAllLoadAssetInfos();
+            return m_ResourceManager.GetAllResourceGroups();
+        }
+
+        /// <summary>
+        /// 获取所有资源组。
+        /// </summary>
+        /// <param name="results">所有资源组。</param>
+        public void GetAllResourceGroups(List<IResourceGroup> results)
+        {
+            m_ResourceManager.GetAllResourceGroups(results);
         }
 
         /// <summary>

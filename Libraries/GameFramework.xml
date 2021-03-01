@@ -2601,6 +2601,11 @@
             获取任务的序列编号。
             </summary>
         </member>
+        <member name="P:GameFramework.TaskBase.Tag">
+            <summary>
+            获取任务的标签。
+            </summary>
+        </member>
         <member name="P:GameFramework.TaskBase.Priority">
             <summary>
             获取任务的优先级。
@@ -2616,11 +2621,12 @@
             获取任务描述。
             </summary>
         </member>
-        <member name="M:GameFramework.TaskBase.Initialize(System.Int32,System.Int32)">
+        <member name="M:GameFramework.TaskBase.Initialize(System.Int32,System.String,System.Int32)">
             <summary>
             初始化任务基类。
             </summary>
             <param name="serialId">任务的序列编号。</param>
+            <param name="tag">任务的标签。</param>
             <param name="priority">任务的优先级。</param>
         </member>
         <member name="M:GameFramework.TaskBase.Clear">
@@ -2633,18 +2639,29 @@
             任务信息。
             </summary>
         </member>
-        <member name="M:GameFramework.TaskInfo.#ctor(System.Int32,System.Int32,GameFramework.TaskStatus,System.String)">
+        <member name="M:GameFramework.TaskInfo.#ctor(System.Int32,System.String,System.Int32,GameFramework.TaskStatus,System.String)">
             <summary>
             初始化任务信息的新实例。
             </summary>
             <param name="serialId">任务的序列编号。</param>
+            <param name="tag">任务的标签。</param>
             <param name="priority">任务的优先级。</param>
             <param name="status">任务状态。</param>
             <param name="description">任务描述。</param>
         </member>
+        <member name="P:GameFramework.TaskInfo.IsValid">
+            <summary>
+            获取任务信息是否有效。
+            </summary>
+        </member>
         <member name="P:GameFramework.TaskInfo.SerialId">
             <summary>
             获取任务的序列编号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.TaskInfo.Tag">
+            <summary>
+            获取任务的标签。
             </summary>
         </member>
         <member name="P:GameFramework.TaskInfo.Priority">
@@ -2716,6 +2733,39 @@
             </summary>
             <param name="agent">要增加的任务代理。</param>
         </member>
+        <member name="M:GameFramework.TaskPool`1.GetTaskInfo(System.Int32)">
+            <summary>
+            根据任务的序列编号获取任务的信息。
+            </summary>
+            <param name="serialId">要获取信息的任务的序列编号。</param>
+            <returns>任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.TaskPool`1.GetTaskInfos(System.String)">
+            <summary>
+            根据任务的标签获取任务的信息。
+            </summary>
+            <param name="tag">要获取信息的任务的标签。</param>
+            <returns>任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.TaskPool`1.GetTaskInfos(System.String,System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            根据任务的标签获取任务的信息。
+            </summary>
+            <param name="tag">要获取信息的任务的标签。</param>
+            <param name="results">任务的信息。</param>
+        </member>
+        <member name="M:GameFramework.TaskPool`1.GetAllTaskInfos">
+            <summary>
+            获取所有任务的信息。
+            </summary>
+            <returns>所有任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.TaskPool`1.GetAllTaskInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有任务的信息。
+            </summary>
+            <param name="results">所有任务的信息。</param>
+        </member>
         <member name="M:GameFramework.TaskPool`1.AddTask(`0)">
             <summary>
             增加任务。
@@ -2724,15 +2774,23 @@
         </member>
         <member name="M:GameFramework.TaskPool`1.RemoveTask(System.Int32)">
             <summary>
-            移除任务。
+            根据任务的序列编号移除任务。
             </summary>
             <param name="serialId">要移除任务的序列编号。</param>
             <returns>是否移除任务成功。</returns>
+        </member>
+        <member name="M:GameFramework.TaskPool`1.RemoveTasks(System.String)">
+            <summary>
+            根据任务的标签移除任务。
+            </summary>
+            <param name="tag">要移除任务的标签。</param>
+            <returns>移除任务的数量。</returns>
         </member>
         <member name="M:GameFramework.TaskPool`1.RemoveAllTasks">
             <summary>
             移除所有任务。
             </summary>
+            <returns>移除任务的数量。</returns>
         </member>
         <member name="T:GameFramework.TaskStatus">
             <summary>
@@ -5306,12 +5364,54 @@
             </summary>
             <param name="downloadAgentHelper">要增加的下载代理辅助器。</param>
         </member>
+        <member name="M:GameFramework.Download.DownloadManager.GetDownloadInfo(System.Int32)">
+            <summary>
+            根据下载任务的序列编号获取下载任务的信息。
+            </summary>
+            <param name="serialId">要获取信息的下载任务的序列编号。</param>
+            <returns>下载任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.GetDownloadInfos(System.String)">
+            <summary>
+            根据下载任务的标签获取下载任务的信息。
+            </summary>
+            <param name="tag">要获取信息的下载任务的标签。</param>
+            <returns>下载任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.GetDownloadInfos(System.String,System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            根据下载任务的标签获取下载任务的信息。
+            </summary>
+            <param name="tag">要获取信息的下载任务的标签。</param>
+            <param name="results">下载任务的信息。</param>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.GetAllDownloadInfos">
+            <summary>
+            获取所有下载任务的信息。
+            </summary>
+            <returns>所有下载任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.GetAllDownloadInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有下载任务的信息。
+            </summary>
+            <param name="results">所有下载任务的信息。</param>
+        </member>
         <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String)">
             <summary>
             增加下载任务。
             </summary>
             <param name="downloadPath">下载后存放路径。</param>
             <param name="downloadUri">原始下载地址。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.String)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
         <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.Int32)">
@@ -5332,6 +5432,26 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
+            <param name="priority">下载任务的优先级。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.String,System.Object)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.Int32,System.Object)">
             <summary>
             增加下载任务。
@@ -5342,23 +5462,36 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
+            <param name="priority">下载任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.Download.DownloadManager.RemoveDownload(System.Int32)">
             <summary>
-            移除下载任务。
+            根据下载任务的序列编号移除下载任务。
             </summary>
             <param name="serialId">要移除下载任务的序列编号。</param>
             <returns>是否移除下载任务成功。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.RemoveDownloads(System.String)">
+            <summary>
+            根据下载任务的标签移除下载任务。
+            </summary>
+            <param name="tag">要移除下载任务的标签。</param>
+            <returns>移除下载任务的数量。</returns>
         </member>
         <member name="M:GameFramework.Download.DownloadManager.RemoveAllDownloads">
             <summary>
             移除所有下载任务。
             </summary>
-        </member>
-        <member name="M:GameFramework.Download.DownloadManager.GetAllDownloadInfos">
-            <summary>
-            获取所有下载任务的信息。
-            </summary>
-            <returns>所有下载任务的信息。</returns>
+            <returns>移除下载任务的数量。</returns>
         </member>
         <member name="T:GameFramework.Download.DownloadManager.DownloadAgent">
             <summary>
@@ -5486,12 +5619,13 @@
             获取下载任务的描述。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadManager.DownloadTask.Create(System.String,System.String,System.Int32,System.Int32,System.Single,System.Object)">
+        <member name="M:GameFramework.Download.DownloadManager.DownloadTask.Create(System.String,System.String,System.String,System.Int32,System.Int32,System.Single,System.Object)">
             <summary>
             创建下载任务。
             </summary>
             <param name="downloadPath">下载后存放路径。</param>
             <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
             <param name="priority">下载任务的优先级。</param>
             <param name="flushSize">将缓冲区写入磁盘的临界大小。</param>
             <param name="timeout">下载超时时长，以秒为单位。</param>
@@ -5806,12 +5940,54 @@
             </summary>
             <param name="downloadAgentHelper">要增加的下载代理辅助器。</param>
         </member>
+        <member name="M:GameFramework.Download.IDownloadManager.GetDownloadInfo(System.Int32)">
+            <summary>
+            根据下载任务的序列编号获取下载任务的信息。
+            </summary>
+            <param name="serialId">要获取信息的下载任务的序列编号。</param>
+            <returns>下载任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.GetDownloadInfos(System.String)">
+            <summary>
+            根据下载任务的标签获取下载任务的信息。
+            </summary>
+            <param name="tag">要获取信息的下载任务的标签。</param>
+            <returns>下载任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.GetDownloadInfos(System.String,System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            根据下载任务的标签获取下载任务的信息。
+            </summary>
+            <param name="tag">要获取信息的下载任务的标签。</param>
+            <param name="results">下载任务的信息。</param>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.GetAllDownloadInfos">
+            <summary>
+            获取所有下载任务的信息。
+            </summary>
+            <returns>所有下载任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.GetAllDownloadInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有下载任务的信息。
+            </summary>
+            <param name="results">所有下载任务的信息。</param>
+        </member>
         <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String)">
             <summary>
             增加下载任务。
             </summary>
             <param name="downloadPath">下载后存放路径。</param>
             <param name="downloadUri">原始下载地址。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.String)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
         <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.Int32)">
@@ -5832,6 +6008,26 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
+            <param name="priority">下载任务的优先级。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.String,System.Object)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.Int32,System.Object)">
             <summary>
             增加下载任务。
@@ -5842,23 +6038,36 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
+            <param name="priority">下载任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.Download.IDownloadManager.RemoveDownload(System.Int32)">
             <summary>
-            移除下载任务。
+            根据下载任务的序列编号移除下载任务。
             </summary>
             <param name="serialId">要移除下载任务的序列编号。</param>
             <returns>是否移除下载任务成功。</returns>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.RemoveDownloads(System.String)">
+            <summary>
+            根据下载任务的标签移除下载任务。
+            </summary>
+            <param name="tag">要移除下载任务的标签。</param>
+            <returns>移除下载任务的数量。</returns>
         </member>
         <member name="M:GameFramework.Download.IDownloadManager.RemoveAllDownloads">
             <summary>
             移除所有下载任务。
             </summary>
-        </member>
-        <member name="M:GameFramework.Download.IDownloadManager.GetAllDownloadInfos">
-            <summary>
-            获取所有下载任务的信息。
-            </summary>
-            <returns>所有下载任务的信息。</returns>
+            <returns>移除下载任务的数量。</returns>
         </member>
         <member name="T:GameFramework.Entity.EntityManager">
             <summary>
@@ -13674,12 +13883,29 @@
             <param name="resourceGroupName">要更新的资源组名称。</param>
             <param name="updateResourcesCompleteCallback">使用可更新模式并更新指定资源组完成时的回调函数。</param>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.StopUpdateResources">
+            <summary>
+            停止更新资源。
+            </summary>
+        </member>
         <member name="M:GameFramework.Resource.IResourceManager.VerifyResourcePack(System.String)">
             <summary>
             校验资源包。
             </summary>
             <param name="resourcePackPath">要校验的资源包路径。</param>
             <returns>是否校验资源包成功。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetAllLoadAssetInfos">
+            <summary>
+            获取所有加载资源任务的信息。
+            </summary>
+            <returns>所有加载资源任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetAllLoadAssetInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有加载资源任务的信息。
+            </summary>
+            <param name="results">所有加载资源任务的信息。</param>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.HasAsset(System.String)">
             <summary>
@@ -13978,11 +14204,17 @@
             <param name="resourceGroupName">要获取的资源组名称。</param>
             <returns>要获取的资源组。</returns>
         </member>
-        <member name="M:GameFramework.Resource.IResourceManager.GetAllLoadAssetInfos">
+        <member name="M:GameFramework.Resource.IResourceManager.GetAllResourceGroups">
             <summary>
-            获取所有加载资源任务的信息。
+            获取所有资源组。
             </summary>
-            <returns>所有加载资源任务的信息。</returns>
+            <returns>所有资源组。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetAllResourceGroups(System.Collections.Generic.List{GameFramework.Resource.IResourceGroup})">
+            <summary>
+            获取所有资源组。
+            </summary>
+            <param name="results">所有资源组。</param>
         </member>
         <member name="T:GameFramework.Resource.LoadAssetCallbacks">
             <summary>
@@ -15326,12 +15558,29 @@
             <param name="resourceGroupName">要更新的资源组名称。</param>
             <param name="updateResourcesCompleteCallback">使用可更新模式并更新指定资源组完成时的回调函数。</param>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.StopUpdateResources">
+            <summary>
+            停止更新资源。
+            </summary>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.VerifyResourcePack(System.String)">
             <summary>
             校验资源包。
             </summary>
             <param name="resourcePackPath">要校验的资源包路径。</param>
             <returns>是否校验资源包成功。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetAllLoadAssetInfos">
+            <summary>
+            获取所有加载资源任务的信息。
+            </summary>
+            <returns>所有加载资源任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetAllLoadAssetInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有加载资源任务的信息。
+            </summary>
+            <param name="results">所有加载资源任务的信息。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.HasAsset(System.String)">
             <summary>
@@ -15630,11 +15879,17 @@
             <param name="resourceGroupName">要获取的资源组名称。</param>
             <returns>要获取的资源组。</returns>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.GetAllLoadAssetInfos">
+        <member name="M:GameFramework.Resource.ResourceManager.GetAllResourceGroups">
             <summary>
-            获取所有加载资源任务的信息。
+            获取所有资源组。
             </summary>
-            <returns>所有加载资源任务的信息。</returns>
+            <returns>所有资源组。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetAllResourceGroups(System.Collections.Generic.List{GameFramework.Resource.IResourceGroup})">
+            <summary>
+            获取所有资源组。
+            </summary>
+            <param name="results">所有资源组。</param>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.LoadType">
             <summary>
@@ -16258,6 +16513,12 @@
             </summary>
             <returns>所有加载资源任务的信息。</returns>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.GetAllLoadAssetInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有加载资源任务的信息。
+            </summary>
+            <param name="results">所有加载资源任务的信息。</param>
+        </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceLoader.LoadResourceAgent">
             <summary>
             加载资源代理。
@@ -16514,6 +16775,11 @@
             更新指定资源组的资源。
             </summary>
             <param name="resourceGroup">要更新的资源组。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.StopUpdateResources">
+            <summary>
+            停止更新资源。
+            </summary>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo">
             <summary>
@@ -22700,6 +22966,39 @@
             </summary>
             <param name="webRequestAgentHelper">要增加的 Web 请求代理辅助器。</param>
         </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.GetWebRequestInfo(System.Int32)">
+            <summary>
+            根据 Web 请求任务的序列编号获取 Web 请求任务的信息。
+            </summary>
+            <param name="serialId">要获取信息的 Web 请求任务的序列编号。</param>
+            <returns>Web 请求任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.GetWebRequestInfos(System.String)">
+            <summary>
+            根据 Web 请求任务的标签获取 Web 请求任务的信息。
+            </summary>
+            <param name="tag">要获取信息的 Web 请求任务的标签。</param>
+            <returns>Web 请求任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.GetAllWebRequestInfos(System.String,System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            根据 Web 请求任务的标签获取 Web 请求任务的信息。
+            </summary>
+            <param name="tag">要获取信息的 Web 请求任务的标签。</param>
+            <param name="results">Web 请求任务的信息。</param>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.GetAllWebRequestInfos">
+            <summary>
+            获取所有 Web 请求任务的信息。
+            </summary>
+            <returns>所有 Web 请求任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.GetAllWebRequestInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有 Web 请求任务的信息。
+            </summary>
+            <param name="results">所有 Web 请求任务的信息。</param>
+        </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String)">
             <summary>
             增加 Web 请求任务。
@@ -22713,6 +23012,14 @@
             </summary>
             <param name="webRequestUri">Web 请求地址。</param>
             <param name="postData">要发送的数据流。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.String)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Int32)">
@@ -22729,6 +23036,15 @@
             </summary>
             <param name="webRequestUri">Web 请求地址。</param>
             <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Byte[],System.String)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Byte[],System.Int32)">
@@ -22749,12 +23065,50 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.String,System.Int32)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.String,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Int32,System.Object)">
             <summary>
             增加 Web 请求任务。
             </summary>
             <param name="webRequestUri">Web 请求地址。</param>
             <param name="priority">Web 请求任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Byte[],System.String,System.Int32)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Byte[],System.String,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
@@ -22768,23 +23122,46 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Byte[],System.String,System.Int32,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.RemoveWebRequest(System.Int32)">
             <summary>
-            移除 Web 请求任务。
+            根据 Web 请求任务的序列编号移除 Web 请求任务。
             </summary>
             <param name="serialId">要移除 Web 请求任务的序列编号。</param>
             <returns>是否移除 Web 请求任务成功。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.RemoveWebRequests(System.String)">
+            <summary>
+            根据 Web 请求任务的标签移除 Web 请求任务。
+            </summary>
+            <param name="tag">要移除 Web 请求任务的标签。</param>
+            <returns>移除 Web 请求任务的数量。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.RemoveAllWebRequests">
             <summary>
             移除所有 Web 请求任务。
             </summary>
-        </member>
-        <member name="M:GameFramework.WebRequest.IWebRequestManager.GetAllWebRequestInfos">
-            <summary>
-            获取所有 Web 请求任务的信息。
-            </summary>
-            <returns>所有 Web 请求任务的信息。</returns>
+            <returns>移除 Web 请求任务的数量。</returns>
         </member>
         <member name="T:GameFramework.WebRequest.WebRequestAgentHelperCompleteEventArgs">
             <summary>
@@ -22954,6 +23331,39 @@
             </summary>
             <param name="webRequestAgentHelper">要增加的 Web 请求代理辅助器。</param>
         </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.GetWebRequestInfo(System.Int32)">
+            <summary>
+            根据 Web 请求任务的序列编号获取 Web 请求任务的信息。
+            </summary>
+            <param name="serialId">要获取信息的 Web 请求任务的序列编号。</param>
+            <returns>Web 请求任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.GetWebRequestInfos(System.String)">
+            <summary>
+            根据 Web 请求任务的标签获取 Web 请求任务的信息。
+            </summary>
+            <param name="tag">要获取信息的 Web 请求任务的标签。</param>
+            <returns>Web 请求任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.GetAllWebRequestInfos(System.String,System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            根据 Web 请求任务的标签获取 Web 请求任务的信息。
+            </summary>
+            <param name="tag">要获取信息的 Web 请求任务的标签。</param>
+            <param name="results">Web 请求任务的信息。</param>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.GetAllWebRequestInfos">
+            <summary>
+            获取所有 Web 请求任务的信息。
+            </summary>
+            <returns>所有 Web 请求任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.GetAllWebRequestInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有 Web 请求任务的信息。
+            </summary>
+            <param name="results">所有 Web 请求任务的信息。</param>
+        </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String)">
             <summary>
             增加 Web 请求任务。
@@ -22967,6 +23377,14 @@
             </summary>
             <param name="webRequestUri">Web 请求地址。</param>
             <param name="postData">要发送的数据流。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.String)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Int32)">
@@ -22983,6 +23401,15 @@
             </summary>
             <param name="webRequestUri">Web 请求地址。</param>
             <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Byte[],System.String)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Byte[],System.Int32)">
@@ -23003,12 +23430,50 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.String,System.Int32)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.String,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Int32,System.Object)">
             <summary>
             增加 Web 请求任务。
             </summary>
             <param name="webRequestUri">Web 请求地址。</param>
             <param name="priority">Web 请求任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Byte[],System.String,System.Int32)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Byte[],System.String,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
@@ -23022,23 +23487,46 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Byte[],System.String,System.Int32,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.RemoveWebRequest(System.Int32)">
             <summary>
-            移除 Web 请求任务。
+            根据 Web 请求任务的序列编号移除 Web 请求任务。
             </summary>
             <param name="serialId">要移除 Web 请求任务的序列编号。</param>
             <returns>是否移除 Web 请求任务成功。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.RemoveWebRequests(System.String)">
+            <summary>
+            根据 Web 请求任务的标签移除 Web 请求任务。
+            </summary>
+            <param name="tag">要移除 Web 请求任务的标签。</param>
+            <returns>移除 Web 请求任务的数量。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.RemoveAllWebRequests">
             <summary>
             移除所有 Web 请求任务。
             </summary>
-        </member>
-        <member name="M:GameFramework.WebRequest.WebRequestManager.GetAllWebRequestInfos">
-            <summary>
-            获取所有 Web 请求任务的信息。
-            </summary>
-            <returns>所有 Web 请求任务的信息。</returns>
+            <returns>移除 Web 请求任务的数量。</returns>
         </member>
         <member name="T:GameFramework.WebRequest.WebRequestManager.WebRequestAgent">
             <summary>
@@ -23120,12 +23608,13 @@
             获取 Web 请求任务的描述。
             </summary>
         </member>
-        <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Create(System.String,System.Byte[],System.Int32,System.Single,System.Object)">
+        <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Create(System.String,System.Byte[],System.String,System.Int32,System.Single,System.Object)">
             <summary>
             创建 Web 请求任务。
             </summary>
             <param name="webRequestUri">要发送的远程地址。</param>
             <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
             <param name="priority">Web 请求任务的优先级。</param>
             <param name="timeout">下载超时时长，以秒为单位。</param>
             <param name="userData">用户自定义数据。</param>

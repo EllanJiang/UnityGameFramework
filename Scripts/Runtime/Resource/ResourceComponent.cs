@@ -1379,6 +1379,26 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取资源组集合。
+        /// </summary>
+        /// <param name="resourceGroupNames">要获取的资源组名称的集合。</param>
+        /// <returns>要获取的资源组集合。</returns>
+        public IResourceGroupCollection GetResourceGroupCollection(params string[] resourceGroupNames)
+        {
+            return m_ResourceManager.GetResourceGroupCollection(resourceGroupNames);
+        }
+
+        /// <summary>
+        /// 获取资源组集合。
+        /// </summary>
+        /// <param name="resourceGroupNames">要获取的资源组名称的集合。</param>
+        /// <returns>要获取的资源组集合。</returns>
+        public void GetResourceGroupCollection(List<string> resourceGroupNames)
+        {
+            m_ResourceManager.GetResourceGroupCollection(resourceGroupNames);
+        }
+
+        /// <summary>
         /// 增加加载资源代理辅助器。
         /// </summary>
         /// <param name="index">加载资源代理辅助器索引。</param>

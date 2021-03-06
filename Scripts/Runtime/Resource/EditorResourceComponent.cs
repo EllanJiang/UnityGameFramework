@@ -1520,6 +1520,26 @@ namespace UnityGameFramework.Runtime
             throw new NotSupportedException("GetAllResourceGroups");
         }
 
+        /// <summary>
+        /// 获取资源组集合。
+        /// </summary>
+        /// <param name="resourceGroupNames">要获取的资源组名称的集合。</param>
+        /// <returns>要获取的资源组集合。</returns>
+        public IResourceGroupCollection GetResourceGroupCollection(params string[] resourceGroupNames)
+        {
+            throw new NotSupportedException("GetResourceGroupCollection");
+        }
+
+        /// <summary>
+        /// 获取资源组集合。
+        /// </summary>
+        /// <param name="resourceGroupNames">要获取的资源组名称的集合。</param>
+        /// <returns>要获取的资源组集合。</returns>
+        public IResourceGroupCollection GetResourceGroupCollection(List<string> resourceGroupNames)
+        {
+            throw new NotSupportedException("GetResourceGroupCollection");
+        }
+
         private bool HasFile(string assetName)
         {
             if (string.IsNullOrEmpty(assetName))

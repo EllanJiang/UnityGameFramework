@@ -13518,6 +13518,11 @@
             获取资源组中已准备完成资源的总大小。
             </summary>
         </member>
+        <member name="P:GameFramework.Resource.IResourceGroup.ReadyCompressedLength">
+            <summary>
+            获取资源组中已准备完成资源压缩后的总大小。
+            </summary>
+        </member>
         <member name="P:GameFramework.Resource.IResourceGroup.Progress">
             <summary>
             获取资源组的完成进度。
@@ -13532,6 +13537,69 @@
         <member name="M:GameFramework.Resource.IResourceGroup.GetResourceNames(System.Collections.Generic.List{System.String})">
             <summary>
             获取资源组包含的资源名称列表。
+            </summary>
+            <param name="results">资源组包含的资源名称列表。</param>
+        </member>
+        <member name="T:GameFramework.Resource.IResourceGroupCollection">
+            <summary>
+            资源组集合接口。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.Ready">
+            <summary>
+            获取资源组集合是否准备完毕。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.TotalCount">
+            <summary>
+            获取资源组集合包含资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.ReadyCount">
+            <summary>
+            获取资源组集合中已准备完成资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.TotalLength">
+            <summary>
+            获取资源组集合包含资源的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.TotalCompressedLength">
+            <summary>
+            获取资源组集合包含资源压缩后的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.ReadyLength">
+            <summary>
+            获取资源组集合中已准备完成资源的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.ReadyCompressedLength">
+            <summary>
+            获取资源组集合中已准备完成资源压缩后的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.Progress">
+            <summary>
+            获取资源组集合的完成进度。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceGroupCollection.GetResourceGroups">
+            <summary>
+            获取资源组集合包含的资源组列表。
+            </summary>
+            <returns>资源组包含的资源名称列表。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceGroupCollection.GetResourceNames">
+            <summary>
+            获取资源组集合包含的资源名称列表。
+            </summary>
+            <returns>资源组包含的资源名称列表。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceGroupCollection.GetResourceNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取资源组集合包含的资源名称列表。
             </summary>
             <param name="results">资源组包含的资源名称列表。</param>
         </member>
@@ -14215,6 +14283,20 @@
             获取所有资源组。
             </summary>
             <param name="results">所有资源组。</param>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupCollection(System.String[])">
+            <summary>
+            获取资源组集合。
+            </summary>
+            <param name="resourceGroupNames">要获取的资源组名称的集合。</param>
+            <returns>要获取的资源组集合。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupCollection(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取资源组集合。
+            </summary>
+            <param name="resourceGroupNames">要获取的资源组名称的集合。</param>
+            <returns>要获取的资源组集合。</returns>
         </member>
         <member name="T:GameFramework.Resource.LoadAssetCallbacks">
             <summary>
@@ -15891,6 +15973,20 @@
             </summary>
             <param name="results">所有资源组。</param>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupCollection(System.String[])">
+            <summary>
+            获取资源组集合。
+            </summary>
+            <param name="resourceGroupNames">要获取的资源组名称的集合。</param>
+            <returns>要获取的资源组集合。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupCollection(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取资源组集合。
+            </summary>
+            <param name="resourceGroupNames">要获取的资源组名称的集合。</param>
+            <returns>要获取的资源组集合。</returns>
+        </member>
         <member name="T:GameFramework.Resource.ResourceManager.LoadType">
             <summary>
             资源加载方式类型。
@@ -16160,6 +16256,11 @@
             获取资源组中已准备完成资源的总大小。
             </summary>
         </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.ReadyCompressedLength">
+            <summary>
+            获取资源组中已准备完成资源压缩后的总大小。
+            </summary>
+        </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.Progress">
             <summary>
             获取资源组的完成进度。
@@ -16204,12 +16305,82 @@
             <param name="length">资源大小。</param>
             <param name="compressedLength">资源压缩后的大小。</param>
         </member>
+        <member name="T:GameFramework.Resource.ResourceManager.ResourceGroupCollection">
+            <summary>
+            资源组集合。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroupCollection.#ctor(GameFramework.Resource.ResourceManager.ResourceGroup[],System.Collections.Generic.Dictionary{GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.ResourceInfo})">
+            <summary>
+            初始化资源组集合的新实例。
+            </summary>
+            <param name="resourceGroups">资源组集合。</param>
+            <param name="resourceInfos">资源信息引用。</param>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.Ready">
+            <summary>
+            获取资源组集合是否准备完毕。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.TotalCount">
+            <summary>
+            获取资源组集合包含资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.ReadyCount">
+            <summary>
+            获取资源组集合中已准备完成资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.TotalLength">
+            <summary>
+            获取资源组集合包含资源的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.TotalCompressedLength">
+            <summary>
+            获取资源组集合包含资源压缩后的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.ReadyLength">
+            <summary>
+            获取资源组集合中已准备完成资源的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.ReadyCompressedLength">
+            <summary>
+            获取资源组集合中已准备完成资源压缩后的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.Progress">
+            <summary>
+            获取资源组集合的完成进度。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroupCollection.GetResourceGroups">
+            <summary>
+            获取资源组集合包含的资源组列表。
+            </summary>
+            <returns>资源组包含的资源名称列表。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroupCollection.GetResourceNames">
+            <summary>
+            获取资源组集合包含的资源名称列表。
+            </summary>
+            <returns>资源组包含的资源名称列表。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroupCollection.GetResourceNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取资源组集合包含的资源名称列表。
+            </summary>
+            <param name="results">资源组包含的资源名称列表。</param>
+        </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceInfo">
             <summary>
             资源信息。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,System.String,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,System.String,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean)">
             <summary>
             初始化资源信息的新实例。
             </summary>
@@ -16218,6 +16389,7 @@
             <param name="loadType">资源加载方式。</param>
             <param name="length">资源大小。</param>
             <param name="hashCode">资源哈希值。</param>
+            <param name="compressedLength">压缩后资源大小。</param>
             <param name="storageInReadOnly">资源是否在只读区。</param>
             <param name="ready">资源是否准备完毕。</param>
         </member>
@@ -16254,6 +16426,11 @@
         <member name="P:GameFramework.Resource.ResourceManager.ResourceInfo.HashCode">
             <summary>
             获取资源哈希值。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceInfo.CompressedLength">
+            <summary>
+            获取压缩后资源大小。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceInfo.StorageInReadOnly">

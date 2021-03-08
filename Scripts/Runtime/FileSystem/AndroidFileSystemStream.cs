@@ -245,7 +245,9 @@ namespace UnityGameFramework.Runtime
 
         private int InternalRead(int length, out byte[] result)
         {
+#pragma warning disable CS0618
             IntPtr resultPtr = AndroidJNI.NewByteArray(length);
+#pragma warning restore CS0618
             int offset = 0;
             int bytesLeft = length;
             while (bytesLeft > 0)
@@ -263,7 +265,9 @@ namespace UnityGameFramework.Runtime
                 bytesLeft -= bytesRead;
             }
 
+#pragma warning disable CS0618
             result = AndroidJNI.FromByteArray(resultPtr);
+#pragma warning restore CS0618
             AndroidJNI.DeleteLocalRef(resultPtr);
             return offset;
         }

@@ -123,7 +123,9 @@ namespace UnityGameFramework.Runtime
             yield return unityWebRequest.Send();
 #endif
 
-#if UNITY_2017_1_OR_NEWER
+#if UNITY_2020_2_OR_NEWER
+            isError = unityWebRequest.result != UnityWebRequest.Result.Success;
+#elif UNITY_2017_1_OR_NEWER
             isError = unityWebRequest.isNetworkError || unityWebRequest.isHttpError;
 #else
             isError = unityWebRequest.isError;

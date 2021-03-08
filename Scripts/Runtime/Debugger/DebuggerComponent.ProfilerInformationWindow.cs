@@ -25,6 +25,9 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Supported", Profiler.supported.ToString());
                     DrawItem("Enabled", Profiler.enabled.ToString());
                     DrawItem("Enable Binary Log", Profiler.enableBinaryLog ? Utility.Text.Format("True, {0}", Profiler.logFile) : "False");
+#if UNITY_2019_3_OR_NEWER
+                    DrawItem("Enable Allocation Callstacks", Profiler.enableAllocationCallstacks.ToString());
+#endif
 #if UNITY_2018_3_OR_NEWER
                     DrawItem("Area Count", Profiler.areaCount.ToString());
 #endif

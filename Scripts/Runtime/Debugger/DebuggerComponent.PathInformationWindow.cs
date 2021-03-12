@@ -5,6 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using System;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -18,6 +19,8 @@ namespace UnityGameFramework.Runtime
                 GUILayout.Label("<b>Path Information</b>");
                 GUILayout.BeginVertical("box");
                 {
+                    DrawItem("Current Directory", Environment.CurrentDirectory);
+                    DrawItem("System Directory", Environment.SystemDirectory);
                     DrawItem("Data Path", Application.dataPath);
                     DrawItem("Persistent Data Path", Application.persistentDataPath);
                     DrawItem("Streaming Assets Path", Application.streamingAssetsPath);

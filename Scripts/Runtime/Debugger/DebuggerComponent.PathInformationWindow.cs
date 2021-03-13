@@ -5,6 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
 using System;
 using UnityEngine;
 
@@ -19,14 +20,14 @@ namespace UnityGameFramework.Runtime
                 GUILayout.Label("<b>Path Information</b>");
                 GUILayout.BeginVertical("box");
                 {
-                    DrawItem("Current Directory", Environment.CurrentDirectory);
-                    DrawItem("System Directory", Environment.SystemDirectory);
-                    DrawItem("Data Path", Application.dataPath);
-                    DrawItem("Persistent Data Path", Application.persistentDataPath);
-                    DrawItem("Streaming Assets Path", Application.streamingAssetsPath);
-                    DrawItem("Temporary Cache Path", Application.temporaryCachePath);
+                    DrawItem("Current Directory", Utility.Path.GetRegularPath(Environment.CurrentDirectory));
+                    DrawItem("System Directory", Utility.Path.GetRegularPath(Environment.SystemDirectory));
+                    DrawItem("Data Path", Utility.Path.GetRegularPath(Application.dataPath));
+                    DrawItem("Persistent Data Path", Utility.Path.GetRegularPath(Application.persistentDataPath));
+                    DrawItem("Streaming Assets Path", Utility.Path.GetRegularPath(Application.streamingAssetsPath));
+                    DrawItem("Temporary Cache Path", Utility.Path.GetRegularPath(Application.temporaryCachePath));
 #if UNITY_2018_3_OR_NEWER
-                    DrawItem("Console Log Path", Application.consoleLogPath);
+                    DrawItem("Console Log Path", Utility.Path.GetRegularPath(Application.consoleLogPath));
 #endif
                 }
                 GUILayout.EndVertical();

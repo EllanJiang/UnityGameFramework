@@ -21,7 +21,6 @@ namespace UnityGameFramework.Runtime
                 GUILayout.BeginVertical("box");
                 {
                     DrawItem("Current Directory", Utility.Path.GetRegularPath(Environment.CurrentDirectory));
-                    DrawItem("System Directory", Utility.Path.GetRegularPath(Environment.SystemDirectory));
                     DrawItem("Data Path", Utility.Path.GetRegularPath(Application.dataPath));
                     DrawItem("Persistent Data Path", Utility.Path.GetRegularPath(Application.persistentDataPath));
                     DrawItem("Streaming Assets Path", Utility.Path.GetRegularPath(Application.streamingAssetsPath));

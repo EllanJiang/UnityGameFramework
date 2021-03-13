@@ -431,7 +431,7 @@ namespace UnityGameFramework.Runtime
             s_TextEditor.text = content;
             s_TextEditor.OnFocus();
             s_TextEditor.Copy();
-            s_TextEditor.text = null;
+            s_TextEditor.text = string.Empty;
         }
     }
 }

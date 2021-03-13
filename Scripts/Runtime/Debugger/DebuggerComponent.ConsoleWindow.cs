@@ -19,7 +19,6 @@ namespace UnityGameFramework.Runtime
         private sealed class ConsoleWindow : IDebuggerWindow
         {
             private readonly Queue<LogNode> m_LogNodes = new Queue<LogNode>();
-            private readonly TextEditor m_TextEditor = new TextEditor();
 
             private SettingComponent m_SettingComponent = null;
             private Vector2 m_LogScrollPosition = Vector2.zero;
@@ -367,21 +366,14 @@ namespace UnityGameFramework.Runtime
                     {
                         if (m_SelectedNode != null)
                         {
-                            GUILayout.BeginHorizontal();
                             Color32 color = GetLogStringColor(m_SelectedNode.LogType);
-                            GUILayout.Label(Utility.Text.Format("<color=#{0}{1}{2}{3}><b>{4}</b></color>", color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"), m_SelectedNode.LogMessage));
-                            if (GUILayout.Button("COPY", GUILayout.Width(60f), GUILayout.Height(30f)))
+                            if (GUILayout.Button(Utility.Text.Format("<color=#{0}{1}{2}{3}><b>{4}</b></color>{6}{6}{5}", color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"), m_SelectedNode.LogMessage, m_SelectedNode.StackTrack, Environment.NewLine), "label"))
                             {
-                                m_TextEditor.text = Utility.Text.Format("{0}{2}{2}{1}", m_SelectedNode.LogMessage, m_SelectedNode.StackTrack, Environment.NewLine);
-                                m_TextEditor.OnFocus();
-                                m_TextEditor.Copy();
-                                m_TextEditor.text = null;
+                                CopyToClipboard(Utility.Text.Format("{0}{2}{2}{1}", m_SelectedNode.LogMessage, m_SelectedNode.StackTrack, Environment.NewLine));
                             }
-                            GUILayout.EndHorizontal();
-                            GUILayout.Label(m_SelectedNode.StackTrack);
                         }
-                        GUILayout.EndScrollView();
                     }
+                    GUILayout.EndScrollView();
                 }
                 GUILayout.EndVertical();
             }

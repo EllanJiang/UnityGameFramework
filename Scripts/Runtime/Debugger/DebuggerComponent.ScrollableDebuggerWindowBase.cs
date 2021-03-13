@@ -54,7 +54,10 @@ namespace UnityGameFramework.Runtime
                 GUILayout.BeginHorizontal();
                 {
                     GUILayout.Label(title, GUILayout.Width(TitleWidth));
-                    GUILayout.Label(content);
+                    if (GUILayout.Button(content, "label"))
+                    {
+                        CopyToClipboard(content);
+                    }
                 }
                 GUILayout.EndHorizontal();
             }

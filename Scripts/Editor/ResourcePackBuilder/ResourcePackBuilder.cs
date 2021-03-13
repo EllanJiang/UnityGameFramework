@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 
 using GameFramework;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -172,7 +173,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                         {
                             if (!string.IsNullOrEmpty(message))
                             {
-                                message += "\n";
+                                message += Environment.NewLine;
                             }
 
                             message += "Working directory is invalid.";
@@ -182,7 +183,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                         {
                             if (!string.IsNullOrEmpty(message))
                             {
-                                message += "\n";
+                                message += Environment.NewLine;
                             }
 
                             message += "Platform is invalid.";
@@ -192,7 +193,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                         {
                             if (!string.IsNullOrEmpty(message))
                             {
-                                message += "\n";
+                                message += Environment.NewLine;
                             }
 
                             message += "Compression helper is invalid.";

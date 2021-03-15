@@ -1393,9 +1393,9 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="resourceGroupNames">要获取的资源组名称的集合。</param>
         /// <returns>要获取的资源组集合。</returns>
-        public void GetResourceGroupCollection(List<string> resourceGroupNames)
+        public IResourceGroupCollection GetResourceGroupCollection(List<string> resourceGroupNames)
         {
-            m_ResourceManager.GetResourceGroupCollection(resourceGroupNames);
+            return m_ResourceManager.GetResourceGroupCollection(resourceGroupNames);
         }
 
         /// <summary>

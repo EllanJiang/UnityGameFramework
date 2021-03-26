@@ -54,6 +54,8 @@ namespace UnityGameFramework.Runtime
         [SerializeField]
         private bool m_NeverSleep = true;
 
+        public event Action BeforeOnShutDown = null;
+
         /// <summary>
         /// 获取或设置是否使用编辑器资源模式（仅编辑器内有效）。
         /// </summary>
@@ -237,6 +239,7 @@ namespace UnityGameFramework.Runtime
 
         private void OnDestroy()
         {
+            OnBeforeOnShutDown();
             GameFrameworkEntry.Shutdown();
         }
 
@@ -392,6 +395,11 @@ namespace UnityGameFramework.Runtime
             {
                 resourceCompoent.ForceUnloadUnusedAssets(true);
             }
+        }
+
+        private void OnBeforeOnShutDown()
+        {
+            BeforeOnShutDown?.Invoke();
         }
     }
 }

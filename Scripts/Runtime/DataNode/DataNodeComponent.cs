@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -21,6 +21,17 @@ namespace UnityGameFramework.Runtime
         private IDataNodeManager m_DataNodeManager = null;
 
         /// <summary>
+        /// 获取根数据结点。
+        /// </summary>
+        public IDataNode Root
+        {
+            get
+            {
+                return m_DataNodeManager.Root;
+            }
+        }
+
+        /// <summary>
         /// 游戏框架组件初始化。
         /// </summary>
         protected override void Awake()
@@ -37,17 +48,6 @@ namespace UnityGameFramework.Runtime
 
         private void Start()
         {
-        }
-
-        /// <summary>
-        /// 获取根数据结点。
-        /// </summary>
-        public IDataNode Root
-        {
-            get
-            {
-                return m_DataNodeManager.Root;
-            }
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -23,7 +23,8 @@ namespace UnityGameFramework.Editor
 
         private SerializedProperty m_ResourceMode = null;
         private SerializedProperty m_ReadWritePathType = null;
-        private SerializedProperty m_UnloadUnusedAssetsInterval = null;
+        private SerializedProperty m_MinUnloadUnusedAssetsInterval = null;
+        private SerializedProperty m_MaxUnloadUnusedAssetsInterval = null;
         private SerializedProperty m_AssetAutoReleaseInterval = null;
         private SerializedProperty m_AssetCapacity = null;
         private SerializedProperty m_AssetExpireTime = null;
@@ -79,18 +80,32 @@ namespace UnityGameFramework.Editor
             }
             EditorGUI.EndDisabledGroup();
 
-            float unloadUnusedAssetsInterval = EditorGUILayout.Slider("Unload Unused Assets Interval", m_UnloadUnusedAssetsInterval.floatValue, 0f, 3600f);
-            if (unloadUnusedAssetsInterval != m_UnloadUnusedAssetsInterval.floatValue)
+            float minUnloadUnusedAssetsInterval = EditorGUILayout.Slider("Min Unload Unused Assets Interval", m_MinUnloadUnusedAssetsInterval.floatValue, 0f, 3600f);
+            if (minUnloadUnusedAssetsInterval != m_MinUnloadUnusedAssetsInterval.floatValue)
             {
                 if (EditorApplication.isPlaying)
                 {
-                    t.UnloadUnusedAssetsInterval = unloadUnusedAssetsInterval;
+                    t.MinUnloadUnusedAssetsInterval = minUnloadUnusedAssetsInterval;
                 }
                 else
                 {
-                    m_UnloadUnusedAssetsInterval.floatValue = unloadUnusedAssetsInterval;
+                    m_MinUnloadUnusedAssetsInterval.floatValue = minUnloadUnusedAssetsInterval;
                 }
             }
+
+            float maxUnloadUnusedAssetsInterval = EditorGUILayout.Slider("Max Unload Unused Assets Interval", m_MaxUnloadUnusedAssetsInterval.floatValue, 0f, 3600f);
+            if (maxUnloadUnusedAssetsInterval != m_MaxUnloadUnusedAssetsInterval.floatValue)
+            {
+                if (EditorApplication.isPlaying)
+                {
+                    t.MaxUnloadUnusedAssetsInterval = maxUnloadUnusedAssetsInterval;
+                }
+                else
+                {
+                    m_MaxUnloadUnusedAssetsInterval.floatValue = maxUnloadUnusedAssetsInterval;
+                }
+            }
+
             EditorGUI.BeginDisabledGroup(EditorApplication.isPlaying && isEditorResourceMode);
             {
                 float assetAutoReleaseInterval = EditorGUILayout.DelayedFloatField("Asset Auto Release Interval", m_AssetAutoReleaseInterval.floatValue);
@@ -253,6 +268,7 @@ namespace UnityGameFramework.Editor
 
             if (EditorApplication.isPlaying && IsPrefabInHierarchy(t.gameObject))
             {
+                EditorGUILayout.LabelField("Unload Unused Assets", Utility.Text.Format("{0} / {1}", t.LastUnloadUnusedAssetsOperationElapseSeconds.ToString("F2"), t.MaxUnloadUnusedAssetsInterval.ToString("F2")));
                 EditorGUILayout.LabelField("Read Only Path", t.ReadOnlyPath.ToString());
                 EditorGUILayout.LabelField("Read Write Path", t.ReadWritePath.ToString());
                 EditorGUILayout.LabelField("Current Variant", t.CurrentVariant ?? "<Unknwon>");
@@ -336,7 +352,8 @@ namespace UnityGameFramework.Editor
         {
             m_ResourceMode = serializedObject.FindProperty("m_ResourceMode");
             m_ReadWritePathType = serializedObject.FindProperty("m_ReadWritePathType");
-            m_UnloadUnusedAssetsInterval = serializedObject.FindProperty("m_UnloadUnusedAssetsInterval");
+            m_MinUnloadUnusedAssetsInterval = serializedObject.FindProperty("m_MinUnloadUnusedAssetsInterval");
+            m_MaxUnloadUnusedAssetsInterval = serializedObject.FindProperty("m_MaxUnloadUnusedAssetsInterval");
             m_AssetAutoReleaseInterval = serializedObject.FindProperty("m_AssetAutoReleaseInterval");
             m_AssetCapacity = serializedObject.FindProperty("m_AssetCapacity");
             m_AssetExpireTime = serializedObject.FindProperty("m_AssetExpireTime");

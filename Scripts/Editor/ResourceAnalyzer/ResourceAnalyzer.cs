@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -47,7 +47,7 @@ namespace UnityGameFramework.Editor.ResourceTools
         private string[][] m_CachedCircularDependencyDatas = null;
         private Vector2 m_CircularDependencyScroll = Vector2.zero;
 
-        [MenuItem("Game Framework/Resource Tools/Resource Analyzer", false, 43)]
+        [MenuItem("Game Framework/Resource Tools/Resource Analyzer", false, 42)]
         private static void Open()
         {
             ResourceAnalyzer window = GetWindow<ResourceAnalyzer>("Resource Analyzer", true);

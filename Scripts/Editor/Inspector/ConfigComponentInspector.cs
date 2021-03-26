@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -15,6 +15,7 @@ namespace UnityGameFramework.Editor
     {
         private SerializedProperty m_EnableLoadConfigUpdateEvent = null;
         private SerializedProperty m_EnableLoadConfigDependencyAssetEvent = null;
+        private SerializedProperty m_CachedBytesSize = null;
 
         private HelperInfo<ConfigHelperBase> m_ConfigHelperInfo = new HelperInfo<ConfigHelperBase>("Config");
 
@@ -31,12 +32,14 @@ namespace UnityGameFramework.Editor
                 EditorGUILayout.PropertyField(m_EnableLoadConfigUpdateEvent);
                 EditorGUILayout.PropertyField(m_EnableLoadConfigDependencyAssetEvent);
                 m_ConfigHelperInfo.Draw();
+                EditorGUILayout.PropertyField(m_CachedBytesSize);
             }
             EditorGUI.EndDisabledGroup();
 
             if (EditorApplication.isPlaying && IsPrefabInHierarchy(t.gameObject))
             {
                 EditorGUILayout.LabelField("Config Count", t.Count.ToString());
+                EditorGUILayout.LabelField("Cached Bytes Size", t.CachedBytesSize.ToString());
             }
 
             serializedObject.ApplyModifiedProperties();
@@ -55,6 +58,7 @@ namespace UnityGameFramework.Editor
         {
             m_EnableLoadConfigUpdateEvent = serializedObject.FindProperty("m_EnableLoadConfigUpdateEvent");
             m_EnableLoadConfigDependencyAssetEvent = serializedObject.FindProperty("m_EnableLoadConfigDependencyAssetEvent");
+            m_CachedBytesSize = serializedObject.FindProperty("m_CachedBytesSize");
 
             m_ConfigHelperInfo.Init(serializedObject);
 

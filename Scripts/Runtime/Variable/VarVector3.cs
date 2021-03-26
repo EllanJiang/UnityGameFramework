@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -23,21 +23,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 UnityEngine.Vector3 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarVector3(Vector3 value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 UnityEngine.Vector3 到 UnityEngine.Vector3 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarVector3(Vector3 value)
         {
-            return new VarVector3(value);
+            VarVector3 varValue = ReferencePool.Acquire<VarVector3>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

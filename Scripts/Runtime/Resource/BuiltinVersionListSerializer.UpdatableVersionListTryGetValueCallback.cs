@@ -1,11 +1,12 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using System.IO;
+using System.Text;
 
 namespace UnityGameFramework.Runtime
 {
@@ -17,11 +18,11 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 尝试从可更新模式版本资源列表（版本 0）获取指定键的值回调函数。
         /// </summary>
-        /// <param name="binaryReader">指定流。</param>
+        /// <param name="stream">指定流。</param>
         /// <param name="key">指定键。</param>
         /// <param name="value">指定键的值。</param>
         /// <returns></returns>
-        public static bool UpdatableVersionListTryGetValueCallback_V0(BinaryReader binaryReader, string key, out object value)
+        public static bool UpdatableVersionListTryGetValueCallback_V0(Stream stream, string key, out object value)
         {
             value = null;
             if (key != "InternalResourceVersion")
@@ -29,21 +30,25 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
-            binaryReader.BaseStream.Position += CachedHashBytesLength;
-            byte stringLength = binaryReader.ReadByte();
-            binaryReader.BaseStream.Position += stringLength;
-            value = binaryReader.ReadInt32();
+            using (BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8))
+            {
+                binaryReader.BaseStream.Position += CachedHashBytesLength;
+                byte stringLength = binaryReader.ReadByte();
+                binaryReader.BaseStream.Position += stringLength;
+                value = binaryReader.ReadInt32();
+            }
+
             return true;
         }
 
         /// <summary>
         /// 尝试从可更新模式版本资源列表（版本 1 或版本 2）获取指定键的值回调函数。
         /// </summary>
-        /// <param name="binaryReader">指定流。</param>
+        /// <param name="stream">指定流。</param>
         /// <param name="key">指定键。</param>
         /// <param name="value">指定键的值。</param>
         /// <returns></returns>
-        public static bool UpdatableVersionListTryGetValueCallback_V1_V2(BinaryReader binaryReader, string key, out object value)
+        public static bool UpdatableVersionListTryGetValueCallback_V1_V2(Stream stream, string key, out object value)
         {
             value = null;
             if (key != "InternalResourceVersion")
@@ -51,10 +56,14 @@ namespace UnityGameFramework.Runtime
                 return false;
             }
 
-            binaryReader.BaseStream.Position += CachedHashBytesLength;
-            byte stringLength = binaryReader.ReadByte();
-            binaryReader.BaseStream.Position += stringLength;
-            value = binaryReader.Read7BitEncodedInt32();
+            using (BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8))
+            {
+                binaryReader.BaseStream.Position += CachedHashBytesLength;
+                byte stringLength = binaryReader.ReadByte();
+                binaryReader.BaseStream.Position += stringLength;
+                value = binaryReader.Read7BitEncodedInt32();
+            }
+
             return true;
         }
     }

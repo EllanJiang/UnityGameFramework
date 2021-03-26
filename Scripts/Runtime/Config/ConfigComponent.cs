@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -36,6 +36,9 @@ namespace UnityGameFramework.Runtime
         [SerializeField]
         private ConfigHelperBase m_CustomConfigHelper = null;
 
+        [SerializeField]
+        private int m_CachedBytesSize = 0;
+
         /// <summary>
         /// 获取全局配置项数量。
         /// </summary>
@@ -44,6 +47,17 @@ namespace UnityGameFramework.Runtime
             get
             {
                 return m_ConfigManager.Count;
+            }
+        }
+
+        /// <summary>
+        /// 获取缓冲二进制流的大小。
+        /// </summary>
+        public int CachedBytesSize
+        {
+            get
+            {
+                return m_ConfigManager.CachedBytesSize;
             }
         }
 
@@ -114,6 +128,27 @@ namespace UnityGameFramework.Runtime
 
             m_ConfigManager.SetDataProviderHelper(configHelper);
             m_ConfigManager.SetConfigHelper(configHelper);
+            if (m_CachedBytesSize > 0)
+            {
+                EnsureCachedBytesSize(m_CachedBytesSize);
+            }
+        }
+
+        /// <summary>
+        /// 确保二进制流缓存分配足够大小的内存并缓存。
+        /// </summary>
+        /// <param name="ensureSize">要确保二进制流缓存分配内存的大小。</param>
+        public void EnsureCachedBytesSize(int ensureSize)
+        {
+            m_ConfigManager.EnsureCachedBytesSize(ensureSize);
+        }
+
+        /// <summary>
+        /// 释放缓存的二进制流。
+        /// </summary>
+        public void FreeCachedBytes()
+        {
+            m_ConfigManager.FreeCachedBytes();
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -52,6 +52,19 @@ namespace UnityGameFramework.Editor
         {
             Execute(Application.temporaryCachePath);
         }
+
+#if UNITY_2018_3_OR_NEWER
+
+        /// <summary>
+        /// 打开 Console Log Path 文件夹。
+        /// </summary>
+        [MenuItem("Game Framework/Open Folder/Console Log Path", false, 14)]
+        public static void OpenFolderConsoleLogPath()
+        {
+            Execute(System.IO.Path.GetDirectoryName(Application.consoleLogPath));
+        }
+
+#endif
 
         /// <summary>
         /// 打开指定路径的文件夹。

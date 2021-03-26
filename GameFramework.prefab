@@ -784,6 +784,7 @@ MonoBehaviour:
   m_EnableLoadDataTableDependencyAssetEvent: 0
   m_DataTableHelperTypeName: UnityGameFramework.Runtime.DefaultDataTableHelper
   m_CustomDataTableHelper: {fileID: 0}
+  m_CachedBytesSize: 0
 --- !u!114 &11454530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -861,6 +862,7 @@ MonoBehaviour:
   m_EnableLoadDictionaryDependencyAssetEvent: 0
   m_LocalizationHelperTypeName: UnityGameFramework.Runtime.DefaultLocalizationHelper
   m_CustomLocalizationHelper: {fileID: 0}
+  m_CachedBytesSize: 0
 --- !u!114 &11463816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -902,6 +904,7 @@ MonoBehaviour:
   m_EnableLoadConfigDependencyAssetEvent: 0
   m_ConfigHelperTypeName: UnityGameFramework.Runtime.DefaultConfigHelper
   m_CustomConfigHelper: {fileID: 0}
+  m_CachedBytesSize: 0
 --- !u!114 &11494652
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -934,7 +937,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ResourceMode: 1
   m_ReadWritePathType: 0
-  m_UnloadUnusedAssetsInterval: 60
+  m_MinUnloadUnusedAssetsInterval: 60
+  m_MaxUnloadUnusedAssetsInterval: 300
   m_AssetAutoReleaseInterval: 60
   m_AssetCapacity: 64
   m_AssetExpireTime: 60
@@ -967,7 +971,7 @@ MonoBehaviour:
   m_EditorLanguage: 0
   m_VersionHelperTypeName: UnityGameFramework.Runtime.DefaultVersionHelper
   m_LogHelperTypeName: UnityGameFramework.Runtime.DefaultLogHelper
-  m_ZipHelperTypeName: UnityGameFramework.Runtime.DefaultZipHelper
+  m_CompressionHelperTypeName: UnityGameFramework.Runtime.DefaultCompressionHelper
   m_JsonHelperTypeName: UnityGameFramework.Runtime.DefaultJsonHelper
   m_FrameRate: 30
   m_GameSpeed: 1

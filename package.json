@@ -1,8 +1,30 @@
 {
   "name": "com.jiangyin.gameframework",
   "displayName": "Game Framework",
-  "description": "This is literally a game framework, based on Unity game engine.\n\nIt encapsulates commonly used game modules during development, and, to a large degree, standardises the process, enhances the development speed and ensures the product quality.",
-  "version": "2020.07.30",
+  "category": "Game Framework",
+  "description": "This is literally a game framework, based on Unity game engine. It encapsulates commonly used game modules during development, and, to a large degree, standardises the process, enhances the development speed and ensures the product quality.",
+  "version": "2020.12.31",
   "unity": "2017.1",
-  "dependencies": {}
+  "keywords": [
+    "Game Framework"
+  ],
+  "author": {
+    "name": "Jiang Yin",
+    "email": "ellan@gameframework.cn",
+    "url": "https://gameframework.cn/"
+  },
+  "dependencies": {
+    "com.unity.modules.androidjni": "1.0.0",
+    "com.unity.modules.animation": "1.0.0",
+    "com.unity.modules.assetbundle": "1.0.0",
+    "com.unity.modules.audio": "1.0.0",
+    "com.unity.modules.imgui": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:EllanJiang/UnityGameFramework.git",
+    "revision": "22c9b2e558fc1951042d56fb3936d5db86ae328e"
+  }
 }

@@ -1,12 +1,13 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
 using GameFramework.Download;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityGameFramework.Runtime
@@ -187,6 +188,54 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 根据下载任务的序列编号获取下载任务的信息。
+        /// </summary>
+        /// <param name="serialId">要获取信息的下载任务的序列编号。</param>
+        /// <returns>下载任务的信息。</returns>
+        public TaskInfo GetDownloadInfo(int serialId)
+        {
+            return m_DownloadManager.GetDownloadInfo(serialId);
+        }
+
+        /// <summary>
+        /// 根据下载任务的标签获取下载任务的信息。
+        /// </summary>
+        /// <param name="tag">要获取信息的下载任务的标签。</param>
+        /// <returns>下载任务的信息。</returns>
+        public TaskInfo[] GetDownloadInfos(string tag)
+        {
+            return m_DownloadManager.GetDownloadInfos(tag);
+        }
+
+        /// <summary>
+        /// 根据下载任务的标签获取下载任务的信息。
+        /// </summary>
+        /// <param name="tag">要获取信息的下载任务的标签。</param>
+        /// <param name="results">下载任务的信息。</param>
+        public void GetDownloadInfos(string tag, List<TaskInfo> results)
+        {
+            m_DownloadManager.GetDownloadInfos(tag, results);
+        }
+
+        /// <summary>
+        /// 获取所有下载任务的信息。
+        /// </summary>
+        /// <returns>所有下载任务的信息。</returns>
+        public TaskInfo[] GetAllDownloadInfos()
+        {
+            return m_DownloadManager.GetAllDownloadInfos();
+        }
+
+        /// <summary>
+        /// 获取所有下载任务的信息。
+        /// </summary>
+        /// <param name="results">所有下载任务的信息。</param>
+        public void GetAllDownloadInfos(List<TaskInfo> results)
+        {
+            m_DownloadManager.GetAllDownloadInfos(results);
+        }
+
+        /// <summary>
         /// 增加下载任务。
         /// </summary>
         /// <param name="downloadPath">下载后存放路径。</param>
@@ -194,7 +243,19 @@ namespace UnityGameFramework.Runtime
         /// <returns>新增下载任务的序列编号。</returns>
         public int AddDownload(string downloadPath, string downloadUri)
         {
-            return AddDownload(downloadPath, downloadUri, DefaultPriority, null);
+            return AddDownload(downloadPath, downloadUri, null, DefaultPriority, null);
+        }
+
+        /// <summary>
+        /// 增加下载任务。
+        /// </summary>
+        /// <param name="downloadPath">下载后存放路径。</param>
+        /// <param name="downloadUri">原始下载地址。</param>
+        /// <param name="tag">下载任务的标签。</param>
+        /// <returns>新增下载任务的序列编号。</returns>
+        public int AddDownload(string downloadPath, string downloadUri, string tag)
+        {
+            return AddDownload(downloadPath, downloadUri, tag, DefaultPriority, null);
         }
 
         /// <summary>
@@ -206,7 +267,7 @@ namespace UnityGameFramework.Runtime
         /// <returns>新增下载任务的序列编号。</returns>
         public int AddDownload(string downloadPath, string downloadUri, int priority)
         {
-            return AddDownload(downloadPath, downloadUri, priority, null);
+            return AddDownload(downloadPath, downloadUri, null, priority, null);
         }
 
         /// <summary>
@@ -218,7 +279,33 @@ namespace UnityGameFramework.Runtime
         /// <returns>新增下载任务的序列编号。</returns>
         public int AddDownload(string downloadPath, string downloadUri, object userData)
         {
-            return AddDownload(downloadPath, downloadUri, DefaultPriority, userData);
+            return AddDownload(downloadPath, downloadUri, null, DefaultPriority, userData);
+        }
+
+        /// <summary>
+        /// 增加下载任务。
+        /// </summary>
+        /// <param name="downloadPath">下载后存放路径。</param>
+        /// <param name="downloadUri">原始下载地址。</param>
+        /// <param name="tag">下载任务的标签。</param>
+        /// <param name="priority">下载任务的优先级。</param>
+        /// <returns>新增下载任务的序列编号。</returns>
+        public int AddDownload(string downloadPath, string downloadUri, string tag, int priority)
+        {
+            return AddDownload(downloadPath, downloadUri, tag, priority, null);
+        }
+
+        /// <summary>
+        /// 增加下载任务。
+        /// </summary>
+        /// <param name="downloadPath">下载后存放路径。</param>
+        /// <param name="downloadUri">原始下载地址。</param>
+        /// <param name="tag">下载任务的标签。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>新增下载任务的序列编号。</returns>
+        public int AddDownload(string downloadPath, string downloadUri, string tag, object userData)
+        {
+            return AddDownload(downloadPath, downloadUri, tag, DefaultPriority, userData);
         }
 
         /// <summary>
@@ -231,33 +318,50 @@ namespace UnityGameFramework.Runtime
         /// <returns>新增下载任务的序列编号。</returns>
         public int AddDownload(string downloadPath, string downloadUri, int priority, object userData)
         {
-            return m_DownloadManager.AddDownload(downloadPath, downloadUri, priority, userData);
+            return AddDownload(downloadPath, downloadUri, null, priority, userData);
         }
 
         /// <summary>
-        /// 移除下载任务。
+        /// 增加下载任务。
+        /// </summary>
+        /// <param name="downloadPath">下载后存放路径。</param>
+        /// <param name="downloadUri">原始下载地址。</param>
+        /// <param name="tag">下载任务的标签。</param>
+        /// <param name="priority">下载任务的优先级。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <returns>新增下载任务的序列编号。</returns>
+        public int AddDownload(string downloadPath, string downloadUri, string tag, int priority, object userData)
+        {
+            return m_DownloadManager.AddDownload(downloadPath, downloadUri, tag, priority, userData);
+        }
+
+        /// <summary>
+        /// 根据下载任务的序列编号移除下载任务。
         /// </summary>
         /// <param name="serialId">要移除下载任务的序列编号。</param>
-        public void RemoveDownload(int serialId)
+        /// <returns>是否移除下载任务成功。</returns>
+        public bool RemoveDownload(int serialId)
         {
-            m_DownloadManager.RemoveDownload(serialId);
+            return m_DownloadManager.RemoveDownload(serialId);
+        }
+
+        /// <summary>
+        /// 根据下载任务的标签移除下载任务。
+        /// </summary>
+        /// <param name="tag">要移除下载任务的标签。</param>
+        /// <returns>移除下载任务的数量。</returns>
+        public int RemoveDownloads(string tag)
+        {
+            return m_DownloadManager.RemoveDownloads(tag);
         }
 
         /// <summary>
         /// 移除所有下载任务。
         /// </summary>
-        public void RemoveAllDownloads()
+        /// <returns>移除下载任务的数量。</returns>
+        public int RemoveAllDownloads()
         {
-            m_DownloadManager.RemoveAllDownloads();
-        }
-
-        /// <summary>
-        /// 获取所有下载任务的信息。
-        /// </summary>
-        /// <returns>所有下载任务的信息。</returns>
-        public TaskInfo[] GetAllDownloadInfos()
-        {
-            return m_DownloadManager.GetAllDownloadInfos();
+            return m_DownloadManager.RemoveAllDownloads();
         }
 
         /// <summary>

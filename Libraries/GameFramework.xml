@@ -41,6 +41,17 @@
             读取数据时加载依赖资源事件。
             </summary>
         </member>
+        <member name="M:GameFramework.DataProvider`1.EnsureCachedBytesSize(System.Int32)">
+            <summary>
+            确保二进制流缓存分配足够大小的内存并缓存。
+            </summary>
+            <param name="ensureSize">要确保二进制流缓存分配内存的大小。</param>
+        </member>
+        <member name="M:GameFramework.DataProvider`1.FreeCachedBytes">
+            <summary>
+            释放缓存的二进制流。
+            </summary>
+        </member>
         <member name="M:GameFramework.DataProvider`1.ReadData(System.String)">
             <summary>
             读取数据。
@@ -130,21 +141,30 @@
             </summary>
             <param name="dataProviderHelper">数据提供者辅助器。</param>
         </member>
-        <member name="M:GameFramework.DataProvider`1.EnsureCachedBytesSize(System.Int32)">
-            <summary>
-            确保二进制流缓存分配足够大小的内存并缓存。
-            </summary>
-            <param name="ensureSize">要确保二进制流缓存分配内存的大小。</param>
-        </member>
         <member name="T:GameFramework.DataProviderCreator">
             <summary>
             数据提供者创建器。
             </summary>
         </member>
-        <member name="P:GameFramework.DataProviderCreator.CachedBytesSize">
+        <member name="M:GameFramework.DataProviderCreator.GetCachedBytesSize``1">
             <summary>
             获取缓冲二进制流的大小。
             </summary>
+            <typeparam name="T">数据提供者的持有者的类型。</typeparam>
+            <returns>缓冲二进制流的大小。</returns>
+        </member>
+        <member name="M:GameFramework.DataProviderCreator.EnsureCachedBytesSize``1(System.Int32)">
+            <summary>
+            确保二进制流缓存分配足够大小的内存并缓存。
+            </summary>
+            <typeparam name="T">数据提供者的持有者的类型。</typeparam>
+            <param name="ensureSize">要确保二进制流缓存分配内存的大小。</param>
+        </member>
+        <member name="M:GameFramework.DataProviderCreator.FreeCachedBytes``1">
+            <summary>
+            释放缓存的二进制流。
+            </summary>
+            <typeparam name="T">数据提供者的持有者的类型。</typeparam>
         </member>
         <member name="M:GameFramework.DataProviderCreator.Create``1(``0,GameFramework.Resource.IResourceManager,GameFramework.IDataProviderHelper{``0})">
             <summary>
@@ -1565,12 +1585,6 @@
             获取一个值，该值指示是否同步对 ICollection 的访问（线程安全）。
             </summary>
         </member>
-        <member name="M:GameFramework.GameFrameworkLinkedList`1.Add(`0)">
-            <summary>
-            将值添加到 ICollection`1 的结尾处。
-            </summary>
-            <param name="value">要添加的值。</param>
-        </member>
         <member name="M:GameFramework.GameFrameworkLinkedList`1.AddAfter(System.Collections.Generic.LinkedListNode{`0},`0)">
             <summary>
             在链表中指定的现有结点后添加包含指定值的新结点。
@@ -1700,6 +1714,12 @@
             返回循环访问集合的枚举数。
             </summary>
             <returns>循环访问集合的枚举数。</returns>
+        </member>
+        <member name="M:GameFramework.GameFrameworkLinkedList`1.System#Collections#Generic#ICollection{T}#Add(`0)">
+            <summary>
+            将值添加到 ICollection`1 的结尾处。
+            </summary>
+            <param name="value">要添加的值。</param>
         </member>
         <member name="M:GameFramework.GameFrameworkLinkedList`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
             <summary>
@@ -1994,7 +2014,7 @@
             <summary>
             序列化回调函数。
             </summary>
-            <param name="binaryWriter">目标流。</param>
+            <param name="stream">目标流。</param>
             <param name="data">要序列化的数据。</param>
             <returns>是否序列化数据成功。</returns>
         </member>
@@ -2002,14 +2022,14 @@
             <summary>
             反序列化回调函数。
             </summary>
-            <param name="binaryReader">指定流。</param>
+            <param name="stream">指定流。</param>
             <returns>反序列化的数据。</returns>
         </member>
         <member name="T:GameFramework.GameFrameworkSerializer`1.TryGetValueCallback">
             <summary>
             尝试从指定流获取指定键的值回调函数。
             </summary>
-            <param name="binaryReader">指定流。</param>
+            <param name="stream">指定流。</param>
             <param name="key">指定键。</param>
             <param name="value">指定键的值。</param>
             <returns>是否从指定流获取指定键的值成功。</returns>
@@ -2581,6 +2601,11 @@
             获取任务的序列编号。
             </summary>
         </member>
+        <member name="P:GameFramework.TaskBase.Tag">
+            <summary>
+            获取任务的标签。
+            </summary>
+        </member>
         <member name="P:GameFramework.TaskBase.Priority">
             <summary>
             获取任务的优先级。
@@ -2596,11 +2621,12 @@
             获取任务描述。
             </summary>
         </member>
-        <member name="M:GameFramework.TaskBase.Initialize(System.Int32,System.Int32)">
+        <member name="M:GameFramework.TaskBase.Initialize(System.Int32,System.String,System.Int32)">
             <summary>
             初始化任务基类。
             </summary>
             <param name="serialId">任务的序列编号。</param>
+            <param name="tag">任务的标签。</param>
             <param name="priority">任务的优先级。</param>
         </member>
         <member name="M:GameFramework.TaskBase.Clear">
@@ -2613,18 +2639,29 @@
             任务信息。
             </summary>
         </member>
-        <member name="M:GameFramework.TaskInfo.#ctor(System.Int32,System.Int32,GameFramework.TaskStatus,System.String)">
+        <member name="M:GameFramework.TaskInfo.#ctor(System.Int32,System.String,System.Int32,GameFramework.TaskStatus,System.String)">
             <summary>
             初始化任务信息的新实例。
             </summary>
             <param name="serialId">任务的序列编号。</param>
+            <param name="tag">任务的标签。</param>
             <param name="priority">任务的优先级。</param>
             <param name="status">任务状态。</param>
             <param name="description">任务描述。</param>
         </member>
+        <member name="P:GameFramework.TaskInfo.IsValid">
+            <summary>
+            获取任务信息是否有效。
+            </summary>
+        </member>
         <member name="P:GameFramework.TaskInfo.SerialId">
             <summary>
             获取任务的序列编号。
+            </summary>
+        </member>
+        <member name="P:GameFramework.TaskInfo.Tag">
+            <summary>
+            获取任务的标签。
             </summary>
         </member>
         <member name="P:GameFramework.TaskInfo.Priority">
@@ -2696,6 +2733,39 @@
             </summary>
             <param name="agent">要增加的任务代理。</param>
         </member>
+        <member name="M:GameFramework.TaskPool`1.GetTaskInfo(System.Int32)">
+            <summary>
+            根据任务的序列编号获取任务的信息。
+            </summary>
+            <param name="serialId">要获取信息的任务的序列编号。</param>
+            <returns>任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.TaskPool`1.GetTaskInfos(System.String)">
+            <summary>
+            根据任务的标签获取任务的信息。
+            </summary>
+            <param name="tag">要获取信息的任务的标签。</param>
+            <returns>任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.TaskPool`1.GetTaskInfos(System.String,System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            根据任务的标签获取任务的信息。
+            </summary>
+            <param name="tag">要获取信息的任务的标签。</param>
+            <param name="results">任务的信息。</param>
+        </member>
+        <member name="M:GameFramework.TaskPool`1.GetAllTaskInfos">
+            <summary>
+            获取所有任务的信息。
+            </summary>
+            <returns>所有任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.TaskPool`1.GetAllTaskInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有任务的信息。
+            </summary>
+            <param name="results">所有任务的信息。</param>
+        </member>
         <member name="M:GameFramework.TaskPool`1.AddTask(`0)">
             <summary>
             增加任务。
@@ -2704,15 +2774,23 @@
         </member>
         <member name="M:GameFramework.TaskPool`1.RemoveTask(System.Int32)">
             <summary>
-            移除任务。
+            根据任务的序列编号移除任务。
             </summary>
             <param name="serialId">要移除任务的序列编号。</param>
             <returns>是否移除任务成功。</returns>
+        </member>
+        <member name="M:GameFramework.TaskPool`1.RemoveTasks(System.String)">
+            <summary>
+            根据任务的标签移除任务。
+            </summary>
+            <param name="tag">要移除任务的标签。</param>
+            <returns>移除任务的数量。</returns>
         </member>
         <member name="M:GameFramework.TaskPool`1.RemoveAllTasks">
             <summary>
             移除所有任务。
             </summary>
+            <returns>移除任务的数量。</returns>
         </member>
         <member name="T:GameFramework.TaskStatus">
             <summary>
@@ -2745,12 +2823,6 @@
             初始化变量的新实例。
             </summary>
         </member>
-        <member name="M:GameFramework.Variable`1.#ctor(`0)">
-            <summary>
-            初始化变量的新实例。
-            </summary>
-            <param name="value">初始值。</param>
-        </member>
         <member name="P:GameFramework.Variable`1.Type">
             <summary>
             获取变量类型。
@@ -2773,9 +2845,9 @@
             </summary>
             <param name="value">变量值。</param>
         </member>
-        <member name="M:GameFramework.Variable`1.Reset">
+        <member name="M:GameFramework.Variable`1.Clear">
             <summary>
-            重置变量值。
+            清理变量值。
             </summary>
         </member>
         <member name="M:GameFramework.Variable`1.ToString">
@@ -2811,9 +2883,9 @@
             </summary>
             <param name="value">变量值。</param>
         </member>
-        <member name="M:GameFramework.Variable.Reset">
+        <member name="M:GameFramework.Variable.Clear">
             <summary>
-            重置变量值。
+            清理变量值。
             </summary>
         </member>
         <member name="T:GameFramework.Version">
@@ -2872,6 +2944,11 @@
             获取全局配置项数量。
             </summary>
         </member>
+        <member name="P:GameFramework.Config.ConfigManager.CachedBytesSize">
+            <summary>
+            获取缓冲二进制流的大小。
+            </summary>
+        </member>
         <member name="E:GameFramework.Config.ConfigManager.ReadDataSuccess">
             <summary>
             读取全局配置成功事件。
@@ -2921,6 +2998,17 @@
             设置全局配置辅助器。
             </summary>
             <param name="configHelper">全局配置辅助器。</param>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.EnsureCachedBytesSize(System.Int32)">
+            <summary>
+            确保二进制流缓存分配足够大小的内存并缓存。
+            </summary>
+            <param name="ensureSize">要确保二进制流缓存分配内存的大小。</param>
+        </member>
+        <member name="M:GameFramework.Config.ConfigManager.FreeCachedBytes">
+            <summary>
+            释放缓存的二进制流。
+            </summary>
         </member>
         <member name="M:GameFramework.Config.ConfigManager.ReadData(System.String)">
             <summary>
@@ -3111,6 +3199,11 @@
             获取全局配置项数量。
             </summary>
         </member>
+        <member name="P:GameFramework.Config.IConfigManager.CachedBytesSize">
+            <summary>
+            获取缓冲二进制流的大小。
+            </summary>
+        </member>
         <member name="M:GameFramework.Config.IConfigManager.SetResourceManager(GameFramework.Resource.IResourceManager)">
             <summary>
             设置资源管理器。
@@ -3128,6 +3221,17 @@
             设置全局配置辅助器。
             </summary>
             <param name="configHelper">全局配置辅助器。</param>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.EnsureCachedBytesSize(System.Int32)">
+            <summary>
+            确保二进制流缓存分配足够大小的内存并缓存。
+            </summary>
+            <param name="ensureSize">要确保二进制流缓存分配内存的大小。</param>
+        </member>
+        <member name="M:GameFramework.Config.IConfigManager.FreeCachedBytes">
+            <summary>
+            释放缓存的二进制流。
+            </summary>
         </member>
         <member name="M:GameFramework.Config.IConfigManager.HasConfig(System.String)">
             <summary>
@@ -3961,6 +4065,11 @@
             获取数据表数量。
             </summary>
         </member>
+        <member name="P:GameFramework.DataTable.DataTableManager.CachedBytesSize">
+            <summary>
+            获取缓冲二进制流的大小。
+            </summary>
+        </member>
         <member name="M:GameFramework.DataTable.DataTableManager.Update(System.Single,System.Single)">
             <summary>
             数据表管理器轮询。
@@ -3990,6 +4099,17 @@
             设置数据表辅助器。
             </summary>
             <param name="dataTableHelper">数据表辅助器。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.EnsureCachedBytesSize(System.Int32)">
+            <summary>
+            确保二进制流缓存分配足够大小的内存并缓存。
+            </summary>
+            <param name="ensureSize">要确保二进制流缓存分配内存的大小。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.DataTableManager.FreeCachedBytes">
+            <summary>
+            释放缓存的二进制流。
+            </summary>
         </member>
         <member name="M:GameFramework.DataTable.DataTableManager.HasDataTable``1">
             <summary>
@@ -4508,6 +4628,11 @@
             获取数据表数量。
             </summary>
         </member>
+        <member name="P:GameFramework.DataTable.IDataTableManager.CachedBytesSize">
+            <summary>
+            获取缓冲二进制流的大小。
+            </summary>
+        </member>
         <member name="M:GameFramework.DataTable.IDataTableManager.SetResourceManager(GameFramework.Resource.IResourceManager)">
             <summary>
             设置资源管理器。
@@ -4525,6 +4650,17 @@
             设置数据表辅助器。
             </summary>
             <param name="dataTableHelper">数据表辅助器。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.EnsureCachedBytesSize(System.Int32)">
+            <summary>
+            确保二进制流缓存分配足够大小的内存并缓存。
+            </summary>
+            <param name="ensureSize">要确保二进制流缓存分配内存的大小。</param>
+        </member>
+        <member name="M:GameFramework.DataTable.IDataTableManager.FreeCachedBytes">
+            <summary>
+            释放缓存的二进制流。
+            </summary>
         </member>
         <member name="M:GameFramework.DataTable.IDataTableManager.HasDataTable``1">
             <summary>
@@ -4972,7 +5108,7 @@
             获取下载的数据大小。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.Create(System.Int32)">
+        <member name="M:GameFramework.Download.DownloadAgentHelperCompleteEventArgs.Create(System.Int64)">
             <summary>
             创建下载代理辅助器完成事件。
             </summary>
@@ -5228,12 +5364,54 @@
             </summary>
             <param name="downloadAgentHelper">要增加的下载代理辅助器。</param>
         </member>
+        <member name="M:GameFramework.Download.DownloadManager.GetDownloadInfo(System.Int32)">
+            <summary>
+            根据下载任务的序列编号获取下载任务的信息。
+            </summary>
+            <param name="serialId">要获取信息的下载任务的序列编号。</param>
+            <returns>下载任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.GetDownloadInfos(System.String)">
+            <summary>
+            根据下载任务的标签获取下载任务的信息。
+            </summary>
+            <param name="tag">要获取信息的下载任务的标签。</param>
+            <returns>下载任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.GetDownloadInfos(System.String,System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            根据下载任务的标签获取下载任务的信息。
+            </summary>
+            <param name="tag">要获取信息的下载任务的标签。</param>
+            <param name="results">下载任务的信息。</param>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.GetAllDownloadInfos">
+            <summary>
+            获取所有下载任务的信息。
+            </summary>
+            <returns>所有下载任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.GetAllDownloadInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有下载任务的信息。
+            </summary>
+            <param name="results">所有下载任务的信息。</param>
+        </member>
         <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String)">
             <summary>
             增加下载任务。
             </summary>
             <param name="downloadPath">下载后存放路径。</param>
             <param name="downloadUri">原始下载地址。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.String)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
         <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.Int32)">
@@ -5254,6 +5432,26 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
+            <param name="priority">下载任务的优先级。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.String,System.Object)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.Int32,System.Object)">
             <summary>
             增加下载任务。
@@ -5264,23 +5462,36 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.Download.DownloadManager.AddDownload(System.String,System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
+            <param name="priority">下载任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.Download.DownloadManager.RemoveDownload(System.Int32)">
             <summary>
-            移除下载任务。
+            根据下载任务的序列编号移除下载任务。
             </summary>
             <param name="serialId">要移除下载任务的序列编号。</param>
             <returns>是否移除下载任务成功。</returns>
+        </member>
+        <member name="M:GameFramework.Download.DownloadManager.RemoveDownloads(System.String)">
+            <summary>
+            根据下载任务的标签移除下载任务。
+            </summary>
+            <param name="tag">要移除下载任务的标签。</param>
+            <returns>移除下载任务的数量。</returns>
         </member>
         <member name="M:GameFramework.Download.DownloadManager.RemoveAllDownloads">
             <summary>
             移除所有下载任务。
             </summary>
-        </member>
-        <member name="M:GameFramework.Download.DownloadManager.GetAllDownloadInfos">
-            <summary>
-            获取所有下载任务的信息。
-            </summary>
-            <returns>所有下载任务的信息。</returns>
+            <returns>移除下载任务的数量。</returns>
         </member>
         <member name="T:GameFramework.Download.DownloadManager.DownloadAgent">
             <summary>
@@ -5408,12 +5619,13 @@
             获取下载任务的描述。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadManager.DownloadTask.Create(System.String,System.String,System.Int32,System.Int32,System.Single,System.Object)">
+        <member name="M:GameFramework.Download.DownloadManager.DownloadTask.Create(System.String,System.String,System.String,System.Int32,System.Int32,System.Single,System.Object)">
             <summary>
             创建下载任务。
             </summary>
             <param name="downloadPath">下载后存放路径。</param>
             <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
             <param name="priority">下载任务的优先级。</param>
             <param name="flushSize">将缓冲区写入磁盘的临界大小。</param>
             <param name="timeout">下载超时时长，以秒为单位。</param>
@@ -5485,7 +5697,7 @@
             获取用户自定义数据。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadStartEventArgs.Create(System.Int32,System.String,System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Download.DownloadStartEventArgs.Create(System.Int32,System.String,System.String,System.Int64,System.Object)">
             <summary>
             创建下载开始事件。
             </summary>
@@ -5536,7 +5748,7 @@
             获取用户自定义数据。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadSuccessEventArgs.Create(System.Int32,System.String,System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Download.DownloadSuccessEventArgs.Create(System.Int32,System.String,System.String,System.Int64,System.Object)">
             <summary>
             创建下载成功事件。
             </summary>
@@ -5587,7 +5799,7 @@
             获取用户自定义数据。
             </summary>
         </member>
-        <member name="M:GameFramework.Download.DownloadUpdateEventArgs.Create(System.Int32,System.String,System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Download.DownloadUpdateEventArgs.Create(System.Int32,System.String,System.String,System.Int64,System.Object)">
             <summary>
             创建下载更新事件。
             </summary>
@@ -5635,7 +5847,7 @@
             <param name="downloadUri">下载地址。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Download.IDownloadAgentHelper.Download(System.String,System.Int32,System.Object)">
+        <member name="M:GameFramework.Download.IDownloadAgentHelper.Download(System.String,System.Int64,System.Object)">
             <summary>
             通过下载代理辅助器下载指定地址的数据。
             </summary>
@@ -5643,7 +5855,7 @@
             <param name="fromPosition">下载数据起始位置。</param>
             <param name="userData">用户自定义数据。</param>
         </member>
-        <member name="M:GameFramework.Download.IDownloadAgentHelper.Download(System.String,System.Int32,System.Int32,System.Object)">
+        <member name="M:GameFramework.Download.IDownloadAgentHelper.Download(System.String,System.Int64,System.Int64,System.Object)">
             <summary>
             通过下载代理辅助器下载指定地址的数据。
             </summary>
@@ -5728,12 +5940,54 @@
             </summary>
             <param name="downloadAgentHelper">要增加的下载代理辅助器。</param>
         </member>
+        <member name="M:GameFramework.Download.IDownloadManager.GetDownloadInfo(System.Int32)">
+            <summary>
+            根据下载任务的序列编号获取下载任务的信息。
+            </summary>
+            <param name="serialId">要获取信息的下载任务的序列编号。</param>
+            <returns>下载任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.GetDownloadInfos(System.String)">
+            <summary>
+            根据下载任务的标签获取下载任务的信息。
+            </summary>
+            <param name="tag">要获取信息的下载任务的标签。</param>
+            <returns>下载任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.GetDownloadInfos(System.String,System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            根据下载任务的标签获取下载任务的信息。
+            </summary>
+            <param name="tag">要获取信息的下载任务的标签。</param>
+            <param name="results">下载任务的信息。</param>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.GetAllDownloadInfos">
+            <summary>
+            获取所有下载任务的信息。
+            </summary>
+            <returns>所有下载任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.GetAllDownloadInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有下载任务的信息。
+            </summary>
+            <param name="results">所有下载任务的信息。</param>
+        </member>
         <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String)">
             <summary>
             增加下载任务。
             </summary>
             <param name="downloadPath">下载后存放路径。</param>
             <param name="downloadUri">原始下载地址。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.String)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
         <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.Int32)">
@@ -5754,6 +6008,26 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
+            <param name="priority">下载任务的优先级。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.String,System.Object)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.Int32,System.Object)">
             <summary>
             增加下载任务。
@@ -5764,23 +6038,36 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增下载任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.Download.IDownloadManager.AddDownload(System.String,System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            增加下载任务。
+            </summary>
+            <param name="downloadPath">下载后存放路径。</param>
+            <param name="downloadUri">原始下载地址。</param>
+            <param name="tag">下载任务的标签。</param>
+            <param name="priority">下载任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增下载任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.Download.IDownloadManager.RemoveDownload(System.Int32)">
             <summary>
-            移除下载任务。
+            根据下载任务的序列编号移除下载任务。
             </summary>
             <param name="serialId">要移除下载任务的序列编号。</param>
             <returns>是否移除下载任务成功。</returns>
+        </member>
+        <member name="M:GameFramework.Download.IDownloadManager.RemoveDownloads(System.String)">
+            <summary>
+            根据下载任务的标签移除下载任务。
+            </summary>
+            <param name="tag">要移除下载任务的标签。</param>
+            <returns>移除下载任务的数量。</returns>
         </member>
         <member name="M:GameFramework.Download.IDownloadManager.RemoveAllDownloads">
             <summary>
             移除所有下载任务。
             </summary>
-        </member>
-        <member name="M:GameFramework.Download.IDownloadManager.GetAllDownloadInfos">
-            <summary>
-            获取所有下载任务的信息。
-            </summary>
-            <returns>所有下载任务的信息。</returns>
+            <returns>移除下载任务的数量。</returns>
         </member>
         <member name="T:GameFramework.Entity.EntityManager">
             <summary>
@@ -6067,33 +6354,54 @@
             <param name="childEntity">要获取父实体的子实体。</param>
             <returns>子实体的父实体。</returns>
         </member>
-        <member name="M:GameFramework.Entity.EntityManager.GetChildEntities(System.Int32)">
+        <member name="M:GameFramework.Entity.EntityManager.GetChildEntityCount(System.Int32)">
+            <summary>
+            获取子实体数量。
+            </summary>
+            <param name="parentEntityId">要获取子实体数量的父实体的实体编号。</param>
+            <returns>子实体数量。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.EntityManager.GetChildEntity(System.Int32)">
             <summary>
             获取子实体。
             </summary>
             <param name="parentEntityId">要获取子实体的父实体的实体编号。</param>
-            <returns>子实体数组。</returns>
+            <returns>子实体。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.EntityManager.GetChildEntity(GameFramework.Entity.IEntity)">
+            <summary>
+            获取子实体。
+            </summary>
+            <param name="parentEntity">要获取子实体的父实体。</param>
+            <returns>子实体。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.EntityManager.GetChildEntities(System.Int32)">
+            <summary>
+            获取所有子实体。
+            </summary>
+            <param name="parentEntityId">要获取所有子实体的父实体的实体编号。</param>
+            <returns>所有子实体。</returns>
         </member>
         <member name="M:GameFramework.Entity.EntityManager.GetChildEntities(System.Int32,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
             <summary>
-            获取子实体。
+            获取所有子实体。
             </summary>
-            <param name="parentEntityId">要获取子实体的父实体的实体编号。</param>
-            <param name="results">子实体数组。</param>
+            <param name="parentEntityId">要获取所有子实体的父实体的实体编号。</param>
+            <param name="results">所有子实体。</param>
         </member>
         <member name="M:GameFramework.Entity.EntityManager.GetChildEntities(GameFramework.Entity.IEntity)">
             <summary>
-            获取子实体。
+            获取所有子实体。
             </summary>
-            <param name="parentEntity">要获取子实体的父实体。</param>
-            <returns>子实体数组。</returns>
+            <param name="parentEntity">要获取所有子实体的父实体。</param>
+            <returns>所有子实体。</returns>
         </member>
         <member name="M:GameFramework.Entity.EntityManager.GetChildEntities(GameFramework.Entity.IEntity,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
             <summary>
-            获取子实体。
+            获取所有子实体。
             </summary>
-            <param name="parentEntity">要获取子实体的父实体。</param>
-            <param name="results">子实体数组。</param>
+            <param name="parentEntity">要获取所有子实体的父实体。</param>
+            <param name="results">所有子实体。</param>
         </member>
         <member name="M:GameFramework.Entity.EntityManager.AttachEntity(System.Int32,System.Int32)">
             <summary>
@@ -6896,33 +7204,54 @@
             <param name="childEntity">要获取父实体的子实体。</param>
             <returns>子实体的父实体。</returns>
         </member>
-        <member name="M:GameFramework.Entity.IEntityManager.GetChildEntities(System.Int32)">
+        <member name="M:GameFramework.Entity.IEntityManager.GetChildEntityCount(System.Int32)">
+            <summary>
+            获取子实体数量。
+            </summary>
+            <param name="parentEntityId">要获取子实体数量的父实体的实体编号。</param>
+            <returns>子实体数量。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.IEntityManager.GetChildEntity(System.Int32)">
             <summary>
             获取子实体。
             </summary>
             <param name="parentEntityId">要获取子实体的父实体的实体编号。</param>
-            <returns>子实体数组。</returns>
+            <returns>子实体。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.IEntityManager.GetChildEntity(GameFramework.Entity.IEntity)">
+            <summary>
+            获取子实体。
+            </summary>
+            <param name="parentEntity">要获取子实体的父实体。</param>
+            <returns>子实体。</returns>
+        </member>
+        <member name="M:GameFramework.Entity.IEntityManager.GetChildEntities(System.Int32)">
+            <summary>
+            获取所有子实体。
+            </summary>
+            <param name="parentEntityId">要获取所有子实体的父实体的实体编号。</param>
+            <returns>所有子实体。</returns>
         </member>
         <member name="M:GameFramework.Entity.IEntityManager.GetChildEntities(System.Int32,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
             <summary>
-            获取子实体。
+            获取所有子实体。
             </summary>
-            <param name="parentEntityId">要获取子实体的父实体的实体编号。</param>
-            <param name="results">子实体数组。</param>
+            <param name="parentEntityId">要获取所有子实体的父实体的实体编号。</param>
+            <param name="results">所有子实体。</param>
         </member>
         <member name="M:GameFramework.Entity.IEntityManager.GetChildEntities(GameFramework.Entity.IEntity)">
             <summary>
-            获取子实体。
+            获取所有子实体。
             </summary>
-            <param name="parentEntity">要获取子实体的父实体。</param>
-            <returns>子实体数组。</returns>
+            <param name="parentEntity">要获取所有子实体的父实体。</param>
+            <returns>所有子实体。</returns>
         </member>
         <member name="M:GameFramework.Entity.IEntityManager.GetChildEntities(GameFramework.Entity.IEntity,System.Collections.Generic.List{GameFramework.Entity.IEntity})">
             <summary>
-            获取子实体。
+            获取所有子实体。
             </summary>
-            <param name="parentEntity">要获取子实体的父实体。</param>
-            <param name="results">子实体数组。</param>
+            <param name="parentEntity">要获取所有子实体的父实体。</param>
+            <param name="results">所有子实体。</param>
         </member>
         <member name="M:GameFramework.Entity.IEntityManager.AttachEntity(System.Int32,System.Int32)">
             <summary>
@@ -7657,6 +7986,14 @@
             <param name="length">要读取片段的长度。</param>
             <returns>存储读取文件片段内容的二进制流。</returns>
         </member>
+        <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Byte[])">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
         <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Byte[],System.Int32)">
             <summary>
             读取指定文件的指定片段。
@@ -7674,6 +8011,15 @@
             <param name="buffer">存储读取文件片段内容的二进制流。</param>
             <param name="startIndex">存储读取文件片段内容的二进制流的起始位置。</param>
             <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Int32,System.Byte[])">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="offset">要读取片段的偏移。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
             <returns>实际读取了多少字节。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.FileSystem.ReadFileSegment(System.String,System.Int32,System.Byte[],System.Int32)">
@@ -8103,6 +8449,14 @@
             <param name="length">要读取片段的长度。</param>
             <returns>存储读取文件片段内容的二进制流。</returns>
         </member>
+        <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Byte[])">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
         <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Byte[],System.Int32)">
             <summary>
             读取指定文件的指定片段。
@@ -8120,6 +8474,15 @@
             <param name="buffer">存储读取文件片段内容的二进制流。</param>
             <param name="startIndex">存储读取文件片段内容的二进制流的起始位置。</param>
             <param name="length">要读取片段的长度。</param>
+            <returns>实际读取了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Int32,System.Byte[])">
+            <summary>
+            读取指定文件的指定片段。
+            </summary>
+            <param name="name">要读取片段的文件名称。</param>
+            <param name="offset">要读取片段的偏移。</param>
+            <param name="buffer">存储读取文件片段内容的二进制流。</param>
             <returns>实际读取了多少字节。</returns>
         </member>
         <member name="M:GameFramework.FileSystem.IFileSystem.ReadFileSegment(System.String,System.Int32,System.Byte[],System.Int32)">
@@ -9148,6 +9511,11 @@
             获取字典数量。
             </summary>
         </member>
+        <member name="P:GameFramework.Localization.ILocalizationManager.CachedBytesSize">
+            <summary>
+            获取缓冲二进制流的大小。
+            </summary>
+        </member>
         <member name="M:GameFramework.Localization.ILocalizationManager.SetResourceManager(GameFramework.Resource.IResourceManager)">
             <summary>
             设置资源管理器。
@@ -9165,6 +9533,17 @@
             设置本地化辅助器。
             </summary>
             <param name="localizationHelper">本地化辅助器。</param>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.EnsureCachedBytesSize(System.Int32)">
+            <summary>
+            确保二进制流缓存分配足够大小的内存并缓存。
+            </summary>
+            <param name="ensureSize">要确保二进制流缓存分配内存的大小。</param>
+        </member>
+        <member name="M:GameFramework.Localization.ILocalizationManager.FreeCachedBytes">
+            <summary>
+            释放缓存的二进制流。
+            </summary>
         </member>
         <member name="M:GameFramework.Localization.ILocalizationManager.GetString(System.String)">
             <summary>
@@ -9527,6 +9906,11 @@
             获取字典数量。
             </summary>
         </member>
+        <member name="P:GameFramework.Localization.LocalizationManager.CachedBytesSize">
+            <summary>
+            获取缓冲二进制流的大小。
+            </summary>
+        </member>
         <member name="E:GameFramework.Localization.LocalizationManager.ReadDataSuccess">
             <summary>
             读取字典成功事件。
@@ -9576,6 +9960,17 @@
             设置本地化辅助器。
             </summary>
             <param name="localizationHelper">本地化辅助器。</param>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.EnsureCachedBytesSize(System.Int32)">
+            <summary>
+            确保二进制流缓存分配足够大小的内存并缓存。
+            </summary>
+            <param name="ensureSize">要确保二进制流缓存分配内存的大小。</param>
+        </member>
+        <member name="M:GameFramework.Localization.LocalizationManager.FreeCachedBytes">
+            <summary>
+            释放缓存的二进制流。
+            </summary>
         </member>
         <member name="M:GameFramework.Localization.LocalizationManager.ReadData(System.String)">
             <summary>
@@ -10673,6 +11068,20 @@
             </summary>
             <param name="target">要设置优先级的对象。</param>
             <param name="priority">优先级。</param>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPool`1.ReleaseObject(`0)">
+            <summary>
+            释放对象。
+            </summary>
+            <param name="obj">要释放的对象。</param>
+            <returns>释放对象是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.IObjectPool`1.ReleaseObject(System.Object)">
+            <summary>
+            释放对象。
+            </summary>
+            <param name="target">要释放的对象。</param>
+            <returns>释放对象是否成功。</returns>
         </member>
         <member name="M:GameFramework.ObjectPool.IObjectPool`1.Release">
             <summary>
@@ -12646,6 +13055,20 @@
             <param name="target">要设置优先级的对象。</param>
             <param name="priority">优先级。</param>
         </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.ObjectPool`1.ReleaseObject(`0)">
+            <summary>
+            释放对象。
+            </summary>
+            <param name="obj">要释放的对象。</param>
+            <returns>释放对象是否成功。</returns>
+        </member>
+        <member name="M:GameFramework.ObjectPool.ObjectPoolManager.ObjectPool`1.ReleaseObject(System.Object)">
+            <summary>
+            释放对象。
+            </summary>
+            <param name="target">要释放的对象。</param>
+            <returns>释放对象是否成功。</returns>
+        </member>
         <member name="M:GameFramework.ObjectPool.ObjectPoolManager.ObjectPool`1.Release">
             <summary>
             释放对象池中的可释放对象。
@@ -12891,7 +13314,7 @@
             <param name="removedCount">已移除的资源数量。</param>
             <param name="updateCount">可更新的资源数量。</param>
             <param name="updateTotalLength">可更新的资源总大小。</param>
-            <param name="updateTotalZipLength">可更新的压缩后总大小。</param>
+            <param name="updateTotalCompressedLength">可更新的压缩后总大小。</param>
         </member>
         <member name="T:GameFramework.Resource.CheckVersionListResult">
             <summary>
@@ -13085,7 +13508,7 @@
             获取资源组包含资源的总大小。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.IResourceGroup.TotalZipLength">
+        <member name="P:GameFramework.Resource.IResourceGroup.TotalCompressedLength">
             <summary>
             获取资源组包含资源压缩后的总大小。
             </summary>
@@ -13093,6 +13516,11 @@
         <member name="P:GameFramework.Resource.IResourceGroup.ReadyLength">
             <summary>
             获取资源组中已准备完成资源的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroup.ReadyCompressedLength">
+            <summary>
+            获取资源组中已准备完成资源压缩后的总大小。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.IResourceGroup.Progress">
@@ -13109,6 +13537,69 @@
         <member name="M:GameFramework.Resource.IResourceGroup.GetResourceNames(System.Collections.Generic.List{System.String})">
             <summary>
             获取资源组包含的资源名称列表。
+            </summary>
+            <param name="results">资源组包含的资源名称列表。</param>
+        </member>
+        <member name="T:GameFramework.Resource.IResourceGroupCollection">
+            <summary>
+            资源组集合接口。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.Ready">
+            <summary>
+            获取资源组集合是否准备完毕。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.TotalCount">
+            <summary>
+            获取资源组集合包含资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.ReadyCount">
+            <summary>
+            获取资源组集合中已准备完成资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.TotalLength">
+            <summary>
+            获取资源组集合包含资源的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.TotalCompressedLength">
+            <summary>
+            获取资源组集合包含资源压缩后的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.ReadyLength">
+            <summary>
+            获取资源组集合中已准备完成资源的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.ReadyCompressedLength">
+            <summary>
+            获取资源组集合中已准备完成资源压缩后的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.IResourceGroupCollection.Progress">
+            <summary>
+            获取资源组集合的完成进度。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceGroupCollection.GetResourceGroups">
+            <summary>
+            获取资源组集合包含的资源组列表。
+            </summary>
+            <returns>资源组包含的资源名称列表。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceGroupCollection.GetResourceNames">
+            <summary>
+            获取资源组集合包含的资源名称列表。
+            </summary>
+            <returns>资源组包含的资源名称列表。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceGroupCollection.GetResourceNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取资源组集合包含的资源名称列表。
             </summary>
             <param name="results">资源组包含的资源名称列表。</param>
         </member>
@@ -13429,8 +13920,8 @@
             </summary>
             <param name="versionListLength">版本资源列表大小。</param>
             <param name="versionListHashCode">版本资源列表哈希值。</param>
-            <param name="versionListZipLength">版本资源列表压缩后大小。</param>
-            <param name="versionListZipHashCode">版本资源列表压缩后哈希值。</param>
+            <param name="versionListCompressedLength">版本资源列表压缩后大小。</param>
+            <param name="versionListCompressedHashCode">版本资源列表压缩后哈希值。</param>
             <param name="updateVersionListCallbacks">版本资源列表更新回调函数集。</param>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.CheckResources(System.Boolean,GameFramework.Resource.CheckResourcesCompleteCallback)">
@@ -13449,7 +13940,7 @@
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.UpdateResources(GameFramework.Resource.UpdateResourcesCompleteCallback)">
             <summary>
-            使用可更新模式并更新全部资源。
+            使用可更新模式并更新所有资源。
             </summary>
             <param name="updateResourcesCompleteCallback">使用可更新模式并更新默认资源组完成时的回调函数。</param>
         </member>
@@ -13460,12 +13951,29 @@
             <param name="resourceGroupName">要更新的资源组名称。</param>
             <param name="updateResourcesCompleteCallback">使用可更新模式并更新指定资源组完成时的回调函数。</param>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.StopUpdateResources">
+            <summary>
+            停止更新资源。
+            </summary>
+        </member>
         <member name="M:GameFramework.Resource.IResourceManager.VerifyResourcePack(System.String)">
             <summary>
             校验资源包。
             </summary>
             <param name="resourcePackPath">要校验的资源包路径。</param>
             <returns>是否校验资源包成功。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetAllLoadAssetInfos">
+            <summary>
+            获取所有加载资源任务的信息。
+            </summary>
+            <returns>所有加载资源任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetAllLoadAssetInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有加载资源任务的信息。
+            </summary>
+            <param name="results">所有加载资源任务的信息。</param>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.HasAsset(System.String)">
             <summary>
@@ -13687,6 +14195,14 @@
             <param name="length">要加载片段的长度。</param>
             <returns>存储加载二进制资源片段内容的二进制流。</returns>
         </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Byte[])">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
         <member name="M:GameFramework.Resource.IResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Byte[],System.Int32)">
             <summary>
             从文件系统中加载二进制资源的片段。
@@ -13704,6 +14220,15 @@
             <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
             <param name="startIndex">存储加载二进制资源片段内容的二进制流的起始位置。</param>
             <param name="length">要加载片段的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int32,System.Byte[])">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="offset">要加载片段的偏移。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
             <returns>实际加载了多少字节。</returns>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int32,System.Byte[],System.Int32)">
@@ -13747,11 +14272,31 @@
             <param name="resourceGroupName">要获取的资源组名称。</param>
             <returns>要获取的资源组。</returns>
         </member>
-        <member name="M:GameFramework.Resource.IResourceManager.GetAllLoadAssetInfos">
+        <member name="M:GameFramework.Resource.IResourceManager.GetAllResourceGroups">
             <summary>
-            获取所有加载资源任务的信息。
+            获取所有资源组。
             </summary>
-            <returns>所有加载资源任务的信息。</returns>
+            <returns>所有资源组。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetAllResourceGroups(System.Collections.Generic.List{GameFramework.Resource.IResourceGroup})">
+            <summary>
+            获取所有资源组。
+            </summary>
+            <param name="results">所有资源组。</param>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupCollection(System.String[])">
+            <summary>
+            获取资源组集合。
+            </summary>
+            <param name="resourceGroupNames">要获取的资源组名称的集合。</param>
+            <returns>要获取的资源组集合。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.GetResourceGroupCollection(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取资源组集合。
+            </summary>
+            <param name="resourceGroupNames">要获取的资源组名称的集合。</param>
+            <returns>要获取的资源组集合。</returns>
         </member>
         <member name="T:GameFramework.Resource.LoadAssetCallbacks">
             <summary>
@@ -14701,7 +15246,7 @@
             获取资源大小。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceApplySuccessEventArgs.ZipLength">
+        <member name="P:GameFramework.Resource.ResourceApplySuccessEventArgs.CompressedLength">
             <summary>
             获取压缩后大小。
             </summary>
@@ -14714,7 +15259,7 @@
             <param name="applyPath">资源应用后存放路径。</param>
             <param name="resourcePackPath">资源包路径。</param>
             <param name="length">资源大小。</param>
-            <param name="zipLength">压缩后大小。</param>
+            <param name="compressedLength">压缩后大小。</param>
             <returns>创建的资源应用成功事件。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceApplySuccessEventArgs.Clear">
@@ -15064,8 +15609,8 @@
             </summary>
             <param name="versionListLength">版本资源列表大小。</param>
             <param name="versionListHashCode">版本资源列表哈希值。</param>
-            <param name="versionListZipLength">版本资源列表压缩后大小。</param>
-            <param name="versionListZipHashCode">版本资源列表压缩后哈希值。</param>
+            <param name="versionListCompressedLength">版本资源列表压缩后大小。</param>
+            <param name="versionListCompressedHashCode">版本资源列表压缩后哈希值。</param>
             <param name="updateVersionListCallbacks">版本资源列表更新回调函数集。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.CheckResources(System.Boolean,GameFramework.Resource.CheckResourcesCompleteCallback)">
@@ -15084,7 +15629,7 @@
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.UpdateResources(GameFramework.Resource.UpdateResourcesCompleteCallback)">
             <summary>
-            使用可更新模式并更新全部资源。
+            使用可更新模式并更新所有资源。
             </summary>
             <param name="updateResourcesCompleteCallback">使用可更新模式并更新默认资源组完成时的回调函数。</param>
         </member>
@@ -15095,12 +15640,29 @@
             <param name="resourceGroupName">要更新的资源组名称。</param>
             <param name="updateResourcesCompleteCallback">使用可更新模式并更新指定资源组完成时的回调函数。</param>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.StopUpdateResources">
+            <summary>
+            停止更新资源。
+            </summary>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.VerifyResourcePack(System.String)">
             <summary>
             校验资源包。
             </summary>
             <param name="resourcePackPath">要校验的资源包路径。</param>
             <returns>是否校验资源包成功。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetAllLoadAssetInfos">
+            <summary>
+            获取所有加载资源任务的信息。
+            </summary>
+            <returns>所有加载资源任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetAllLoadAssetInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有加载资源任务的信息。
+            </summary>
+            <param name="results">所有加载资源任务的信息。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.HasAsset(System.String)">
             <summary>
@@ -15322,6 +15884,14 @@
             <param name="length">要加载片段的长度。</param>
             <returns>存储加载二进制资源片段内容的二进制流。</returns>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Byte[])">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
         <member name="M:GameFramework.Resource.ResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Byte[],System.Int32)">
             <summary>
             从文件系统中加载二进制资源的片段。
@@ -15339,6 +15909,15 @@
             <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
             <param name="startIndex">存储加载二进制资源片段内容的二进制流的起始位置。</param>
             <param name="length">要加载片段的长度。</param>
+            <returns>实际加载了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int32,System.Byte[])">
+            <summary>
+            从文件系统中加载二进制资源的片段。
+            </summary>
+            <param name="binaryAssetName">要加载片段的二进制资源的名称。</param>
+            <param name="offset">要加载片段的偏移。</param>
+            <param name="buffer">存储加载二进制资源片段内容的二进制流。</param>
             <returns>实际加载了多少字节。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.LoadBinarySegmentFromFileSystem(System.String,System.Int32,System.Byte[],System.Int32)">
@@ -15382,11 +15961,31 @@
             <param name="resourceGroupName">要获取的资源组名称。</param>
             <returns>要获取的资源组。</returns>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.GetAllLoadAssetInfos">
+        <member name="M:GameFramework.Resource.ResourceManager.GetAllResourceGroups">
             <summary>
-            获取所有加载资源任务的信息。
+            获取所有资源组。
             </summary>
-            <returns>所有加载资源任务的信息。</returns>
+            <returns>所有资源组。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetAllResourceGroups(System.Collections.Generic.List{GameFramework.Resource.IResourceGroup})">
+            <summary>
+            获取所有资源组。
+            </summary>
+            <param name="results">所有资源组。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupCollection(System.String[])">
+            <summary>
+            获取资源组集合。
+            </summary>
+            <param name="resourceGroupNames">要获取的资源组名称的集合。</param>
+            <returns>要获取的资源组集合。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.GetResourceGroupCollection(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取资源组集合。
+            </summary>
+            <param name="resourceGroupNames">要获取的资源组名称的集合。</param>
+            <returns>要获取的资源组集合。</returns>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.LoadType">
             <summary>
@@ -15534,12 +16133,12 @@
             获取资源哈希值。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.ZipLength">
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.CompressedLength">
             <summary>
             获取压缩后大小。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.ZipHashCode">
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.CompressedHashCode">
             <summary>
             获取压缩后哈希值。
             </summary>
@@ -15557,8 +16156,8 @@
             <param name="loadType">资源加载方式。</param>
             <param name="length">资源大小。</param>
             <param name="hashCode">资源哈希值。</param>
-            <param name="zipLength">压缩后大小。</param>
-            <param name="zipHashCode">压缩后哈希值。</param>
+            <param name="compressedLength">压缩后大小。</param>
+            <param name="compressedHashCode">压缩后哈希值。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.CheckInfo.SetReadOnlyInfo(GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32)">
             <summary>
@@ -15647,7 +16246,7 @@
             获取资源组包含资源的总大小。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.TotalZipLength">
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.TotalCompressedLength">
             <summary>
             获取资源组包含资源压缩后的总大小。
             </summary>
@@ -15655,6 +16254,11 @@
         <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.ReadyLength">
             <summary>
             获取资源组中已准备完成资源的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.ReadyCompressedLength">
+            <summary>
+            获取资源组中已准备完成资源压缩后的总大小。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceGroup.Progress">
@@ -15699,14 +16303,84 @@
             </summary>
             <param name="resourceName">资源名称。</param>
             <param name="length">资源大小。</param>
-            <param name="zipLength">资源压缩后的大小。</param>
+            <param name="compressedLength">资源压缩后的大小。</param>
+        </member>
+        <member name="T:GameFramework.Resource.ResourceManager.ResourceGroupCollection">
+            <summary>
+            资源组集合。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroupCollection.#ctor(GameFramework.Resource.ResourceManager.ResourceGroup[],System.Collections.Generic.Dictionary{GameFramework.Resource.ResourceManager.ResourceName,GameFramework.Resource.ResourceManager.ResourceInfo})">
+            <summary>
+            初始化资源组集合的新实例。
+            </summary>
+            <param name="resourceGroups">资源组集合。</param>
+            <param name="resourceInfos">资源信息引用。</param>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.Ready">
+            <summary>
+            获取资源组集合是否准备完毕。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.TotalCount">
+            <summary>
+            获取资源组集合包含资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.ReadyCount">
+            <summary>
+            获取资源组集合中已准备完成资源数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.TotalLength">
+            <summary>
+            获取资源组集合包含资源的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.TotalCompressedLength">
+            <summary>
+            获取资源组集合包含资源压缩后的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.ReadyLength">
+            <summary>
+            获取资源组集合中已准备完成资源的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.ReadyCompressedLength">
+            <summary>
+            获取资源组集合中已准备完成资源压缩后的总大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceGroupCollection.Progress">
+            <summary>
+            获取资源组集合的完成进度。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroupCollection.GetResourceGroups">
+            <summary>
+            获取资源组集合包含的资源组列表。
+            </summary>
+            <returns>资源组包含的资源名称列表。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroupCollection.GetResourceNames">
+            <summary>
+            获取资源组集合包含的资源名称列表。
+            </summary>
+            <returns>资源组包含的资源名称列表。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceGroupCollection.GetResourceNames(System.Collections.Generic.List{System.String})">
+            <summary>
+            获取资源组集合包含的资源名称列表。
+            </summary>
+            <param name="results">资源组包含的资源名称列表。</param>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceInfo">
             <summary>
             资源信息。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,System.String,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Boolean,System.Boolean)">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,System.String,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean)">
             <summary>
             初始化资源信息的新实例。
             </summary>
@@ -15715,6 +16389,7 @@
             <param name="loadType">资源加载方式。</param>
             <param name="length">资源大小。</param>
             <param name="hashCode">资源哈希值。</param>
+            <param name="compressedLength">压缩后资源大小。</param>
             <param name="storageInReadOnly">资源是否在只读区。</param>
             <param name="ready">资源是否准备完毕。</param>
         </member>
@@ -15751,6 +16426,11 @@
         <member name="P:GameFramework.Resource.ResourceManager.ResourceInfo.HashCode">
             <summary>
             获取资源哈希值。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceInfo.CompressedLength">
+            <summary>
+            获取压缩后资源大小。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceInfo.StorageInReadOnly">
@@ -16010,6 +16690,12 @@
             </summary>
             <returns>所有加载资源任务的信息。</returns>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceLoader.GetAllLoadAssetInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有加载资源任务的信息。
+            </summary>
+            <param name="results">所有加载资源任务的信息。</param>
+        </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceLoader.LoadResourceAgent">
             <summary>
             加载资源代理。
@@ -16118,8 +16804,8 @@
             <param name="offset">资源偏移。</param>
             <param name="length">资源大小。</param>
             <param name="hashCode">资源哈希值。</param>
-            <param name="zipLength">压缩后大小。</param>
-            <param name="zipHashCode">压缩后哈希值。</param>
+            <param name="compressedLength">压缩后大小。</param>
+            <param name="compressedHashCode">压缩后哈希值。</param>
             <param name="resourcePath">资源路径。</param>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.ApplyInfo.ResourceName">
@@ -16157,12 +16843,12 @@
             获取资源哈希值。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.ApplyInfo.ZipLength">
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.ApplyInfo.CompressedLength">
             <summary>
             获取压缩后大小。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.ApplyInfo.ZipHashCode">
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.ApplyInfo.CompressedHashCode">
             <summary>
             获取压缩后哈希值。
             </summary>
@@ -16245,8 +16931,8 @@
             <param name="loadType">资源加载方式。</param>
             <param name="length">资源大小。</param>
             <param name="hashCode">资源哈希值。</param>
-            <param name="zipLength">压缩后大小。</param>
-            <param name="zipHashCode">压缩后哈希值。</param>
+            <param name="compressedLength">压缩后大小。</param>
+            <param name="compressedHashCode">压缩后哈希值。</param>
             <param name="resourcePath">资源路径。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.CheckResourceComplete(System.Boolean)">
@@ -16267,6 +16953,11 @@
             </summary>
             <param name="resourceGroup">要更新的资源组。</param>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.StopUpdateResources">
+            <summary>
+            停止更新资源。
+            </summary>
+        </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo">
             <summary>
             更新信息。
@@ -16281,8 +16972,8 @@
             <param name="loadType">资源加载方式。</param>
             <param name="length">资源大小。</param>
             <param name="hashCode">资源哈希值。</param>
-            <param name="zipLength">压缩后大小。</param>
-            <param name="zipHashCode">压缩后哈希值。</param>
+            <param name="compressedLength">压缩后大小。</param>
+            <param name="compressedHashCode">压缩后哈希值。</param>
             <param name="resourcePath">资源路径。</param>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.ResourceName">
@@ -16315,12 +17006,12 @@
             获取资源哈希值。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.ZipLength">
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.CompressedLength">
             <summary>
             获取压缩后大小。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.ZipHashCode">
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.CompressedHashCode">
             <summary>
             获取压缩后哈希值。
             </summary>
@@ -16370,8 +17061,8 @@
             </summary>
             <param name="versionListLength">版本资源列表大小。</param>
             <param name="versionListHashCode">版本资源列表哈希值。</param>
-            <param name="versionListZipLength">版本资源列表压缩后大小。</param>
-            <param name="versionListZipHashCode">版本资源列表压缩后哈希值。</param>
+            <param name="versionListCompressedLength">版本资源列表压缩后大小。</param>
+            <param name="versionListCompressedHashCode">版本资源列表压缩后哈希值。</param>
         </member>
         <member name="T:GameFramework.Resource.ResourceMode">
             <summary>
@@ -16454,8 +17145,8 @@
             <param name="offset">资源偏移。</param>
             <param name="length">资源长度。</param>
             <param name="hashCode">资源哈希值。</param>
-            <param name="zipLength">资源压缩后长度。</param>
-            <param name="zipHashCode">资源压缩后哈希值。</param>
+            <param name="compressedLength">资源压缩后长度。</param>
+            <param name="compressedHashCode">资源压缩后哈希值。</param>
         </member>
         <member name="P:GameFramework.Resource.ResourcePackVersionList.Resource.Name">
             <summary>
@@ -16492,12 +17183,12 @@
             获取资源哈希值。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourcePackVersionList.Resource.ZipLength">
+        <member name="P:GameFramework.Resource.ResourcePackVersionList.Resource.CompressedLength">
             <summary>
             获取资源压缩后长度。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourcePackVersionList.Resource.ZipHashCode">
+        <member name="P:GameFramework.Resource.ResourcePackVersionList.Resource.CompressedHashCode">
             <summary>
             获取资源压缩后哈希值。
             </summary>
@@ -16548,7 +17239,7 @@
             获取当前下载大小。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceUpdateChangedEventArgs.ZipLength">
+        <member name="P:GameFramework.Resource.ResourceUpdateChangedEventArgs.CompressedLength">
             <summary>
             获取压缩后大小。
             </summary>
@@ -16561,7 +17252,7 @@
             <param name="downloadPath">资源下载后存放路径。</param>
             <param name="downloadUri">资源下载地址。</param>
             <param name="currentLength">当前下载大小。</param>
-            <param name="zipLength">压缩后大小。</param>
+            <param name="compressedLength">压缩后大小。</param>
             <returns>创建的资源更新改变事件。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceUpdateChangedEventArgs.Clear">
@@ -16651,7 +17342,7 @@
             获取当前下载大小。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceUpdateStartEventArgs.ZipLength">
+        <member name="P:GameFramework.Resource.ResourceUpdateStartEventArgs.CompressedLength">
             <summary>
             获取压缩后大小。
             </summary>
@@ -16669,7 +17360,7 @@
             <param name="downloadPath">资源下载后存放路径。</param>
             <param name="downloadUri">资源下载地址。</param>
             <param name="currentLength">当前下载大小。</param>
-            <param name="zipLength">压缩后大小。</param>
+            <param name="compressedLength">压缩后大小。</param>
             <param name="retryCount">已重试下载次数。</param>
             <returns>创建的资源更新开始事件。</returns>
         </member>
@@ -16708,7 +17399,7 @@
             获取资源大小。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.ResourceUpdateSuccessEventArgs.ZipLength">
+        <member name="P:GameFramework.Resource.ResourceUpdateSuccessEventArgs.CompressedLength">
             <summary>
             获取压缩后大小。
             </summary>
@@ -16721,7 +17412,7 @@
             <param name="downloadPath">资源下载后存放路径。</param>
             <param name="downloadUri">资源下载地址。</param>
             <param name="length">资源大小。</param>
-            <param name="zipLength">压缩后大小。</param>
+            <param name="compressedLength">压缩后大小。</param>
             <returns>创建的资源更新成功事件。</returns>
         </member>
         <member name="M:GameFramework.Resource.ResourceUpdateSuccessEventArgs.Clear">
@@ -16887,8 +17578,8 @@
             <param name="loadType">资源加载方式。</param>
             <param name="length">资源长度。</param>
             <param name="hashCode">资源哈希值。</param>
-            <param name="zipLength">资源压缩后长度。</param>
-            <param name="zipHashCode">资源压缩后哈希值。</param>
+            <param name="compressedLength">资源压缩后长度。</param>
+            <param name="compressedHashCode">资源压缩后哈希值。</param>
             <param name="assetIndexes">资源包含的资源索引集合。</param>
         </member>
         <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.Name">
@@ -16921,12 +17612,12 @@
             获取资源哈希值。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.ZipLength">
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.CompressedLength">
             <summary>
             获取资源压缩后长度。
             </summary>
         </member>
-        <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.ZipHashCode">
+        <member name="P:GameFramework.Resource.UpdatableVersionList.Resource.CompressedHashCode">
             <summary>
             获取资源压缩后哈希值。
             </summary>
@@ -19612,326 +20303,6 @@
             </summary>
             <param name="fadeOutSeconds">声音淡出时间，以秒为单位。</param>
         </member>
-        <member name="T:GameFramework.Task.ConditionalTask">
-            <summary>
-            条件任务。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Task.ConditionalTask.#ctor">
-            <summary>
-            初始化条件任务的新实例。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Task.ConditionalTask.SetCondition(System.Predicate{GameFramework.Task.ConditionalTask})">
-            <summary>
-            设置任务完成的条件。
-            </summary>
-            <param name="condition">任务完成的条件。</param>
-        </member>
-        <member name="M:GameFramework.Task.ConditionalTask.SetCompleteAction(GameFramework.GameFrameworkAction{GameFramework.Task.ConditionalTask,System.String})">
-            <summary>
-            设置任务完成时的行为。
-            </summary>
-            <param name="completeAction">任务完成时的行为。</param>
-        </member>
-        <member name="M:GameFramework.Task.ConditionalTask.SetFailureAction(GameFramework.GameFrameworkAction{GameFramework.Task.ConditionalTask,System.String})">
-            <summary>
-            设置任务失败时的行为。
-            </summary>
-            <param name="failureAction">任务失败时的行为。</param>
-        </member>
-        <member name="M:GameFramework.Task.ConditionalTask.SetCancelAction(GameFramework.GameFrameworkAction{GameFramework.Task.ConditionalTask,System.String})">
-            <summary>
-            设置任务取消时的行为。
-            </summary>
-            <param name="cancelAction">任务取消时的行为。</param>
-        </member>
-        <member name="M:GameFramework.Task.ConditionalTask.OnStart">
-            <summary>
-            任务开始时调用。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Task.ConditionalTask.OnUpdate(System.Single,System.Single)">
-            <summary>
-            任务轮询时调用。
-            </summary>
-            <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
-            <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
-        </member>
-        <member name="M:GameFramework.Task.ConditionalTask.OnComplete(System.String)">
-            <summary>
-            任务完成时调用。
-            </summary>
-            <param name="reason">任务完成的原因。</param>
-        </member>
-        <member name="M:GameFramework.Task.ConditionalTask.OnFailure(System.String)">
-            <summary>
-            任务失败时调用。
-            </summary>
-            <param name="reason">任务失败的原因。</param>
-        </member>
-        <member name="M:GameFramework.Task.ConditionalTask.OnCancel(System.String)">
-            <summary>
-            任务取消时调用。
-            </summary>
-            <param name="reason">任务取消的原因。</param>
-        </member>
-        <member name="T:GameFramework.Task.ITaskManager">
-            <summary>
-            任务管理器。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Task.ITaskManager.Count">
-            <summary>
-            获取任务数量。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Task.ITaskManager.GenerateTask``1">
-            <summary>
-            生成任务。
-            </summary>
-            <typeparam name="T">任务的类型。</typeparam>
-            <returns>生成的指定类型的任务。</returns>
-        </member>
-        <member name="M:GameFramework.Task.ITaskManager.GenerateTask``1(System.Int32)">
-            <summary>
-            生成任务。
-            </summary>
-            <typeparam name="T">任务的类型。</typeparam>
-            <param name="priority">任务的优先级。</param>
-            <returns>生成的指定类型的任务。</returns>
-        </member>
-        <member name="M:GameFramework.Task.ITaskManager.CancelTask(System.Int32)">
-            <summary>
-            取消任务。
-            </summary>
-            <param name="serialId">要取消的任务的序列编号。</param>
-            <returns>是否取消任务成功。</returns>
-        </member>
-        <member name="M:GameFramework.Task.ITaskManager.CancelTask(System.Int32,System.String)">
-            <summary>
-            取消任务。
-            </summary>
-            <param name="serialId">要取消的任务的序列编号。</param>
-            <param name="reason">任务取消的原因。</param>
-            <returns>是否取消任务成功。</returns>
-        </member>
-        <member name="M:GameFramework.Task.ITaskManager.CancelTask(GameFramework.Task.TaskBase)">
-            <summary>
-            取消任务。
-            </summary>
-            <param name="task">要取消的任务。</param>
-            <returns>是否取消任务成功。</returns>
-        </member>
-        <member name="M:GameFramework.Task.ITaskManager.CancelTask(GameFramework.Task.TaskBase,System.String)">
-            <summary>
-            取消任务。
-            </summary>
-            <param name="task">要取消的任务。</param>
-            <param name="reason">任务取消的原因。</param>
-            <returns>是否取消任务成功。</returns>
-        </member>
-        <member name="M:GameFramework.Task.ITaskManager.CancelAllTasks(System.String)">
-            <summary>
-            取消所有任务。
-            </summary>
-            <param name="reason">任务取消的原因。</param>
-        </member>
-        <member name="T:GameFramework.Task.TaskBase">
-            <summary>
-            任务基类。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Task.TaskBase.DefaultPriority">
-            <summary>
-            任务默认优先级。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Task.TaskBase.#ctor">
-            <summary>
-            初始化任务基类的新实例。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Task.TaskBase.SerialId">
-            <summary>
-            获取任务的序列编号。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Task.TaskBase.Priority">
-            <summary>
-            获取任务的优先级。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Task.TaskBase.Status">
-            <summary>
-            获取任务的状态。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Task.TaskBase.UserData">
-            <summary>
-            获取或设置用户自定义数据。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Task.TaskBase.Initialize(System.Int32,System.Int32)">
-            <summary>
-            初始化任务基类。
-            </summary>
-            <param name="serialId">任务的序列编号。</param>
-            <param name="priority">任务的优先级。</param>
-        </member>
-        <member name="M:GameFramework.Task.TaskBase.Clear">
-            <summary>
-            清理任务基类。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Task.TaskBase.OnGenerate">
-            <summary>
-            任务生成时调用。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Task.TaskBase.OnStart">
-            <summary>
-            任务开始时调用。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Task.TaskBase.OnUpdate(System.Single,System.Single)">
-            <summary>
-            任务轮询时调用。
-            </summary>
-            <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
-            <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
-        </member>
-        <member name="M:GameFramework.Task.TaskBase.OnComplete(System.String)">
-            <summary>
-            任务完成时调用。
-            </summary>
-            <param name="reason">任务完成的原因。</param>
-        </member>
-        <member name="M:GameFramework.Task.TaskBase.OnFailure(System.String)">
-            <summary>
-            任务失败时调用。
-            </summary>
-            <param name="reason">任务失败的原因。</param>
-        </member>
-        <member name="M:GameFramework.Task.TaskBase.OnCancel(System.String)">
-            <summary>
-            任务取消时调用。
-            </summary>
-            <param name="reason">任务取消的原因。</param>
-        </member>
-        <member name="T:GameFramework.Task.TaskManager">
-            <summary>
-            任务管理器。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Task.TaskManager.#ctor">
-            <summary>
-            初始化任务管理器的新实例。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Task.TaskManager.Count">
-            <summary>
-            获取任务数量。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Task.TaskManager.Update(System.Single,System.Single)">
-            <summary>
-            任务管理器轮询。
-            </summary>
-            <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
-            <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
-        </member>
-        <member name="M:GameFramework.Task.TaskManager.Shutdown">
-            <summary>
-            关闭并清理任务管理器。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Task.TaskManager.GenerateTask``1">
-            <summary>
-            生成任务。
-            </summary>
-            <typeparam name="T">任务的类型。</typeparam>
-            <returns>生成的指定类型的任务。</returns>
-        </member>
-        <member name="M:GameFramework.Task.TaskManager.GenerateTask``1(System.Int32)">
-            <summary>
-            生成任务。
-            </summary>
-            <typeparam name="T">任务的类型。</typeparam>
-            <param name="priority">任务的优先级。</param>
-            <returns>生成的指定类型的任务。</returns>
-        </member>
-        <member name="M:GameFramework.Task.TaskManager.CancelTask(System.Int32)">
-            <summary>
-            取消任务。
-            </summary>
-            <param name="serialId">要取消的任务的序列编号。</param>
-            <returns>是否取消任务成功。</returns>
-        </member>
-        <member name="M:GameFramework.Task.TaskManager.CancelTask(System.Int32,System.String)">
-            <summary>
-            取消任务。
-            </summary>
-            <param name="serialId">要取消的任务的序列编号。</param>
-            <param name="reason">任务取消的原因。</param>
-            <returns>是否取消任务成功。</returns>
-        </member>
-        <member name="M:GameFramework.Task.TaskManager.CancelTask(GameFramework.Task.TaskBase)">
-            <summary>
-            取消任务。
-            </summary>
-            <param name="task">要取消的任务。</param>
-            <returns>是否取消任务成功。</returns>
-        </member>
-        <member name="M:GameFramework.Task.TaskManager.CancelTask(GameFramework.Task.TaskBase,System.String)">
-            <summary>
-            取消任务。
-            </summary>
-            <param name="task">要取消的任务。</param>
-            <param name="reason">任务取消的原因。</param>
-            <returns>是否取消任务成功。</returns>
-        </member>
-        <member name="M:GameFramework.Task.TaskManager.CancelAllTasks(System.String)">
-            <summary>
-            取消所有任务。
-            </summary>
-            <param name="reason">任务取消的原因。</param>
-        </member>
-        <member name="T:GameFramework.Task.TaskStatus">
-            <summary>
-            任务状态。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Task.TaskStatus.Free">
-            <summary>
-            空闲。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Task.TaskStatus.Waiting">
-            <summary>
-            等待中。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Task.TaskStatus.Running">
-            <summary>
-            运行中。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Task.TaskStatus.Completed">
-            <summary>
-            已完成。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Task.TaskStatus.Failed">
-            <summary>
-            已失败。
-            </summary>
-        </member>
-        <member name="F:GameFramework.Task.TaskStatus.Canceled">
-            <summary>
-            已取消。
-            </summary>
-        </member>
         <member name="T:GameFramework.UI.CloseUIFormCompleteEventArgs">
             <summary>
             关闭界面完成事件。
@@ -21317,6 +21688,156 @@
             <param name="typeName">要获取的类型名。</param>
             <returns>已加载的程序集中的指定类型。</returns>
         </member>
+        <member name="T:GameFramework.Utility.Compression">
+            <summary>
+            压缩解压缩相关的实用函数。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.SetCompressionHelper(GameFramework.Utility.Compression.ICompressionHelper)">
+            <summary>
+            设置压缩解压缩辅助器。
+            </summary>
+            <param name="compressionHelper">要设置的压缩解压缩辅助器。</param>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.Compress(System.Byte[])">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <returns>压缩后的数据的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.Compress(System.Byte[],System.IO.Stream)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <param name="compressedStream">压缩后的数据的二进制流。</param>
+            <returns>是否压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.Compress(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <param name="offset">要压缩的数据的二进制流的偏移。</param>
+            <param name="length">要压缩的数据的二进制流的长度。</param>
+            <returns>压缩后的数据的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.Compress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <param name="offset">要压缩的数据的二进制流的偏移。</param>
+            <param name="length">要压缩的数据的二进制流的长度。</param>
+            <param name="compressedStream">压缩后的数据的二进制流。</param>
+            <returns>是否压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.Compress(System.IO.Stream)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="stream">要压缩的数据的二进制流。</param>
+            <returns>压缩后的数据的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.Compress(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="stream">要压缩的数据的二进制流。</param>
+            <param name="compressedStream">压缩后的数据的二进制流。</param>
+            <returns>是否压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.Decompress(System.Byte[])">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <returns>解压缩后的数据的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.Decompress(System.Byte[],System.IO.Stream)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.Decompress(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <param name="offset">要解压缩的数据的二进制流的偏移。</param>
+            <param name="length">要解压缩的数据的二进制流的长度。</param>
+            <returns>解压缩后的数据的二进制流。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.Decompress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <param name="offset">要解压缩的数据的二进制流的偏移。</param>
+            <param name="length">要解压缩的数据的二进制流的长度。</param>
+            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.Decompress(System.IO.Stream)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="stream">要解压缩的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.Decompress(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="stream">要解压缩的数据的二进制流。</param>
+            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
+        </member>
+        <member name="T:GameFramework.Utility.Compression.ICompressionHelper">
+            <summary>
+            压缩解压缩辅助器接口。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.ICompressionHelper.Compress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="bytes">要压缩的数据的二进制流。</param>
+            <param name="offset">要压缩的数据的二进制流的偏移。</param>
+            <param name="length">要压缩的数据的二进制流的长度。</param>
+            <param name="compressedStream">压缩后的数据的二进制流。</param>
+            <returns>是否压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.ICompressionHelper.Compress(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            压缩数据。
+            </summary>
+            <param name="stream">要压缩的数据的二进制流。</param>
+            <param name="compressedStream">压缩后的数据的二进制流。</param>
+            <returns>是否压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.ICompressionHelper.Decompress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="bytes">要解压缩的数据的二进制流。</param>
+            <param name="offset">要解压缩的数据的二进制流的偏移。</param>
+            <param name="length">要解压缩的数据的二进制流的长度。</param>
+            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Compression.ICompressionHelper.Decompress(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            解压缩数据。
+            </summary>
+            <param name="stream">要解压缩的数据的二进制流。</param>
+            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
+            <returns>是否解压缩数据成功。</returns>
+        </member>
         <member name="T:GameFramework.Utility.Converter">
             <summary>
             类型转换相关的实用函数。
@@ -21737,6 +22258,23 @@
             <param name="value">要转换的字符串。</param>
             <returns>用于存放结果的字节数组。</returns>
         </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.String,System.Byte[])">
+            <summary>
+            以字节数组的形式获取 UTF-8 编码的字符串。
+            </summary>
+            <param name="value">要转换的字符串。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <returns>buffer 内实际填充了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.String,System.Byte[],System.Int32)">
+            <summary>
+            以字节数组的形式获取 UTF-8 编码的字符串。
+            </summary>
+            <param name="value">要转换的字符串。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <param name="startIndex">buffer 内的起始位置。</param>
+            <returns>buffer 内实际填充了多少字节。</returns>
+        </member>
         <member name="M:GameFramework.Utility.Converter.GetBytes(System.String,System.Text.Encoding)">
             <summary>
             以字节数组的形式获取指定编码的字符串。
@@ -21744,6 +22282,25 @@
             <param name="value">要转换的字符串。</param>
             <param name="encoding">要使用的编码。</param>
             <returns>用于存放结果的字节数组。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.String,System.Text.Encoding,System.Byte[])">
+            <summary>
+            以字节数组的形式获取指定编码的字符串。
+            </summary>
+            <param name="value">要转换的字符串。</param>
+            <param name="encoding">要使用的编码。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <returns>buffer 内实际填充了多少字节。</returns>
+        </member>
+        <member name="M:GameFramework.Utility.Converter.GetBytes(System.String,System.Text.Encoding,System.Byte[],System.Int32)">
+            <summary>
+            以字节数组的形式获取指定编码的字符串。
+            </summary>
+            <param name="value">要转换的字符串。</param>
+            <param name="encoding">要使用的编码。</param>
+            <param name="buffer">用于存放结果的字节数组。</param>
+            <param name="startIndex">buffer 内的起始位置。</param>
+            <returns>buffer 内实际填充了多少字节。</returns>
         </member>
         <member name="M:GameFramework.Utility.Converter.GetString(System.Byte[])">
             <summary>
@@ -21851,13 +22408,6 @@
             <param name="obj">要序列化的对象。</param>
             <returns>序列化后的 JSON 字符串。</returns>
         </member>
-        <member name="M:GameFramework.Utility.Json.ToJsonData(System.Object)">
-            <summary>
-            将对象序列化为 JSON 流。
-            </summary>
-            <param name="obj">要序列化的对象。</param>
-            <returns>序列化后的 JSON 流。</returns>
-        </member>
         <member name="M:GameFramework.Utility.Json.ToObject``1(System.String)">
             <summary>
             将 JSON 字符串反序列化为对象。
@@ -21872,22 +22422,6 @@
             </summary>
             <param name="objectType">对象类型。</param>
             <param name="json">要反序列化的 JSON 字符串。</param>
-            <returns>反序列化后的对象。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Json.ToObject``1(System.Byte[])">
-            <summary>
-            将 JSON 流反序列化为对象。
-            </summary>
-            <typeparam name="T">对象类型。</typeparam>
-            <param name="jsonData">要反序列化的 JSON 流。</param>
-            <returns>反序列化后的对象。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Json.ToObject(System.Type,System.Byte[])">
-            <summary>
-            将 JSON 字符串反序列化为对象。
-            </summary>
-            <param name="objectType">对象类型。</param>
-            <param name="jsonData">要反序列化的 JSON 流。</param>
             <returns>反序列化后的对象。</returns>
         </member>
         <member name="T:GameFramework.Utility.Json.IJsonHelper">
@@ -21921,11 +22455,6 @@
         <member name="T:GameFramework.Utility.Marshal">
             <summary>
             Marshal 相关的实用函数。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Utility.Marshal.CachedHGlobalPtr">
-            <summary>
-            获取缓存的指向从进程的非托管内存中分配的内存的指针。
             </summary>
         </member>
         <member name="P:GameFramework.Utility.Marshal.CachedHGlobalSize">
@@ -22032,27 +22561,6 @@
             <param name="buffer">要转换的二进制流。</param>
             <param name="startIndex">读取要转换的二进制流的起始位置。</param>
             <returns>存储转换结果的对象。</returns>
-        </member>
-        <member name="T:GameFramework.Utility.Nullable">
-            <summary>
-            可空类型相关的实用函数。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Utility.Nullable.IsNullable``1(``0)">
-            <summary>
-            获取对象是否是可空类型。
-            </summary>
-            <typeparam name="T">对象类型。</typeparam>
-            <param name="t">对象。</param>
-            <returns>对象是否是可空类型。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Nullable.IsNullable``1(System.Nullable{``0})">
-            <summary>
-            获取对象是否是可空类型。
-            </summary>
-            <typeparam name="T">对象类型。</typeparam>
-            <param name="t">对象。</param>
-            <returns>对象是否是可空类型。</returns>
         </member>
         <member name="T:GameFramework.Utility.Path">
             <summary>
@@ -22219,156 +22727,6 @@
             <param name="bytes">要存放结果的数组。</param>
             <param name="offset">CRC32 数值的二进制数组在结果数组内的起始位置。</param>
         </member>
-        <member name="T:GameFramework.Utility.Zip">
-            <summary>
-            压缩解压缩相关的实用函数。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.SetZipHelper(GameFramework.Utility.Zip.IZipHelper)">
-            <summary>
-            设置压缩解压缩辅助器。
-            </summary>
-            <param name="zipHelper">要设置的压缩解压缩辅助器。</param>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.Compress(System.Byte[])">
-            <summary>
-            压缩数据。
-            </summary>
-            <param name="bytes">要压缩的数据的二进制流。</param>
-            <returns>压缩后的数据的二进制流。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.Compress(System.Byte[],System.IO.Stream)">
-            <summary>
-            压缩数据。
-            </summary>
-            <param name="bytes">要压缩的数据的二进制流。</param>
-            <param name="compressedStream">压缩后的数据的二进制流。</param>
-            <returns>是否压缩数据成功。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.Compress(System.Byte[],System.Int32,System.Int32)">
-            <summary>
-            压缩数据。
-            </summary>
-            <param name="bytes">要压缩的数据的二进制流。</param>
-            <param name="offset">要压缩的数据的二进制流的偏移。</param>
-            <param name="length">要压缩的数据的二进制流的长度。</param>
-            <returns>压缩后的数据的二进制流。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.Compress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
-            <summary>
-            压缩数据。
-            </summary>
-            <param name="bytes">要压缩的数据的二进制流。</param>
-            <param name="offset">要压缩的数据的二进制流的偏移。</param>
-            <param name="length">要压缩的数据的二进制流的长度。</param>
-            <param name="compressedStream">压缩后的数据的二进制流。</param>
-            <returns>是否压缩数据成功。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.Compress(System.IO.Stream)">
-            <summary>
-            压缩数据。
-            </summary>
-            <param name="stream">要压缩的数据的二进制流。</param>
-            <returns>压缩后的数据的二进制流。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.Compress(System.IO.Stream,System.IO.Stream)">
-            <summary>
-            压缩数据。
-            </summary>
-            <param name="stream">要压缩的数据的二进制流。</param>
-            <param name="compressedStream">压缩后的数据的二进制流。</param>
-            <returns>是否压缩数据成功。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.Decompress(System.Byte[])">
-            <summary>
-            解压缩数据。
-            </summary>
-            <param name="bytes">要解压缩的数据的二进制流。</param>
-            <returns>解压缩后的数据的二进制流。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.Decompress(System.Byte[],System.IO.Stream)">
-            <summary>
-            解压缩数据。
-            </summary>
-            <param name="bytes">要解压缩的数据的二进制流。</param>
-            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
-            <returns>是否解压缩数据成功。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.Decompress(System.Byte[],System.Int32,System.Int32)">
-            <summary>
-            解压缩数据。
-            </summary>
-            <param name="bytes">要解压缩的数据的二进制流。</param>
-            <param name="offset">要解压缩的数据的二进制流的偏移。</param>
-            <param name="length">要解压缩的数据的二进制流的长度。</param>
-            <returns>解压缩后的数据的二进制流。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.Decompress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
-            <summary>
-            解压缩数据。
-            </summary>
-            <param name="bytes">要解压缩的数据的二进制流。</param>
-            <param name="offset">要解压缩的数据的二进制流的偏移。</param>
-            <param name="length">要解压缩的数据的二进制流的长度。</param>
-            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
-            <returns>是否解压缩数据成功。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.Decompress(System.IO.Stream)">
-            <summary>
-            解压缩数据。
-            </summary>
-            <param name="stream">要解压缩的数据的二进制流。</param>
-            <returns>是否解压缩数据成功。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.Decompress(System.IO.Stream,System.IO.Stream)">
-            <summary>
-            解压缩数据。
-            </summary>
-            <param name="stream">要解压缩的数据的二进制流。</param>
-            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
-            <returns>是否解压缩数据成功。</returns>
-        </member>
-        <member name="T:GameFramework.Utility.Zip.IZipHelper">
-            <summary>
-            压缩解压缩辅助器接口。
-            </summary>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.IZipHelper.Compress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
-            <summary>
-            压缩数据。
-            </summary>
-            <param name="bytes">要压缩的数据的二进制流。</param>
-            <param name="offset">要压缩的数据的二进制流的偏移。</param>
-            <param name="length">要压缩的数据的二进制流的长度。</param>
-            <param name="compressedStream">压缩后的数据的二进制流。</param>
-            <returns>是否压缩数据成功。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.IZipHelper.Compress(System.IO.Stream,System.IO.Stream)">
-            <summary>
-            压缩数据。
-            </summary>
-            <param name="stream">要压缩的数据的二进制流。</param>
-            <param name="compressedStream">压缩后的数据的二进制流。</param>
-            <returns>是否压缩数据成功。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.IZipHelper.Decompress(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
-            <summary>
-            解压缩数据。
-            </summary>
-            <param name="bytes">要解压缩的数据的二进制流。</param>
-            <param name="offset">要解压缩的数据的二进制流的偏移。</param>
-            <param name="length">要解压缩的数据的二进制流的长度。</param>
-            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
-            <returns>是否解压缩数据成功。</returns>
-        </member>
-        <member name="M:GameFramework.Utility.Zip.IZipHelper.Decompress(System.IO.Stream,System.IO.Stream)">
-            <summary>
-            解压缩数据。
-            </summary>
-            <param name="stream">要解压缩的数据的二进制流。</param>
-            <param name="decompressedStream">解压缩后的数据的二进制流。</param>
-            <returns>是否解压缩数据成功。</returns>
-        </member>
         <member name="T:GameFramework.WebRequest.Constant">
             <summary>
             Web 请求相关常量。
@@ -22465,6 +22823,39 @@
             </summary>
             <param name="webRequestAgentHelper">要增加的 Web 请求代理辅助器。</param>
         </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.GetWebRequestInfo(System.Int32)">
+            <summary>
+            根据 Web 请求任务的序列编号获取 Web 请求任务的信息。
+            </summary>
+            <param name="serialId">要获取信息的 Web 请求任务的序列编号。</param>
+            <returns>Web 请求任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.GetWebRequestInfos(System.String)">
+            <summary>
+            根据 Web 请求任务的标签获取 Web 请求任务的信息。
+            </summary>
+            <param name="tag">要获取信息的 Web 请求任务的标签。</param>
+            <returns>Web 请求任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.GetAllWebRequestInfos(System.String,System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            根据 Web 请求任务的标签获取 Web 请求任务的信息。
+            </summary>
+            <param name="tag">要获取信息的 Web 请求任务的标签。</param>
+            <param name="results">Web 请求任务的信息。</param>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.GetAllWebRequestInfos">
+            <summary>
+            获取所有 Web 请求任务的信息。
+            </summary>
+            <returns>所有 Web 请求任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.GetAllWebRequestInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有 Web 请求任务的信息。
+            </summary>
+            <param name="results">所有 Web 请求任务的信息。</param>
+        </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String)">
             <summary>
             增加 Web 请求任务。
@@ -22478,6 +22869,14 @@
             </summary>
             <param name="webRequestUri">Web 请求地址。</param>
             <param name="postData">要发送的数据流。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.String)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Int32)">
@@ -22494,6 +22893,15 @@
             </summary>
             <param name="webRequestUri">Web 请求地址。</param>
             <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Byte[],System.String)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Byte[],System.Int32)">
@@ -22514,12 +22922,50 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.String,System.Int32)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.String,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Int32,System.Object)">
             <summary>
             增加 Web 请求任务。
             </summary>
             <param name="webRequestUri">Web 请求地址。</param>
             <param name="priority">Web 请求任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Byte[],System.String,System.Int32)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Byte[],System.String,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
@@ -22533,23 +22979,46 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.AddWebRequest(System.String,System.Byte[],System.String,System.Int32,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.RemoveWebRequest(System.Int32)">
             <summary>
-            移除 Web 请求任务。
+            根据 Web 请求任务的序列编号移除 Web 请求任务。
             </summary>
             <param name="serialId">要移除 Web 请求任务的序列编号。</param>
             <returns>是否移除 Web 请求任务成功。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.IWebRequestManager.RemoveWebRequests(System.String)">
+            <summary>
+            根据 Web 请求任务的标签移除 Web 请求任务。
+            </summary>
+            <param name="tag">要移除 Web 请求任务的标签。</param>
+            <returns>移除 Web 请求任务的数量。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.IWebRequestManager.RemoveAllWebRequests">
             <summary>
             移除所有 Web 请求任务。
             </summary>
-        </member>
-        <member name="M:GameFramework.WebRequest.IWebRequestManager.GetAllWebRequestInfos">
-            <summary>
-            获取所有 Web 请求任务的信息。
-            </summary>
-            <returns>所有 Web 请求任务的信息。</returns>
+            <returns>移除 Web 请求任务的数量。</returns>
         </member>
         <member name="T:GameFramework.WebRequest.WebRequestAgentHelperCompleteEventArgs">
             <summary>
@@ -22719,6 +23188,39 @@
             </summary>
             <param name="webRequestAgentHelper">要增加的 Web 请求代理辅助器。</param>
         </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.GetWebRequestInfo(System.Int32)">
+            <summary>
+            根据 Web 请求任务的序列编号获取 Web 请求任务的信息。
+            </summary>
+            <param name="serialId">要获取信息的 Web 请求任务的序列编号。</param>
+            <returns>Web 请求任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.GetWebRequestInfos(System.String)">
+            <summary>
+            根据 Web 请求任务的标签获取 Web 请求任务的信息。
+            </summary>
+            <param name="tag">要获取信息的 Web 请求任务的标签。</param>
+            <returns>Web 请求任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.GetAllWebRequestInfos(System.String,System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            根据 Web 请求任务的标签获取 Web 请求任务的信息。
+            </summary>
+            <param name="tag">要获取信息的 Web 请求任务的标签。</param>
+            <param name="results">Web 请求任务的信息。</param>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.GetAllWebRequestInfos">
+            <summary>
+            获取所有 Web 请求任务的信息。
+            </summary>
+            <returns>所有 Web 请求任务的信息。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.GetAllWebRequestInfos(System.Collections.Generic.List{GameFramework.TaskInfo})">
+            <summary>
+            获取所有 Web 请求任务的信息。
+            </summary>
+            <param name="results">所有 Web 请求任务的信息。</param>
+        </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String)">
             <summary>
             增加 Web 请求任务。
@@ -22732,6 +23234,14 @@
             </summary>
             <param name="webRequestUri">Web 请求地址。</param>
             <param name="postData">要发送的数据流。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.String)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Int32)">
@@ -22748,6 +23258,15 @@
             </summary>
             <param name="webRequestUri">Web 请求地址。</param>
             <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Byte[],System.String)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Byte[],System.Int32)">
@@ -22768,12 +23287,50 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.String,System.Int32)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.String,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Int32,System.Object)">
             <summary>
             增加 Web 请求任务。
             </summary>
             <param name="webRequestUri">Web 请求地址。</param>
             <param name="priority">Web 请求任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Byte[],System.String,System.Int32)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Byte[],System.String,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
@@ -22787,23 +23344,46 @@
             <param name="userData">用户自定义数据。</param>
             <returns>新增 Web 请求任务的序列编号。</returns>
         </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.String,System.Int32,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.AddWebRequest(System.String,System.Byte[],System.String,System.Int32,System.Object)">
+            <summary>
+            增加 Web 请求任务。
+            </summary>
+            <param name="webRequestUri">Web 请求地址。</param>
+            <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
+            <param name="priority">Web 请求任务的优先级。</param>
+            <param name="userData">用户自定义数据。</param>
+            <returns>新增 Web 请求任务的序列编号。</returns>
+        </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.RemoveWebRequest(System.Int32)">
             <summary>
-            移除 Web 请求任务。
+            根据 Web 请求任务的序列编号移除 Web 请求任务。
             </summary>
             <param name="serialId">要移除 Web 请求任务的序列编号。</param>
             <returns>是否移除 Web 请求任务成功。</returns>
+        </member>
+        <member name="M:GameFramework.WebRequest.WebRequestManager.RemoveWebRequests(System.String)">
+            <summary>
+            根据 Web 请求任务的标签移除 Web 请求任务。
+            </summary>
+            <param name="tag">要移除 Web 请求任务的标签。</param>
+            <returns>移除 Web 请求任务的数量。</returns>
         </member>
         <member name="M:GameFramework.WebRequest.WebRequestManager.RemoveAllWebRequests">
             <summary>
             移除所有 Web 请求任务。
             </summary>
-        </member>
-        <member name="M:GameFramework.WebRequest.WebRequestManager.GetAllWebRequestInfos">
-            <summary>
-            获取所有 Web 请求任务的信息。
-            </summary>
-            <returns>所有 Web 请求任务的信息。</returns>
+            <returns>移除 Web 请求任务的数量。</returns>
         </member>
         <member name="T:GameFramework.WebRequest.WebRequestManager.WebRequestAgent">
             <summary>
@@ -22885,12 +23465,13 @@
             获取 Web 请求任务的描述。
             </summary>
         </member>
-        <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Create(System.String,System.Byte[],System.Int32,System.Single,System.Object)">
+        <member name="M:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Create(System.String,System.Byte[],System.String,System.Int32,System.Single,System.Object)">
             <summary>
             创建 Web 请求任务。
             </summary>
             <param name="webRequestUri">要发送的远程地址。</param>
             <param name="postData">要发送的数据流。</param>
+            <param name="tag">Web 请求任务的标签。</param>
             <param name="priority">Web 请求任务的优先级。</param>
             <param name="timeout">下载超时时长，以秒为单位。</param>
             <param name="userData">用户自定义数据。</param>

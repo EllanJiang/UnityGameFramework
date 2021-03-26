@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -101,7 +101,7 @@ namespace UnityGameFramework.Runtime
             public static LogNode Create(LogType logType, string logMessage, string stackTrack)
             {
                 LogNode logNode = ReferencePool.Acquire<LogNode>();
-                logNode.m_LogTime = DateTime.Now;
+                logNode.m_LogTime = DateTime.UtcNow;
                 logNode.m_LogFrameCount = Time.frameCount;
                 logNode.m_LogType = logType;
                 logNode.m_LogMessage = logMessage;

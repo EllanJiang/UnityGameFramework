@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -15,7 +15,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 默认压缩解压缩辅助器。
     /// </summary>
-    public class DefaultZipHelper : Utility.Zip.IZipHelper
+    public class DefaultCompressionHelper : Utility.Compression.ICompressionHelper
     {
         private const int CachedBytesLength = 0x1000;
         private readonly byte[] m_CachedBytes = new byte[CachedBytesLength];

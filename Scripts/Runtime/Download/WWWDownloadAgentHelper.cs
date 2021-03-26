@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -111,7 +111,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="downloadUri">下载地址。</param>
         /// <param name="fromPosition">下载数据起始位置。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public override void Download(string downloadUri, int fromPosition, object userData)
+        public override void Download(string downloadUri, long fromPosition, object userData)
         {
             if (m_DownloadAgentHelperUpdateBytesEventHandler == null || m_DownloadAgentHelperUpdateLengthEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
             {
@@ -134,7 +134,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="fromPosition">下载数据起始位置。</param>
         /// <param name="toPosition">下载数据结束位置。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public override void Download(string downloadUri, int fromPosition, int toPosition, object userData)
+        public override void Download(string downloadUri, long fromPosition, long toPosition, object userData)
         {
             if (m_DownloadAgentHelperUpdateBytesEventHandler == null || m_DownloadAgentHelperUpdateLengthEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
             {
@@ -235,7 +235,7 @@ namespace UnityGameFramework.Runtime
                 m_DownloadAgentHelperUpdateBytesEventHandler(this, downloadAgentHelperUpdateBytesEventArgs);
                 ReferencePool.Release(downloadAgentHelperUpdateBytesEventArgs);
 
-                DownloadAgentHelperCompleteEventArgs downloadAgentHelperCompleteEventArgs = DownloadAgentHelperCompleteEventArgs.Create(bytes.Length);
+                DownloadAgentHelperCompleteEventArgs downloadAgentHelperCompleteEventArgs = DownloadAgentHelperCompleteEventArgs.Create(bytes.LongLength);
                 m_DownloadAgentHelperCompleteEventHandler(this, downloadAgentHelperCompleteEventArgs);
                 ReferencePool.Release(downloadAgentHelperCompleteEventArgs);
             }

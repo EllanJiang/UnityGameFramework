@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -23,21 +23,14 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化 UnityEngine.Color32 变量类的新实例。
-        /// </summary>
-        /// <param name="value">值。</param>
-        public VarColor32(Color32 value)
-            : base(value)
-        {
-        }
-
-        /// <summary>
         /// 从 UnityEngine.Color32 到 UnityEngine.Color32 变量类的隐式转换。
         /// </summary>
         /// <param name="value">值。</param>
         public static implicit operator VarColor32(Color32 value)
         {
-            return new VarColor32(value);
+            VarColor32 varValue = ReferencePool.Acquire<VarColor32>();
+            varValue.Value = value;
+            return varValue;
         }
 
         /// <summary>

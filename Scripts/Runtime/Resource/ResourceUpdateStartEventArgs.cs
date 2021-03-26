@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -29,7 +29,7 @@ namespace UnityGameFramework.Runtime
             DownloadPath = null;
             DownloadUri = null;
             CurrentLength = 0;
-            ZipLength = 0;
+            CompressedLength = 0;
             RetryCount = 0;
         }
 
@@ -83,7 +83,7 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 获取压缩后大小。
         /// </summary>
-        public int ZipLength
+        public int CompressedLength
         {
             get;
             private set;
@@ -110,7 +110,7 @@ namespace UnityGameFramework.Runtime
             resourceUpdateStartEventArgs.DownloadPath = e.DownloadPath;
             resourceUpdateStartEventArgs.DownloadUri = e.DownloadUri;
             resourceUpdateStartEventArgs.CurrentLength = e.CurrentLength;
-            resourceUpdateStartEventArgs.ZipLength = e.ZipLength;
+            resourceUpdateStartEventArgs.CompressedLength = e.CompressedLength;
             resourceUpdateStartEventArgs.RetryCount = e.RetryCount;
             return resourceUpdateStartEventArgs;
         }
@@ -124,7 +124,7 @@ namespace UnityGameFramework.Runtime
             DownloadPath = null;
             DownloadUri = null;
             CurrentLength = 0;
-            ZipLength = 0;
+            CompressedLength = 0;
             RetryCount = 0;
         }
     }

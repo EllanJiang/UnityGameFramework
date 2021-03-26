@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -158,9 +158,9 @@ namespace UnityGameFramework.Editor.ResourceTools
                 return m_Codes.ToArray();
             }
 
-            public void AddCode(Platform platform, int length, int hashCode, int zipLength, int zipHashCode)
+            public void AddCode(Platform platform, int length, int hashCode, int compressedLength, int compressedHashCode)
             {
-                m_Codes.Add(new ResourceCode(platform, length, hashCode, zipLength, zipHashCode));
+                m_Codes.Add(new ResourceCode(platform, length, hashCode, compressedLength, compressedHashCode));
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -67,7 +67,7 @@ namespace UnityGameFramework.Editor
                 CustomOptionName
             };
 
-            helperTypeNameList.AddRange(Type.GetTypeNames(typeof(T)));
+            helperTypeNameList.AddRange(Type.GetRuntimeTypeNames(typeof(T)));
             m_HelperTypeNames = helperTypeNameList.ToArray();
 
             m_HelperTypeNameIndex = 0;

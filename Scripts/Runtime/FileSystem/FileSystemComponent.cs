@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -26,6 +26,17 @@ namespace UnityGameFramework.Runtime
 
         [SerializeField]
         private FileSystemHelperBase m_CustomFileSystemHelper = null;
+
+        /// <summary>
+        /// 获取文件系统数量。
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                return m_FileSystemManager.Count;
+            }
+        }
 
         /// <summary>
         /// 游戏框架组件初始化。
@@ -58,17 +69,6 @@ namespace UnityGameFramework.Runtime
 
         private void Start()
         {
-        }
-
-        /// <summary>
-        /// 获取文件系统数量。
-        /// </summary>
-        public int Count
-        {
-            get
-            {
-                return m_FileSystemManager.Count;
-            }
         }
 
         /// <summary>

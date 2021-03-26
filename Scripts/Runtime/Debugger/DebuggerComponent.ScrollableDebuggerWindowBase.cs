@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -54,7 +54,10 @@ namespace UnityGameFramework.Runtime
                 GUILayout.BeginHorizontal();
                 {
                     GUILayout.Label(title, GUILayout.Width(TitleWidth));
-                    GUILayout.Label(content);
+                    if (GUILayout.Button(content, "label"))
+                    {
+                        CopyToClipboard(content);
+                    }
                 }
                 GUILayout.EndHorizontal();
             }
@@ -63,7 +66,7 @@ namespace UnityGameFramework.Runtime
             {
                 if (byteLength < 1024L) // 2 ^ 10
                 {
-                    return Utility.Text.Format("{0} B", byteLength.ToString());
+                    return Utility.Text.Format("{0} Bytes", byteLength.ToString());
                 }
 
                 if (byteLength < 1048576L) // 2 ^ 20

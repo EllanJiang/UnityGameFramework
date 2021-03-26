@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -34,6 +34,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         internal static readonly float DefaultWindowScale = 1f;
 
+        private static readonly TextEditor s_TextEditor = new TextEditor();
         private IDebuggerManager m_DebuggerManager = null;
         private Rect m_DragRect = new Rect(0f, 0f, float.MaxValue, 25f);
         private Rect m_IconRect = DefaultIconRect;
@@ -324,7 +325,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取记录的全部日志。
+        /// 获取记录的所有日志。
         /// </summary>
         /// <param name="results">要获取的日志。</param>
         public void GetRecentLogs(List<LogNode> results)
@@ -423,6 +424,14 @@ namespace UnityGameFramework.Runtime
             {
                 m_ShowFullWindow = true;
             }
+        }
+
+        private static void CopyToClipboard(string content)
+        {
+            s_TextEditor.text = content;
+            s_TextEditor.OnFocus();
+            s_TextEditor.Copy();
+            s_TextEditor.text = string.Empty;
         }
     }
 }

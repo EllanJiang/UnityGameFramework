@@ -1,11 +1,12 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
 using GameFramework;
+using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -19,16 +20,17 @@ namespace UnityGameFramework.Editor.ResourceTools
     {
         private ResourceBuilderController m_Controller = null;
         private bool m_OrderBuildResources = false;
+        private int m_CompressionHelperTypeNameIndex = 0;
         private int m_BuildEventHandlerTypeNameIndex = 0;
 
-        [MenuItem("Game Framework/Resource Tools/Resource Builder", false, 41)]
+        [MenuItem("Game Framework/Resource Tools/Resource Builder", false, 40)]
         private static void Open()
         {
             ResourceBuilder window = GetWindow<ResourceBuilder>("Resource Builder", true);
 #if UNITY_2019_3_OR_NEWER
-            window.minSize = new Vector2(800f, 645f);
+            window.minSize = new Vector2(800f, 640f);
 #else
-            window.minSize = new Vector2(800f, 605f);
+            window.minSize = new Vector2(800f, 600f);
 #endif
         }
 
@@ -50,6 +52,20 @@ namespace UnityGameFramework.Editor.ResourceTools
             if (m_Controller.Load())
             {
                 Debug.Log("Load configuration success.");
+
+                m_CompressionHelperTypeNameIndex = 0;
+                string[] compressionHelperTypeNames = m_Controller.GetCompressionHelperTypeNames();
+                for (int i = 0; i < compressionHelperTypeNames.Length; i++)
+                {
+                    if (m_Controller.CompressionHelperTypeName == compressionHelperTypeNames[i])
+                    {
+                        m_CompressionHelperTypeNameIndex = i;
+                        break;
+                    }
+                }
+
+                m_Controller.RefreshCompressionHelper();
+
                 m_BuildEventHandlerTypeNameIndex = 0;
                 string[] buildEventHandlerTypeNames = m_Controller.GetBuildEventHandlerTypeNames();
                 for (int i = 0; i < buildEventHandlerTypeNames.Length; i++)
@@ -137,6 +153,10 @@ namespace UnityGameFramework.Editor.ResourceTools
                                 DrawPlatform(Platform.Windows, "Windows");
                                 DrawPlatform(Platform.Windows64, "Windows x64");
                                 DrawPlatform(Platform.MacOS, "macOS");
+                            }
+                            EditorGUILayout.EndVertical();
+                            EditorGUILayout.BeginVertical();
+                            {
                                 DrawPlatform(Platform.Linux, "Linux");
                                 DrawPlatform(Platform.IOS, "iOS");
                                 DrawPlatform(Platform.Android, "Android");
@@ -150,80 +170,58 @@ namespace UnityGameFramework.Editor.ResourceTools
                             EditorGUILayout.EndVertical();
                         }
                         EditorGUILayout.EndHorizontal();
-                        EditorGUILayout.BeginVertical();
-                        {
-                            m_Controller.ZipSelected = EditorGUILayout.ToggleLeft("Zip All Resources", m_Controller.ZipSelected);
-                        }
-                        EditorGUILayout.EndVertical();
-                    }
-                    EditorGUILayout.EndVertical();
-                    EditorGUILayout.BeginVertical();
-                    {
-                        EditorGUILayout.LabelField("AssetBundle Options", EditorStyles.boldLabel);
-                        EditorGUILayout.BeginVertical("box");
-                        {
-                            bool uncompressedAssetBundleSelected = EditorGUILayout.ToggleLeft("Uncompressed AssetBundle", m_Controller.UncompressedAssetBundleSelected);
-                            if (m_Controller.UncompressedAssetBundleSelected != uncompressedAssetBundleSelected)
-                            {
-                                m_Controller.UncompressedAssetBundleSelected = uncompressedAssetBundleSelected;
-                                if (m_Controller.UncompressedAssetBundleSelected)
-                                {
-                                    m_Controller.ChunkBasedCompressionSelected = false;
-                                }
-                            }
-
-                            bool disableWriteTypeTreeSelected = EditorGUILayout.ToggleLeft("Disable Write TypeTree", m_Controller.DisableWriteTypeTreeSelected);
-                            if (m_Controller.DisableWriteTypeTreeSelected != disableWriteTypeTreeSelected)
-                            {
-                                m_Controller.DisableWriteTypeTreeSelected = disableWriteTypeTreeSelected;
-                                if (m_Controller.DisableWriteTypeTreeSelected)
-                                {
-                                    m_Controller.IgnoreTypeTreeChangesSelected = false;
-                                }
-                            }
-
-                            m_Controller.DeterministicAssetBundleSelected = EditorGUILayout.ToggleLeft("Deterministic AssetBundle", m_Controller.DeterministicAssetBundleSelected);
-                            m_Controller.ForceRebuildAssetBundleSelected = EditorGUILayout.ToggleLeft("Force Rebuild AssetBundle", m_Controller.ForceRebuildAssetBundleSelected);
-
-                            bool ignoreTypeTreeChangesSelected = EditorGUILayout.ToggleLeft("Ignore TypeTree Changes", m_Controller.IgnoreTypeTreeChangesSelected);
-                            if (m_Controller.IgnoreTypeTreeChangesSelected != ignoreTypeTreeChangesSelected)
-                            {
-                                m_Controller.IgnoreTypeTreeChangesSelected = ignoreTypeTreeChangesSelected;
-                                if (m_Controller.IgnoreTypeTreeChangesSelected)
-                                {
-                                    m_Controller.DisableWriteTypeTreeSelected = false;
-                                }
-                            }
-
-                            EditorGUI.BeginDisabledGroup(true);
-                            {
-                                m_Controller.AppendHashToAssetBundleNameSelected = EditorGUILayout.ToggleLeft("Append Hash To AssetBundle Name", m_Controller.AppendHashToAssetBundleNameSelected);
-                            }
-                            EditorGUI.EndDisabledGroup();
-
-                            bool chunkBasedCompressionSelected = EditorGUILayout.ToggleLeft("Chunk Based Compression", m_Controller.ChunkBasedCompressionSelected);
-                            if (m_Controller.ChunkBasedCompressionSelected != chunkBasedCompressionSelected)
-                            {
-                                m_Controller.ChunkBasedCompressionSelected = chunkBasedCompressionSelected;
-                                if (m_Controller.ChunkBasedCompressionSelected)
-                                {
-                                    m_Controller.UncompressedAssetBundleSelected = false;
-                                }
-                            }
-                        }
-                        EditorGUILayout.EndVertical();
                     }
                     EditorGUILayout.EndVertical();
                 }
                 EditorGUILayout.EndHorizontal();
-                string compressMessage = string.Empty;
-                MessageType compressMessageType = MessageType.None;
-                GetCompressMessage(out compressMessage, out compressMessageType);
-                EditorGUILayout.HelpBox(compressMessage, compressMessageType);
+                GUILayout.Space(5f);
+                EditorGUILayout.LabelField("Compression", EditorStyles.boldLabel);
+                EditorGUILayout.BeginVertical("box");
+                {
+                    EditorGUILayout.BeginHorizontal();
+                    {
+                        EditorGUILayout.LabelField("AssetBundle Compression", GUILayout.Width(160f));
+                        m_Controller.AssetBundleCompression = (AssetBundleCompressionType)EditorGUILayout.EnumPopup(m_Controller.AssetBundleCompression);
+                    }
+                    EditorGUILayout.EndHorizontal();
+                    EditorGUILayout.BeginHorizontal();
+                    {
+                        EditorGUILayout.LabelField("Compression Helper", GUILayout.Width(160f));
+                        string[] names = m_Controller.GetCompressionHelperTypeNames();
+                        int selectedIndex = EditorGUILayout.Popup(m_CompressionHelperTypeNameIndex, names);
+                        if (selectedIndex != m_CompressionHelperTypeNameIndex)
+                        {
+                            m_CompressionHelperTypeNameIndex = selectedIndex;
+                            m_Controller.CompressionHelperTypeName = selectedIndex <= 0 ? string.Empty : names[selectedIndex];
+                            if (m_Controller.RefreshCompressionHelper())
+                            {
+                                Debug.Log("Set compression helper success.");
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Set compression helper failure.");
+                            }
+                        }
+                    }
+                    EditorGUILayout.EndHorizontal();
+                    EditorGUILayout.BeginHorizontal();
+                    {
+                        EditorGUILayout.LabelField("Additional Compression", GUILayout.Width(160f));
+                        m_Controller.AdditionalCompressionSelected = EditorGUILayout.ToggleLeft("Additional Compression for Output Full Resources with Compression Helper", m_Controller.AdditionalCompressionSelected);
+                    }
+                    EditorGUILayout.EndHorizontal();
+                }
+                EditorGUILayout.EndVertical();
                 GUILayout.Space(5f);
                 EditorGUILayout.LabelField("Build", EditorStyles.boldLabel);
                 EditorGUILayout.BeginVertical("box");
                 {
+                    EditorGUILayout.BeginHorizontal();
+                    {
+                        EditorGUILayout.LabelField("Force Rebuild AssetBundle", GUILayout.Width(160f));
+                        m_Controller.ForceRebuildAssetBundleSelected = EditorGUILayout.Toggle(m_Controller.ForceRebuildAssetBundleSelected);
+                    }
+                    EditorGUILayout.EndHorizontal();
                     EditorGUILayout.BeginHorizontal();
                     {
                         EditorGUILayout.LabelField("Build Event Handler", GUILayout.Width(160f));
@@ -235,11 +233,11 @@ namespace UnityGameFramework.Editor.ResourceTools
                             m_Controller.BuildEventHandlerTypeName = selectedIndex <= 0 ? string.Empty : names[selectedIndex];
                             if (m_Controller.RefreshBuildEventHandler())
                             {
-                                Debug.Log("Set build event success.");
+                                Debug.Log("Set build event handler success.");
                             }
                             else
                             {
-                                Debug.LogWarning("Set build event failure.");
+                                Debug.LogWarning("Set build event handler failure.");
                             }
                         }
                     }
@@ -314,7 +312,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 GUILayout.Space(2f);
                 EditorGUILayout.BeginHorizontal();
                 {
-                    EditorGUI.BeginDisabledGroup(m_Controller.Platforms == Platform.Undefined || !m_Controller.IsValidOutputDirectory);
+                    EditorGUI.BeginDisabledGroup(m_Controller.Platforms == Platform.Undefined || string.IsNullOrEmpty(m_Controller.CompressionHelperTypeName) || !m_Controller.IsValidOutputDirectory);
                     {
                         if (GUILayout.Button("Start Build Resources"))
                         {
@@ -341,63 +339,45 @@ namespace UnityGameFramework.Editor.ResourceTools
             }
         }
 
-        private void GetCompressMessage(out string message, out MessageType messageType)
-        {
-            if (m_Controller.ZipSelected)
-            {
-                if (m_Controller.UncompressedAssetBundleSelected)
-                {
-                    message = "Compresses AssetBundles with ZIP only. It uses more storage but it's faster when loading the AssetBundles.";
-                    messageType = MessageType.Info;
-                }
-                else if (m_Controller.ChunkBasedCompressionSelected)
-                {
-                    message = "Compresses AssetBundles with both chunk-based compression and ZIP. Recommended when you use 'AssetBundle.LoadFromFile'.";
-                    messageType = MessageType.Info;
-                }
-                else
-                {
-                    message = "Compresses AssetBundles with both LZMA and ZIP. Not recommended.";
-                    messageType = MessageType.Warning;
-                }
-            }
-            else
-            {
-                if (m_Controller.UncompressedAssetBundleSelected)
-                {
-                    message = "Doesn't compress AssetBundles at all. Not recommended.";
-                    messageType = MessageType.Warning;
-                }
-                else if (m_Controller.ChunkBasedCompressionSelected)
-                {
-                    message = "Compresses AssetBundles with chunk-based compression only. Recommended when you use 'AssetBundle.LoadFromFile'.";
-                    messageType = MessageType.Info;
-                }
-                else
-                {
-                    message = "Compresses AssetBundles with LZMA only. Recommended when you use 'AssetBundle.LoadFromMemory'.";
-                    messageType = MessageType.Info;
-                }
-            }
-        }
-
         private void GetBuildMessage(out string message, out MessageType messageType)
         {
+            message = string.Empty;
+            messageType = MessageType.Error;
             if (m_Controller.Platforms == Platform.Undefined)
             {
-                message = "Platform undefined.";
-                messageType = MessageType.Error;
-                return;
+                if (!string.IsNullOrEmpty(message))
+                {
+                    message += Environment.NewLine;
+                }
+
+                message += "Platform is invalid.";
+            }
+
+            if (string.IsNullOrEmpty(m_Controller.CompressionHelperTypeName))
+            {
+                if (!string.IsNullOrEmpty(message))
+                {
+                    message += Environment.NewLine;
+                }
+
+                message += "Compression helper is invalid.";
             }
 
             if (!m_Controller.IsValidOutputDirectory)
             {
-                message = "Output directory is invalid.";
-                messageType = MessageType.Error;
+                if (!string.IsNullOrEmpty(message))
+                {
+                    message += Environment.NewLine;
+                }
+
+                message += "Output directory is invalid.";
+            }
+
+            if (!string.IsNullOrEmpty(message))
+            {
                 return;
             }
 
-            message = string.Empty;
             messageType = MessageType.Info;
             if (Directory.Exists(m_Controller.OutputPackagePath))
             {

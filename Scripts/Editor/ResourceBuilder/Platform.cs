@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -10,7 +10,7 @@ using System;
 namespace UnityGameFramework.Editor.ResourceTools
 {
     [Flags]
-    public enum Platform : byte
+    public enum Platform : int
     {
         Undefined = 0,
 

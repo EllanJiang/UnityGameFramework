@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -245,7 +245,13 @@ namespace UnityGameFramework.Runtime
 
         private int InternalRead(int length, out byte[] result)
         {
+#if UNITY_2019_2_OR_NEWER
+#pragma warning disable CS0618
+#endif
             IntPtr resultPtr = AndroidJNI.NewByteArray(length);
+#if UNITY_2019_2_OR_NEWER
+#pragma warning restore CS0618
+#endif
             int offset = 0;
             int bytesLeft = length;
             while (bytesLeft > 0)
@@ -263,7 +269,13 @@ namespace UnityGameFramework.Runtime
                 bytesLeft -= bytesRead;
             }
 
+#if UNITY_2019_2_OR_NEWER
+#pragma warning disable CS0618
+#endif
             result = AndroidJNI.FromByteArray(resultPtr);
+#if UNITY_2019_2_OR_NEWER
+#pragma warning restore CS0618
+#endif
             AndroidJNI.DeleteLocalRef(resultPtr);
             return offset;
         }

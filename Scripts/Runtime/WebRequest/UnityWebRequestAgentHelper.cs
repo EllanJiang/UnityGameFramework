@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -162,7 +162,9 @@ namespace UnityGameFramework.Runtime
             }
 
             bool isError = false;
-#if UNITY_2017_1_OR_NEWER
+#if UNITY_2020_2_OR_NEWER
+            isError = m_UnityWebRequest.result != UnityWebRequest.Result.Success;
+#elif UNITY_2017_1_OR_NEWER
             isError = m_UnityWebRequest.isNetworkError || m_UnityWebRequest.isHttpError;
 #else
             isError = m_UnityWebRequest.isError;

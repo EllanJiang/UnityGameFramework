@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
+using UnityEditor;
 
 namespace UnityGameFramework.Editor.ResourceTools
 {
@@ -31,13 +32,18 @@ namespace UnityGameFramework.Editor.ResourceTools
             private string m_ApplicableGameVersion = null;
             private int m_InternalResourceVersion = 0;
             private Platform m_Platforms = Platform.Undefined;
-            private bool m_ZipSelected = false;
-            private int m_BuildAssetBundleOptions = 0;
+            private AssetBundleCompressionType m_AssetBundleCompression;
+            private string m_CompressionHelperTypeName;
+            private bool m_AdditionalCompressionSelected = false;
+            private bool m_ForceRebuildAssetBundleSelected = false;
+            private string m_BuildEventHandlerTypeName;
+            private string m_OutputDirectory;
+            private BuildAssetBundleOptions m_BuildAssetBundleOptions = BuildAssetBundleOptions.None;
             private StringBuilder m_LogBuilder = null;
             private SortedDictionary<string, ResourceData> m_ResourceDatas = null;
 
             public void Initialize(string buildReportPath, string productName, string companyName, string gameIdentifier, string gameFrameworkVersion, string unityVersion, string applicableGameVersion, int internalResourceVersion,
-                Platform platforms, bool zipSelected, int buildAssetBundleOptions, SortedDictionary<string, ResourceData> resourceDatas)
+                Platform platforms, AssetBundleCompressionType assetBundleCompression, string compressionHelperTypeName, bool additionalCompressionSelected, bool forceRebuildAssetBundleSelected, string buildEventHandlerTypeName, string outputDirectory, BuildAssetBundleOptions buildAssetBundleOptions, SortedDictionary<string, ResourceData> resourceDatas)
             {
                 if (string.IsNullOrEmpty(buildReportPath))
                 {
@@ -54,7 +60,12 @@ namespace UnityGameFramework.Editor.ResourceTools
                 m_ApplicableGameVersion = applicableGameVersion;
                 m_InternalResourceVersion = internalResourceVersion;
                 m_Platforms = platforms;
-                m_ZipSelected = zipSelected;
+                m_AssetBundleCompression = assetBundleCompression;
+                m_CompressionHelperTypeName = compressionHelperTypeName;
+                m_AdditionalCompressionSelected = additionalCompressionSelected;
+                m_ForceRebuildAssetBundleSelected = forceRebuildAssetBundleSelected;
+                m_BuildEventHandlerTypeName = buildEventHandlerTypeName;
+                m_OutputDirectory = outputDirectory;
                 m_BuildAssetBundleOptions = buildAssetBundleOptions;
                 m_LogBuilder = new StringBuilder();
                 m_ResourceDatas = resourceDatas;
@@ -121,8 +132,23 @@ namespace UnityGameFramework.Editor.ResourceTools
                 xmlElement = xmlDocument.CreateElement("Platforms");
                 xmlElement.InnerText = m_Platforms.ToString();
                 xmlSummary.AppendChild(xmlElement);
-                xmlElement = xmlDocument.CreateElement("ZipSelected");
-                xmlElement.InnerText = m_ZipSelected.ToString();
+                xmlElement = xmlDocument.CreateElement("AssetBundleCompression");
+                xmlElement.InnerText = m_AssetBundleCompression.ToString();
+                xmlSummary.AppendChild(xmlElement);
+                xmlElement = xmlDocument.CreateElement("CompressionHelperTypeName");
+                xmlElement.InnerText = m_CompressionHelperTypeName;
+                xmlSummary.AppendChild(xmlElement);
+                xmlElement = xmlDocument.CreateElement("AdditionalCompressionSelected");
+                xmlElement.InnerText = m_AdditionalCompressionSelected.ToString();
+                xmlSummary.AppendChild(xmlElement);
+                xmlElement = xmlDocument.CreateElement("ForceRebuildAssetBundleSelected");
+                xmlElement.InnerText = m_ForceRebuildAssetBundleSelected.ToString();
+                xmlSummary.AppendChild(xmlElement);
+                xmlElement = xmlDocument.CreateElement("BuildEventHandlerTypeName");
+                xmlElement.InnerText = m_BuildEventHandlerTypeName;
+                xmlSummary.AppendChild(xmlElement);
+                xmlElement = xmlDocument.CreateElement("OutputDirectory");
+                xmlElement.InnerText = m_OutputDirectory;
                 xmlSummary.AppendChild(xmlElement);
                 xmlElement = xmlDocument.CreateElement("BuildAssetBundleOptions");
                 xmlElement.InnerText = m_BuildAssetBundleOptions.ToString();
@@ -225,11 +251,11 @@ namespace UnityGameFramework.Editor.ResourceTools
                         xmlAttribute = xmlDocument.CreateAttribute("HashCode");
                         xmlAttribute.Value = resourceCode.HashCode.ToString();
                         xmlCode.Attributes.SetNamedItem(xmlAttribute);
-                        xmlAttribute = xmlDocument.CreateAttribute("ZipLength");
-                        xmlAttribute.Value = resourceCode.ZipLength.ToString();
+                        xmlAttribute = xmlDocument.CreateAttribute("CompressedLength");
+                        xmlAttribute.Value = resourceCode.CompressedLength.ToString();
                         xmlCode.Attributes.SetNamedItem(xmlAttribute);
-                        xmlAttribute = xmlDocument.CreateAttribute("ZipHashCode");
-                        xmlAttribute.Value = resourceCode.ZipHashCode.ToString();
+                        xmlAttribute = xmlDocument.CreateAttribute("CompressedHashCode");
+                        xmlAttribute.Value = resourceCode.CompressedHashCode.ToString();
                         xmlCode.Attributes.SetNamedItem(xmlAttribute);
                         xmlCodes.AppendChild(xmlCode);
                     }
@@ -242,7 +268,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             private void LogInternal(string type, string format, object[] args)
             {
                 m_LogBuilder.Append("[");
-                m_LogBuilder.Append(DateTime.Now.ToString("HH:mm:ss.fff"));
+                m_LogBuilder.Append(DateTime.UtcNow.ToLocalTime().ToString("HH:mm:ss.fff"));
                 m_LogBuilder.Append("][");
                 m_LogBuilder.Append(type);
                 m_LogBuilder.Append("] ");

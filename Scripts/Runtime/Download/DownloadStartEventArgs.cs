@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -28,7 +28,7 @@ namespace UnityGameFramework.Runtime
             SerialId = 0;
             DownloadPath = null;
             DownloadUri = null;
-            CurrentLength = 0;
+            CurrentLength = 0L;
             UserData = null;
         }
 
@@ -73,7 +73,7 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 获取当前大小。
         /// </summary>
-        public int CurrentLength
+        public long CurrentLength
         {
             get;
             private set;
@@ -112,7 +112,7 @@ namespace UnityGameFramework.Runtime
             SerialId = 0;
             DownloadPath = null;
             DownloadUri = null;
-            CurrentLength = 0;
+            CurrentLength = 0L;
             UserData = null;
         }
     }

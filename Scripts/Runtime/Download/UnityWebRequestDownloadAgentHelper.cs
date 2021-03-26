@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -121,7 +121,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="downloadUri">下载地址。</param>
         /// <param name="fromPosition">下载数据起始位置。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public override void Download(string downloadUri, int fromPosition, object userData)
+        public override void Download(string downloadUri, long fromPosition, object userData)
         {
             if (m_DownloadAgentHelperUpdateBytesEventHandler == null || m_DownloadAgentHelperUpdateLengthEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
             {
@@ -146,7 +146,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="fromPosition">下载数据起始位置。</param>
         /// <param name="toPosition">下载数据结束位置。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public override void Download(string downloadUri, int fromPosition, int toPosition, object userData)
+        public override void Download(string downloadUri, long fromPosition, long toPosition, object userData)
         {
             if (m_DownloadAgentHelperUpdateBytesEventHandler == null || m_DownloadAgentHelperUpdateLengthEventHandler == null || m_DownloadAgentHelperCompleteEventHandler == null || m_DownloadAgentHelperErrorEventHandler == null)
             {
@@ -224,7 +224,9 @@ namespace UnityGameFramework.Runtime
             }
 
             bool isError = false;
-#if UNITY_2017_1_OR_NEWER
+#if UNITY_2020_2_OR_NEWER
+            isError = m_UnityWebRequest.result != UnityWebRequest.Result.Success;
+#elif UNITY_2017_1_OR_NEWER
             isError = m_UnityWebRequest.isNetworkError || m_UnityWebRequest.isHttpError;
 #else
             isError = m_UnityWebRequest.isError;
@@ -237,7 +239,7 @@ namespace UnityGameFramework.Runtime
             }
             else
             {
-                DownloadAgentHelperCompleteEventArgs downloadAgentHelperCompleteEventArgs = DownloadAgentHelperCompleteEventArgs.Create((int)m_UnityWebRequest.downloadedBytes);
+                DownloadAgentHelperCompleteEventArgs downloadAgentHelperCompleteEventArgs = DownloadAgentHelperCompleteEventArgs.Create((long)m_UnityWebRequest.downloadedBytes);
                 m_DownloadAgentHelperCompleteEventHandler(this, downloadAgentHelperCompleteEventArgs);
                 ReferencePool.Release(downloadAgentHelperCompleteEventArgs);
             }

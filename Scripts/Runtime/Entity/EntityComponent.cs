@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
+// Copyright © 2013-2021 Jiang Yin. All rights reserved.
 // Homepage: https://gameframework.cn/
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
@@ -578,10 +578,40 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取子实体数量。
+        /// </summary>
+        /// <param name="parentEntityId">要获取子实体数量的父实体的实体编号。</param>
+        /// <returns>子实体数量。</returns>
+        public int GetChildEntityCount(int parentEntityId)
+        {
+            return m_EntityManager.GetChildEntityCount(parentEntityId);
+        }
+
+        /// <summary>
         /// 获取子实体。
         /// </summary>
         /// <param name="parentEntityId">要获取子实体的父实体的实体编号。</param>
-        /// <returns>子实体数组。</returns>
+        /// <returns>子实体。</returns>
+        public Entity GetChildEntity(int parentEntityId)
+        {
+            return (Entity)m_EntityManager.GetChildEntity(parentEntityId);
+        }
+
+        /// <summary>
+        /// 获取子实体。
+        /// </summary>
+        /// <param name="parentEntity">要获取子实体的父实体。</param>
+        /// <returns>子实体。</returns>
+        public Entity GetChildEntity(IEntity parentEntity)
+        {
+            return (Entity)m_EntityManager.GetChildEntity(parentEntity);
+        }
+
+        /// <summary>
+        /// 获取所有子实体。
+        /// </summary>
+        /// <param name="parentEntityId">要获取所有子实体的父实体的实体编号。</param>
+        /// <returns>所有子实体。</returns>
         public Entity[] GetChildEntities(int parentEntityId)
         {
             IEntity[] entities = m_EntityManager.GetChildEntities(parentEntityId);
@@ -595,10 +625,10 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取子实体。
+        /// 获取所有子实体。
         /// </summary>
-        /// <param name="parentEntityId">要获取子实体的父实体的实体编号。</param>
-        /// <param name="results">子实体数组。</param>
+        /// <param name="parentEntityId">要获取所有子实体的父实体的实体编号。</param>
+        /// <param name="results">所有子实体。</param>
         public void GetChildEntities(int parentEntityId, List<IEntity> results)
         {
             if (results == null)
@@ -616,10 +646,10 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取子实体。
+        /// 获取所有子实体。
         /// </summary>
-        /// <param name="parentEntity">要获取子实体的父实体。</param>
-        /// <returns>子实体数组。</returns>
+        /// <param name="parentEntity">要获取所有子实体的父实体。</param>
+        /// <returns>所有子实体。</returns>
         public Entity[] GetChildEntities(Entity parentEntity)
         {
             IEntity[] entities = m_EntityManager.GetChildEntities(parentEntity);
@@ -633,10 +663,10 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 获取子实体。
+        /// 获取所有子实体。
         /// </summary>
-        /// <param name="parentEntity">要获取子实体的父实体。</param>
-        /// <param name="results">子实体数组。</param>
+        /// <param name="parentEntity">要获取所有子实体的父实体。</param>
+        /// <param name="results">所有子实体。</param>
         public void GetChildEntities(IEntity parentEntity, List<IEntity> results)
         {
             if (results == null)

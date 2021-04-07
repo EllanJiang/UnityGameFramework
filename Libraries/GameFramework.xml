@@ -2611,6 +2611,11 @@
             获取任务的优先级。
             </summary>
         </member>
+        <member name="P:GameFramework.TaskBase.UserData">
+            <summary>
+            获取任务的用户自定义数据。
+            </summary>
+        </member>
         <member name="P:GameFramework.TaskBase.Done">
             <summary>
             获取或设置任务是否完成。
@@ -2621,13 +2626,14 @@
             获取任务描述。
             </summary>
         </member>
-        <member name="M:GameFramework.TaskBase.Initialize(System.Int32,System.String,System.Int32)">
+        <member name="M:GameFramework.TaskBase.Initialize(System.Int32,System.String,System.Int32,System.Object)">
             <summary>
             初始化任务基类。
             </summary>
             <param name="serialId">任务的序列编号。</param>
             <param name="tag">任务的标签。</param>
             <param name="priority">任务的优先级。</param>
+            <param name="userData">任务的用户自定义数据。</param>
         </member>
         <member name="M:GameFramework.TaskBase.Clear">
             <summary>
@@ -2639,13 +2645,14 @@
             任务信息。
             </summary>
         </member>
-        <member name="M:GameFramework.TaskInfo.#ctor(System.Int32,System.String,System.Int32,GameFramework.TaskStatus,System.String)">
+        <member name="M:GameFramework.TaskInfo.#ctor(System.Int32,System.String,System.Int32,System.Object,GameFramework.TaskStatus,System.String)">
             <summary>
             初始化任务信息的新实例。
             </summary>
             <param name="serialId">任务的序列编号。</param>
             <param name="tag">任务的标签。</param>
             <param name="priority">任务的优先级。</param>
+            <param name="userData">任务的用户自定义数据。</param>
             <param name="status">任务状态。</param>
             <param name="description">任务描述。</param>
         </member>
@@ -2667,6 +2674,11 @@
         <member name="P:GameFramework.TaskInfo.Priority">
             <summary>
             获取任务的优先级。
+            </summary>
+        </member>
+        <member name="P:GameFramework.TaskInfo.UserData">
+            <summary>
+            获取任务的用户自定义数据。
             </summary>
         </member>
         <member name="P:GameFramework.TaskInfo.Status">
@@ -5607,11 +5619,6 @@
         <member name="P:GameFramework.Download.DownloadManager.DownloadTask.Timeout">
             <summary>
             获取下载超时时长，以秒为单位。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Download.DownloadManager.DownloadTask.UserData">
-            <summary>
-            获取用户自定义数据。
             </summary>
         </member>
         <member name="P:GameFramework.Download.DownloadManager.DownloadTask.Description">
@@ -13740,14 +13747,14 @@
             获取等待更新资源数量。
             </summary>
         </member>
+        <member name="P:GameFramework.Resource.IResourceManager.UpdateWaitingWhilePlayingCount">
+            <summary>
+            获取使用时下载的等待更新资源数量。
+            </summary>
+        </member>
         <member name="P:GameFramework.Resource.IResourceManager.UpdateCandidateCount">
             <summary>
             获取候选更新资源数量。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.IResourceManager.UpdatingCount">
-            <summary>
-            获取正在更新资源数量。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.IResourceManager.LoadTotalAgentCount">
@@ -13838,6 +13845,11 @@
         <member name="E:GameFramework.Resource.IResourceManager.ResourceUpdateFailure">
             <summary>
             资源更新失败事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Resource.IResourceManager.ResourceUpdateAllComplete">
+            <summary>
+            资源更新全部完成事件。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.SetReadOnlyPath(System.String)">
@@ -15417,14 +15429,14 @@
             获取等待更新资源数量。
             </summary>
         </member>
+        <member name="P:GameFramework.Resource.ResourceManager.UpdateWaitingWhilePlayingCount">
+            <summary>
+            获取使用时下载的等待更新资源数量。
+            </summary>
+        </member>
         <member name="P:GameFramework.Resource.ResourceManager.UpdateCandidateCount">
             <summary>
             获取候选更新资源数量。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.UpdatingCount">
-            <summary>
-            获取正在更新资源数量。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.LoadTotalAgentCount">
@@ -15515,6 +15527,11 @@
         <member name="E:GameFramework.Resource.ResourceManager.ResourceUpdateFailure">
             <summary>
             资源更新失败事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Resource.ResourceManager.ResourceUpdateAllComplete">
+            <summary>
+            资源更新全部完成事件。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.Update(System.Single,System.Single)">
@@ -16894,14 +16911,14 @@
             获取等待更新资源数量。
             </summary>
         </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateWaitingWhilePlayingCount">
+            <summary>
+            获取使用时下载的等待更新资源数量。
+            </summary>
+        </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateCandidateCount">
             <summary>
             获取候选更新资源数量。
-            </summary>
-        </member>
-        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdatingCount">
-            <summary>
-            获取正在更新资源数量。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.Update(System.Single,System.Single)">
@@ -17019,6 +17036,11 @@
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.ResourcePath">
             <summary>
             获取资源路径。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.Downloading">
+            <summary>
+            获取或设置下载状态。
             </summary>
         </member>
         <member name="P:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.RetryCount">
@@ -17208,6 +17230,27 @@
             获取资源包版本资源列表头标识。
             </summary>
             <returns>资源包版本资源列表头标识。</returns>
+        </member>
+        <member name="T:GameFramework.Resource.ResourceUpdateAllCompleteEventArgs">
+            <summary>
+            资源更新全部完成事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceUpdateAllCompleteEventArgs.#ctor">
+            <summary>
+            初始化资源更新全部完成事件的新实例。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceUpdateAllCompleteEventArgs.Create">
+            <summary>
+            创建资源更新全部完成事件。
+            </summary>
+            <returns>创建的资源更新全部完成事件。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceUpdateAllCompleteEventArgs.Clear">
+            <summary>
+            清理资源更新全部完成事件。
+            </summary>
         </member>
         <member name="T:GameFramework.Resource.ResourceUpdateChangedEventArgs">
             <summary>
@@ -23453,11 +23496,6 @@
         <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Timeout">
             <summary>
             获取 Web 请求超时时长，以秒为单位。
-            </summary>
-        </member>
-        <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.UserData">
-            <summary>
-            获取用户自定义数据。
             </summary>
         </member>
         <member name="P:GameFramework.WebRequest.WebRequestManager.WebRequestTask.Description">

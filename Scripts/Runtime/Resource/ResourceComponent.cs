@@ -395,6 +395,17 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取使用时下载的等待更新资源数量。
+        /// </summary>
+        public int UpdateWaitingWhilePlayingCount
+        {
+            get
+            {
+                return m_ResourceManager.UpdateWaitingWhilePlayingCount;
+            }
+        }
+
+        /// <summary>
         /// 获取候选更新资源数量。
         /// </summary>
         public int UpdateCandidateCount
@@ -402,17 +413,6 @@ namespace UnityGameFramework.Runtime
             get
             {
                 return m_ResourceManager.UpdateCandidateCount;
-            }
-        }
-
-        /// <summary>
-        /// 获取正在更新资源数量。
-        /// </summary>
-        public int UpdatingCount
-        {
-            get
-            {
-                return m_ResourceManager.UpdatingCount;
             }
         }
 
@@ -618,6 +618,7 @@ namespace UnityGameFramework.Runtime
             m_ResourceManager.ResourceUpdateChanged += OnResourceUpdateChanged;
             m_ResourceManager.ResourceUpdateSuccess += OnResourceUpdateSuccess;
             m_ResourceManager.ResourceUpdateFailure += OnResourceUpdateFailure;
+            m_ResourceManager.ResourceUpdateAllComplete += OnResourceUpdateAllComplete;
 
             m_ResourceManager.SetReadOnlyPath(Application.streamingAssetsPath);
             if (m_ReadWritePathType == ReadWritePathType.TemporaryCache)
@@ -1447,6 +1448,11 @@ namespace UnityGameFramework.Runtime
         private void OnResourceUpdateFailure(object sender, GameFramework.Resource.ResourceUpdateFailureEventArgs e)
         {
             m_EventComponent.Fire(this, ResourceUpdateFailureEventArgs.Create(e));
+        }
+
+        private void OnResourceUpdateAllComplete(object sender, GameFramework.Resource.ResourceUpdateAllCompleteEventArgs e)
+        {
+            m_EventComponent.Fire(this, ResourceUpdateAllCompleteEventArgs.Create(e));
         }
     }
 }

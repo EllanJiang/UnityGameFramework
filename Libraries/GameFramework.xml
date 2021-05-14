@@ -16220,11 +16220,12 @@
             关闭并清理资源检查器。
             </summary>
         </member>
-        <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.TryRecoverReadWriteVersionList">
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceChecker.CheckResources(System.String,System.Boolean)">
             <summary>
-            尝试恢复读写区版本资源列表。
+            检查资源。
             </summary>
-            <returns>是否恢复成功。</returns>
+            <param name="currentVariant">当前使用的变体。</param>
+            <param name="ignoreOtherVariant">是否忽略处理其它变体的资源，若不忽略，将会移除其它变体的资源。</param>
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceGroup">
             <summary>
@@ -16808,12 +16809,12 @@
         </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceUpdater.ApplyInfo">
             <summary>
-            应用信息。
+            资源应用信息。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.ApplyInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,System.String,GameFramework.Resource.ResourceManager.LoadType,System.Int64,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
             <summary>
-            初始化应用信息的新实例。
+            初始化资源应用信息的新实例。
             </summary>
             <param name="resourceName">资源名称。</param>
             <param name="fileSystemName">资源所在的文件系统名称。</param>
@@ -16975,14 +16976,20 @@
             停止更新资源。
             </summary>
         </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateResource(GameFramework.Resource.ResourceManager.ResourceName)">
+            <summary>
+            更新指定资源。
+            </summary>
+            <param name="resourceName">要更新的资源名称。</param>
+        </member>
         <member name="T:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo">
             <summary>
-            更新信息。
+            资源更新信息。
             </summary>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.ResourceUpdater.UpdateInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,System.String,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
             <summary>
-            初始化更新信息的新实例。
+            初始化资源更新信息的新实例。
             </summary>
             <param name="resourceName">资源名称。</param>
             <param name="fileSystemName">资源所在的文件系统名称。</param>

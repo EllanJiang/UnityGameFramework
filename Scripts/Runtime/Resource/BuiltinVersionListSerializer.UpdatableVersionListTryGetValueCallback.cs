@@ -21,7 +21,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="stream">指定流。</param>
         /// <param name="key">指定键。</param>
         /// <param name="value">指定键的值。</param>
-        /// <returns></returns>
+        /// <returns>从可更新模式版本资源列表（版本 0）获取指定键的值是否成功。</returns>
         public static bool UpdatableVersionListTryGetValueCallback_V0(Stream stream, string key, out object value)
         {
             value = null;
@@ -47,7 +47,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="stream">指定流。</param>
         /// <param name="key">指定键。</param>
         /// <param name="value">指定键的值。</param>
-        /// <returns></returns>
+        /// <returns>从可更新模式版本资源列表（版本 1 或版本 2）获取指定键的值是否成功。</returns>
         public static bool UpdatableVersionListTryGetValueCallback_V1_V2(Stream stream, string key, out object value)
         {
             value = null;

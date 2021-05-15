@@ -174,7 +174,7 @@
             <param name="owner">数据提供者的持有者。</param>
             <param name="resourceManager">资源管理器。</param>
             <param name="dataProviderHelper">数据提供者辅助器。</param>
-            <returns></returns>
+            <returns>创建的数据提供者。</returns>
         </member>
         <member name="T:GameFramework.IDataProvider`1">
             <summary>
@@ -10304,7 +10304,7 @@
         </member>
         <member name="M:GameFramework.Network.INetworkChannelHelper.DeserializePacketHeader(System.IO.Stream,System.Object@)">
             <summary>
-            反序列消息包头。
+            反序列化消息包头。
             </summary>
             <param name="source">要反序列化的来源流。</param>
             <param name="customErrorData">用户自定义错误数据。</param>

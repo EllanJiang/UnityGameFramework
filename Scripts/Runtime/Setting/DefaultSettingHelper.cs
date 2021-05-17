@@ -19,8 +19,8 @@ namespace UnityGameFramework.Runtime
     public class DefaultSettingHelper : SettingHelperBase
     {
         private const string SettingFileName = "GameFrameworkSetting.dat";
-        private readonly string SettingFilePath = Utility.Path.GetRegularPath(Path.Combine(Application.persistentDataPath, SettingFileName));
 
+        private string m_SettingFilePath = null;
         protected DefaultSetting m_Settings = null;
         protected DefaultSettingSerializer m_Serializer = null;
 
@@ -43,12 +43,12 @@ namespace UnityGameFramework.Runtime
         {
             try
             {
-                if (!File.Exists(SettingFilePath))
+                if (!File.Exists(m_SettingFilePath))
                 {
                     return true;
                 }
 
-                using (FileStream fileStream = new FileStream(SettingFilePath, FileMode.Open, FileAccess.Read))
+                using (FileStream fileStream = new FileStream(m_SettingFilePath, FileMode.Open, FileAccess.Read))
                 {
                     m_Serializer.Deserialize(fileStream);
                     return true;
@@ -69,7 +69,7 @@ namespace UnityGameFramework.Runtime
         {
             try
             {
-                using (FileStream fileStream = new FileStream(SettingFilePath, FileMode.Create, FileAccess.Write))
+                using (FileStream fileStream = new FileStream(m_SettingFilePath, FileMode.Create, FileAccess.Write))
                 {
                     return m_Serializer.Serialize(fileStream, m_Settings);
                 }
@@ -332,6 +332,7 @@ namespace UnityGameFramework.Runtime
 
         private void Awake()
         {
+            m_SettingFilePath = Utility.Path.GetRegularPath(Path.Combine(Application.persistentDataPath, SettingFileName));
             m_Settings = new DefaultSetting();
             m_Serializer = new DefaultSettingSerializer();
             m_Serializer.RegisterSerializeCallback(0, SerializeDefaultSettingCallback);

@@ -19,20 +19,10 @@ namespace UnityGameFramework.Runtime
     public class DefaultSettingHelper : SettingHelperBase
     {
         private const string SettingFileName = "GameFrameworkSetting.dat";
+        private readonly string SettingFilePath = Utility.Path.GetRegularPath(Path.Combine(Application.persistentDataPath, SettingFileName));
 
         protected DefaultSetting m_Settings = null;
         protected DefaultSettingSerializer m_Serializer = null;
-
-        /// <summary>
-        /// 获取游戏配置文件路径。
-        /// </summary>
-        public string FilePath
-        {
-            get
-            {
-                return Utility.Path.GetRegularPath(Path.Combine(Application.persistentDataPath, SettingFileName));
-            }
-        }
 
         /// <summary>
         /// 获取游戏配置项数量。
@@ -53,12 +43,12 @@ namespace UnityGameFramework.Runtime
         {
             try
             {
-                if (!File.Exists(FilePath))
+                if (!File.Exists(SettingFilePath))
                 {
                     return true;
                 }
 
-                using (FileStream fileStream = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
+                using (FileStream fileStream = new FileStream(SettingFilePath, FileMode.Open, FileAccess.Read))
                 {
                     m_Serializer.Deserialize(fileStream);
                     return true;
@@ -79,7 +69,7 @@ namespace UnityGameFramework.Runtime
         {
             try
             {
-                using (FileStream fileStream = new FileStream(FilePath, FileMode.Create, FileAccess.Write))
+                using (FileStream fileStream = new FileStream(SettingFilePath, FileMode.Create, FileAccess.Write))
                 {
                     return m_Serializer.Serialize(fileStream, m_Settings);
                 }

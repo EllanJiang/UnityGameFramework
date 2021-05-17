@@ -20,13 +20,13 @@ namespace UnityGameFramework.Runtime
     {
         private const string SettingFileName = "GameFrameworkSetting.dat";
 
-        private DefaultSetting m_Settings = null;
-        private DefaultSettingSerializer m_Serializer = null;
+        protected DefaultSetting m_Settings = null;
+        protected DefaultSettingSerializer m_Serializer = null;
 
         /// <summary>
         /// 获取游戏配置文件路径。
         /// </summary>
-        public virtual string FilePath
+        public string FilePath
         {
             get
             {

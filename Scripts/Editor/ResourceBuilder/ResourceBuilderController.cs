@@ -969,7 +969,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             if (OutputPackedSelected)
             {
                 ProcessReadOnlyVersionList(outputPackedPath, platform);
-                m_BuildReport.LogInfo("Process read only version list for '{0}' complete.", platformName);
+                m_BuildReport.LogInfo("Process read-only version list for '{0}' complete.", platformName);
             }
 
             if (m_BuildEventHandler != null)
@@ -1179,7 +1179,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             {
                 if (!serializer.Serialize(fileStream, versionList))
                 {
-                    throw new GameFrameworkException("Serialize read only version list failure.");
+                    throw new GameFrameworkException("Serialize read-only version list failure.");
                 }
             }
         }

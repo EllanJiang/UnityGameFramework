@@ -76,7 +76,7 @@ namespace UnityGameFramework.Editor
                     }
                 }
 
-                m_ReadWritePathType.enumValueIndex = (int)(ReadWritePathType)EditorGUILayout.EnumPopup("Read Write Path Type", t.ReadWritePathType);
+                m_ReadWritePathType.enumValueIndex = (int)(ReadWritePathType)EditorGUILayout.EnumPopup("Read-Write Path Type", t.ReadWritePathType);
             }
             EditorGUI.EndDisabledGroup();
 
@@ -227,7 +227,7 @@ namespace UnityGameFramework.Editor
                         }
                     }
 
-                    int generateReadWriteVersionListLength = EditorGUILayout.DelayedIntField("Generate Read Write Version List Length", m_GenerateReadWriteVersionListLength.intValue);
+                    int generateReadWriteVersionListLength = EditorGUILayout.DelayedIntField("Generate Read-Write Version List Length", m_GenerateReadWriteVersionListLength.intValue);
                     if (generateReadWriteVersionListLength != m_GenerateReadWriteVersionListLength.intValue)
                     {
                         if (EditorApplication.isPlaying)
@@ -269,8 +269,8 @@ namespace UnityGameFramework.Editor
             if (EditorApplication.isPlaying && IsPrefabInHierarchy(t.gameObject))
             {
                 EditorGUILayout.LabelField("Unload Unused Assets", Utility.Text.Format("{0} / {1}", t.LastUnloadUnusedAssetsOperationElapseSeconds.ToString("F2"), t.MaxUnloadUnusedAssetsInterval.ToString("F2")));
-                EditorGUILayout.LabelField("Read Only Path", t.ReadOnlyPath.ToString());
-                EditorGUILayout.LabelField("Read Write Path", t.ReadWritePath.ToString());
+                EditorGUILayout.LabelField("Read-Only Path", t.ReadOnlyPath.ToString());
+                EditorGUILayout.LabelField("Read-Write Path", t.ReadWritePath.ToString());
                 EditorGUILayout.LabelField("Current Variant", t.CurrentVariant ?? "<Unknwon>");
                 EditorGUILayout.LabelField("Applicable Game Version", isEditorResourceMode ? "N/A" : t.ApplicableGameVersion ?? "<Unknwon>");
                 EditorGUILayout.LabelField("Internal Resource Version", isEditorResourceMode ? "N/A" : t.InternalResourceVersion.ToString());

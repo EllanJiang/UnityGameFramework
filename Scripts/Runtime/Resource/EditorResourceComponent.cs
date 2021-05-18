@@ -699,7 +699,7 @@ namespace UnityGameFramework.Runtime
         {
             if (string.IsNullOrEmpty(readOnlyPath))
             {
-                Log.Error("Readonly path is invalid.");
+                Log.Error("Read-only path is invalid.");
                 return;
             }
 

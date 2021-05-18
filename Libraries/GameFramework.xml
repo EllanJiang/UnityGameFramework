@@ -8180,6 +8180,12 @@
             初始化文件系统管理器的新实例。
             </summary>
         </member>
+        <member name="P:GameFramework.FileSystem.FileSystemManager.Priority">
+            <summary>
+            获取游戏框架模块优先级。
+            </summary>
+            <remarks>优先级较高的模块会优先轮询，并且关闭操作会后进行。</remarks>
+        </member>
         <member name="P:GameFramework.FileSystem.FileSystemManager.Count">
             <summary>
             获取文件系统数量。

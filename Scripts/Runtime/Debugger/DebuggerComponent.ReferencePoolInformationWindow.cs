@@ -17,6 +17,8 @@ namespace UnityGameFramework.Runtime
         private sealed class ReferencePoolInformationWindow : ScrollableDebuggerWindowBase
         {
             private readonly Dictionary<string, List<ReferencePoolInfo>> m_ReferencePoolInfos = new Dictionary<string, List<ReferencePoolInfo>>(StringComparer.Ordinal);
+            private readonly Comparison<ReferencePoolInfo> m_NormalClassNameComparer = NormalClassNameComparer;
+            private readonly Comparison<ReferencePoolInfo> m_FullClassNameComparer = FullClassNameComparer;
             private bool m_ShowFullClassName = false;
 
             public override void Initialize(params object[] args)
@@ -68,7 +70,7 @@ namespace UnityGameFramework.Runtime
 
                         if (assemblyReferencePoolInfo.Value.Count > 0)
                         {
-                            assemblyReferencePoolInfo.Value.Sort(Comparison);
+                            assemblyReferencePoolInfo.Value.Sort(m_ShowFullClassName ? m_FullClassNameComparer : m_NormalClassNameComparer);
                             foreach (ReferencePoolInfo referencePoolInfo in assemblyReferencePoolInfo.Value)
                             {
                                 DrawReferencePoolInfo(referencePoolInfo);
@@ -98,16 +100,14 @@ namespace UnityGameFramework.Runtime
                 GUILayout.EndHorizontal();
             }
 
-            private int Comparison(ReferencePoolInfo a, ReferencePoolInfo b)
+            private static int NormalClassNameComparer(ReferencePoolInfo a, ReferencePoolInfo b)
             {
-                if (m_ShowFullClassName)
-                {
-                    return a.Type.FullName.CompareTo(b.Type.FullName);
-                }
-                else
-                {
-                    return a.Type.Name.CompareTo(b.Type.Name);
-                }
+                return a.Type.Name.CompareTo(b.Type.Name);
+            }
+
+            private static int FullClassNameComparer(ReferencePoolInfo a, ReferencePoolInfo b)
+            {
+                return a.Type.FullName.CompareTo(b.Type.FullName);
             }
         }
     }

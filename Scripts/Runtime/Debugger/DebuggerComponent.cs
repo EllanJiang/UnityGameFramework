@@ -100,6 +100,7 @@ namespace UnityGameFramework.Runtime
             set
             {
                 m_DebuggerManager.ActiveWindow = value;
+                enabled = value;
             }
         }
 

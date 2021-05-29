@@ -205,10 +205,6 @@ namespace UnityGameFramework.Runtime
                 Log.Info("During this run, Game Framework will use editor resource files, which you should validate first.");
             }
 
-#if !DEVELOPMENT_BUILD
-            ReferencePool.EnableStrictCheck = false;
-#endif
-
             Application.targetFrameRate = m_FrameRate;
             Time.timeScale = m_GameSpeed;
             Application.runInBackground = m_RunInBackground;

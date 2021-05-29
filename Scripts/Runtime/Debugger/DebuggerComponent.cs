@@ -198,10 +198,7 @@ namespace UnityGameFramework.Runtime
             }
 
             m_FpsCounter = new FpsCounter(0.5f);
-        }
 
-        private void Start()
-        {
             RegisterDebuggerWindow("Console", m_ConsoleWindow);
             RegisterDebuggerWindow("Information/System", m_SystemInformationWindow);
             RegisterDebuggerWindow("Information/Environment", m_EnvironmentInformationWindow);
@@ -230,17 +227,15 @@ namespace UnityGameFramework.Runtime
             RegisterDebuggerWindow("Profiler/Memory/Font", m_RuntimeMemoryFontInformationWindow);
             RegisterDebuggerWindow("Profiler/Memory/TextAsset", m_RuntimeMemoryTextAssetInformationWindow);
             RegisterDebuggerWindow("Profiler/Memory/ScriptableObject", m_RuntimeMemoryScriptableObjectInformationWindow);
-            if (GameEntry.GetComponent<ObjectPoolComponent>() != null)
-            {
-                RegisterDebuggerWindow("Profiler/Object Pool", m_ObjectPoolInformationWindow);
-            }
+            RegisterDebuggerWindow("Profiler/Object Pool", m_ObjectPoolInformationWindow);
             RegisterDebuggerWindow("Profiler/Reference Pool", m_ReferencePoolInformationWindow);
-            if (GameEntry.GetComponent<NetworkComponent>() != null)
-            {
-                RegisterDebuggerWindow("Profiler/Network", m_NetworkInformationWindow);
-            }
+            RegisterDebuggerWindow("Profiler/Network", m_NetworkInformationWindow);
             RegisterDebuggerWindow("Other/Settings", m_SettingsWindow);
             RegisterDebuggerWindow("Other/Operations", m_OperationsWindow);
+        }
+
+        private void Start()
+        {
         }
 
         private void Update()

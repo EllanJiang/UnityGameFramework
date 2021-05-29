@@ -78,6 +78,7 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Is Mobile Platform", Application.isMobilePlatform.ToString());
                     DrawItem("Is Console Platform", Application.isConsolePlatform.ToString());
                     DrawItem("Is Editor", Application.isEditor.ToString());
+                    DrawItem("Is Debug Build", Debug.isDebugBuild.ToString());
 #if UNITY_5_6_OR_NEWER
                     DrawItem("Is Focused", Application.isFocused.ToString());
 #endif

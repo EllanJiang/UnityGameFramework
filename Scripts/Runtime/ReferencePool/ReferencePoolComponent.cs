@@ -39,6 +39,14 @@ namespace UnityGameFramework.Runtime
             }
         }
 
+        /// <summary>
+        /// 游戏框架组件初始化。
+        /// </summary>
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+
         private void Start()
         {
             switch (m_EnableStrictCheck)

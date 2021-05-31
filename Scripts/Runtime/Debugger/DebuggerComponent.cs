@@ -178,27 +178,11 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            switch (m_ActiveWindow)
-            {
-                case DebuggerActiveWindowType.AlwaysOpen:
-                    ActiveWindow = true;
-                    break;
-
-                case DebuggerActiveWindowType.OnlyOpenWhenDevelopment:
-                    ActiveWindow = Debug.isDebugBuild;
-                    break;
-
-                case DebuggerActiveWindowType.OnlyOpenInEditor:
-                    ActiveWindow = Application.isEditor;
-                    break;
-
-                default:
-                    ActiveWindow = false;
-                    break;
-            }
-
             m_FpsCounter = new FpsCounter(0.5f);
+        }
 
+        private void Start()
+        {
             RegisterDebuggerWindow("Console", m_ConsoleWindow);
             RegisterDebuggerWindow("Information/System", m_SystemInformationWindow);
             RegisterDebuggerWindow("Information/Environment", m_EnvironmentInformationWindow);
@@ -232,10 +216,25 @@ namespace UnityGameFramework.Runtime
             RegisterDebuggerWindow("Profiler/Network", m_NetworkInformationWindow);
             RegisterDebuggerWindow("Other/Settings", m_SettingsWindow);
             RegisterDebuggerWindow("Other/Operations", m_OperationsWindow);
-        }
 
-        private void Start()
-        {
+            switch (m_ActiveWindow)
+            {
+                case DebuggerActiveWindowType.AlwaysOpen:
+                    ActiveWindow = true;
+                    break;
+
+                case DebuggerActiveWindowType.OnlyOpenWhenDevelopment:
+                    ActiveWindow = Debug.isDebugBuild;
+                    break;
+
+                case DebuggerActiveWindowType.OnlyOpenInEditor:
+                    ActiveWindow = Application.isEditor;
+                    break;
+
+                default:
+                    ActiveWindow = false;
+                    break;
+            }
         }
 
         private void Update()

@@ -41,7 +41,7 @@ namespace UnityGameFramework.Runtime
                     }
                     else
                     {
-                        GUILayout.Label(Utility.Text.Format("<b>{0} Objects ({1}) obtained at {2}.</b>", m_SampleCount.ToString(), GetByteLengthString(m_SampleSize), m_SampleTime.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")));
+                        GUILayout.Label(Utility.Text.Format("<b>{0} Objects ({1}) obtained at {2:yyyy-MM-dd HH:mm:ss}.</b>", m_SampleCount, GetByteLengthString(m_SampleSize), m_SampleTime.ToLocalTime()));
 
                         GUILayout.BeginHorizontal();
                         {

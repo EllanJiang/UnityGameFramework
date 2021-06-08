@@ -274,7 +274,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                     return string.Empty;
                 }
 
-                return Utility.Path.GetRegularPath(new DirectoryInfo(Utility.Text.Format("{0}/Package/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName);
+                return Utility.Path.GetRegularPath(new DirectoryInfo(Utility.Text.Format("{0}/Package/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion)).FullName);
             }
         }
 
@@ -287,7 +287,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                     return string.Empty;
                 }
 
-                return Utility.Path.GetRegularPath(new DirectoryInfo(Utility.Text.Format("{0}/Full/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName);
+                return Utility.Path.GetRegularPath(new DirectoryInfo(Utility.Text.Format("{0}/Full/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion)).FullName);
             }
         }
 
@@ -300,7 +300,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                     return string.Empty;
                 }
 
-                return Utility.Path.GetRegularPath(new DirectoryInfo(Utility.Text.Format("{0}/Packed/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName);
+                return Utility.Path.GetRegularPath(new DirectoryInfo(Utility.Text.Format("{0}/Packed/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion)).FullName);
             }
         }
 
@@ -313,7 +313,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                     return string.Empty;
                 }
 
-                return Utility.Path.GetRegularPath(new DirectoryInfo(Utility.Text.Format("{0}/BuildReport/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion.ToString())).FullName);
+                return Utility.Path.GetRegularPath(new DirectoryInfo(Utility.Text.Format("{0}/BuildReport/{1}_{2}/", OutputDirectory, ApplicableGameVersion.Replace('.', '_'), InternalResourceVersion)).FullName);
             }
         }
 
@@ -607,7 +607,7 @@ namespace UnityGameFramework.Editor.ResourceTools
 
             try
             {
-                m_BuildReport.LogInfo("Build Start Time: {0}", DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                m_BuildReport.LogInfo("Build Start Time: {0:yyyy-MM-dd HH:mm:ss.fff}", DateTime.UtcNow.ToLocalTime());
 
                 if (m_BuildEventHandler != null)
                 {
@@ -958,7 +958,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             if (OutputFullSelected)
             {
                 VersionListData versionListData = ProcessUpdatableVersionList(outputFullPath, platform);
-                m_BuildReport.LogInfo("Process updatable version list for '{0}' complete, updatable version list path is '{1}', length is '{2}', hash code is '{3}[0x{3:X8}]', compressed length is '{4}', compressed hash code is '{5}[0x{5:X8}]'.", platformName, versionListData.Path, versionListData.Length.ToString(), versionListData.HashCode, versionListData.CompressedLength.ToString(), versionListData.CompressedHashCode);
+                m_BuildReport.LogInfo("Process updatable version list for '{0}' complete, updatable version list path is '{1}', length is '{2}', hash code is '{3}[0x{3:X8}]', compressed length is '{4}', compressed hash code is '{5}[0x{5:X8}]'.", platformName, versionListData.Path, versionListData.Length, versionListData.HashCode, versionListData.CompressedLength, versionListData.CompressedHashCode);
                 if (m_BuildEventHandler != null)
                 {
                     m_BuildReport.LogInfo("Execute build event handler 'OnOutputUpdatableVersionListData' for '{0}'...", platformName);

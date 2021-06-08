@@ -135,7 +135,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Error("UI form '[{0}]{1}' OnInit with exception '{2}'.", m_SerialId.ToString(), m_UIFormAssetName, exception.ToString());
+                Log.Error("UI form '[{0}]{1}' OnInit with exception '{2}'.", m_SerialId, m_UIFormAssetName, exception);
             }
         }
 
@@ -150,7 +150,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Error("UI form '[{0}]{1}' OnRecycle with exception '{2}'.", m_SerialId.ToString(), m_UIFormAssetName, exception.ToString());
+                Log.Error("UI form '[{0}]{1}' OnRecycle with exception '{2}'.", m_SerialId, m_UIFormAssetName, exception);
             }
 
             m_SerialId = 0;
@@ -170,7 +170,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Error("UI form '[{0}]{1}' OnOpen with exception '{2}'.", m_SerialId.ToString(), m_UIFormAssetName, exception.ToString());
+                Log.Error("UI form '[{0}]{1}' OnOpen with exception '{2}'.", m_SerialId, m_UIFormAssetName, exception);
             }
         }
 
@@ -187,7 +187,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Error("UI form '[{0}]{1}' OnClose with exception '{2}'.", m_SerialId.ToString(), m_UIFormAssetName, exception.ToString());
+                Log.Error("UI form '[{0}]{1}' OnClose with exception '{2}'.", m_SerialId, m_UIFormAssetName, exception);
             }
         }
 
@@ -202,7 +202,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Error("UI form '[{0}]{1}' OnPause with exception '{2}'.", m_SerialId.ToString(), m_UIFormAssetName, exception.ToString());
+                Log.Error("UI form '[{0}]{1}' OnPause with exception '{2}'.", m_SerialId, m_UIFormAssetName, exception);
             }
         }
 
@@ -217,7 +217,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Error("UI form '[{0}]{1}' OnResume with exception '{2}'.", m_SerialId.ToString(), m_UIFormAssetName, exception.ToString());
+                Log.Error("UI form '[{0}]{1}' OnResume with exception '{2}'.", m_SerialId, m_UIFormAssetName, exception);
             }
         }
 
@@ -232,7 +232,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Error("UI form '[{0}]{1}' OnCover with exception '{2}'.", m_SerialId.ToString(), m_UIFormAssetName, exception.ToString());
+                Log.Error("UI form '[{0}]{1}' OnCover with exception '{2}'.", m_SerialId, m_UIFormAssetName, exception);
             }
         }
 
@@ -247,7 +247,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Error("UI form '[{0}]{1}' OnReveal with exception '{2}'.", m_SerialId.ToString(), m_UIFormAssetName, exception.ToString());
+                Log.Error("UI form '[{0}]{1}' OnReveal with exception '{2}'.", m_SerialId, m_UIFormAssetName, exception);
             }
         }
 
@@ -263,7 +263,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Error("UI form '[{0}]{1}' OnRefocus with exception '{2}'.", m_SerialId.ToString(), m_UIFormAssetName, exception.ToString());
+                Log.Error("UI form '[{0}]{1}' OnRefocus with exception '{2}'.", m_SerialId, m_UIFormAssetName, exception);
             }
         }
 
@@ -280,7 +280,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Error("UI form '[{0}]{1}' OnUpdate with exception '{2}'.", m_SerialId.ToString(), m_UIFormAssetName, exception.ToString());
+                Log.Error("UI form '[{0}]{1}' OnUpdate with exception '{2}'.", m_SerialId, m_UIFormAssetName, exception);
             }
         }
 
@@ -298,7 +298,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Error("UI form '[{0}]{1}' OnDepthChanged with exception '{2}'.", m_SerialId.ToString(), m_UIFormAssetName, exception.ToString());
+                Log.Error("UI form '[{0}]{1}' OnDepthChanged with exception '{2}'.", m_SerialId, m_UIFormAssetName, exception);
             }
         }
     }

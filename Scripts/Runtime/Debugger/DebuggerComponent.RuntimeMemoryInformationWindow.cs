@@ -47,11 +47,11 @@ namespace UnityGameFramework.Runtime
                     {
                         if (m_DuplicateSimpleCount > 0)
                         {
-                            GUILayout.Label(Utility.Text.Format("<b>{0} {1}s ({2}) obtained at {3}, while {4} {1}s ({5}) might be duplicated.</b>", m_Samples.Count.ToString(), typeName, GetByteLengthString(m_SampleSize), m_SampleTime.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss"), m_DuplicateSimpleCount.ToString(), GetByteLengthString(m_DuplicateSampleSize)));
+                            GUILayout.Label(Utility.Text.Format("<b>{0} {1}s ({2}) obtained at {3:yyyy-MM-dd HH:mm:ss}, while {4} {1}s ({5}) might be duplicated.</b>", m_Samples.Count, typeName, GetByteLengthString(m_SampleSize), m_SampleTime.ToLocalTime(), m_DuplicateSimpleCount, GetByteLengthString(m_DuplicateSampleSize)));
                         }
                         else
                         {
-                            GUILayout.Label(Utility.Text.Format("<b>{0} {1}s ({2}) obtained at {3}.</b>", m_Samples.Count.ToString(), typeName, GetByteLengthString(m_SampleSize), m_SampleTime.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")));
+                            GUILayout.Label(Utility.Text.Format("<b>{0} {1}s ({2}) obtained at {3:yyyy-MM-dd HH:mm:ss}.</b>", m_Samples.Count, typeName, GetByteLengthString(m_SampleSize), m_SampleTime.ToLocalTime()));
                         }
 
                         if (m_Samples.Count > 0)

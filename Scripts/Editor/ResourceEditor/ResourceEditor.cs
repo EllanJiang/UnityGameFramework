@@ -108,7 +108,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 EditorGUILayout.BeginVertical(GUILayout.Width(position.width * 0.25f));
                 {
                     GUILayout.Space(5f);
-                    EditorGUILayout.LabelField(Utility.Text.Format("Resource List ({0})", m_Controller.ResourceCount.ToString()), EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(Utility.Text.Format("Resource List ({0})", m_Controller.ResourceCount), EditorStyles.boldLabel);
                     EditorGUILayout.BeginHorizontal("box", GUILayout.Height(position.height - 52f));
                     {
                         DrawResourcesView();
@@ -125,7 +125,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 EditorGUILayout.BeginVertical(GUILayout.Width(position.width * 0.25f));
                 {
                     GUILayout.Space(5f);
-                    EditorGUILayout.LabelField(Utility.Text.Format("Resource Content ({0})", m_CurrentResourceContentCount.ToString()), EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(Utility.Text.Format("Resource Content ({0})", m_CurrentResourceContentCount), EditorStyles.boldLabel);
                     EditorGUILayout.BeginHorizontal("box", GUILayout.Height(position.height - 52f));
                     {
                         DrawResourceView();
@@ -467,7 +467,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             GUILayout.Label(string.Empty);
             EditorGUI.BeginDisabledGroup(m_SelectedResource == null || m_SelectedAssetsInSelectedResource.Count <= 0);
             {
-                if (GUILayout.Button(Utility.Text.Format("{0} >>", m_SelectedAssetsInSelectedResource.Count.ToString()), GUILayout.Width(80f)))
+                if (GUILayout.Button(Utility.Text.Format("{0} >>", m_SelectedAssetsInSelectedResource.Count), GUILayout.Width(80f)))
                 {
                     foreach (Asset asset in m_SelectedAssetsInSelectedResource)
                     {
@@ -495,7 +495,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             HashSet<SourceAsset> selectedSourceAssets = GetSelectedSourceAssets();
             EditorGUI.BeginDisabledGroup(m_SelectedResource == null || selectedSourceAssets.Count <= 0);
             {
-                if (GUILayout.Button(Utility.Text.Format("<< {0}", selectedSourceAssets.Count.ToString()), GUILayout.Width(80f)))
+                if (GUILayout.Button(Utility.Text.Format("<< {0}", selectedSourceAssets.Count), GUILayout.Width(80f)))
                 {
                     foreach (SourceAsset sourceAsset in selectedSourceAssets)
                     {
@@ -509,13 +509,13 @@ namespace UnityGameFramework.Editor.ResourceTools
             EditorGUI.EndDisabledGroup();
             EditorGUI.BeginDisabledGroup(selectedSourceAssets.Count <= 0);
             {
-                if (GUILayout.Button(Utility.Text.Format("<<< {0}", selectedSourceAssets.Count.ToString()), GUILayout.Width(80f)))
+                if (GUILayout.Button(Utility.Text.Format("<<< {0}", selectedSourceAssets.Count), GUILayout.Width(80f)))
                 {
                     int index = 0;
                     int count = selectedSourceAssets.Count;
                     foreach (SourceAsset sourceAsset in selectedSourceAssets)
                     {
-                        EditorUtility.DisplayProgressBar("Add Resources", Utility.Text.Format("{0}/{1} processing...", (++index).ToString(), count.ToString()), (float)index / count);
+                        EditorUtility.DisplayProgressBar("Add Resources", Utility.Text.Format("{0}/{1} processing...", ++index, count), (float)index / count);
                         int dotIndex = sourceAsset.FromRootPath.IndexOf('.');
                         string name = dotIndex > 0 ? sourceAsset.FromRootPath.Substring(0, dotIndex) : sourceAsset.FromRootPath;
                         AddResource(name, null, false);
@@ -744,11 +744,11 @@ namespace UnityGameFramework.Editor.ResourceTools
             string fullName = m_SelectedResource.FullName;
             if (m_Controller.SetResourceLoadType(m_SelectedResource.Name, m_SelectedResource.Variant, loadType))
             {
-                Debug.Log(Utility.Text.Format("Set resource '{0}' load type to '{1}' success.", fullName, loadType.ToString()));
+                Debug.Log(Utility.Text.Format("Set resource '{0}' load type to '{1}' success.", fullName, loadType));
             }
             else
             {
-                Debug.LogWarning(Utility.Text.Format("Set resource '{0}' load type to '{1}' failure.", fullName, loadType.ToString()));
+                Debug.LogWarning(Utility.Text.Format("Set resource '{0}' load type to '{1}' failure.", fullName, loadType));
             }
         }
 
@@ -787,7 +787,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             int unusedResourceCount = m_Controller.RemoveUnusedResources();
             RefreshResourceTree();
 
-            Debug.Log(Utility.Text.Format("Clean complete, {0} unknown assets and {1} unused resources has been removed.", unknownAssetCount.ToString(), unusedResourceCount.ToString()));
+            Debug.Log(Utility.Text.Format("Clean complete, {0} unknown assets and {1} unused resources has been removed.", unknownAssetCount, unusedResourceCount));
         }
 
         private void RefreshResourceTree()
@@ -1058,12 +1058,12 @@ namespace UnityGameFramework.Editor.ResourceTools
 
         private void OnLoadingResource(int index, int count)
         {
-            EditorUtility.DisplayProgressBar("Loading Resources", Utility.Text.Format("Loading resources, {0}/{1} loaded.", index.ToString(), count.ToString()), (float)index / count);
+            EditorUtility.DisplayProgressBar("Loading Resources", Utility.Text.Format("Loading resources, {0}/{1} loaded.", index, count), (float)index / count);
         }
 
         private void OnLoadingAsset(int index, int count)
         {
-            EditorUtility.DisplayProgressBar("Loading Assets", Utility.Text.Format("Loading assets, {0}/{1} loaded.", index.ToString(), count.ToString()), (float)index / count);
+            EditorUtility.DisplayProgressBar("Loading Assets", Utility.Text.Format("Loading assets, {0}/{1} loaded.", index, count), (float)index / count);
         }
 
         private void OnLoadCompleted()

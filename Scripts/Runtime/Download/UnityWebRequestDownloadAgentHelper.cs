@@ -130,7 +130,7 @@ namespace UnityGameFramework.Runtime
             }
 
             m_UnityWebRequest = new UnityWebRequest(downloadUri);
-            m_UnityWebRequest.SetRequestHeader("Range", Utility.Text.Format("bytes={0}-", fromPosition.ToString()));
+            m_UnityWebRequest.SetRequestHeader("Range", Utility.Text.Format("bytes={0}-", fromPosition));
             m_UnityWebRequest.downloadHandler = new DownloadHandler(this);
 #if UNITY_2017_2_OR_NEWER
             m_UnityWebRequest.SendWebRequest();
@@ -155,7 +155,7 @@ namespace UnityGameFramework.Runtime
             }
 
             m_UnityWebRequest = new UnityWebRequest(downloadUri);
-            m_UnityWebRequest.SetRequestHeader("Range", Utility.Text.Format("bytes={0}-{1}", fromPosition.ToString(), toPosition.ToString()));
+            m_UnityWebRequest.SetRequestHeader("Range", Utility.Text.Format("bytes={0}-{1}", fromPosition, toPosition));
             m_UnityWebRequest.downloadHandler = new DownloadHandler(this);
 #if UNITY_2017_2_OR_NEWER
             m_UnityWebRequest.SendWebRequest();

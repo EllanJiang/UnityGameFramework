@@ -20,28 +20,28 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         /// <param name="level">日志等级。</param>
         /// <param name="message">日志内容。</param>
-        public void Log(GameFrameworkLogLevel level, object message)
+        public void Log(GameFrameworkLogLevel level, string message)
         {
             switch (level)
             {
                 case GameFrameworkLogLevel.Debug:
-                    Debug.Log(Utility.Text.Format("<color=#888888>{0}</color>", message.ToString()));
+                    Debug.Log(Utility.Text.Format("<color=#888888>{0}</color>", message));
                     break;
 
                 case GameFrameworkLogLevel.Info:
-                    Debug.Log(message.ToString());
+                    Debug.Log(message);
                     break;
 
                 case GameFrameworkLogLevel.Warning:
-                    Debug.LogWarning(message.ToString());
+                    Debug.LogWarning(message);
                     break;
 
                 case GameFrameworkLogLevel.Error:
-                    Debug.LogError(message.ToString());
+                    Debug.LogError(message);
                     break;
 
                 default:
-                    throw new GameFrameworkException(message.ToString());
+                    throw new GameFrameworkException(message);
             }
         }
     }

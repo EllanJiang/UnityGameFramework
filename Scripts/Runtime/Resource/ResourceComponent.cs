@@ -1412,7 +1412,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            loadResourceAgentHelper.name = Utility.Text.Format("Load Resource Agent Helper - {0}", index.ToString());
+            loadResourceAgentHelper.name = Utility.Text.Format("Load Resource Agent Helper - {0}", index);
             Transform transform = loadResourceAgentHelper.transform;
             transform.SetParent(m_InstanceRoot);
             transform.localScale = Vector3.one;

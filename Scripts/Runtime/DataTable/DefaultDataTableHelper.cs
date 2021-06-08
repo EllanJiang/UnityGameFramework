@@ -103,7 +103,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Warning("Can not parse data table string with exception '{0}'.", exception.ToString());
+                Log.Warning("Can not parse data table string with exception '{0}'.", exception);
                 return false;
             }
         }
@@ -143,7 +143,7 @@ namespace UnityGameFramework.Runtime
             }
             catch (Exception exception)
             {
-                Log.Warning("Can not parse dictionary bytes with exception '{0}'.", exception.ToString());
+                Log.Warning("Can not parse dictionary bytes with exception '{0}'.", exception);
                 return false;
             }
         }

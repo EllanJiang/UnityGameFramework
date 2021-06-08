@@ -22,6 +22,7 @@ namespace UnityGameFramework.Editor
 
         private SerializedProperty m_EditorResourceMode = null;
         private SerializedProperty m_EditorLanguage = null;
+        private SerializedProperty m_TextHelperTypeName = null;
         private SerializedProperty m_VersionHelperTypeName = null;
         private SerializedProperty m_LogHelperTypeName = null;
         private SerializedProperty m_CompressionHelperTypeName = null;
@@ -31,6 +32,8 @@ namespace UnityGameFramework.Editor
         private SerializedProperty m_RunInBackground = null;
         private SerializedProperty m_NeverSleep = null;
 
+        private string[] m_TextHelperTypeNames = null;
+        private int m_TextHelperTypeNameIndex = 0;
         private string[] m_VersionHelperTypeNames = null;
         private int m_VersionHelperTypeNameIndex = 0;
         private string[] m_LogHelperTypeNames = null;
@@ -61,6 +64,13 @@ namespace UnityGameFramework.Editor
                 EditorGUILayout.BeginVertical("box");
                 {
                     EditorGUILayout.LabelField("Global Helpers", EditorStyles.boldLabel);
+
+                    int textHelperSelectedIndex = EditorGUILayout.Popup("Text Helper", m_TextHelperTypeNameIndex, m_TextHelperTypeNames);
+                    if (textHelperSelectedIndex != m_TextHelperTypeNameIndex)
+                    {
+                        m_TextHelperTypeNameIndex = textHelperSelectedIndex;
+                        m_TextHelperTypeName.stringValue = textHelperSelectedIndex <= 0 ? null : m_TextHelperTypeNames[textHelperSelectedIndex];
+                    }
 
                     int versionHelperSelectedIndex = EditorGUILayout.Popup("Version Helper", m_VersionHelperTypeNameIndex, m_VersionHelperTypeNames);
                     if (versionHelperSelectedIndex != m_VersionHelperTypeNameIndex)
@@ -170,6 +180,7 @@ namespace UnityGameFramework.Editor
         {
             m_EditorResourceMode = serializedObject.FindProperty("m_EditorResourceMode");
             m_EditorLanguage = serializedObject.FindProperty("m_EditorLanguage");
+            m_TextHelperTypeName = serializedObject.FindProperty("m_TextHelperTypeName");
             m_VersionHelperTypeName = serializedObject.FindProperty("m_VersionHelperTypeName");
             m_LogHelperTypeName = serializedObject.FindProperty("m_LogHelperTypeName");
             m_CompressionHelperTypeName = serializedObject.FindProperty("m_CompressionHelperTypeName");
@@ -184,6 +195,24 @@ namespace UnityGameFramework.Editor
 
         private void RefreshTypeNames()
         {
+            List<string> textHelperTypeNames = new List<string>
+            {
+                NoneOptionName
+            };
+
+            textHelperTypeNames.AddRange(Type.GetRuntimeTypeNames(typeof(Utility.Text.ITextHelper)));
+            m_TextHelperTypeNames = textHelperTypeNames.ToArray();
+            m_TextHelperTypeNameIndex = 0;
+            if (!string.IsNullOrEmpty(m_TextHelperTypeName.stringValue))
+            {
+                m_TextHelperTypeNameIndex = textHelperTypeNames.IndexOf(m_TextHelperTypeName.stringValue);
+                if (m_TextHelperTypeNameIndex <= 0)
+                {
+                    m_TextHelperTypeNameIndex = 0;
+                    m_TextHelperTypeName.stringValue = null;
+                }
+            }
+
             List<string> versionHelperTypeNames = new List<string>
             {
                 NoneOptionName

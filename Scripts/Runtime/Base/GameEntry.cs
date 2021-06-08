@@ -84,7 +84,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="shutdownType">关闭游戏框架类型。</param>
         public static void Shutdown(ShutdownType shutdownType)
         {
-            Log.Info("Shutdown Game Framework ({0})...", shutdownType.ToString());
+            Log.Info("Shutdown Game Framework ({0})...", shutdownType);
             BaseComponent baseComponent = GetComponent<BaseComponent>();
             if (baseComponent != null)
             {

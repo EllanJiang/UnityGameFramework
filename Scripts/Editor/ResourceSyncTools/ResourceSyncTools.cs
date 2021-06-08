@@ -94,12 +94,12 @@ namespace UnityGameFramework.Editor.ResourceTools
 
         private void OnLoadingResource(int index, int count)
         {
-            EditorUtility.DisplayProgressBar("Loading Resources", Utility.Text.Format("Loading resources, {0}/{1} loaded.", index.ToString(), count.ToString()), (float)index / count);
+            EditorUtility.DisplayProgressBar("Loading Resources", Utility.Text.Format("Loading resources, {0}/{1} loaded.", index, count), (float)index / count);
         }
 
         private void OnLoadingAsset(int index, int count)
         {
-            EditorUtility.DisplayProgressBar("Loading Assets", Utility.Text.Format("Loading assets, {0}/{1} loaded.", index.ToString(), count.ToString()), (float)index / count);
+            EditorUtility.DisplayProgressBar("Loading Assets", Utility.Text.Format("Loading assets, {0}/{1} loaded.", index, count), (float)index / count);
         }
 
         private void OnCompleted()
@@ -109,7 +109,7 @@ namespace UnityGameFramework.Editor.ResourceTools
 
         private void OnResourceDataChanged(int index, int count, string assetName)
         {
-            EditorUtility.DisplayProgressBar("Processing Assets", Utility.Text.Format("({0}/{1}) {2}", index.ToString(), count.ToString(), assetName), (float)index / count);
+            EditorUtility.DisplayProgressBar("Processing Assets", Utility.Text.Format("({0}/{1}) {2}", index, count, assetName), (float)index / count);
         }
     }
 }

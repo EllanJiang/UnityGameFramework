@@ -25,7 +25,7 @@ namespace UnityGameFramework.Runtime
                     DrawItem("Device Vendor", SystemInfo.graphicsDeviceVendor);
                     DrawItem("Device Type", SystemInfo.graphicsDeviceType.ToString());
                     DrawItem("Device Version", SystemInfo.graphicsDeviceVersion);
-                    DrawItem("Memory Size", Utility.Text.Format("{0} MB", SystemInfo.graphicsMemorySize.ToString()));
+                    DrawItem("Memory Size", Utility.Text.Format("{0} MB", SystemInfo.graphicsMemorySize));
                     DrawItem("Multi Threaded", SystemInfo.graphicsMultiThreaded.ToString());
 #if UNITY_2019_3_OR_NEWER
                     DrawItem("Rendering Threading Mode", SystemInfo.renderingThreadingMode.ToString());
@@ -163,7 +163,7 @@ namespace UnityGameFramework.Runtime
 
             private string GetShaderLevelString(int shaderLevel)
             {
-                return Utility.Text.Format("Shader Model {0}.{1}", (shaderLevel / 10).ToString(), (shaderLevel % 10).ToString());
+                return Utility.Text.Format("Shader Model {0}.{1}", shaderLevel / 10, shaderLevel % 10);
             }
         }
     }

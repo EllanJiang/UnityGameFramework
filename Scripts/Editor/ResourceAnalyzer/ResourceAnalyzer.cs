@@ -186,11 +186,11 @@ namespace UnityGameFramework.Editor.ResourceTools
                     string title = null;
                     if (string.IsNullOrEmpty(m_AssetsFilter))
                     {
-                        title = Utility.Text.Format("Assets In Resources ({0})", m_AssetCount.ToString());
+                        title = Utility.Text.Format("Assets In Resources ({0})", m_AssetCount);
                     }
                     else
                     {
-                        title = Utility.Text.Format("Assets In Resources ({0}/{1})", m_CachedAssetNames.Length.ToString(), m_AssetCount.ToString());
+                        title = Utility.Text.Format("Assets In Resources ({0}/{1})", m_CachedAssetNames.Length, m_AssetCount);
                     }
                     EditorGUILayout.LabelField(title, EditorStyles.boldLabel);
                     EditorGUILayout.BeginVertical("box", GUILayout.Height(position.height - 150f));
@@ -249,7 +249,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 EditorGUILayout.BeginVertical(GUILayout.Width(position.width * 0.6f - 14f));
                 {
                     GUILayout.Space(5f);
-                    EditorGUILayout.LabelField(Utility.Text.Format("Dependency Resources ({0})", m_SelectedDependencyData.DependencyResourceCount.ToString()), EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(Utility.Text.Format("Dependency Resources ({0})", m_SelectedDependencyData.DependencyResourceCount), EditorStyles.boldLabel);
                     EditorGUILayout.BeginVertical("box", GUILayout.Height(position.height * 0.2f));
                     {
                         m_DependencyResourcesScroll = EditorGUILayout.BeginScrollView(m_DependencyResourcesScroll);
@@ -263,7 +263,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                         EditorGUILayout.EndScrollView();
                     }
                     EditorGUILayout.EndVertical();
-                    EditorGUILayout.LabelField(Utility.Text.Format("Dependency Assets ({0})", m_SelectedDependencyData.DependencyAssetCount.ToString()), EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(Utility.Text.Format("Dependency Assets ({0})", m_SelectedDependencyData.DependencyAssetCount), EditorStyles.boldLabel);
                     EditorGUILayout.BeginVertical("box", GUILayout.Height(position.height * 0.3f));
                     {
                         m_DependencyAssetsScroll = EditorGUILayout.BeginScrollView(m_DependencyAssetsScroll);
@@ -288,7 +288,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                         EditorGUILayout.EndScrollView();
                     }
                     EditorGUILayout.EndVertical();
-                    EditorGUILayout.LabelField(Utility.Text.Format("Scattered Dependency Assets ({0})", m_SelectedDependencyData.ScatteredDependencyAssetCount.ToString()), EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(Utility.Text.Format("Scattered Dependency Assets ({0})", m_SelectedDependencyData.ScatteredDependencyAssetCount), EditorStyles.boldLabel);
                     EditorGUILayout.BeginVertical("box", GUILayout.Height(position.height * 0.5f - 116f));
                     {
                         m_ScatteredDependencyAssetsScroll = EditorGUILayout.BeginScrollView(m_ScatteredDependencyAssetsScroll);
@@ -311,7 +311,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                                         }
                                     }
                                     EditorGUI.EndDisabledGroup();
-                                    GUILayout.Label(count > 1 ? Utility.Text.Format("{0} ({1})", scatteredDependencyAssetName, count.ToString()) : scatteredDependencyAssetName);
+                                    GUILayout.Label(count > 1 ? Utility.Text.Format("{0} ({1})", scatteredDependencyAssetName, count) : scatteredDependencyAssetName);
                                 }
                                 EditorGUILayout.EndHorizontal();
                             }
@@ -342,11 +342,11 @@ namespace UnityGameFramework.Editor.ResourceTools
                     string title = null;
                     if (string.IsNullOrEmpty(m_ScatteredAssetsFilter))
                     {
-                        title = Utility.Text.Format("Scattered Assets ({0})", m_ScatteredAssetCount.ToString());
+                        title = Utility.Text.Format("Scattered Assets ({0})", m_ScatteredAssetCount);
                     }
                     else
                     {
-                        title = Utility.Text.Format("Scattered Assets ({0}/{1})", m_CachedScatteredAssetNames.Length.ToString(), m_ScatteredAssetCount.ToString());
+                        title = Utility.Text.Format("Scattered Assets ({0}/{1})", m_CachedScatteredAssetNames.Length, m_ScatteredAssetCount);
                     }
                     EditorGUILayout.LabelField(title, EditorStyles.boldLabel);
                     EditorGUILayout.BeginVertical("box", GUILayout.Height(position.height - 132f));
@@ -404,7 +404,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                 EditorGUILayout.BeginVertical(GUILayout.Width(position.width * 0.6f - 14f));
                 {
                     GUILayout.Space(5f);
-                    EditorGUILayout.LabelField(Utility.Text.Format("Host Assets ({0})", m_SelectedHostAssets.Length.ToString()), EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(Utility.Text.Format("Host Assets ({0})", m_SelectedHostAssets.Length), EditorStyles.boldLabel);
                     EditorGUILayout.BeginVertical("box", GUILayout.Height(position.height - 68f));
                     {
                         m_HostAssetsScroll = EditorGUILayout.BeginScrollView(m_HostAssetsScroll);
@@ -450,13 +450,13 @@ namespace UnityGameFramework.Editor.ResourceTools
                 EditorGUILayout.BeginVertical();
                 {
                     GUILayout.Space(5f);
-                    EditorGUILayout.LabelField(Utility.Text.Format("Circular Dependency ({0})", m_CircularDependencyCount.ToString()), EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(Utility.Text.Format("Circular Dependency ({0})", m_CircularDependencyCount), EditorStyles.boldLabel);
                     m_CircularDependencyScroll = EditorGUILayout.BeginScrollView(m_CircularDependencyScroll);
                     {
                         int count = 0;
                         foreach (string[] circularDependencyData in m_CachedCircularDependencyDatas)
                         {
-                            GUILayout.Label(Utility.Text.Format("{0}) {1}", (++count).ToString(), circularDependencyData[circularDependencyData.Length - 1]), EditorStyles.boldLabel);
+                            GUILayout.Label(Utility.Text.Format("{0}) {1}", ++count, circularDependencyData[circularDependencyData.Length - 1]), EditorStyles.boldLabel);
                             EditorGUILayout.BeginVertical("box");
                             {
                                 foreach (string circularDependency in circularDependencyData)
@@ -507,12 +507,12 @@ namespace UnityGameFramework.Editor.ResourceTools
 
         private void OnLoadingResource(int index, int count)
         {
-            EditorUtility.DisplayProgressBar("Loading Resources", Utility.Text.Format("Loading resources, {0}/{1} loaded.", index.ToString(), count.ToString()), (float)index / count);
+            EditorUtility.DisplayProgressBar("Loading Resources", Utility.Text.Format("Loading resources, {0}/{1} loaded.", index, count), (float)index / count);
         }
 
         private void OnLoadingAsset(int index, int count)
         {
-            EditorUtility.DisplayProgressBar("Loading Assets", Utility.Text.Format("Loading assets, {0}/{1} loaded.", index.ToString(), count.ToString()), (float)index / count);
+            EditorUtility.DisplayProgressBar("Loading Assets", Utility.Text.Format("Loading assets, {0}/{1} loaded.", index, count), (float)index / count);
         }
 
         private void OnLoadCompleted()
@@ -522,7 +522,7 @@ namespace UnityGameFramework.Editor.ResourceTools
 
         private void OnAnalyzingAsset(int index, int count)
         {
-            EditorUtility.DisplayProgressBar("Analyzing Assets", Utility.Text.Format("Analyzing assets, {0}/{1} analyzed.", index.ToString(), count.ToString()), (float)index / count);
+            EditorUtility.DisplayProgressBar("Analyzing Assets", Utility.Text.Format("Analyzing assets, {0}/{1} analyzed.", index, count), (float)index / count);
         }
 
         private void OnAnalyzeCompleted()

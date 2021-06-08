@@ -377,7 +377,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            downloadAgentHelper.name = Utility.Text.Format("Download Agent Helper - {0}", index.ToString());
+            downloadAgentHelper.name = Utility.Text.Format("Download Agent Helper - {0}", index);
             Transform transform = downloadAgentHelper.transform;
             transform.SetParent(m_InstanceRoot);
             transform.localScale = Vector3.one;
@@ -402,7 +402,7 @@ namespace UnityGameFramework.Runtime
 
         private void OnDownloadFailure(object sender, GameFramework.Download.DownloadFailureEventArgs e)
         {
-            Log.Warning("Download failure, download serial id '{0}', download path '{1}', download uri '{2}', error message '{3}'.", e.SerialId.ToString(), e.DownloadPath, e.DownloadUri, e.ErrorMessage);
+            Log.Warning("Download failure, download serial id '{0}', download path '{1}', download uri '{2}', error message '{3}'.", e.SerialId, e.DownloadPath, e.DownloadUri, e.ErrorMessage);
             m_EventComponent.Fire(this, DownloadFailureEventArgs.Create(e));
         }
     }

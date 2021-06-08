@@ -522,7 +522,7 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
-            webRequestAgentHelper.name = Utility.Text.Format("Web Request Agent Helper - {0}", index.ToString());
+            webRequestAgentHelper.name = Utility.Text.Format("Web Request Agent Helper - {0}", index);
             Transform transform = webRequestAgentHelper.transform;
             transform.SetParent(m_InstanceRoot);
             transform.localScale = Vector3.one;
@@ -557,7 +557,7 @@ namespace UnityGameFramework.Runtime
 
         private void OnWebRequestFailure(object sender, GameFramework.WebRequest.WebRequestFailureEventArgs e)
         {
-            Log.Warning("Web request failure, web request serial id '{0}', web request uri '{1}', error message '{2}'.", e.SerialId.ToString(), e.WebRequestUri, e.ErrorMessage);
+            Log.Warning("Web request failure, web request serial id '{0}', web request uri '{1}', error message '{2}'.", e.SerialId, e.WebRequestUri, e.ErrorMessage);
             m_EventComponent.Fire(this, WebRequestFailureEventArgs.Create(e));
         }
     }

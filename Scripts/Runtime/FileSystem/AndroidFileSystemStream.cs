@@ -73,7 +73,7 @@ namespace UnityGameFramework.Runtime
 
             if (access != FileSystemAccess.Read)
             {
-                throw new GameFrameworkException(Utility.Text.Format("'{0}' is not supported in AndroidFileSystemStream.", access.ToString()));
+                throw new GameFrameworkException(Utility.Text.Format("'{0}' is not supported in AndroidFileSystemStream.", access));
             }
 
             if (createNew)

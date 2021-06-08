@@ -84,7 +84,7 @@ namespace UnityGameFramework.Editor
                     break;
 
                 default:
-                    throw new GameFrameworkException(Utility.Text.Format("Not support open folder on '{0}' platform.", Application.platform.ToString()));
+                    throw new GameFrameworkException(Utility.Text.Format("Not support open folder on '{0}' platform.", Application.platform));
             }
         }
     }

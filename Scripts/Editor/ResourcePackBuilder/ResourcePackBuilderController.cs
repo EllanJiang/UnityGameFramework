@@ -181,7 +181,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                     return string.Empty;
                 }
 
-                return Utility.Path.GetRegularPath(new DirectoryInfo(Utility.Text.Format("{0}/Full/*/{1}/", WorkingDirectory, Platform.ToString())).FullName);
+                return Utility.Path.GetRegularPath(new DirectoryInfo(Utility.Text.Format("{0}/Full/*/{1}/", WorkingDirectory, Platform)).FullName);
             }
         }
 
@@ -194,7 +194,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                     return string.Empty;
                 }
 
-                return Utility.Path.GetRegularPath(new DirectoryInfo(Utility.Text.Format("{0}/ResourcePack/{1}/", WorkingDirectory, Platform.ToString())).FullName);
+                return Utility.Path.GetRegularPath(new DirectoryInfo(Utility.Text.Format("{0}/ResourcePack/{1}/", WorkingDirectory, Platform)).FullName);
             }
         }
 

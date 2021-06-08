@@ -414,7 +414,7 @@ namespace UnityGameFramework.Runtime
                 color = m_ConsoleWindow.GetLogStringColor(LogType.Log);
             }
 
-            string title = Utility.Text.Format("<color=#{0}{1}{2}{3}><b>FPS: {4}</b></color>", color.r.ToString("x2"), color.g.ToString("x2"), color.b.ToString("x2"), color.a.ToString("x2"), m_FpsCounter.CurrentFps.ToString("F2"));
+            string title = Utility.Text.Format("<color=#{0:x2}{1:x2}{2:x2}{3:x2}><b>FPS: {4:F2}</b></color>", color.r, color.g, color.b, color.a, m_FpsCounter.CurrentFps);
             if (GUILayout.Button(title, GUILayout.Width(100f), GUILayout.Height(40f)))
             {
                 m_ShowFullWindow = true;

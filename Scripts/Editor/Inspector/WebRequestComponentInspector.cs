@@ -83,7 +83,7 @@ namespace UnityGameFramework.Editor
                                     data[index++] = "WebRequest Uri,Serial Id,Tag,Priority,Status";
                                     foreach (TaskInfo webRequestInfo in webRequestInfos)
                                     {
-                                        data[index++] = Utility.Text.Format("{0},{1},{2},{3},{4}", webRequestInfo.Description, webRequestInfo.SerialId.ToString(), webRequestInfo.Tag ?? string.Empty, webRequestInfo.Priority.ToString(), webRequestInfo.Status.ToString());
+                                        data[index++] = Utility.Text.Format("{0},{1},{2},{3},{4}", webRequestInfo.Description, webRequestInfo.SerialId, webRequestInfo.Tag ?? string.Empty, webRequestInfo.Priority, webRequestInfo.Status);
                                     }
 
                                     File.WriteAllLines(exportFileName, data, Encoding.UTF8);
@@ -91,7 +91,7 @@ namespace UnityGameFramework.Editor
                                 }
                                 catch (Exception exception)
                                 {
-                                    Debug.LogError(Utility.Text.Format("Export web request task CSV data to '{0}' failure, exception is '{1}'.", exportFileName, exception.ToString()));
+                                    Debug.LogError(Utility.Text.Format("Export web request task CSV data to '{0}' failure, exception is '{1}'.", exportFileName, exception));
                                 }
                             }
                         }
@@ -129,7 +129,7 @@ namespace UnityGameFramework.Editor
 
         private void DrawWebRequestInfo(TaskInfo webRequestInfo)
         {
-            EditorGUILayout.LabelField(webRequestInfo.Description, Utility.Text.Format("[SerialId]{0} [Tag]{1} [Priority]{2} [Status]{3}", webRequestInfo.SerialId.ToString(), webRequestInfo.Tag ?? "<None>", webRequestInfo.Priority.ToString(), webRequestInfo.Status.ToString()));
+            EditorGUILayout.LabelField(webRequestInfo.Description, Utility.Text.Format("[SerialId]{0} [Tag]{1} [Priority]{2} [Status]{3}", webRequestInfo.SerialId, webRequestInfo.Tag ?? "<None>", webRequestInfo.Priority, webRequestInfo.Status));
         }
 
         private void RefreshTypeNames()

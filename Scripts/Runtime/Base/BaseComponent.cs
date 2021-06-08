@@ -31,6 +31,9 @@ namespace UnityGameFramework.Runtime
         private Language m_EditorLanguage = Language.Unspecified;
 
         [SerializeField]
+        private string m_TextHelperTypeName = "UnityGameFramework.Runtime.DefaultTextHelper";
+
+        [SerializeField]
         private string m_VersionHelperTypeName = "UnityGameFramework.Runtime.DefaultVersionHelper";
 
         [SerializeField]
@@ -183,10 +186,11 @@ namespace UnityGameFramework.Runtime
         {
             base.Awake();
 
+            InitTextHelper();
             InitVersionHelper();
             InitLogHelper();
             Log.Info("Game Framework Version: {0}", GameFramework.Version.GameFrameworkVersion);
-            Log.Info("Game Version: {0} ({1})", GameFramework.Version.GameVersion, GameFramework.Version.InternalGameVersion.ToString());
+            Log.Info("Game Version: {0} ({1})", GameFramework.Version.GameVersion, GameFramework.Version.InternalGameVersion);
             Log.Info("Unity Version: {0}", Application.unityVersion);
 
 #if UNITY_5_3_OR_NEWER || UNITY_5_3
@@ -283,6 +287,30 @@ namespace UnityGameFramework.Runtime
         internal void Shutdown()
         {
             Destroy(gameObject);
+        }
+
+        private void InitTextHelper()
+        {
+            if (string.IsNullOrEmpty(m_TextHelperTypeName))
+            {
+                return;
+            }
+
+            Type textHelperType = Utility.Assembly.GetType(m_TextHelperTypeName);
+            if (textHelperType == null)
+            {
+                Log.Error("Can not find text helper type '{0}'.", m_TextHelperTypeName);
+                return;
+            }
+
+            Utility.Text.ITextHelper textHelper = (Utility.Text.ITextHelper)Activator.CreateInstance(textHelperType);
+            if (textHelper == null)
+            {
+                Log.Error("Can not create text helper instance '{0}'.", m_TextHelperTypeName);
+                return;
+            }
+
+            Utility.Text.SetTextHelper(textHelper);
         }
 
         private void InitVersionHelper()

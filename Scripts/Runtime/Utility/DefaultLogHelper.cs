@@ -25,7 +25,7 @@ namespace UnityGameFramework.Runtime
             switch (level)
             {
                 case GameFrameworkLogLevel.Debug:
-                    Debug.Log(Utility.Text.Format("<color=#888888>{0}</color>", message.ToString()));
+                    Debug.Log(Utility.Text.Format("<color=#888888>{0}</color>", message));
                     break;
 
                 case GameFrameworkLogLevel.Info:

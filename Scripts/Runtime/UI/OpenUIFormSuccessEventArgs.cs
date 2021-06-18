@@ -7,6 +7,7 @@
 
 using GameFramework;
 using GameFramework.Event;
+using GameFramework.UI;
 
 namespace UnityGameFramework.Runtime
 {
@@ -44,7 +45,7 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 获取打开成功的界面。
         /// </summary>
-        public UIForm UIForm
+        public IUIForm UIForm
         {
             get;
             private set;
@@ -76,7 +77,7 @@ namespace UnityGameFramework.Runtime
         public static OpenUIFormSuccessEventArgs Create(GameFramework.UI.OpenUIFormSuccessEventArgs e)
         {
             OpenUIFormSuccessEventArgs openUIFormSuccessEventArgs = ReferencePool.Acquire<OpenUIFormSuccessEventArgs>();
-            openUIFormSuccessEventArgs.UIForm = (UIForm)e.UIForm;
+            openUIFormSuccessEventArgs.UIForm = (IUIForm)e.UIForm;
             openUIFormSuccessEventArgs.Duration = e.Duration;
             openUIFormSuccessEventArgs.UserData = e.UserData;
             return openUIFormSuccessEventArgs;

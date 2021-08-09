@@ -612,6 +612,10 @@ namespace UnityGameFramework.Runtime
                 return;
             }
 
+            m_ResourceManager.ResourceVerifyStart += OnResourceVerifyStart;
+            m_ResourceManager.ResourceVerifySuccess += OnResourceVerifySuccess;
+            m_ResourceManager.ResourceVerifyFailure += OnResourceVerifyFailure;
+            m_ResourceManager.ResourceApplyStart += OnResourceApplyStart;
             m_ResourceManager.ResourceApplySuccess += OnResourceApplySuccess;
             m_ResourceManager.ResourceApplyFailure += OnResourceApplyFailure;
             m_ResourceManager.ResourceUpdateStart += OnResourceUpdateStart;
@@ -827,6 +831,25 @@ namespace UnityGameFramework.Runtime
         public void UpdateVersionList(int versionListLength, int versionListHashCode, int versionListCompressedLength, int versionListCompressedHashCode, UpdateVersionListCallbacks updateVersionListCallbacks)
         {
             m_ResourceManager.UpdateVersionList(versionListLength, versionListHashCode, versionListCompressedLength, versionListCompressedHashCode, updateVersionListCallbacks);
+        }
+
+        /// <summary>
+        /// 使用可更新模式并校验资源。
+        /// </summary>
+        /// <param name="verifyResourcesCompleteCallback">使用可更新模式并校验资源完成时的回调函数。</param>
+        public void VerifyResources(VerifyResourcesCompleteCallback verifyResourcesCompleteCallback)
+        {
+            m_ResourceManager.VerifyResources(0, verifyResourcesCompleteCallback);
+        }
+
+        /// <summary>
+        /// 使用可更新模式并校验资源。
+        /// </summary>
+        /// <param name="verifyResourceLengthPerFrame">每帧至少校验资源的大小，以字节为单位。</param>
+        /// <param name="verifyResourcesCompleteCallback">使用可更新模式并校验资源完成时的回调函数。</param>
+        public void VerifyResources(int verifyResourceLengthPerFrame, VerifyResourcesCompleteCallback verifyResourcesCompleteCallback)
+        {
+            m_ResourceManager.VerifyResources(verifyResourceLengthPerFrame, verifyResourcesCompleteCallback);
         }
 
         /// <summary>
@@ -1418,6 +1441,26 @@ namespace UnityGameFramework.Runtime
             transform.localScale = Vector3.one;
 
             m_ResourceManager.AddLoadResourceAgentHelper(loadResourceAgentHelper);
+        }
+
+        private void OnResourceVerifyStart(object sender, GameFramework.Resource.ResourceVerifyStartEventArgs e)
+        {
+            m_EventComponent.Fire(this, ResourceVerifyStartEventArgs.Create(e));
+        }
+
+        private void OnResourceVerifySuccess(object sender, GameFramework.Resource.ResourceVerifySuccessEventArgs e)
+        {
+            m_EventComponent.Fire(this, ResourceVerifySuccessEventArgs.Create(e));
+        }
+
+        private void OnResourceVerifyFailure(object sender, GameFramework.Resource.ResourceVerifyFailureEventArgs e)
+        {
+            m_EventComponent.Fire(this, ResourceVerifyFailureEventArgs.Create(e));
+        }
+
+        private void OnResourceApplyStart(object sender, GameFramework.Resource.ResourceApplyStartEventArgs e)
+        {
+            m_EventComponent.Fire(this, ResourceApplyStartEventArgs.Create(e));
         }
 
         private void OnResourceApplySuccess(object sender, GameFramework.Resource.ResourceApplySuccessEventArgs e)

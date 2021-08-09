@@ -16200,6 +16200,26 @@
             获取或设置资源对象池的优先级。
             </summary>
         </member>
+        <member name="E:GameFramework.Resource.IResourceManager.ResourceVerifyStart">
+            <summary>
+            资源校验开始事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Resource.IResourceManager.ResourceVerifySuccess">
+            <summary>
+            资源校验成功事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Resource.IResourceManager.ResourceVerifyFailure">
+            <summary>
+            资源校验失败事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Resource.IResourceManager.ResourceApplyStart">
+            <summary>
+            资源应用开始事件。
+            </summary>
+        </member>
         <member name="E:GameFramework.Resource.IResourceManager.ResourceApplySuccess">
             <summary>
             资源应用成功事件。
@@ -16318,6 +16338,13 @@
             <param name="versionListCompressedLength">版本资源列表压缩后大小。</param>
             <param name="versionListCompressedHashCode">版本资源列表压缩后哈希值。</param>
             <param name="updateVersionListCallbacks">版本资源列表更新回调函数集。</param>
+        </member>
+        <member name="M:GameFramework.Resource.IResourceManager.VerifyResources(System.Int32,GameFramework.Resource.VerifyResourcesCompleteCallback)">
+            <summary>
+            使用可更新模式并校验资源。
+            </summary>
+            <param name="verifyResourceLengthPerFrame">每帧至少校验资源的大小，以字节为单位。</param>
+            <param name="verifyResourcesCompleteCallback">使用可更新模式并校验资源完成时的回调函数。</param>
         </member>
         <member name="M:GameFramework.Resource.IResourceManager.CheckResources(System.Boolean,GameFramework.Resource.CheckResourcesCompleteCallback)">
             <summary>
@@ -17611,6 +17638,45 @@
             清理资源应用失败事件。
             </summary>
         </member>
+        <member name="T:GameFramework.Resource.ResourceApplyStartEventArgs">
+            <summary>
+            资源应用开始事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceApplyStartEventArgs.#ctor">
+            <summary>
+            初始化资源应用开始事件的新实例。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceApplyStartEventArgs.ResourcePackPath">
+            <summary>
+            获取资源包路径。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceApplyStartEventArgs.Count">
+            <summary>
+            获取要应用资源的数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceApplyStartEventArgs.TotalLength">
+            <summary>
+            获取要应用资源的总大小。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceApplyStartEventArgs.Create(System.String,System.Int32,System.Int64)">
+            <summary>
+            创建资源应用开始事件。
+            </summary>
+            <param name="resourcePackPath">资源包路径。</param>
+            <param name="count">要应用资源的数量。</param>
+            <param name="totalLength">要应用资源的总大小。</param>
+            <returns>创建的资源应用开始事件。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceApplyStartEventArgs.Clear">
+            <summary>
+            清理资源应用开始事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Resource.ResourceApplySuccessEventArgs">
             <summary>
             资源应用成功事件。
@@ -17882,6 +17948,26 @@
             获取或设置资源对象池的优先级。
             </summary>
         </member>
+        <member name="E:GameFramework.Resource.ResourceManager.ResourceVerifyStart">
+            <summary>
+            资源校验开始事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Resource.ResourceManager.ResourceVerifySuccess">
+            <summary>
+            资源校验成功事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Resource.ResourceManager.ResourceVerifyFailure">
+            <summary>
+            资源校验失败事件。
+            </summary>
+        </member>
+        <member name="E:GameFramework.Resource.ResourceManager.ResourceApplyStart">
+            <summary>
+            资源应用开始事件。
+            </summary>
+        </member>
         <member name="E:GameFramework.Resource.ResourceManager.ResourceApplySuccess">
             <summary>
             资源应用成功事件。
@@ -18012,6 +18098,13 @@
             <param name="versionListCompressedLength">版本资源列表压缩后大小。</param>
             <param name="versionListCompressedHashCode">版本资源列表压缩后哈希值。</param>
             <param name="updateVersionListCallbacks">版本资源列表更新回调函数集。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.VerifyResources(System.Int32,GameFramework.Resource.VerifyResourcesCompleteCallback)">
+            <summary>
+            使用可更新模式并校验资源。
+            </summary>
+            <param name="verifyResourceLengthPerFrame">每帧至少校验资源的大小，以字节为单位。</param>
+            <param name="verifyResourcesCompleteCallback">使用可更新模式并校验资源完成时的回调函数。</param>
         </member>
         <member name="M:GameFramework.Resource.ResourceManager.CheckResources(System.Boolean,GameFramework.Resource.CheckResourcesCompleteCallback)">
             <summary>
@@ -19438,6 +19531,80 @@
             获取或设置已重试次数。
             </summary>
         </member>
+        <member name="T:GameFramework.Resource.ResourceManager.ResourceVerifier">
+            <summary>
+            资源校验器。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceVerifier.#ctor(GameFramework.Resource.ResourceManager)">
+            <summary>
+            初始化资源校验器的新实例。
+            </summary>
+            <param name="resourceManager">资源管理器。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceVerifier.Update(System.Single,System.Single)">
+            <summary>
+            资源校验器轮询。
+            </summary>
+            <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
+            <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceVerifier.Shutdown">
+            <summary>
+            关闭并清理资源校验器。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceVerifier.VerifyResources(System.Int32)">
+            <summary>
+            校验资源。
+            </summary>
+            <param name="verifyResourceLengthPerFrame">每帧至少校验资源的大小，以字节为单位。</param>
+        </member>
+        <member name="T:GameFramework.Resource.ResourceManager.ResourceVerifier.VerifyInfo">
+            <summary>
+            资源校验信息。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceManager.ResourceVerifier.VerifyInfo.#ctor(GameFramework.Resource.ResourceManager.ResourceName,System.String,GameFramework.Resource.ResourceManager.LoadType,System.Int32,System.Int32)">
+            <summary>
+            初始化资源校验信息的新实例。
+            </summary>
+            <param name="resourceName">资源名称。</param>
+            <param name="fileSystemName">资源所在的文件系统名称。</param>
+            <param name="loadType">资源加载方式。</param>
+            <param name="length">资源大小。</param>
+            <param name="hashCode">资源哈希值。</param>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceVerifier.VerifyInfo.ResourceName">
+            <summary>
+            获取资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceVerifier.VerifyInfo.UseFileSystem">
+            <summary>
+            获取资源是否使用文件系统。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceVerifier.VerifyInfo.FileSystemName">
+            <summary>
+            获取资源所在的文件系统名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceVerifier.VerifyInfo.LoadType">
+            <summary>
+            获取资源加载方式。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceVerifier.VerifyInfo.Length">
+            <summary>
+            获取资源大小。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceManager.ResourceVerifier.VerifyInfo.HashCode">
+            <summary>
+            获取资源哈希值。
+            </summary>
+        </member>
         <member name="T:GameFramework.Resource.ResourceManager.VersionListProcessor">
             <summary>
             版本资源列表处理器。
@@ -19853,6 +20020,99 @@
             清理资源更新成功事件。
             </summary>
         </member>
+        <member name="T:GameFramework.Resource.ResourceVerifyFailureEventArgs">
+            <summary>
+            资源校验失败事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceVerifyFailureEventArgs.#ctor">
+            <summary>
+            初始化资源校验失败事件的新实例。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceVerifyFailureEventArgs.Name">
+            <summary>
+            获取资源名称。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceVerifyFailureEventArgs.Create(System.String)">
+            <summary>
+            创建资源校验失败事件。
+            </summary>
+            <param name="name">资源名称。</param>
+            <returns>创建的资源校验失败事件。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceVerifyFailureEventArgs.Clear">
+            <summary>
+            清理资源校验失败事件。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Resource.ResourceVerifyStartEventArgs">
+            <summary>
+            资源校验开始事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceVerifyStartEventArgs.#ctor">
+            <summary>
+            初始化资源校验开始事件的新实例。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceVerifyStartEventArgs.Count">
+            <summary>
+            获取要校验资源的数量。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceVerifyStartEventArgs.TotalLength">
+            <summary>
+            获取要校验资源的总大小。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceVerifyStartEventArgs.Create(System.Int32,System.Int64)">
+            <summary>
+            创建资源校验开始事件。
+            </summary>
+            <param name="count">要校验资源的数量。</param>
+            <param name="totalLength">要校验资源的总大小。</param>
+            <returns>创建的资源校验开始事件。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceVerifyStartEventArgs.Clear">
+            <summary>
+            清理资源校验开始事件。
+            </summary>
+        </member>
+        <member name="T:GameFramework.Resource.ResourceVerifySuccessEventArgs">
+            <summary>
+            资源校验成功事件。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceVerifySuccessEventArgs.#ctor">
+            <summary>
+            初始化资源校验成功事件的新实例。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceVerifySuccessEventArgs.Name">
+            <summary>
+            获取资源名称。
+            </summary>
+        </member>
+        <member name="P:GameFramework.Resource.ResourceVerifySuccessEventArgs.Length">
+            <summary>
+            获取资源大小。
+            </summary>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceVerifySuccessEventArgs.Create(System.String,System.Int32)">
+            <summary>
+            创建资源校验成功事件。
+            </summary>
+            <param name="name">资源名称。</param>
+            <param name="length">资源大小。</param>
+            <returns>创建的资源校验成功事件。</returns>
+        </member>
+        <member name="M:GameFramework.Resource.ResourceVerifySuccessEventArgs.Clear">
+            <summary>
+            清理资源校验成功事件。
+            </summary>
+        </member>
         <member name="T:GameFramework.Resource.UnloadSceneCallbacks">
             <summary>
             卸载场景回调函数集。
@@ -20148,6 +20408,12 @@
             </summary>
             <param name="downloadPath">版本资源列表更新后存放路径。</param>
             <param name="downloadUri">版本资源列表更新地址。</param>
+        </member>
+        <member name="T:GameFramework.Resource.VerifyResourcesCompleteCallback">
+            <summary>
+            使用可更新模式并校验资源完成时的回调函数。
+            </summary>
+            <param name="result">校验资源结果，全部成功为 true，否则为 false。</param>
         </member>
         <member name="T:GameFramework.Scene.ISceneManager">
             <summary>

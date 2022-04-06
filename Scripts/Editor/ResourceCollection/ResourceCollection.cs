@@ -513,7 +513,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             }
 
             Asset asset = GetAsset(guid);
-            if (resource.IsLoadFromBinary && assetsInResource.Length > 0 && asset != assetsInResource[0])
+            if (resource.IsLoadFromBinary && assetsInResource.Length > 0 && asset != null && asset != assetsInResource[0])
             {
                 return false;
             }

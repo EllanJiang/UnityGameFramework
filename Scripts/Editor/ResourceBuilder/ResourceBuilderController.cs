@@ -39,6 +39,19 @@ namespace UnityGameFramework.Editor.ResourceTools
         private IBuildEventHandler m_BuildEventHandler;
         private IFileSystemManager m_FileSystemManager;
 
+        private class PackageFileSystemInfo
+        {
+            public byte[] fileBytes;
+            public string fileName;
+            public PackageFileSystemInfo(string name,byte[] bytes)
+            {
+                fileName = name;
+                fileBytes = bytes;
+            }
+        }
+
+
+
         public ResourceBuilderController()
         {
             m_ConfigurationPath = Type.GetConfigurationPath<ResourceBuilderConfigPathAttribute>() ?? Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "GameFramework/Configs/ResourceBuilder.xml"));
@@ -1009,33 +1022,45 @@ namespace UnityGameFramework.Editor.ResourceTools
                 bytes = Utility.Encryption.GetXorBytes(bytes, hashBytes);
             }
 
-            return ProcessOutput(platform, outputPackagePath, outputFullPath, outputPackedPath, additionalCompressionSelected, name, variant, fileSystem, resourceData, bytes, length, hashCode, compressedLength, compressedHashCode);
+            return ProcessOutput(platform, outputPackagePath, outputFullPath, outputPackedPath, additionalCompressionSelected, name, variant, fileSystem, resourceData, bytes, length, hashCode, compressedLength, compressedHashCode, null);
         }
 
         private bool ProcessBinary(Platform platform, string workingPath, string outputPackagePath, string outputFullPath, string outputPackedPath, bool additionalCompressionSelected, string name, string variant, string fileSystem)
         {
             string fullName = GetResourceFullName(name, variant);
             ResourceData resourceData = m_ResourceDatas[fullName];
-            string assetName = resourceData.GetAssetNames()[0];
-            string assetPath = Utility.Path.GetRegularPath(Application.dataPath.Substring(0, Application.dataPath.Length - AssetsStringLength) + assetName);
+           
+            // 取出首个文件，利用首个文件的内容生成hashcode后进行加密
+            string firstAssetName = resourceData.GetAssetNames()[0];
+            string firstAssetPath = Utility.Path.GetRegularPath(Application.dataPath.Substring(0, Application.dataPath.Length - AssetsStringLength) + firstAssetName);
 
-            byte[] bytes = File.ReadAllBytes(assetPath);
-            int length = bytes.Length;
-            int hashCode = Utility.Verifier.GetCrc32(bytes);
-            int compressedLength = length;
+            byte[] firstBytes = File.ReadAllBytes(firstAssetPath);
+            int firstLength = firstBytes.Length;
+            int hashCode = Utility.Verifier.GetCrc32(firstBytes);
+            byte[] hashBytes = Utility.Converter.GetBytes(hashCode);
+
+            int iLength = 0;
             int compressedHashCode = hashCode;
 
-            byte[] hashBytes = Utility.Converter.GetBytes(hashCode);
-            if (resourceData.LoadType == LoadType.LoadFromBinaryAndQuickDecrypt)
+            List<PackageFileSystemInfo> infos = new List<PackageFileSystemInfo>();
+            foreach (string resourceAsset in resourceData.GetAssetNames())
             {
-                bytes = Utility.Encryption.GetQuickXorBytes(bytes, hashBytes);
-            }
-            else if (resourceData.LoadType == LoadType.LoadFromBinaryAndDecrypt)
-            {
-                bytes = Utility.Encryption.GetXorBytes(bytes, hashBytes);
-            }
+                string assetPath = Utility.Path.GetRegularPath(Application.dataPath.Substring(0, Application.dataPath.Length - AssetsStringLength) + resourceAsset);
+                byte[] bytes = File.ReadAllBytes(assetPath);
+                iLength += bytes.Length;
+                if (resourceData.LoadType == LoadType.LoadFromBinaryAndQuickDecrypt)
+                {
+                    bytes = Utility.Encryption.GetQuickXorBytes(bytes, hashBytes);
+                }
+                else if (resourceData.LoadType == LoadType.LoadFromBinaryAndDecrypt)
+                {
+                    bytes = Utility.Encryption.GetXorBytes(bytes, hashBytes);
+                }
 
-            return ProcessOutput(platform, outputPackagePath, outputFullPath, outputPackedPath, additionalCompressionSelected, name, variant, fileSystem, resourceData, bytes, length, hashCode, compressedLength, compressedHashCode);
+                infos.Add(new PackageFileSystemInfo(resourceAsset, bytes));
+            }
+            int iCompressedLength = iLength;
+            return ProcessOutput(platform, outputPackagePath, outputFullPath, outputPackedPath, additionalCompressionSelected, name, variant, fileSystem, resourceData, null, firstLength, hashCode, iCompressedLength, compressedHashCode, infos);
         }
 
         private void ProcessPackageVersionList(string outputPackagePath, Platform platform)
@@ -1272,6 +1297,19 @@ namespace UnityGameFramework.Editor.ResourceTools
             return resourceIndexes.ToArray();
         }
 
+        private int GetResourceFileCountFromFileSystem(IEnumerable<ResourceData> resourceDatas, string fileSystemName)
+        {
+            int index = 0;
+            foreach (ResourceData resourceData in resourceDatas)
+            {
+                if (resourceData.FileSystem == fileSystemName)
+                {
+                    index += resourceData.AssetCount;
+                }
+            }
+            return index;
+        }
+
         private string[] GetResourceGroupNames(IEnumerable<ResourceData> resourceDatas)
         {
             HashSet<string> resourceGroupNames = new HashSet<string>();
@@ -1320,7 +1358,8 @@ namespace UnityGameFramework.Editor.ResourceTools
 
             foreach (string fileSystemName in fileSystemNames)
             {
-                int fileCount = GetResourceIndexesFromFileSystem(resourceDatas, fileSystemName).Length;
+                //int fileCount = GetResourceIndexesFromFileSystem(resourceDatas, fileSystemName).Length;
+                int fileCount = GetResourceFileCountFromFileSystem(resourceDatas, fileSystemName);
                 string fullPath = Utility.Path.GetRegularPath(Path.Combine(outputPath, Utility.Text.Format("{0}.{1}", fileSystemName, DefaultExtension)));
                 string directory = Path.GetDirectoryName(fullPath);
                 if (!Directory.Exists(directory))
@@ -1333,7 +1372,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             }
         }
 
-        private bool ProcessOutput(Platform platform, string outputPackagePath, string outputFullPath, string outputPackedPath, bool additionalCompressionSelected, string name, string variant, string fileSystem, ResourceData resourceData, byte[] bytes, int length, int hashCode, int compressedLength, int compressedHashCode)
+        private bool ProcessOutput(Platform platform, string outputPackagePath, string outputFullPath, string outputPackedPath, bool additionalCompressionSelected, string name, string variant, string fileSystem, ResourceData resourceData, byte[] bytes, int length, int hashCode, int compressedLength, int compressedHashCode, List<PackageFileSystemInfo> fileBytesInFileSystems)
         {
             string fullNameWithExtension = Utility.Text.Format("{0}.{1}", GetResourceFullName(name, variant), GetExtension(resourceData));
 
@@ -1352,9 +1391,15 @@ namespace UnityGameFramework.Editor.ResourceTools
                 }
                 else
                 {
-                    if (!m_OutputPackageFileSystems[fileSystem].WriteFile(fullNameWithExtension, bytes))
+                    if (fileBytesInFileSystems != null && fileBytesInFileSystems.Count > 0)
                     {
-                        return false;
+                        foreach (PackageFileSystemInfo info in fileBytesInFileSystems)
+                        {
+                            if (!m_OutputPackageFileSystems[fileSystem].WriteFile(info.fileName, info.fileBytes))
+                            {
+                                return false;
+                            }
+                        }
                     }
                 }
             }
@@ -1374,14 +1419,20 @@ namespace UnityGameFramework.Editor.ResourceTools
                 }
                 else
                 {
-                    if (!m_OutputPackedFileSystems[fileSystem].WriteFile(fullNameWithExtension, bytes))
+                    if (fileBytesInFileSystems != null && fileBytesInFileSystems.Count > 0)
                     {
-                        return false;
+                        foreach (PackageFileSystemInfo info in fileBytesInFileSystems)
+                        {
+                            if (!m_OutputPackedFileSystems[fileSystem].WriteFile(info.fileName, info.fileBytes))
+                            {
+                                return false;
+                            }
+                        }
                     }
                 }
             }
 
-            if (OutputFullSelected)
+            if (OutputFullSelected && bytes != null)
             {
                 string fullNameWithCrc32AndExtension = variant != null ? Utility.Text.Format("{0}.{1}.{2:x8}.{3}", name, variant, hashCode, DefaultExtension) : Utility.Text.Format("{0}.{1:x8}.{2}", name, hashCode, DefaultExtension);
                 string fullPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, fullNameWithCrc32AndExtension));
@@ -1407,6 +1458,8 @@ namespace UnityGameFramework.Editor.ResourceTools
             resourceData.AddCode(platform, length, hashCode, compressedLength, compressedHashCode);
             return true;
         }
+
+
 
         private BuildAssetBundleOptions GetBuildAssetBundleOptions()
         {

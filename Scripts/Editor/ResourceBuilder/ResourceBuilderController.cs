@@ -1437,6 +1437,8 @@ namespace UnityGameFramework.Editor.ResourceTools
             m_ResourceDatas.Clear();
 
             Resource[] resources = m_ResourceCollection.GetResources();
+            if (!CheckFileNameConflict(resources)) return false;
+            
             foreach (Resource resource in resources)
             {
                 m_ResourceDatas.Add(resource.FullName, new ResourceData(resource.Name, resource.Variant, resource.FileSystem, resource.LoadType, resource.Packed, resource.GetResourceGroups()));
@@ -1505,6 +1507,23 @@ namespace UnityGameFramework.Editor.ResourceTools
             assetBundleBuildDatas = assetBundleBuildDataList.ToArray();
             assetBundleResourceDatas = assetBundleResourceDataList.ToArray();
             binaryResourceDatas = binaryResourceDataList.ToArray();
+            return true;
+        }
+
+        private bool CheckFileNameConflict(Resource[] resources)
+        {
+            List<string> fileSystemNames = resources.Select(x => string.IsNullOrEmpty(x.FileSystem) ? null : x.FileSystem).ToList();
+            List<string> nameList = resources.Select(x => !string.IsNullOrEmpty(x.FileSystem) ? null : GetResourceFullName(x.Name, x.Variant)).ToList();
+            foreach (var name in nameList)
+            {
+                if (string.IsNullOrEmpty(name)) continue;
+                if (!fileSystemNames.Contains(name)) continue;
+                
+                string log = string.Format("Resource file name conflict with fileSystem file name: {0}", name);
+                m_BuildReport.LogError(log);
+                throw new Exception(log);
+            }
+
             return true;
         }
 

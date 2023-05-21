@@ -748,6 +748,17 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 增加字典。
+        /// </summary>
+        /// <param name="key">字典主键。</param>
+        /// <param name="value">字典内容。</param>
+        /// <returns>是否增加字典成功。</returns>
+        public bool AddRawString(string key, string value)
+        {
+            return m_LocalizationManager.AddRawString(key, value);
+        }
+
+        /// <summary>
         /// 移除字典。
         /// </summary>
         /// <param name="key">字典主键。</param>
